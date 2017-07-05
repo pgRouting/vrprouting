@@ -1,13 +1,7 @@
 /*PGR-GNU*****************************************************************
-File: pickDeliver.sql
 
-Generated with Template by:
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
-
-Function's developer:
-Copyright (c) 2015 Celia Virginia Vergara Castillo
-Mail:
 
 ------
 
@@ -26,29 +20,37 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 ********************************************************************PGR-GNU*/
+-----------------------------------------------------------------------
+-- Core function for vrp with sigle depot computation
+-- See README for description
+-----------------------------------------------------------------------
+--
+--
 
-CREATE OR REPLACE FUNCTION pgr_pickDeliverEuclidean (
-    TEXT, -- orders_sql
-    TEXT, -- vehicles_sql
-    factor FLOAT DEFAULT 1,
-    max_cycles INTEGER DEFAULT 10,
-    initial_sol INTEGER DEFAULT 4,
+create or replace function pgr_vrpOneDepot(
+	order_sql text,
+	vehicle_sql text,
+	cost_sql text,
+	depot_id integer,
 
-    OUT seq INTEGER,
-    OUT vehicle_seq INTEGER,
-    OUT vehicle_id BIGINT,
-    OUT stop_seq INTEGER,
-    OUT stop_type INTEGER,
-    OUT order_id BIGINT,
-    OUT cargo FLOAT,
-    OUT travel_time FLOAT,
-    OUT arrival_time FLOAT,
-    OUT wait_time FLOAT,
-    OUT service_time FLOAT,
-    OUT departure_time FLOAT
-)
-
-  RETURNS SETOF RECORD AS
- 'MODULE_PATHNAME', 'pickDeliverEuclidean'
-    LANGUAGE c VOLATILE;
+	OUT oid integer,
+	OUT opos integer,
+	OUT vid integer,
+	OUT tarrival integer,
+	OUT tdepart integer)
+RETURNS SETOF RECORD AS
+$BODY$
+BEGIN
+    RETURN query SELECT order_id::INTEGER, stop_seq::INTEGER, vehicle_id::INTEGER, arrival_time::INTEGER, departure_time::INTEGER
+    FROM _pgr_vrpOneDepot($1, $2,
+       '
+            SELECT src_id AS start_vid, dest_id AS end_vid, traveltime AS agg_cost FROM ('||$3||') AS a
+       ',
+        $4
+    ) a;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE
+COST 100
+ROWS 1000;
 
