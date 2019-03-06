@@ -1,9 +1,8 @@
 /*PGR-GNU*****************************************************************
+File: bpoint.hpp
 
-FILE: base_node.cpp
-
-Copyright (c) 2015 pgRouting developers
-Mail: project@pgrouting.org
+Copyright (c) 2017 Celia Virginia Vergara Castillo
+vicky_vergara@hotmail.com
 
 ------
 
@@ -21,33 +20,28 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
- ********************************************************************PGR-GNU*/
+********************************************************************PGR-GNU*/
 
-#include "vrp/base_node.h"
-#include "cpp_common/pgr_assert.h"
+/*! @file */
 
+#ifndef INCLUDE_CPP_COMMON_BPOINT_HPP_
+#define INCLUDE_CPP_COMMON_BPOINT_HPP_
+#pragma once
+
+#include <boost/geometry.hpp>
+#include <boost/geometry/geometries/point_xy.hpp>
+
+namespace bg = boost::geometry;
+
+// TODO(vicky) mogidying this file should not affect:
+// dijkstra_driver.cpp
+// dijkstraVia_driver.cpp
+// floydWarshall_driver
+// etc...
 namespace pgrouting {
-namespace vrp {
 
-std::ostream&
-operator << (std::ostream &os, const Base_node &node) {
-    return os << node.id()
-        << "(" << node.idx() << ")";
-}
+using Bpoint = bg::model::d2::point_xy<double>;
 
-Base_node::Base_node(size_t _idx, int64_t _id)
-    : Identifier(_idx, _id) {
-    }
+}  // namespace pgrouting
 
-bool
-Base_node::operator ==(const Base_node &rhs) const {
-    if (&rhs == this) return true;
-    return
-        (idx() == rhs.idx())
-         && (id() == rhs.id());
-}
-
-}  //  namespace vrp
-}  //  namespace pgrouting
-
-
+#endif  // INCLUDE_CPP_COMMON_BPOINT_HPP_

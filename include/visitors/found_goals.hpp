@@ -1,9 +1,11 @@
 /*PGR-GNU*****************************************************************
+file: found_goals.hpp
 
-FILE: base_node.cpp
-
-Copyright (c) 2015 pgRouting developers
+Copyright (c) 2018 pgRouting developers
 Mail: project@pgrouting.org
+
+Copyright (c) 2018 Celia Virginia Vergara Castillo
+vicky_vergara@hotmail.com
 
 ------
 
@@ -21,33 +23,15 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
- ********************************************************************PGR-GNU*/
+********************************************************************PGR-GNU*/
 
-#include "vrp/base_node.h"
-#include "cpp_common/pgr_assert.h"
-
+#ifndef INCLUDE_VISITORS_FOUND_GOALS_HPP_
+#define INCLUDE_VISITORS_FOUND_GOALS_HPP_
 namespace pgrouting {
-namespace vrp {
 
-std::ostream&
-operator << (std::ostream &os, const Base_node &node) {
-    return os << node.id()
-        << "(" << node.idx() << ")";
-}
+//! exception for visitor termination
+struct found_goals{};
 
-Base_node::Base_node(size_t _idx, int64_t _id)
-    : Identifier(_idx, _id) {
-    }
+}  // namespace pgrouting
 
-bool
-Base_node::operator ==(const Base_node &rhs) const {
-    if (&rhs == this) return true;
-    return
-        (idx() == rhs.idx())
-         && (id() == rhs.id());
-}
-
-}  //  namespace vrp
-}  //  namespace pgrouting
-
-
+#endif  // INCLUDE_VISITORS_FOUND_GOALS_HPP_
