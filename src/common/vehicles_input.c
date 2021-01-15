@@ -34,6 +34,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/get_check_data.h"
 #include "c_common/time_msg.h"
 
+/*
+.. pgr_pickDeliver start
+
+A ``SELECT`` statement that returns the following columns:
+
+::
+
+    id, capacity, [speed,]
+    start_node_id, start_open, start_close, [start_service,]
+    [end_node_id, end_open, end_close, end_service]
+
+
+
+==================  =================== ================ ================================================
+Column              Type                  Default           Description
+==================  =================== ================ ================================================
+**id**              |ANY-INTEGER|                         Identifier of the pick-delivery order pair.
+**capacity**        |ANY-NUMERICAL|                       Number of units in the order
+**speed**           |ANY-NUMERICAL|      `1`              Average speed of the vehicle.
+**start_node_id**   |ANY-INTEGER|                         The node identifier of the starting location, must match a node identifier in the matrix table.
+**start_open**      |ANY-NUMERICAL|                       The time, relative to 0, when the starting location opens.
+**start_close**     |ANY-NUMERICAL|                       The time, relative to 0, when the starting location closes.
+**start_service**   |ANY-NUMERICAL|      `0`              The duration of the loading at the starting location.
+**end_node_id**     |ANY-INTEGER|        `start_node_id`  The node identifier of the ending location, must match a node identifier in the matrix table.
+**end_open**        |ANY-NUMERICAL|      `start_open`     The time, relative to 0, when the ending location opens.
+**end_close**       |ANY-NUMERICAL|      `start_close`    The time, relative to 0, when the ending location closes.
+**end_service**     |ANY-NUMERICAL|      `start_service`  The duration of the unloading at the ending location.
+==================  =================== ================ ================================================
+
+.. pgr_pickDeliver end
+.. pgr_pickDeliverEuclidean start
+
+A ``SELECT`` statement that returns the following columns:
+
+::
+
+    id, capacity, [speed,]
+    start_x, start_y, start_open, start_close, [start_service,]
+    [end_x, end_y, end_open, end_close, end_service]
+
+==================  =================== ================ ================================================
+Column              Type                  Default           Description
+==================  =================== ================ ================================================
+**id**              |ANY-INTEGER|                         Identifier of the pick-delivery order pair.
+**capacity**        |ANY-NUMERICAL|                       Number of units in the order
+**speed**           |ANY-NUMERICAL|      `1`              Average speed of the vehicle.
+**start_x**         |ANY-NUMERICAL|                       :math:`x` value of the coordinate of the starting location.
+**start_y**         |ANY-NUMERICAL|                       :math:`y` value of the coordinate of the starting location.
+**start_open**      |ANY-NUMERICAL|                       The time, relative to 0, when the starting location opens.
+**start_close**     |ANY-NUMERICAL|                       The time, relative to 0, when the starting location closes.
+**start_service**   |ANY-NUMERICAL|      `0`              The duration of the loading at the starting location.
+**end_open**        |ANY-NUMERICAL|      `start_open`     The time, relative to 0, when the ending location opens.
+**end_close**       |ANY-NUMERICAL|      `start_close`    The time, relative to 0, when the ending location closes.
+**end_service**     |ANY-NUMERICAL|      `start_service`  The duration of the loading at the ending location.
+**end_x**           |ANY-NUMERICAL|          `start_x`    :math:`x` value of the coordinate of the ending location.
+**end_y**           |ANY-NUMERICAL|          `start_y`    :math:`y` value of the coordinate of the ending location.
+==================  =================== ================ ================================================
+
+.. pgr_pickDeliverEuclidean end
+
+*/
 
 static
 void fetch_vehicles(
@@ -128,7 +189,6 @@ void fetch_vehicles(
             vehicle->start_node_id) :
         0;
 }
-
 
 
 static

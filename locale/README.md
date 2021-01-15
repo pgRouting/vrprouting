@@ -1,8 +1,6 @@
-
-
 # Locale
 
-Currently the setup is for  `es` `ru` `ja` `it` `de` `fr`
+Currently not setup
 
 ## Building the LOCALE:
 

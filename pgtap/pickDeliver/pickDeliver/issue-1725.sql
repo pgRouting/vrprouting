@@ -1,4 +1,4 @@
-\i setup.sql
+BEGIN;
 
 UPDATE edge_table SET cost = sign(cost), reverse_cost = sign(reverse_cost);
 SELECT plan(1);
@@ -6,7 +6,7 @@ SET client_min_messages TO ERROR;
 
 
 PREPARE missing_id_on_matrix AS
-SELECT * FROM pgr_pickDeliver(
+SELECT * FROM vrp_pickDeliver(
     $$ SELECT * FROM orders ORDER BY id $$,
     $$ SELECT * FROM vehicles $$,
     $$ SELECT * from pgr_dijkstraCostMatrix(
@@ -18,3 +18,4 @@ SELECT throws_ok('missing_id_on_matrix', 'XX000', 'Unable to find node on matrix
 
 
 SELECT finish();
+ROLLBACK;

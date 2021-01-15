@@ -1,7 +1,7 @@
 
 SET(LOCAL_FILES
-     pgr_pickDeliverEuclidean.rst
-     pgr_pickDeliver.rst
+     vrp_pickDeliverEuclidean.rst
+     vrp_pickDeliver.rst
      VRP-category.rst
     )
 

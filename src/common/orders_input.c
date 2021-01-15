@@ -30,6 +30,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/get_check_data.h"
 #include "c_common/time_msg.h"
 
+/*
+.. pgr_pickDeliver start
+
+A ``SELECT`` statement that returns the following columns:
+
+::
+
+    id, demand
+    p_node_id, p_open, p_close, [p_service,]
+    d_node_id, d_open, d_close, [d_service]
+
+
+================  ===================  =========== ================================================
+Column            Type                 Default     Description
+================  ===================  =========== ================================================
+**id**            |ANY-INTEGER|                     Identifier of the pick-delivery order pair.
+**demand**        |ANY-NUMERICAL|                   Number of units in the order
+**p_node_id**     |ANY-INTEGER|                     The identifier of the pickup node.
+**p_open**        |ANY-NUMERICAL|                   The time, relative to 0, when the pickup location opens.
+**p_close**       |ANY-NUMERICAL|                   The time, relative to 0, when the pickup location closes.
+**p_service**     |ANY-NUMERICAL|       0           The duration of the loading at the pickup location.
+**d_node_id**     |ANY-INTEGER|                     The identifier of the delivery node.
+**d_open**        |ANY-NUMERICAL|                   The time, relative to 0, when the delivery location opens.
+**d_close**       |ANY-NUMERICAL|                   The time, relative to 0, when the delivery location closes.
+**d_service**     |ANY-NUMERICAL|       0           The duration of the unloading at the delivery location.
+================  ===================  =========== ================================================
+
+.. pgr_pickDeliver end
+
+.. pgr_pickDeliverEuclidean start
+
+A ``SELECT`` statement that returns the following columns:
+
+::
+
+    id, capacity
+    start_node_id, start_open, start_close [, start_service]
+    [, end_node_id, end_open, end_close, end_service]
+
+
+================  ===================  =========== ================================================
+Column            Type                 Default     Description
+================  ===================  =========== ================================================
+**id**            |ANY-INTEGER|                     Identifier of the pick-delivery order pair.
+**demand**        |ANY-NUMERICAL|                   Number of units in the order
+**p_x**           |ANY-NUMERICAL|                   :math:`x` value of the pick up location
+**p_y**           |ANY-NUMERICAL|                   :math:`y` value of the pick up location
+**p_open**        |ANY-NUMERICAL|                   The time, relative to 0, when the pickup location opens.
+**p_close**       |ANY-NUMERICAL|                   The time, relative to 0, when the pickup location closes.
+**d_service**     |ANY-NUMERICAL|       0           The duration of the loading at the pickup location.
+**d_open**        |ANY-NUMERICAL|                   The time, relative to 0, when the delivery location opens.
+**d_close**       |ANY-NUMERICAL|                   The time, relative to 0, when the delivery location closes.
+**d_service**     |ANY-NUMERICAL|       0           The duration of the loading at the delivery location.
+**d_x**           |ANY-NUMERICAL|                   :math:`x` value of the delivery location
+**d_y**           |ANY-NUMERICAL|                   :math:`y` value of the delivery location
+================  ===================  =========== ================================================
+
+.. pgr_pickDeliverEuclidean end
+
+*/
 
 static
 void fetch_pd_orders(
@@ -96,6 +156,7 @@ pgr_get_pd_orders_general(
         info[i].strict = true;
         info[i].eType = ANY_NUMERICAL;
     }
+
 
     info[0].name = "id";
     info[1].name = "demand";

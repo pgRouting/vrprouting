@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 
 --v2.6
-CREATE FUNCTION _pgr_pickDeliver(
+CREATE FUNCTION _vrp_pickDeliver(
     TEXT, -- orders_sql
     TEXT, -- vehicles_sql
     TEXT, -- matrix_cell_sql
@@ -56,5 +56,5 @@ LANGUAGE c VOLATILE STRICT;
 
 -- COMMENTS
 
-COMMENT ON FUNCTION _pgr_pickDeliver(TEXT, TEXT, TEXT, FLOAT, INTEGER, INTEGER)
+COMMENT ON FUNCTION _vrp_pickDeliver(TEXT, TEXT, TEXT, FLOAT, INTEGER, INTEGER)
 IS 'pgRouting internal function';

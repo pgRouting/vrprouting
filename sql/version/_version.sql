@@ -25,88 +25,88 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 
 --v3.0
-CREATE FUNCTION _pgr_boost_version()
+CREATE FUNCTION _vrp_boost_version()
 RETURNS TEXT AS
 'MODULE_PATHNAME'
 LANGUAGE C VOLATILE STRICT;
 
-COMMENT ON FUNCTION _pgr_boost_version() IS
+COMMENT ON FUNCTION _vrp_boost_version() IS
 'pgRouting internal function';
 
 ---
 
 --v3.0
-CREATE FUNCTION _pgr_build_type()
+CREATE FUNCTION _vrp_build_type()
 RETURNS TEXT AS
 'MODULE_PATHNAME'
 LANGUAGE C VOLATILE STRICT;
 
-COMMENT ON FUNCTION _pgr_build_type() IS
+COMMENT ON FUNCTION _vrp_build_type() IS
 'pgRouting internal function';
 
 ---
 
 --v3.0
-CREATE FUNCTION _pgr_compilation_date()
+CREATE FUNCTION _vrp_compilation_date()
 RETURNS TEXT AS
 'MODULE_PATHNAME'
 LANGUAGE C VOLATILE STRICT;
 
-COMMENT ON FUNCTION _pgr_compilation_date() IS
+COMMENT ON FUNCTION _vrp_compilation_date() IS
 'pgRouting internal function';
 
 ---
 
 --v3.0
-CREATE FUNCTION _pgr_compiler_version()
+CREATE FUNCTION _vrp_compiler_version()
 RETURNS TEXT AS
 'MODULE_PATHNAME'
 LANGUAGE C VOLATILE STRICT;
 
-COMMENT ON FUNCTION _pgr_compiler_version() IS
+COMMENT ON FUNCTION _vrp_compiler_version() IS
 'pgRouting internal function';
 
 ---
 
 --v3.0
-CREATE FUNCTION _pgr_git_hash()
+CREATE FUNCTION _vrp_git_hash()
 RETURNS TEXT AS
 'MODULE_PATHNAME'
 LANGUAGE C VOLATILE STRICT;
 
-COMMENT ON FUNCTION _pgr_compilation_date() IS
+COMMENT ON FUNCTION _vrp_compilation_date() IS
 'pgRouting internal function';
 
 ---
 
 --v3.0
-CREATE FUNCTION _pgr_lib_version()
+CREATE FUNCTION _vrp_lib_version()
 RETURNS TEXT AS
 'MODULE_PATHNAME'
 LANGUAGE C VOLATILE STRICT;
 
-COMMENT ON FUNCTION _pgr_lib_version() IS
+COMMENT ON FUNCTION _vrp_lib_version() IS
 'pgRouting internal function';
 
 
 ---
 
 --v3.0
-CREATE FUNCTION _pgr_operating_system()
+CREATE FUNCTION _vrp_operating_system()
 RETURNS TEXT AS
 'MODULE_PATHNAME'
 LANGUAGE C VOLATILE STRICT;
 
-COMMENT ON FUNCTION _pgr_operating_system() IS
+COMMENT ON FUNCTION _vrp_operating_system() IS
 'pgRouting internal function';
 ---
 
 --v3.0
-CREATE FUNCTION _pgr_pgsql_version()
+CREATE FUNCTION _vrp_pgsql_version()
 RETURNS TEXT AS
 'MODULE_PATHNAME'
 LANGUAGE C VOLATILE STRICT;
 
-COMMENT ON FUNCTION _pgr_pgsql_version() IS
+COMMENT ON FUNCTION _vrp_pgsql_version() IS
 'pgRouting internal function';
 

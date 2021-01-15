@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: _pgr_vrpOneDepot.sql
+File: _vrp_vrpOneDepot.sql
 
 Generated with Template by:
 Copyright (c) 2017 pgRouting developers
@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 
 --------------------
--- _pgr_vrpOneDepot
+-- _vrp_vrpOneDepot
 --------------------
 
 
 --v2.6
-CREATE FUNCTION _pgr_vrpOneDepot(
+CREATE FUNCTION _vrp_vrpOneDepot(
     TEXT, -- customers_sql
     TEXT, -- vehicles_sql
     TEXT, -- matrix_sql
@@ -87,7 +87,7 @@ BEGIN
     $$;
 
     final_sql = '
-    SELECT * FROM _pgr_pickDeliver(
+    SELECT * FROM _vrp_pickDeliver(
             $$' || orders_sql || '$$,
             $$' || trucks_sql || '$$,
             $$' || $3 || '$$,
@@ -108,5 +108,5 @@ LANGUAGE plpgsql VOLATILE STRICT;
 -- COMMENTS
 
 
-COMMENT ON FUNCTION _pgr_vrpOneDepot(TEXT, TEXT, TEXT, INTEGER)
+COMMENT ON FUNCTION _vrp_vrpOneDepot(TEXT, TEXT, TEXT, INTEGER)
 IS 'pgRouting internal function';

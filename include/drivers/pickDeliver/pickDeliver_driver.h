@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/matrix_cell_t.h"
 #include "c_types/pickDeliver/general_vehicle_orders_t.h"
 
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -55,7 +56,7 @@ extern "C" {
       max_cycles INTEGER,
      ********************************************************/
     void do_pgr_pickDeliver(
-            PickDeliveryOrders_t pd_orders_arr[], size_t total_pd_orders,
+            PickDeliveryOrders_t *pd_orders_arr, size_t total_pd_orders,
             Vehicle_t *vehicles_arr, size_t total_vehicles,
             Matrix_cell_t *matrix_cells_arr, size_t total_cells,
 

@@ -1,10 +1,10 @@
 /*PGR-GNU*****************************************************************
 
-Copyright (c) 2019 pgRouting developers
+Copyright (c) 2020 pgRouting developers
 Mail: project@pgrouting.org
 
 Developer:
-Copyright (c) 2019 Celia Virginia Vergara Castillo
+Copyright (c) 2020 Celia Virginia Vergara Castillo
 
 ------
 
@@ -24,16 +24,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
---v3.0
-CREATE FUNCTION pgr_version()
+/*
+signature start
+
+::
+
+    vrp_version()
+    RETURNS TEXT
+
+signature end
+
+result start
+
+=========== ===============================
+ Type       Description
+=========== ===============================
+``TEXT``    vrpRouting version
+=========== ===============================
+
+result end
+*/
+
+--v0.0
+CREATE FUNCTION vrp_version()
 RETURNS TEXT AS
 $BODY$
-    SELECT '${PROJECT_VERSION}${PROJECT_VERSION_DEV}'::varchar AS pgr_version;
+    SELECT '${PROJECT_VERSION}${PROJECT_VERSION_DEV}'::varchar AS vrp_version;
 $BODY$
 LANGUAGE sql IMMUTABLE;
 
-COMMENT ON FUNCTION pgr_version() IS
-'pgr_version
+COMMENT ON FUNCTION vrp_version() IS
+'vrp_version
 - Documentation
-  - ${PROJECT_DOC_LINK}/pgr_version.html
+  - ${PROJECT_DOC_LINK}/vrp_version.html
 ';

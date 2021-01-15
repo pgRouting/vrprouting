@@ -187,10 +187,12 @@ set(PGR_DOCUMENTATION_SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 message(STATUS "PGR_DOCUMENTATION_BUILD_DIR = ${PGR_DOCUMENTATION_BUILD_DIR}")
 
 
+add_subdirectory(general-doc)
+
 #---------------------------------------------
 # Adding documentation directories
 #---------------------------------------------
-foreach (subdir ${PROJECT_DOC_DIRECTORIES} "src")
+foreach (subdir ${PROJECT_DOC_DIRECTORIES})
     add_subdirectory("${subdir}")
     add_subdirectory("../docqueries/${subdir}" "build/doc/${subdir}")
 endforeach()
@@ -299,8 +301,8 @@ if(FALSE)
     add_custom_command(
         TARGET pdf-${lang} POST_BUILD
         #fixes: Underfull \hbox (badness 10000) in paragraph
-        #perl -pi -e 's/warning/warning /' pgRoutingDocumentation.tex
-        COMMAND pdflatex -interaction=nonstopmode "pgRoutingDocumentation.tex" > /dev/null 2>&1
+        #perl -pi -e 's/warning/warning /' vrpRoutingDocumentation.tex
+        COMMAND pdflatex -interaction=nonstopmode "vrpRoutingDocumentation.tex" > /dev/null 2>&1
         WORKING_DIRECTORY "${PGR_DOCUMENTATION_BUILD_DIR}/pdf/${lang}"
         DEPENDS ${target}-${lang}
         COMMENT "Converting Latex to PDF format")

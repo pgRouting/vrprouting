@@ -460,7 +460,7 @@ sub createTestDB {
         $myver = " VERSION '$vpgr'";
     }
     print "Installing pgrouting extension $myver\n" if $DEBUG;
-    mysystem("$psql $connopts -c \"CREATE EXTENSION pgrouting $myver\" $databaseName");
+    mysystem("$psql $connopts -c \"CREATE EXTENSION vrprouting $myver CASCADE\" $databaseName");
 
     # Verify pgrouting was installed
 

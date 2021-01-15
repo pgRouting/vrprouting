@@ -1,13 +1,6 @@
 
 SET(LOCAL_FILES
-    pgRouting-header.sql
-    _point_toId.sql
-    _startPoint.sql
-    _endPoint.sql
-    pgrouting_utilities.sql
-    pgr_parameter_check.sql
-    utilities_pgr.sql
-    createIndex.sql
+    vrpRouting-header.sql
     )
 
 foreach (f ${LOCAL_FILES})

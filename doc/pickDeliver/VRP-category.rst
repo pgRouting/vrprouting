@@ -1,11 +1,19 @@
 ..
    ****************************************************************************
-    pgRouting Manual
-    Copyright(c) pgRouting Contributors
+    vrpRouting Manual
+    Copyright(c) vrpRouting Contributors
 
     This documentation is licensed under a Creative Commons Attribution-Share
     Alike 3.0 License: https://creativecommons.org/licenses/by-sa/3.0/
    ****************************************************************************
+
+|
+
+* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__
+* Supported Versions
+  `Latest <https://vrp.pgrouting.org/latest/en/VRP-category.html>`__
+  (`0.0 <https://vrp.pgrouting.org/0/en/VRP-category.html>`__)
+
 
 Vehicle Routing Functions - Category (Experimental)
 ===============================================================================
@@ -14,97 +22,27 @@ Vehicle Routing Functions - Category (Experimental)
    :start-after: begin-warn-expr
    :end-before: end-warn-expr
 
-.. index experimental from here
-
-* Pickup and delivery problem
-
-  - :doc:`pgr_pickDeliver` - Pickup & Delivery using a Cost Matrix
-  - :doc:`pgr_pickDeliverEuclidean` - Pickup & Delivery with Euclidean distances
-
-* Distribution problem
-
-  - :doc:`pgr_vrpOneDepot` - From a single depot, distributes orders
-
-.. index experimental to here
 
 .. contents::
 
+.. rubric:: Functions
+
 .. toctree::
-  :hidden:
+  :maxdepth: 1
 
-  pgr_pickDeliver
-  pgr_pickDeliverEuclidean
-  pgr_vrpOneDepot
-
-.. rubric:: Previous versions of this page
-
-* **Supported versions:**
-  current(`3.1 <https://docs.pgrouting.org/3.1/en/VRP-category.html>`__)
-  `3.0 <https://docs.pgrouting.org/3.0/en/VRP-category.html>`__
-
-
-Introduction
--------------------------------------------------------------------------------
-
-Vehicle Routing Problems `VRP` are **NP-hard** optimization problem, it generalises the travelling salesman problem (TSP).
-
-- The objective of the VRP is to minimize the total route cost.
-- There are several variants of the VRP problem,
-
-**pgRouting does not try to implement all variants.**
-
-
-Characteristics
-...............................................................................
-
-- Capacitated Vehicle Routing Problem `CVRP` where The vehicles have limited carrying capacity of the goods.
-- Vehicle Routing Problem with Time Windows `VRPTW` where the locations have time windows within which the vehicle's visits must be made.
-- Vehicle Routing Problem with Pickup and Delivery `VRPPD` where a number of goods need to be moved from certain pickup locations to other delivery locations.
-
-
-.. Rubric:: Limitations
-
-- No multiple time windows for a location.
-- Less vehicle used is considered better.
-- Less total duration is better.
-- Less wait time is better.
-
-
-Pick & Delivery
--------------------------------------------------------------------------------
-
-Problem: `CVRPPDTW` Capacitated Pick and Delivery Vehicle Routing problem with Time Windows
-
-- Times are relative to `0`
-- The vehicles
-
-  - have start and ending service duration times.
-  - have opening and closing times for the start and ending locations.
-  - have a capacity.
-
-- The orders
-
-  - Have pick up and delivery locations.
-  - Have opening and closing times for the pickup and delivery locations.
-  - Have pickup and delivery duration service times.
-  - have a demand request for moving goods from the pickup location to the delivery location.
-
-- Time based calculations:
-
-  - Travel time between customers is :math:`distance / speed`
-  - Pickup and delivery order pair is done by the same vehicle.
-  - A pickup is done before the delivery.
-
+  vrp_pickDeliver
+  vrp_pickDeliverEuclidean
+  vrp_vrpOneDepot
 
 
 
 
 Parameters
--------------------------------------------------------------------------------
+...............................................................................
 
 
 Pick & deliver
-...............................................................................
+*******************************************************************************
 
 Both implementations use the following same parameters:
 
@@ -139,23 +77,15 @@ Column            Type                Description
 
 
 Inner Queries
--------------------------------------------------------------------------------
+*******************************************************************************
 
 - `Pick & Deliver Orders SQL`_
 - `Pick & Deliver Vehicles SQL`_
 - `Pick & Deliver Matrix SQL`_
 
-.. rubric:: return columns
-
-- :ref:`Description of return columns <return_vrp_matrix_start>`
-- :ref:`Description of the return columns for Euclidean version <return_vrp_euclidean_start>`
-
-
-..
-    see include/c_types/pickDeliver/pickDeliveryOrders_t.h documentation
 
 Pick & Deliver Orders SQL
-.........................................................................................
+*******************************************************************************
 
 In general, the columns for the orders SQL is the same in both implementation of pick and delivery:
 
@@ -210,14 +140,9 @@ Column            Type                       Description
 
 
 
-..
-    see include/c_types/pickDeliver/vehicle_t.h documentation
-
-
-.. _pd_vehicle_sql:
 
 Pick & Deliver Vehicles SQL
-.........................................................................................
+*******************************************************************************
 
 In general, the columns for the vehicles_sql is the same in both implementation of pick and delivery:
 
@@ -271,7 +196,7 @@ Column              Type                  Default           Description
 
 
 Pick & Deliver Matrix SQL
-.........................................................................................
+*******************************************************************************
 
 .. TODO
 
@@ -281,7 +206,7 @@ Pick & Deliver Matrix SQL
 
 
 Results
--------------------------------------------------------------------------------
+*******************************************************************************
 
 ..
     OUT seq INTEGER,
@@ -300,7 +225,7 @@ Results
 .. _return_vrp_matrix_start:
 
 Description of the result (TODO Disussion: Euclidean & Matrix)
-.........................................................................................
+*******************************************************************************
 
 .. todo:: fix when everything below is fixed
 
@@ -370,112 +295,11 @@ Column              Type           Description
 .. return_vrp_matrix_end
 
 
-.. _return_vrp_euclidean_start:
-
-.. include:: VRP-category.rst
-    :start-after: return_vrp_matrix_start:
-    :end-before: return_vrp_matrix_end
-
-.. return_vrp_euclidean_end
 
 
 
-.. include:: pgRouting-concepts.rst
-    :start-after: where_definition_starts
-    :end-before: where_definition_ends
 
-
-Handling Parameters
--------------------------------------------------------------------------------
-
-To define a problem, several considerations have to be done, to get consistent results.
-This section gives an insight of how parameters are to be considered.
-
-- `Capacity and Demand Units Handling`_
-- `Locations`_
-- `Time Handling`_
-- `Factor Handling`_
-
-
-Capacity and Demand Units Handling
-...............................................................................
-
-The `capacity` of a vehicle, can be measured in:
-
-- Volume units like :math:`m^3`.
-- Area units like :math:`m^2` (when no stacking is allowed).
-- Weight units like :math:`kg`.
-- Number of boxes that fit in the vehicle.
-- Number of seats in the vehicle
-
-The `demand` request of the pickup-deliver orders must use the same units as the units used in the vehicle's `capacity`.
-
-To handle problems like:  10 (equal dimension) boxes of apples and 5 kg of feathers that are to be transported (not packed in boxes).
-
-If the vehicle's `capacity` is measured by `boxes`, a conversion of `kg of feathers` to `equivalent number of boxes` is needed.
-If the vehicle's `capacity` is measured by `kg`, a conversion of `box of apples` to `equivalent number of kg` is needed.
-
-Showing how the 2 possible conversions can be done
-
-Let:
-- :math:`f_boxes`: number of boxes that would be used for `1` kg of feathers.
-- :math:`a_weight`: weight of `1` box of apples.
-
-=============== ====================== ==================
-Capacity Units  apples                  feathers
-=============== ====================== ==================
-boxes            10                     :math:`5 * f\_boxes`
-kg              :math:`10 * a\_weight`       5
-=============== ====================== ==================
-
-
-
-Locations
-...............................................................................
-
-- When using the Euclidean signatures:
-
-  - The vehicles have :math:`(x, y)` pairs for start and ending locations.
-  - The orders Have :math:`(x, y)` pairs for pickup and delivery locations.
-
-- When using a matrix:
-
-  - The vehicles have identifiers for the start and ending locations.
-  - The orders have identifiers for the pickup and delivery locations.
-  - All the identifiers are indices to the given matrix.
-
-
-Time Handling
-...............................................................................
-
-The times are relative to 0
-
-Suppose that a vehicle's driver starts the shift at 9:00 am and ends the shift at 4:30 pm
-and the service time duration is 10 minutes with 30 seconds.
-
-All time units have to be converted
-
-============ ================= ==================== ===================== =========
-Meaning of 0   time units       9:00 am              4:30 pm               10 min 30 secs
-============ ================= ==================== ===================== =========
-0:00 am         hours            9                  16.5                   :math:`10.5 / 60  = 0.175`
-9:00 am         hours            0                  7.5                    :math:`10.5 / 60  = 0.175`
-0:00 am         minutes          :math:`9*60 = 54`  :math:`16.5*60 = 990`  10.5
-9:00 am         minutes          0                  :math:`7.5*60 = 540`   10.5
-============ ================= ==================== ===================== =========
-
-
-.. _pd_factor:
-
-Factor Handling
-...............................................................................
-
-.. TODO
-.. warning:: TODO
-
-
-See Also
--------------------------------------------------------------------------------
+.. rubric:: See Also
 
 * https://en.wikipedia.org/wiki/Vehicle_routing_problem
 * The queries use the :doc:`sampledata` network.

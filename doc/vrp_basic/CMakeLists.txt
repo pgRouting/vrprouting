@@ -1,6 +1,6 @@
 
 SET(LOCAL_FILES
-    pgr_vrpOneDepot.rst
+    vrp_vrpOneDepot.rst
     )
 
 foreach (f ${LOCAL_FILES})

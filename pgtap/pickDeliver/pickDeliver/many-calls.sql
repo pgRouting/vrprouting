@@ -1,20 +1,20 @@
-\i setup.sql
+BEGIN;
 
 SELECT plan(15);
-SET client_min_messages TO NOTICE;
 
 
 PREPARE No_problem_query AS
-SELECT * FROM pgr_pickDeliver(
+SELECT * FROM vrp_pickDeliver(
     $$ SELECT * FROM orders ORDER BY id $$,
     $$ SELECT * FROM vehicles ORDER BY id$$,
-    $$ SELECT * from pgr_dijkstraCostMatrix(
+    $$ SELECT * FROM pgr_dijkstraCostMatrix(
         'SELECT * FROM edge_table ',
         (SELECT array_agg(id) FROM (SELECT p_node_id AS id FROM orders
         UNION
         SELECT d_node_id FROM orders
         UNION
-        SELECT start_node_id FROM vehicles) a))
+        SELECT start_node_id FROM vehicles) a),
+        directed => false)
     $$
 );
 
@@ -36,3 +36,4 @@ SELECT lives_ok('No_problem_query', 'Should live: '|| 15);
 
 
 SELECT finish();
+ROLLBACK;

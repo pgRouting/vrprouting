@@ -27,12 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
 --------------------
--- pgr_vrpOneDepot
+-- vrp_vrpOneDepot
 --------------------
 
 
 --v2.6
-CREATE FUNCTION pgr_vrpOneDepot(
+CREATE FUNCTION vrp_vrpOneDepot(
 	text,  -- order_sql
 	text, -- vehicle_sql
 	text, -- cost_sql
@@ -46,7 +46,7 @@ CREATE FUNCTION pgr_vrpOneDepot(
 RETURNS SETOF RECORD AS
 $BODY$
     SELECT order_id::INTEGER, stop_seq::INTEGER, vehicle_id::INTEGER, arrival_time::INTEGER, departure_time::INTEGER
-    FROM _pgr_vrpOneDepot($1, $2,
+    FROM _vrp_vrpOneDepot($1, $2,
        '
             SELECT src_id AS start_vid, dest_id AS end_vid, traveltime AS agg_cost FROM ('||$3||') AS a
        ',
@@ -60,8 +60,8 @@ ROWS 1000;
 -- COMMENTS
 
 
-COMMENT ON FUNCTION pgr_vrpOneDepot(TEXT, TEXT, TEXT, INTEGER)
-IS 'pgr_vrpOneDepot
+COMMENT ON FUNCTION vrp_vrpOneDepot(TEXT, TEXT, TEXT, INTEGER)
+IS 'vrp_vrpOneDepot
 - EXPERIMENTAL
 - Parameters
   - orders SQL with columns: id, x, y, order_unit, open_time, close_time, service_time
@@ -69,5 +69,5 @@ IS 'pgr_vrpOneDepot
   - cost SQL with columns: src_id, dest_id, cost, distance, traveltime
   - depot id
 - Documentation:
-  - ${PROJECT_DOC_LINK}/pgr_vrpOneDepot.html
+  - ${PROJECT_DOC_LINK}/vrp_vrpOneDepot.html
 ';

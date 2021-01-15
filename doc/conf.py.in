@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 '''
 
-Copyright (c) 2015 pgRouting developers
+Copyright (c) 2015 vrpRouting developers
 Mail: project@pgrouting.org
 
 ------
@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 '''
 
 #
-# pgRouting Documentation documentation build configuration file, created by
+# vrpRouting Documentation documentation build configuration file, created by
 # sphinx-quickstart on Sat Mar 23 16:03:51 2013.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -68,8 +68,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'pgRouting'
-copyright = u'pgRouting Contributors - Version @PROJECT_FULL_VERSION@'
+project = u'vrpRouting'
+copyright = u'vrpRouting Contributors - Version @PROJECT_FULL_VERSION@'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -96,13 +96,8 @@ locale_dirs = ['@CMAKE_SOURCE_DIR@/locale/']
 # directories to ignore when looking for source files.
 exclude_patterns = [
     'doc/build',
-    'pgr_withPointsVia.rst',
-    'maxFlowApplications.rst',
-    '*/notUsed',
-    'tools/template'
     ]
 
-#    'src/pickDeliver/doc/pgr_withPointsVia.rst',
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
 
@@ -143,7 +138,7 @@ html_theme_path = @SPHINX_THEME_DIR@
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
 
-html_title = "pgRouting Manual (@PROJECT_SHORT_VERSION@)"
+html_title = "vrpRouting Manual (@PROJECT_SHORT_VERSION@)"
 
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
@@ -213,7 +208,7 @@ html_show_copyright = True
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'pgRoutingDocumentationdoc'
+htmlhelp_basename = 'vrpRoutingDocumentationdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -232,8 +227,8 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'pgRoutingDocumentation.tex', u'pgRouting Manual',
-   u'pgRouting Contributors', 'manual'),
+  ('index', 'vrpRoutingDocumentation.tex', u'vrpRouting Manual',
+   u'vrpRouting Contributors', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -262,7 +257,7 @@ latex_domain_indices = False
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index_man', 'pgrouting', u'pgRouting Reference', u'pgRouting Contributors', 7)
+    ('index_man', 'vrprouting', u'vrpRouting Reference', u'vrpRouting Contributors', 7)
 ]
 
 # If true, show URL addresses after external links.
@@ -275,8 +270,8 @@ man_show_urls = False
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'pgrouting', u'pgRouting Manual',
-   u'pgRouting Contributors', 'pgRoutingDocumentation', 'One line description of project.',
+  ('index', 'vrprouting', u'vrpRouting Manual',
+   u'vrpRouting Contributors', 'vrpRoutingDocumentation', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -305,9 +300,9 @@ texinfo_documents = [
 # regardless of the global pdf_compressed setting.
 pdf_documents = [(
         'index',
-        u'pgr_Documentation',
-        'pgRouting Manual',
-        u'pgRouting Contributors')]
+        u'vrp_Documentation',
+        'vrpRouting Manual',
+        u'vrpRouting Contributors')]
 # A comma-separated list of custom stylesheets. Example:
 
 pdf_stylesheets = ['sphinx','kerning','a4']
@@ -318,14 +313,10 @@ pdf_style_path = ['.', '_styles']
 
 # cases to ignore during link checking
 linkcheck_ignore = [
-    # Link is going to be fixed by sponsor
-    'https://www.leopark.mx/',
-
     # might not exist yet (we are generating it!)
 
-    # FIXME: tmp disable due to Retry-After header for rate-limiting by Github not respected
-    #        (see: https://github.com/sphinx-doc/sphinx/issues/7388)
-    "https://github.com/pgRouting/pgrouting/issues/*",    # limit only pgrouting
+    # (see: https://github.com/sphinx-doc/sphinx/issues/7388)
+    "https://github.com/pgrRouting/vrprouting/issues/*",    # limit only vrprouting
 ]
 
 linkcheck_timeout = 20

@@ -1,11 +1,11 @@
 
-\i setup.sql
+BEGIN;
 
 UPDATE edge_table SET cost = sign(cost), reverse_cost = sign(reverse_cost);
 SELECT plan(2);
 
 SELECT * INTO results
-FROM _pgr_pickDeliverEuclidean(
+FROM _vrp_pickDeliverEuclidean(
     $$SELECT * FROM orders$$,
     $$SELECT * FROM vehicles$$);
 
