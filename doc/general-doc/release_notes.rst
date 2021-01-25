@@ -17,24 +17,15 @@
 Release Notes
 -------------------------------------------------------------------------------
 
-To see the full list of changes check the list of `Git commits <https://github.com/pgrRouting/vrprouting/commits>`_ on Github.
+To see the full list of changes check the list of `Git commits <https://github.com/pgRouting/vrprouting/commits>`_ on Github.
 
 .. rubric:: Table of contents
 
 .. changelog start
 
-* `v0.0.1 release notes`_
 * `v0.0.0 Release Notes`_
 
 .. changelog end
-
-v0.0.1 Release Notes
-*******************************************************************************
-
-.. rubric:: Cleanup tasks
-
-* Updating documentation
-
 
 
 

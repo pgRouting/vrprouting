@@ -19,7 +19,7 @@ open($ifh, "$in_file") || die "ERROR: failed to open '$in_file' for read! : $!\n
 my $skipping = 1;
 while (my $line = <$ifh>) {
   if ($skipping) {
-    if ($line =~ /^\.\. _changelog_/) {
+    if ($line =~ /^\.\. changelog end/) {
       $skipping = 0;
     }
     next;
@@ -30,8 +30,6 @@ while (my $line = <$ifh>) {
 
   # convert rubric to bold
   $line =~ s/^\.\. rubric::\s*(.+)$/*$1*/;
-
-  next if $line =~ /^\.\. _changelog/;
 
   print $ofh $line;
 }

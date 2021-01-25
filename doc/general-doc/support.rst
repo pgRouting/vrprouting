@@ -12,16 +12,16 @@
 Support
 ===============================================================================
 
-vrpRouting community support is available through the `vrpRouting website <https://pgrouting.org/support.html>`_, `documentation <http://docs.pgrouting.org>`_, tutorials, mailing lists and others. If you’re looking for :ref:`commercial support <support_commercial>`, find below a list of companies providing vrpRouting development and consulting services.
+vrpRouting community support is available through the `vrpRouting website <https://pgrouting.org/support.html>`_, `documentation <https://vrp.pgrouting.org>`_, tutorials, mailing lists and others. If you’re looking for :ref:`commercial support <support_commercial>`, find below a list of companies providing vrpRouting development and consulting services.
 
 
 Reporting Problems
 -------------------------------------------------------------------------------
 
-Bugs are reported and managed in an `issue tracker <https://github.com/pgrouting/pgrouting/issues>`_. Please follow these steps:
+Bugs are reported and managed in an `issue tracker <https://github.com/pgRouting/vrprouting/issues>`_. Please follow these steps:
 
 1. Search the tickets to see if your problem has already been reported. If so, add any extra context you might have found, or at least indicate that you too are having the problem. This will help us prioritize common issues.
-2. If your problem is unreported, create a `new issue <https://github.com/vrpRouting/pgrouting/issues/new>`__ for it.
+2. If your problem is unreported, create a `new issue <https://github.com/pgRouting/vrprouting/issues/new>`__ for it.
 3. In your report include explicit instructions to replicate your issue. The best tickets include the exact SQL necessary to replicate a problem.
 4. If you can test older versions of PostGIS for your problem, please do. On your ticket, note the earliest version the problem appears.
 5. For the versions where you can replicate the problem, note the operating system and version of vrpRouting, PostGIS and PostgreSQL.
@@ -70,10 +70,4 @@ For users who require professional support, development and consulting services,
    * - Paragon Corporation
      - United States
      - https://www.paragoncorporation.com
-   * - Camptocamp
-     - Switzerland, France
-     - https://www.camptocamp.com
-   * - Netlab
-     - Capranica, Italy
-     - https://www.osgeo.org/service-providers/netlab/
 

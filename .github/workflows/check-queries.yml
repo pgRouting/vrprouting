@@ -49,6 +49,7 @@ jobs:
             postgresql-${PGVER}-pgtap \
             postgresql-${PGVER}-postgis-${PGIS} \
             postgresql-${PGVER}-postgis-${PGIS}-scripts \
+            postgresql-${PGVER}-pgrouting \
             postgresql-server-dev-${PGVER}
 
       - name: Configure

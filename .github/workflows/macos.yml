@@ -17,10 +17,39 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
+
+      - name: Cache pgtap
+        id: cache-pgtap
+        uses: actions/cache@v2
+        with:
+          path: ./pgTapExtension/
+          key: ${{ runner.os }}-pgtap-${{ hashFiles('**/packages*.txt') }}
+
+      - name: Get pgtap repo
+        if: steps.cache-pgtap.outputs.cache-hit != 'true'
+        uses: actions/checkout@v2
+        with:
+          repository: theory/pgtap
+          path: ./pgTapExtension/
+
+      - name: Install pgTAP
+        if: steps.cache-pgtap.outputs.cache-hit != 'true'
+        run: |
+          cd ./pgTapExtension/
+          make -j
+          sudo make install
+          cpan TAP::Parser::SourceHandler::pgTAP
+
+      - name: Install pgTAP
+        if: steps.cache-pgtap.outputs.cache-hit == 'true'
+        run: |
+          cd ./pgTapExtension/
+          sudo make install
+          cpan TAP::Parser::SourceHandler::pgTAP
+
       - name: install deps
         run: |
-          brew install postgresql postgis boost
+          brew install postgis boost pgrouting
 
       - name: Configure
         run: |
@@ -33,14 +62,6 @@ jobs:
           cd build
           make -j
           sudo make install
-
-      - name: Install pgTAP
-        run: |
-          git clone https://github.com/theory/pgtap.git pgTapExtension
-          cd pgTapExtension
-          make -j
-          sudo make install
-          cpan TAP::Parser::SourceHandler::pgTAP
 
       - name: Test
         run: |

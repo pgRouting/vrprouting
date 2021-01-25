@@ -15,7 +15,7 @@ Installation
 Instructions for downloading and installing binaries for different Operative systems
 instructions and additional notes and corrections not included in this documentation
 can be found in
-`Installation wiki <https://github.com/vrpRouting/pgrouting/wiki/Notes-on-Download%2C-Installation-and-building-vrpRouting>`__
+`Installation wiki <https://github.com/pgRouting/vrprouting/wiki/Notes-on-Download%2C-Installation-and-building-vrpRouting>`__
 
 To use vrpRouting: PostgreSQL server, pgRouting and postGIS needs to be installed.
 

@@ -18,7 +18,7 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          boost_minor: [53, 54, 55, 56, 74, 75]
+          boost_minor: [70, 75]
           os: [ubuntu-latest]
 
     steps:
@@ -52,6 +52,7 @@ jobs:
             postgresql-${PGVER}-pgtap \
             postgresql-${PGVER}-postgis-${PGIS} \
             postgresql-${PGVER}-postgis-${PGIS}-scripts \
+            postgresql-${PGVER}-pgrouting \
             postgresql-server-dev-${PGVER}
 
           python -m pip install --upgrade pip
