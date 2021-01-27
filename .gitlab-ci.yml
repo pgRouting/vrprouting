@@ -1,0 +1,43 @@
+image: gcc
+
+
+variables:
+  POSTGRES_DB: ___pgr___test___
+  POSTGRES_USER: root
+  POSTGRES_PASSWORD: "runner"
+  PGIS_VER: 3
+
+
+before_script:
+  - apt-get update -yqq
+  - apt-get install -y cmake postgresql postgresql-client sudo
+  - sudo service postgresql start
+  # access the postgres repository
+  - curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+  - sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+  - apt-get update -yqq
+
+  - sudo -u postgres psql -d template1 -c "CREATE USER root WITH PASSWORD 'runner' CREATEDB SUPERUSER;"
+  - pgver=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d \()')
+  - echo "PGVER=${pgver}"
+  - apt-get install -yqq libboost-graph-dev libtap-parser-sourcehandler-pgtap-perl
+    postgresql-${pgver}-pgtap
+    postgresql-${pgver}-postgis-${PGIS_VER}
+    postgresql-${pgver}-postgis-${PGIS_VER}-scripts
+    postgresql-${pgver}-pgrouting
+    postgresql-server-dev-${pgver}
+
+
+build_vrprouting:
+  stage: build
+  script:
+    - mkdir build
+    - cd build
+    - cmake -DCMAKE_BUILD_TYPE=Debug ..
+    - make -j 4
+    - sudo make install
+    - cd ..
+
+    - createdb ___pgr___test___
+    - bash ./tools/testers/pg_prove_tests.sh root 5432
+
