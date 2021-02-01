@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 
 #include "c_common/postgres_connection.h"
-#include "./_version.h"
 
 #define UNUSED(x) (void)(x)
 PG_MODULE_MAGIC;
@@ -38,6 +37,7 @@ PGDLLEXPORT Datum _vrp_git_hash(PG_FUNCTION_ARGS);
 PGDLLEXPORT Datum _vrp_lib_version(PG_FUNCTION_ARGS);
 PGDLLEXPORT Datum _vrp_operating_system(PG_FUNCTION_ARGS);
 PGDLLEXPORT Datum _vrp_pgsql_version(PG_FUNCTION_ARGS);
+
 
 
 
@@ -92,7 +92,7 @@ PGDLLEXPORT Datum _vrp_lib_version(PG_FUNCTION_ARGS) {
 PG_FUNCTION_INFO_V1(_vrp_operating_system);
 PGDLLEXPORT Datum _vrp_operating_system(PG_FUNCTION_ARGS) {
     UNUSED(fcinfo);
-    char *ver = CMAKE_SYSTEM_NAME;
+    char *ver = SYSTEM_NAME;
     text *result = cstring_to_text(ver);
     PG_RETURN_TEXT_P(result);
 }
@@ -101,7 +101,7 @@ PGDLLEXPORT Datum _vrp_operating_system(PG_FUNCTION_ARGS) {
 PG_FUNCTION_INFO_V1(_vrp_pgsql_version);
 PGDLLEXPORT Datum _vrp_pgsql_version(PG_FUNCTION_ARGS) {
     UNUSED(fcinfo);
-    char *ver = POSTGRES_VERSION;
+    char *ver = PostgreSQL_VERSION_STRING;
     text *result = cstring_to_text(ver);
     PG_RETURN_TEXT_P(result);
 }
