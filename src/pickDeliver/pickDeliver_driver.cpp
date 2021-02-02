@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "vrp/pgr_pickDeliver.h"
 #include "vrp/initials_code.h"
-#include "cpp_common/Dmatrix.h"
+#include "cpp_common/matrix.h"
 
 #include "cpp_common/pgr_assert.h"
 #include "cpp_common/pgr_alloc.hpp"
@@ -92,7 +92,7 @@ do_pgr_pickDeliver(
                 matrix_cells_arr,
                 matrix_cells_arr + total_cells);
 
-        pgrouting::tsp::Dmatrix cost_matrix(data_costs);
+        vrprouting::Matrix cost_matrix(data_costs);
 
         log << cost_matrix;
 
@@ -101,7 +101,7 @@ do_pgr_pickDeliver(
         /*
          * This applies to the one depot problem
          */
-        if ((pgrouting::vrp::Initials_code)(initial_solution_id) == pgrouting::vrp::OneDepot) {
+        if ((vrprouting::vrp::Initials_code)(initial_solution_id) == vrprouting::vrp::OneDepot) {
             /*
              * All Vehicles must depart from same location
              */
@@ -134,7 +134,7 @@ do_pgr_pickDeliver(
         // TODO(vicky) wrap with a try and make a throw???
 	// tried it is already wrapped
         log << "Initialize problem\n";
-        pgrouting::vrp::Pgr_pickDeliver pd_problem(
+        vrprouting::vrp::Pgr_pickDeliver pd_problem(
                 orders,
                 vehicles,
                 cost_matrix,

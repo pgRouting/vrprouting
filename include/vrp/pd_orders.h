@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "vrp/pd_problem.h"
 
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 class Order;
@@ -107,6 +107,6 @@ class PD_Orders {
 };
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting
 
 #endif  // INCLUDE_VRP_PD_ORDERS_H_

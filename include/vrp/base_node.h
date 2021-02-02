@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <stdint.h>
 #endif
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 /*! \class Base_node
@@ -70,6 +70,6 @@ class Base_node : public Identifier {
 };
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting
 
 #endif  // INCLUDE_VRP_BASE_NODE_H_

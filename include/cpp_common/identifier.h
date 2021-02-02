@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*! @file */
+/** @file
+File from pgRouting
+*/
 
 #ifndef INCLUDE_CPP_COMMON_IDENTIFIER_H_
 #define INCLUDE_CPP_COMMON_IDENTIFIER_H_
@@ -34,18 +36,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <ostream>
 
-namespace pgrouting {
+namespace vrprouting {
 
+/** @brief Class that stores the information about identifiers
+
+@dot
+digraph structs {
+    Object [shape=record,label="{Identifier | id: user's identifier | idx: internal index} "];
+}
+@enddot
+
+ * Data comes with an identifier
+ * - does not check for uniquenes of those identifiers
+ *   - it is responsability of the database mantainers to give unique identifiers
+
+ * Example use:
+ * ~~~ {.c}
+ * struct data_t {
+ *  int64_t d_id;  // identifier value
+ *  // other structure members
+ * }
+ * vector<data_t> foo;
+ * foo.push_back({1234, ... })
+ * Identifier i(0, 1234); // original identifier 1234 is located on position 0 of foo
+ *
+ * ~~~
+ */
 class Identifier {
  public:
      Identifier() = default;
      Identifier(const Identifier &v) = default;
-     Identifier(const size_t _idx, const int64_t _id);
+     Identifier(size_t _idx, int64_t _id);
 
+     /** @name Inherited functions from Identifier
+      * @{
+      */
+     /** @brief get the original id */
      int64_t id() const;
+     /** @brief get the internal index */
      size_t idx() const;
+     /** change the original id **/
      void reset_id(int64_t);
+     /** @} */
 
+     /** print the Identifier information */
      friend std::ostream& operator<<(std::ostream& log, const Identifier&);
 
  private:
@@ -54,6 +88,6 @@ class Identifier {
 };
 
 
-}  // namespace pgrouting
+}  // namespace vrprouting
 
 #endif  // INCLUDE_CPP_COMMON_IDENTIFIER_H_

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "vrp/tw_node.h"
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 
@@ -185,6 +185,6 @@ class Vehicle_node: public Tw_node {
 };
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting
 
 #endif  // INCLUDE_VRP_VEHICLE_NODE_H_

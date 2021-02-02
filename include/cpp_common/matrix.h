@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: Dmatrix.h
+FILE: Matrix.h
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_CPP_COMMON_DMATRIX_H_
-#define INCLUDE_CPP_COMMON_DMATRIX_H_
+#ifndef INCLUDE_CPP_COMMON_MATRIX_H_
+#define INCLUDE_CPP_COMMON_MATRIX_H_
 #pragma once
 
 #include <iostream>
@@ -35,16 +35,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_types/matrix_cell_t.h"
 
-namespace pgrouting {
-namespace tsp {
+namespace vrprouting {
 
-class Tour;  // for tourCost
-
-class Dmatrix {
+class Matrix {
  public:
-    Dmatrix() = default;
-    explicit Dmatrix(const std::vector < Matrix_cell_t > &data_costs);
-    explicit Dmatrix(const std::map<std::pair<double, double>, int64_t> &euclidean_data);
+    Matrix() = default;
+    explicit Matrix(const std::vector < Matrix_cell_t > &data_costs);
+    explicit Matrix(const std::map<std::pair<double, double>, int64_t> &euclidean_data);
 
     bool has_no_infinity() const;
     bool obeys_triangle_inequality() const;
@@ -87,13 +84,6 @@ class Dmatrix {
      */
     size_t size() const {return ids.size();}
 
-    /*! @brief tour evaluation
-     *
-     * @param [in] tour
-     * @returns total cost of traversing the tour
-     */
-    double tourCost(const Tour &tour) const;
-
     /*! @brief returns a row of distances
      *
      * @param [in] idx - row index
@@ -113,7 +103,7 @@ class Dmatrix {
 
     friend std::ostream& operator<<(
             std::ostream &log,
-            const Dmatrix &matrix);
+            const Matrix &matrix);
 
     bool empty() const {
         return ids.empty();
@@ -130,7 +120,6 @@ class Dmatrix {
     const std::vector< double >& operator[] (size_t i) const {return costs[i];}
 };
 
-}  // namespace tsp
-}  // namespace pgrouting
+}  // namespace vrprouting
 
-#endif  // INCLUDE_CPP_COMMON_DMATRIX_H_
+#endif  // INCLUDE_CPP_COMMON_MATRIX_H_

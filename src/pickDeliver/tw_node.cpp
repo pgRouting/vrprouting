@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "vrp/pgr_pickDeliver.h"
 
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 
@@ -296,5 +296,5 @@ std::ostream& operator << (std::ostream &log, const Tw_node &n) {
 }
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting
 

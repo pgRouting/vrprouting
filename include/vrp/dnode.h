@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/identifier.h"
 #include "cpp_common/pgr_messages.h"
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 class Pgr_pickDeliver;
@@ -73,6 +73,6 @@ class Dnode : public Identifier {
 };
 
 }  // namespace vrp
-}  // namespace pgrouting
+}  // namespace vrprouting
 
 #endif  // INCLUDE_VRP_DNODE_H_

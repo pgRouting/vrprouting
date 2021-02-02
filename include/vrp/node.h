@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/bpoint.hpp"
 #include "vrp/base_node.h"
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 /*! @class Node
@@ -70,6 +70,6 @@ class Node : public Base_node {
 };
 
 }  // namespace vrp
-}  // namespace pgrouting
+}  // namespace vrprouting
 
 #endif  // INCLUDE_VRP_NODE_H_

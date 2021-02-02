@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "vrp/base_node.h"
 #include "cpp_common/pgr_assert.h"
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 std::ostream&
@@ -48,6 +48,6 @@ Base_node::operator ==(const Base_node &rhs) const {
 }
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting
 
 

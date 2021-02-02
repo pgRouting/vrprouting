@@ -44,10 +44,6 @@ static
 bool
 fetch_column_info(
         Column_info_t *info) {
-/* TODO(vicky) Remove unused code */
-#if 0
-    PGR_DBG("Fetching column info of %s", info->name);
-#endif
     /*
      * [SPI_fnumber](https://www.postgresql.org/docs/8.2/static/spi-spi-fnumber.html)
      */
@@ -65,10 +61,6 @@ fetch_column_info(
         if (SPI_result == SPI_ERROR_NOATTRIBUTE) {
             elog(ERROR, "Type of column '%s' not Found", info->name);
         }
-/* TODO(vicky) Remove unused code */
-#if 0
-        PGR_DBG("Column %s found: %lu", info->name, info->type);
-#endif
         return true;
     }
     PGR_DBG("Column %s not found", info->name);
@@ -79,8 +71,7 @@ fetch_column_info(
 void pgr_fetch_column_info(
         Column_info_t info[],
         int info_size) {
-    int i;
-    for (i = 0; i < info_size; ++i) {
+    for (int i = 0; i < info_size; ++i) {
         if (fetch_column_info(&info[i])) {
             switch (info[i].eType) {
                 case ANY_INTEGER:
@@ -236,10 +227,6 @@ pgr_SPI_getBigInt(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info) {
                     "Unexpected Column type of %s. Expected ANY-INTEGER",
                     info.name);
     }
-/* TODO(vicky) Remove unused code */
-#if 0
-    PGR_DBG("Variable: %s Value: %ld", info.name, value);
-#endif
     return value;
 }
 
@@ -277,10 +264,6 @@ pgr_SPI_getFloat8(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info) {
                     "Unexpected Column type of %s. Expected ANY-NUMERICAL",
                     info.name);
     }
-/* TODO(vicky) Remove unused code */
-#if 0
-    PGR_DBG("Variable: %s Value: %.20f", info.name, value);
-#endif
     return value;
 }
 

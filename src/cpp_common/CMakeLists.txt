@@ -1,4 +1,6 @@
 ADD_LIBRARY(cpp_common OBJECT
-    Dmatrix.cpp
+    matrix.cpp
     pgr_messages.cpp
+    identifier.cpp
+    pgr_assert.cpp
     )

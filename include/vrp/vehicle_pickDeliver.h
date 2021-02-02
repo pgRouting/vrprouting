@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "vrp/initials_code.h"
 #include "cpp_common/identifiers.hpp"
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 
@@ -201,6 +201,6 @@ class Vehicle_pickDeliver : public Vehicle {
 };
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting
 
 #endif  // INCLUDE_VRP_VEHICLE_PICKDELIVER_H_

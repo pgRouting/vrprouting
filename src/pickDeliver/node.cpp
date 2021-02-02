@@ -43,7 +43,7 @@ typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
 
 }  // namespace
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 std::ostream& operator << (std::ostream &log, const Node &node) {
@@ -97,4 +97,4 @@ Node::operator ==(const Node &rhs) const {
 }
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting

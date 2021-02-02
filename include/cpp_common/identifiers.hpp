@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*! @file */
+/** @file 
+File from pgRouting
+*/
 
 #ifndef INCLUDE_CPP_COMMON_IDENTIFIERS_HPP_
 #define INCLUDE_CPP_COMMON_IDENTIFIERS_HPP_
@@ -56,7 +58,7 @@ class Identifiers {
     //@{
     Identifiers<T>() = default;
     Identifiers<T>(const Identifiers<T>&) = default;
-    Identifiers<T>(const std::set<T>& data) {
+    explicit Identifiers<T>(const std::set<T>& data) {
         m_ids = data;
     }
 
@@ -80,7 +82,9 @@ class Identifiers {
     inline T front() const {return *m_ids.begin();}
     const_iterator begin() const {return m_ids.begin();}
     const_iterator end() const {return m_ids.end();}
+
     inline void pop_front() {m_ids.erase(m_ids.begin());}
+
     inline void clear() {m_ids.clear();}
     iterator begin() {return m_ids.begin();}
     iterator end() {return m_ids.end();}

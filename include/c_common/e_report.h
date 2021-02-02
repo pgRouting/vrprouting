@@ -53,7 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
 
-///@{
 /*! @brief notice & error
  *
  *  ~~~~{.c}
@@ -71,68 +70,5 @@ pgr_global_report(
         char* notice_msg,
         char* error_msg);
 
-/*! @brief notice with no hint
- *
- *  ~~~~{.c}
- *  pgr_notice(&log_msg, &notice_msg);
- *
- *  precondition: before calling ereport
- *      assert(!log_msg);
- *      assert(!notice_msg);
- *  ~~~~
- */
-void
-pgr_notice(
-        char* notice_msg);
-
-/*! @brief notice with hint
- *
- *  ~~~~{.c}
- *  pgr_notice(&log_msg, &notice_msg);
- *
- *  precondition: before calling ereport
- *      assert(!log_msg);
- *      assert(!notice_msg);
- *  ~~~~
- */
-void
-pgr_notice2(
-        char* log_msg,
-        char* notice_msg);
-
-/*! @brief error with no hint
- *
- *
- *  ~~~~{.c}
- *  if (err_msg) {
- *      pfree(<data>);
- *  }
- *  pgr_error(&error_msg);
- *
- *  precondition: before calling ereport
- *      assert(!*error_msg);
- *  ~~~~
- */
-void
-pgr_error(char* error_msg);
-
-/*! @brief error with hint
- *
- *  ~~~~{.c}
- *  if (err_msg) {
- *      pfree(<data>);
- *  }
- *  pgr_error(&log_msg, &error_msg);
- *
- *  precondition: before calling ereport
- *      assert(!*log_msg);
- *      assert(!*error_msg);
- *  ~~~~
- */
-void
-pgr_error2(
-        char* log_msg,
-        char* error_msg);
-///@}
 
 #endif  // INCLUDE_C_COMMON_E_REPORT_H_

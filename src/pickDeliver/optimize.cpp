@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "vrp/optimize.h"
 #include "vrp/pgr_pickDeliver.h"
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 
@@ -733,4 +733,4 @@ Optimize::save_if_best() {
 
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting

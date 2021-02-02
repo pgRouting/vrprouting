@@ -21,6 +21,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
+/* @file */
 
 #include "c_common/arrays_input.h"
 
@@ -28,14 +29,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <utils/lsyscache.h>
 #include <catalog/pg_type.h>
 
+
+#ifdef PROFILE
 #include "c_common/time_msg.h"
 #include "c_common/debug_macro.h"
+#endif
 
 static
 int64_t*
 pgr_get_bigIntArr(ArrayType *v, size_t *arrlen, bool allow_empty) {
+#ifdef PROFILE
     clock_t start_t = clock();
-    int64_t *c_array = NULL;;
+#endif
+
+    int64_t *c_array = NULL;
 
     Oid     element_type = ARR_ELEMTYPE(v);
     int    *dim = ARR_DIMS(v);
@@ -51,19 +58,16 @@ pgr_get_bigIntArr(ArrayType *v, size_t *arrlen, bool allow_empty) {
 
 
     if (allow_empty && (ndim == 0 || nitems <= 0)) {
-        PGR_DBG("ndim %i nitems % i", ndim, nitems);
         return (int64_t*) NULL;
     }
     /* the array is not empty*/
 
     if (ndim != 1) {
         elog(ERROR, "One dimension expected");
-        return (int64_t*)NULL;
     }
 
     if (nitems <= 0) {
         elog(ERROR, "No elements found");
-        return (int64_t*)NULL;
     }
 
     get_typlenbyvalalign(element_type,
@@ -77,8 +81,6 @@ pgr_get_bigIntArr(ArrayType *v, size_t *arrlen, bool allow_empty) {
             break;
         default:
             elog(ERROR, "Expected array of ANY-INTEGER");
-            return (int64_t*)NULL;
-            break;
     }
 
     deconstruct_array(v, element_type, typlen, typbyval,
@@ -114,8 +116,10 @@ pgr_get_bigIntArr(ArrayType *v, size_t *arrlen, bool allow_empty) {
 
     pfree(elements);
     pfree(nulls);
+#ifdef PROFILE
     PGR_DBG("Array size %ld", (*arrlen));
     time_msg("reading Array", start_t, clock());
+#endif
     return c_array;
 }
 

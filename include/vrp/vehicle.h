@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "vrp/vehicle_node.h"
 #include "c_types/pickDeliver/general_vehicle_orders_t.h"
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 class Pgr_pickDeliver;
@@ -375,6 +375,6 @@ class Vehicle : public Identifier {
 };
 
 }  // namespace vrp
-}  // namespace pgrouting
+}  // namespace vrprouting
 
 #endif  // INCLUDE_VRP_VEHICLE_H_

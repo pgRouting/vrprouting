@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "vrp/pd_orders.h"
 #include "vrp/vehicle.h"
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 /** When the problem gets initialized
@@ -48,5 +48,5 @@ PD_problem::PD_problem(Pgr_pickDeliver* p) {
 }
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting
 

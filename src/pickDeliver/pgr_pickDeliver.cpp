@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "vrp/pd_orders.h"
 #include "vrp/fleet.h"
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 
@@ -170,7 +170,7 @@ Pgr_pickDeliver::add_node(const Vehicle_node &node) {
 Pgr_pickDeliver::Pgr_pickDeliver(
         const std::vector<PickDeliveryOrders_t> &pd_orders,
         const std::vector<Vehicle_t> &vehicles,
-        const pgrouting::tsp::Dmatrix &cost_matrix,
+        const vrprouting::Matrix &cost_matrix,
         double factor,
         size_t p_max_cycles,
         int initial) :
@@ -350,4 +350,4 @@ Pgr_pickDeliver::Pgr_pickDeliver(
 
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting

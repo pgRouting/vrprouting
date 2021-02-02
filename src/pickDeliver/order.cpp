@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "vrp/order.h"
 
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 
@@ -154,5 +154,5 @@ Order::isCompatibleIJ(const Order &I, double speed) const {
 }
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting
 

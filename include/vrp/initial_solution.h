@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "vrp/initials_code.h"
 #include "cpp_common/identifiers.hpp"
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 
@@ -67,6 +67,6 @@ class Initial_solution : public Solution {
 };
 
 }  //  namespace vrp
-}  //  namespace pgrouting
+}  //  namespace vrprouting
 
 #endif  // INCLUDE_VRP_INITIAL_SOLUTION_H_

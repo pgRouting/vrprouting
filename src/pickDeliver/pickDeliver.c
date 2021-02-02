@@ -82,7 +82,7 @@ process(
     PGR_DBG("Load orders");
     PickDeliveryOrders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
-    pgr_get_pd_orders_with_id(pd_orders_sql,
+    get_pd_orders_with_id(pd_orders_sql,
            &pd_orders_arr, &total_pd_orders);
 
     PGR_DBG("Load vehicles");

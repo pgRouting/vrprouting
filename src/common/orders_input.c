@@ -271,7 +271,7 @@ pgr_get_pd_orders(
 }
 
 void
-pgr_get_pd_orders_with_id(
+get_pd_orders_with_id(
         char *pd_orders_sql,
         PickDeliveryOrders_t **pd_orders,
         size_t *total_pd_orders) {

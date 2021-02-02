@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: Dmatrix.cpp
+FILE: Matrix.cpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include "cpp_common/Dmatrix.h"
+#include "cpp_common/matrix.h"
 
 #include <string.h>
 #include <sstream>
@@ -33,35 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <map>
 #include <cmath>
 
-#include "tsp/tour.h"
 #include "cpp_common/pgr_assert.h"
 
 
-namespace pgrouting {
-namespace tsp {
-
-double
-Dmatrix::tourCost(const Tour &tour) const {
-    double total_cost(0);
-    if (tour.cities.empty()) return total_cost;
-
-    auto prev_id = tour.cities.front();
-    for (const auto &id : tour.cities) {
-        if (id == tour.cities.front()) continue;
-
-        pgassert(distance(prev_id, id) != (std::numeric_limits<double>::max)());
-
-        total_cost += costs[prev_id][id];
-        prev_id = id;
-    }
-    total_cost += costs[prev_id][tour.cities.front()];
-    return total_cost;
-}
-
-
+namespace vrprouting {
 
 void
-Dmatrix::set_ids(const std::vector < Matrix_cell_t > &data_costs) {
+Matrix::set_ids(const std::vector < Matrix_cell_t > &data_costs) {
     ids.reserve(data_costs.size() * 2);
     for (const auto &cost : data_costs) {
         ids.push_back(cost.from_vid);
@@ -76,7 +54,7 @@ Dmatrix::set_ids(const std::vector < Matrix_cell_t > &data_costs) {
 }
 
 bool
-Dmatrix::has_id(int64_t id) const {
+Matrix::has_id(int64_t id) const {
     for (const auto &i : ids) {
         if (i == id) return true;
     }
@@ -90,22 +68,22 @@ Dmatrix::has_id(int64_t id) const {
  * returns index
  */
 size_t
-Dmatrix::get_index(int64_t id) const {
+Matrix::get_index(int64_t id) const {
     for (size_t pos = 0; pos < ids.size(); ++pos) {
         if (ids[pos] == id) return pos;
     }
-    throw std::make_pair(std::string("(INTERNAL) Dmatrix: Unable to find node on matrix"), id);
+    throw std::make_pair(std::string("(INTERNAL) Matrix: Unable to find node on matrix"), id);
 }
 
 int64_t
-Dmatrix::get_id(size_t id) const {
+Matrix::get_id(size_t id) const {
     return ids[id];
 }
 
 /*
  * Transforms the input data to a matrix
  */
-Dmatrix::Dmatrix(const std::vector < Matrix_cell_t > &data_costs) {
+Matrix::Matrix(const std::vector < Matrix_cell_t > &data_costs) {
     set_ids(data_costs);
     costs.resize(
             ids.size(),
@@ -133,7 +111,7 @@ get_distance(std::pair<double, double> p1 , std::pair<double, double> p2) {
 /*
  * constructor for euclidean
  */
-Dmatrix::Dmatrix(const std::map<std::pair<double, double>, int64_t> &euclidean_data) {
+Matrix::Matrix(const std::map<std::pair<double, double>, int64_t> &euclidean_data) {
     ids.reserve(euclidean_data.size());
     for (const auto &e: euclidean_data) {
         ids.push_back(e.second);
@@ -159,7 +137,7 @@ Dmatrix::Dmatrix(const std::map<std::pair<double, double>, int64_t> &euclidean_d
 }
 
 bool
-Dmatrix::has_no_infinity() const {
+Matrix::has_no_infinity() const {
     for (const auto &row : costs) {
         for (const auto &val : row) {
             if (val == (std::numeric_limits<double>::infinity)()) return false;
@@ -178,7 +156,7 @@ Dmatrix::has_no_infinity() const {
  * costs[i][k] <= costs[i][j] + costs[j][k]
  */
 bool
-Dmatrix::obeys_triangle_inequality() const {
+Matrix::obeys_triangle_inequality() const {
     for (size_t i = 0; i < costs.size(); ++i) {
         for (size_t j = 0; j < costs.size(); ++j) {
             for (size_t k = 0; k < costs.size(); ++k) {
@@ -190,7 +168,7 @@ Dmatrix::obeys_triangle_inequality() const {
 }
 
 bool
-Dmatrix::is_symmetric() const {
+Matrix::is_symmetric() const {
     for (size_t i = 0; i < costs.size(); ++i) {
         for (size_t j = 0; j < costs.size(); ++j) {
             if (0.000001 < std::fabs(costs[i][j] - costs[j][i])) {
@@ -213,7 +191,7 @@ Dmatrix::is_symmetric() const {
 /**
  *
  */
-std::ostream& operator<<(std::ostream &log, const Dmatrix &matrix) {
+std::ostream& operator<<(std::ostream &log, const Matrix &matrix) {
     for (const auto id : matrix.ids) {
         log << "\t" << id;
     }
@@ -258,6 +236,4 @@ std::ostream& operator<<(std::ostream &log, const Dmatrix &matrix) {
     return log;
 }
 
-
-}  // namespace tsp
-}  // namespace pgrouting
+}  // namespace vrprouting

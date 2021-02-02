@@ -24,70 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 
 #include "c_common/postgres_connection.h"
-#include "c_common/debug_macro.h"
 #include "c_common/e_report.h"
-
-void
-pgr_notice(
-        char* notice) {
-    PGR_DBG("Returned notice message = %s", notice);
-
-    if (notice) {
-        ereport(NOTICE,
-                (errmsg("%s", notice)));
-    }
-}
-
-void
-pgr_notice2(
-        char* log,
-        char* notice) {
-    PGR_DBG("Returned log message = %s", log);
-    PGR_DBG("Returned notice message = %s", notice);
-
-    if (log) {
-        pgr_notice(notice);
-        return;
-    }
-
-    if (notice) {
-        ereport(NOTICE,
-                (errmsg("%s", notice),
-                 errhint("%s", log)));
-    }
-}
-
-void
-pgr_error(char* err) {
-    PGR_DBG("Returned error message = %s", err);
-
-#if 0
-    char *error = NULL;
-    if (*err_msg) {
-        error = pgr_cstring2char(*err_msg);
-        free(*err_msg);
-    }
-#endif
-    if (err) {
-        ereport(ERROR,
-                (errmsg_internal("Unexpected"),
-                 errhint("%s", err)));
-    }
-}
-
-void
-pgr_error2(
-        char* log,
-        char* err) {
-    PGR_DBG("Returned log message = %s", log);
-    PGR_DBG("Returned error message = %s", err);
-
-    if (err) {
-        ereport(ERROR,
-                (errmsg_internal("%s", err),
-                 errhint("%s", log)));
-    }
-}
 
 void
 pgr_global_report(

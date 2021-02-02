@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_VRP_INITIALS_CODE_H_
 #pragma once
 
-namespace pgrouting {
+namespace vrprouting {
 namespace vrp {
 
 /*! Different kinds to insert an order into the vehicle */
@@ -45,6 +45,6 @@ enum Initials_code {
 };
 
 }  // namespace vrp
-}  // namespace pgrouting
+}  // namespace vrprouting
 
 #endif  // INCLUDE_VRP_INITIALS_CODE_H_
