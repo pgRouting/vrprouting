@@ -11,17 +11,17 @@ echo platform %platform%
 :: Set some defaults. Infer some variables.
 ::
 
-if not defined MSVC_VER set MSVC_VER=12.0
+if not defined MSVC_VER set MSVC_VER=18.0
 if not defined RUNTIME set RUNTIME=msvc%MSVC_VER:.=%
-if not defined MSVC_YEAR set MSVC_YEAR=2013
+if not defined MSVC_YEAR set MSVC_YEAR=2019
 if not defined BUILD_ROOT_DIR set BUILD_ROOT_DIR=c:\build
 if not defined DOWNLOADS_DIR set DOWNLOADS_DIR=%APPVEYOR_BUILD_FOLDER%\downloads
 if not defined COMMON_INSTALL_DIR set COMMON_INSTALL_DIR=%BUILD_ROOT_DIR%\local\%RUNTIME%\%PLATFORM%
 
 :: for cmake its the min version
-if not defined CMAKE_VERSION set CMAKE_VERSION=3.5.2
-if not defined PGIS_VERSION set PGIS_VERSION=2.3
-if not defined BOOST_VERSION set BOOST_VERSION=1.58.0
+if not defined CMAKE_VERSION set CMAKE_VERSION=3.12.2
+if not defined PGIS_VERSION set PGIS_VERSION=3.2
+if not defined BOOST_VERSION set BOOST_VERSION=1.65.1
 set PG_VER_NO_DOT=pg%PG_VER:.=%
 
 
@@ -65,7 +65,7 @@ CALL ci\appveyor\vercompare.bat "%CURR_CMAKE%" "%CMAKE_VERSION%"
 echo "errorlevel %ERRORLEVEL%"
 
 if %ERRORLEVEL% EQU 0 (
-    echo cmake %CMAKE_VERSION% already installed
+    echo cmake %CURR_CMAKE% already installed
 ) else (
     CALL SET
     echo Downloading cmake %CMAKE_VERSION%
@@ -113,7 +113,8 @@ if not exist "C:\Progra~1\PostgreSQL\%PG_VER%\%PGIS_WILD_FILE%" (
     if not exist %DOWNLOADS_DIR%\postgis-%PG_VER_NO_DOT%-binaries-%PGIS_VERSION%w%arch%gcc%GCC%.zip (
         echo Downloading PostGIS %PGIS_VERSION%
         pushd %DOWNLOADS_DIR%
-        curl -L -O -S -s http://winnie.postgis.net/download/windows/appveyor/postgis-%PG_VER_NO_DOT%-binaries-%PGIS_VERSION%w%arch%gcc%GCC%.zip
+        echo downloading  postgis-%PG_VER_NO_DOT%-binaries-%PGIS_VERSION%w%arch%gcc%GCC%.zip
+        curl -L -O -S http://winnie.postgis.net/download/windows/appveyor/postgis-%PG_VER_NO_DOT%-binaries-%PGIS_VERSION%w%arch%gcc%GCC%.zip
         popd
         if not exist %DOWNLOADS_DIR%\postgis-%PG_VER_NO_DOT%-binaries-%PGIS_VERSION%w%arch%gcc%GCC%.zip (
             echo something went wrong on PostGIS %PGIS_VERSION% download !!!!!!!!!
@@ -133,8 +134,9 @@ if not exist "C:\Progra~1\PostgreSQL\%PG_VER%\%PGIS_WILD_FILE%" (
     dir %BUILD_ROOT_DIR%\postgis*
     dir C:\Progra~1\PostgreSQL\%PG_VER%\postgis*
     xcopy /e /y /q %BUILD_ROOT_DIR%\postgis-%PG_VER_NO_DOT%-binaries-%PGIS_VERSION%*w%arch%gcc%GCC% C:\Progra~1\PostgreSQL\%PG_VER%
-    dir %BUILD_ROOT_DIR%\postgis*
     dir C:\Progra~1\PostgreSQL\%PG_VER%\postgis*
+    echo looking for %PGIS_WILD_FILE% in this list
+    dir %BUILD_ROOT_DIR%\postgis*
 
     if not exist "C:\Progra~1\PostgreSQL\%PG_VER%\%PGIS_WILD_FILE%" (
         echo something went wrong on PostGIS %PGIS_VERSION% installation

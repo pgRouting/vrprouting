@@ -5,28 +5,28 @@
 # Main configuration
 # ------------------------------------------------------------------------------
 
-version: 2.6.{build}
+version: 0.0.{build}
 
-image: Visual Studio 2013
+image: Visual Studio 2019
 configuration: Release
 platform: x64
 
 clone_depth: 1
-clone_folder: c:\build\pgrouting
+clone_folder: c:\build\vrprouting
 
 cache:
   - downloads -> appveyor.yml
-  - c:\build\local\msvc120\x64 -> appveyor
+  - c:\build\local\msvc160\x64 -> appveyor
 
 services:
-  - postgresql96
+  - postgresql101
 
 environment:
   CONFIGURATION: Release
-  MSVC_VER: 12.0
+  MSVC_VER: 16.0
   BUILD_ROOT_DIR: c:\build
-  PGIS_VERSION: 2.4
-  PG_VER: 9.6
+  PGIS_VERSION: 3.2
+  PG_VER: 10
 
 
 init:
@@ -36,12 +36,11 @@ install:
   # Install pgRouting prerequisites:
   # cmake
   # postGIS
-  # CGAL
   - call ci\appveyor\install.bat
 
 
 build_script:
-  - cd c:\build\pgrouting\ci\appveyor
+  - cd c:\build\vrprouting\ci\appveyor
   - msbuild_pgrouting.bat %PG_VER%
   - cd %PGROUTING_BUILD_DIR%
   - msbuild PGROUTING.sln /target:Build /property:Configuration=%CONFIGURATION%

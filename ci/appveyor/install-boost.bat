@@ -1,6 +1,7 @@
 @echo off
 
 
+set BOOST_LOCAL_DEBUG=1
 Setlocal EnableDelayedExpansion EnableExtensions
 
 
