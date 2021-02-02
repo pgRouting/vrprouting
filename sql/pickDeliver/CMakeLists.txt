@@ -1,9 +1,13 @@
 
 SET(LOCAL_FILES
-    _pickDeliver.sql
-    pickDeliver.sql
-    _pickDeliverEuclidean.sql
-    pickDeliverEuclidean.sql
+    _pgr_pickDeliver.sql
+    pgr_pickDeliver.sql
+
+    _pgr_pickDeliverEuclidean.sql
+    pgr_pickDeliverEuclidean.sql
+
+    _oneDepot.sql
+    oneDepot.sql
     )
 
 foreach (f ${LOCAL_FILES})

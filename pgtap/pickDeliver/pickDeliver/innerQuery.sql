@@ -6,7 +6,7 @@ SELECT plan(80);
 SET client_min_messages TO ERROR;
 
 /* A call looks like this
-SELECT * INTO pickDeliverResults FROM vrp_pickdeliver(
+SELECT * INTO pickDeliverResults FROM vrp_pgr_pickdeliver(
     $$SELECT * FROM orders$$,
     $$SELECT * FROM vehicles$$,
     $sql1$ SELECT * from pgr_dijkstraCostMatrix($$SELECT * FROM edge_table$$,
@@ -19,10 +19,10 @@ SELECT * INTO pickDeliverResults FROM vrp_pickdeliver(
     );
 */
 
-SELECT has_function('vrp_pickdeliver',
+SELECT has_function('vrp_pgr_pickdeliver',
     ARRAY['text', 'text', 'text', 'double precision', 'integer', 'integer']);
 
-SELECT function_returns('vrp_pickdeliver',
+SELECT function_returns('vrp_pgr_pickdeliver',
     ARRAY['text', 'text', 'text', 'double precision', 'integer', 'integer'],
     'setof record');
 
@@ -299,61 +299,61 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-SELECT test_anyInteger_orders('vrp_pickdeliver',
+SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
     ARRAY['id', 'demand',
     'p_node_id', 'p_open', 'p_close', 'p_service',
     'd_node_id', 'd_open', 'd_close', 'd_service'],
     'id');
 
-SELECT test_anyInteger_orders('vrp_pickdeliver',
+SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
     ARRAY['id', 'demand',
     'p_node_id', 'p_open', 'p_close', 'p_service',
     'd_node_id', 'd_open', 'd_close', 'd_service'],
     'p_node_id');
 
-SELECT test_anyInteger_orders('vrp_pickdeliver',
+SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
     ARRAY['id', 'demand',
     'p_node_id', 'p_open', 'p_close', 'p_service',
     'd_node_id', 'd_open', 'd_close', 'd_service'],
     'd_node_id');
 
-SELECT test_anynumerical_orders('vrp_pickdeliver',
+SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
     ARRAY['id', 'demand',
     'p_node_id', 'p_open', 'p_close', 'p_service',
     'd_node_id', 'd_open', 'd_close', 'd_service'],
     'demand');
 
-SELECT test_anynumerical_orders('vrp_pickdeliver',
+SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
     ARRAY['id', 'demand',
     'p_node_id', 'p_open', 'p_close', 'p_service',
     'd_node_id', 'd_open', 'd_close', 'd_service'],
     'p_open');
 
-SELECT test_anynumerical_orders('vrp_pickdeliver',
+SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
     ARRAY['id', 'demand',
     'p_node_id', 'p_open', 'p_close', 'p_service',
     'd_node_id', 'd_open', 'd_close', 'd_service'],
     'p_close');
 
-SELECT test_anynumerical_orders('vrp_pickdeliver',
+SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
     ARRAY['id', 'demand',
     'p_node_id', 'p_open', 'p_close', 'p_service',
     'd_node_id', 'd_open', 'd_close', 'd_service'],
     'p_service');
 
-SELECT test_anynumerical_orders('vrp_pickdeliver',
+SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
     ARRAY['id', 'demand',
     'p_node_id', 'p_open', 'p_close', 'p_service',
     'd_node_id', 'd_open', 'd_close', 'd_service'],
     'd_open');
 
-SELECT test_anynumerical_orders('vrp_pickdeliver',
+SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
     ARRAY['id', 'demand',
     'p_node_id', 'p_open', 'p_close', 'p_service',
     'd_node_id', 'd_open', 'd_close', 'd_service'],
     'd_close');
 
-SELECT test_anynumerical_orders('vrp_pickdeliver',
+SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
     ARRAY['id', 'demand',
     'p_node_id', 'p_open', 'p_close', 'p_service',
     'd_node_id', 'd_open', 'd_close', 'd_service'],
@@ -365,15 +365,15 @@ SELECT test_anynumerical_orders('vrp_pickdeliver',
     'start_service' is optional defaults to 0
 */
 
-SELECT test_anyInteger_matrix('vrp_pickdeliver',
+SELECT test_anyInteger_matrix('vrp_pgr_pickdeliver',
     ARRAY['start_vid', 'end_vid', 'agg_cost'],
     'start_vid');
 
-SELECT test_anyInteger_matrix('vrp_pickdeliver',
+SELECT test_anyInteger_matrix('vrp_pgr_pickdeliver',
     ARRAY['start_vid', 'end_vid', 'agg_cost'],
     'end_vid');
 
-SELECT test_anyNumerical_matrix('vrp_pickdeliver',
+SELECT test_anyNumerical_matrix('vrp_pgr_pickdeliver',
     ARRAY['start_vid', 'end_vid', 'agg_cost'],
     'agg_cost');
 

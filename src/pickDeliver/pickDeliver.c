@@ -37,8 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "drivers/pickDeliver/pickDeliver_driver.h"
 
 PGDLLEXPORT Datum
-_vrp_pickdeliver(PG_FUNCTION_ARGS);
-PG_FUNCTION_INFO_V1(_vrp_pickdeliver);
+_vrp_pgr_pickdeliver(PG_FUNCTION_ARGS);
+PG_FUNCTION_INFO_V1(_vrp_pgr_pickdeliver);
 
 
 static
@@ -208,7 +208,7 @@ process(
 
 
 PGDLLEXPORT Datum
-_vrp_pickdeliver(PG_FUNCTION_ARGS) {
+_vrp_pgr_pickdeliver(PG_FUNCTION_ARGS) {
     FuncCallContext     *funcctx;
     TupleDesc            tuple_desc;
 

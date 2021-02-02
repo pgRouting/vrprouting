@@ -11,10 +11,10 @@
 
 * `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__
 * Supported Versions
-  `Latest <https://vrp.pgrouting.org/latest/en/vrp_vrpOneDepot.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0/en/vrp_vrpOneDepot.html>`__)
+  `Latest <https://vrp.pgrouting.org/latest/en/vrp_oneDepot.html>`__
+  (`0.0 <https://vrp.pgrouting.org/0/en/vrp_oneDepot.html>`__)
 
-vrp_vrpOneDepot - Experimental
+vrp_oneDepot - Experimental
 ===============================================================================
 
 .. include:: experimental.rst
@@ -59,7 +59,7 @@ Result Columns
 Example
 -------------------------------------------------------------------------------
 
-.. literalinclude:: doc-pgr_vrpOneDepot.queries
+.. literalinclude:: doc-oneDepot.queries
 
 .. rubric:: Data
 

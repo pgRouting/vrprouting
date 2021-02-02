@@ -4,7 +4,7 @@ SELECT plan(15);
 
 
 PREPARE No_problem_query AS
-SELECT * FROM vrp_pickDeliver(
+SELECT * FROM vrp_pgr_pickDeliver(
     $$ SELECT * FROM orders ORDER BY id $$,
     $$ SELECT * FROM vehicles ORDER BY id$$,
     $$ SELECT * FROM pgr_dijkstraCostMatrix(

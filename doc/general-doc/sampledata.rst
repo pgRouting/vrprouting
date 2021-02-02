@@ -62,7 +62,7 @@ Orders table
    :start-after: --ORDERS TABLE start
    :end-before: --ORDERS TABLE end
 
-`pgr_oneDepot` data
+`vrp_oneDepot` data
 -------------------------------------------------------------------------------
 
 .. literalinclude:: ../../tools/testers/solomon_100_rc101.data.sql

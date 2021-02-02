@@ -1,12 +1,12 @@
 /*PGR-GNU*****************************************************************
-File: _pickDeliverEuclidean.sql
+File: _pgr_pickDeliver.sql
 
 Generated with Template by:
-Copyright (c) 2015 pgRouting developers
+Copyright (c) 2016 pgRouting developers
 Mail: project@pgrouting.org
 
 Function's developer:
-Copyright (c) 2015 Celia Virginia Vergara Castillo
+Copyright (c) 2017 Celia Virginia Vergara Castillo
 Mail:
 
 ------
@@ -27,10 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
---v2.6
-CREATE FUNCTION _vrp_pickDeliverEuclidean (
+--v0.0
+CREATE FUNCTION _vrp_pgr_pickDeliver(
     TEXT, -- orders_sql
     TEXT, -- vehicles_sql
+    TEXT, -- matrix_cell_sql
 
     factor FLOAT DEFAULT 1,
     max_cycles INTEGER DEFAULT 10,
@@ -41,6 +42,7 @@ CREATE FUNCTION _vrp_pickDeliverEuclidean (
     OUT vehicle_id BIGINT,
     OUT stop_seq INTEGER,
     OUT stop_type INTEGER,
+    OUT stop_id BIGINT,
     OUT order_id BIGINT,
     OUT cargo FLOAT,
     OUT travel_time FLOAT,
@@ -49,10 +51,10 @@ CREATE FUNCTION _vrp_pickDeliverEuclidean (
     OUT service_time FLOAT,
     OUT departure_time FLOAT)
 RETURNS SETOF RECORD AS
-'MODULE_PATHNAME'
+ 'MODULE_PATHNAME'
 LANGUAGE c VOLATILE STRICT;
 
 -- COMMENTS
 
-COMMENT ON FUNCTION _vrp_pickDeliverEuclidean(TEXT, TEXT, FLOAT, INTEGER, INTEGER)
+COMMENT ON FUNCTION _vrp_pgr_pickDeliver(TEXT, TEXT, TEXT, FLOAT, INTEGER, INTEGER)
 IS 'pgRouting internal function';

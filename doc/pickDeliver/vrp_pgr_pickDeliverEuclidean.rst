@@ -11,14 +11,13 @@
 
 * `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__
 * Supported Versions
-  `Latest <https://vrp.pgrouting.org/latest/en/vrp_pickDeliver.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0/en/vrp_pickDeliver.html>`__)
+  `Latest <https://vrp.pgrouting.org/latest/en/vrp_pgr_pickDeliverEuclidean.html>`__
+  (`0.0 <https://vrp.pgrouting.org/0/en/vrp_pgr_pickDeliverEuclidean.html>`__)
 
-
-vrp_pickDeliver - Experimental
+vrp_pgr_pickDeliverEuclidean - Experimental
 ===============================================================================
 
-``vrp_pickDeliver`` - Pickup and delivery Vehicle Routing Problem
+``vrp_pgr_pickDeliverEuclidean`` - Pickup and delivery Vehicle Routing Problem
 
 .. include:: experimental.rst
    :start-after: begin-warn-expr
@@ -28,9 +27,9 @@ vrp_pickDeliver - Experimental
 
 Version 0.0.0
 
-* New **experimental** function
+- New **experimental** function
 
-  * Ported vrp_pickDeliver from pgRouting v3.1.3
+  - Ported pgr_pickDeliverEuclidean from pgRouting v3.1.3
 
 
 Synopsis
@@ -39,19 +38,22 @@ Synopsis
 Problem: Distribute and optimize the pickup-delivery pairs into a fleet of vehicles.
 
 - Optimization problem is NP-hard.
-- pickup and Delivery with time windows.
-- All vehicles are equal.
+- Pickup and Delivery:
 
-  - Same Starting location.
-  - Same Ending location which is the same as Starting location.
-  - All vehicles travel at the same speed.
+  - capacitated
+  - with time windows.
 
-- A customer is for doing a pickup or doing a deliver.
+- The vehicles
 
-  - has an open time.
-  - has a closing time.
-  - has a service time.
-  - has an (x, y) location.
+  - have (x, y) start and ending locations.
+  - have a start and ending service times.
+  - have opening and closing times for the start and ending locations.
+
+- An order is for doing a pickup and a a deliver.
+
+  - has (x, y) pickup and delivery locations.
+  - has opening and closing times for the pickup and delivery locations.
+  - has a pickup and deliver service times.
 
 - There is a customer where to deliver a pickup.
 
@@ -60,29 +62,27 @@ Problem: Distribute and optimize the pickup-delivery pairs into a fleet of vehic
   - A pickup is done before the delivery.
 
 
-Characteristics
-...............................................................................
 
-- All trucks depart at time 0.
+Characteristics
+-------------------------------------------------------------------------------
+
 - No multiple time windows for a location.
 - Less vehicle used is considered better.
 - Less total duration is better.
 - Less wait time is better.
-- the algorithm will raise an exception when
+- Six different optional different initial solutions
 
-  - If there is a pickup-deliver pair than violates time window
-  - The speed, max_cycles, ma_capacity have illegal values
-
-- Six different initial will be optimized
   - the best solution found will be result
 
+
 .. index::
-    single: pickDeliver - Experimental
+    single: pgr_pickDeliverEuclidean - Experimental
+
 
 Signature
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pickDeliver/pickDeliver.sql
+.. include:: ../sql/pickDeliver/pgr_pickDeliverEuclidean.sql
    :start-after: signature start
    :end-before: signature end
 
@@ -90,7 +90,7 @@ Signature
 Parameters
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pickDeliver/pickDeliver.sql
+.. include:: ../sql/pickDeliver/pgr_pickDeliverEuclidean.sql
    :start-after: parameters start
    :end-before: parameters end
 
@@ -103,30 +103,24 @@ Orders SQL
 ................................................................................
 
 .. include:: ../../src/common/orders_input.c
-    :start-after: pgr_pickDeliver start
-    :end-before: pgr_pickDeliver end
+    :start-after: pgr_pickDeliverEuclidean start
+    :end-before: pgr_pickDeliverEuclidean end
 
 Vehicles SQL
 ................................................................................
 
 .. include:: ../../src/common/vehicles_input.c
-    :start-after: pgr_pickDeliver start
-    :end-before: pgr_pickDeliver end
+    :start-after: pgr_pickDeliverEuclidean start
+    :end-before: pgr_pickDeliverEuclidean end
 
-
-Time Matrix SQL
-.........................................................................................
-
-.. include:: ../../src/common/matrixRows_input.c
-    :start-after: pgr_pickDeliver start
-    :end-before: pgr_pickDeliver end
 
 Result Columns
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pickDeliver/pickDeliver.sql
+.. include:: ../sql/pickDeliver/pgr_pickDeliverEuclidean.sql
    :start-after: result start
    :end-before: result end
+
 
 Example
 -------------------------------------------------------------------------------
@@ -135,13 +129,13 @@ Example
 
 This example use the following data:
 
-.. literalinclude:: doc-pickDeliver.queries
-   :start-after: --q2
-   :end-before: --q3
+
+.. literalinclude:: ./doc-pgr_pickDeliverEuclidean.queries
+   :start-after: --q1
+   :end-before: --q2
 
 
-See Also
--------------------------------------------------------------------------------
+.. rubric:: See Also
 
 * :doc:`VRP-category`
 * The queries use the :doc:`sampledata` network.

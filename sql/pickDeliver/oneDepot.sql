@@ -1,4 +1,5 @@
 /*PGR-GNU*****************************************************************
+File: oneDepot.sql
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -27,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
 --------------------
--- vrp_vrpOneDepot
+-- vrp_oneDepot
 --------------------
 
 
---v2.6
-CREATE FUNCTION vrp_vrpOneDepot(
+--v0.0
+CREATE FUNCTION vrp_oneDepot(
 	text,  -- order_sql
 	text, -- vehicle_sql
 	text, -- cost_sql
@@ -46,7 +47,7 @@ CREATE FUNCTION vrp_vrpOneDepot(
 RETURNS SETOF RECORD AS
 $BODY$
     SELECT order_id::INTEGER, stop_seq::INTEGER, vehicle_id::INTEGER, arrival_time::INTEGER, departure_time::INTEGER
-    FROM _vrp_vrpOneDepot($1, $2,
+    FROM _vrp_oneDepot($1, $2,
        '
             SELECT src_id AS start_vid, dest_id AS end_vid, traveltime AS agg_cost FROM ('||$3||') AS a
        ',
@@ -60,8 +61,8 @@ ROWS 1000;
 -- COMMENTS
 
 
-COMMENT ON FUNCTION vrp_vrpOneDepot(TEXT, TEXT, TEXT, INTEGER)
-IS 'vrp_vrpOneDepot
+COMMENT ON FUNCTION vrp_oneDepot(TEXT, TEXT, TEXT, INTEGER)
+IS 'vrp_OneDepot
 - EXPERIMENTAL
 - Parameters
   - orders SQL with columns: id, x, y, order_unit, open_time, close_time, service_time
@@ -69,5 +70,5 @@ IS 'vrp_vrpOneDepot
   - cost SQL with columns: src_id, dest_id, cost, distance, traveltime
   - depot id
 - Documentation:
-  - ${PROJECT_DOC_LINK}/vrp_vrpOneDepot.html
+  - ${PROJECT_DOC_LINK}/vrp_oneDepot.html
 ';

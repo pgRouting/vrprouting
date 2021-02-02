@@ -6,7 +6,7 @@ SET client_min_messages TO ERROR;
 
 
 PREPARE missing_id_on_matrix AS
-SELECT * FROM vrp_pickDeliver(
+SELECT * FROM vrp_pgr_pickDeliver(
     $$ SELECT * FROM orders ORDER BY id $$,
     $$ SELECT * FROM vehicles $$,
     $$ SELECT * from pgr_dijkstraCostMatrix(

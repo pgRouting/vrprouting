@@ -1,0 +1,27 @@
+BEGIN;
+BEGIN
+SET client_min_messages TO NOTICE;
+SET
+SELECT * FROM vrp_oneDepot(
+    'SELECT * FROM solomon_100_RC_101',
+    'SELECT * FROM vrp_vehicles',
+    'SELECT * FROM vrp_distance',
+    1);
+ERROR:  relation "solomon_100_rc_101" does not exist
+LINE 2:     vrp_orders AS (SELECT * FROM solomon_100_RC_101 ),
+                                         ^
+QUERY:  WITH
+    vrp_orders AS (SELECT * FROM solomon_100_RC_101 ),
+    pickups AS (
+        SELECT id, x AS p_x, y AS p_y, open_time AS p_open, close_time AS p_close, service_time AS p_service
+        FROM vrp_orders
+        WHERE id = 1
+    )
+    SELECT vrp_orders.id AS id, order_unit AS demand, pickups.id AS p_node_id, p_x, p_y, p_open, p_close, p_service,
+    vrp_orders.id AS d_node_id, x AS d_x, y AS d_y, open_time AS d_open, close_time AS d_close, service_time AS d_service
+    FROM vrp_orders, pickups
+    WHERE vrp_orders.id != 1
+CONTEXT:  PL/pgSQL function _vrp_onedepot(text,text,text,integer) line 46 at RETURN QUERY
+SQL function "vrp_onedepot" statement 1
+ROLLBACK;
+ROLLBACK
