@@ -71,9 +71,9 @@ perl tools/testers/doc_queries_generator.pl -pgisver "${POSTGIS_VER}" -pgport "$
 
 #pgTap tests disable for now until we have installed
 if false; then
-psql -c "CREATE DATABASE ___pgr___test___"
+psql -c "CREATE DATABASE ___vrp___test___"
 tools/testers/pg_prove_tests.sh "${PGUSER}"
-psql -c "DROP DATABASE ___pgr___test___"
+psql -c "DROP DATABASE ___vrp___test___"
 fi
 
 #stop the postgres server

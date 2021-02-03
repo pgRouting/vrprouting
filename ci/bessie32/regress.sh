@@ -27,6 +27,6 @@ sudo make install
 cd "../${BRANCH}" || exit 1
 perl tools/testers/doc_queries_generator.pl
 
-psql -c "CREATE DATABASE ___pgr___test___"
+psql -c "CREATE DATABASE ___vrp___test___"
 bash tools/testers/pg_prove_tests.sh "${PGUSER}"
-psql -c "DROP DATABASE ___pgr___test___"
+psql -c "DROP DATABASE ___vrp___test___"

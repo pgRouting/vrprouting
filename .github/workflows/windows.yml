@@ -44,7 +44,7 @@ jobs:
       #     sphinx-build --version
       #     sudo -u postgres psql -p 5432 -c "CREATE EXTENSION postgis"
       #     export PATH=/usr/lib/postgresql/${{ matrix.psql }}/bin:$PATH
-      #     sudo -u postgres createdb ___pgr___test___
+      #     sudo -u postgres createdb ___vrp___test___
       #     sudo -u postgres createdb pgr_test__db__test
 
       # - name: Configure

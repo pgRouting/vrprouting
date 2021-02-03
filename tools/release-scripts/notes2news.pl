@@ -7,7 +7,7 @@ sub Usage {
 }
 
 
-my $in_file = "doc/general-doc/release_notes.rst";
+my $in_file = "doc/general/release_notes.rst";
 my $out_file = "NEWS";
 
 my $ofh;

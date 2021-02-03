@@ -48,7 +48,7 @@ digraph structs {
 
  * Data comes with an identifier
  * - does not check for uniquenes of those identifiers
- *   - it is responsability of the database mantainers to give unique identifiers
+ *   - it is responsibility of the database mantainers to give unique identifiers
 
  * Example use:
  * ~~~ {.c}

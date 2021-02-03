@@ -282,9 +282,9 @@ The following instructions start from *path/to/pgrouting/*
 .. code-block:: none
 
     tools/testers/doc_queries_generator.pl
-    createdb  -U <user> ___pgr___test___
+    createdb  -U <user> ___vrp___test___
     sh ./tools/testers/pg_prove_tests.sh <user>
-    dropdb  -U <user> ___pgr___test___
+    dropdb  -U <user> ___vrp___test___
 
 See Also
 -------------------------------------------------------------------------------

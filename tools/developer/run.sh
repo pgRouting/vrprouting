@@ -23,6 +23,7 @@ version
 "
 
 TESTDIRS=${ALLDIRS}
+TESTDIRS="version"
 
 
 function test_compile {
@@ -37,7 +38,7 @@ if [ -n "$1" ]; then
 fi
 
 
-cd build/
+cd build/ || exit 1
 
 cmake  -DPOSTGRESQL_BIN=${PGBIN} -DDOC_USE_BOOTSTRAP=ON -DWITH_DOC=ON -DBUILD_DOXY=ON  -DBUILD_LATEX=ON  -DCMAKE_BUILD_TYPE=Debug -DPROJECT_DEBUG=ON ..
 #cmake  -DPOSTGRESQL_BIN=${PGBIN} -DDOC_USE_BOOTSTRAP=ON -DWITH_DOC=ON -DBUILD_DOXY=ON  -DBUILD_LATEX=ON  -DES=ON -DLINKCHECK=ON ..
@@ -52,7 +53,7 @@ echo
 echo --------------------------------------------
 echo  Update signatures
 echo --------------------------------------------
-tools/release-scripts/get_signatures.sh -p ${PGPORT}
+tools/scripts/get_signatures.sh -p ${PGPORT}
 
 #exit
 
@@ -76,11 +77,11 @@ done
 # pgTap test all
 ########################################################
 
-dropdb --if-exists -p $PGPORT ___pgr___test___
-createdb  -p $PGPORT ___pgr___test___
+dropdb --if-exists -p $PGPORT ___vrp___test___
+createdb  -p $PGPORT ___vrp___test___
 echo $PGPORT
 tools/testers/pg_prove_tests.sh vicky $PGPORT
-dropdb  -p $PGPORT ___pgr___test___
+dropdb  -p $PGPORT ___vrp___test___
 
 
 ################################
@@ -94,7 +95,7 @@ echo
 echo --------------------------------------------
 echo  Update / Verify NEWS
 echo --------------------------------------------
-tools/release-scripts/notes2news.pl
+tools/scripts/notes2news.pl
 if git status | grep 'NEWS'; then
     echo "**************************************************"
     echo "           WARNING"
@@ -121,12 +122,4 @@ cd ..
 
 }
 
-# Uncomment what you need
-for compiler in ${GCC}
-do
-    if [ -n "$1" ]; then
-        echo "Fresh build"
-        rm -rf build/*
-    fi
-    test_compile ${compiler}
-done
+test_compile ${GCC}

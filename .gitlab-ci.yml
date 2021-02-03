@@ -2,7 +2,7 @@ image: gcc
 
 
 variables:
-  POSTGRES_DB: ___pgr___test___
+  POSTGRES_DB: ___vrp___test___
   POSTGRES_USER: root
   POSTGRES_PASSWORD: "runner"
   PGIS_VER: 3
@@ -38,6 +38,6 @@ build_vrprouting:
     - sudo make install
     - cd ..
 
-    - createdb ___pgr___test___
+    - createdb ___vrp___test___
     - bash ./tools/testers/pg_prove_tests.sh root 5432
 

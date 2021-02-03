@@ -6,7 +6,7 @@
 DIR=$(git rev-parse --show-toplevel)/sql/sigs
 
 pushd "${DIR}" > /dev/null || exit
-SIGNATURES=$(git ls-files *.sig | perl -pe 's/pgrouting--(.*)\.sig/$1/')
+SIGNATURES=$(git ls-files *.sig | perl -pe 's/vrprouting--(.*)\.sig/$1/')
 for s1 in ${SIGNATURES[@]}
 do
     for s2 in ${SIGNATURES[@]}
@@ -20,7 +20,7 @@ do
         # comparing within same mayors only
         if [ "$mayor1" != "$mayor2" ]; then continue; fi
 
-        missing+=$(diff "pgrouting--$s1.sig" "pgrouting--$s2.sig" | grep '<')
+        missing+=$(diff "vrprouting--$s1.sig" "vrprouting--$s2.sig" | grep '<')
     done
 done
 

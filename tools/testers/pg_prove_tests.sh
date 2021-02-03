@@ -16,7 +16,7 @@ then
 else
     PGPORT="-p $PGPORT"
 fi
-PGDATABASE="___pgr___test___"
+PGDATABASE="___vrp___test___"
 echo "$PGPORT"
 
 

@@ -26,17 +26,20 @@
 
 set -e
 
+# TODO
+# make a more general script when 0.0.1 comes out
+
 TWEAK=""
 PGPORT=5432
 echo "sorry this only works on vicky's computer"
 PGUSER="vicky"
-DB="___pgr___test___"
+DB="___vrp___test___"
 
 function info {
 
     # ----------------------
     #
-    echo "**pgRouting version must be installed before calling**"
+    echo "**vrpRouting version must be installed before calling**"
     echo "$1"
 
     echo "EXAMPLE USAGE"
@@ -55,7 +58,7 @@ if [[ -z  "$1" ]]; then
 fi
 
 FROM_PGR="$1"
-CURRENT=$(grep -Po '(?<=project\(PGROUTING VERSION )[^;]+' CMakeLists.txt)
+CURRENT=$(grep -Po '(?<=project\(VRPROUTING VERSION )[^;]+' CMakeLists.txt)
 LONG=$2
 
 if [[ "$FROM_PGR" == 2.* ]];
@@ -67,7 +70,7 @@ fi
 dropdb --if-exists "$DB"
 
 cd build
-cmake -DPGROUTING_DEBUG=ON -DCMAKE_BUILD_TYPE=Debug ..
+cmake -DPROJECT_DEBUG=ON -DCMAKE_BUILD_TYPE=Debug ..
 make -j 4
 sudo make install
 cd ..
@@ -84,18 +87,17 @@ echo ------------------------------------
 
 createdb  "$DB"
 psql  "$DB"  <<EOF
-CREATE extension postgis;
-CREATE extension pgrouting with version '$1';
+CREATE extension vrprouting with version '$1' CASCADE;
 EOF
 
-OLD_VERSION=$(psql "$DB" -t -c 'SELECT * FROM pgr_version()')
+OLD_VERSION=$(psql "$DB" -t -c 'SELECT * FROM vrp_full_version()')
 echo "$OLD_VERSION"
 
 
-psql "$DB" -e -c "ALTER extension pgrouting update to '$2'"
+psql "$DB" -e -c "ALTER extension vrprouting update to '$2'"
 
 
-NEW_VERSION=$(psql "$DB" -t -c 'SELECT * FROM pgr_version()')
+NEW_VERSION=$(psql "$DB" -t -c 'SELECT * FROM vrp_full_version()')
 
 echo "$OLD_VERSION ->> $NEW_VERSION"
 
@@ -108,14 +110,12 @@ fi
 
 
 DIR="sql/sigs"
-FILE="$DIR/pgrouting--$2.sig"
+FILE="$DIR/vrprouting--$2.sig"
 
-echo "#VERSION pgrouting $2" > "$FILE"
+echo "#VERSION vrprouting $2" > "$FILE"
 {
-    echo "#TYPES"
-    psql "${DB}" -c '\dx+ pgrouting' -A | grep '^type' | cut -d ' ' -f2-
     echo "#FUNCTIONS"
-    psql ${DB} -c '\dx+ pgrouting' -A | grep '^function' | cut -d ' ' -f2-
+    psql ${DB} -c '\dx+ vrprouting' -A | grep '^function' | cut -d ' ' -f2-
 } >> "${FILE}"
 
 

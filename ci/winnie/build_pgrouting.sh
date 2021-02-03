@@ -8,7 +8,7 @@ JENKINS_DEBUG=1
 
 #-----------------
 # variables setup
-#  Variables recived by jenkins setup
+#  Variables received by jenkins setup
 #-----------------
 #export OS_BUILD=
 #export PG_VER=
@@ -25,7 +25,7 @@ then
     #---------------
     echo
     echo "***************************"
-    echo Recived variables
+    echo Received variables
     echo "**************************"
     #---------------
     echo "OS_BUILD ${OS_BUILD}"
@@ -217,9 +217,9 @@ then
 
 else
 
-    psql -c "CREATE DATABASE ___pgr___test___"
+    psql -c "CREATE DATABASE ___vrp___test___"
     tools/testers/pg_prove_tests.sh "${PGUSER}"
-    psql -c "DROP DATABASE ___pgr___test___"
+    psql -c "DROP DATABASE ___vrp___test___"
 
 fi
 

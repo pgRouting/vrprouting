@@ -15,7 +15,7 @@ DIR="$1"
 shift
 PGFLAGS=$*
 
-PGDATABASE="___pgr___test___"
+PGDATABASE="___vrp___test___"
 
 dropdb --if-exists "${PGFLAGS}" "${PGDATABASE}"
 createdb "${PGFLAGS}" "${PGDATABASE}"

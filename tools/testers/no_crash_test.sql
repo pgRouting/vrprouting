@@ -31,11 +31,7 @@ BEGIN
         IF i = 0 THEN
             RETURN query SELECT * FROM isnt_empty(q1);
         ELSE
-            IF func='pgr_alphashape' THEN
-                RETURN query SELECT * FROM isnt_empty(q1);
-            ELSE
-                RETURN query SELECT * FROM is_empty(q1);
-            END IF;
+            RETURN query SELECT * FROM is_empty(q1);
         END IF;
 
     END LOOP;

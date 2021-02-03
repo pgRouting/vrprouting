@@ -6,7 +6,7 @@ SET
 SELECT * FROM vrp_full_version();
  version | build_type | compile_date |     library      |         system         | postgresql | compiler  | boost  |   hash
 ---------+------------+--------------+------------------+------------------------+------------+-----------+--------+-----------
- 0.0.0   | Debug      | 2021/02/02   | vrprouting-0.0.0 | Linux-5.4.0-65-generic | 12.5       | GNU-8.4.0 | 1.71.0 | 3ea6bbdd8
+ 0.0.0   | Debug      | 2021/02/03   | vrprouting-0.0.0 | Linux-5.4.0-65-generic | 12.5       | GNU-8.4.0 | 1.71.0 | 84424cbd6
 (1 row)
 
 -- q2

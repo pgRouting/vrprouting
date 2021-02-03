@@ -57,7 +57,7 @@ my $DEBUG = 0;
 my $DEBUG1 = 0;
 my $FORCE = 0;
 
-my $DBNAME = "pgr_test__db__test";
+my $DBNAME = "vrp_test__db__test";
 my $DBUSER;
 my $DBHOST;
 my $DBPORT;
@@ -69,13 +69,12 @@ sub Usage {
     "       -pgport port        - postgresql port to use\n" .
     "       -pguser username    - postgresql user role to use\n" .
     "       -pgisver vpgis      - postgis version\n" .
-    "       -pgrver vpgr        - pgrouting version\n" .
+    "       -pgrver vpgr        - vrprouting version\n" .
     "       -psql /path/to/psql - optional path to psql\n" .
     "       -v                  - verbose messages for small debuging\n" .
-    "       -dbg                - use when CMAKE_BUILD_TYPE = DEBUG\n" .
     "       -debug              - verbose messages for debuging(enter twice for more)\n" .
     "       -debug1             - DEBUG1 messages (for timing reports)\n" .
-    "       -clean              - dropdb pgr_test__db__test\n" .
+    "       -clean              - dropdb vrp_test__db__test\n" .
     "       -ignorenotice       - ignore NOTICE statements when reporting failures\n" .
     "       -alg 'dir'          - directory to select which algorithm subdirs to test\n" .
     "       -documentation      - ONLY generate documentation examples\n" .
@@ -149,9 +148,6 @@ while (my $a = shift @ARGV) {
         $DOCUMENTATION = 1;
         $DEBUG1 = 0; # disbale timing reports during documentation generation
     }
-    elsif ($a =~ /^-dbg/i) {
-        $INTERNAL_TESTS = 1; #directory internalQueryTests is also tested
-    }
     else {
         warn "Error: unknown option '$a'\n";
         Usage();
@@ -189,7 +185,7 @@ print "Operative system found: $OS\n";
 # Traverse desired filesystems
 File::Find::find({wanted => \&want_tests}, @testpath);
 
-die "Error: no test files found. Run this command from the top level pgRouting directory!\n" unless @cfgs;
+die "Error: no test files found. Run this command from the top level vrpRouting directory!\n" unless @cfgs;
 
 createTestDB($DBNAME);
 
@@ -250,27 +246,11 @@ sub run_test {
     $res{comment} = $t->{comment} if $t->{comment};
     #t->{data}  referencing the key data of the data files
 
-    my $singleDB = "____pgr___single_test___";
-    for my $testName (@{$t->{singleTest}}) {
-        createTestDB($singleDB);
-        mysystem("$psql $connopts -A -t -q -f tools/testers/sampledata.sql' $singleDB >> $TMP2 2>\&1 ");
-        for my $x (@{$t->{data}}) {
-            mysystem("$psql $connopts -A -t -q -f '$dir/$x' $singleDB >> $TMP2 2>\&1 ");
-        }
-        process_single_test($testName, $dir, $singleDB,\%res);
-        mysystem("dropdb $connopts $singleDB");
-    }
-
     mysystem("$psql $connopts -A -t -q -f tools/testers/sampledata.sql $DBNAME >> $TMP2 2>\&1 ");
     for my $x (@{$t->{data}}) {
         mysystem("$psql $connopts -A -t -q -f '$dir/$x' $DBNAME >> $TMP2 2>\&1 ");
     }
 
-    if ($INTERNAL_TESTS) {
-        for my $x (@{$t->{debugtests}}) {
-            process_single_test($x, $dir,, $DBNAME, \%res)
-        }
-    }
     if ($DOCUMENTATION) {
         for my $x (@{$t->{documentation}}) {
             process_single_test($x, $dir,, $DBNAME, \%res);
@@ -337,9 +317,7 @@ sub process_single_test{
 
         open(PSQL, "|$psql $connopts  --set='VERBOSITY terse' -e $database > $TMP 2>\&1 ") || do {
             $res->{"$dir/$x.test.sql"} = "FAILED: could not open connection to db : $!";
-            if (!$INTERNAL_TESTS) {
-               $stats{z_fail}++;
-            }
+            $stats{z_fail}++;
             next;
         };
     }
@@ -454,23 +432,24 @@ sub createTestDB {
     print "-- Installing postgis extension $postgis_ver\n" if $DEBUG;
     mysystem("$psql $connopts -c \"$encoding CREATE EXTENSION postgis $postgis_ver \" $databaseName");
 
-    # Install pgrouting into the database
+    # Install vrprouting into the database
     my $myver = '';
     if ($vpgr) {
         $myver = " VERSION '$vpgr'";
     }
-    print "Installing pgrouting extension $myver\n" if $DEBUG;
+    print "Installing vrprouting extension $myver\n" if $DEBUG;
     mysystem("$psql $connopts -c \"CREATE EXTENSION vrprouting $myver CASCADE\" $databaseName");
 
-    # Verify pgrouting was installed
+    # Verify vrprouting was installed
 
-    my $pgrv = `$psql $connopts -c "select pgr_version()" $databaseName`;
-    die "ERROR: failed to install pgrouting into the database!\n"
+    my $pgrv = `$psql $connopts -c "select vrp_version()" $databaseName`;
+    die "ERROR: failed to install vrprouting into the database!\n"
     unless $pgrv;
 
     print `$psql $connopts -c "select version();" postgres `, "\n";
     print `$psql $connopts -c "select postgis_full_version();" $databaseName `, "\n";
     print `$psql $connopts -c "select pgr_full_version();" $databaseName `, "\n";
+    print `$psql $connopts -c "select vrp_full_version();" $databaseName `, "\n";
 }
 
 sub dropTestDB {
