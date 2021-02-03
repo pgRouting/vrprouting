@@ -54,7 +54,7 @@ Experimental Functions
 .. rubric:: See Also
 
 * :doc:`proposed`
-* :doc:`official-functions`
+* :doc:`official`
 
 
 .. rubric:: Indices and tables

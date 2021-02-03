@@ -4,7 +4,7 @@ SET(LOCAL_FILES
     experimental.rst
     index.rst
     introduction.rst
-    official-functions.rst
+    official.rst
     installation.rst
     proposed.rst
     release_notes.rst

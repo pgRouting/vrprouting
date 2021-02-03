@@ -1,0 +1,63 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) vrpRouting Contributors - Version v0.0.0
+# This file is distributed under the same license as the vrpRouting package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: vrpRouting v0.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-03 09:17-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../build/doc/official.rst:12
+msgid "`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__"
+msgstr ""
+
+#: ../../build/doc/official.rst:13
+msgid "Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/official.html>`__ (`0.0 <https://vrp.pgrouting.org/0/en/official.html>`__)"
+msgstr ""
+
+#: ../../build/doc/official.rst:18
+msgid "Oficial functions"
+msgstr ""
+
+#: ../../build/doc/official.rst:21
+msgid "Function Families"
+msgstr ""
+
+#: ../../build/doc/official.rst:26
+#: ../../build/doc/official.rst:40
+msgid "Version"
+msgstr ""
+
+#: ../../build/doc/official.rst:37
+msgid "Functions by categories"
+msgstr ""
+
+#: ../../build/doc/official.rst:42
+msgid ":doc:`vrp_version` - Get vrpRouting's version information."
+msgstr ""
+
+#: ../../build/doc/official.rst:43
+msgid ":doc:`vrp_full_version` - Get vrpRouting's details of version."
+msgstr ""
+
+#: ../../build/doc/official.rst:47
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../build/doc/official.rst:48
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../build/doc/official.rst:49
+msgid ":ref:`search`"
+msgstr ""
+

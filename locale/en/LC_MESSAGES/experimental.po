@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) vrpRouting Contributors - Version v0.0.0
+# This file is distributed under the same license as the vrpRouting package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: vrpRouting v0.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-03 09:17-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: ../../build/doc/experimental.rst:11
+msgid ""
+"Supported Versions `Latest "
+"<https://vrp.pgrouting.org/latest/en/experimental.html>`__ (`0.0 "
+"<https://vrp.pgrouting.org/0.0/en/experimental.html>`__)"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:16
+msgid "Experimental Functions"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:20
+msgid "Possible server crash"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:22
+msgid "These functions might create a server crash"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:24
+msgid "Experimental functions"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:26
+msgid "They are not officially of the current release."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:27
+msgid "They likely will not be officially be part of the next release:"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:29
+msgid "The functions might not make use of ANY-INTEGER and ANY-NUMERICAL"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:30
+msgid "Name might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:31
+msgid "Signature might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:32
+msgid "Functionality might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:33
+msgid "pgTap tests might be missing."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:34
+msgid "Might need c/c++ coding."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:35
+msgid "May lack documentation."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:36
+msgid "Documentation if any might need to be rewritten."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:37
+msgid "Documentation examples might need to be automatically generated."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:38
+msgid "Might need a lot of feedback from the comunity."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:39
+msgid "Might depend on a proposed function of vrpRouting"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:40
+msgid "Might depend on a deprecated function of vrpRouting"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:45
+msgid "categories"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:46
+msgid ":doc:`VRP-category`"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:55
+msgid "See Also"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:56
+msgid ":doc:`proposed`"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:57
+msgid ":doc:`official`"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:61
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:62
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:63
+msgid ":ref:`search`"
+msgstr ""
+

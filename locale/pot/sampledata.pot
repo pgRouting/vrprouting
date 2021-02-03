@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) vrpRouting Contributors - Version v0.0.0
+# This file is distributed under the same license as the vrpRouting package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: vrpRouting v0.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-03 09:17-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../build/doc/sampledata.rst:11
+msgid "Sample Data"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:13
+msgid "The documentation provides very simple example queries based on a small sample network. To be able to execute the sample queries, run the following SQL commands to create a table with a small network data set."
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:18
+msgid "City Network"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:21
+msgid "Create table"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:28
+msgid "Populate"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:35
+msgid "Update geometry"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:42
+msgid "Add Topology"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:48
+msgid "`pgr_PickDeliver` data"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:51
+msgid "Vehicles table"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:58
+msgid "Orders table"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:66
+msgid "`vrp_oneDepot` data"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:72
+msgid "Images"
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:74
+msgid "Red arrows correspond when ``cost`` > 0 in the edge table."
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:75
+msgid "Blue arrows correspond when ``reverse_cost`` > 0 in the edge table."
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:76
+msgid "Points are outside the graph."
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:77
+msgid "Click on the graph to enlarge."
+msgstr ""
+
+#: ../../build/doc/sampledata.rst:81
+msgid "Currently VRP functions work on an undirected graph"
+msgstr ""
+

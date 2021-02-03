@@ -12,12 +12,11 @@ cd build
 cmake -D LOCALE=ON ..
 make locale
 cd ..
-sphinx-intl update -d locale
 ```
 
 When there is a new resource
 ```
-sphinx-intl update-txconfig-resources --locale-dir locale --pot-dir locale/pot --transifex-project-name pgrouting
+sphinx-intl update-txconfig-resources --locale-dir locale --pot-dir locale/pot --transifex-project-name vrpprouting
 ```
 
 
@@ -55,18 +54,17 @@ Push a New or changed resource:
 Add the resource to the `.tx/config` located at the root of the repository
 (Use as example the other resources)
 
+Edit with your favorite editor, for exampe `vim`
 ```
 vim ../.tx/config
 ```
 
 * Push the new resource
-```
-tx push --source -r pgrouting.pgr_createVerticesTable
 
+```
+tx push --source -r vrprouting.vrp_version
 ```
 Note: Do not put the file extension
-
-NOTE: INFORM: A documentation frezze to let translators translate
 
 ### Pull the resources from transifex
 

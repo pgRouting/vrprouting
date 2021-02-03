@@ -79,7 +79,7 @@ Official functions
 .. toctree::
    :maxdepth: 3
 
-   official-functions
+   official
 
 
 
