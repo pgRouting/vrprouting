@@ -28,7 +28,6 @@ environment:
   PGIS_VERSION: 3.2
   PG_VER: 10
 
-
 init:
   - git config --global core.autocrlf false
 
