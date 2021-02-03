@@ -20,21 +20,19 @@ if not defined COMMON_INSTALL_DIR set COMMON_INSTALL_DIR=%BUILD_ROOT_DIR%\local\
 
 :: for cmake its the min version
 if not defined CMAKE_VERSION set CMAKE_VERSION=3.12.2
-if not defined PGIS_VERSION set PGIS_VERSION=3.2
+if not defined PGIS_VERSION set PGIS_VERSION=3.1
 if not defined BOOST_VERSION set BOOST_VERSION=1.65.1
 set PG_VER_NO_DOT=pg%PG_VER:.=%
 
 
 set CMAKE_GENERATOR=Visual Studio %MSVC_VER:.0=% %MSVC_YEAR%
-if "%platform%"=="x64" (
-    set CMAKE_GENERATOR=%CMAKE_GENERATOR% Win64
-)
 
 :: Determine if arch is 32/64 bits
-if /I "%platform%"=="x86" ( set arch=32) else ( set arch=64)
+if /I "%platform%"=="x86" (set arch=32) else (set arch=64)
 
 :: Determine compiler used to build postgis
 if "%arch%"=="64" (set GCC=81) else (set GCC=481)
+
 
 ::
 :: =========================================================
@@ -101,11 +99,17 @@ echo ====================================
 :: Download and install Postgis
 ::
 
-set PGIS_WILD_FILE=postgis-%PG_VER_NO_DOT%-binaries-%PGIS_VERSION*%w%arch%gcc%GCC%.zip
-set PGIS_FILE=postgis-%PG_VER_NO_DOT%-binaries-%PGIS_VERSION%w%arch%gcc%GCC%.zip
+set PGIS_WILD_FILE=postgis-%PG_VER_NO_DOT%-binaries-%PGIS_VERSION%*
+set PGIS_FILE=postgis-%PG_VER_NO_DOT%-binaries-%PGIS_VERSION%devw%arch%gcc%GCC%.zip
 
 echo %PGIS_WILD_FILE%
 echo %PGIS_FILE%
+
+pushd %DOWNLOADS_DIR%
+echo cleaning download
+del * /F /Q
+dir
+popd
 
 echo ==================================== POSTGIS
 if not exist "C:\Progra~1\PostgreSQL\%PG_VER%\%PGIS_WILD_FILE%" (
@@ -140,8 +144,8 @@ if not exist "C:\Progra~1\PostgreSQL\%PG_VER%\%PGIS_WILD_FILE%" (
 
     if not exist "C:\Progra~1\PostgreSQL\%PG_VER%\%PGIS_WILD_FILE%" (
         echo something went wrong on PostGIS %PGIS_VERSION% installation
-        if defined LOCAL_DEBUG dir %DOWNLOADS_DIR%
-        if defined LOCAL_DEBUG dir C:\Progra~1\PostgreSQL\%PG_VER%\postgis*
+        dir %DOWNLOADS_DIR%
+        dir C:\Progra~1\PostgreSQL\%PG_VER%\postgis*
     ) else (
         echo **** PostGIS %PGIS_VERSION% %arch% installed
     )

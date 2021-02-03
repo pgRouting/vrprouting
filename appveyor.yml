@@ -16,7 +16,7 @@ clone_folder: c:\build\vrprouting
 
 cache:
   - downloads -> appveyor.yml
-  - c:\build\local\msvc160\x64 -> appveyor
+  - c:\build\local\msvc160\x64 -> appveyor.yml
 
 services:
   - postgresql101
@@ -25,7 +25,7 @@ environment:
   CONFIGURATION: Release
   MSVC_VER: 16.0
   BUILD_ROOT_DIR: c:\build
-  PGIS_VERSION: 3.2
+  PGIS_VERSION: 3.1
   PG_VER: 10
 
 init:
