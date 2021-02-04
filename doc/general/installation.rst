@@ -104,10 +104,11 @@ Dependencies
 
 To be able to compile vrpRouting, make sure that the following dependencies are met:
 
-* C and C++0x compilers
-  * g++ version >= 4.8
+.. TODO fill this numbers based on what is on the CMakeLists
+
+* C++ compilers with support of C++14 and C11
 * Postgresql version >= 12
-* The Boost Graph Library (BGL). Version >= 1.71
+* The Boost Graph Library (BGL). Version >= 1.65
 * CMake >= 3.2
 
 
@@ -115,27 +116,29 @@ To be able to compile vrpRouting, make sure that the following dependencies are 
 
 For user's documentation
 
-* Sphinx >= 1.1
+* Sphinx >= TBD
 * Latex
 
 For developer's documentation
 
-* Doxygen >= 1.7
+* Doxygen >=  TBD
 
-For testing
+For testing:
 
 * pgtap
 * pg_prove
 
 For using:
 
-* PostGIS version >= 2.2
+* PostGIS version >= 3
 
 .. rubric:: Example: Installing dependencies on linux
 
 Installing the compilation dependencies
 
 .. rubric:: Database dependencies
+
+This example is for PostgreSQL 10
 
 .. code-block:: none
 
@@ -241,6 +244,7 @@ We have tested on several platforms, For installing or reinstalling all the step
 
 .. rubric:: MinGW on Windows
 
+
 .. code-block:: bash
 
     $ mkdir build
@@ -252,7 +256,7 @@ We have tested on several platforms, For installing or reinstalling all the step
 
 .. rubric:: Linux
 
-The following instructions start from *path/to/pgrouting*
+The following instructions start from *path/to/repository*
 
 .. code-block:: bash
 
@@ -283,7 +287,7 @@ The following instructions start from *path/to/pgrouting/*
 
     tools/testers/doc_queries_generator.pl
     createdb  -U <user> ___vrp___test___
-    sh ./tools/testers/pg_prove_tests.sh <user>
+    bash ./tools/testers/pg_prove_tests.sh <user>
     dropdb  -U <user> ___vrp___test___
 
 See Also
