@@ -48,8 +48,6 @@ bool column_found(int colNumber);
 
 @throw ERROR Unknown type of column.
 
-@return NULL is always returned.
-
  */
 void pgr_fetch_column_info(
         Column_info_t info[],

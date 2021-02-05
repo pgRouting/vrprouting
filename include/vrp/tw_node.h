@@ -67,7 +67,7 @@ class Tw_node : public Dnode {
 
 
      /** @name accessors */
-     ///@ {
+     /*! @{*/
 
      /*! @brief Returns the opening time.*/
      inline int64_t order() const {return m_order;}
@@ -94,7 +94,7 @@ class Tw_node : public Dnode {
      /*! @brief time = distance / speed. */
      double travel_time_to(const Tw_node &other, double speed) const;
 
-     ///@}
+     /*! @}*/
 
      /** @name kind of node
       *
@@ -105,7 +105,7 @@ class Tw_node : public Dnode {
       *   - the demand are valid for the requested type
       */
 
-     ///@ {
+     /*! @{*/
 
 
      /*! @brief is_start
@@ -170,15 +170,15 @@ class Tw_node : public Dnode {
 
      std::string type_str() const;
 
-     /*!@}*/
+     /*! @} */
 
 
      /*! * @brief Print the contents of a Twnode object. */
      friend std::ostream& operator<< (std::ostream &log, const Tw_node &node);
 
-     /*! @name to be or not to be
-      * @{
-      */
+     /*! @name to be or not to be */
+     /*! @{ */
+
      bool operator ==(const Tw_node &rhs) const;
 
 
@@ -197,11 +197,11 @@ class Tw_node : public Dnode {
          return !is_early_arrival(arrival_time)
              && !is_late_arrival(arrival_time);
      }
-     /*!@}*/
+     /*! @} */
 
 
      /** @name document functions */
-     ///@ {
+     /*! @{ */
      /*!
       * The actual arrival time at @b This node, given that:
       * @b this node is visited directly after @b other node
@@ -251,7 +251,7 @@ class Tw_node : public Dnode {
      bool is_waitTime_compatible_IJ(const Tw_node &I, double speed) const;
 
 
-     ///@}
+     /*! @} */
 
 
 

@@ -3,6 +3,10 @@ build
 fix_typos
 code_linter
 src/version/_version.h
+v[0-9]*
+
+# files are ignored on gh-pages
+doxy
 
 .DS_Store
 .vagrant

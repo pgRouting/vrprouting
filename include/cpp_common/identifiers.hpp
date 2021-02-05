@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/** @file 
+/** @file
 File from pgRouting
 */
 
@@ -253,7 +253,6 @@ class Identifiers {
             return os;
         }
 
-    /// @}
 };
 
 #endif  // INCLUDE_CPP_COMMON_IDENTIFIERS_HPP_

@@ -48,15 +48,15 @@ namespace vrp {
 class Vehicle_node: public Tw_node {
  public:
      /** @name log */
-     ///@ {
+     /*! @{ */
 
      friend std::ostream& operator<<(
              std::ostream &log, const Vehicle_node &node);
 
-     ///@}
+     /*! @} */
 
      /** @name Node evaluation accessors */
-     ///@ {
+     /*! @{ */
 
      /*! \brief Truck's travel_time from previous node to this node. */
      inline double travel_time() const {return m_travel_time;}
@@ -73,7 +73,7 @@ class Vehicle_node: public Tw_node {
      /*! \brief delta_time = departure_time(this) - departure_time(previous) */
      inline double delta_time() const {return m_delta_time;}
 
-     ///@}
+     /*! @} */
 
 
 
@@ -81,7 +81,7 @@ class Vehicle_node: public Tw_node {
 
 
      /** @name Accumulated evaluation accessors */
-     ///@ {
+     /*! @{ */
 
      /*! \brief Truck's total times it has violated time windows. */
      inline int twvTot() const {return m_twvTot;}
@@ -104,13 +104,13 @@ class Vehicle_node: public Tw_node {
      /*! \brief _time spent by the truck servicing the nodes */
      inline double total_service_time() const {return m_tot_service_time;}
 
-     ///@}
+     /*! @} */
 
      /*! \brief True when \b arrival_time + \b delta_time generates TWV.*/
      bool deltaGeneratesTWV(double delta_time) const;
 
      /** @name State */
-     ///@ {
+     /*! @{ */
 
      /*! \brief True when the total count for violations are 0 */
      bool feasible() const {return m_twvTot == 0 &&  m_cvTot == 0;}
@@ -133,24 +133,24 @@ class Vehicle_node: public Tw_node {
          return is_end() ||  is_start() ? m_cargo != 0
              : m_cargo > cargoLimit ||  m_cargo < 0;
      }
-     ///@}
+     /*! @} */
 
      /** @name mutators */
-     ///@ {
+     /*! @{ */
      /*! @todo TODO evaluate with matrix also*/
      void evaluate(double cargoLimit);
      void evaluate(const Vehicle_node &pred, double cargoLimit, double speed);
-     ///@}
+     /*! @} */
 
      /** @name Document*/
-     ///@ {
+     /*! @{ */
 
      /*! \brief returns the arrval time at \b this visited after \b other */
      double arrival_i_arrives_j(
              const Vehicle_node &other,
              double speed) const;
 
-     ///@}
+     /*! @} */
 
 
 
@@ -161,7 +161,7 @@ class Vehicle_node: public Tw_node {
 
  private:
      /** @name Node evaluation members */
-     ///@ {
+     /*! @{ */
 
      double m_travel_time;     ///< Travel time from last node
      double m_arrival_time;    ///< Arrival time at this node
@@ -169,10 +169,10 @@ class Vehicle_node: public Tw_node {
      double m_departure_time;  // /< Departure time from this node
      double m_delta_time;      ///< Departure time - last nodes departure time
 
-     ///@}
+     /*! @} */
 
      /** @name Accumulated evaluation members */
-     ///@ {
+     /*! @{ */
 
      double m_cargo;           ///< Accumulated cargo
      int    m_twvTot;          ///< Total count of TWV
@@ -181,7 +181,7 @@ class Vehicle_node: public Tw_node {
      double m_tot_travel_time;   ///< Accumulated travel time
      double m_tot_service_time;  // /< Accumulated service time
 
-     ///@}
+     /*! @} */
 };
 
 }  //  namespace vrp

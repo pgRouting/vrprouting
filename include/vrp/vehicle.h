@@ -127,7 +127,7 @@ class Vehicle : public Identifier {
      void invariant() const;
 
 
-     /// @ {
+     /*! @{ */
 
      /*! @brief Insert @b node at @b pos position.
       *
@@ -234,9 +234,10 @@ class Vehicle : public Identifier {
       * ~~~~
       */
      size_t size() const;
+     /*! @} */
 
 
-     /// @{
+     /*! @{ */
      Cost cost() const;
      bool cost_compare(const Cost&, const Cost&) const;
 
@@ -284,7 +285,7 @@ class Vehicle : public Identifier {
      double speed() const {return m_speed;}
 #endif
      double capacity() const {return m_capacity;}
-     /// @}
+     /*! @} */
 
 
 
@@ -318,7 +319,7 @@ class Vehicle : public Identifier {
       *
       */
 
-     ///@ {
+     /*! @{ */
 
      /*! @brief Evaluate: Evaluate the whole path from the start. */
      void evaluate();
@@ -330,7 +331,7 @@ class Vehicle : public Identifier {
       */
      void evaluate(POS from);
 
-     ///@}
+     /*! @} */
 
      double deltaTime(const Vehicle_node &node, POS pos) const;
      POS insert_less_travel_time(const Vehicle_node &node, POS after_pos = 0);
@@ -338,14 +339,14 @@ class Vehicle : public Identifier {
 
 
      /*! @name accessors */
-     ///@ {
+     /*! @{ */
 
      std::deque< Vehicle_node > path() const;
 
-     ///@}
+     /*! @} */
 
      /*! @name operators */
-     ///@ {
+     /*! @{ */
 
 
      friend std::ostream& operator << (std::ostream &log, const Vehicle &v);
@@ -354,7 +355,7 @@ class Vehicle : public Identifier {
 
      friend bool operator<(const Vehicle &lhs, const Vehicle &rhs);
 
-     ///@}
+     /*! @} */
 
 
 
