@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classvrprouting_1_1Identifier.html" title="Class that stores the information about identifiers." alt="" coords="5,81,143,108"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1vrp_1_1Base__node.html" title="The Base_node class defines the operations that can be performed in a 2D node." alt="" coords="191,5,369,32"/>
+<area shape="rect" id="node4" href="$classvrprouting_1_1vrp_1_1Dnode.html" title="The Dnode class defines a the basic operations when data is a matrix." alt="" coords="205,56,355,83"/>
+<area shape="rect" id="node7" href="$classvrprouting_1_1vrp_1_1Order.html" title=" " alt="" coords="207,107,353,133"/>
+<area shape="rect" id="node8" href="$classvrprouting_1_1vrp_1_1Vehicle.html" title="Vehicle with time windows." alt="" coords="202,157,358,184"/>
+<area shape="rect" id="node3" href="$classvrprouting_1_1vrp_1_1Node.html" title="The Node class defines a point in 2D space with an id." alt="" coords="428,5,572,32"/>
+<area shape="rect" id="node5" href="$classvrprouting_1_1vrp_1_1Tw__node.html" title="Extends the Node class to create a Node with time window attributes." alt="" coords="417,56,583,83"/>
+<area shape="rect" id="node6" href="$classvrprouting_1_1vrp_1_1Vehicle__node.html" title="Extend Tw_node to evaluate the vehicle at node level." alt="" coords="631,56,821,83"/>
+<area shape="rect" id="node9" href="$classvrprouting_1_1vrp_1_1Vehicle__pickDeliver.html" title=" " alt="" coords="422,150,578,191"/>
+</map>

@@ -1,6 +1,14 @@
 # default build directory
 build
 
+# files not needed for viewing documention but created when generating it
+*.md5
+*.dot
+.doctrees
+v0.0/en/_static/bootswatch-2.3.2
+v0.0/en/_static/bootswatch-3.3.7
+v0.0/en/_static/bootstrap-2.3.2
+
 # directories & files from the root of source code
 .github
 .tx

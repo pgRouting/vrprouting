@@ -1,0 +1,25 @@
+var classvrprouting_1_1vrp_1_1Pgr__pickDeliver =
+[
+    [ "Pgr_pickDeliver", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#aa1b52fcbd905e219806201fe6e3da3f8", null ],
+    [ "add_node", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a36738c0de90ad28624db65db918c5749", null ],
+    [ "get_kind", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#aebf897aa66047b36462947f7353f6460", null ],
+    [ "get_postgres_result", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#af330f270b9e6d4642c6ddd5ca671aa09", null ],
+    [ "max_cycles", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a8ed992734411a90be40cde30496bad5d", null ],
+    [ "nodesOK", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a99cafebbe84d9e61b92881d6527c48c6", null ],
+    [ "optimize", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a3b52df172347d80c66065d6b336819e4", null ],
+    [ "solve", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a9df5254197fec44349f6acbc485f572e", null ],
+    [ "trucks", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#aedc0c98392a6164d89cc5e833f921a83", null ],
+    [ "Dnode", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#ac45e03d7435467c11f59835fc2e5cfb1", null ],
+    [ "Fleet", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a547fdd60e782749f1e03a8b1562b3b29", null ],
+    [ "Initial_solution", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a1f401c86bb3ac96f79a506fb4ee2067d", null ],
+    [ "m_cost_matrix", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a867acf623cfc9c12400cff9b75fff201", null ],
+    [ "m_initial_id", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a2d9aad88cad6c4cdada6db4df64aaff4", null ],
+    [ "m_max_cycles", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a3d1d70c7a02d2954edf5026f5b95b7b8", null ],
+    [ "m_nodes", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#abc6ce35eece42bdd4ab9ebfa09bc0efc", null ],
+    [ "m_orders", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a3c4bf73f839d78f185038090118daf5a", null ],
+    [ "m_trucks", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a1b70c76f75bfb4997fe5a65171fd585f", null ],
+    [ "msg", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#afefac290beeb8d6eb05e4cf5aa04e8ca", null ],
+    [ "PD_Orders", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a86676be987daa2a31b33c78f8da563a6", null ],
+    [ "Solution", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a6ac36750a7f67ff33f152830ac6823ae", null ],
+    [ "solutions", "classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a140b4581f8d2230131ebe6769b185471", null ]
+];

@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['tau_417',['tau',['../classvrprouting_1_1vrp_1_1Solution.html#aa4570aa49c998b57da8cf060e1509d10',1,'vrprouting::vrp::Solution::tau()'],['../classvrprouting_1_1vrp_1_1Vehicle.html#af1439698828a49c90f82f03b409d1899',1,'vrprouting::vrp::Vehicle::tau()']]],
+  ['text_418',['TEXT',['../column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba9a4a47c1606e295076055a9cc4373197',1,'column_info_t.h']]],
+  ['time_5fmsg_419',['time_msg',['../time__msg_8c.html#a989d9723eb6d9be4cbf1214136286dbe',1,'time_msg(char *msg, clock_t start_t, clock_t end_t):&#160;time_msg.c'],['../time__msg_8h.html#a989d9723eb6d9be4cbf1214136286dbe',1,'time_msg(char *msg, clock_t start_t, clock_t end_t):&#160;time_msg.c']]],
+  ['time_5fmsg_2ec_420',['time_msg.c',['../time__msg_8c.html',1,'']]],
+  ['time_5fmsg_2eh_421',['time_msg.h',['../time__msg_8h.html',1,'']]],
+  ['to_5fvid_422',['to_vid',['../structmatrix__cell.html#af970a7b211030451819a6397501e685d',1,'matrix_cell']]],
+  ['todo_20list_423',['Todo List',['../todo.html',1,'']]],
+  ['total_5fservice_5ftime_424',['total_service_time',['../classvrprouting_1_1vrp_1_1Solution.html#aabaaad8a28201567ef46ed4f26d6a21e',1,'vrprouting::vrp::Solution::total_service_time()'],['../classvrprouting_1_1vrp_1_1Vehicle.html#ac02ddfdcd3ae2559073ff1ca8a74db28',1,'vrprouting::vrp::Vehicle::total_service_time()'],['../classvrprouting_1_1vrp_1_1Vehicle__node.html#a4c9ecaa869643d325f5bfc42421cbcfb',1,'vrprouting::vrp::Vehicle_node::total_service_time()']]],
+  ['total_5ftime_425',['total_time',['../classvrprouting_1_1vrp_1_1Vehicle__node.html#a74a24def64e6651376a174d05645981a',1,'vrprouting::vrp::Vehicle_node']]],
+  ['total_5ftravel_5ftime_426',['total_travel_time',['../classvrprouting_1_1vrp_1_1Solution.html#ab63f0c492120c715cf3849698272a6e9',1,'vrprouting::vrp::Solution::total_travel_time()'],['../classvrprouting_1_1vrp_1_1Vehicle.html#af1ba60127bc4e92363f65e8c7ab8715f',1,'vrprouting::vrp::Vehicle::total_travel_time()'],['../classvrprouting_1_1vrp_1_1Vehicle__node.html#ae06c26b786b2ecc41157516d328544ab',1,'vrprouting::vrp::Vehicle_node::total_travel_time()']]],
+  ['total_5fwait_5ftime_427',['total_wait_time',['../classvrprouting_1_1vrp_1_1Vehicle.html#ac19e4ca2e513b20a2ab1d2f710bd53f7',1,'vrprouting::vrp::Vehicle::total_wait_time()'],['../classvrprouting_1_1vrp_1_1Vehicle__node.html#aa5bcdcc91761d8439c5bc9dbac3dbded',1,'vrprouting::vrp::Vehicle_node::total_wait_time()']]],
+  ['travel_5ftime_428',['travel_time',['../classvrprouting_1_1vrp_1_1Vehicle__node.html#a47d3bda5df4221ca411d6f4e58aa61b4',1,'vrprouting::vrp::Vehicle_node']]],
+  ['travel_5ftime_5fto_429',['travel_time_to',['../classvrprouting_1_1vrp_1_1Tw__node.html#a2f5ca3c6cee47ad893dbd951fafb9c2f',1,'vrprouting::vrp::Tw_node']]],
+  ['traveltime_430',['travelTime',['../structGeneral__vehicle__orders__t.html#abb9a47ee3b44b9753cbffd940a76014d',1,'General_vehicle_orders_t']]],
+  ['trucks_431',['trucks',['../classvrprouting_1_1vrp_1_1Solution.html#ac70ea4ec40fef6236886044f39b3944e',1,'vrprouting::vrp::Solution::trucks()'],['../classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#aedc0c98392a6164d89cc5e833f921a83',1,'vrprouting::vrp::Pgr_pickDeliver::trucks()']]],
+  ['tw_5fnode_432',['Tw_node',['../classvrprouting_1_1vrp_1_1Tw__node.html',1,'vrprouting::vrp::Tw_node'],['../classvrprouting_1_1vrp_1_1Tw__node.html#a4375764060354f49b65d803bab51e678',1,'vrprouting::vrp::Tw_node::Tw_node()=default'],['../classvrprouting_1_1vrp_1_1Tw__node.html#addb8ba0f3d9c86cb462897f2d4807ac8',1,'vrprouting::vrp::Tw_node::Tw_node(const Tw_node &amp;)=default'],['../classvrprouting_1_1vrp_1_1Tw__node.html#a760ed6390742be52e22c3c0e16866c1f',1,'vrprouting::vrp::Tw_node::Tw_node(size_t id, PickDeliveryOrders_t data, NodeType type)'],['../classvrprouting_1_1vrp_1_1Tw__node.html#a30473c60ba0291b3c048d1042dae3a7e',1,'vrprouting::vrp::Tw_node::Tw_node(size_t id, Vehicle_t data, NodeType type)']]],
+  ['tw_5fnode_2ecpp_433',['tw_node.cpp',['../tw__node_8cpp.html',1,'']]],
+  ['tw_5fnode_2eh_434',['tw_node.h',['../tw__node_8h.html',1,'']]],
+  ['twvtot_435',['twvTot',['../classvrprouting_1_1vrp_1_1Solution.html#a3f2d943b7aadb53b6e69ab3fee3aa61b',1,'vrprouting::vrp::Solution::twvTot()'],['../classvrprouting_1_1vrp_1_1Vehicle.html#a41132cd9b83fb8fcde9e6dcb8066835b',1,'vrprouting::vrp::Vehicle::twvTot()'],['../classvrprouting_1_1vrp_1_1Vehicle__node.html#a630d82b03c72f5beaf0807e812f31d70',1,'vrprouting::vrp::Vehicle_node::twvTot()']]],
+  ['type_436',['type',['../structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748',1,'Column_info_t::type()'],['../classvrprouting_1_1vrp_1_1Tw__node.html#a8aa85dd346fbd0891e04bea7c541d39c',1,'vrprouting::vrp::Tw_node::type()']]],
+  ['type_5fstr_437',['type_str',['../classvrprouting_1_1vrp_1_1Tw__node.html#abe019fe29a307bb35323cfdf7bf83dce',1,'vrprouting::vrp::Tw_node']]]
+];

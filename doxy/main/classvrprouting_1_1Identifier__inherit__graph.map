@@ -1,0 +1,7 @@
+<map id="vrprouting::Identifier" name="vrprouting::Identifier">
+<area shape="rect" id="node1" title="Class that stores the information about identifiers." alt="" coords="5,81,143,108"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1vrp_1_1Base__node.html" title="The Base_node class defines the operations that can be performed in a 2D node." alt="" coords="191,5,369,32"/>
+<area shape="rect" id="node3" href="$classvrprouting_1_1vrp_1_1Dnode.html" title="The Dnode class defines a the basic operations when data is a matrix." alt="" coords="205,56,355,83"/>
+<area shape="rect" id="node4" href="$classvrprouting_1_1vrp_1_1Order.html" title=" " alt="" coords="207,107,353,133"/>
+<area shape="rect" id="node5" href="$classvrprouting_1_1vrp_1_1Vehicle.html" title="Vehicle with time windows." alt="" coords="202,157,358,184"/>
+</map>
