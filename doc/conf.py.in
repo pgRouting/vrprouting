@@ -315,6 +315,7 @@ pdf_style_path = ['.', '_styles']
 linkcheck_ignore = [
     # might not exist yet (we are generating it!)
     r"https://vrp.pgrouting.org",
+    "https://gis.stackexchange.com/feeds/tag?tagnames=vrprouting&sort=newest",
 
 
     # (see: https://github.com/sphinx-doc/sphinx/issues/7388)
