@@ -1,4 +1,4 @@
-name: Update Users Documentation
+name: Publish Users Documentation
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   release:
-    name: Update Users Documentation
+    name: Publish Users Documentation
     runs-on: ubuntu-latest
 
     strategy:
