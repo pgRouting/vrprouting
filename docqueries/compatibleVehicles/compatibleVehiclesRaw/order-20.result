@@ -1,0 +1,26 @@
+BEGIN;
+BEGIN
+SET client_min_messages TO NOTICE;
+SET
+SET search_path TO 'example2', 'public';
+SET
+UPDATE vehicles SET stops = ARRAY[20,20];
+UPDATE 180
+SELECT *
+FROM vrp_compatibleVehiclesRaw(
+    $$SELECT * FROM shipments$$,
+    $$SELECT * FROM vehicles$$,
+    $$SELECT start_vid, end_vid, agg_cost FROM timeMatrix$$,
+    $$SELECT * FROM tdm_raw('2019-12-09'::TIMESTAMP, '2019-12-13'::TIMESTAMP)$$,
+    20, factor => 1);
+ order_id | vehicle_id | cmd
+----------+------------+-----
+       20 |        601 |
+       20 |        589 |
+       20 |        597 |
+       20 |        585 |
+       20 |        605 |
+(5 rows)
+
+ROLLBACK;
+ROLLBACK
