@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: base_node.cpp
+FILE: tw_node.h
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -23,31 +23,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include "vrp/base_node.h"
-#include "cpp_common/pgr_assert.h"
+/** @file */
+
+#ifndef INCLUDE_PROBLEM_NODE_TYPES_H_
+#define INCLUDE_PROBLEM_NODE_TYPES_H_
+#pragma once
 
 namespace vrprouting {
-namespace vrp {
+namespace problem {
 
-std::ostream&
-operator << (std::ostream &os, const Base_node &node) {
-    return os << node.id()
-        << "(" << node.idx() << ")";
-}
+  enum NodeType {
+    kStart = 0,    /**< starting site */
+    kPickup,       /**< pickup site */
+    kDelivery,     /**< delivery site */
+    kDump,         /**< dump site, empties truck */
+    kLoad,         /**< load site, fills the truck */
+    kEnd           /**< ending site */
+  };
 
-Base_node::Base_node(size_t _idx, int64_t _id)
-    : Identifier(_idx, _id) {
-    }
-
-bool
-Base_node::operator ==(const Base_node &rhs) const {
-    if (&rhs == this) return true;
-    return
-        (idx() == rhs.idx())
-         && (id() == rhs.id());
-}
-
-}  //  namespace vrp
+}  //  namespace problem
 }  //  namespace vrprouting
 
-
+#endif  // INCLUDE_PROBLEM_NODE_TYPES_H_
