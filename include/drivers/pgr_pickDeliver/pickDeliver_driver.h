@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file pickDeliver_driver.h */
 
-#ifndef INCLUDE_DRIVERS_PICKDELIVER_PICKDELIVER_DRIVER_H_
-#define INCLUDE_DRIVERS_PICKDELIVER_PICKDELIVER_DRIVER_H_
+#ifndef INCLUDE_DRIVERS_PGR_PICKDELIVER_PICKDELIVER_DRIVER_H_
+#define INCLUDE_DRIVERS_PGR_PICKDELIVER_PICKDELIVER_DRIVER_H_
 #pragma once
 
 /* for size-t */
@@ -39,41 +39,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #   include <stddef.h>
 #endif
 
-#include "c_types/pickDeliver/pickDeliveryOrders_t.h"
-#include "c_types/pickDeliver/vehicle_t.h"
+#include "c_types/vehicle_t.h"
 #include "c_types/matrix_cell_t.h"
-#include "c_types/pickDeliver/general_vehicle_orders_t.h"
 
+typedef struct PickDeliveryOrders_t PickDeliveryOrders_t;
+typedef struct Solution_rt Solution_rt;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-    /*********************************************************
-      orders_sql TEXT,
-      max_vehicles INTEGER,
-      capacity FLOAT,
-      max_cycles INTEGER,
-     ********************************************************/
-    void do_pgr_pickDeliver(
-            PickDeliveryOrders_t *pd_orders_arr, size_t total_pd_orders,
-            Vehicle_t *vehicles_arr, size_t total_vehicles,
-            Matrix_cell_t *matrix_cells_arr, size_t total_cells,
+  /*********************************************************
+    orders_sql TEXT,
+    max_vehicles INTEGER,
+    capacity FLOAT,
+    max_cycles INTEGER,
+   ********************************************************/
+  void do_pgr_pickDeliver(
+      PickDeliveryOrders_t *pd_orders_arr, size_t total_pd_orders,
+      Vehicle_t *vehicles_arr, size_t total_vehicles,
+      Matrix_cell_t *matrix_cells_arr, size_t total_cells,
 
-            double factor,
-            int max_cycles,
-            int initial_solution_id,
+      double factor,
+      int max_cycles,
+      int initial_solution_id,
 
-            General_vehicle_orders_t **return_tuples,
-            size_t *return_count,
+      Solution_rt **return_tuples,
+      size_t *return_count,
 
-            char **log_msg,
-            char **notice_msg,
-            char **err_msg);
+      char **log_msg,
+      char **notice_msg,
+      char **err_msg);
 
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // INCLUDE_DRIVERS_PICKDELIVER_PICKDELIVER_DRIVER_H_
+#endif  // INCLUDE_DRIVERS_PGR_PICKDELIVER_PICKDELIVER_DRIVER_H_
