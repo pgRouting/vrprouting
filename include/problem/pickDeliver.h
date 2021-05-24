@@ -1,4 +1,4 @@
-/*PGR-GNU*****************************************************************
+/*WC-GNU*****************************************************************
 
 FILE: pgr_pickDeliver.h
 
@@ -21,130 +21,118 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
- ********************************************************************PGR-GNU*/
+ ********************************************************************WC-GNU*/
 
-/*! @file */
+/** @file */
 
-#ifndef INCLUDE_VRP_PGR_PICKDELIVER_H_
-#define INCLUDE_VRP_PGR_PICKDELIVER_H_
+#ifndef INCLUDE_PROBLEM_PICKDELIVER_H_
+#define INCLUDE_PROBLEM_PICKDELIVER_H_
 #pragma once
 
 
 
 #include <vector>
-#include <memory>
 #include <utility>
-
-#include "c_types/pickDeliver/pickDeliveryOrders_t.h"
-#include "c_types/pickDeliver/vehicle_t.h"
-#include "c_types/pickDeliver/general_vehicle_orders_t.h"
-#include "vrp/pd_problem.h"
-#include "cpp_common/matrix.h"
-#include "vrp/pd_orders.h"
-#include "vrp/fleet.h"
-#include "vrp/solution.h"
-#if 0
-#include "cpp_common/identifiers.hpp"
-#endif
+#include "c_types/compatibleVehicles_rt.h"
+#include "c_types/solution_rt.h"
+#include "c_types/pickDeliveryOrders_t.h"
+#include "c_types/vehicle_t.h"
+#include "cpp_common/pgr_messages.h"
+#include "problem/vehicle_node.h"
+#include "problem/orders.h"
+#include "problem/fleet.h"
+#include "problem/matrix.h"
 
 namespace vrprouting {
-namespace vrp {
+namespace problem {
 
-class Order;
-class Vehicle_node;
-
-class Dnode;
-class Solution;
-class Initial_solution;
-
-class Pgr_pickDeliver : public PD_problem {
-    friend Fleet;
-    friend Dnode;
-    friend PD_Orders;
-    friend Solution;
-    friend Initial_solution;
-
+/** @brief the pick deliver problem */
+class PickDeliver {
  public:
-#if 0
-    Pgr_pickDeliver(
-            const std::vector<PickDeliveryOrders_t> &pd_orders,
-            const std::vector<Vehicle_t> &vehicles,
-            double factor,
-            size_t max_cycles,
-            int initial);
-#endif
+    /** @brief General Constructor */
+    PickDeliver(
+        PickDeliveryOrders_t* p_orders, size_t p_orders_size,
+        Vehicle_t* p_vehicles, size_t p_vehicles_size,
+        const Matrix &p_cost_matrix) :
+      m_cost_matrix(p_cost_matrix),
+      m_orders(p_orders, p_orders_size, this),
+      m_trucks(p_vehicles, p_vehicles_size, m_orders, m_nodes, m_node_id) {
+    if (!msg.get_error().empty()) return;
+    m_trucks.clean();
+    m_orders.set_compatibles();
+    m_trucks.set_compatibles(m_orders);
+  }
 
-    Pgr_pickDeliver(
-            const std::vector<PickDeliveryOrders_t> &pd_orders,
-            const std::vector<Vehicle_t> &vehicles,
-            const vrprouting::Matrix &cost_matrix,
-            double factor,
-            size_t max_cycles,
-            int initial);
+    /** @brief Override stops constructor */
+    PickDeliver(
+        PickDeliveryOrders_t* p_orders, size_t p_orders_size,
+        Vehicle_t* p_vehicles, size_t p_vehicles_size,
+        std::vector<Short_vehicle> new_stops,
+        const Matrix &p_cost_matrix) :
+      m_cost_matrix(p_cost_matrix),
+      m_orders(p_orders, p_orders_size, this),
+      m_trucks(p_vehicles, p_vehicles_size, new_stops, m_orders, m_nodes, m_node_id) {
+    if (!msg.get_error().empty()) return;
+    m_trucks.clean();
+    m_orders.set_compatibles();
+    m_trucks.set_compatibles(m_orders);
+  }
 
-    void solve();
+    virtual ~PickDeliver() = default;
 
-    std::vector<General_vehicle_orders_t>
-        get_postgres_result() const;
-
-
-    Solution optimize(const Solution init_solution);
-    size_t max_cycles() const {return m_max_cycles;}
-
-#if 0
-    inline size_t& node_id() {return m_node_id;}
-#endif
-
-    void add_node(const Vehicle_node &node);
-
-#if 0
-    void add_base_node(std::unique_ptr<Base_node> node_ptr) {
-        m_base_nodes.push_back(std::move(node_ptr));
+    /** @brief get the vehicles compatibility results as C++ container */
+    std::vector<CompatibleVehicles_rt> get_pg_compatibleVehicles() const {
+      std::vector<CompatibleVehicles_rt> result;
+      for (const auto& v : m_trucks) {
+        if (v.is_phony()) continue;
+        for (const auto o : v.feasible_orders()) {
+          result.push_back({m_orders[o].id(), v.id()});
+        }
+      }
+      return result;
     }
-#endif
 
-    Initials_code get_kind() const {
-        return (Initials_code) m_initial_id;
-    }
-
-#if 1
-    // TODO(vicky) delete this function
-    bool nodesOK() const;
-#endif
-    Fleet trucks() const {return m_trucks;}
+    const Orders& orders() {return m_orders;}
+    const Fleet& vehicles() {return m_trucks;}
 
     /** message controller for all classes */
     Pgr_messages msg;
 
+    /** the cost matrix */
+    const Matrix& m_cost_matrix;
+    const Matrix& time_matrix() {return m_cost_matrix;}
+    size_t& node_id() {return m_node_id;}
+
+
+    /** @brief add a node to the set of nodes */
+    void add_node(const Vehicle_node &node) {m_nodes.push_back(node);}
 
  private:
-    //! used define the initial solution algorithm to be used
-    int m_initial_id;
+    /** used to keep track of the next index the node gets
+     *
+     * The first one will get 0
+     * - therefore the first one will be located at m_nodes[0]
+     *
+     * @pre Status before constructors m_node_id == 0
+     */
+    size_t m_node_id = 0;
 
-    //! maximum cycles in the optimization
-    size_t m_max_cycles;
+    /** set of vehicle nodes
+     *
+     * @pre Status before constructors m_nodes.empty() == true
+     */
+    std::vector<Vehicle_node> m_nodes { };
 
-#if 0
-    //! used to keep track of the next id the node gets in the eucledian version
-    size_t m_node_id;
-#endif
+ protected:
+    /** the set of orders */
+    Orders m_orders;
 
 
- public:
-    // TODO(vicky) make this private
-    std::vector<Vehicle_node> m_nodes;
-#if 0
-    std::vector<std::unique_ptr<Base_node>> m_base_nodes;
-#endif
-    vrprouting::Matrix m_cost_matrix;
-
- private:
-    PD_Orders m_orders;
+    /** the set of vehicles */
     Fleet m_trucks;
-    std::vector<Solution> solutions;
 };
 
-}  //  namespace vrp
+}  //  namespace problem
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_VRP_PGR_PICKDELIVER_H_
+#endif  // INCLUDE_PROBLEM_PICKDELIVER_H_

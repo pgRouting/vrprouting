@@ -25,182 +25,157 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_VRP_VEHICLE_PICKDELIVER_H_
-#define INCLUDE_VRP_VEHICLE_PICKDELIVER_H_
+#ifndef INCLUDE_PROBLEM_VEHICLE_PICKDELIVER_H_
+#define INCLUDE_PROBLEM_VEHICLE_PICKDELIVER_H_
 #pragma once
 
-#include <set>
-#include "vrp/order.h"
-#include "vrp/pd_orders.h"
-#include "vrp/tw_node.h"
-#include "vrp/vehicle.h"
-#include "vrp/initials_code.h"
+#include <limits>
+#include <vector>
+#include "c_types/typedefs.h"
+#include "cpp_common/pgr_assert.h"
+#include "cpp_common/pgr_messages.h"
 #include "cpp_common/identifiers.hpp"
+#include "problem/vehicle.h"
+#include "problem/orders.h"
 
 namespace vrprouting {
-namespace vrp {
-
-
-class Initial_solution;
-class Optimize;
+namespace problem {
+class Order;
+class Orders;
 
 class Vehicle_pickDeliver : public Vehicle {
- protected:
-     double cost;
-     //! orders inserted in this vehicle
-     Identifiers<size_t> m_orders_in_vehicle;
-     PD_Orders m_orders;
-     //! orders that fit in the truck
-     Identifiers<size_t> m_feasable_orders;
-
-
  public:
-     friend class Initial_solution;
-     friend class Optimize;
+     using Vehicle::insert;
+     using Vehicle::insert_node;
+     using Vehicle::erase;
+     using Vehicle::size;
+     using Vehicle::invariant;
+     using Vehicle::evaluate;
+     using Vehicle::is_feasible;
 
-     Vehicle_pickDeliver(
-             size_t idx,
-             int64_t id,
-             const Vehicle_node &starting_site,
-             const Vehicle_node &ending_site,
-             double p_capacity,
-             double p_speed,
-             double factor);
+     using Vehicle::at;
+     using Vehicle::empty;
 
+     /**
+      * @returns The vehicle's information on the log
+      * @param [in,out] log place to store the vehicle's information
+      * @param [in] v the vehicle to work with
+      */
+     friend std::ostream& operator<< (std::ostream &log, const Vehicle_pickDeliver &v) {
+         int i(0);
+         log << "\n\n****************** " << v.idx() << "th VEHICLE*************\n";
+         log << "id = " << v.id()
+             << "\tcapacity = " << v.capacity() << "\n";
+
+         for (const auto &path_stop : v) {
+             log << "Path_stop" << ++i << "\n";
+             log << path_stop << "\n";
+         }
+
+         log << v.feasible_orders() << "\n";
+         return log;
+     }
+
+
+     Vehicle_pickDeliver() = delete;
      Vehicle_pickDeliver(const Vehicle_pickDeliver &) = default;
+     Vehicle_pickDeliver(
+             Idx p_idx,
+             Id p_id,
+             const Vehicle_node & p_starting_site,
+             const Vehicle_node & p_ending_site,
+             const std::vector<int64_t>& p_stops,
+             PAmount p_capacity,
+             Speed p_speed,
+             const Orders& p_orders) :
+         Vehicle(p_idx, p_id, p_starting_site, p_ending_site, p_capacity, p_speed),
+         m_cost((std::numeric_limits<double>::max)()),
+         m_orders_in_vehicle(),
+         m_feasible_orders(),
+         m_orders(p_orders),
+         m_stops(p_stops) {}
 
 
-     void set_compatibles(const PD_Orders &orders);
-     bool is_order_feasable(const Order &order) const;
-     Identifiers<size_t> feasable_orders() const {return m_feasable_orders;}
+     /** @brief returns the set of feasible orders for modification*/
+     Identifiers<size_t>& feasible_orders() {return m_feasible_orders;}
+     /** @brief returns the set of feasible orders */
+     const Identifiers<size_t>& feasible_orders() const {return m_feasible_orders;}
 
-     const PD_Orders& orders() const {return m_orders;}
-     size_t orders_size() const {return m_orders_in_vehicle.size();}
+     /** @brief returns the number of orders in the vehicle */
      Identifiers<size_t> orders_in_vehicle() const {return m_orders_in_vehicle;}
 
-     bool has_order(const Order &order) const;
+     /** @brief does the vehicle has the order? */
+     bool has_order(const Order &order) const {return m_orders_in_vehicle.has(order.idx());}
 
-     /*! @brief puts an order at the end of the truck
-      *
-      * Precondition:
-      * !has_order(order)
-      *
-      * Postcondition:
-      * has_order(order)
-      * !has_cv();
-      *
-      * ~~~~{.c}
-      * Before: S <nodes> E
-      *   After: S <nodes> P D E
-      * ~~~~
-      *
-      * Can generate time window violation
-      * No capacity violation
-      */
+     size_t orders_size() const {return m_orders_in_vehicle.size();}
+
+     /** @brief puts an order at the end of the truck */
      void push_back(const Order &order);
 
-
-     /*! @brief Puts an order at the end front of the truck
-      *
-      * Precondition:
-      * !has_order(order)
-      *
-      * Postcondition:
-      * has_order(order)
-      * !has_cv();
-      *
-      * ~~~~{.c}
-      * Before: S <nodes> E
-      *   After: S P D <nodes> E
-      * ~~~~
-      *
-      * Can generate time window violation
-      * No capacity violation
-      */
+     /** @brief Puts an order at the end front of the truck */
      void push_front(const Order &order);
 
+     /** @brief Inserts an order with hill Climb approach*/
+     bool hillClimb(const Order &order);
 
-     /*! @brief Inserts an order
-      *
-      * Precondition:
-      * !has_order(order)
-      *
-      * Postcondition:
-      * has_order(order)
-      * !has_cv();
-      *
-      * ~~~~{.c}
-      * Before: S <nodes> E
-      *   After: S ....P .... D .... E
-      * ~~~~
-      *
-      * push_back is performed when
-      *   - pickup
-      *
-      * Can generate time window violation
-      * No capacity violation
-      */
-     bool insert(const Order &order);
-
-     /*! @brief Inserts an order In semi-Lifo order
-      *
-      * Precondition:
-      * !has_order(order)
-      *
-      * Postcondition:
-      * has_order(order)
-      * !has_cv();
-      *
-      * ~~~~{.c}
-      * Before: S .... (P1 ....... P2) ... D2 .... D1 .... E
-      *  After: S .... (P .. P1 .. P2) ... D2 .. D .. D1 .... E
-      * ~~~~
-      *
-      * push_back is performed when
-      *   - drop generates a time window violation
-      *
-      * Can generate time window violation
-      * No capacity violation
-      */
+     /** @brief Inserts an order In semi-Lifo (almost last in first out) order */
      bool semiLIFO(const Order &order);
 
-#if 0
-     void insert_while_compatibleJ(
-             Identifiers<PD_Orders::OID> &unassigned,
-             Identifiers<PD_Orders::OID> &assigned);
-#endif
-     /* @brief erases the order from the vehicle
-      *
-      * Precondition:
-      * has_order(order)
-      *
-      * Precondition:
-      * !has_order(order)
-      */
+     /** @brief erases the order from the vehicle */
      void erase(const Order &order);
-
-     /* @brief
-      */
-     Order get_first_order() const;
-     Order get_worse_order(Identifiers<size_t> of_this_subset) const;
-
-     void do_while_feasable(
-             Initials_code kind,
-             Identifiers<size_t> &unassigned,
-             Identifiers<size_t> &assigned);
-
-
-     /*!
-      * The order that is picked last is removed
-      *
-      * \returns id of the removed order
-      */
 
      size_t pop_back();
      size_t pop_front();
+
+     // TODO(pending): move code to cpp file
+     Order get_first_order() const {
+         pgassert(!empty());
+         return orders()[at(1).idx()];
+     }
+
+     /** @brief Get the value of the objective function */
+     double objective() const;
+
+
+     /** @brief sets the initial solution given by the user */
+     void set_initial_solution(const Orders&, Identifiers<size_t>&, Identifiers<size_t>&, TTimestamp, bool);
+
+     /** @brief sets as unmovable the orders that start before the execution date */
+     void set_unmovable(TTimestamp execution_date);
+
+     bool is_order_feasible(const Order &order) const;
+
+     const Orders& orders() const {pgassert(m_orders.size() != 0); return m_orders;}
+
+     Pgr_messages& msg() {return m_msg;}
+
+ protected:
+     using Vehicle::begin;
+     using Vehicle::end;
+     using Vehicle::rbegin;
+     using Vehicle::rend;
+
+     double m_cost;
+
+     /** orders inserted in this vehicle */
+     Identifiers<size_t> m_orders_in_vehicle;
+
+     /** orders that fit in the truck */
+     Identifiers<size_t> m_feasible_orders;
+
+     Orders m_orders;
+
+     Pgr_messages m_msg;
+
+ private:
+     /**
+      * order ids of an initial solution given by the user
+      * [1,2,1,3,3,2] = P1 P2 D1 P3 D3 D2
+      */
+     std::vector<int64_t> m_stops;
 };
 
-}  //  namespace vrp
+}  //  namespace problem
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_VRP_VEHICLE_PICKDELIVER_H_
+#endif  // INCLUDE_PROBLEM_VEHICLE_PICKDELIVER_H_

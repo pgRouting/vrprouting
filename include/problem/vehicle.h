@@ -2,19 +2,19 @@
 
 FILE: vehicle.h
 
-Copyright (c) 2016 pgRouting developers
+Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org
 
 ------
 
-This program is free software; you can redistribute it and/or modify
+Nhis program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+Nhis program is distributed in the hope that it will be useful,
+but WINHOUN ANY WARRANNY; without even the implied warranty of
+MERCHANNABILINY or FINNESS FOR A PARNICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
@@ -25,357 +25,165 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_VRP_VEHICLE_H_
-#define INCLUDE_VRP_VEHICLE_H_
+#ifndef INCLUDE_PROBLEM_VEHICLE_H_
+#define INCLUDE_PROBLEM_VEHICLE_H_
 #pragma once
 
-#include <deque>
-#include <iostream>
-#include <algorithm>
-#include <string>
-#include <tuple>
 #include <utility>
+#include <deque>
+#include <string>
 #include <vector>
 
-
+#include "c_types/solution_rt.h"
+#include "cpp_common/pgr_assert.h"
 #include "cpp_common/identifier.h"
-#include "vrp/vehicle_node.h"
-#include "c_types/pickDeliver/general_vehicle_orders_t.h"
+#include "problem/vehicle_node.h"
 
 namespace vrprouting {
-namespace vrp {
-
-class Pgr_pickDeliver;
-
+namespace problem {
 
 /*! @class Vehicle
  *  @brief Vehicle with time windows
  *
- * General functionality for a vehicle in a VRP problem
+ * General functionality for a vehicle in a PROBLEM problem
  *
  * Recommended use:
  *
  * ~~~~{.c}
- *   Class my_vehicle : public vechicle
+ *   Class my_vehicle : public vehicle
  * ~~~~
  *
- * @note All members return @b true when the operation is successful
- *
- * A vehicle is a sequence of @ref Vehicle_node
+ * A vehicle is a sequence of N
  * from @b starting site to @b ending site.
  * has:
  * @b capacity
- * @b speed
- * @b factor TODO(vicky)
- *
- * @sa @ref Vehicle_node
  */
-
-class Vehicle : public Identifier {
- protected:
-     typedef size_t POS;
-     using difference_type = std::deque<Vehicle_node>::difference_type;
-     std::deque< Vehicle_node > m_path;
-
-     friend class PD_problem;
-
-
- private:
-     double m_capacity;
-     double m_factor;
-     double m_speed;
-
+class Vehicle : public Identifier, protected std::deque<Vehicle_node> {
  public:
-     /*
-      * (twv, cv, fleet_size, wait_time, duration)
+     /** @brief the speed of the vehicle
       */
-     typedef std::tuple< int, int, size_t, double, double > Cost;
-     std::vector<General_vehicle_orders_t>
-           get_postgres_result(int vid) const;
+     Speed speed() const;
 
-     Vehicle(const Vehicle &) = default;
-     Vehicle(
-             size_t idx,
-             int64_t id,
-             const Vehicle_node &starting_site,
-             const Vehicle_node &ending_site,
-             double p_capacity,
-             double p_speed,
-             double p_factor);
+     /** @brief returns the capacity of the vehicle */
+     PAmount capacity() const;
 
+     /** @brief duration of vehicle while not in a "depot" */
+     TInterval duration() const;
 
-     bool is_phony() const {return id() < 0;}
-     double speed() const;
+     /** @brief duration of vehicle while waiting for a node to open */
+     TInterval total_wait_time() const;
 
-     /*! @name deque like functions
+     /** @brief total time spent moving from one node to another */
+     TInterval total_travel_time() const;
 
-       @returns True if the operation was performed
-       @warning Assertions are performed for out of range operations
-       @warning no feasability nor time window or capacity violations
-       checks are performed
-       @todo TODO more deque like functions here
-       */
+     /** @brief total time spent moving from one node to another */
+     TInterval total_service_time() const;
 
-     /*! @brief Invariant
-      * The path must:
-      *   - have at least 2 nodes
-      *   - first node of the path must be Start node
-      *   - last node of the path must be End node
-      *
-      * path: S ..... E
-      */
+     int twvTot() const;
+
+     int cvTot() const;
+
+     bool has_twv() const;
+
+     bool has_cv() const;
+
      void invariant() const;
-
-
-     /*! @{ */
-
-     /*! @brief Insert @b node at @b pos position.
-      *
-      * @param[in] pos The position that the node should be inserted.
-      * @param[in] node The node to insert.
-      *
-      */
-     void insert(POS pos, Vehicle_node node);
-
-
-     /*! @brief Insert @b node in best position of the @b position_limits.
-      *
-      * @param[in] position_limits
-      * @param[in] node The node to insert
-      *
-      * @returns position where it was inserted
-      */
-     POS insert(std::pair<POS, POS> position_limits, const Vehicle_node &node);
-
-
-
-
-
-     /*! @brief Evaluated: push_back a node to the path.
-      *
-      * ~~~~{.c}
-      * before: S <nodes> E
-      * after: S <nodes> n E
-      * ~~~~
-      *
-      * @param[in] node to be push_back.
-      */
-     void push_back(const Vehicle_node &node);
-
-     /*! @brief Evaluated: push_back a node to the path.
-      *
-      * ~~~~{.c}
-      * before: S <nodes> E
-      * after: S n <nodes> E
-      * ~~~~
-      *
-      * @param[in] node to be push_back.
-      */
-     void push_front(const Vehicle_node &node);
-
-
-     /*! @brief Evaluated: pop_back a node to the path.
-      *
-      * ~~~~{.c}
-      * before: S <nodes> n E
-      * after: S <nodes> E
-      * ~~~~
-      */
-     void pop_back();
-
-     /*! @brief Evaluated: pop_front a node to the path.
-      *
-      * ~~~~{.c}
-      * before: S n <nodes> E
-      * after: S <nodes> E
-      * ~~~~
-      */
-     void pop_front();
-
-     /*! @brief Erase node.id()
-      *
-      * @note start and ending nodes cannot be erased
-      *
-      * Numbers are positions
-      * before: S .... node.id() .... E
-      * after: S .... .... E
-      *
-      */
-     void erase(const Vehicle_node &node);
-
-
-
-     /*! @brief Erase node at `pos` from the path.
-      *
-      * @note start and ending nodes cannot be erased
-      *
-      * Numbers are positions
-      * before: S 1 2 3 4 5 6 pos 8 9 E
-      * after: S 1 2 3 4 5 6 8 9 E
-      *
-      * @param[in] pos to be erased.
-      */
-     void erase(POS pos);
-
-     /*! @brief return true when no nodes are in the truck
-      *
-      * ~~~~{.c}
-      * True: S E
-      * False: S <nodes> E
-      * ~~~~
-      */
-     bool empty() const;
-
-     /*! @brief return number of nodes in the truck
-      *
-      * ~~~~{.c}
-      * True: S E
-      * False: S <nodes> E
-      * ~~~~
-      */
-     size_t size() const;
-     /*! @} */
-
-
-     /*! @{ */
-     Cost cost() const;
-     bool cost_compare(const Cost&, const Cost&) const;
-
-     double duration() const {
-         return m_path.back().departure_time();
-     }
-     double total_wait_time() const {
-         return m_path.back().total_wait_time();
-     }
-     double total_travel_time() const {
-         return m_path.back().total_travel_time();
-     }
-     double total_service_time() const {
-         return m_path.back().total_service_time();
-     }
-     double free_time() const {
-         return total_wait_time() + (m_path[0].closes() - duration());
-     }
-     int twvTot() const {
-         return m_path.back().twvTot();
-     }
-     int cvTot() const {
-         return m_path.back().cvTot();
-     }
-     bool has_twv() const {
-         return twvTot() != 0;
-     }
-     bool has_cv() const {
-         return cvTot() != 0;
-     }
-
-     bool is_feasable() const {
-         return !(has_twv() ||  has_cv());
-     }
 
      bool is_ok() const;
 
-     Vehicle_node start_site() const {
-         return m_path.front();
-     }
-     Vehicle_node end_site() const {
-         return m_path.back();
-     }
-#if 0
-     double speed() const {return m_speed;}
-#endif
-     double capacity() const {return m_capacity;}
-     /*! @} */
+     bool empty() const;
 
+     size_t length() const;
 
+     bool is_phony() const;
 
-     /*!
-      * @brief Swap two nodes in the path.
-      *
-      * ~~~~{.c}
-      * Before: S <nodesA> I <nodesB> J <nodesC> E
-      * After: S <nodesA> J <nodesB> I <nodesC> E
-      * ~~~~
-      *
-      * @param[in] i The position of the first node to swap.
-      * @param[in] j The position of the second node to swap.
-      */
-     void swap(POS i, POS j);
+     bool is_real() const;
 
+     bool is_feasible() const;
 
-     /*! @name Evaluation
-      *
-      *
-      *
-      * Path evaluation is done incrementally: from a given position to the
-      * end of the path, and intermediate values are cached on each node.
-      * So, for example, changing the path at position 100:
-      * the evaluation function should be called as
-      * @c evaluate(100, maxcapacity)
-      * and from that position to the end of the path will be evaluated.
-      * None of the "unaffected" positions get reevaluated
-      *
-      *
-      *
-      */
+     const Vehicle_node& start_site() const;
 
-     /*! @{ */
+     const Vehicle_node& end_site() const;
 
-     /*! @brief Evaluate: Evaluate the whole path from the start. */
-     void evaluate();
+     std::vector<Solution_rt> get_postgres_result(int vid) const;
+     std::vector<Id> get_stops() const;
 
-     /*! @brief Evaluate: Evaluate a path from the given position.
-      *
-      * @param[in] from The starting position in the path for evaluation to
-      * the end of the path.
-      */
-     void evaluate(POS from);
-
-     /*! @} */
-
-     double deltaTime(const Vehicle_node &node, POS pos) const;
-     POS insert_less_travel_time(const Vehicle_node &node, POS after_pos = 0);
-
-
-
-     /*! @name accessors */
-     /*! @{ */
-
-     std::deque< Vehicle_node > path() const;
-
-     /*! @} */
-
-     /*! @name operators */
-     /*! @{ */
-
-
-     friend std::ostream& operator << (std::ostream &log, const Vehicle &v);
+     std::string path_str() const;
 
      std::string tau() const;
 
+ protected:
+     void evaluate();
+
+     void evaluate(size_t from);
+
+     void erase_node(size_t pos);
+
+     void insert_node(size_t pos, const Vehicle_node &node);
+
+     void push_back_node(const Vehicle_node &node);
+
+     void push_front_node(const Vehicle_node &node);
+
+     void erase(size_t pos);
+
+     /** @brief deletes a node if it exists */
+     void erase(const Vehicle_node &node);
+
+     void insert(size_t pos, const Vehicle_node &node);
+
+     void push_back(const Vehicle_node &node);
+
+     void push_front(const Vehicle_node &node);
+
+     void pop_back();
+
+     void pop_front();
+
+     void swap(size_t i, size_t j);
+
+     /** @brief Get the limits to insert the node */
+     std::pair<size_t, size_t> position_limits(const Vehicle_node &node) const;
+     std::pair<size_t, size_t> drop_position_limits(const Vehicle_node &node) const;
+
+     /** @brief Get the lowest position on the path where node can be placed */
+     size_t getPosLowLimit(const Vehicle_node &node) const;
+
+     /** @brief Get the highest position on the path where node can be placed */
+     size_t getPosHighLimit(const Vehicle_node &node) const;
+
+     size_t getDropPosLowLimit(const Vehicle_node &node) const;
+
      friend bool operator<(const Vehicle &lhs, const Vehicle &rhs);
 
-     /*! @} */
+     Vehicle() = delete;
+     Vehicle(const Vehicle&) = default;
+     Vehicle(Idx idx,
+             Id id,
+             const Vehicle_node &p_starting_site,
+             const Vehicle_node &p_ending_site,
+             PAmount p_capacity,
+             Speed p_speed = 1.0);
 
+ protected:
+     /** Time window violations on solution
+      *
+      * The user can give a solution that has time window violations
+      */
+     int m_user_twv {0};
 
-
-     std::pair<POS, POS> position_limits(const Vehicle_node node) const;
-     std::pair<POS, POS> drop_position_limits(const Vehicle_node node) const;
-
-
-     /** Pointer to problem */
-     static Pgr_pickDeliver* problem;
-
-     /** @brief Access to the problem's message */
-     static Pgr_messages& msg();
+     /** Time window violations on solution
+      *
+      * The user can give a solution that has capacity violations
+      */
+     int m_user_cv {0};
 
  private:
-     POS getDropPosLowLimit(const Vehicle_node &node) const;
-     POS getPosLowLimit(const Vehicle_node &node) const;
-     POS getPosHighLimit(const Vehicle_node &node) const;
+     PAmount m_capacity;
+     Speed m_speed = 1.0;
 };
 
-}  // namespace vrp
+}  // namespace problem
 }  // namespace vrprouting
 
-#endif  // INCLUDE_VRP_VEHICLE_H_
+#endif  // INCLUDE_PROBLEM_VEHICLE_H_

@@ -23,166 +23,106 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*! @file */
+/** @file */
 
-#ifndef INCLUDE_VRP_ORDER_H_
-#define INCLUDE_VRP_ORDER_H_
+#ifndef INCLUDE_PROBLEM_ORDER_H_
+#define INCLUDE_PROBLEM_ORDER_H_
 #pragma once
 
 
-#include <iosfwd>
 #include "cpp_common/identifier.h"
 #include "cpp_common/identifiers.hpp"
-#include "vrp/vehicle_node.h"
+#include "problem/vehicle_node.h"
 
 namespace vrprouting {
-namespace vrp {
-
+namespace problem {
 
 class Order : public Identifier {
  public:
-     /*! @name Constructors
-      * @{
-      */
-     Order(size_t p_id, int64_t p_idx,
-             const Vehicle_node &p_pickup,
-             const Vehicle_node &p_deliver);
+    /** @brief Print the order */
+    friend std::ostream& operator << (std::ostream&, const Order &);
 
-     Order(const Order &) = default;
-     /*!@}*/
+    /** @brief Order without data is not permitted */
+    Order() = delete;
 
+    /** @brief copy constructor */
+    Order(const Order&) = default;
 
-     /*! @name Accessors
-      * @{
-      */
-
-
-     /*! The delivery node identifier
-      *
-      * It hold's the idx of the node
-      */
-     const Vehicle_node& delivery() const;
-
-     /*! The delivery node identifier
-      *
-      * It hold's the idx of the node
-      */
-     const Vehicle_node& pickup() const;
-
-     /*! Get a subset of the orders that can be placed after @b this order
-
-      @dot
-      digraph G {
-      graph [rankdir=LR];
-      this [color=green];
-      this -> "this.J * J";
+    /** @brief initializing an order with the pick & drop information */
+    Order(Idx o_idx, Id o_id,
+        const Vehicle_node &p_pickup,
+        const Vehicle_node &p_delivery) :
+      Identifier(o_idx, o_id),
+      m_pickup(p_pickup),
+      m_delivery(p_delivery) {
       }
-      @enddot
 
-      * @param[in] J set of orders
-      * @result ithe set intersection of the @b J orders with the @b compatible_J orders of @b this order
-      */
-     Identifiers<size_t> subsetJ(const Identifiers<size_t> &J) const;
-     Identifiers<size_t> subsetI(const Identifiers<size_t> &I) const;
-     /*!@}*/
+    /** @name Accessors
+     * @{
+     */
 
+    /** @brief The pickup node identifier */
+    const Vehicle_node& pickup() const {return m_pickup;}
 
-     /*! @name Modifiers
-      * @{
-      */
+    /** @brief The delivery node identifier */
+    const Vehicle_node& delivery() const {return m_delivery;}
 
-     void set_compatibles(const Order order, double speed);
-     /*!@}*/
+    /** @brief Get a subset of the orders that can be placed after @b this order */
+    Identifiers<size_t> subsetJ(const Identifiers<size_t> &J) const;
 
-     /*! @name To be or not to be
-      * @{
-      */
+    /** @brief Get a subset of the orders that can be placed before @b this order */
+    Identifiers<size_t> subsetI(const Identifiers<size_t> &I) const;
 
-     /*! @brief validate a pickup/delivery order
-      *
-      * An order is valid when:
-      *   - The pickup is well formed
-      *   - The delivery is well formed
-      *   - isCompatibleIJ to go to delivery after inmediatly visiting pickup
-      */
-     bool is_valid(double speed) const;
+    /** @} */
 
+    /** @brief set compatability of @b this orther with the other order */
+    void set_compatibles(const Order&, Speed speed = 1.0);
 
-     /*! @brief Can order @b I be placed before @b this order?
-      *
+    /** @brief is the order valid? */
+    bool is_valid(Speed speed = 1.0) const;
 
-      @dot
-      digraph G {
-      graph [rankdir=LR];
-      this [color=green];
-      "I" -> this;
-      }
-      @enddot
+    /** @brief Can order @b I be placed before @b this order? */
+    bool isCompatibleIJ(const Order &I, Speed speed = 1.0) const;
 
-      @param[in] I order
-      @param[in] speed to be used for evaluating the order
+ protected:
+    /** Storage for the orders that can be placed after @b this order
+     *
+     @dot
+     digraph G {
+     graph [rankdir=LR];
+     this [color=green];
+     this -> "{J}";
+     }
+     @enddot
+     */
+    Identifiers<size_t> m_compatibleJ;
 
-      @returns true when order @b I can be placed before @b this order
-      */
-     bool isCompatibleIJ(const Order &I, double speed) const;
-     /*!@}*/
+    /** Storage for the orders that can be placed before @b this order
+     *
+     @dot
+     digraph G {
+     graph [rankdir=LR];
+     this [color=green];
+     "{I}" -> this;
+     }
+     @enddot
+     */
+    Identifiers<size_t> m_compatibleI;
 
+    /** The pick up node identifier
+     *
+     * It hold's the idx of the node
+     */
+    Vehicle_node m_pickup;
 
-
-     /*! @name Friends
-      * @{
-      */
-
-     friend std::ostream& operator << (std::ostream&, const Order &);
-     /*!@}*/
-
- private:
-     /*! The pick up node identifier
-      *
-      * It hold's the idx of the node
-      */
-
-     Vehicle_node m_pickup;
-
-     /*! The delivery node identifier
-      *
-      * It hold's the idx of the node
-      */
-     Vehicle_node m_delivery;
-
-     /*! Stores all the orders that can be placed after this order
-      *
-
-      @dot
-      digraph G {
-      graph [rankdir=LR];
-      this [color=green];
-      this -> "{J}";
-      }
-      @enddot
-
-      @todo TODO
-      - compatibility changes based on the speed this is not taking that into account (here)
-      - check where is it talking that into account
-      */
-     Identifiers<size_t> m_compatibleJ;
-
-     /*! Stores all the orders that can be placed before this order
-      *
-
-      @dot
-      digraph G {
-      graph [rankdir=LR];
-      this [color=green];
-      "{I}" -> this;
-      }
-      @enddot
-
-      */
-     Identifiers<size_t> m_compatibleI;
+    /** The delivery node identifier
+     *
+     * It hold's the idx of the node
+     */
+    Vehicle_node m_delivery;
 };
 
-}  //  namespace vrp
+}  //  namespace problem
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_VRP_ORDER_H_
+#endif  // INCLUDE_PROBLEM_ORDER_H_

@@ -23,29 +23,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*! @file */
+/** @file */
 
-#ifndef INCLUDE_VRP_TW_NODE_H_
-#define INCLUDE_VRP_TW_NODE_H_
+#ifndef INCLUDE_PROBLEM_TW_NODE_H_
+#define INCLUDE_PROBLEM_TW_NODE_H_
 #pragma once
 
 #include <string>
-
-#include "c_types/pickDeliver/pickDeliveryOrders_t.h"
-#include "c_types/pickDeliver/vehicle_t.h"
-#include "cpp_common/pgr_assert.h"
+#include "c_types/typedefs.h"
 #include "cpp_common/identifier.h"
+#include "problem/node_types.h"
 
-#include "vrp/pd_problem.h"
-#include "vrp/dnode.h"
 
 namespace vrprouting {
-namespace vrp {
+namespace problem {
 
+class Matrix;
 
-/*! @class Tw_node
- * @brief Extends the Node class to create a Node with time window attributes.
- *
+/** @class Tw_node
+ * @brief Time window attributes of a node.
+
  * A Time Window node is a Node with addition attributes and methods to
  * to support Time Windows and to model a more complex Node need in many
  * vehicle routing problems.
@@ -54,231 +51,145 @@ namespace vrp {
  * values and requirements for @c type and @c streetid.
  *
  */
-class Tw_node : public Dnode {
+class Tw_node : public Identifier {
  public:
-     typedef enum {
-         kStart = 0,  ///< starting site
-         kPickup,  ///< pickup site
-         kDelivery,  ///< delivery site
-         kDump,  ///< dump site, empties truck
-         kLoad,  ///< load site, fills the truck
-         kEnd        ///< ending site
-     } NodeType;
+     /** @brief Creating a Tw_node is not permitted */
+     Tw_node() = delete;
 
+     /** @brief Copy constructor */
+     Tw_node(const Tw_node &) = default;
 
-     /** @name accessors */
-     /*! @{*/
+     /** @brief Creating a Tw_node from a postgreSQL order */
+     Tw_node(
+             size_t id,
+             const PickDeliveryOrders_t &data,
+             const NodeType &type);
 
-     /*! @brief Returns the opening time.*/
+     /** @brief Creating a Tw_node from a postgreSQL vehicle */
+     Tw_node(
+             size_t id,
+             const Vehicle_t &data,
+             const NodeType &type);
+
+     /** @brief Returns the order to which it belongs.*/
      inline int64_t order() const {return m_order;}
 
-     /*! @brief Returns the opening time.*/
-     inline double opens() const {return m_opens;}
+     /** @brief Returns the opening time.*/
+     inline TTimestamp opens() const {return m_opens;}
 
-     /*! @brief Returns the closing time. */
-     inline double closes() const {return m_closes;}
+     /** @brief Returns the closing time. */
+     inline TTimestamp closes() const {return m_closes;}
 
-     /*! @brief Returns the demand associated with this node. */
-     inline double demand() const {return m_demand;}
-     inline void demand(double value) {m_demand = value;}
+     /** @brief Returns the service time for this node. */
+     inline TInterval service_time() const {return m_service_time;}
 
-     /*! * @brief Returns the service time for this node. */
-     inline double service_time() const {return m_service_time;}
+     /** @brief Returns the type of this node. */
+     inline auto type() const {return m_type;}
 
-     /*! * @brief Returns the type of this node. */
-     inline NodeType type() const {return m_type;}
+     /** @brief Returns the length of time between the opening and closing. */
+     inline TInterval window_length() const {return m_closes - m_opens;}
 
-     /*! @brief Returns the length of time between the opening and closing. */
-     inline double window_length() const {return m_closes - m_opens;}
-
-     /*! @brief time = distance / speed. */
-     double travel_time_to(const Tw_node &other, double speed) const;
-
-     /*! @}*/
-
-     /** @name kind of node
-      *
-      * A true value when;
-      *
-      *   - 0 < opens < closes
-      *   - the type is the requested type
-      *   - the demand are valid for the requested type
-      */
-
-     /*! @{*/
-
-
-     /*! @brief is_start
-      *
-      * To be a start node:
-      *   - type is kStart
-      *   - demand == 0
-      *
-      **/
+     /** @brief Is the node a valid vehicle's starting node */
      bool is_start() const;
 
-
-     /*! @brief is_pickup
-      *
-      * To be a pickup node:
-      *   - type is kPickup
-      *   - demand > 0
-      *
-      **/
+     /** @brief Is the node a valid order's pickup node */
      bool is_pickup() const;
 
-
-     /*! @brief is_delivery
-      *
-      * To be a delivery node:
-      *   - type is kDelivery
-      *   - demand < 0
-      *
-      **/
+     /** @brief Is the node a valid order's delivery node */
      bool is_delivery() const;
 
-
-     /*! @brief is_dump
-      *
-      * To be a dump node:
-      *   - type is kDump
-      *   - demand <= 0
-      *
-      **/
-     bool is_dump() const;
-
-
-     /*! @brief is_Load
-      *
-      * To be a Load node:
-      *   - type is kLoad
-      *   - demand >= 0
-      *
-      **/
-     bool is_load() const;
-
-
-     /*! @brief is_end
-      *
-      * To be a End node:
-      *   - type is kEnd
-      *   - demand == 0
-      *
-      **/
+     /** @brief Is the node a valid vehicle's ending node */
      bool is_end() const;
 
+     /** @brief Is the node a valid vehicle's dumping node */
+     bool is_dump() const;
 
+     /** @brief Is the node a valid vehicle's loading node */
+     bool is_load() const;
+
+     /** @brief returns a string code of the kind of node */
      std::string type_str() const;
 
-     /*! @} */
+     /** @brief Print the contents of a Twnode object. */
+     friend std::ostream& operator<<(std::ostream &, const Tw_node &);
 
-
-     /*! * @brief Print the contents of a Twnode object. */
-     friend std::ostream& operator<< (std::ostream &log, const Tw_node &node);
-
-     /*! @name to be or not to be */
-     /*! @{ */
-
+     /** @brief equality operator */
      bool operator ==(const Tw_node &rhs) const;
 
 
+     /** @brief True when @b arrivalTime is after it @b closes */
+     inline bool is_late_arrival(TTimestamp arrival_time) const {
+         return arrival_time > m_closes;
+     }
 
-     /*! @brief True when @b arrivalTime is before it @b opens */
-     inline bool is_early_arrival(double arrival_time) const {
+     /** @brief True when @b arrivalTime is before it @b opens */
+     inline bool is_early_arrival(TTimestamp arrival_time) const {
          return arrival_time < m_opens;
      }
 
-     /*! @brief True when @b arrivalTime is after it @b closes */
-     inline bool is_late_arrival(double arrival_time) const {
-         return arrival_time > m_closes;
-     }
-     /*! @brief True when @b arrivalTime in the time window */
-     inline bool is_on_time(double arrival_time) const {
+     /** @brief True when @b arrivalTime in the time window */
+     inline bool is_on_time(TTimestamp arrival_time) const {
          return !is_early_arrival(arrival_time)
              && !is_late_arrival(arrival_time);
      }
-     /*! @} */
 
+     /** @brief travel time to other node. */
+     TInterval travel_time_to(const Tw_node&, TTimestamp, Speed = 1.0) const;
 
-     /** @name document functions */
-     /*! @{ */
-     /*!
-      * The actual arrival time at @b This node, given that:
-      * @b this node is visited directly after @b other node
-      *   and that the actual arrival time at @b other node was opens(other)
-      **/
-     double arrival_j_opens_i(const Tw_node &I, double speed) const;
+     static const Matrix* m_time_matrix_ptr;
 
-     /*!
-      * The actual arrival time at @b this node, given that:
-      * @b this node is visited directly after @b other node
-      * and that the actual arrival time at @b other node was closes(other)
-      **/
-     double arrival_j_closes_i(const Tw_node &I, double speed) const;
+     /** is possible to arrive to @b this after visiting @b other? */
+     bool is_compatible_IJ(const Tw_node &I, Speed = 1.0) const;
 
+     /** @brief arrival time at @b This node, when arrived at I at opening time TODO refine description*/
+     TTimestamp arrival_j_opens_i(const Tw_node &I, Speed = 1.0) const;
 
-     /*
-      * is possible to arrive to @b this after visiting @bother
-      *   - departing as early as possible from @b other it can arrives to @b this
-      */
-     bool is_compatible_IJ(const Tw_node &I, double speed) const;
+     /** @brief arrival time at @b This node, when arrived at I at closing time TODO refine description*/
+     TTimestamp arrival_j_closes_i(const Tw_node &I, Speed = 1.0) const;
 
-     /*
-      * is possible to arrive to @b this after visiting @bother
-      *   - departing as late as possible from @b other it can arrives to @b this
-      */
-     bool is_partially_compatible_IJ(const Tw_node &I, double speed) const;
+     /** @brief can arrive to @b this after visiting as late as possible @b I? TODO refine description*/
+     bool is_partially_compatible_IJ(const Tw_node &I, Speed = 1.0) const;
 
-     /*
-      * is possible to arrive to @b this after visiting @bother
-      *   - departing as late as possible from @b other it can arrives to @b this
-      */
-     bool is_tight_compatible_IJ(const Tw_node &I, double speed) const;
+     /** @brief can arrive to @b this after visiting as late as possible @b I? TODO refine description*/
+     bool is_tight_compatible_IJ(const Tw_node &I, Speed = 1.0) const;
 
-     /*
-      * is possible to arrive to @b this after visiting @b other
-      *   - departing as late as possible from @b other it can arrives to @b this
-      */
-     bool is_partially_waitTime_compatible_IJ(
-             const Tw_node &I,
-             double speed) const;
+     /** @brief can arrive to @b this after visiting as late as possible @b I? TODO refine description*/
+     bool is_partially_waitTime_compatible_IJ(const Tw_node &I, Speed = 1.0) const;
 
-     /*
-      * is compatible to arrive to @b this after visiting @b other
-      * - is fully compatible
-      * - does not have a waiting time when arriving as earliest as possible after
-      */
-     bool is_waitTime_compatible_IJ(const Tw_node &I, double speed) const;
+     /** @brief can arrive to @b this after visiting as late as possible @b I? TODO refine description*/
+     bool is_waitTime_compatible_IJ(const Tw_node &I, Speed = 1.0) const;
 
+     /** @brief Returns the demand associated with this node. */
+     inline Amount demand() const {return m_demand;}
 
-     /*! @} */
-
-
-
-     Tw_node() = default;
-     Tw_node(const Tw_node &) = default;
-     Tw_node(
-             size_t id,
-             PickDeliveryOrders_t data,
-             NodeType type);
-     Tw_node(
-             size_t id,
-             Vehicle_t data,
-             NodeType type);
-
- protected:
+     /** @brief is the node valid? */
      bool is_valid() const;
 
+ protected:
+     /** @brief Sets the demand value to a new value */
+     inline void demand(Amount value) {m_demand = value;}
+
  private:
-     int64_t m_order;       ///< order to which it belongs
-     double m_opens;        ///< opening time of the node
-     double m_closes;       ///< closing time of the node
-     double m_service_time;  // /< time it takes to be served
-     double m_demand;       ///< The demand for the Node
-     NodeType m_type;       ///< The demand for the Node
+     /** order to which it belongs (idx) */
+     int64_t m_order { };
+
+     /** opening time of the node */
+     TTimestamp m_opens;
+
+     /** closing time of the node */
+     TTimestamp m_closes;
+
+     /** time it takes to be served */
+     TInterval m_service_time;
+
+     /** The demand for the Node */
+     Amount m_demand;
+
+     /** The kind of Node */
+     NodeType m_type;
 };
 
-}  //  namespace vrp
+}  //  namespace problem
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_VRP_TW_NODE_H_
+#endif  // INCLUDE_PROBLEM_TW_NODE_H_

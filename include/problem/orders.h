@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: pd_orders.h
+FILE: orders.h
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,87 +25,110 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_VRP_PD_ORDERS_H_
-#define INCLUDE_VRP_PD_ORDERS_H_
+#ifndef INCLUDE_PROBLEM_ORDERS_H_
+#define INCLUDE_PROBLEM_ORDERS_H_
 #pragma once
 
 #include <vector>
-#include <memory>
-#include <utility>
+#include <algorithm>
 
-#include "c_types/pickDeliver/pickDeliveryOrders_t.h"
+#include "problem/order.h"
+#include "c_types/pickDeliveryOrders_t.h"
+#include "cpp_common/pgr_assert.h"
 #include "cpp_common/identifiers.hpp"
+#include "problem/tw_node.h"
+#include "problem/vehicle_node.h"
+#include "problem/node_types.h"
 
-#include "vrp/base_node.h"
-#include "vrp/pd_problem.h"
 
 
 namespace vrprouting {
-namespace vrp {
+namespace problem {
 
-class Order;
-class Vehicle_node;
-
-class PD_Orders {
-    /** PD_rpblem needs access to set up the problem pointer */
-     friend class PD_problem;
-
-     typedef std::vector<Order> Orders;
-
+class Orders : public std::vector<Order> {
  public:
-     typedef Orders::iterator o_iterator;
-     typedef Orders::const_iterator o_const_iterator;
+    using std::vector<Order>::size;
+    Orders() = default;
+    Orders(const Orders&) = default;
 
- public:
-     /*! @name constructors
-      * @{
-      */
-     PD_Orders() = default;
-     PD_Orders(const PD_Orders&) = default;
-     explicit PD_Orders(const std::vector<PickDeliveryOrders_t>&);
-     /*!@}*/
+    // todo remove template its problem::PickDeliver
+    template <typename PTR>
+      Orders(PickDeliveryOrders_t* p_orders, size_t p_size_orders, const PTR problem_ptr) {
+        Tw_node::m_time_matrix_ptr = &problem_ptr->time_matrix();
+        build_orders(p_orders, p_size_orders, problem_ptr);
+      }
 
-     void set_compatibles(double speed);
-     size_t find_best_J(Identifiers<size_t> &within_this_set) const;
-     size_t find_best_I(Identifiers<size_t> &within_this_set) const;
+    /** @brief find the best order -> @b this */
+    size_t find_best_I(const Identifiers<size_t> &within_this_set) const;
 
+    /** @brief find the best order -> @b this -> order */
+    size_t find_best_J(const Identifiers<size_t> &within_this_set) const;
 
-     bool is_valid(double speed) const;
+    /** @brief find the best order -> @b this -> order */
+    size_t find_best_I_J(const Identifiers<size_t> &within_this_set) const;
 
-     /*! @name std container functions
-      * functions with same "meaning" as an std container
-      * @{
-      */
-     Order& operator[](size_t o);
-     const Order& operator[](size_t o) const;
-     size_t size() const {return m_orders.size();}
-     o_iterator begin() {return m_orders.begin();}
-     o_iterator end() {return m_orders.end();}
-     o_const_iterator begin() const {return m_orders.begin();}
-     o_const_iterator end() const {return m_orders.end();}
-     /*!@}*/
+    /** @brief set the compatability between all orders */
+    void set_compatibles(Speed = 1.0);
+
+    /** @brief is the order valid? */
+    bool is_valid(Speed = 1.0) const;
+
+    friend std::ostream& operator<<(std::ostream &log, const Orders &p_orders) {
+      log << "Orders\n";
+      for (const auto &o : p_orders) log << o << "\n";
+      log << "end Orders\n";
+      return log;
+    }
 
  private:
-     void build_orders(
-             const std::vector<PickDeliveryOrders_t> &pd_orders);
+    template <typename PTR>
+      void build_orders(PickDeliveryOrders_t *, size_t, const PTR problem_ptr);
 
-     void add_order(
-             const PickDeliveryOrders_t &,
-             const Vehicle_node&,
-             const Vehicle_node&);
-
-
- private:
-     Orders m_orders;
-
-     /** @brief Access to the problem's message */
-     Pgr_messages& msg() const;
-
-     /** The problem */
-     static Pgr_pickDeliver* problem;
+    /** @brief add in an order */
+    void add_order(const PickDeliveryOrders_t &order,
+        const Vehicle_node &pick,
+        const Vehicle_node &drop) {
+      push_back(Order(size(), order.id, pick, drop));
+    }
 };
 
-}  //  namespace vrp
+/**
+  @param [in] orders
+  @param [in] size_orders
+  @param [in] problem_ptr pointer to problem to get some needed information
+  */
+template <typename PTR>
+void
+Orders::build_orders(PickDeliveryOrders_t *orders, size_t size_orders, const PTR problem_ptr) {
+  /**
+   * - Sort orders: ASC pick_open_t, deliver_close_t, id
+   */
+  std::sort(orders, orders + size_orders,
+      [] (const PickDeliveryOrders_t &lhs, const PickDeliveryOrders_t &rhs) {
+        if (lhs.pick_open_t == rhs.pick_open_t) {
+          if (lhs.deliver_close_t == rhs.deliver_close_t) {
+            return lhs.id < rhs.id;
+          } else {
+            return lhs.deliver_close_t < rhs.deliver_close_t;
+          }
+        } else {
+          return lhs.pick_open_t < rhs.pick_open_t;
+        }
+      });
+
+  for (size_t i = 0; i < size_orders; ++i) {
+    auto order = orders[i];
+    Vehicle_node pick({problem_ptr->node_id()++, order, NodeType::kPickup});
+    Vehicle_node drop({problem_ptr->node_id()++, order, NodeType::kDelivery});
+
+    problem_ptr->add_node(pick);
+    problem_ptr->add_node(drop);
+
+    this->emplace_back(Order{size(), order.id, pick, drop});
+  }
+}
+
+}  //  namespace problem
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_VRP_PD_ORDERS_H_
+#endif  // INCLUDE_PROBLEM_ORDERS_H_

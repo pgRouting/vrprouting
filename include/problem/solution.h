@@ -23,105 +23,114 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*! @file */
+/** @file */
 
-#ifndef INCLUDE_VRP_SOLUTION_H_
-#define INCLUDE_VRP_SOLUTION_H_
+#ifndef INCLUDE_PROBLEM_SOLUTION_H_
+#define INCLUDE_PROBLEM_SOLUTION_H_
 #pragma once
 
 #include <deque>
-#include <tuple>
-#include <string>
 #include <vector>
+#include <string>
+#include <ostream>
+#include <numeric>
+#include <algorithm>
+#include <tuple>
+#include <iomanip>
 
-#include "vrp/vehicle_pickDeliver.h"
-#include "vrp/fleet.h"
+#include "problem/vehicle_pickDeliver.h"
+#include "problem/fleet.h"
+#include "c_types/short_vehicle.h"
+
+typedef struct Solution_rt Solution_rt;
 
 namespace vrprouting {
-namespace vrp {
-
+namespace problem {
 
 class Solution {
-    friend class Optimize;
-    friend class PD_problem;
- protected:
-     double EPSILON;
-     std::deque<Vehicle_pickDeliver> fleet;
-
-     /* this solution belongs to this problem*/
-     Fleet trucks;
-
  public:
-     std::vector<General_vehicle_orders_t>
-         get_postgres_result() const;
+    /** @brief constructor */
+    Solution() = delete;
+
+    /** @brief constructor */
+    template <typename P>
+      explicit Solution(P* p_problem) :
+        m_orders(p_problem->orders()),
+        m_trucks(p_problem->vehicles()),
+        m_msg(p_problem->msg) { }
 
 
-     /* @brief constructor
-      *
-      */
-     Solution();
+    /** @brief copy constructor */
+    Solution(const Solution &sol) = default;
 
+    /** @brief copy assignment */
+    Solution& operator = (const Solution& sol) = default;
 
-#if 0
-     /* @brief move constructor */
-     Solution(Solution &&sol) = default;
-#endif
+    /** @brief get solution like postgres needs it */
+    std::vector<Short_vehicle> get_stops() const;
 
-     /* @brief copy constructor */
-     Solution(const Solution &sol) :
-         EPSILON(0.0001),
-         fleet(sol.fleet),
-         trucks(sol.trucks)
-    {};
+    /** @brief get solution like postgres needs it */
+    std::vector<Solution_rt> get_postgres_result() const;
 
-     /* @brief copy assignment */
-     Solution& operator = (const Solution& sol) {
-         EPSILON = 0.0001,
-         fleet = sol.fleet;
-         trucks = sol.trucks;
-         return *this;
-     };
+    /** @brief printing function */
+    friend std::ostream& operator<< (std::ostream &log, const Solution &solution) {
+      for (const auto& vehicle : solution.m_fleet) log << vehicle;
+      log << "\n SOLUTION:\n\n " << solution.tau();
+      return log;
+    }
 
-     void sort_by_id();
+    /** @brief writing the solution in compact form into a string */
+    std::string tau(const std::string &title = "Tau") const;
 
-     Initials_code get_kind() const;
+    /** @brief is the solution feasible? */
+    bool is_feasible() const;
 
-     std::string cost_str() const;
-     std::string tau(const std::string &title = "Tau") const;
-     friend std::ostream& operator<<(
-             std::ostream &log,
-             const Solution &solution);
-     bool operator <(const Solution &s_rhs) const;
+    /** @brief Total duration of the solution*/
+    TInterval duration() const;
 
-     bool is_feasable() const;
-     double duration() const;
-     double wait_time() const;
-     double total_travel_time() const;
-     double total_service_time() const;
-     int twvTot() const;
-     int cvTot() const;
-     size_t fleet_size() const {return fleet.size();}
+    /** @brief Total waiting time of the solution*/
+    TInterval wait_time() const;
 
-     /*
-      * Cost in terms of a tuple
-      * <0> time window violations
-      * <1> capacity violations
-      * <2> fleet size TODO
-      * <3> wait_time
-      * <4> duration
-      */
-     Vehicle::Cost cost() const;
+    /** @brief Total travel time of the solution*/
+    TInterval total_travel_time() const;
 
-     /** The problem's message */
-     static Pgr_messages& msg();
+    /** @brief Total service time of the solution*/
+    TInterval total_service_time() const;
 
- private:
-     /** this solution belongs to this problem */
-     static Pgr_pickDeliver* problem;
+    /** @brief Total number of time windows constraint violations of the solution*/
+    int twvTot() const;
+
+    /** @brief Total number of capacity constraint violations of the solution*/
+    int cvTot() const;
+
+    /** Get the current fleet solution */
+    const std::deque<Vehicle_pickDeliver>& fleet() const {return m_fleet;}
+
+    /** @brief Get the value of the objective function */
+    double objective() const {return static_cast<double>(total_travel_time());}
+
+    /** @brief Get all statistics in one cycle */
+    std::tuple<int, int, size_t, TInterval, TInterval, TInterval> cost() const;
+
+    std::string cost_str() const;
+
+    bool operator<(const Solution&) const;
+
+    Pgr_messages& msg() {return m_msg;}
+    const Orders& orders() const {return m_orders;}
+    Fleet& vehicles() {return m_trucks;}
+
+ protected:
+    /** The current solution */
+    std::deque<Vehicle_pickDeliver> m_fleet;
+
+    /** the problem info */
+    Orders m_orders;
+    Fleet  m_trucks;
+    Pgr_messages m_msg;
 };
 
-
-}  //  namespace vrp
+}  //  namespace problem
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_VRP_SOLUTION_H_
+#endif  // INCLUDE_PROBLEM_SOLUTION_H_
