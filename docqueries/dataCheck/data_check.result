@@ -1,0 +1,56 @@
+BEGIN;
+BEGIN
+SET client_min_messages TO NOTICE;
+SET
+SET search_path TO 'example2', 'public';
+SET
+SELECT count(*) FROM example2.shipments;
+ count
+-------
+   676
+(1 row)
+
+SELECT count(*) FROM example2.physical_vehicles;
+ count
+-------
+     9
+(1 row)
+
+SELECT count(*) FROM example2.vehicles;
+ count
+-------
+   180
+(1 row)
+
+SELECT count(*) FROM example2.depot;
+ count
+-------
+     2
+(1 row)
+
+SELECT count(*) FROM example2.locations;
+ count
+-------
+   345
+(1 row)
+
+SELECT count(*) FROM example2.timeMatrix;
+ count
+--------
+ 119025
+(1 row)
+
+SELECT count(*) FROM example2.timeMatrix WHERE assigned;
+ count
+-------
+ 85626
+(1 row)
+
+SELECT count(*) FROM example2.timeMatrix WHERE NOT assigned;
+ count
+-------
+ 33399
+(1 row)
+
+ROLLBACK;
+ROLLBACK
