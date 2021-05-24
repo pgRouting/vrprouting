@@ -1,13 +1,11 @@
 /*PGR-GNU*****************************************************************
 File: pickDeliver.c
 
-Generated with Template by:
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
 
 Function's developer:
 Copyright (c) 2015 Celia Virginia Vergara Castillo
-Mail:
 
 ------
 
@@ -34,7 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/orders_input.h"
 #include "c_common/vehicles_input.h"
 #include "c_common/matrixRows_input.h"
-#include "drivers/pickDeliver/pickDeliver_driver.h"
+#include "c_types/pickDeliveryOrders_t.h"
+#include "c_types/solution_rt.h"
+#include "drivers/pgr_pickDeliver/pickDeliver_driver.h"
 
 PGDLLEXPORT Datum
 _vrp_pgr_pickdeliver(PG_FUNCTION_ARGS);
@@ -51,7 +51,7 @@ process(
         int max_cycles,
         int initial_solution_id,
 
-        General_vehicle_orders_t **result_tuples,
+        Solution_rt **result_tuples,
         size_t *result_count) {
     if (factor <= 0) {
         ereport(ERROR,
@@ -64,14 +64,20 @@ process(
     }
 
     if (max_cycles < 0) {
-        elog(ERROR, "Illegal value in parameter: max_cycles");
+        ereport(ERROR,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("Illegal value in parameter: max_cycles"),
+                 errhint("Value found: %d <= 0", max_cycles)));
         (*result_count) = 0;
         (*result_tuples) = NULL;
         return;
     }
 
     if (initial_solution_id < 0 || initial_solution_id > 7) {
-        elog(ERROR, "Illegal value in parameter: initial");
+        ereport(ERROR,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("Illegal value in parameter: initial"),
+                 errhint("Value found: %d <= 0", initial_solution_id)));
         (*result_count) = 0;
         (*result_tuples) = NULL;
         return;
@@ -79,37 +85,61 @@ process(
 
     pgr_SPI_connect();
 
-    PGR_DBG("Load orders");
     PickDeliveryOrders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
-    get_pd_orders_with_id(pd_orders_sql,
+    get_shipments_raw(pd_orders_sql,
            &pd_orders_arr, &total_pd_orders);
 
-    PGR_DBG("Load vehicles");
+    if (total_pd_orders == 0) {
+        (*result_count) = 0;
+        (*result_tuples) = NULL;
+
+        /* freeing memory before return */
+        if (pd_orders_arr) {pfree(pd_orders_arr); pd_orders_arr = NULL;}
+
+        pgr_SPI_finish();
+        ereport(ERROR,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("No orders found")));
+        return;
+    }
+
+
     Vehicle_t *vehicles_arr = NULL;
     size_t total_vehicles = 0;
-    pgr_get_vehicles_with_id(vehicles_sql,
-           &vehicles_arr, &total_vehicles);
-    PGR_DBG("total vehicles %ld", total_vehicles);
+    get_vehicles_raw(vehicles_sql,
+           &vehicles_arr, &total_vehicles,
+           false);
 
+    if (total_vehicles == 0) {
+        (*result_count) = 0;
+        (*result_tuples) = NULL;
+
+        /* freeing memory before return */
+        if (pd_orders_arr) {pfree(pd_orders_arr); pd_orders_arr = NULL;}
+        if (vehicles_arr) {pfree(vehicles_arr); vehicles_arr = NULL;}
+
+        pgr_SPI_finish();
+        ereport(ERROR,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("No vehicles found")));
+        return;
+    }
 
 #if 0
+    PGR_DBG("total orders %ld", total_pd_orders);
     for (size_t i = 0; i < total_pd_orders; i++) {
-        PGR_DBG("%ld %f pick %f %f %ld - "
-                "%f %f %f deliver %f %f %ld - %f %f %f ",
+        PGR_DBG("%ld %f pick %ld - %ld %ld %ld"
+                "deliver %ld - %ld %ld %ld ",
                 pd_orders_arr[i].id,
                 pd_orders_arr[i].demand,
 
-                pd_orders_arr[i].pick_x,
-                pd_orders_arr[i].pick_y,
                 pd_orders_arr[i].pick_node_id,
 
                 pd_orders_arr[i].pick_open_t,
                 pd_orders_arr[i].pick_close_t,
                 pd_orders_arr[i].pick_service_t,
 
-                pd_orders_arr[i].deliver_x,
-                pd_orders_arr[i].deliver_y,
                 pd_orders_arr[i].deliver_node_id,
 
                 pd_orders_arr[i].deliver_open_t,
@@ -117,22 +147,22 @@ process(
                 pd_orders_arr[i].deliver_service_t);
     }
 
+
+
+    PGR_DBG("total vehicles %ld", total_vehicles);
     for (size_t i = 0; i < total_vehicles; i++) {
-        PGR_DBG("%ld %f %f / %ld %f %f %f %f %f / %ld %f %f %f %f %f / %ld ",
+        PGR_DBG("%ld %f %f , start %ld %ld %ld %ld "
+                "end %ld %ld %ld %ld number %ld ",
                vehicles_arr[i].id,
                vehicles_arr[i].capacity,
                vehicles_arr[i].speed,
 
                vehicles_arr[i].start_node_id,
-               vehicles_arr[i].start_x,
-               vehicles_arr[i].start_y,
                vehicles_arr[i].start_open_t,
                vehicles_arr[i].start_close_t,
                vehicles_arr[i].start_service_t,
 
                vehicles_arr[i].end_node_id,
-               vehicles_arr[i].end_x,
-               vehicles_arr[i].end_y,
                vehicles_arr[i].end_open_t,
                vehicles_arr[i].end_close_t,
                vehicles_arr[i].end_service_t,
@@ -140,25 +170,45 @@ process(
                vehicles_arr[i].cant_v);
     }
 #endif
-    PGR_DBG("load matrix");
+
     Matrix_cell_t *matrix_cells_arr = NULL;
     size_t total_cells = 0;
-    pgr_get_matrixRows(matrix_sql, &matrix_cells_arr, &total_cells);
+    get_matrixRows_plain(matrix_sql, &matrix_cells_arr, &total_cells);
 
+    PGR_DBG("total matrix rows %ld", total_cells);
+#if 0
+    for (size_t i = 0; i < total_cells; i++) {
+        PGR_DBG("%ld %ld %f",
+               matrix_cells_arr[i].from_vid,
+               matrix_cells_arr[i].to_vid,
+               matrix_cells_arr[i].cost);
+    }
+#endif
 
-    if (total_pd_orders == 0 || total_vehicles == 0 || total_cells == 0) {
+    if (total_cells == 0) {
         (*result_count) = 0;
         (*result_tuples) = NULL;
+
+        /* freeing memory before return */
+        if (pd_orders_arr) {pfree(pd_orders_arr); pd_orders_arr = NULL;}
+        if (vehicles_arr) {pfree(vehicles_arr); vehicles_arr = NULL;}
+        if (matrix_cells_arr) {pfree(matrix_cells_arr); matrix_cells_arr = NULL;}
+
+        ereport(WARNING,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("No matrix found")));
         pgr_SPI_finish();
         return;
     }
+
+
     PGR_DBG("Total %ld orders in query:", total_pd_orders);
     PGR_DBG("Total %ld vehicles in query:", total_vehicles);
     PGR_DBG("Total %ld matrix cells in query:", total_cells);
 
 
     PGR_DBG("Starting processing");
-            clock_t start_t = clock();
+    clock_t start_t = clock();
     char *log_msg = NULL;
     char *notice_msg = NULL;
     char *err_msg = NULL;
@@ -186,18 +236,15 @@ process(
         (*result_count) = 0;
         (*result_tuples) = NULL;
     }
-#if 1
     pgr_global_report(log_msg, notice_msg, err_msg);
-#else
-    pgr_global_report(notice_msg, log_msg, err_msg);
-#endif
 
-    if (log_msg) pfree(log_msg);
-    if (notice_msg) pfree(notice_msg);
-    if (err_msg) pfree(err_msg);
-    if (pd_orders_arr) pfree(pd_orders_arr);
-    if (vehicles_arr) pfree(vehicles_arr);
-    if (matrix_cells_arr) pfree(matrix_cells_arr);
+    /* freeing memory before return */
+    if (log_msg) {pfree(log_msg); log_msg = NULL;}
+    if (notice_msg) {pfree(notice_msg); notice_msg = NULL;}
+    if (err_msg) {pfree(err_msg); err_msg = NULL;}
+    if (pd_orders_arr) {pfree(pd_orders_arr); pd_orders_arr = NULL;}
+    if (vehicles_arr) {pfree(vehicles_arr); vehicles_arr = NULL;}
+    if (matrix_cells_arr) {pfree(matrix_cells_arr); matrix_cells_arr = NULL;}
 
     pgr_SPI_finish();
 }
@@ -213,7 +260,7 @@ _vrp_pgr_pickdeliver(PG_FUNCTION_ARGS) {
     TupleDesc            tuple_desc;
 
     /**************************************************************************/
-    General_vehicle_orders_t *result_tuples = 0;
+    Solution_rt *result_tuples = 0;
     size_t result_count = 0;
     /**************************************************************************/
 
@@ -259,7 +306,7 @@ _vrp_pgr_pickdeliver(PG_FUNCTION_ARGS) {
 
     funcctx = SRF_PERCALL_SETUP();
     tuple_desc = funcctx->tuple_desc;
-    result_tuples = (General_vehicle_orders_t*) funcctx->user_fctx;
+    result_tuples = (Solution_rt*) funcctx->user_fctx;
 
     if (funcctx->call_cntr <  funcctx->max_calls) {
         HeapTuple   tuple;
@@ -303,12 +350,12 @@ _vrp_pgr_pickdeliver(PG_FUNCTION_ARGS) {
         values[4] = Int32GetDatum(result_tuples[call_cntr].stop_type + 1);
         values[5] = Int64GetDatum(result_tuples[call_cntr].stop_id);
         values[6] = Int64GetDatum(result_tuples[call_cntr].order_id);
-        values[7] = Float8GetDatum(result_tuples[call_cntr].cargo);
-        values[8] = Float8GetDatum(result_tuples[call_cntr].travelTime);
-        values[9] = Float8GetDatum(result_tuples[call_cntr].arrivalTime);
-        values[10] = Float8GetDatum(result_tuples[call_cntr].waitTime);
-        values[11] = Float8GetDatum(result_tuples[call_cntr].serviceTime);
-        values[12] = Float8GetDatum(result_tuples[call_cntr].departureTime);
+        values[7] = Int64GetDatum(result_tuples[call_cntr].cargo);
+        values[8] = Int64GetDatum(result_tuples[call_cntr].travelTime);
+        values[9] = Int64GetDatum(result_tuples[call_cntr].arrivalTime);
+        values[10] = Int64GetDatum(result_tuples[call_cntr].waitDuration);
+        values[11] = Int64GetDatum(result_tuples[call_cntr].serviceDuration);
+        values[12] = Int64GetDatum(result_tuples[call_cntr].departureTime);
 
         /*********************************************************************/
 

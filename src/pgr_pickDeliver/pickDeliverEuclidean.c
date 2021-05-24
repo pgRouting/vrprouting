@@ -1,13 +1,11 @@
 /*PGR-GNU*****************************************************************
 File: pickDeliverEuclidean.c
 
-Generated with Template by:
-Copyright (c) 2017 pgRouting developers
+Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
 
 Function's developer:
 Copyright (c) 2015 Celia Virginia Vergara Castillo
-Mail:
 
 ------
 
@@ -35,8 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/time_msg.h"
 #include "c_common/orders_input.h"
 #include "c_common/vehicles_input.h"
+#include "c_types/pickDeliveryOrders_t.h"
+#include "c_types/solution_rt.h"
 
-#include "drivers/pickDeliver/pickDeliverEuclidean_driver.h"
+#include "drivers/pgr_pickDeliver/pickDeliverEuclidean_driver.h"
 
 PGDLLEXPORT Datum _vrp_pgr_pickdelivereuclidean(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(_vrp_pgr_pickdelivereuclidean);
@@ -50,7 +50,7 @@ process(
         double factor,
         int max_cycles,
         int initial_solution_id,
-        General_vehicle_orders_t **result_tuples,
+        Solution_rt **result_tuples,
         size_t *result_count) {
     if (factor <= 0) {
         ereport(ERROR,
@@ -82,21 +82,23 @@ process(
     pgr_SPI_connect();
 
     PGR_DBG("Load orders");
-    PickDeliveryOrders_t *pd_orders_arr = NULL;
+    struct PickDeliveryOrders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
-    pgr_get_pd_orders(pd_orders_sql,
+    get_shipments_euclidean(pd_orders_sql,
            &pd_orders_arr, &total_pd_orders);
 
     PGR_DBG("Load vehicles");
     Vehicle_t *vehicles_arr = NULL;
     size_t total_vehicles = 0;
-    pgr_get_vehicles(vehicles_sql,
-           &vehicles_arr, &total_vehicles);
+    get_vehicles_euclidean(vehicles_sql,
+           &vehicles_arr, &total_vehicles,
+           false);
     PGR_DBG("total vehicles %ld", total_vehicles);
 
+#if 0
     for (size_t i = 0; i < total_pd_orders; i++) {
         PGR_DBG("%ld %f pick %f %f %ld - "
-                "%f %f %f deliver %f %f %ld - %f %f %f ",
+                "%ld %ld %ld deliver %f %f %ld - %ld %ld %ld ",
                 pd_orders_arr[i].id,
                 pd_orders_arr[i].demand,
 
@@ -120,8 +122,8 @@ process(
 
 
     for (size_t i = 0; i < total_vehicles; i++) {
-        PGR_DBG("%ld %f %f , start %f %f %f %f %f "
-                "end %f %f %f %f %f number %ld ",
+        PGR_DBG("%ld %f %f , start %f %f %ld %ld %ld "
+                "end %f %f %ld %ld %ld number %ld ",
                vehicles_arr[i].id,
                vehicles_arr[i].capacity,
                vehicles_arr[i].speed,
@@ -140,6 +142,7 @@ process(
 
                vehicles_arr[i].cant_v);
     }
+#endif
 
     if (total_pd_orders == 0 || total_vehicles == 0) {
         (*result_count) = 0;
@@ -197,7 +200,7 @@ _vrp_pgr_pickdelivereuclidean(PG_FUNCTION_ARGS) {
     /**************************************************************************/
     /*                          MODIFY AS NEEDED                              */
     /*                                                                        */
-    General_vehicle_orders_t *result_tuples = 0;
+    Solution_rt *result_tuples = 0;
     size_t result_count = 0;
     /*                                                                        */
     /**************************************************************************/
@@ -245,7 +248,7 @@ _vrp_pgr_pickdelivereuclidean(PG_FUNCTION_ARGS) {
 
     funcctx = SRF_PERCALL_SETUP();
     tuple_desc = funcctx->tuple_desc;
-    result_tuples = (General_vehicle_orders_t*) funcctx->user_fctx;
+    result_tuples = (Solution_rt*) funcctx->user_fctx;
 
     if (funcctx->call_cntr <  funcctx->max_calls) {
         HeapTuple   tuple;
@@ -284,12 +287,12 @@ _vrp_pgr_pickdelivereuclidean(PG_FUNCTION_ARGS) {
         values[3] = Int32GetDatum(result_tuples[call_cntr].stop_seq);
         values[4] = Int32GetDatum(result_tuples[call_cntr].stop_type + 1);
         values[5] = Int64GetDatum(result_tuples[call_cntr].order_id);
-        values[6] = Float8GetDatum(result_tuples[call_cntr].cargo);
-        values[7] = Float8GetDatum(result_tuples[call_cntr].travelTime);
-        values[8] = Float8GetDatum(result_tuples[call_cntr].arrivalTime);
-        values[9] = Float8GetDatum(result_tuples[call_cntr].waitTime);
-        values[10] = Float8GetDatum(result_tuples[call_cntr].serviceTime);
-        values[11] = Float8GetDatum(result_tuples[call_cntr].departureTime);
+        values[6] = Int64GetDatum(result_tuples[call_cntr].cargo);
+        values[7] = Int64GetDatum(result_tuples[call_cntr].travelTime);
+        values[8] = Int64GetDatum(result_tuples[call_cntr].arrivalTime);
+        values[9] = Int64GetDatum(result_tuples[call_cntr].waitDuration);
+        values[10] = Int64GetDatum(result_tuples[call_cntr].serviceDuration);
+        values[11] = Int64GetDatum(result_tuples[call_cntr].departureTime);
 
         /*********************************************************************/
 
