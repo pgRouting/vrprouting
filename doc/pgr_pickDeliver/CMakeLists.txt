@@ -3,7 +3,6 @@ SET(LOCAL_FILES
   vrp_pgr_pickDeliverEuclidean.rst
   vrp_pgr_pickDeliver.rst
   vrp_oneDepot.rst
-  VRP-category.rst
   )
 
 foreach (f ${LOCAL_FILES})

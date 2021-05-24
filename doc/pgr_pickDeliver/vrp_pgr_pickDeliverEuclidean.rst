@@ -82,7 +82,7 @@ Characteristics
 Signature
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pickDeliver/pgr_pickDeliverEuclidean.sql
+.. include:: ../sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql
    :start-after: signature start
    :end-before: signature end
 
@@ -90,7 +90,7 @@ Signature
 Parameters
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pickDeliver/pgr_pickDeliverEuclidean.sql
+.. include:: ../sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql
    :start-after: parameters start
    :end-before: parameters end
 
@@ -117,7 +117,7 @@ Vehicles SQL
 Result Columns
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pickDeliver/pgr_pickDeliverEuclidean.sql
+.. include:: ../sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql
    :start-after: result start
    :end-before: result end
 
@@ -137,7 +137,7 @@ This example use the following data:
 
 .. rubric:: See Also
 
-* :doc:`VRP-category`
+* :doc:`pgr-category`
 * The queries use the :doc:`sampledata` network.
 
 .. rubric:: Indices and tables

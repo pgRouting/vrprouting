@@ -82,7 +82,7 @@ Characteristics
 Signature
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pickDeliver/pgr_pickDeliver.sql
+.. include:: ../sql/pgr_pickDeliver/pgr_pickDeliver.sql
    :start-after: signature start
    :end-before: signature end
 
@@ -90,7 +90,7 @@ Signature
 Parameters
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pickDeliver/pgr_pickDeliver.sql
+.. include:: ../sql/pgr_pickDeliver/pgr_pickDeliver.sql
    :start-after: parameters start
    :end-before: parameters end
 
@@ -124,7 +124,7 @@ Time Matrix SQL
 Result Columns
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pickDeliver/pgr_pickDeliver.sql
+.. include:: ../sql/pgr_pickDeliver/pgr_pickDeliver.sql
    :start-after: result start
    :end-before: result end
 
@@ -143,7 +143,7 @@ This example use the following data:
 See Also
 -------------------------------------------------------------------------------
 
-* :doc:`VRP-category`
+* :doc:`pgr-category`
 * The queries use the :doc:`sampledata` network.
 
 .. rubric:: Indices and tables

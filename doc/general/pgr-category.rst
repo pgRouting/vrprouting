@@ -11,8 +11,8 @@
 
 * `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__
 * Supported Versions
-  `Latest <https://vrp.pgrouting.org/latest/en/VRP-category.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0/en/VRP-category.html>`__)
+  `Latest <https://vrp.pgrouting.org/latest/en/pgr-category.html>`__
+  (`0.0 <https://vrp.pgrouting.org/0/en/pgr-category.html>`__)
 
 
 Vehicle Routing Functions - Category (Experimental)

@@ -43,13 +43,13 @@ Experimental Functions
 
 .. rubric:: categories
 
-:doc:`VRP-category`
+:doc:`pgr-category`
 
 
 .. toctree::
   :maxdepth: 2
 
-  VRP-category
+  pgr-category
 
 .. rubric:: See Also
 
