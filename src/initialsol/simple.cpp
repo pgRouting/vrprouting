@@ -1,6 +1,5 @@
 /*PGR-GNU*****************************************************************
-
-FILE: initial_solution.cpp
+FILE: simple.cpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -24,16 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 
 
-#include "vrp/initial_solution.h"
+#include "initialsol/simple.h"
 #include <deque>
 #include <algorithm>
 #include <set>
 #include "cpp_common/pgr_assert.h"
-#include "vrp/solution.h"
-#include "vrp/pgr_pickDeliver.h"
+#include "problem/node_types.h"
+#include "problem/orders.h"
+#include "problem/pickDeliver.h"
 
 namespace vrprouting {
-namespace vrp {
+namespace initialsol {
+namespace simple {
 
 void
 Initial_solution::invariant() const {
@@ -42,13 +43,12 @@ Initial_solution::invariant() const {
     pgassert((assigned * unassigned).empty());
 }
 
-
 Initial_solution::Initial_solution(
         Initials_code kind,
-        size_t number_of_orders) :
-    Solution(),
-    all_orders(number_of_orders),
-    unassigned(number_of_orders),
+        problem::PickDeliver* problem_ptr) :
+    problem::Solution(problem_ptr),
+    all_orders(m_orders.size()),
+    unassigned(m_orders.size()),
     assigned() {
         invariant();
         pgassert(kind >= 0 && kind <= OneDepot);
@@ -72,93 +72,121 @@ Initial_solution::Initial_solution(
     invariant();
 }
 
-
-
 void
 Initial_solution::do_while_foo(int kind) {
     invariant();
     pgassert(kind > 0 && kind <= OneDepot);
 
-#if 0
-    msg().log << "\nInitial_solution::do_while_foo\n";
-#endif
     Identifiers<size_t> notused;
-#if 0
-    bool out_of_trucks(true);
-#endif
 
     while (!unassigned.empty()) {
-#if 0
-        msg().log << unassigned.size() << " unassigned: " << unassigned << "\n";
-        msg().log << assigned.size() << " assigned:" << assigned << "\n";
-#endif
         auto current = unassigned.size();
-#if 0
-        auto truck = out_of_trucks?
-            trucks.get_truck(unassigned.front()) :
-            trucks.get_truck();
-#else
-        auto truck = trucks.get_truck(unassigned.front());
-#endif
-#if 0
-        msg().log << "got truck:" << truck.tau() << "\n";
-#endif
+        auto truck = vehicles().get_truck(unassigned.front());
         /*
          * kind 1 to 7 work with the same code structure
          */
-        truck.do_while_feasable((Initials_code)kind, unassigned, assigned);
-#if 0
-        msg().log << unassigned.size() << " unassigned: " << unassigned << "\n";
-        msg().log << assigned.size() << " assigned:" << assigned << "\n";
-        msg().log << "current" << current << " unassigned: " << unassigned.size();
-#endif
+        do_while_feasible(truck, (Initials_code)kind, unassigned, assigned);
         pgassertwm(current > unassigned.size(), msg().get_log().c_str());
 
-#if 0
-        if (truck.orders_in_vehicle().empty()) {
-            out_of_trucks = notused.has(truck.idx());
-            if (out_of_trucks) {
-                for (auto t : notused) {
-                    trucks.release_truck(t);
-                }
-            }
-            notused += truck.idx();
-            continue;
-        }
-#endif
-        fleet.push_back(truck);
+        m_fleet.push_back(truck);
         invariant();
     }
 
     pgassertwm(true, msg().get_log().c_str());
-    pgassert(is_feasable());
+    pgassert(is_feasible());
     invariant();
 }
-
-
-
 
 void
 Initial_solution::one_truck_all_orders() {
     invariant();
     msg().log << "\nInitial_solution::one_truck_all_orders\n";
-    auto truck = trucks.get_truck();
+    auto truck = vehicles().get_truck();
     while (!unassigned.empty()) {
-        auto order(truck.orders()[*unassigned.begin()]);
+        auto order(truck.orders().at(*unassigned.begin()));
 
-        truck.insert(order);
+        truck.hillClimb(order);
 
         assigned += unassigned.front();
         unassigned.pop_front();
 
         invariant();
     }
-    fleet.push_back(truck);
+    m_fleet.push_back(truck);
     invariant();
 }
 
+void
+Initial_solution::do_while_feasible(
+        problem::Vehicle_pickDeliver& vehicle,
+        Initials_code kind,
+        Identifiers<size_t> &unassigned,
+        Identifiers<size_t> &assigned) {
+    pgassert(is_feasible());
+    auto current_feasible = vehicle.feasible_orders() * unassigned;
 
+    while (!current_feasible.empty()) {
+        auto order = m_orders[current_feasible.front()];
 
+        switch (kind) {
+            case OnePerTruck:
+                vehicle.push_back(order);
+                pgassert(is_feasible());
+                assigned += order.idx();
+                unassigned -= order.idx();
+                invariant();
+                return;
+                break;
+            case FrontTruck:
+                vehicle.push_front(order);
+                break;
+            case BackTruck:
+                vehicle.push_back(order);
+                break;
+            case BestInsert:
+                vehicle.hillClimb(order);
+                break;
+            case BestBack:
+                order = m_orders[m_orders.find_best_J(current_feasible)];
+                vehicle.hillClimb(order);
+                break;
+            case BestFront:
+                order = m_orders[m_orders.find_best_I(current_feasible)];
+                vehicle.hillClimb(order);
+                break;
+            case OneDepot:
+                vehicle.semiLIFO(order);
+                break;
+            default: pgassert(false);
+        }
 
-}  //  namespace vrp
+        if (vehicle.orders_size() == 1 && !is_feasible()) {
+            pgassert(false);
+        }
+
+        if (!is_feasible()) {
+            vehicle.erase(order);
+        } else if (vehicle.has_order(order)) {
+            assigned += order.idx();
+            unassigned -= order.idx();
+            if (kind == BestBack) {
+                current_feasible = m_orders[order.idx()].subsetJ(
+                        current_feasible);
+            }
+            if (kind == BestFront) {
+                current_feasible = m_orders[order.idx()].subsetI(
+                        current_feasible);
+            }
+        }
+
+        current_feasible -= order.idx();
+        invariant();
+    }
+
+    pgassert(is_feasible());
+    invariant();
+}
+
+}  //  namespace simple
+}  //  namespace initialsol
 }  //  namespace vrprouting
