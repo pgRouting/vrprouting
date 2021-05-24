@@ -25,60 +25,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_VRP_OPTIMIZE_H_
-#define INCLUDE_VRP_OPTIMIZE_H_
+#ifndef INCLUDE_OPTIMIZERS_SIMPLE_H_
+#define INCLUDE_OPTIMIZERS_SIMPLE_H_
 #pragma once
 
-#include "vrp/optimize.h"
+#include "problem/solution.h"
+#include "problem/vehicle_pickDeliver.h"
+#include "initialsol/initials_code.h"
 
 namespace vrprouting {
-namespace vrp {
+namespace optimizers {
+namespace simple {
 
-class Solution;
-class Pgr_pickDeliver;
+class Optimize : public problem::Solution {
+    using Initials_code = initialsol::simple::Initials_code;
 
-
-class Optimize : public Solution {
  public:
-     explicit Optimize(const Solution &solution);
-     Optimize(const Solution &solution, size_t times);
+    Optimize(const problem::Solution &solution, size_t times, const Initials_code&);
 
-     /* @brief decrease_truck
-      *
-      * Optimization by decreasing trucks
-      */
-     void decrease_truck();
-     void move_wait_time_based();
-     void move_duration_based();
-     void inter_swap(size_t times);
-     Solution best_solution;
+    /* @brief decrease_truck
+     *
+     * Optimization by decreasing trucks
+     */
+    void decrease_truck();
+    void move_wait_time_based();
+    void move_duration_based();
+    void inter_swap(size_t times);
+    Solution best_solution;
+
+    Initials_code get_kind() const {return m_kind;}
 
  private:
-     bool decrease_truck(size_t);
-     void sort_for_move();
-     void sort_by_duration();
-     void sort_by_size();
-     void sort_by_id();
-     void delete_empty_truck();
+    bool decrease_truck(size_t);
+    void sort_for_move();
+    void sort_by_duration();
+    void sort_by_size();
+    void sort_by_id();
+    void delete_empty_truck();
 
-     bool swap_worse(Vehicle_pickDeliver &from, Vehicle_pickDeliver &to);
-     bool move_reduce_cost(Vehicle_pickDeliver &from, Vehicle_pickDeliver &to);
-     bool inter_swap();
+    bool swap_worse(problem::Vehicle_pickDeliver &from, problem::Vehicle_pickDeliver &to);
+    bool move_reduce_cost(problem::Vehicle_pickDeliver &from, problem::Vehicle_pickDeliver &to);
+    bool inter_swap();
 
-     bool move_order(
-             Order order,
-             Vehicle_pickDeliver &from_truck,
-             Vehicle_pickDeliver &to_truck);
-     bool swap_order();
-     bool swap_order(
-             Order from_order,
-             Vehicle_pickDeliver &from_truck,
-             Order to_order,
-             Vehicle_pickDeliver &to_truck);
-     void save_if_best();
+    // TODO(pending) use const & where applicable
+    bool move_order(
+        problem::Order order,
+        problem::Vehicle_pickDeliver &from_truck,
+        problem::Vehicle_pickDeliver &to_truck);
+    bool swap_order();
+    bool swap_order(
+        problem::Order from_order,
+        problem::Vehicle_pickDeliver &from_truck,
+        problem::Order to_order,
+        problem::Vehicle_pickDeliver &to_truck);
+    void save_if_best();
+
+    Initials_code m_kind;
 };
 
-}  //  namespace vrp
+}  //  namespace simple
+}  //  namespace optimizers
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_VRP_OPTIMIZE_H_
+#endif  // INCLUDE_OPTIMIZERS_SIMPLE_H_
