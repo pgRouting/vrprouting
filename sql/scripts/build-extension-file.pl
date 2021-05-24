@@ -78,7 +78,7 @@ sub get_contents {
     my ($file) = @_;
     local $/=undef;
     die "ERROR: Failed to find: $file\n" unless -f $file;
-    open(IN, $file) || die "pgrouting--$version.sql ERROR: Failed to open $file\n";
+    open(IN, $file) || die "vrprouting--$version.sql ERROR: Failed to open $file\n";
     my @contents = <IN>;
     close(IN);
     my $contents = join('', @contents);

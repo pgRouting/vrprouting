@@ -9,13 +9,18 @@ indent_size = 4
 indent_style = space
 charset = utf-8
 end_of_line = lf
-insert_final_newline = true
+insert_final_newline = false
 trim_trailing_whitespace = true
+
+# C++ files want tab indentation
+[*.sql]
+indent_style = space
+indent_size = 2
 
 # C++ files want tab indentation
 [*.{c,h,cpp,hpp,inl}]
 indent_style = space
-indent_size = 4
+indent_size = 2
 
 # Makefiles want tab indentation
 [Makefile]

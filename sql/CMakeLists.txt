@@ -51,6 +51,7 @@ add_custom_target(extension_file ALL
     ${PROJECT_EXTENSION_FILE}
     )
 
+if (FALSE)
 #-------------------
 # TARGET: update_files
 #-------------------
@@ -73,6 +74,7 @@ add_custom_target(update_files ALL
     DEPENDS
     ${UPDATE_FILES}
     )
+endif()
 
 
 SET(PROJECT_FILES_TO_INSTALL  ${UPDATE_FILES} ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_EXTENSION_FILE} ${CMAKE_CURRENT_BINARY_DIR}/pg_controls/${PROJECT_NAME_LOWER}.control PARENT_SCOPE)
