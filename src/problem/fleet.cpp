@@ -1,20 +1,20 @@
 /*PGR-GNU*****************************************************************
 
-FILE: solution.cpp
+FILE: fleet.h
 
-Copyright (c) 2015 pgRouting developers
+Copyright (c) 2017 pgRouting developers
 Mail: project@pgrouting.org
 
 ------
 
-This program is free software; you can redistribute it and/or modify
+Vhis program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+Vhis program is distributed in the hope that it will be useful,
+but WIVHOUV ANY WARRANVY; without even the implied warranty of
+MERCHANVABILIVY or FIVNESS FOR A PARVICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
@@ -23,361 +23,131 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include "vrp/fleet.h"
+/** @file */
 
-#include <string>
+#include "problem/fleet.h"
+
+#include <iostream>
 #include <vector>
-#include <memory>
-#include <utility>
+#include <numeric>
 #include <limits>
+#include <utility>
+#include <algorithm>
 
-#include "vrp/dnode.h"
-#include "vrp/pgr_pickDeliver.h"
+#include "c_types/vehicle_t.h"
 
 namespace vrprouting {
-namespace vrp {
+namespace problem {
 
-
-Pgr_pickDeliver* Fleet::problem;
-
-/**
-* @returns reference to the problem's message
-*/
-Pgr_messages&
-Fleet::msg() {
-    return problem->msg;
+void
+Fleet::invariant() const {
+  m_msg.log << "\n used v" << m_used;
+  m_msg.log << "\n not used v" << m_unused;
+  pgassertwm(m_size == size(), m_msg.get_log());
+  auto m_total = m_used + m_unused + m_invalid;
+  pgassertwm(m_total.size() == size(), m_msg.get_log());
+  for (const auto &e : m_used) {
+    pgassertwm(e < size(), m_msg.get_log());
+  }
+  for (const auto &e : m_unused) {
+    pgassertwm(e < size(), m_msg.get_log());
+  }
+  for (const auto &e : m_invalid) {
+    pgassertwm(e < size(), m_msg.get_log());
+  }
 }
 
-
-
-
-Fleet::Fleet(const Fleet &fleet) :
-    m_trucks(fleet.m_trucks),
-    used(fleet.used),
-    un_used(fleet.un_used)
-    {}
-
-Fleet::Fleet(
-        const std::vector<Vehicle_t> &vehicles, double factor) :
-    used(),
-    un_used() {
-        build_fleet(vehicles, factor);
-        Identifiers<size_t> unused(m_trucks.size());
-        un_used = unused;
+/**
+* @returns the used vehicles
+*/
+std::vector<Vehicle_pickDeliver>
+Fleet::get_used_trucks() {
+    invariant();
+    std::vector<Vehicle_pickDeliver> trucks;
+    for (auto v_idx : m_used) {
+        if (!at(v_idx).is_phony()) {
+            trucks.push_back(at(v_idx));
+        }
     }
+    invariant();
+    return trucks;
+}
 
+/**
+@returns the unused vehicles
+*/
+std::vector<Vehicle_pickDeliver>
+Fleet::get_unused_trucks() {
+  ENTERING(m_msg);
+  invariant();
+  std::vector<Vehicle_pickDeliver> trucks;
+  m_msg.log << "fleet size" << size();
+  m_msg.log << m_unused;
+  for (auto v_idx : m_unused) {
+    pgassertwm(v_idx < size(), m_msg.get_log());
+    if (!at(v_idx).is_phony()) {
+      trucks.push_back(at(v_idx));
+    }
+  }
+  invariant();
+  return trucks;
+}
+
+Identifiers<size_t>
+Fleet::feasible_orders() const {
+  invariant();
+  return std::accumulate(this->begin(), this->end(),  Identifiers<size_t>(),
+      [](Identifiers<size_t> i, const Vehicle_pickDeliver& v) {return v.feasible_orders() + i;});
+}
+
+/**
+ * Remove the vehicles that have problems with the time windows
+*/
+void
+Fleet::clean() {
+  pgassert(m_used.size() == 0);
+  pgassert(m_unused.size() == size());
+  pgassert(m_invalid.size() == 0);
+  for (auto &v : *this) {
+    if (!v.is_ok()) {
+      m_invalid += v.idx();
+      m_unused -= v.idx();
+    }
+  }
+  invariant();
+}
 
 Vehicle_pickDeliver
 Fleet::get_truck() {
-    ENTERING(msg());
-    auto idx = un_used.front();
-    msg().log << "Available vehicles: " << un_used << "\n";
-    msg().log << "NOT Available vehicles: " << used << "\n";
-    msg().log << "getting idx" << idx << "\n";
-    pgassertwm(idx < m_trucks.size(), msg().log.str());
-    used += idx;
-    if (un_used.size() > 1) un_used -= idx;
-    EXITING(msg());
-    return m_trucks[idx];
+    auto idx = m_unused.front();
+    m_used += idx;
+    if (this->size() > 1) m_unused -= idx;
+    return at(idx);
 }
 
-void
-Fleet::release_truck(size_t id) {
-    used -= id;
-    un_used += id;
-}
-
+/**
+ * Finds an unused vehicle where the order can fit
+ */
 Vehicle_pickDeliver
-Fleet::get_truck(size_t order) {
-#if 0
-    msg().log << "Available vehicles: " << un_used << "\n";
-    msg().log << "NOT Available vehicles: " << used << "\n";
-#endif
-    auto idx = un_used.front();
-
-    for (const auto &i : un_used) {
-        if (m_trucks[i].feasable_orders().has(order)) {
-            idx = i;
-            msg().log << "getting idx" << idx << "\n";
-            used += idx;
-            if (un_used.size() > 1) un_used -= idx;
-            return m_trucks[idx];
+Fleet::get_truck(size_t order_idx) {
+    for (const auto &idx : m_unused) {
+        if (at(idx).feasible_orders().has(order_idx)) {
+            m_used += idx;
+            if (m_unused.size() > 1) m_unused -= idx;
+            return at(idx);
         }
     }
-
-    /*
-     * using phoney truck
-     */
-    pgassert(false);
-    return m_trucks.back();
-
-    for (auto truck : m_trucks) {
-        if (truck.feasable_orders().has(order)) {
-            idx = truck.idx();
-            msg().log << "idx" << idx << "size" << m_trucks.size();
-            pgassertwm(idx < m_trucks.size(), msg().get_log());
-            used += idx;
-            if (un_used.size() > 1) un_used -= idx;
-            break;
-        }
-    }
-    return m_trucks[idx];
+    return at(m_unused.back());
 }
-
-
-Vehicle_pickDeliver
-Fleet::get_truck(const Order order) {
-    auto id = m_trucks.front().idx();
-    for (auto truck : m_trucks) {
-        if (truck.feasable_orders().has(order.idx())) {
-            id = truck.idx();
-            msg().log << "id" << id
-                << "size" << m_trucks.size();
-            pgassertwm(id < m_trucks.size(), msg().get_log());
-            used += id;
-            if (un_used.size() > 1) un_used -= id;
-            break;
-        }
-    }
-    return m_trucks[id];
-}
-
-
-void
-Fleet::add_vehicle(
-        Vehicle_t vehicle,
-        double factor,
-        const Vehicle_node &starting_site,
-        const Vehicle_node &ending_site) {
-    pgassert(starting_site.is_start() && ending_site.is_end());
-    pgassert(starting_site.opens() <= starting_site.closes());
-    pgassert(ending_site.opens() <= ending_site.closes());
-
-#if 0
-    problem->add_base_node(std::move(b_start));
-    problem->add_base_node(std::move(b_end));
-    problem->add_node(starting_site);
-    problem->add_node(ending_site);
-#endif
-
-    for (int i = 0; i < vehicle.cant_v; ++i) {
-        m_trucks.push_back(Vehicle_pickDeliver(
-                    m_trucks.size(),
-                    vehicle.id,
-                    starting_site,
-                    ending_site,
-                    vehicle.capacity,
-                    vehicle.speed,
-                    factor));
-#if 0
-        msg().log << "inserting vehicle: " << m_trucks.back().tau() << "\n";
-#endif
-        pgassert((m_trucks.back().idx() + 1)  == m_trucks.size());
-        pgassert(m_trucks.back().is_ok());
-    }
-}
-
-/*!
-  builds a fleet from a vector of Vehicle_t
-
-  - creates a phoney truck with unlimited capacity and unlimited closing times
-  - checks that the number of vehicles is a legal value
-  - creates the requested vehicles
-
-  @param[in] vehicles  the list of vehicles
-  @param[in] factor    the multiplier to speed up or slow down
-  */
-bool
-Fleet::build_fleet(
-        std::vector<Vehicle_t> vehicles,
-        double factor) {
-    /*
-     *  creating a phoney truck with max capacity and max window
-     *  with the start & end points of the first vehicle given
-     */
-    vehicles.push_back({
-            /*
-             * id, capacity
-             */
-            -1,
-            std::numeric_limits<double>::infinity(),
-
-            vehicles[0].speed,
-            vehicles[0].start_x,
-            vehicles[0].start_y,
-            vehicles[0].start_node_id,
-
-            /*
-             * cant_v, start_open_t, start_close_t, start_service_t
-             */
-            1,
-            0,
-            std::numeric_limits<double>::infinity(),
-            0,
-
-            vehicles[0].end_x,
-            vehicles[0].end_y,
-            vehicles[0].end_node_id,
-            /*
-             * end_open_t, end_close_t, end_service_t
-             */
-            0,
-            std::numeric_limits<double>::infinity(),
-            0});
-
-
-    for (auto vehicle : vehicles) {
-        if (vehicle.cant_v < 0) {
-            throw std::make_pair(std::string("Illegal number of vehicles found"), vehicle.cant_v);
-        }
-
-        if (vehicle.capacity < 0) {
-            throw std::make_pair(std::string("Illegal value for capacity found"), vehicle.capacity);
-        }
-
-        if  (!problem->m_cost_matrix.empty()) {
-            if (!problem->m_cost_matrix.has_id(vehicle.start_node_id)) {
-                throw std::make_pair(std::string("Unable to find node on matrix"), vehicle.start_node_id);
-            }
-            if (!problem->m_cost_matrix.has_id(vehicle.end_node_id)) {
-                throw std::make_pair(std::string("Unable to find node on matrix"), vehicle.end_node_id);
-            }
-        }
-
-        if (!(vehicle.start_open_t  <= vehicle.start_close_t
-                    && vehicle.end_open_t <= vehicle.end_close_t
-                    && vehicle.start_open_t <= vehicle.end_close_t)) {
-            msg().error << "Illegal values found on vehicle";
-            msg().log << "On vehicle " << vehicle.id
-                << " a condition is not met, verify that:"
-                << "\nvehicle.start_open_t  <= vehicle.start_close_t\t"
-                << vehicle.start_open_t << " <= " << vehicle.start_close_t
-                << "\nvehicle.end_open_t <= vehicle.end_close_t\t"
-                << vehicle.end_open_t << " <= " << vehicle.end_close_t
-                << "\nvehicle.start_open_t <= vehicle.end_close_t\t"
-                << vehicle.start_open_t << " <= " << vehicle.end_close_t;
-
-            throw std::make_pair(msg().get_error(), msg().get_log());
-        }
-#if 0
-        if (vehicle.cant_v < 0) {
-            msg().error << "Illegal number of vehicles found vehicle";
-            msg().log << vehicle.cant_v << "< 0 on vehicle " << vehicle.id;
-            return false;
-        }
-#endif
-
-        if  (problem->m_cost_matrix.empty()) {
-#if 0
-            /*
-             * Euclidean version
-             */
-            auto b_start = create_b_start<Node>(vehicle, problem->node_id());
-            auto starting_site = Vehicle_node(
-                    {problem->node_id()++, vehicle, Tw_node::NodeType::kStart});
-
-            auto b_end = create_b_end<Node>(vehicle, problem->node_id());
-            auto ending_site = Vehicle_node(
-                    {problem->node_id()++, vehicle, Tw_node::NodeType::kEnd});
-
-            if (!(starting_site.is_start() && ending_site.is_end()
-                    && starting_site.opens() <= starting_site.closes()
-                    && ending_site.opens() <= ending_site.closes())) {
-                msg().clear();
-                msg().error << "Illegal values found on vehicle";
-                msg().log << "On vehicle " << vehicle.id
-                    << " a condition is not met:\n"
-                    << "starting_site.is_start: "
-                    << (starting_site.is_start()? "YES" : "NO") << "\n"
-                    << "ending_site.is_end: "
-                    << (ending_site.is_end()? "YES" : "NO") << "\n"
-                    << "verify that:\n"
-                    << "-  start_open <= start_close: "
-                    << starting_site.opens()
-                    << "<"  << starting_site.closes() << "\n"
-                    << "-  end_open <= end_close: "
-                    << ending_site.opens()
-                    << "<"  << ending_site.closes() << "\n"
-                    << "-  capacity > 0\n";
-                pgassert(!msg().get_error().empty());
-                return false;
-            }
-            pgassert(starting_site.is_start());
-            pgassert(ending_site.is_end());
-
-            pgassert(starting_site.opens() <= starting_site.closes());
-            pgassert(ending_site.opens() <= ending_site.closes());
-            pgassertwm(
-                    starting_site.is_start() && ending_site.is_end(),
-                    msg().get_error().c_str());
-            add_vehicle(vehicle, factor,
-                    std::move(b_start), starting_site,
-                    std::move(b_end), ending_site);
-#endif
-        } else {
-            /*
-             * Matrix version
-             */
-#if 0
-            auto b_start = create_b_start<Dnode>(vehicle, problem->node_id());
-            auto starting_site = Vehicle_node(
-                    {problem->node_id()++, vehicle, Tw_node::NodeType::kStart});
-
-            auto b_end = create_b_end<Dnode>(vehicle, problem->node_id());
-            auto ending_site = Vehicle_node(
-                    {problem->node_id()++, vehicle, Tw_node::NodeType::kEnd});
-
-            if (!(starting_site.is_start() && ending_site.is_end()
-                    && starting_site.opens() <= starting_site.closes()
-                    && ending_site.opens() <= ending_site.closes())) {
-                msg().clear();
-                msg().error << "Illegal values found on vehicle";
-                msg().log << "On vehicle " << vehicle.id
-                    << " a condition is not met, verify that:\n"
-                    << "starting_site.is_start()"
-                    << starting_site.is_start() << "\n"
-                    << "ending_site.is_start()"
-                    << ending_site.is_end() << "\n"
-                    << "-  start_open <= start_close\n"
-                    << starting_site.opens() << "<"
-                    << starting_site.closes() << "\n"
-                    << "-  end_open <= end_close\n"
-                    << ending_site.opens() << "<"
-                    << ending_site.closes() << "\n"
-                    << "-  capacity > 0\n";
-                pgassert(!msg().get_error().empty());
-                return false;
-            }
-            pgassert(starting_site.is_start());
-            pgassert(ending_site.is_end());
-
-#endif
-            auto starting_site = Vehicle_node({problem->m_nodes.size(), vehicle, Tw_node::NodeType::kStart});
-            problem->add_node(starting_site);
-            auto ending_site = Vehicle_node({problem->m_nodes.size(), vehicle, Tw_node::NodeType::kEnd});
-            problem->add_node(ending_site);
-
-            pgassert(starting_site.opens() <= starting_site.closes());
-            pgassert(ending_site.opens() <= ending_site.closes());
-            pgassert(starting_site.is_start() && ending_site.is_end());
-
-            add_vehicle(vehicle, factor, starting_site, ending_site);
-        }
-    }
-    Identifiers<size_t> unused(m_trucks.size());
-    un_used = unused;
-    return true;
-}
-
 
 bool
 Fleet::is_fleet_ok() const {
-    ENTERING(msg());
-    if (!msg().get_error().empty()) return false;
-    for (auto truck : m_trucks) {
+    ENTERING(m_msg);
+    if (!m_msg.get_error().empty()) return false;
+    for (auto truck : *this) {
         if (!truck.is_ok()) {
-            msg().error << "Illegal values found on vehicle";
-            msg().log << "On vehicle " << truck.id()
+            m_msg.error << "Illegal values found on vehicle";
+            m_msg.log << "On vehicle " << truck.id()
                 << " a condition is not met, verify that:\n"
                 << "-  start_open <= start_close\n"
                 << "-  end_open <= end_close\n"
@@ -388,15 +158,15 @@ Fleet::is_fleet_ok() const {
         if (!(truck.start_site().is_start()
                     && truck.end_site().is_end())) {
             pgassertwm(false, "should never pass through here");
-            msg().error << "Illegal values found on vehicle";
+            m_msg.error << "Illegal values found on vehicle";
             return false;
         }
-        if (!truck.is_feasable()) {
-            msg().error << "Truck is not feasible";
+        if (!truck.is_feasible()) {
+            m_msg.error << "Truck is not feasible";
             return false;
         }
     }
-    EXITING(msg());
+    EXITING(m_msg);
     return true;
 }
 
@@ -407,43 +177,265 @@ Fleet::is_fleet_ok() const {
  */
 bool
 Fleet::is_order_ok(const Order &order) const {
-    for (const auto &truck : m_trucks) {
+    for (const auto &truck : *this) {
         if (!order.is_valid(truck.speed())) continue;
-        if (truck.is_order_feasable(order)) {
+        if (truck.is_order_feasible(order)) {
             return true;
         }
     }
     return false;
 }
 
-Vehicle_pickDeliver&
-Fleet::operator[](size_t i) {
-    pgassert(i < m_trucks.size());
-    return m_trucks[i];
-}
-
+/**
+@param [in] vehicle
+@param [in] p_orders
+@param [in,out] p_nodes
+@param [in,out] node_id
+*/
 void
-Fleet::set_compatibles(const PD_Orders &orders) {
-    for (auto &truck : m_trucks) {
-        truck.set_compatibles(orders);
+Fleet::add_vehicle(
+    const Vehicle_t &vehicle,
+    const std::vector<Short_vehicle>& new_stops,
+    const Orders& p_orders,
+    std::vector<Vehicle_node>& p_nodes,
+    size_t& node_id) {
+
+    /**
+     * skip illegal values on vehicles information
+     */
+    if ((vehicle.start_close_t < vehicle.start_open_t)
+        || (vehicle.end_close_t < vehicle.end_open_t)
+        // || (vehicle.capacity < 0)   // the comparison of unsigned expression < 0 is always false
+       ) {
+      m_msg.error << "Illegal values found on vehicle";
+      m_msg.log << "On vehicle " << vehicle.id
+        << " a condition is not met:\n"
+        << "verify that:\n"
+        << "-  start_open <= start_close: "
+        << vehicle.start_open_t << "<"  << vehicle.start_close_t << "\n"
+        << "-  end_open <= end_close: "
+        << vehicle.end_open_t << "<"  << vehicle.end_close_t << "\n"
+        << "-  capacity > 0" << vehicle.capacity << "\n";
+      throw std::make_pair(m_msg.get_error(), msg().get_log());
+      return;
+    }
+
+    /**
+     * Set the starting site and ending site
+     */
+    auto starting_site = Vehicle_node({node_id++, vehicle, NodeType::kStart});
+    auto ending_site = Vehicle_node({node_id++, vehicle, NodeType::kEnd});
+
+    pgassert(starting_site.is_start() && ending_site.is_end());
+
+    /**
+     * Add the starting site and ending site to the problem's nodes
+     */
+    p_nodes.push_back(starting_site);
+    p_nodes.push_back(ending_site);
+
+    auto v_id = vehicle.id;
+    auto vehicle_new_stops_ptr = std::find_if(new_stops.begin(), new_stops.end(), [v_id]
+        (const Short_vehicle& v) -> bool {return v.id == v_id;});
+    bool replace_stops = vehicle_new_stops_ptr != new_stops.end();
+
+    /**
+     * Add the vehicle
+     */
+    for (Amount i = 0; i < vehicle.cant_v; ++i) {
+      if (replace_stops) {
+        this->emplace_back(
+            this->size(),
+            vehicle.id,
+            starting_site,
+            ending_site,
+            /*
+             * stops can only be assigned when there is only one vehicle
+             */
+            vehicle.cant_v == 1? vehicle_new_stops_ptr->stops : std::vector<int64_t>(),
+            vehicle.capacity,
+            vehicle.speed,
+            p_orders);
+      } else {
+        this->emplace_back(
+            this->size(),
+            vehicle.id,
+            starting_site,
+            ending_site,
+            /*
+             * stops can only be assigned when there is only one vehicle
+             */
+            vehicle.cant_v == 1 ?
+              std::vector<int64_t>(vehicle.stops, vehicle.stops + vehicle.stops_size) :
+              std::vector<int64_t>(),
+
+            vehicle.capacity,
+            vehicle.speed,
+            p_orders);
+      }
     }
 }
 
-/*
- * FRIENDS
- */
 
-std::ostream&
-operator << (std::ostream &log, const Fleet &f) {
-    log << "fleet\n";
-    for (const auto &v : f.m_trucks) {
-        log << v;
+/**
+ *
+* @param [in] orders The problem orders
+* @param [in,out] assigned The currently assigned orders
+* @param [in,out] unassigned The currently unassigned orders
+* @param [in] execution_date date reference to mark unmovable orders
+* @param [in] optimize c$Flag to prepare for optimization
+*
+* @post assigned has the assigned orders of the user
+* @post unassigned has the orders that are not part of the user's solution
+* @post when optimize is true: unassigned has the orders that are:
+* - movable
+* - and are part of the user's solution
+* - and created a violation
+*/
+void
+Fleet::set_initial_solution(
+        const Orders &orders,
+        Identifiers<size_t>& assigned,
+        Identifiers<size_t>& unassigned,
+        TTimestamp execution_date,
+        bool optimize) {
+    for (auto &v : *this) {
+        /**
+         * - set the vehicle's user's initial solution
+         */
+        v.set_initial_solution(orders, assigned, unassigned, execution_date, optimize);
     }
-    log << "end fleet\n";
+}
+/**
+@param [in] orders set of orders to work with
+*/
+void
+Fleet::set_compatibles(const Orders &orders) {
+    /**
+     * Cycle the orders
+     */
+    for (const auto &o : orders) {
+        /**
+         * Cycle the vehicles
+         */
+        for (auto & m_vehicle : *this) {
+            /**
+             * - Skip orders that start after the vehicle closes
+             */
+            if (m_vehicle.end_site().closes() < o.pickup().opens()) continue;
 
-    return log;
+            /**
+             * - Skip the orders that end before the vehicle starts
+             */
+            if (o.delivery().closes() < m_vehicle.start_site().opens()) continue;
+
+            if (m_vehicle.is_order_feasible(o)) {
+                m_msg.log << "Order " << o.id() << "is feasible on Vehicle " << m_vehicle.id() <<"\n";
+                auto test_truck =  m_vehicle;
+                test_truck.push_back(o);
+                m_msg.log << test_truck;
+
+                /**
+                 * - The order is feasible in the vehicle so its compatible
+                 */
+                m_vehicle.feasible_orders() += o.idx();
+            }
+        }
+
+        /**
+         * Set compatibility on the phony vehicle
+         */
+        if (at(this->size() - 1).is_order_feasible(o)) {
+            at(this->size() - 1).feasible_orders() += o.idx();
+        }
+    }
 }
 
+/**
+  builds a fleet from a vector of Vehicle_t
 
-}  //  namespace vrp
-}  //  namespace vrprouting
+  @param[in] vehicles  the list of vehicles
+  @param[in] size_vehicles  size of vehicles
+  @param[in] p_orders
+  @param[in,out] p_nodes
+  @param[in,out] node_id
+  */
+void
+Fleet::build_fleet(
+    Vehicle_t *vehicles, size_t size_vehicles,
+    const std::vector<Short_vehicle>& new_stops,
+    const Orders& p_orders,
+    std::vector<Vehicle_node>& p_nodes,
+    size_t& node_id) {
+    /**
+     * Sort vehicles: ASC start_open_t, end_close_t, id
+     */
+    std::sort(vehicles, vehicles + size_vehicles,
+            [] (const Vehicle_t &lhs, const Vehicle_t &rhs) {
+                if (lhs.start_open_t == rhs.start_open_t) {
+                    if (lhs.end_close_t == rhs.end_close_t) {
+                        return lhs.id < rhs.id;
+                    } else {
+                        return lhs.end_close_t < rhs.end_close_t;
+                    }
+                } else {
+                    return lhs.start_open_t < rhs.start_open_t;
+                }
+            });
+
+    /**
+     * Add the vehicles
+     */
+    for (size_t i = 0; i < size_vehicles; ++i) {
+        add_vehicle(vehicles[i], new_stops, p_orders, p_nodes, node_id);
+    }
+    /**
+     *  creating a phony vehicle with max capacity and max window
+     *  with the start & end points of the first vehicle given
+     */
+    Vehicle_t phony_v({
+            /*
+             * id, capacity
+             */
+            -1,
+            (std::numeric_limits<PAmount>::max)(),
+            vehicles[0].speed,
+            1,
+            nullptr,
+            0,
+
+            /*
+             * Start values
+             */
+            vehicles[0].start_node_id,
+            0,
+            (std::numeric_limits<TTimestamp>::max)(),
+            0,
+            vehicles[0].start_x,
+            vehicles[0].start_y,
+
+            /*
+             * End values
+             */
+            vehicles[0].end_node_id,
+            0,
+            (std::numeric_limits<TTimestamp>::max)(),
+            0,
+            vehicles[0].end_x,
+            vehicles[0].end_y,
+    });
+
+    /*
+     * Add the phony vehicle
+     */
+    add_vehicle(phony_v, new_stops, p_orders, p_nodes, node_id);
+
+    Identifiers<size_t> unused(this->size());
+    m_size = size();
+    m_unused = unused;
+    pgassert(m_unused.size() == size());
+    invariant();
+}
+
+}  // namespace problem
+}  // namespace vrprouting

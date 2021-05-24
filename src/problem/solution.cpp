@@ -23,238 +23,294 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include "vrp/solution.h"
+/** @file */
+#include "problem/solution.h"
 
+#include <deque>
 #include <vector>
 #include <string>
+#include <ostream>
+#include <numeric>
 #include <algorithm>
+#include <tuple>
+#include <iomanip>
+#include "problem/pickDeliver.h"
+#include "c_types/short_vehicle.h"
 
-#include "vrp/pgr_pickDeliver.h"
-#include "c_types/pickDeliver/general_vehicle_orders_t.h"
+typedef struct Solution_rt Solution_rt;
 
 namespace vrprouting {
-namespace vrp {
+namespace problem {
 
-Pgr_pickDeliver* Solution::problem;
-
-
-std::vector<General_vehicle_orders_t>
-Solution::get_postgres_result() const {
-    std::vector<General_vehicle_orders_t> result;
-    /* postgres numbering starts with 1 */
-    int i(1);
-    for (const auto& truck : fleet) {
-        std::vector<General_vehicle_orders_t> data =
-            truck.get_postgres_result(i);
-        result.insert(result.end(), data.begin(), data.end());
-
-        ++i;
-    }
-    return result;
+/**
+ * @returns container for postgres
+ */
+std::vector<Short_vehicle>
+Solution::get_stops() const {
+  std::vector<Short_vehicle> result;
+  for (auto v : m_fleet) {
+    result.push_back(Short_vehicle{v.id(), v.get_stops()});
+  }
+  return result;
 }
 
 /**
- * @returns The problem's message for logging
+ * @returns container for postgres
  */
-Pgr_messages&
-Solution::msg() {
-    return problem->msg;
+std::vector<Solution_rt>
+Solution::get_postgres_result() const {
+  std::vector<Solution_rt> result;
+
+  /* postgres numbering starts with 1 */
+  int i(1);
+
+  for (auto v : m_fleet) {
+    v.evaluate(0);
+    auto data = v.get_postgres_result(i);
+    /*
+     * Results adjusted for the depot and the first stop
+     * So the vehicle waits on the depot not on the first stop
+     */
+    data[1].arrivalTime = data[1].operationTime;
+    data[0].waitDuration = data[1].waitDuration;
+    data[1].waitDuration = 0;
+    data[0].departureTime = data[0].arrivalTime + data[0].waitDuration;
+
+
+    result.insert(result.end(), data.begin(), data.end());
+    ++i;
+  }
+
+  Solution_rt aggregates = {
+    /*
+     * Vehicle id = -2 indicates its an aggregate row
+     *
+     * (twv, cv, fleet, wait, duration)
+     */
+    -2,  // summary row on vehicle_number
+    twvTot(),  // on vehicle_id
+    cvTot(),   // on vehicle_seq
+    -1,  // on order_id
+    -1,  // on stop_id
+    -2,  // on stop_type (gets increased later by one so it gets -1)
+    -1,  // not accounting total loads
+    static_cast<int64_t>(total_travel_time()),
+    -1,  // not accounting arrival_travel_time
+    static_cast<int64_t>(wait_time()),
+    -1,  // not accounting operation time
+    static_cast<int64_t>(total_service_time()),
+    static_cast<int64_t>(duration()),
+    cvTot(),
+    twvTot()
+  };
+  result.push_back(aggregates);
+
+  return result;
 }
 
-
-
-bool
-Solution::is_feasable() const {
-    for (const auto& v : fleet) {
-        if (v.is_feasable()) continue;
-        return false;
-    }
-    return true;
-}
-
-double
-Solution::duration() const {
-    double total(0);
-    for (const auto &v : fleet) {
-        total += v.duration();
-    }
-    return total;
-}
-
-int
-Solution::twvTot() const {
-    int total(0);
-    for (const auto &v : fleet) {
-        total += v.twvTot();
-    }
-    return total;
-}
-
-double
-Solution::wait_time() const {
-    double total(0);
-    for (const auto &v : fleet) {
-        total += v.total_wait_time();
-    }
-    return total;
-}
-
-double
-Solution::total_travel_time() const {
-    double total(0);
-    for (const auto &v : fleet) {
-        total += v.total_travel_time();
-    }
-    return total;
-}
-
-double
-Solution::total_service_time() const {
-    double total(0);
-    for (const auto &v : fleet) {
-        total += v.total_service_time();
-    }
-    return total;
-}
-
-int
-Solution::cvTot() const {
-    int total(0);
-    for (const auto &v : fleet) {
-        total += v.cvTot();
-    }
-    return total;
-}
-
-Vehicle::Cost
-Solution::cost() const {
-    double total_duration(0);
-    double total_wait_time(0);
-    int total_twv(0);
-    int total_cv(0);
-    for (const auto &v : fleet) {
-        total_duration += v.duration();
-        total_wait_time += v.total_wait_time();
-        total_twv += v.twvTot();
-        total_cv += v.cvTot();
-    }
-    return std::make_tuple(
-            total_twv, total_cv, fleet.size(),
-            total_wait_time, total_duration);
-}
-
-
-
-std::string
-Solution::cost_str() const {
-    Vehicle::Cost s_cost(cost());
-    std::ostringstream log;
-
-    log << "(twv, cv, fleet, wait, duration) = ("
-        << std::get<0>(s_cost) << ", "
-        << std::get<1>(s_cost) << ", "
-        << std::get<2>(s_cost) << ", "
-        << std::get<3>(s_cost) << ", "
-        << std::get<4>(s_cost) << ")";
-
-    return log.str();
-}
-
+/**
+ * @param [in] title Title to Use for the tau
+ * @returns The solution in one compacted string
+ */
 std::string
 Solution::tau(const std::string &title) const {
-    std::ostringstream log;
-
-    log << "\n" << title << ": " << std::endl;
-    for (const auto &v : fleet) {
-        log << "\n" << v.tau();
-    }
-    log << "\n" << cost_str() << "\n";
-    return log.str();
+  std::string str {"\n" + title + ": " + '\n'};
+  for (const auto& v : m_fleet) str += ("\n" + v.tau());
+  str += "\n" + cost_str() + "\n";
+  return str;
 }
 
-void
-Solution::sort_by_id() {
-    std::sort(fleet.begin(), fleet.end(), []
-            (const Vehicle_pickDeliver &lhs, const Vehicle_pickDeliver &rhs)
-            -> bool {
-            return lhs.idx() < rhs.idx();
-            });
+/**
+ * The solution is feasible when all vehicles are feasible
+ *
+ * @returns true when all vehicles in solution are feasible
+ */
+bool
+Solution::is_feasible() const {
+  return std::find_if(m_fleet.begin(), m_fleet.end(),
+      [] (const Vehicle_pickDeliver& v) -> bool {return !v.is_feasible();}) == m_fleet.end();
 }
 
-std::ostream&
-operator << (std::ostream &log, const Solution &solution) {
-    for (const auto &vehicle : solution.fleet) {
-        log << vehicle;
-    }
+/**
+ * @returns the solution's duration
+ *
+ * The solution duration is the sum of the durations of all vehicles
+ */
+TInterval
+Solution::duration() const {
+  return std::accumulate(begin(m_fleet), end(m_fleet), static_cast<TInterval>(0),
+      [](TInterval i, const Vehicle_pickDeliver& v) {return v.duration() + i;});
+}
 
-    log << "\n SOLUTION:\n\n "
-        << solution.tau();
+/**
+ * @returns the total waiting time
+ *
+ * The total waiting time of the solution is the sum of the waiting time of all vehicles
+ */
+TInterval
+Solution::wait_time() const {
+  return std::accumulate(begin(m_fleet), end(m_fleet), static_cast<TInterval>(0),
+      [](TInterval i, const Vehicle_pickDeliver& v) {return v.total_wait_time() + i;});
+}
 
-    return log;
+/**
+ * @returns the total waiting time
+ *
+ * The total travel time of the solution is the sum of the travel times of all vehicles
+ */
+TInterval
+Solution::total_travel_time() const {
+  return std::accumulate(begin(m_fleet), end(m_fleet), static_cast<TInterval>(0),
+      [](TInterval i, const Vehicle_pickDeliver& v) {return v.total_travel_time() + i;});
+}
+
+/**
+ *
+ * @returns the total service time of the solution
+ *
+ * The total service time of the solution is the sum of the service times of all vehicles
+ */
+TInterval
+Solution::total_service_time() const {
+  return std::accumulate(begin(m_fleet), end(m_fleet), static_cast<TInterval>(0),
+      [](TInterval i, const Vehicle_pickDeliver& v) {return v.total_service_time() + i;});
+}
+
+/**
+ * @returns the total number of time window violations
+ *
+ * The total time window violations of the solution is the sum of the time window violations of all vehicles
+ */
+int
+Solution::twvTot() const {
+  return std::accumulate(begin(m_fleet), end(m_fleet), 0,
+      [](int i, const Vehicle_pickDeliver& v) {return v.twvTot() + i;});
+}
+
+/**
+ *
+ * @return Total number of capacity violations
+ * The total capacity violations of the solution is the sum of the capacity violations of all vehicles
+ */
+int
+Solution::cvTot() const {
+  return std::accumulate(begin(m_fleet), end(m_fleet), 0,
+      [](int i, const Vehicle_pickDeliver& v) {return v.cvTot() + i;});
+}
+
+/**
+ * @returns totals of
+ *
+ * idx | variable
+ * ---- | -----
+ * 0 | twv
+ * 1 | cv
+ * 2 | fleet size
+ * 3 | waiting time
+ * 4 | duration
+ * 5 | travel time
+ *
+ * ~~~ .c
+ * std::get<idx>
+ * ~~~
+ */
+std::tuple<int, int, size_t, TInterval, TInterval, TInterval>
+Solution::cost() const {
+  TInterval total_duration(0);
+  TInterval total_wait_time(0);
+  TInterval total_tt(0);
+  int total_twv(0);
+  int total_cv(0);
+  /*
+   * Cycle the fleet
+   */
+  for (const auto& v : m_fleet) {
+    total_duration += v.duration();
+    total_wait_time += v.total_wait_time();
+    total_twv += v.twvTot();
+    total_cv += v.cvTot();
+    total_tt += v.total_travel_time();
+  }
+  /*
+   * build the tuple
+   */
+  return std::make_tuple(
+      total_twv, total_cv, m_fleet.size(),
+      total_wait_time, total_duration,
+      total_tt);
+}
+/**
+ * @returns The costs in one string
+ */
+std::string
+Solution::cost_str() const {
+  /*
+   * get the cost
+   */
+  auto s_cost(cost());
+  std::ostringstream log;
+
+  /*
+   * Build the string
+   */
+  log << std::fixed << std::setprecision(4)
+    << "twv=" << std::get<0>(s_cost)
+    << " cv=" << std::get<1>(s_cost)
+    << " wait=" << std::get<3>(s_cost)
+    << " duration=" << std::get<4>(s_cost)
+    << " tt=" << std::get<5>(s_cost);
+
+  return log.str();
 }
 
 bool
 Solution::operator<(const Solution &s_rhs) const {
-    Vehicle::Cost lhs(cost());
-    Vehicle::Cost rhs(s_rhs.cost());
+  auto lhs(cost());
+  auto rhs(s_rhs.cost());
 
-    /*
-     * capacity violations
-     */
-    if (std::get<0>(lhs) < std::get<0>(rhs))
-        return true;
-    if (std::get<0>(lhs) > std::get<0>(rhs))
-        return false;
-
-    /*
-     * time window violations
-     */
-    if (std::get<1>(lhs) < std::get<1>(rhs))
-        return true;
-    if (std::get<1>(lhs) > std::get<1>(rhs))
-        return false;
-
-    /*
-     * fleet size
-     */
-    if (std::get<2>(lhs) < std::get<2>(rhs))
-        return true;
-    if (std::get<2>(lhs) > std::get<2>(rhs))
-        return false;
-
-    /*
-     * waiting time
-     */
-    if (std::get<3>(lhs) < std::get<3>(rhs))
-        return true;
-    if (std::get<3>(lhs) > std::get<3>(rhs))
-        return false;
-
-    /*
-     * duration
-     */
-    if (std::get<4>(lhs) < std::get<4>(rhs))
-        return true;
-    if (std::get<4>(lhs) > std::get<4>(rhs))
-        return false;
-
+  /*
+   * time window violations
+   */
+  if (std::get<0>(lhs) < std::get<0>(rhs))
+    return true;
+  if (std::get<0>(lhs) > std::get<0>(rhs))
     return false;
+
+  /*
+   * capacity violations
+   */
+  if (std::get<1>(lhs) < std::get<1>(rhs))
+    return true;
+  if (std::get<1>(lhs) > std::get<1>(rhs))
+    return false;
+
+  /*
+   * fleet size
+   */
+  if (std::get<2>(lhs) < std::get<2>(rhs))
+    return true;
+  if (std::get<2>(lhs) > std::get<2>(rhs))
+    return false;
+
+  /*
+   * waiting time
+   */
+  if (std::get<3>(lhs) < std::get<3>(rhs))
+    return true;
+  if (std::get<3>(lhs) > std::get<3>(rhs))
+    return false;
+
+  /*
+   * duration
+   */
+  if (std::get<4>(lhs) < std::get<4>(rhs))
+    return true;
+  if (std::get<4>(lhs) > std::get<4>(rhs))
+    return false;
+
+  return false;
 }
 
-Initials_code
-Solution::get_kind() const {
-    return problem->get_kind();
-}
-
-Solution::Solution() :
-    EPSILON(0.0001),
-    trucks(problem->trucks()) {
-    ENTERING(msg());
-    for (const auto &t : trucks) {
-        msg().log << t.tau() << "\n";
-    }
-    EXITING(msg());
-}
-
-}  //  namespace vrp
+}  //  namespace problem
 }  //  namespace vrprouting
+

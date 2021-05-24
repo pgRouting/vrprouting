@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: solution.cpp
+FILE: pd_orders.h
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -23,139 +23,92 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include "vrp/pd_orders.h"
+/*! @file */
 
-#include <string>
+#include "problem/orders.h"
+
 #include <vector>
-#include <memory>
 #include <utility>
 
-#include "vrp/pgr_pickDeliver.h"
-#include "vrp/dnode.h"
+#include "cpp_common/pgr_assert.h"
+#include "cpp_common/identifiers.hpp"
+
 
 namespace vrprouting {
-namespace vrp {
+namespace problem {
 
-Pgr_pickDeliver* PD_Orders::problem;
+/**
+@returns the index of the order within_this_set that has more possibilities of placing orders after it
+@param [in] within_this_set
+@pre not within_this_set.empty()
+*/
+size_t
+Orders::find_best_J(
+        const Identifiers<size_t> &within_this_set) const {
+    pgassert(!within_this_set.empty());
+    auto best_order = within_this_set.front();
+    size_t max_size = 0;
 
-PD_Orders::PD_Orders(
-        const std::vector<PickDeliveryOrders_t> &pd_orders
-        ) {
-    build_orders(pd_orders);
-}
-
-
-void
-PD_Orders:: add_order(
-        const PickDeliveryOrders_t &order,
-        const Vehicle_node &pick,
-        const Vehicle_node &drop) {
-#if 0
-    problem->add_base_node(std::move(b_pick));
-    problem->add_base_node(std::move(b_drop));
-    problem->add_node(pick);
-    problem->add_node(drop);
-#endif
-
-    /*
-     * add into an order
-     */
-    m_orders.push_back(
-            Order(m_orders.size(), order.id,
-                pick,
-                drop));
-}
-
-
-void
-PD_Orders::build_orders(
-        const std::vector<PickDeliveryOrders_t> &pd_orders
-        ) {
-#if 0
-    ENTERING();
-#endif
-    for (const auto &order : pd_orders) {
-        /*
-         * SAMPLE CORRECT INFORMATION
-         *
-         * id | demand | pick_x | pick_y | pick_open_t | pick_close_t | pick_service_t | deliver_x | deliver_y | deliver_open_t | deliver_open_t | deliver_close_t | deliver_service_t
-         * 1  | 10     |   35   |   69   |   448       |   505        |    90          |    45     |   68      |    912         |   967          |    90           |    35
-         */
-
-        if  (problem->m_cost_matrix.empty()) {
-            pgassert(false);
-#if 0
-            /*
-             * Euclidean version
-             */
-            auto b_pick = create_b_pick<Node>(order, problem->node_id());
-            Vehicle_node pickup(
-                    {problem->node_id()++, order, Tw_node::NodeType::kPickup});
-
-            auto b_drop = create_b_deliver<Node>(order, problem->node_id());
-            Vehicle_node delivery({
-                    problem->node_id()++,
-                    order,
-                    Tw_node::NodeType::kDelivery});
-
-
-            add_order(order,
-                    std::move(b_pick), pickup,
-                    std::move(b_drop), delivery);
-#endif
-        } else {
-            /*
-             * matrix version
-             */
-#if 0
-#if 0
-            msg.log << "pickup \n"
-                << "pick_node_id: " << order.pick_node_id
-                << "\n";
-
-            msg.log << "pickup \n"
-                << "deliver_node_id: " << order.deliver_node_id
-                << "\n";
-#endif
-            auto b_pick = create_b_pick<Dnode>(order, problem->node_id());
-            Vehicle_node pickup(
-                    {problem->node_id()++, order, Tw_node::NodeType::kPickup});
-
-            auto b_drop = create_b_deliver<Dnode>(order, problem->node_id());
-            Vehicle_node delivery({
-                    problem->node_id()++,
-                    order,
-                    Tw_node::NodeType::kDelivery});
-
-            add_order(order,
-                    std::move(b_pick), pickup,
-                    std::move(b_drop), delivery);
-#endif
-
-            if (!problem->m_cost_matrix.has_id(order.pick_node_id)) {
-                throw std::make_pair(std::string("Unable to find node on matrix"), order.pick_node_id);
-            }
-            if (!problem->m_cost_matrix.has_id(order.deliver_node_id)) {
-                throw std::make_pair(std::string("Unable to find node on matrix"), order.deliver_node_id);
-            }
-
-            Vehicle_node pickup({problem->m_nodes.size(), order, Tw_node::NodeType::kPickup});
-            problem->add_node(pickup);
-            Vehicle_node delivery({problem->m_nodes.size(), order, Tw_node::NodeType::kDelivery});
-            problem->add_node(delivery);
-
-            add_order(order, pickup, delivery);
+    for (const auto o : within_this_set) {
+        auto size_J =  this->at(o).subsetJ(within_this_set).size();
+        if (max_size < size_J) {
+            max_size = size_J;
+            best_order = o;
         }
-    }  //  for (creating orders)
-
-#if 0
-    EXITING();
-#endif
+    }
+    return best_order;
 }
 
+/**
+@returns the index of the order within_this_set that has more possibilities of placing orders before it
+@param [in] within_this_set
+@pre not within_this_set.empty()
+*/
+size_t
+Orders::find_best_I(
+        const Identifiers<size_t> &within_this_set) const {
+    pgassert(!within_this_set.empty());
+    auto best_order = within_this_set.front();
+    size_t max_size = 0;
+    for (const auto o : within_this_set) {
+        auto size_I =  this->at(o).subsetI(within_this_set).size();
+        if (max_size < size_I) {
+            max_size = size_I;
+            best_order = o;
+        }
+    }
+    return best_order;
+}
+
+/**
+@returns the index of the order within_this_set that has more possibilities of placing orders before or after it
+@param [in] within_this_set
+@pre not within_this_set.empty()
+*/
+size_t
+Orders::find_best_I_J(
+        const Identifiers<size_t> &within_this_set) const {
+    pgassert(!within_this_set.empty());
+    auto best_order = within_this_set.front();
+    size_t max_size = 0;
+
+    for (const auto o : within_this_set) {
+        auto size_I =  this->at(o).subsetI(within_this_set).size();
+        auto size_J =  this->at(o).subsetJ(within_this_set).size();
+        if (max_size < (std::max)(size_I, size_J)) {
+            max_size = (std::max)(size_I, size_J);
+            best_order = o;
+        }
+    }
+    return best_order;
+}
+
+/**
+@returns true when each order from the set of orders is valid
+*/
 bool
-PD_Orders::is_valid(double speed) const {
-    for (const auto &o : m_orders) {
+Orders::is_valid(Speed speed) const {
+    for (const auto &o : *this) {
         if (!o.is_valid(speed)) {
             return false;
         }
@@ -167,64 +120,19 @@ PD_Orders::is_valid(double speed) const {
     return true;
 }
 
-Order&
-PD_Orders::operator[](size_t i) {
-    pgassert(i < m_orders.size());
-    return m_orders[i];
-}
-
-const Order&
-PD_Orders::operator[](size_t i) const {
-    pgassert(i < m_orders.size());
-    return m_orders[i];
-}
-
+/**
+@post For each order: order -> {J} is set
+@post For each order: {I} -> order is set
+*/
 void
-PD_Orders::set_compatibles(double speed) {
-    for (auto &I : m_orders) {
-        for (const auto &J : m_orders) {
+Orders::set_compatibles(Speed speed) {
+    for (auto &I : *this) {
+        for (const auto& J : *this) {
             I.set_compatibles(J, speed);
         }
     }
 }
 
-size_t
-PD_Orders::find_best_J(
-        Identifiers<size_t> &within_this_set) const {
-    pgassert(!within_this_set.empty());
-    auto best_order = within_this_set.front();
-    size_t max_size = 0;
-
-
-    for (auto o : within_this_set) {
-        auto size_J =  m_orders[o].subsetJ(within_this_set).size();
-        if (max_size < size_J) {
-            max_size = size_J;
-            best_order = o;
-        }
-    }
-    return best_order;
-}
-
-
-size_t
-PD_Orders::find_best_I(
-        Identifiers<size_t> &within_this_set) const {
-    pgassert(!within_this_set.empty());
-    auto best_order = within_this_set.front();
-    size_t max_size = 0;
-
-
-    for (auto o : within_this_set) {
-        auto size_I =  m_orders[o].subsetI(within_this_set).size();
-        if (max_size < size_I) {
-            max_size = size_I;
-            best_order = o;
-        }
-    }
-    return best_order;
-}
-
-
-}  //  namespace vrp
+}  //  namespace problem
 }  //  namespace vrprouting
+
