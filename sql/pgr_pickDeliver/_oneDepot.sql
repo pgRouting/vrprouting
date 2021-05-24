@@ -1,13 +1,11 @@
 /*PGR-GNU*****************************************************************
 File: _oneDepot.sql
 
-Generated with Template by:
-Copyright (c) 2017 pgRouting developers
+Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org
 
 Function's developer:
-Copyright (c) 2017 Celia Virginia Vergara Castillo
-Mail:
+Copyright (c) 2021 Celia Virginia Vergara Castillo
 
 ------
 
@@ -46,12 +44,12 @@ CREATE FUNCTION _vrp_oneDepot(
     OUT stop_type INTEGER,
     OUT stop_id BIGINT,
     OUT order_id BIGINT,
-    OUT cargo FLOAT,
-    OUT travel_time FLOAT,
-    OUT arrival_time FLOAT,
-    OUT wait_time FLOAT,
-    OUT service_time FLOAT,
-    OUT departure_time FLOAT
+    OUT cargo BIGINT,
+    OUT travel_time BIGINT,
+    OUT arrival_time BIGINT,
+    OUT wait_time BIGINT,
+    OUT service_time BIGINT,
+    OUT departure_time BIGINT
 )
 RETURNS SETOF RECORD AS
 $BODY$

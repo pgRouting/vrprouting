@@ -7,7 +7,6 @@ Mail: project@pgrouting.org
 
 Function's developer:
 Copyright (c) 2015 Celia Virginia Vergara Castillo
-Mail:
 
 ------
 
@@ -115,12 +114,12 @@ CREATE FUNCTION vrp_pgr_pickDeliverEuclidean(
     OUT stop_seq INTEGER,
     OUT stop_type INTEGER,
     OUT order_id BIGINT,
-    OUT cargo FLOAT,
-    OUT travel_time FLOAT,
-    OUT arrival_time FLOAT,
-    OUT wait_time FLOAT,
-    OUT service_time FLOAT,
-    OUT departure_time FLOAT)
+    OUT cargo BIGINT,
+    OUT travel_time BIGINT,
+    OUT arrival_time BIGINT,
+    OUT wait_time BIGINT,
+    OUT service_time BIGINT,
+    OUT departure_time BIGINT)
 RETURNS SETOF RECORD AS
 $BODY$
     SELECT *
