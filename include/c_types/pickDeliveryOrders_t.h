@@ -23,16 +23,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 /*! @file */
 
-#ifndef INCLUDE_C_TYPES_PICKDELIVER_PICKDELIVERYORDERS_T_H_
-#define INCLUDE_C_TYPES_PICKDELIVER_PICKDELIVERYORDERS_T_H_
+#ifndef INCLUDE_C_TYPES_PICKDELIVERYORDERS_T_H_
+#define INCLUDE_C_TYPES_PICKDELIVERYORDERS_T_H_
 #pragma once
 
-/* for int64_t */
-#ifdef __cplusplus
-#   include <cstdint>
-#else
-#   include <stdint.h>
-#endif
+#include "c_types/typedefs.h"
+
+/** @brief order's attributes
+
+@note C/C++/postgreSQL connecting structure for input
+name | description
+:----- | :-------
+id | Order's identifier
+demand | Number of demand
+pick_node_id | Pickup node identifier
+pick_open_t | Pickup open time
+pick_close_t | Pickup close time
+pick_service_t | Pickup service duration
+deliver_node_id | Deliver node identifier
+deliver_open_t | Deliver open time
+deliver_close_t | Deliver close time
+deliver_service_t | Deliver service duration
+*/
+
 
 /**************************************************************************
  * pickDelivery types
@@ -40,25 +53,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 /*
  * its with either (foo_x, foo_y) pairs (for euclidean or with foo_node_id (for matrix)
  */
-typedef struct {
-    int64_t id;
-    double demand;
+struct PickDeliveryOrders_t{
+  Id      id;     /** Order's identifier */
+  PAmount  demand; /** Number of demand */
 
-    double pick_x;
-    double pick_y;
-    int64_t pick_node_id;
+  Coordinate pick_x; /** Pick x coordinate: used in stand alone program for benchmarks */
+  Coordinate pick_y; /** Pick y coordinate: used in stand alone program for benchmarks */
+  Id  pick_node_id;  /** Pickup node identifier */
 
-    double pick_open_t;
-    double pick_close_t;
-    double pick_service_t;
+  TTimestamp pick_open_t;     /** Pickup open time*/
+  TTimestamp pick_close_t;    /** Pickup close time*/
+  TInterval  pick_service_t;  /** Pickup service duration */
 
-    double deliver_x;
-    double deliver_y;
-    int64_t deliver_node_id;
+  Coordinate deliver_x;  /** Deliver x coordinate: used in stand alone program for benchmarks */
+  Coordinate deliver_y;  /** Deliver y coordinate: used in stand alone program for benchmarks */
+  Id deliver_node_id;    /** Deliver node identifier */
 
-    double deliver_open_t;
-    double deliver_close_t;
-    double deliver_service_t;
-} PickDeliveryOrders_t;
+  TTimestamp deliver_open_t;   /** Deliver open time */
+  TTimestamp deliver_close_t;  /** Deliver close time */
+  TInterval deliver_service_t; /** Deliver service duration */
+};
 
-#endif  // INCLUDE_C_TYPES_PICKDELIVER_PICKDELIVERYORDERS_T_H_
+#endif  // INCLUDE_C_TYPES_PICKDELIVERYORDERS_T_H_

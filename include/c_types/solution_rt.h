@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: general_vehicle_orders_t.h
+File: solution_rt.h
 
 Copyright (c) 2017 Celia Virginia Vergara Castillo
 Mail: vicky_vergara@hotmail.com
@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 /*! @file */
 
-#ifndef INCLUDE_C_TYPES_PICKDELIVER_GENERAL_VEHICLE_ORDERS_T_H_
-#define INCLUDE_C_TYPES_PICKDELIVER_GENERAL_VEHICLE_ORDERS_T_H_
+#ifndef INCLUDE_C_TYPES_SOLUTION_RT_H_
+#define INCLUDE_C_TYPES_SOLUTION_RT_H_
 #pragma once
 
 /* for int64_t */
@@ -34,33 +34,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #   include <stdint.h>
 #endif
 
-/*
-   OUT seq INTEGER,        done in the .c code
-   OUT vehicle_seq INTEGER,
-   OUT vehicle_id INTEGER,
-   OUT order_id BIGINT,
-   OUT travelTime FLOAT,
-   OUT arrivalTime FLOAT,
-   OUT waitTime FLOAT,
-   OUT serviceTime FLOAT,
-   OUT departureTime FLOAT,
-   */
+/** @brief Solution schedule when twv & cw are hard restrictions
 
-typedef struct  {
-    int vehicle_seq;
-    int64_t vehicle_id;
-    int stop_seq;
-    int64_t order_id;
-    int64_t stop_id;
-    int stop_type;
-    double cargo;
-    double travelTime;
-    double arrivalTime;
-    double waitTime;
-    double serviceTime;
-    double departureTime;
-} General_vehicle_orders_t;
+@note C/C++/postgreSQL connecting structure for output
+name | description
+:----- | :-------
+vehicle_seq | Sequence for ordering for a single vehicle
+vehicle_id | Vehicle's identifier
+stop_seq | Stop sequence of vehicle
+order_id | Node identifier of the stop
+stop_type | Kind of stop
+cargo | Cargo when leaving the stop
+travelDuration | Travel time from previous stop
+arrivalTime | Vehicle's arrival time
+waitDuration | Vehicle's wait time before stop opens
+operationTime | Time at which picked up or droped off takes place
+serviceDuration | Service time of the stop
+departureTime | Vehicle's departure time from the stop
+*/
+
+struct Solution_rt {
+    int vehicle_seq;         /** Sequence for ordering for a single vehicle */
+    int64_t vehicle_id;      /** Vehicle's identifier */
+    int stop_seq;            /** Stop sequence of vehicle */
+    int64_t order_id;        /** Served order's identifier */
+    int64_t stop_id;         /** Node identifier of the stop */
+    int stop_type;           /** Kind of stop */
+    int64_t cargo;            /** Cargo when leaving the stop */
+    int64_t travelTime;       /** Travel time from previous stop */
+    int64_t arrivalTime;      /** Vehicle's arrival time */
+    int64_t waitDuration;     /** Vehicle's wait time before stop opens */
+    int64_t operationTime;    /** Time at which the pickup or delivery takes place */
+    int64_t serviceDuration;  /** Service time of the stop */
+    int64_t departureTime;    /** Vehicle's departure time from the stop */
+    int cvTot;               /** Total Capacity Violations */
+    int twvTot;              /** Total Time Window Violations */
+};
 
 /*************************************************************************/
 
-#endif  // INCLUDE_C_TYPES_PICKDELIVER_GENERAL_VEHICLE_ORDERS_T_H_
+#endif  // INCLUDE_C_TYPES_SOLUTION_RT_H_

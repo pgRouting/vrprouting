@@ -42,7 +42,9 @@ enum {
     ANY_NUMERICAL,
     TEXT,
     CHAR1,
-    ANY_INTEGER_ARRAY
+    ANY_INTEGER_ARRAY,
+    TIMESTAMP,
+    INTERVAL
 } expectType;
 
 
