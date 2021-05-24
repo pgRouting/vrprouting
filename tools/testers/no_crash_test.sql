@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE FUNCTION no_crash_test(func TEXT, params TEXT[], subs TEXT[])
+CREATE OR REPLACE FUNCTION public.no_crash_test(func TEXT, params TEXT[], subs TEXT[])
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
