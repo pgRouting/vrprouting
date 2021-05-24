@@ -21,7 +21,7 @@ SELECT set_eq(
 -- parameter types
 SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_pgr_pickdeliver'$$,
-    $$SELECT  '{25,25,25,701,23,23,23,23,20,23,23,20,20,701,701,701,701,701,701}'::OID[] $$
+    $$SELECT  '{25,25,25,701,23,23,23,23,20,23,23,20,20,20,20,20,20,20,20}'::OID[] $$
 );
 
 SELECT finish();

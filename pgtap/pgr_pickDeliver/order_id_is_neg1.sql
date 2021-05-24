@@ -6,8 +6,8 @@ SELECT plan(2);
 
 SELECT * INTO results
 FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$);
 
 DECLARE q1 CURSOR FOR
 SELECT DISTINCT order_id

@@ -2,12 +2,12 @@
 BEGIN;
 
 UPDATE edge_table SET cost = sign(cost), reverse_cost = sign(reverse_cost);
-SELECT plan(23);
+SELECT plan(25);
 
 PREPARE q1 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     max_cycles := 30);
 
 
@@ -18,14 +18,14 @@ SELECT lives_ok('q1', 'Original query should not fail');
 --------------------------------------
 PREPARE q6 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     max_cycles := -1);
 
 PREPARE q61 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     max_cycles := 0);
 
 SELECT throws_ok('q6',
@@ -42,20 +42,20 @@ SELECT lives_ok('q61',
 --------------------------------------
 PREPARE initsol1 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     initial_sol := -1);
 
 PREPARE initsol2 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     initial_sol := 7);
 
 PREPARE initsol3 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     initial_sol := 0);
 
 
@@ -80,20 +80,20 @@ SELECT throws_ok('initsol3',
 --------------------------------------
 PREPARE factor1 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     factor := -1);
 
 PREPARE factor2 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     factor := 0);
 
 PREPARE factor3 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     factor := 1);
 
 SELECT throws_ok('factor1',
@@ -109,34 +109,31 @@ SELECT throws_ok('factor2',
 SELECT lives_ok('factor3',
     'Should live: factor >= 1');
 
--- id | capacity | start_x | start_y | start_open_t | start_close_t | start_service_t
---                 | end_x | end_y   | end_open_t   |   end_close_t | end_service_t
-
 
 PREPARE vehiles0 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT id AS vid FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT id AS vid FROM vehicles_1$$);
 
 PREPARE vehiles1 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT id FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT id FROM vehicles_1$$);
 
 PREPARE vehiles2 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT id, capacity FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT id, capacity FROM vehicles_1$$);
 
 PREPARE vehiles3 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT id, capacity, start_x FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT id, capacity, s_x FROM vehicles_1$$);
 
 PREPARE vehiles4 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT id, capacity, start_x, start_y FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT id, capacity, s_x, s_y FROM vehicles_1$$);
 
 SELECT throws_ok('vehiles0',
     'XX000',
@@ -150,90 +147,111 @@ SELECT throws_ok('vehiles1',
 
 SELECT throws_ok('vehiles2',
     'XX000',
-    $$Column 'start_x' not Found$$,
-    'Should throw: start_x is not included in data');
+    $$Column 's_x' not Found$$,
+    'Should throw: s_x is not included in data');
 
 SELECT throws_ok('vehiles3',
     'XX000',
-    $$Column 'start_y' not Found$$,
-    'Should throw: start_y is not included in data');
+    $$Column 's_y' not Found$$,
+    'Should throw: s_y is not included in data');
 
 SELECT lives_ok('vehiles4',
     'Should live: rest of parameters are optional');
 
--- end_open and end_close should exist together or not at all
+-- e_open and e_close should exist together or not at all
 
 PREPARE vehiles5 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT *, 10 AS end_close FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT *, 10 AS e_close FROM vehicles_1$$);
 
 PREPARE vehiles6 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT *, 10 AS end_open FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT *, 10 AS e_open FROM vehicles_1$$);
 
--- end_x and end_y should exist together or not at all
+-- e_x and e_y should exist together or not at all
 
 PREPARE vehiles7 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT *, 10 AS end_x FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT *, 10 AS e_x FROM vehicles_1$$);
 
 PREPARE vehiles8 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT *, 10 AS end_open FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT *, 10 AS e_open FROM vehicles_1$$);
 
 SELECT throws_ok('vehiles5',
     'XX000',
-    $$Column 'end_open' not Found$$,
-    'vehiles5, Should throw: end_close found, but not end_open');
+    $$Column 'e_open' not Found$$,
+    'vehiles5, Should throw: e_close found, but not e_open');
 
 SELECT throws_ok('vehiles6',
     'XX000',
-    $$Column 'end_close' not Found$$,
-    'vehiles6, Should throw: end_open found, but not end_close');
+    $$Column 'e_close' not Found$$,
+    'vehiles6, Should throw: e_open found, but not e_close');
 
 SELECT throws_ok('vehiles7',
     'XX000',
-    $$Column 'end_y' not Found$$,
-    'vehiles7, Should throw: end_x found, but not end_y');
+    $$Column 'e_y' not Found$$,
+    'vehiles7, Should throw: e_x found, but not e_y');
 
 SELECT throws_ok('vehiles8',
     'XX000',
-    $$Column 'end_close' not Found$$,
-    'vehiles8, Should throw: end_y found, but not end_x');
+    $$Column 'e_close' not Found$$,
+    'vehiles8, Should throw: e_y found, but not e_x');
 
+-- s_open and s_close should exist together or not at all
+
+PREPARE no_s_open AS
+SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
+    $$SELECT * FROM orders_1$$,
+    $$SELECT id, s_x, s_y, s_close, capacity FROM vehicles_1$$);
+
+PREPARE no_s_close AS
+SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
+    $$SELECT * FROM orders_1$$,
+    $$SELECT id, s_x, s_y, s_open, capacity FROM vehicles_1$$);
+
+SELECT throws_ok('no_s_open',
+    'XX000',
+    $$Column 's_open' not Found$$,
+    'no_s_open, Should throw: s_close found, but not s_open');
+
+SELECT throws_ok('no_s_close',
+    'XX000',
+    $$Column 's_close' not Found$$,
+    'no_s_close, Should throw: s_open found, but not s_close');
 ---------------------
---  start_open > start_close
+--  s_open > s_close
 ---------------------
-UPDATE vehicles SET start_open = 5, start_close = 4 WHERE id = 1;
+UPDATE vehicles_1 SET s_open = 5, s_close = 4 WHERE id = 1;
 
 PREPARE vehicles9 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$);
 
 SELECT throws_ok('vehicles9',
     'XX000',
     'Illegal values found on vehicle',
-    'vehicles9, Should throw: start_open > start_close');
+    'vehicles9, Should throw: s_open > s_close');
 
-UPDATE vehicles SET start_open = 0, start_close = 50 WHERE id = 1;
+UPDATE vehicles_1 SET s_open = 0, s_close = 50 WHERE id = 1;
 
 ---------------------
---  end_open > end_close
+--  e_open > e_close
 ---------------------
 PREPARE vehicles10 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT *, 5 AS end_open, 4 AS end_close FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT *, 5 AS e_open, 4 AS e_close FROM vehicles_1$$);
 
 SELECT throws_ok('vehicles10',
     'XX000',
     'Illegal values found on vehicle',
-    'vehicles10, Should throw: end_open > end_close');
+    'vehicles10, Should throw: e_open > e_close');
 
 --------------------------------------
 -- testing wrong data on orders
@@ -242,44 +260,46 @@ SELECT throws_ok('vehicles10',
 ---------------------
 --  d_open > d_close
 ---------------------
-UPDATE orders SET d_close = 5 WHERE id = 1;
+UPDATE orders_1 SET d_close = 5 WHERE id = 1;
 
 PREPARE orders1 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$);
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$);
 
+SELECT todo_start('thorws text changed');
 SELECT throws_ok('orders1',
     'XX000',
     'Order not feasible on any truck was found',
     'orders1, Should throw: d_open > d_close');
 
-UPDATE orders SET d_close = 15 WHERE id = 1;
+UPDATE orders_1 SET d_close = 15 WHERE id = 1;
 
 ---------------------
 --  p_open > p_close
 ---------------------
-UPDATE orders SET p_close = 1 WHERE id = 1;
+UPDATE orders_1 SET p_close = 1 WHERE id = 1;
 
 SELECT throws_ok('orders1',
     'XX000',
     'Order not feasible on any truck was found',
     'orders1, Should throw: p_open > p_close');
 
-UPDATE orders SET p_close = 10 WHERE id = 1;
+UPDATE orders_1 SET p_close = 10 WHERE id = 1;
 
+SELECT todo_end();
 ---------------------
---  demand <= 0
+--  amount <= 0
 ---------------------
 
-UPDATE orders SET demand= -20 WHERE id =1;
+UPDATE orders_1 SET amount= -20 WHERE id =1;
 
 SELECT throws_ok('orders1',
     'XX000',
-    'Order not feasible on any truck was found',
-    'Should throw: demand(PICKUP) < 0');
+    'Unexpected Negative value in column amount',
+    'Should throw: amount(PICKUP) < 0');
 
-UPDATE orders SET demand= 10 WHERE id =11;
+UPDATE orders_1 SET amount= 10 WHERE id =11;
 
 SELECT finish();
 ROLLBACK;

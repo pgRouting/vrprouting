@@ -5,18 +5,9 @@ SELECT plan(15);
 
 PREPARE No_problem_query AS
 SELECT * FROM vrp_pgr_pickDeliver(
-    $$ SELECT * FROM orders ORDER BY id $$,
-    $$ SELECT * FROM vehicles ORDER BY id$$,
-    $$ SELECT * FROM pgr_dijkstraCostMatrix(
-        'SELECT * FROM edge_table ',
-        (SELECT array_agg(id) FROM (SELECT p_node_id AS id FROM orders
-        UNION
-        SELECT d_node_id FROM orders
-        UNION
-        SELECT start_node_id FROM vehicles) a),
-        directed => false)
-    $$
-);
+  $$ SELECT * FROM orders_1 ORDER BY id $$,
+  $$ SELECT * FROM vehicles_1 ORDER BY id$$,
+  $$ SELECT * FROM edges_matrix$$);
 
 SELECT lives_ok('No_problem_query', 'Should live: '|| 1);
 SELECT lives_ok('No_problem_query', 'Should live: '|| 2);

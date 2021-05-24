@@ -7,8 +7,8 @@ SET client_min_messages TO ERROR;
 /* A call looks like this
 TODO select a smaller test, because each passing test takes about 19 seconds
 SELECT * INTO pickDeliverResults FROM vrp_pgr_pickdeliverEuclidean(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     30);
 */
 
@@ -29,13 +29,13 @@ end_sql TEXT;
 query TEXT;
 p TEXT;
 BEGIN
-    start_sql = 'select * from ' || fn || '($$ SELECT ';
+    start_sql = 'select * FROM ' || fn || '($$ SELECT ';
     FOREACH  p IN ARRAY params LOOP
         IF p = parameter THEN CONTINUE;
         END IF;
         start_sql = start_sql || p || ', ';
     END LOOP;
-    end_sql = ' FROM orders $$,  $$SELECT * FROM vehicles $$, max_cycles := 30)';
+    end_sql = ' FROM orders_1 $$,  $$SELECT * FROM vehicles_1 $$, max_cycles := 30)';
 
     query := start_sql || parameter || '::SMALLINT ' || end_sql;
     RETURN query SELECT lives_ok(query);
@@ -73,7 +73,7 @@ BEGIN
         END IF;
         start_sql = start_sql || p || ', ';
     END LOOP;
-    end_sql = ' FROM orders $$,  $$SELECT * FROM vehicles $$, max_cycles := 30)';
+    end_sql = ' FROM orders_1 $$,  $$SELECT * FROM vehicles_1 $$, max_cycles := 30)';
 
     query := start_sql || parameter || '::SMALLINT ' || end_sql;
     RETURN query SELECT lives_ok(query);
@@ -107,14 +107,14 @@ end_sql TEXT;
 query TEXT;
 p TEXT;
 BEGIN
-    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders $$, $$SELECT ';
+    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders_1 $$, $$SELECT ';
 
     FOREACH  p IN ARRAY params LOOP
         IF p = parameter THEN CONTINUE;
         END IF;
         start_sql = start_sql || p || ', ';
     END LOOP;
-    end_sql = ' FROM  vehicles $$, max_cycles := 30)';
+    end_sql = ' FROM  vehicles_1 $$, max_cycles := 30)';
 
     query := start_sql || parameter || '::SMALLINT ' || end_sql;
     RETURN query SELECT lives_ok(query);
@@ -145,13 +145,13 @@ end_sql TEXT;
 query TEXT;
 p TEXT;
 BEGIN
-    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders $$, $$ SELECT ';
+    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders_1 $$, $$ SELECT ';
     FOREACH  p IN ARRAY params LOOP
         IF p = parameter THEN CONTINUE;
         END IF;
         start_sql = start_sql || p || ', ';
     END LOOP;
-    end_sql = ' FROM vehicles $$, max_cycles := 30)';
+    end_sql = ' FROM vehicles_1 $$, max_cycles := 30)';
 
     query := start_sql || parameter || '::SMALLINT ' || end_sql;
     RETURN query SELECT lives_ok(query);
@@ -171,65 +171,65 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 SELECT test_anyInteger_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'id');
 
-SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+SELECT test_anyInteger_orders('vrp_pgr_pickdelivereuclidean',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
-    'demand');
+    'amount');
 
 SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'p_x');
 SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'p_y');
-SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+SELECT test_anyInteger_orders('vrp_pgr_pickdelivereuclidean',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'p_open');
-SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+SELECT test_anyInteger_orders('vrp_pgr_pickdelivereuclidean',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'p_close');
-SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+SELECT test_anyInteger_orders('vrp_pgr_pickdelivereuclidean',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'p_service');
 
 SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'd_x');
 SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'd_y');
-SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+SELECT test_anyInteger_orders('vrp_pgr_pickdelivereuclidean',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'd_open');
-SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+SELECT test_anyInteger_orders('vrp_pgr_pickdelivereuclidean',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'd_close');
-SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
-    ARRAY['id', 'demand',
+SELECT test_anyInteger_orders('vrp_pgr_pickdelivereuclidean',
+    ARRAY['id', 'amount',
     'p_x', 'p_y', 'p_open', 'p_close', 'p_service',
     'd_x', 'd_y', 'd_open', 'd_close', 'd_service'],
     'd_service');
@@ -237,32 +237,32 @@ SELECT test_anynumerical_orders('vrp_pgr_pickdelivereuclidean',
 /* Currently this are not used TODO add when they are used
     'end_x', 'end_y', 'end_open', 'end_close', 'end_service'],
     'speed' is optional defaults to 1
-    'start_service' is optional defaults to 0
+    's_service' is optional defaults to 0
 */
 SELECT test_anyInteger_vehicles('vrp_pgr_pickdelivereuclidean',
     ARRAY['id', 'capacity',
-    'start_x', 'start_y', 'start_open', 'start_close'],
+    's_x', 's_y', 's_open', 's_close'],
     'id');
-SELECT test_anyNumerical_vehicles('vrp_pgr_pickdelivereuclidean',
+SELECT test_anyInteger_vehicles('vrp_pgr_pickdelivereuclidean',
     ARRAY['id', 'capacity',
-    'start_x', 'start_y', 'start_open', 'start_close'],
+    's_x', 's_y', 's_open', 's_close'],
     'capacity');
 SELECT test_anyNumerical_vehicles('vrp_pgr_pickdelivereuclidean',
     ARRAY['id', 'capacity',
-    'start_x', 'start_y', 'start_open', 'start_close'],
-    'start_x');
+    's_x', 's_y', 's_open', 's_close'],
+    's_x');
 SELECT test_anyNumerical_vehicles('vrp_pgr_pickdelivereuclidean',
     ARRAY['id', 'capacity',
-    'start_x', 'start_y', 'start_open', 'start_close'],
-    'start_y');
-SELECT test_anyNumerical_vehicles('vrp_pgr_pickdelivereuclidean',
+    's_x', 's_y', 's_open', 's_close'],
+    's_y');
+SELECT test_anyInteger_vehicles('vrp_pgr_pickdelivereuclidean',
     ARRAY['id', 'capacity',
-    'start_x', 'start_y', 'start_open', 'start_close'],
-    'start_open');
-SELECT test_anyNumerical_vehicles('vrp_pgr_pickdelivereuclidean',
+    's_x', 's_y', 's_open', 's_close'],
+    's_open');
+SELECT test_anyInteger_vehicles('vrp_pgr_pickdelivereuclidean',
     ARRAY['id', 'capacity',
-    'start_x', 'start_y', 'start_open', 'start_close'],
-    'start_close');
+    's_x', 's_y', 's_open', 's_close'],
+    's_close');
 
 SELECT finish();
 ROLLBACK;

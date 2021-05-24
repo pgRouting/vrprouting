@@ -7,14 +7,12 @@ SET client_min_messages TO ERROR;
 
 PREPARE missing_id_on_matrix AS
 SELECT * FROM vrp_pgr_pickDeliver(
-    $$ SELECT * FROM orders ORDER BY id $$,
-    $$ SELECT * FROM vehicles $$,
-    $$ SELECT * from pgr_dijkstraCostMatrix(
-        ' SELECT * FROM edge_table ', ARRAY[3, 4, 5, 8, 9, 11])
-    $$
+    $$ SELECT * FROM orders_1 ORDER BY id $$,
+    $$ SELECT * FROM vehicles_1 $$,
+    $$ SELECT * FROM edges_matrix WHERE start_vid IN (3, 4, 5, 8, 9, 11) AND end_vid IN (3, 4, 5, 8, 9, 11) $$
 );
 
-SELECT throws_ok('missing_id_on_matrix', 'XX000', 'Unable to find node on matrix', 'Should throw: matrix is missing node 6');
+SELECT throws_ok('missing_id_on_matrix', 'XX000', 'An Infinity value was found on the Matrix. Might be missing information of a node', 'Should throw: matrix is missing node 6');
 
 
 SELECT finish();

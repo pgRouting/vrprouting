@@ -7,14 +7,14 @@ SET client_min_messages TO ERROR;
 
 /* A call looks like this
 SELECT * INTO pickDeliverResults FROM vrp_pgr_pickdeliver(
-    $$SELECT * FROM orders$$,
-    $$SELECT * FROM vehicles$$,
+    $$SELECT * FROM orders_1$$,
+    $$SELECT * FROM vehicles_1$$,
     $sql1$ SELECT * from pgr_dijkstraCostMatrix($$SELECT * FROM edge_table$$,
-        (SELECT array_agg(id) FROM (SELECT p_node_id AS id FROM orders
+        (SELECT array_agg(id) FROM (SELECT p_id AS id FROM orders_1
         UNION
-        SELECT d_node_id FROM orders
+        SELECT d_id FROM orders_1
         UNION
-        SELECT start_node_id FROM vehicles) a)) $sql1$)';
+        SELECT s_id FROM vehicles_1) a)) $sql1$)';
     $sql1$
     );
 */
@@ -42,12 +42,7 @@ BEGIN
         END IF;
         start_sql = start_sql || p || ', ';
     END LOOP;
-    end_sql = ' FROM orders $$,  $$SELECT * FROM vehicles $$,  $sql1$ SELECT * from pgr_dijkstraCostMatrix($$SELECT * FROM edge_table$$,
-        (SELECT array_agg(id) FROM (SELECT p_node_id AS id FROM orders
-        UNION
-        SELECT d_node_id FROM orders
-        UNION
-        SELECT start_node_id FROM vehicles) a)) $sql1$)';
+    end_sql = ' FROM orders_1 $$,  $$SELECT * FROM vehicles_1 $$,  $$SELECT start_vid, agg_cost, end_vid::SMALLINT  FROM edges_matrix$$)';
 
     query := start_sql || parameter || '::SMALLINT ' || end_sql;
     RETURN query SELECT lives_ok(query,'SMALLINT on ' ||parameter||' is OK');
@@ -59,13 +54,13 @@ BEGIN
     RETURN query SELECT lives_ok(query,'BIGINT on ' ||parameter||' is OK');
 
     query := start_sql || parameter || '::REAL ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected Column '$$||parameter||$$' type. Expected ANY-INTEGER$$,'Expected Exception REAL with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception REAL with '||parameter);
 
     query := start_sql || parameter || '::FLOAT8 ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected Column '$$||parameter||$$' type. Expected ANY-INTEGER$$,'Expected Exception FLOAT8 with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception FLOAT with '||parameter);
 
     query := start_sql || parameter || '::NUMERIC ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected Column '$$||parameter||$$' type. Expected ANY-INTEGER$$,'Expected Exception NUMERIC with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception NUMERIC with '||parameter);
 
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -86,12 +81,7 @@ BEGIN
         END IF;
         start_sql = start_sql || p || ', ';
     END LOOP;
-    end_sql = ' FROM orders $$,  $$SELECT * FROM vehicles $$,  $sql1$ SELECT * from pgr_dijkstraCostMatrix($$SELECT * FROM edge_table$$,
-        (SELECT array_agg(id) FROM (SELECT p_node_id AS id FROM orders
-        UNION
-        SELECT d_node_id FROM orders
-        UNION
-        SELECT start_node_id FROM vehicles) a)) $sql1$)';
+    end_sql = ' FROM orders_1 $$,  $$SELECT * FROM vehicles_1 $$,  $$SELECT start_vid, agg_cost, end_vid::SMALLINT  FROM edges_matrix$$)';
 
     query := start_sql || parameter || '::SMALLINT ' || end_sql;
     RETURN query SELECT lives_ok(query,'SMALLINT on ' ||parameter||' is OK');
@@ -125,19 +115,14 @@ end_sql TEXT;
 query TEXT;
 p TEXT;
 BEGIN
-    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders $$, $$SELECT ';
+    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders_1 $$, $$SELECT ';
 
     FOREACH  p IN ARRAY params LOOP
         IF p = parameter THEN CONTINUE;
         END IF;
         start_sql = start_sql || p || ', ';
     END LOOP;
-    end_sql = ' FROM vehicles $$, $sql1$ SELECT * from pgr_dijkstraCostMatrix($$SELECT * FROM edge_table$$,
-        (SELECT array_agg(id) FROM (SELECT p_node_id AS id FROM orders
-        UNION
-        SELECT d_node_id FROM orders
-        UNION
-        SELECT start_node_id FROM vehicles) a)) $sql1$)';
+    end_sql = ' FROM vehicles_1 $$,  $$SELECT start_vid, agg_cost, end_vid::SMALLINT  FROM edges_matrix$$)';
 
 
     query := start_sql || parameter || '::SMALLINT ' || end_sql;
@@ -173,18 +158,13 @@ end_sql TEXT;
 query TEXT;
 p TEXT;
 BEGIN
-    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders $$, $$ SELECT ';
+    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders_1 $$, $$ SELECT ';
     FOREACH  p IN ARRAY params LOOP
         IF p = parameter THEN CONTINUE;
         END IF;
         start_sql = start_sql || p || ', ';
     END LOOP;
-    end_sql = ' FROM vehicles $$, $sql1$ SELECT * from pgr_dijkstraCostMatrix($$SELECT * FROM edge_table$$,
-        (SELECT array_agg(id) FROM (SELECT p_node_id AS id FROM orders
-        UNION
-        SELECT d_node_id FROM orders
-        UNION
-        SELECT start_node_id FROM vehicles) a)) $sql1$)';
+    end_sql = ' FROM vehicles_1 $$,  $$SELECT start_vid, agg_cost, end_vid::SMALLINT  FROM edges_matrix$$)';
 
     query := start_sql || parameter || '::SMALLINT ' || end_sql;
     RETURN query SELECT lives_ok(query,'SMALLINT on ' ||parameter||' is OK');
@@ -218,19 +198,14 @@ end_sql TEXT;
 query TEXT;
 p TEXT;
 BEGIN
-    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders $$, $$ SELECT * FROM vehicles$$, $sql1$SELECT ';
+    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders_1 $$, $$ SELECT * FROM vehicles_1$$, $$SELECT ';
 
     FOREACH  p IN ARRAY params LOOP
         IF p = parameter THEN CONTINUE;
         END IF;
         start_sql = start_sql || p || ', ';
     END LOOP;
-    end_sql = ' FROM pgr_dijkstraCostMatrix($$SELECT * FROM edge_table$$,
-        (SELECT array_agg(id) FROM (SELECT p_node_id AS id FROM orders
-        UNION
-        SELECT d_node_id FROM orders
-        UNION
-        SELECT start_node_id FROM vehicles) a)) $sql1$)';
+    end_sql = ' FROM edges_matrix$$)';
 
     query := start_sql || parameter || '::SMALLINT ' || end_sql;
     RETURN query SELECT lives_ok(query,'matrix SMALLINT on ' ||parameter||' is OK');
@@ -242,13 +217,13 @@ BEGIN
     RETURN query SELECT lives_ok(query,'matrix BIGINT on ' ||parameter||' is OK');
 
     query := start_sql || parameter || '::REAL ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected Column '$$||parameter||$$' type. Expected ANY-INTEGER$$,'Matrix Expected Exception REAL with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception REAL with '||parameter);
 
     query := start_sql || parameter || '::FLOAT8 ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected Column '$$||parameter||$$' type. Expected ANY-INTEGER$$,'Matrix Expected Exception FLOAT8 with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception FLOAT8 with '||parameter);
 
     query := start_sql || parameter || '::NUMERIC ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected Column '$$||parameter||$$' type. Expected ANY-INTEGER$$,'Matrix Expected Exception NUMERIC with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception NUMERIC with '||parameter);
 
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -265,18 +240,13 @@ end_sql TEXT;
 query TEXT;
 p TEXT;
 BEGIN
-    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders $$, $$ SELECT * FROM vehicles$$, $sql1$SELECT ';
+    start_sql = 'SELECT * FROM ' || fn || '($$ SELECT * FROM orders_1 $$, $$ SELECT * FROM vehicles_1$$, $$SELECT ';
     FOREACH  p IN ARRAY params LOOP
         IF p = parameter THEN CONTINUE;
         END IF;
         start_sql = start_sql || p || ', ';
     END LOOP;
-    end_sql = ' FROM pgr_dijkstraCostMatrix($$SELECT * FROM edge_table$$,
-        (SELECT array_agg(id) FROM (SELECT p_node_id AS id FROM orders
-        UNION
-        SELECT d_node_id FROM orders
-        UNION
-        SELECT start_node_id FROM vehicles) a)) $sql1$)';
+    end_sql = ' FROM edges_matrix$$)';
 
     query := start_sql || parameter || '::SMALLINT ' || end_sql;
     RETURN query SELECT lives_ok(query,'matrix SMALLINT on ' ||parameter||' is OK');
@@ -300,70 +270,65 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
-    ARRAY['id', 'demand',
-    'p_node_id', 'p_open', 'p_close', 'p_service',
-    'd_node_id', 'd_open', 'd_close', 'd_service'],
+    ARRAY['id', 'amount',
+    'p_id', 'p_open', 'p_close', 'p_service',
+    'd_id', 'd_open', 'd_close', 'd_service'],
     'id');
 
 SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
-    ARRAY['id', 'demand',
-    'p_node_id', 'p_open', 'p_close', 'p_service',
-    'd_node_id', 'd_open', 'd_close', 'd_service'],
-    'p_node_id');
+    ARRAY['id', 'amount',
+    'p_id', 'p_open', 'p_close', 'p_service',
+    'd_id', 'd_open', 'd_close', 'd_service'],
+    'p_id');
 
 SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
-    ARRAY['id', 'demand',
-    'p_node_id', 'p_open', 'p_close', 'p_service',
-    'd_node_id', 'd_open', 'd_close', 'd_service'],
-    'd_node_id');
+    ARRAY['id', 'amount',
+    'p_id', 'p_open', 'p_close', 'p_service',
+    'd_id', 'd_open', 'd_close', 'd_service'],
+    'd_id');
 
-SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
-    ARRAY['id', 'demand',
-    'p_node_id', 'p_open', 'p_close', 'p_service',
-    'd_node_id', 'd_open', 'd_close', 'd_service'],
-    'demand');
+SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
+    ARRAY['id', 'amount',
+    'p_id', 'p_open', 'p_close', 'p_service',
+    'd_id', 'd_open', 'd_close', 'd_service'],
+    'amount');
 
-SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
-    ARRAY['id', 'demand',
-    'p_node_id', 'p_open', 'p_close', 'p_service',
-    'd_node_id', 'd_open', 'd_close', 'd_service'],
+SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
+    ARRAY['id', 'amount',
+    'p_id', 'p_open', 'p_close', 'p_service',
+    'd_id', 'd_open', 'd_close', 'd_service'],
     'p_open');
 
-SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
-    ARRAY['id', 'demand',
-    'p_node_id', 'p_open', 'p_close', 'p_service',
-    'd_node_id', 'd_open', 'd_close', 'd_service'],
+SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
+    ARRAY['id', 'amount',
+    'p_id', 'p_open', 'p_close', 'p_service',
+    'd_id', 'd_open', 'd_close', 'd_service'],
     'p_close');
 
-SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
-    ARRAY['id', 'demand',
-    'p_node_id', 'p_open', 'p_close', 'p_service',
-    'd_node_id', 'd_open', 'd_close', 'd_service'],
+SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
+    ARRAY['id', 'amount',
+    'p_id', 'p_open', 'p_close', 'p_service',
+    'd_id', 'd_open', 'd_close', 'd_service'],
     'p_service');
 
-SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
-    ARRAY['id', 'demand',
-    'p_node_id', 'p_open', 'p_close', 'p_service',
-    'd_node_id', 'd_open', 'd_close', 'd_service'],
+SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
+    ARRAY['id', 'amount',
+    'p_id', 'p_open', 'p_close', 'p_service',
+    'd_id', 'd_open', 'd_close', 'd_service'],
     'd_open');
 
-SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
-    ARRAY['id', 'demand',
-    'p_node_id', 'p_open', 'p_close', 'p_service',
-    'd_node_id', 'd_open', 'd_close', 'd_service'],
+SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
+    ARRAY['id', 'amount',
+    'p_id', 'p_open', 'p_close', 'p_service',
+    'd_id', 'd_open', 'd_close', 'd_service'],
     'd_close');
 
-SELECT test_anynumerical_orders('vrp_pgr_pickdeliver',
-    ARRAY['id', 'demand',
-    'p_node_id', 'p_open', 'p_close', 'p_service',
-    'd_node_id', 'd_open', 'd_close', 'd_service'],
+SELECT test_anyInteger_orders('vrp_pgr_pickdeliver',
+    ARRAY['id', 'amount',
+    'p_id', 'p_open', 'p_close', 'p_service',
+    'd_id', 'd_open', 'd_close', 'd_service'],
     'd_service');
 
-/* Currently this are not used TODO add when they are used
-    'end_x', 'end_y', 'end_open', 'end_close', 'end_service'],
-    'speed' is optional defaults to 1
-    'start_service' is optional defaults to 0
-*/
 
 SELECT test_anyInteger_matrix('vrp_pgr_pickdeliver',
     ARRAY['start_vid', 'end_vid', 'agg_cost'],
@@ -373,7 +338,7 @@ SELECT test_anyInteger_matrix('vrp_pgr_pickdeliver',
     ARRAY['start_vid', 'end_vid', 'agg_cost'],
     'end_vid');
 
-SELECT test_anyNumerical_matrix('vrp_pgr_pickdeliver',
+SELECT test_anyInteger_matrix('vrp_pgr_pickdeliver',
     ARRAY['start_vid', 'end_vid', 'agg_cost'],
     'agg_cost');
 
