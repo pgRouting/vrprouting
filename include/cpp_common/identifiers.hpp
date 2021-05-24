@@ -62,15 +62,12 @@ class Identifiers {
         m_ids = data;
     }
 
-    /* @brief initializes with {1 ~ number}
+    /* @brief initializes with {0 ~ number - 1}
      *
      * @params [in] number
      */
     explicit Identifiers<T>(const size_t number) {
-        size_t i(0);
-        std::generate_n(std::inserter(m_ids, m_ids.begin()),
-                number,
-                [&i](){ return i++; });
+      std::generate_n(std::inserter(m_ids, m_ids.end()), number, [&]{ return m_ids.size(); });
     }
 
     //@}
@@ -80,6 +77,7 @@ class Identifiers {
     size_t size() const {return m_ids.size(); }
     inline bool empty() const {return m_ids.empty(); }
     inline T front() const {return *m_ids.begin();}
+    inline T back() const {return *m_ids.end();}
     const_iterator begin() const {return m_ids.begin();}
     const_iterator end() const {return m_ids.end();}
 
@@ -109,7 +107,7 @@ class Identifiers {
      * @param [in] rhs set of identifiers to be compared
      */
     bool operator==(const Identifiers<T> &rhs) const {
-        return std::equal(m_ids.begin(), m_ids.end(), rhs.m_ids.begin());
+        return m_ids.size() == rhs.m_ids.size() && std::equal(m_ids.begin(), m_ids.end(), rhs.m_ids.begin());
     }
 
     //! @name  set UNION
@@ -252,7 +250,6 @@ class Identifiers {
             os << "}";
             return os;
         }
-
 };
 
 #endif  // INCLUDE_CPP_COMMON_IDENTIFIERS_HPP_

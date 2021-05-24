@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: Matrix.h
+FILE: matrix.h
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,102 +25,99 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_CPP_COMMON_MATRIX_H_
-#define INCLUDE_CPP_COMMON_MATRIX_H_
+#ifndef INCLUDE_CPP_COMMON_BASE_MATRIX_H_
+#define INCLUDE_CPP_COMMON_BASE_MATRIX_H_
 #pragma once
 
-#include <iostream>
+#include <iosfwd>
 #include <vector>
 #include <map>
 #include <utility>
+#include <cstdint>
 
-#include "c_types/matrix_cell_t.h"
+#include "c_types/typedefs.h"
+#include "cpp_common/identifiers.hpp"
+
+typedef struct Matrix_cell_t Matrix_cell_t;
 
 namespace vrprouting {
+namespace base {
 
-class Matrix {
+
+/** @brief N x N matrix
+ *
+ * - The internal data interpretation is done by the user of this class
+ * - Once created can not be modified
+ *
+
+@dot
+digraph structs {
+    Base_Matrix [shape=record,label="{Base_Matrix | ids: Ordered node identifiers | data: The matrix contents}"];
+}
+@enddot
+ */
+class Base_Matrix {
  public:
-    Matrix() = default;
-    explicit Matrix(const std::vector < Matrix_cell_t > &data_costs);
-    explicit Matrix(const std::map<std::pair<double, double>, int64_t> &euclidean_data);
+    /** @brief Constructs an emtpy matrix */
+    Base_Matrix() = default;
+    /** @brief Constructs a matrix for only specific identifiers */
+    Base_Matrix(Matrix_cell_t *, size_t, const Identifiers<Id>&, Multiplier);
+    explicit Base_Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id> &, Multiplier);
 
+    /** @name status of the matrix
+     * @{
+     */
+    /** @brief does the matrix values not given by the user? */
     bool has_no_infinity() const;
+
+    /** @brief does the matrix obeys the triangle inequality? */
     bool obeys_triangle_inequality() const;
+    size_t fix_triangle_inequality(size_t depth = 0);
+
+    /** @brief is the matrix empty? */
+    bool empty() const {return m_ids.empty();}
+
+    /** @brief |idx|
+     *
+     * @returns the size of the matrix
+     */
+    size_t size() const {return m_ids.size();}
+
+    /** @brief is the matrix symetric? */
     bool is_symmetric() const;
 
-    /*! @brief sets a special value for the distance(i,j)
-     *
-     * @param [in] i - index in matrix
-     * @param [in] j - index in matrix
-     * @param [in] dist - distance from i to j & from j to i
-     *
-     */
-    void set(size_t i, size_t j, double dist) {
-        costs[i][j] = costs[j][i] = dist;}
+    /** @}*/
 
-    /*! @brief original id -> true
-     *
-     * @param [in] id - original id
-     * @returns true if id is in the distance table
-     */
-    bool has_id(int64_t id) const;
+    TInterval at(Idx i, Idx j) const {return m_time_matrix[i][j];}
 
-    /*! @brief original id -> idx
-     *
-     * @param [in] id - original id
-     * @returns idx index of the id in the distance table
-     */
-    size_t get_index(int64_t id) const;
 
-    /*! @brief idx -> original id
-     *
-     * @param [in] idx - index (i-th coordinate)
-     * @returns the original id corresponding to idx
-     */
-    int64_t get_id(size_t idx) const;
-
-    /*! @brief |idx|
-     *
-     * @returns the total number of coordinates
-     */
-    size_t size() const {return ids.size();}
-
-    /*! @brief returns a row of distances
-     *
-     * @param [in] idx - row index
-     * @returns distances from idx to all other coordinates
-     */
-    const std::vector<double>& get_row(size_t idx) const {
-        return costs[idx];}
-
-    double comparable_distance(size_t i, size_t j) const {
-        return distance(i, j);}
-
-    double distance(int64_t i, int64_t j) const {
-        return distance(get_index(i), get_index(j));}
-
-    double distance(size_t i, size_t j) const {
-        return costs[i][j];}
-
+    /** @brief print matrix (row per cell)*/
     friend std::ostream& operator<<(
             std::ostream &log,
-            const Matrix &matrix);
+            const Base_Matrix &matrix);
 
-    bool empty() const {
-        return ids.empty();
-    }
+    /** @brief has identifier */
+    bool has_id(Id) const;
 
- protected:
-    void set_ids(const std::vector<matrix_cell> &data_costs);
-    std::vector<int64_t> ids;
+    /** @brief original id -> idx */
+    Idx get_index(Id) const;
 
  private:
-    typedef std::vector < std::vector < double > > Costs;
-    Costs costs;
-    std::vector< double >& operator[] (size_t i) {return costs[i];}
-    const std::vector< double >& operator[] (size_t i) const {return costs[i];}
+    /** @brief Traverses the matrix information to set the ids of the nodes */
+    void set_ids(const std::vector<Matrix_cell_t> &);
+
+    /** DATA **/
+    /** ordered list of user identifiers */
+    std::vector<Id> m_ids;
+
+    /** @brief the actual time matrix
+     *
+     * m_time_matrix[i][j] i and j are index from the ids
+     */
+    std::vector<std::vector<TInterval>> m_time_matrix;
 };
 
+}  // namespace base
 }  // namespace vrprouting
 
-#endif  // INCLUDE_CPP_COMMON_MATRIX_H_
+#endif  // INCLUDE_CPP_COMMON_BASE_MATRIX_H_
