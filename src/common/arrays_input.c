@@ -1,8 +1,11 @@
 /*PGR-GNU*****************************************************************
 File: arrays_input.c
 
+Copyright (c) 2015 pgRouting developers
+Mail: project@pgrouting.org
+
+Developer:
 Copyright (c) 2015 Celia Virginia Vergara Castillo
-vicky_vergara@hotmail.com
 
 ------
 
@@ -31,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
 #ifdef PROFILE
-#include "c_common/time_msg.h"
 #include "c_common/debug_macro.h"
 #endif
 
@@ -117,7 +119,6 @@ pgr_get_bigIntArr(ArrayType *v, size_t *arrlen, bool allow_empty) {
     pfree(elements);
     pfree(nulls);
 #ifdef PROFILE
-    PGR_DBG("Array size %ld", (*arrlen));
     time_msg("reading Array", start_t, clock());
 #endif
     return c_array;

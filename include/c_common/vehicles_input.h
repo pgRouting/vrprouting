@@ -27,30 +27,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #pragma once
 
 #include <stddef.h>
-#include "c_types/pickDeliver/vehicle_t.h"
+#include <stdbool.h>
 
-/** @brief Reads the vehicles orders
- *
- * @param[in] vehicles_sql
- * @param[out] vehicles
- * @param[out] total_vehicles
- */
-void
-pgr_get_vehicles(
-        char *vehicles_sql,
-        Vehicle_t **vehicles,
-        size_t *total_vehicles);
+typedef struct Vehicle_t Vehicle_t;
 
-/** @brief Reads the vehicles orders
- *
- * @param[in] vehicles_sql
- * @param[out] vehicles
- * @param[out] total_vehicles
- */
+/** @brief Reads the vehicles information */
 void
-pgr_get_vehicles_with_id(
-        char *vehicles_sql,
-        Vehicle_t **vehicles,
-        size_t *total_vehicles);
+get_vehicles(
+    char *,
+    Vehicle_t **,
+    size_t *,
+    bool);
+
+/** @brief Reads the vehicles information */
+void
+get_vehicles_raw(
+    char *,
+    Vehicle_t **,
+    size_t *,
+    bool);
+
+/** @brief Reads the vehicles information */
+void
+get_vehicles_euclidean(
+    char *,
+    Vehicle_t **,
+    size_t *,
+    bool);
 
 #endif  // INCLUDE_C_COMMON_VEHICLES_INPUT_H_

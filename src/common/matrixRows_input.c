@@ -1,8 +1,11 @@
 /*PGR-GNU*****************************************************************
 File: matrixRows_input.c
 
+Copyright (c) 2015 pgRouting developers
+Mail: project@pgrouting.org
+
+Developer:
 Copyright (c) 2015 Celia Virginia Vergara Castillo
-vicky_vergara@hotmail.com
 
 ------
 
@@ -24,16 +27,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/matrixRows_input.h"
 
-/* for bool */
-#   include <stdbool.h>
-/* for size_t */
-#   include <stddef.h>
-
 #include "c_types/column_info_t.h"
+#include "c_types/matrix_cell_t.h"
 
-#include "c_common/debug_macro.h"
 #include "c_common/get_check_data.h"
+
+#ifdef PROFILE
 #include "c_common/time_msg.h"
+#include "c_common/debug_macro.h"
+#endif
 
 /*
 .. pgr_pickDeliver start
@@ -57,14 +59,25 @@ Column        Type            Description
 */
 
 static
-void pgr_fetch_row(
+void fetch_plain(
         HeapTuple *tuple,
         TupleDesc *tupdesc,
         Column_info_t info[3],
-        Matrix_cell_t *distance) {
-    distance->from_vid = pgr_SPI_getBigInt(tuple, tupdesc,  info[0]);
-    distance->to_vid = pgr_SPI_getBigInt(tuple, tupdesc,  info[1]);
-    distance->cost = pgr_SPI_getFloat8(tuple, tupdesc, info[2]);
+        Matrix_cell_t *row) {
+    row->from_vid = get_Id(tuple, tupdesc,  info[0], -1);
+    row->to_vid = get_Id(tuple, tupdesc,  info[1], -1);
+    row->cost = get_PositiveTInterval_plain(tuple, tupdesc, info[2], 0);
+}
+
+static
+void fetch_timestamps(
+        HeapTuple *tuple,
+        TupleDesc *tupdesc,
+        Column_info_t info[3],
+        Matrix_cell_t *row) {
+    row->from_vid = get_Id(tuple, tupdesc,  info[0], -1);
+    row->to_vid = get_Id(tuple, tupdesc,  info[1], -1);
+    row->cost = get_PositiveTInterval(tuple, tupdesc, info[2], 0);
 }
 
 /*!
@@ -72,87 +85,138 @@ void pgr_fetch_row(
  * bigint end_vid,
  * float agg_cost,
  */
-void pgr_get_matrixRows(
-        char *sql,
-        Matrix_cell_t **rows,
-        size_t *total_rows) {
-    clock_t start_t = clock();
+static
+void
+get_matrixRows_general(
+    char *sql,
+    Column_info_t *info,
+    const int kind,
+    Matrix_cell_t **rows,
+    size_t *total_rows) {
+#ifdef PROFILE
+  clock_t start_t = clock();
+  PGR_DBG("%s", sql);
+#endif
 
-    const int tuple_limit = 1000000;
+  const int tuple_limit = 1000000;
+  size_t total_tuples = 0;
+  const int column_count = 3;
 
-    size_t total_tuples = 0;
+  void *SPIplan;
+  SPIplan = pgr_SPI_prepare(sql);
 
-    Column_info_t info[3];
-
-    int i;
-    for (i = 0; i < 3; ++i) {
-        info[i].colNumber = -1;
-        info[i].type = 0;
-        info[i].strict = true;
-        info[i].eType = ANY_INTEGER;
-    }
-    info[0].name = "start_vid";
-    info[1].name = "end_vid";
-    info[2].name = "agg_cost";
-
-    info[2].eType = ANY_NUMERICAL;
+  Portal SPIportal;
+  SPIportal = pgr_SPI_cursor_open(SPIplan);
 
 
-    void *SPIplan;
-    SPIplan = pgr_SPI_prepare(sql);
+  bool moredata = true;
+  (*total_rows) = total_tuples;
 
-    Portal SPIportal;
-    SPIportal = pgr_SPI_cursor_open(SPIplan);
+  while (moredata == true) {
+    SPI_cursor_fetch(SPIportal, true, tuple_limit);
+    if (total_tuples == 0)
+      pgr_fetch_column_info(info, column_count);
 
+    size_t ntuples = SPI_processed;
+    total_tuples += ntuples;
 
-    bool moredata = true;
-    (*total_rows) = total_tuples;
+    if (ntuples > 0) {
+      if ((*rows) == NULL)
+        (*rows) = (Matrix_cell_t *)palloc0(
+            total_tuples * sizeof(Matrix_cell_t));
+      else
+        (*rows) = (Matrix_cell_t *)repalloc(
+            (*rows), total_tuples * sizeof(Matrix_cell_t));
 
-    while (moredata == true) {
-        SPI_cursor_fetch(SPIportal, true, tuple_limit);
-        if (total_tuples == 0)
-            pgr_fetch_column_info(info, 3);
+      if ((*rows) == NULL) {
+        elog(ERROR, "Out of memory");
+      }
 
-        size_t ntuples = SPI_processed;
-        total_tuples += ntuples;
+      SPITupleTable *tuptable = SPI_tuptable;
+      TupleDesc tupdesc = SPI_tuptable->tupdesc;
 
-        if (ntuples > 0) {
-            if ((*rows) == NULL)
-                (*rows) = (Matrix_cell_t *)palloc0(
-                        total_tuples * sizeof(Matrix_cell_t));
-            else
-                (*rows) = (Matrix_cell_t *)repalloc(
-                        (*rows), total_tuples * sizeof(Matrix_cell_t));
-
-            if ((*rows) == NULL) {
-                elog(ERROR, "Out of memory");
-            }
-
-            SPITupleTable *tuptable = SPI_tuptable;
-            TupleDesc tupdesc = SPI_tuptable->tupdesc;
-            PGR_DBG("processing %ld matrix cell tupĺes", ntuples);
-
-            size_t t;
-            for (t = 0; t < ntuples; t++) {
-                HeapTuple tuple = tuptable->vals[t];
-                pgr_fetch_row(&tuple, &tupdesc, info,
-                        &(*rows)[total_tuples - ntuples + t]);
-            }
-            SPI_freetuptable(tuptable);
-        } else {
-            moredata = false;
+      size_t t;
+      for (t = 0; t < ntuples; t++) {
+        HeapTuple tuple = tuptable->vals[t];
+        switch (kind) {
+          case 0 : fetch_timestamps(&tuple, &tupdesc, info,
+                       &(*rows)[total_tuples - ntuples + t]);
+                   break;
+          case 1 : fetch_plain(&tuple, &tupdesc, info,
+                       &(*rows)[total_tuples - ntuples + t]);
+                   break;
         }
+      }
+      SPI_freetuptable(tuptable);
+    } else {
+      moredata = false;
     }
+  }
 
-    SPI_cursor_close(SPIportal);
+  SPI_cursor_close(SPIportal);
 
 
-    if (total_tuples == 0) {
-        (*total_rows) = 0;
-        PGR_DBG("NO rows");
-        return;
-    }
+  if (total_tuples == 0) {
+    (*total_rows) = 0;
+    return;
+  }
 
-    (*total_rows) = total_tuples;
-    time_msg(" reading matrix cells", start_t, clock());
+  (*total_rows) = total_tuples;
+#ifdef PROFILE
+  time_msg(" reading time matrix", start_t, clock());
+#endif
+}
+
+/**
+ * @param [in] sql SQL query that has the following columns: start_vid, end_vid, agg_cost
+ * @param [out] rows C Container that holds all the matrix rows
+ * @param [out] total_rows Total rows recieved
+ */
+void
+get_matrixRows(
+    char *sql,
+    Matrix_cell_t **rows,
+    size_t *total_rows) {
+  Column_info_t info[3];
+
+  int i;
+  for (i = 0; i < 3; ++i) {
+    info[i].colNumber = -1;
+    info[i].type = 0;
+    info[i].strict = true;
+    info[i].eType = ANY_INTEGER;
+  }
+  info[0].name = "start_vid";
+  info[1].name = "end_vid";
+  info[2].name = "travel_time";
+
+  info[2].eType = INTERVAL;
+  get_matrixRows_general(sql, info, 0, rows, total_rows);
+}
+
+/**
+ * @param [in] sql SQL query that has the following columns: start_vid, end_vid, agg_cost
+ * @param [out] rows C Container that holds all the matrix rows
+ * @param [out] total_rows Total rows recieved
+ */
+void
+get_matrixRows_plain(
+    char *sql,
+    Matrix_cell_t **rows,
+    size_t *total_rows) {
+  Column_info_t info[3];
+
+  int i;
+  for (i = 0; i < 3; ++i) {
+    info[i].colNumber = -1;
+    info[i].type = 0;
+    info[i].strict = true;
+    info[i].eType = ANY_INTEGER;
+  }
+  info[0].name = "start_vid";
+  info[1].name = "end_vid";
+  info[2].name = "agg_cost";
+
+  info[2].eType = ANY_NUMERICAL;
+  get_matrixRows_general(sql, info, 1, rows, total_rows);
 }

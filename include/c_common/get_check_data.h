@@ -28,190 +28,100 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/postgres_connection.h"
 #include "c_types/column_info_t.h"
+#include "c_types/typedefs.h"
 
-/*!
-@brief  Function will check whether the colNumber represent any specific column or NULL (SPI_ERROR_NOATTRIBUTE).
-
-@param[in] colNumber Column number (count starts at 1).
-
-@return @b TRUE when colNumber exist.
-        @b FALSE when colNumber was not found.
-
- */
+/** @brief  Check whether the colNumber represent any specific column or NULL (SPI_ERROR_NOATTRIBUTE). */
 bool column_found(int colNumber);
 
-/*!
-@brief Function tells expected type of each column and then check the correspondence type of each column.
-
-@param[in] info[]     contain one or more column information.
-@param[in] info_size  number of columns.
-
-@throw ERROR Unknown type of column.
-
- */
+/** @brief Function tells expected type of each column and then check the correspondence type of each column.  */
 void pgr_fetch_column_info(
-        Column_info_t info[],
-        int info_size);
+    Column_info_t info[],
+    int info_size);
 
-/*!
-@brief The function check whether column type is ANY-INTEGER or not.
-       Where ANY-INTEGER is SQL type:
-            SMALLINT, INTEGER, BIGINT
+/*! @brief get value of specified column in char type. */
+char
+spi_getChar(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info,
+    bool strict,
+    char default_value);
 
-@param[in] info contain column information.
-
-@throw ERROR Unexpected Column type. Expected column type is ANY-INTEGER.
-
- */
-void pgr_check_any_integer_type(Column_info_t info);
-
-/*!
-@brief The function check whether column type is ANY-NUMERICAL.
-       Where ANY-NUMERICAL is SQL type:
-            SMALLINT, INTEGER, BIGINT, REAL, FLOAT
-
-@param[in] info contain column information.
-
-@throw ERROR Unexpected Column type. Expected column type is ANY-NUMERICAL.
-
- */
-void pgr_check_any_numerical_type(Column_info_t info);
-
-/*!
-@brief The function check whether column type is CHAR or not.
-       Where CHAR is SQL type:
-            CHARACTER
-
-@param[in] info contain column information.
-
-@throw ERROR Unexpected Column type. Expected column type is CHAR.
-
- */
-void pgr_check_char_type(Column_info_t info);
-
-/*!
-@brief The function check whether column type is TEXT or not.
-       Where TEXT is SQL type:
-            TEXT
-
-@param[in] info contain column information.
-
-@throw ERROR Unexpected Column type. Expected column type is TEXT.
-
- */
-void pgr_check_text_type(Column_info_t info);
-void pgr_check_boolean_type(Column_info_t info);
-
-/*!
-@brief The function check whether column type is ANY-INTEGER-ARRAY or not.
-       Where ANY-INTEGER-ARRAY is SQL type:
-            SMALLINT[], INTEGER[], BIGINT[]
-
-@param[in] info contain column information.
-
-@throw ERROR Unexpected Column type. Expected column type is ANY-INTEGER-ARRAY.
-
- */
-
-void pgr_check_any_integerarray_type(Column_info_t info);
-
-/*!
-@brief Function return the value of specified column in char type.
-
-@param[in]  tuple         input row to be examined.
-@param[in]  tupdesc       input row description.
-@param[in]  info          contain column information.
-@param[in]  strict        boolean value of strict.
-@param[in]  default_value returned when column contain NULL value.
-
-@throw ERROR Unexpected Column type. Expected column type is CHAR.
-@throw ERROR When value of column is NULL.
-
-@return Char type of column value is returned.
-
- */
-char pgr_SPI_getChar(
-        HeapTuple *tuple,
-        TupleDesc *tupdesc,
-        Column_info_t info,
-        bool strict,
-        char default_value);
-
-/*!
-@brief Function returns the values of specified columns in array.
-
-@param[in]  tuple    input row to be examined.
-@param[in]  tupdesc  input row description.
-@param[in]  info     contain column information.
-@param[out] the_size number of element in array.
-
-@throw ERROR No elements found in ARRAY.
-@throw ERROR Unexpected Column type. Expected column type is ANY-INTEGER-ARRAY.
-@throw ERROR NULL value found in Array.
-
-@return Array of columns value is returned.
-
- */
-
+/** @brief Function returns the values of specified columns in array.  */
 int64_t*
-pgr_SPI_getBigIntArr(
-        HeapTuple *tuple,
-        TupleDesc *tupdesc,
-        Column_info_t info,
-        uint64_t *the_size);
+spi_getBigIntArr(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info,
+    size_t *the_size);
 
-/*!
-@brief Function returns the value of specified column in integer type.
+/** @brief Function returns the values of specified columns in array.  */
+int64_t*
+spi_getBigIntArr_allowEmpty(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info,
+    size_t *the_size);
 
-@param[in]  tuple   input row to be examined.
-@param[in]  tupdesc input row description.
-@param[in]  info    contain column information.
+/** @brief gets value of specified column in double type. */
+double
+spi_getFloat8(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info);
 
-@throw ERROR Unexpected Column type. Expected column type is ANY-INTEGER.
-@throw ERROR When value of column is NULL.
+/** @brief gets string representation of the value of specified column. */
+char*
+spi_getText(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info);
 
-@return Integer type of column value is returned.
 
- */
+/** @name timestamp related
+ * @{ */
+/** @brief  Converts timestamp to timestamp without timezone */
+TTimestamp timestamp_without_timezone( TTimestamp timestamp);
 
-int64_t pgr_SPI_getBigInt(
-        HeapTuple *tuple,
-        TupleDesc *tupdesc,
-        Column_info_t info);
+/** @brief gets a timestamp value from postgres type TIMESTAMP */
+TTimestamp get_TTimestamp(HeapTuple*, TupleDesc*, Column_info_t, TTimestamp);
 
-/*!
-@brief Function returns the value of specified column in double type.
+/** @brief gets a timestamp value from postgres type TIMESTAMP >= 1970-01-01 00:00:00*/
+TTimestamp get_PositiveTTimestamp(HeapTuple*, TupleDesc*, Column_info_t, TTimestamp);
 
-@param[in] tuple   input row to be examined.
-@param[in] tupdesc input row description.
-@param[in] info    contain column information.
+/** @brief gets a timestamp value from ANY-INTEGER */
+TTimestamp get_TTimestamp_plain(HeapTuple*, TupleDesc*, Column_info_t, TTimestamp);
 
-@throw ERROR Unexpected Column type. Expected column type is ANY-NUMERICAL.
-@throw ERROR When value of column is NULL.
+/** @brief gets a timestamp value from ANY-INTEGER > 0 */
+TTimestamp get_PositiveTTimestamp_plain(HeapTuple*, TupleDesc*, Column_info_t, TTimestamp);
+/* @} */
 
-@return Double type of column value is returned.
+/** @name interval related
+ * @{ */
+/** @brief gets an interval value from postgres type INTERVAL */
+TInterval get_TInterval(HeapTuple*, TupleDesc*, Column_info_t, TInterval);
 
- */
+/** @brief gets an interval value from postgres type INTERVAL > 0 */
+TInterval get_PositiveTInterval(HeapTuple*, TupleDesc*, Column_info_t, TInterval);
 
-double  pgr_SPI_getFloat8(
-        HeapTuple *tuple,
-        TupleDesc *tupdesc,
-        Column_info_t info);
-/*!
-@brief Function returns the string representation of the value of specified column.
+/** @brief gets an interval value from ANY-INTEGER */
+TInterval get_TInterval_plain(HeapTuple*, TupleDesc*, Column_info_t, TInterval);
 
-@param[in]  tuple   input row to be examined.
-@param[in]  tupdesc input row description.
-@param[in]  info    contain column information.
+/** @brief gets an interval value from ANY-INTEGER > 0 */
+TInterval get_PositiveTInterval_plain(HeapTuple*, TupleDesc*, Column_info_t, TInterval);
+/* @} */
 
-@return Pointer of string is returned.
+/** get Id from data */
+Id get_Id(HeapTuple*, TupleDesc*, Column_info_t, Id);
 
- */
+/** get Amount from data */
+Amount get_Amount(HeapTuple*, TupleDesc*, Column_info_t, Amount);
 
-char* pgr_SPI_getText(
-        HeapTuple *tuple,
-        TupleDesc *tupdesc,
-        Column_info_t info);
+/** get positive Amount from data */
+PAmount get_PositiveAmount(HeapTuple*, TupleDesc*, Column_info_t, PAmount);
+
+/** get a coordinate value */
+Coordinate spi_getCoordinate(HeapTuple*, TupleDesc*, Column_info_t, Coordinate);
 
 
 #endif  // INCLUDE_C_COMMON_GET_CHECK_DATA_H_

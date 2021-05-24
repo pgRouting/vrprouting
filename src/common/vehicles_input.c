@@ -1,8 +1,11 @@
 /*PGR-GNU*****************************************************************
 File: vehicles_input.c
 
+Copyright (c) 2016 pgRouting developers
+Mail: project@pgrouting.org
+
+Developer:
 Copyright (c) 2016 Celia Virginia Vergara Castillo
-vicky_vergara@hotmail.com
 
 ------
 
@@ -29,10 +32,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
 #include "c_types/column_info_t.h"
+#include "c_types/vehicle_t.h"
 
-#include "c_common/debug_macro.h"
 #include "c_common/get_check_data.h"
+
+#ifdef PROFILE
 #include "c_common/time_msg.h"
+#include "c_common/debug_macro.h"
+#endif
 
 /*
 .. pgr_pickDeliver start
@@ -42,26 +49,43 @@ A ``SELECT`` statement that returns the following columns:
 ::
 
     id, capacity, [speed,]
-    start_node_id, start_open, start_close, [start_service,]
-    [end_node_id, end_open, end_close, end_service]
+    s_id, s_tw_open, s_tw_close, [s_service,]
+    [e_id, e_tw_open, e_tw_close, e_service]
 
 
 
 ==================  =================== ================ ================================================
 Column              Type                  Default           Description
 ==================  =================== ================ ================================================
-**id**              |ANY-INTEGER|                         Identifier of the pick-delivery order pair.
-**capacity**        |ANY-NUMERICAL|                       Number of units in the order
+**id**              |ANY-INTEGER|                         Identifier of the vehicle
+**capacity**        |ANY-NUMERICAL|                       Capacity of the vehicle
 **speed**           |ANY-NUMERICAL|      `1`              Average speed of the vehicle.
-**start_node_id**   |ANY-INTEGER|                         The node identifier of the starting location, must match a node identifier in the matrix table.
-**start_open**      |ANY-NUMERICAL|                       The time, relative to 0, when the starting location opens.
-**start_close**     |ANY-NUMERICAL|                       The time, relative to 0, when the starting location closes.
-**start_service**   |ANY-NUMERICAL|      `0`              The duration of the loading at the starting location.
-**end_node_id**     |ANY-INTEGER|        `start_node_id`  The node identifier of the ending location, must match a node identifier in the matrix table.
-**end_open**        |ANY-NUMERICAL|      `start_open`     The time, relative to 0, when the ending location opens.
-**end_close**       |ANY-NUMERICAL|      `start_close`    The time, relative to 0, when the ending location closes.
-**end_service**     |ANY-NUMERICAL|      `start_service`  The duration of the unloading at the ending location.
+**s_id**            |ANY-INTEGER|                         The node identifier of the starting location, must match a node identifier in the matrix table.
+**s_tw_open**       |ANY-NUMERICAL|      `0`              The time, relative to 0, when the starting location opens.
+                                                          When `s_tw_open` column exist  then `s_tw_close` column is expected
+                                                          Default value when (`s_tw_open`, s_tw_close) columns do not exist
+**s_tw_close**      |ANY-NUMERICAL|      `INFINITY`       The time, relative to 0, when the starting location closes.
+                                                          When `s_tw_close` column exist  then `e_tw_open` column is expected
+                                                          Default value when `(s_tw_open, s_tw_close)` columns do not exist
+**s_service**       |ANY-NUMERICAL|      `0`              The duration of the loading at the starting location.
+**e_id**            |ANY-INTEGER|        `s_id`           The node identifier of the ending location, must match a node identifier in the matrix table.
+**e_tw_open**       |ANY-NUMERICAL|      `s_tw_open`      The time, relative to 0, when the ending location opens.
+                                                          When `e_tw_open` column exist  then `e__tw_close` column is expected
+                                                          Default value when (`e_tw_open`, e_tw_close) columns do not exist
+**e_tw_close**      |ANY-NUMERICAL|      `s_tw_close`     The time, relative to 0, when the ending location closes.
+                                                          When `e_tw_close` column exist  then `e_tw_open` column is expected
+                                                          Default value when `(e_tw_open`, e_tw_close)` columns do not exist
+**e_service**       |ANY-NUMERICAL|      `s_service`      The duration of the unloading at the ending location.
 ==================  =================== ================ ================================================
+
+Throws:
+* When column `id` is missing
+* When column `capacity` is missing
+* When column `s_id` is missing
+* When column `s_tw_open` exists but not `s_tw_close`
+* When column `s_tw_close`exists but not `s_tw_open`
+* When column `e_tw_open` exists but not `e_tw_close`
+* When column `e_tw_close`exists but not `e_tw_open`
 
 .. pgr_pickDeliver end
 .. pgr_pickDeliverEuclidean start
@@ -71,263 +95,519 @@ A ``SELECT`` statement that returns the following columns:
 ::
 
     id, capacity, [speed,]
-    start_x, start_y, start_open, start_close, [start_service,]
-    [end_x, end_y, end_open, end_close, end_service]
+    s_x, s_y, s_tw_open, s_tw_close, [s_service,]
+    [e_x, e_y, e_tw_open, e_tw_close, e_service]
 
 ==================  =================== ================ ================================================
 Column              Type                  Default           Description
 ==================  =================== ================ ================================================
-**id**              |ANY-INTEGER|                         Identifier of the pick-delivery order pair.
-**capacity**        |ANY-NUMERICAL|                       Number of units in the order
+**id**              |ANY-INTEGER|                         Identifier of the vehicle
+**capacity**        |ANY-NUMERICAL|                       Capacity of the vehicle
 **speed**           |ANY-NUMERICAL|      `1`              Average speed of the vehicle.
-**start_x**         |ANY-NUMERICAL|                       :math:`x` value of the coordinate of the starting location.
-**start_y**         |ANY-NUMERICAL|                       :math:`y` value of the coordinate of the starting location.
-**start_open**      |ANY-NUMERICAL|                       The time, relative to 0, when the starting location opens.
-**start_close**     |ANY-NUMERICAL|                       The time, relative to 0, when the starting location closes.
-**start_service**   |ANY-NUMERICAL|      `0`              The duration of the loading at the starting location.
-**end_open**        |ANY-NUMERICAL|      `start_open`     The time, relative to 0, when the ending location opens.
-**end_close**       |ANY-NUMERICAL|      `start_close`    The time, relative to 0, when the ending location closes.
-**end_service**     |ANY-NUMERICAL|      `start_service`  The duration of the loading at the ending location.
-**end_x**           |ANY-NUMERICAL|          `start_x`    :math:`x` value of the coordinate of the ending location.
-**end_y**           |ANY-NUMERICAL|          `start_y`    :math:`y` value of the coordinate of the ending location.
+**s_x**             |ANY-NUMERICAL|                       :math:`x` value of the coordinate of the starting location.
+**s_y**             |ANY-NUMERICAL|                       :math:`y` value of the coordinate of the starting location.
+**s_tw_open**       |ANY-NUMERICAL|      `0`              The time, relative to 0, when the starting location opens.
+                                                          When `s_tw_open` column exist  then `s_tw_close` column is expected
+                                                          Default value when (`s_tw_open`, s_tw_close) columns do not exist
+**s_tw_close**      |ANY-NUMERICAL|      `INFINITY`       The time, relative to 0, when the starting location closes.
+                                                          When `s_tw_close` column exist  then `e_tw_open` column is expected
+                                                          Default value when `(s_tw_open, s_tw_close)` columns do not exist
+**s_service**       |ANY-NUMERICAL|      `0`              The duration of the loading at the starting location.
+**e_tw_open**       |ANY-NUMERICAL|      `s_tw_open`      The time, relative to 0, when the ending location opens.
+                                                          When `e_tw_open` column exist  then `e__tw_close` column is expected
+                                                          Default value when (`e_tw_open`, e_tw_close) columns do not exist
+**e_tw_close**      |ANY-NUMERICAL|      `s_tw_close`     The time, relative to 0, when the ending location closes.
+                                                          When `e_tw_close` column exist  then `e_tw_open` column is expected
+                                                          Default value when `(e_tw_open`, e_tw_close)` columns do not exist
+**e_service**       |ANY-NUMERICAL|      `s_service`      The duration of the loading at the ending location.
+**e_x**             |ANY-NUMERICAL|      `s_x`            :math:`x` value of the coordinate of the ending location.
+                                                          Default value when `(e_x, e_y)` columns do not exist
+                                                          Default value when `e_y` column does not exist
+**e_y**             |ANY-NUMERICAL|      `s_y`            :math:`y` value of the coordinate of the ending location.
+                                                          When `e_y` column exist  then `e_x` column is expected
+                                                          Default value when `(e_x, e_y)` columns do not exist
 ==================  =================== ================ ================================================
+
+Throws:
+* When column `id` is missing
+* When column `capacity` is missing
+* When column `s_x` is missing
+* When column `s_y` is missing
+* When column `s_tw_open` exists but not `s_tw_close`
+* When column `s_tw_close`exists but not `s_tw_open`
+* When column `e_y` exists but not `e_x`
+* When column `e_x` exists but not `e_y`
+* When column `e_tw_open` exists but not `e_tw_close`
+* When column `e_tw_close`exists but not `e_tw_open`
 
 .. pgr_pickDeliverEuclidean end
 
+.. vrp_pickDeliver start
+
+A ``SELECT`` statement that returns the following columns:
+
+::
+
+    id, capacity, [speed,]
+    s_id, s_tw_open, s_tw_close, [s_service,]
+    [e_id, e_tw_open, e_tw_close, e_service]
+
+
+
+==================  =================== ================ ================================================
+Column              Type                  Default           Description
+==================  =================== ================ ================================================
+**id**              |ANY-INTEGER|                         Identifier of the vehicle
+**capacity**        |ANY-NUMERICAL|                       Capacity of the vehicle
+**stops**           |ANY-NUMERICAL|      `[]`             Array of shipments identifiers indicating an initial solution
+**s_id**            |ANY-INTEGER|                         The node identifier of the starting location, must match a node identifier in the matrix table.
+**s_tw_open**       |ANY-NUMERICAL|      `0`              The time, relative to 0, when the starting location opens.
+                                                          When `s_tw_open` column exist  then `s_tw_close` column is expected
+                                                          Default value when (`s_tw_open`, s_tw_close) columns do not exist
+**s_tw_close**      |ANY-NUMERICAL|      `INFINITY`       The time, relative to 0, when the starting location closes.
+                                                          When `s_tw_close` column exist  then `e_tw_open` column is expected
+                                                          Default value when `(s_tw_open, s_tw_close)` columns do not exist
+**s_service**       |ANY-NUMERICAL|      `0`              The duration of the loading at the starting location.
+**e_id**            |ANY-INTEGER|        `s_id`           The node identifier of the ending location, must match a node identifier in the matrix table.
+**e_tw_open**       |ANY-NUMERICAL|      `s_tw_open`      The time, relative to 0, when the ending location opens.
+                                                          When `e_tw_open` column exist  then `e__tw_close` column is expected
+                                                          Default value when (`e_tw_open`, e_tw_close) columns do not exist
+**e_tw_close**      |ANY-NUMERICAL|      `s_tw_close`     The time, relative to 0, when the ending location closes.
+                                                          When `e_tw_close` column exist  then `e_tw_open` column is expected
+                                                          Default value when `(e_tw_open`, e_tw_close)` columns do not exist
+**e_service**       |ANY-NUMERICAL|      `s_service`      The duration of the unloading at the ending location.
+==================  =================== ================ ================================================
+
+Throws:
+* When column `id` is missing
+* When column `capacity` is missing
+* When column `s_id` is missing
+* When column `s_tw_open` exists but not `s_tw_close`
+* When column `s_tw_close`exists but not `s_tw_open`
+* When column `e_tw_open` exists but not `e_tw_close`
+* When column `e_tw_close`exists but not `e_tw_open`
+
+.. pgr_pickDeliver end
 */
 
 static
-void fetch_vehicles(
-        HeapTuple *tuple,
-        TupleDesc *tupdesc,
-        Column_info_t info[16],
-        Vehicle_t *vehicle,
-        bool with_id) {
-    vehicle->id = pgr_SPI_getBigInt(tuple, tupdesc, info[0]);
-    vehicle->capacity = pgr_SPI_getFloat8(tuple, tupdesc, info[1]);
-
-    vehicle->start_x = with_id ?
-        0 :
-        pgr_SPI_getFloat8(tuple, tupdesc, info[2]);
-    vehicle->start_y = with_id ?
-        0 :
-        pgr_SPI_getFloat8(tuple, tupdesc, info[3]);
-
-    vehicle->speed = column_found(info[13].colNumber) ?
-        pgr_SPI_getFloat8(tuple, tupdesc, info[13]) :
-        1;
-    vehicle->cant_v =  column_found(info[4].colNumber) ?
-        pgr_SPI_getBigInt(tuple, tupdesc, info[4]) :
-        1;
-    vehicle->start_open_t = column_found(info[5].colNumber) ?
-        pgr_SPI_getFloat8(tuple, tupdesc, info[5]) :
-        0;
-    vehicle->start_close_t = column_found(info[6].colNumber) ?
-        pgr_SPI_getFloat8(tuple, tupdesc, info[6]) :
-        DBL_MAX;
-    vehicle->start_service_t = column_found(info[7].colNumber) ?
-        pgr_SPI_getFloat8(tuple, tupdesc, info[7]) :
-        0;
-
-
-    if (!(column_found(info[8].colNumber))
-            && column_found(info[9].colNumber)) {
+void check_pairs(Column_info_t lhs, Column_info_t rhs) {
+    if (!(column_found(lhs.colNumber)) && column_found(rhs.colNumber)) {
         ereport(ERROR,
-                (errmsg("Column \'%s\' not Found", info[8].name),
+                (errmsg("Column \'%s\' not Found", lhs.name),
                  errhint("%s was found, also column is expected %s ",
-                     info[9].name, info[8].name)));
+                     rhs.name, lhs.name)));
     }
-    if (column_found(info[8].colNumber)
-            && !(column_found(info[9].colNumber))) {
-        ereport(ERROR,
-                (errmsg("Column \'%s\' not Found", info[9].name),
-                 errhint("%s was found, also column is expected %s ",
-                     info[8].name, info[9].name)));
-    }
+}
 
-    vehicle->end_x = column_found(info[8].colNumber) ?
-        pgr_SPI_getFloat8(tuple, tupdesc, info[8]) :
-        vehicle->start_x;
-    vehicle->end_y = column_found(info[9].colNumber) ?
-        pgr_SPI_getFloat8(tuple, tupdesc, info[9]) :
-        vehicle->start_y;
+static
+void fetch_euclidean(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t *info,
+    Vehicle_t *vehicle,
+    bool with_stops) {
+  bool with_id = false;
+  /*
+   * s_tw_open, s_tw_close must exist or non at all
+   */
+  check_pairs(info[4], info[5]);
+  check_pairs(info[5], info[4]);
+  /*
+   * e_tw_open, e_tw_close must exist or non at all
+   */
+  check_pairs(info[6], info[7]);
+  check_pairs(info[7], info[6]);
 
-    if (!(column_found(info[10].colNumber))
-            && column_found(info[11].colNumber)) {
-        ereport(ERROR,
-                (errmsg("Column \'%s\' not Found", info[10].name),
-                 errhint("%s was found, also column is expected %s ",
-                     info[10].name, info[11].name)));
-    }
+  /*
+   * e_x, e_y must exist or non at all
+   */
+  check_pairs(info[13], info[14]);
+  check_pairs(info[14], info[13]);
 
-    if (column_found(info[10].colNumber)
-            && !(column_found(info[11].colNumber))) {
-        ereport(ERROR,
-                (errmsg("Column \'%s\' not Found", info[11].name),
-                 errhint("%s was found, also column is expected %s ",
-                     info[11].name, info[10].name)));
-    }
-    vehicle->end_open_t = column_found(info[10].colNumber) ?
-        pgr_SPI_getFloat8(tuple, tupdesc, info[10]) :
-        vehicle->start_open_t;
-    vehicle->end_close_t = column_found(info[11].colNumber) ?
-        pgr_SPI_getFloat8(tuple, tupdesc, info[11]) :
-        vehicle->start_close_t;
-    vehicle->end_service_t = column_found(info[12].colNumber) ?
-        pgr_SPI_getFloat8(tuple, tupdesc, info[12]) :
-        vehicle->start_service_t;
+  vehicle->id = get_Id(tuple, tupdesc, info[0], -1);
+  vehicle->capacity = get_PositiveAmount(tuple, tupdesc, info[1], 0);
+  vehicle->cant_v =  get_PositiveAmount(tuple, tupdesc, info[2], 1);
+  vehicle->speed  = column_found(info[3].colNumber) ?  spi_getFloat8(tuple, tupdesc, info[3]) : 1;
 
-    vehicle->speed = column_found(info[13].colNumber) ?
-        pgr_SPI_getFloat8(tuple, tupdesc, info[13]) :
-        1;
-    vehicle->start_node_id = with_id ?
-        pgr_SPI_getBigInt(tuple, tupdesc, info[14]) :
-        0;
-    vehicle->end_node_id = with_id ?
-        (column_found(info[12].colNumber) ?
-            pgr_SPI_getBigInt(tuple, tupdesc, info[15]) :
-            vehicle->start_node_id) :
-        0;
+  /*
+   * start values
+   */
+  vehicle->start_open_t = get_TTimestamp_plain(tuple, tupdesc, info[4], 0);
+  vehicle->start_close_t = get_TTimestamp_plain(tuple, tupdesc, info[5], INT64_MAX);
+
+  /*
+   * end values
+   */
+  vehicle->end_open_t = get_TTimestamp_plain(tuple, tupdesc, info[6], vehicle->start_open_t);
+  vehicle->end_close_t = get_TTimestamp_plain(tuple, tupdesc, info[7], vehicle->start_close_t);
+
+  /*
+   * service time values
+   */
+  vehicle->start_service_t = get_PositiveTInterval_plain(tuple, tupdesc, info[9], 0);
+  vehicle->end_service_t = get_PositiveTInterval_plain(tuple, tupdesc, info[10], 0);
+
+  /*
+   * stops
+   */
+  vehicle->stops = NULL;
+  vehicle->stops_size = 0;
+  if (with_stops && column_found(info[8].colNumber)) {
+    vehicle->stops = spi_getBigIntArr_allowEmpty(tuple, tupdesc, info[8], &vehicle->stops_size);
+  }
+
+  /*
+   * Values for eucledian
+   */
+  vehicle->start_x = with_id ? 0 : spi_getCoordinate(tuple, tupdesc, info[11], 0);
+  vehicle->start_y = with_id ? 0 : spi_getCoordinate(tuple, tupdesc, info[12], 0);
+  vehicle->end_x =   with_id ? 0 : spi_getCoordinate(tuple, tupdesc, info[13], vehicle->start_x);
+  vehicle->end_y =   with_id ? 0 : spi_getCoordinate(tuple, tupdesc, info[14], vehicle->start_y);
+}
+
+static
+void fetch_raw(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t *info,
+    Vehicle_t *vehicle,
+    bool with_stops) {
+  /*
+   * s_tw_open, s_tw_close must exist or non at all
+   */
+  check_pairs(info[6], info[7]);
+  check_pairs(info[7], info[6]);
+  /*
+   * e_tw_open, e_tw_close must exist or non at all
+   */
+  check_pairs(info[10], info[11]);
+  check_pairs(info[10], info[11]);
+
+  vehicle->id = get_Id(tuple, tupdesc, info[0], -1);
+  vehicle->capacity = get_PositiveAmount(tuple, tupdesc, info[1], 0);
+  vehicle->cant_v =  get_PositiveAmount(tuple, tupdesc, info[2], 1);
+  vehicle->speed  = column_found(info[3].colNumber) ?  spi_getFloat8(tuple, tupdesc, info[3]) : 1;
+  vehicle->stops = NULL;
+  vehicle->stops_size = 0;
+  if (with_stops && column_found(info[4].colNumber)) {
+    vehicle->stops = spi_getBigIntArr_allowEmpty(tuple, tupdesc, info[4], &vehicle->stops_size);
+  }
+
+  /*
+   * start values
+   */
+  vehicle->start_node_id = get_Id(tuple, tupdesc, info[5], -1);
+  vehicle->start_open_t = get_TTimestamp_plain(tuple, tupdesc, info[6], 0);
+  vehicle->start_close_t = get_TTimestamp_plain(tuple, tupdesc, info[7], INT64_MAX);
+  vehicle->start_service_t = get_PositiveTInterval_plain(tuple, tupdesc, info[8], 0);
+
+  /*
+   * end values
+   */
+  vehicle->end_node_id   = get_Id(tuple, tupdesc, info[9], vehicle->start_node_id);
+  vehicle->end_open_t = get_TTimestamp_plain(tuple, tupdesc, info[10], vehicle->start_open_t);
+  vehicle->end_close_t = get_TTimestamp_plain(tuple, tupdesc, info[11], vehicle->start_close_t);
+  vehicle->end_service_t   = get_PositiveTInterval_plain(tuple, tupdesc, info[12], 0);
+
+  /*
+   * Ignored values
+   */
+  vehicle->start_x = 0;
+  vehicle->start_y = 0;
+  vehicle->end_x =   0;
+  vehicle->end_y =   0;
+}
+
+static
+void fetch_timestamps(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t *info,
+    Vehicle_t *vehicle,
+    bool with_stops) {
+  /*
+   * s_tw_open, s_tw_close must exist or non at all
+   */
+  check_pairs(info[6], info[7]);
+  check_pairs(info[7], info[6]);
+  /*
+   * e_tw_open, e_tw_close must exist or non at all
+   */
+  check_pairs(info[10], info[11]);
+  check_pairs(info[10], info[11]);
+
+  vehicle->id = get_Id(tuple, tupdesc, info[0], -1);
+  vehicle->capacity = get_PositiveAmount(tuple, tupdesc, info[1], 0);
+  vehicle->cant_v =  get_PositiveAmount(tuple, tupdesc, info[2], 1);
+  vehicle->speed  = column_found(info[3].colNumber) ?  spi_getFloat8(tuple, tupdesc, info[3]) : 1;
+  vehicle->stops = NULL;
+  vehicle->stops_size = 0;
+  if (with_stops && column_found(info[4].colNumber)) {
+    vehicle->stops = spi_getBigIntArr_allowEmpty(tuple, tupdesc, info[4], &vehicle->stops_size);
+  }
+
+  /*
+   * start values
+   */
+  vehicle->start_node_id   = get_Id(tuple, tupdesc, info[5], -1);
+  vehicle->start_open_t    = get_TTimestamp(tuple, tupdesc, info[6], 0);
+  vehicle->start_close_t   = get_TTimestamp(tuple, tupdesc, info[7], INT64_MAX);
+  vehicle->start_service_t = get_PositiveTInterval(tuple, tupdesc, info[8], 0);
+
+  /*
+   * end values
+   */
+  vehicle->end_node_id   = get_Id(tuple, tupdesc, info[9], vehicle->start_node_id);
+  vehicle->end_open_t    = get_TTimestamp(tuple, tupdesc, info[10], vehicle->start_open_t);
+  vehicle->end_close_t   = get_TTimestamp(tuple, tupdesc, info[11], vehicle->start_close_t);
+  vehicle->end_service_t = get_PositiveTInterval(tuple, tupdesc, info[12], 0);
+
+  /*
+   * Ignored values
+   */
+  vehicle->start_x = 0;
+  vehicle->start_y = 0;
+  vehicle->end_x =   0;
+  vehicle->end_y =   0;
 }
 
 
 static
-void pgr_get_vehicles_general(
-        char *vehicles_sql,
-        Vehicle_t **vehicles,
-        size_t *total_vehicles,
-        bool with_id) {
-    clock_t start_t = clock();
+void db_get_vehicles(
+    char *vehicles_sql,
+    Vehicle_t **vehicles,
+    size_t *total_vehicles,
 
-    const int tuple_limit = 1000000;
+    Column_info_t *info,
+    const int column_count,
 
-    PGR_DBG("pgr_get_vehicles");
-    PGR_DBG("%s", vehicles_sql);
+    int kind,
+    bool with_stops) {
+#ifdef PROFILE
+  clock_t start_t = clock();
+  PGR_DBG("%s", vehicles_sql);
+#endif
 
-    Column_info_t info[16];
+  const int tuple_limit = 1000000;
 
-    int i;
-    for (i = 0; i < 16; ++i) {
-        info[i].colNumber = -1;
-        info[i].type = 0;
-        info[i].strict = true;
-        info[i].eType = ANY_NUMERICAL;
-    }
+  size_t total_tuples;
 
-    info[0].name = "id";
-    info[1].name = "capacity";
-    info[2].name = "start_x";
-    info[3].name = "start_y";
-    info[4].name = "number";
-    info[5].name = "start_open";
-    info[6].name = "start_close";
-    info[7].name = "start_service";
-    info[8].name = "end_x";
-    info[9].name = "end_y";
-    info[10].name = "end_open";
-    info[11].name = "end_close";
-    info[12].name = "end_service";
-    info[13].name = "speed";
-    info[14].name = "start_node_id";
-    info[15].name = "end_node_id";
+  void *SPIplan;
+  SPIplan = pgr_SPI_prepare(vehicles_sql);
+  Portal SPIportal;
+  SPIportal = pgr_SPI_cursor_open(SPIplan);
 
-    info[0].eType = ANY_INTEGER;
-    info[4].eType = ANY_INTEGER;
-    info[14].eType = ANY_INTEGER;
-    info[15].eType = ANY_INTEGER;
+  bool moredata = true;
+  (*total_vehicles) = total_tuples = 0;
 
-    for (i = 4; i < 16; ++i) {
-        info[i].strict = false;
-    }
+  /* on the first tuple get the column numbers */
 
-    if (with_id) {
-        /*
-         *  with id, then start_x and start_y are optional
-         *  start_node_id is compulsory
-         */
-        info[2].strict = false;
-        info[3].strict = false;
-        info[14].strict = true;
-    }
-
-    size_t total_tuples;
-
-    void *SPIplan;
-    SPIplan = pgr_SPI_prepare(vehicles_sql);
-    Portal SPIportal;
-    SPIportal = pgr_SPI_cursor_open(SPIplan);
-
-    bool moredata = true;
-    (*total_vehicles) = total_tuples = 0;
-
-    /* on the first tuple get the column numbers */
-
-    while (moredata == true) {
-        SPI_cursor_fetch(SPIportal, true, tuple_limit);
-        if (total_tuples == 0) {
-            pgr_fetch_column_info(info, 16);
-        }
-        size_t ntuples = SPI_processed;
-        total_tuples += ntuples;
-        PGR_DBG("SPI_processed %ld", ntuples);
-        if (ntuples > 0) {
-            if ((*vehicles) == NULL)
-                (*vehicles) = (Vehicle_t *)palloc0(
-                        total_tuples * sizeof(Vehicle_t));
-            else
-                (*vehicles) = (Vehicle_t *)repalloc(
-                        (*vehicles),
-                        total_tuples * sizeof(Vehicle_t));
-
-            if ((*vehicles) == NULL) {
-                elog(ERROR, "Out of memory");
-            }
-
-            size_t t;
-            SPITupleTable *tuptable = SPI_tuptable;
-            TupleDesc tupdesc = SPI_tuptable->tupdesc;
-            PGR_DBG("processing %ld", ntuples);
-            for (t = 0; t < ntuples; t++) {
-                HeapTuple tuple = tuptable->vals[t];
-                fetch_vehicles(&tuple, &tupdesc, info,
-                        &(*vehicles)[total_tuples - ntuples + t], with_id);
-            }
-            SPI_freetuptable(tuptable);
-        } else {
-            moredata = false;
-        }
-    }
-
-    SPI_cursor_close(SPIportal);
-
+  while (moredata == true) {
+    SPI_cursor_fetch(SPIportal, true, tuple_limit);
     if (total_tuples == 0) {
-        (*total_vehicles) = 0;
-        PGR_DBG("NO orders");
-        return;
+      pgr_fetch_column_info(info, column_count);
     }
+    size_t ntuples = SPI_processed;
+    total_tuples += ntuples;
+    if (ntuples > 0) {
+      if ((*vehicles) == NULL)
+        (*vehicles) = (Vehicle_t *)palloc0(
+            total_tuples * sizeof(Vehicle_t));
+      else
+        (*vehicles) = (Vehicle_t *)repalloc(
+            (*vehicles),
+            total_tuples * sizeof(Vehicle_t));
 
-    (*total_vehicles) = total_tuples;
-    if (with_id) {
-        PGR_DBG("Finish reading %ld vehicles for matrix", (*total_vehicles));
+      if ((*vehicles) == NULL) {
+        elog(ERROR, "Out of memory");
+      }
+
+      size_t t;
+      SPITupleTable *tuptable = SPI_tuptable;
+      TupleDesc tupdesc = SPI_tuptable->tupdesc;
+      for (t = 0; t < ntuples; t++) {
+        HeapTuple tuple = tuptable->vals[t];
+        switch (kind) {
+          case 0 : fetch_timestamps(&tuple, &tupdesc, info,
+                       &(*vehicles)[total_tuples - ntuples + t], with_stops);
+                   break;
+          case 1 : fetch_raw(&tuple, &tupdesc, info,
+                       &(*vehicles)[total_tuples - ntuples + t], with_stops);
+                   break;
+          case 2 : fetch_euclidean(&tuple, &tupdesc, info,
+                       &(*vehicles)[total_tuples - ntuples + t], with_stops);
+                   break;
+        }
+      }
+      SPI_freetuptable(tuptable);
     } else {
-        PGR_DBG("Finish reading %ld vehicles for euclidean", (*total_vehicles));
+      moredata = false;
     }
-    time_msg("reading edges", start_t, clock());
+  }
+
+  SPI_cursor_close(SPIportal);
+
+  if (total_tuples == 0) {
+    (*total_vehicles) = 0;
+    return;
+  }
+
+  (*total_vehicles) = total_tuples;
+#ifdef PROFILE
+  time_msg("reading vehicles", start_t, clock());
+#endif
 }
 
+/**
+ * @param[in] sql SQL query to execute
+ * @param[in] with_stops do not ignore stops column
+ * @param[out] rows C Container that holds the data
+ * @param[out] total_rows Total rows recieved
+ */
 void
-pgr_get_vehicles(
-        char *vehicles_sql,
-        Vehicle_t **vehicles,
-        size_t *total_vehicles) {
-    pgr_get_vehicles_general(vehicles_sql, vehicles, total_vehicles, false);
+get_vehicles(
+    char *sql,
+    Vehicle_t **rows,
+    size_t *total_rows,
+    bool with_stops) {
+  const int column_count = 13;
+  Column_info_t info[13];
+
+  for (int i = 0; i < column_count; ++i) {
+    info[i].colNumber = -1;
+    info[i].type = 0;
+    info[i].strict = false;
+    info[i].eType = ANY_INTEGER;
+  }
+
+  info[0].name = "id";
+  info[1].name = "capacity";
+  info[2].name = "number";
+  info[3].name = "speed";
+  info[4].name = "stops";
+  info[5].name = "s_id";
+  info[6].name = "s_tw_open";
+  info[7].name = "s_tw_close";
+  info[8].name = "s_t_service";
+  info[9].name = "e_id";
+  info[10].name = "e_tw_open";
+  info[11].name = "e_tw_close";
+  info[12].name = "e_t_service";
+
+  info[6].eType = TIMESTAMP;
+  info[7].eType = TIMESTAMP;
+  info[10].eType = TIMESTAMP;
+  info[11].eType = TIMESTAMP;
+  info[8].eType = INTERVAL;
+  info[12].eType = INTERVAL;
+
+  info[4].eType = ANY_INTEGER_ARRAY;  // stops
+  info[3].eType = ANY_NUMERICAL;      // speed
+
+  info[0].strict = true;
+  info[1].strict = true;
+  info[5].strict = true;
+
+  db_get_vehicles(sql, rows, total_rows, info, column_count, 0, with_stops);
 }
 
+/**
+ * @param[in] sql SQL query to execute
+ * @param[in] with_stops do not ignore stops column
+ * @param[out] rows C Container that holds the data
+ * @param[out] total_rows Total rows recieved
+ */
 void
-pgr_get_vehicles_with_id(
-        char *vehicles_sql,
-        Vehicle_t **vehicles,
-        size_t *total_vehicles) {
-    pgr_get_vehicles_general(vehicles_sql, vehicles, total_vehicles, true);
+get_vehicles_raw(
+    char *sql,
+    Vehicle_t **rows,
+    size_t *total_rows,
+    bool with_stops) {
+  const int column_count = 13;
+  Column_info_t info[13];
+
+  for (int i = 0; i < column_count; ++i) {
+    info[i].colNumber = -1;
+    info[i].type = 0;
+    info[i].strict = false;
+    info[i].eType = ANY_INTEGER;
+  }
+
+  info[0].name = "id";
+  info[1].name = "capacity";
+  info[2].name = "number";
+  info[3].name = "speed";
+  info[4].name = "stops";
+  info[5].name = "s_id";
+  info[6].name = "s_open";
+  info[7].name = "s_close";
+  info[8].name = "s_service";
+  info[9].name = "e_id";
+  info[10].name = "e_open";
+  info[11].name = "e_close";
+  info[12].name = "e_service";
+
+
+  info[4].eType = ANY_INTEGER_ARRAY;  // stops
+  info[3].eType = ANY_NUMERICAL;      // speed
+
+  info[0].strict = true;
+  info[1].strict = true;
+  info[5].strict = true;
+
+  db_get_vehicles(sql, rows, total_rows, info, column_count, 1, with_stops);
 }
 
+/**
+ * @param[in] sql SQL query to execute
+ * @param[in] with_stops do not ignore stops column
+ * @param[out] rows C Container that holds the data
+ * @param[out] total_rows Total rows recieved
+ */
+void
+get_vehicles_euclidean(
+    char *sql,
+    Vehicle_t **rows,
+    size_t *total_rows,
+    bool with_stops) {
+  const int column_count = 15;
+  Column_info_t info[15];
+
+  for (int i = 0; i < column_count; ++i) {
+    info[i].colNumber = -1;
+    info[i].type = 0;
+    info[i].strict = false;
+    info[i].eType = ANY_INTEGER;
+  }
+
+  info[0].name = "id";
+  info[1].name = "capacity";
+  info[2].name = "number";
+  info[3].name = "speed";
+  info[4].name = "s_open";
+  info[5].name = "s_close";
+  info[6].name = "e_open";
+  info[7].name = "e_close";
+  info[8].name = "stops";
+  info[9].name = "s_service";
+  info[10].name = "e_service";
+  info[11].name = "s_x";
+  info[12].name = "s_y";
+  info[13].name = "e_x";
+  info[14].name = "e_y";
+
+
+  info[8].eType = ANY_INTEGER_ARRAY;  // stops
+  info[11].eType = ANY_NUMERICAL;  // s_x
+  info[12].eType = ANY_NUMERICAL;  // s_y
+  info[13].eType = ANY_NUMERICAL;  // e_x
+  info[14].eType = ANY_NUMERICAL;  // e_y
+
+  info[0].strict = true;
+  info[1].strict = true;
+  info[11].strict = true;
+  info[12].strict = true;
+
+  db_get_vehicles(sql, rows, total_rows, info, column_count, 2, with_stops);
+}
