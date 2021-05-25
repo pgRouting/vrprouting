@@ -1,0 +1,99 @@
+BEGIN;
+BEGIN
+SET client_min_messages TO NOTICE;
+SET
+SET search_path TO 'data', 'status','triggers','public';
+SET
+SET client_min_messages TO DEBUG3;
+LOG:  duration: 0.023 ms  statement: SET client_min_messages TO DEBUG3;
+SET
+SELECT *
+FROM vrp_compatibleVehicles(
+    $$SELECT * FROM shipments$$,
+    $$SELECT * FROM vehicles$$,
+    $$SELECT start_vid, end_vid, agg_cost *  3600 AS agg_cost FROM timeMatrix$$,
+    $$SELECT * FROM tdm('2019-12-09'::TIMESTAMP, '2019-12-13'::TIMESTAMP)$$,
+    15,
+    factor => 1.0::FLOAT
+) ORDER BY vehicle_id;
+DEBUG:  id 20
+DEBUG:  amount 20
+DEBUG:  p_tw_open 701
+DEBUG:  p_tw_close 701
+DEBUG:  p_service 701
+DEBUG:  d_tw_open 701
+DEBUG:  d_tw_close 701
+DEBUG:  d_service 701
+DEBUG:  p_id 20
+DEBUG:  d_id 20
+DEBUG:  Column p_x not found
+DEBUG:  Column p_y not found
+DEBUG:  Column d_x not found
+DEBUG:  Column d_y not found
+DEBUG:  id 20
+DEBUG:  capacity 701
+DEBUG:  s_id 20
+DEBUG:  e_id 20
+DEBUG:  s_tw_open 701
+DEBUG:  s_tw_close 701
+DEBUG:  Column e_tw_open not found
+DEBUG:  Column e_tw_close not found
+DEBUG:  stops 1016
+DEBUG:  s_service 701
+DEBUG:  e_service 701
+DEBUG:  Column s_x not found
+DEBUG:  Column s_y not found
+DEBUG:  Column e_x not found
+DEBUG:  Column e_y not found
+DEBUG:  Column number not found
+DEBUG:  Column speed not found
+DEBUG:  start_time 701
+DEBUG:  multiplier 701
+DEBUG:  start_vid 20
+DEBUG:  end_vid 20
+DEBUG:  agg_cost 701
+DEBUG:  Total 1 orders in query:
+DEBUG:  Total 180 vehicles in query:
+DEBUG:  Total 119716 matrix cells in query:
+DEBUG:  Total 119716 multipliers in query:
+DEBUG:  do_compatibleVehicles
+Initialize problem
+
+ Checking ordersOrders
+
+
+Order id(idx) = 15(0):
+	Pickup: 3624181401951[opens = 1.57589e+09	closes = 1.57589e+09	service = 0	demand = 1	type = P]
+ twv = 0, twvTot = 0, cvTot = 0, cargo = 0, travel_time = 0, arrival_time = 0, wait_time = 0, service_time = 0, departure_time = 0
+	Dropoff: 3622591402453[opens = 1.57589e+09	closes = 1.5759e+09	service = 0	demand = -1	type = D]
+ twv = 0, twvTot = 0, cvTot = 0, cargo = 0, travel_time = 0, arrival_time = 0, wait_time = 0, service_time = 0, departure_time = 0
+
+There are | {I}| = 0 -> order(0) -> | {J}| = 0
+
+ {} -> 0 -> {}
+end Orders
+Finish Reading data
+solution size: 5
+solution empty: 0
+solution empty
+
+LOG:  duration: 68.551 ms  statement: SELECT *
+FROM vrp_compatibleVehicles(
+    $$SELECT * FROM shipments$$,
+    $$SELECT * FROM vehicles$$,
+    $$SELECT start_vid, end_vid, agg_cost *  3600 AS agg_cost FROM timeMatrix$$,
+    $$SELECT * FROM tdm('2019-12-09'::TIMESTAMP, '2019-12-13'::TIMESTAMP)$$,
+    15,
+    factor => 1.0::FLOAT
+) ORDER BY vehicle_id;
+ order_id | vehicle_id | cmd
+----------+------------+-----
+       15 |        576 |
+       15 |        584 |
+       15 |        588 |
+       15 |        596 |
+       15 |        604 |
+(5 rows)
+
+ROLLBACK;
+ROLLBACK

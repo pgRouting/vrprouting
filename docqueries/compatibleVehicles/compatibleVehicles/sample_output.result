@@ -1,0 +1,70 @@
+BEGIN;
+BEGIN
+SET client_min_messages TO NOTICE;
+SET
+SET search_path TO 'example2', 'public';
+SET
+SELECT *
+FROM vrp_compatibleVehicles(
+  $$
+    SELECT id, amount, p_id, p_tw_open, p_tw_close, p_t_service, d_id, d_tw_open, d_tw_close, d_t_service
+    FROM shipments
+  $$,
+  $$
+    SELECT id, capacity, s_id, s_tw_open, s_tw_close, s_t_service, e_t_service
+    FROM vehicles
+  $$,
+  $$SELECT start_vid, end_vid, travel_time FROM timeMatrix$$,
+  $$SELECT * FROM tdm('2019-12-09'::TIMESTAMP, '2019-12-13'::TIMESTAMP)$$,
+  83,
+  factor => 1.0::FLOAT,
+  dryrun => true
+);
+ order_id | vehicle_id |                                                    cmd
+----------+------------+-----------------------------------------------------------------------------------------------------------
+          |            |                                                                                                          +
+          |            |       SELECT *, NULL::TEXT FROM _vrp_compatibleVehicles(                                                 +
+          |            |         'SELECT * FROM (                                                                                 +
+          |            |     SELECT id, amount, p_id, p_tw_open, p_tw_close, p_t_service, d_id, d_tw_open, d_tw_close, d_t_service+
+          |            |     FROM shipments                                                                                       +
+          |            |   ) AS __a__ WHERE id  = 83 LIMIT 1',                                                                    +
+          |            |         '                                                                                                +
+          |            |     SELECT id, capacity, s_id, s_tw_open, s_tw_close, s_t_service, e_t_service                           +
+          |            |     FROM vehicles                                                                                        +
+          |            |   ',                                                                                                     +
+          |            |         'SELECT start_vid, end_vid, travel_time FROM timeMatrix',                                        +
+          |            |         'SELECT * FROM tdm(''2019-12-09''::TIMESTAMP, ''2019-12-13''::TIMESTAMP)',                       +
+          |            |         1::FLOAT,                                                                                        +
+          |            |         true)                                                                                            +
+          |            |
+(1 row)
+
+SELECT *
+FROM vrp_compatibleVehicles(
+  $$
+    SELECT id, amount, p_id, p_tw_open, p_tw_close, p_t_service, d_id, d_tw_open, d_tw_close, d_t_service
+    FROM shipments
+  $$,
+  $$
+    SELECT id, capacity, s_id, s_tw_open, s_tw_close, s_t_service, e_t_service
+    FROM vehicles
+  $$,
+  $$SELECT start_vid, end_vid, travel_time FROM timeMatrix$$,
+  $$SELECT * FROM tdm('2019-12-09'::TIMESTAMP)$$,
+  83,
+  factor => 1.0::FLOAT
+) ORDER BY vehicle_id;
+ order_id | vehicle_id | cmd
+----------+------------+-----
+       83 |        571 |
+       83 |        575 |
+       83 |        579 |
+       83 |        583 |
+       83 |        587 |
+       83 |        595 |
+       83 |        599 |
+       83 |        603 |
+(8 rows)
+
+ROLLBACK;
+ROLLBACK
