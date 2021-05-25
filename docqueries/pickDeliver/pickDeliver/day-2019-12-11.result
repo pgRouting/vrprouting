@@ -1,0 +1,165 @@
+BEGIN;
+BEGIN
+SET client_min_messages TO NOTICE;
+SET
+SET search_path TO 'example2', 'public';
+SET
+UPDATE vehicles SET stops = NULL;
+UPDATE 180
+DROP TABLE IF EXISTS withfloats;
+NOTICE:  table "withfloats" does not exist, skipping
+DROP TABLE
+SELECT *
+INTO withfloats
+FROM vrp_pickDeliverRaw(
+    $$SELECT * FROM shipments WHERE date_trunc('day', p_tw_open) = '2019-12-11 00:00:00'$$,
+    $$SELECT * FROM vehicles  WHERE date_trunc('day', s_tw_open) = '2019-12-11 00:00:00'$$,
+    $$SELECT start_vid, end_vid, agg_cost FROM timeMatrix$$,
+    $$SELECT * FROM tdm_raw('2019-12-11'::TIMESTAMP)$$,
+    execution_date => EXTRACT(EPOCH FROM('2019-12-11 00:00:00'::TIMESTAMP))::BIGINT,
+    optimize => true, factor => 1::float, stop_on_all_served => true, max_cycles => 1);
+SELECT 359
+DROP TABLE IF EXISTS withtimes;
+NOTICE:  table "withtimes" does not exist, skipping
+DROP TABLE
+SELECT *
+INTO withtimes
+FROM vrp_pickDeliver(
+    $$SELECT * FROM shipments WHERE date_trunc('day', p_tw_open) = '2019-12-11 00:00:00'$$,
+    $$SELECT * FROM vehicles  WHERE date_trunc('day', s_tw_open) = '2019-12-11 00:00:00'$$,
+    $$SELECT start_vid, end_vid, travel_time FROM timeMatrix$$,
+    $$SELECT * FROM tdm('2019-12-11'::TIMESTAMP)$$,
+    execution_date => '2019-12-11 00:00:00'::TIMESTAMP,
+    optimize => true, factor => 1::float, stop_on_all_served => true, max_cycles => 1);
+SELECT 359
+                                  Table "example2.withfloats"
+    Column    |  Type   | Collation | Nullable | Default | Storage | Stats target | Description
+--------------+---------+-----------+----------+---------+---------+--------------+-------------
+ seq          | integer |           |          |         | plain   |              |
+ vehicle_seq  | integer |           |          |         | plain   |              |
+ vehicle_id   | bigint  |           |          |         | plain   |              |
+ stop_seq     | integer |           |          |         | plain   |              |
+ stop_type    | integer |           |          |         | plain   |              |
+ stop_id      | bigint  |           |          |         | plain   |              |
+ order_id     | bigint  |           |          |         | plain   |              |
+ cargo        | bigint  |           |          |         | plain   |              |
+ travel_fd    | bigint  |           |          |         | plain   |              |
+ arrival_ft   | bigint  |           |          |         | plain   |              |
+ wait_fd      | bigint  |           |          |         | plain   |              |
+ schedule_ft  | bigint  |           |          |         | plain   |              |
+ service_fd   | bigint  |           |          |         | plain   |              |
+ departure_ft | bigint  |           |          |         | plain   |              |
+ cvtot        | integer |           |          |         | plain   |              |
+ twvtot       | integer |           |          |         | plain   |              |
+Access method: heap
+
+                                             Table "example2.withtimes"
+    Column    |            Type             | Collation | Nullable | Default | Storage | Stats target | Description
+--------------+-----------------------------+-----------+----------+---------+---------+--------------+-------------
+ seq          | integer                     |           |          |         | plain   |              |
+ vehicle_seq  | integer                     |           |          |         | plain   |              |
+ vehicle_id   | bigint                      |           |          |         | plain   |              |
+ stop_seq     | integer                     |           |          |         | plain   |              |
+ stop_type    | integer                     |           |          |         | plain   |              |
+ stop_id      | bigint                      |           |          |         | plain   |              |
+ shipment_id  | bigint                      |           |          |         | plain   |              |
+ load         | integer                     |           |          |         | plain   |              |
+ travel       | interval                    |           |          |         | plain   |              |
+ arrival      | timestamp without time zone |           |          |         | plain   |              |
+ waiting_time | interval                    |           |          |         | plain   |              |
+ schedule     | timestamp without time zone |           |          |         | plain   |              |
+ service      | interval                    |           |          |         | plain   |              |
+ departure    | timestamp without time zone |           |          |         | plain   |              |
+ cvtot        | integer                     |           |          |         | plain   |              |
+ twvtot       | integer                     |           |          |         | plain   |              |
+Access method: heap
+
+SELECT 'same result number of rows', count(*) = (SELECT count(*) FROM withtimes)
+FROM withfloats;
+          ?column?          | ?column?
+----------------------------+----------
+ same result number of rows | t
+(1 row)
+
+SELECT 'rows match', count(*) = (SELECT count(*) FROM withtimes)
+FROM withtimes t JOIN withfloats f USING (seq, stop_seq, vehicle_seq, vehicle_id)
+WHERE (f.order_id = t.shipment_id);
+  ?column?  | ?column?
+------------+----------
+ rows match | t
+(1 row)
+
+/* create stops for testing no optimize */
+WITH
+new_stops AS (
+  SELECT vehicle_id AS id, array_remove(array_agg(shipment_id ORDER BY seq)::BIGINT[],-1::BIGINT) AS stops
+  FROM vrp_pickDeliver(
+    $$SELECT * FROM shipments            WHERE date_trunc('day', p_tw_open) = '2019-12-11 00:00:00'$$,
+    $$SELECT * FROM vehicles WHERE date_trunc('day', s_tw_open)     = '2019-12-11 00:00:00'$$,
+    $$SELECT start_vid, end_vid, travel_time FROM timeMatrix$$,
+    $$SELECT * FROM tdm('2019-12-11'::TIMESTAMP)$$,
+    execution_date => '2019-12-11 00:00:00'::TIMESTAMP,
+    optimize => true, factor => 1::float, max_cycles => 1, stop_on_all_served => true)
+  GROUP BY vehicle_id
+)
+UPDATE vehicles AS v
+SET stops = n.stops
+FROM new_stops AS n WHERE v.id = n.id;
+UPDATE 36
+/* dont no optimize using vrp_pickDeliver */
+DROP TABLE IF EXISTS no_changes;
+NOTICE:  table "no_changes" does not exist, skipping
+DROP TABLE
+SELECT *
+INTO no_changes
+FROM vrp_pickDeliver(
+    $$SELECT * FROM shipments            WHERE date_trunc('day', p_tw_open) = '2019-12-11 00:00:00'$$,
+    $$SELECT * FROM vehicles WHERE date_trunc('day', s_tw_open)     = '2019-12-11 00:00:00'$$,
+    $$SELECT start_vid, end_vid, travel_time FROM timeMatrix$$,
+    $$SELECT * FROM tdm('2019-12-11'::TIMESTAMP)$$,
+    execution_date => '2019-12-11 00:00:00'::TIMESTAMP,
+    optimize => false, factor => 1::float, max_cycles => 1, stop_on_all_served => true);
+SELECT 359
+WITH
+new_stops AS (
+    SELECT vehicle_id AS id, array_remove(array_agg(shipment_id ORDER BY seq)::BIGINT[],-1::BIGINT) AS new_stops
+    FROM no_changes
+    GROUP BY id
+),
+original_stops AS (
+    SELECT id, stops::BIGINT[]
+    FROM vehicles WHERE date_trunc('day', s_tw_open) = '2019-12-11 00:00:00'
+)
+SELECT count(*)
+FROM original_stops
+LEFT JOIN new_stops USING(id)
+WHERE stops = new_stops;
+ count
+-------
+    36
+(1 row)
+
+/* optimize using vrp_pickDeliver */
+SELECT *
+INTO the_stops
+FROM vrp_pickDeliver(
+    $$SELECT * FROM shipments            WHERE date_trunc('day', p_tw_open) = '2019-12-11 00:00:00'$$,
+    $$SELECT * FROM vehicles WHERE date_trunc('day', s_tw_open)     = '2019-12-11 00:00:00'$$,
+    $$SELECT start_vid, end_vid, travel_time FROM timeMatrix$$,
+    $$SELECT * FROM tdm('2019-12-11'::TIMESTAMP)$$,
+    execution_date => '2019-12-11 00:00:00'::TIMESTAMP,
+    optimize => true, factor => 1::float, max_cycles => 1,  stop_on_all_served => false);
+SELECT 359
+/* save stops after optimize */
+WITH
+b AS (
+    SELECT vehicle_id AS id, array_remove(array_agg(shipment_id ORDER BY seq)::BIGINT[],-1::BIGINT) AS stops
+    FROM the_stops
+    GROUP BY vehicle_id
+)
+UPDATE vehicles AS v
+SET stops = b.stops
+FROM b WHERE v.id = b.id;
+UPDATE 36
+ROLLBACK;
+ROLLBACK
