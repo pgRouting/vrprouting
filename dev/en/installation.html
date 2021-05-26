@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Installation &#8212; vrpRouting Manual (0.1)</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Support" href="support.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
+          vrpRouting</a>
+        <span class="navbar-text navbar-version pull-left"><b>v0.1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sampledata.html">Sample Data</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vrp_version.html">vrp_version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vrp_full_version.html">vrp_full_version</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="official.html">Oficial functions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="proposed.html">Proposed Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experimental.html">Experimental Functions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#get-the-vrprouting-sources">Get the vrpRouting sources</a></li>
+<li><a class="reference internal" href="#short-version">Short Version</a><ul>
+<li><a class="reference internal" href="#enabling-and-upgrading-in-the-database">Enabling and upgrading in the database</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#configuring">Configuring</a><ul>
+<li><a class="reference internal" href="#configurable-variables">Configurable variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building">Building</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="introduction.html" title="Previous Chapter: Introduction"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Introduction</span>
+    </a>
+  </li>
+  <li>
+    <a href="support.html" title="Next Chapter: Support"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Support &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="installation">
+<h1><a class="toc-backref" href="#id1">Installation</a><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#installation" id="id1">Installation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#get-the-vrprouting-sources" id="id2">Get the vrpRouting sources</a></p></li>
+<li><p><a class="reference internal" href="#short-version" id="id3">Short Version</a></p>
+<ul>
+<li><p><a class="reference internal" href="#enabling-and-upgrading-in-the-database" id="id4">Enabling and upgrading in the database</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#dependencies" id="id5">Dependencies</a></p></li>
+<li><p><a class="reference internal" href="#configuring" id="id6">Configuring</a></p>
+<ul>
+<li><p><a class="reference internal" href="#configurable-variables" id="id7">Configurable variables</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#building" id="id8">Building</a></p></li>
+<li><p><a class="reference internal" href="#testing" id="id9">Testing</a></p></li>
+<li><p><a class="reference internal" href="#see-also" id="id10">See Also</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Instructions for downloading and installing binaries for different Operative systems
+instructions and additional notes and corrections not included in this documentation
+can be found in
+<a class="reference external" href="https://github.com/pgRouting/vrprouting/wiki/Notes-on-Download%2C-Installation-and-building-vrpRouting">Installation wiki</a></p>
+<p>To use vrpRouting: PostgreSQL server, pgRouting and postGIS needs to be installed.</p>
+<p>There is no package for vrpRouting</p>
+<section id="get-the-vrprouting-sources">
+<h2><a class="toc-backref" href="#id2">Get the vrpRouting sources</a><a class="headerlink" href="#get-the-vrprouting-sources" title="Permalink to this headline">¶</a></h2>
+<p>The vrpRouting latest release can be found in <a class="reference external" href="https://github.com/pgRouting/vrprouting/releases/latest">https://github.com/pgRouting/vrprouting/releases/latest</a></p>
+<p>To get this release, download the repository or download the</p>
+<p class="rubric">Download the repository</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git://github.com/pgRouting/vrprouting.git
+<span class="nb">cd</span> pgrouting
+git checkout v0.1.0
+</pre></div>
+</div>
+<p class="rubric">Download this release</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget -O pgrouting-0.1.0.tar.gz https://github.com/pgRouting/vrprouting/archive/v0.1.0.tar.gz
+</pre></div>
+</div>
+</section>
+<section id="short-version">
+<h2><a class="toc-backref" href="#id3">Short Version</a><a class="headerlink" href="#short-version" title="Permalink to this headline">¶</a></h2>
+<p>Extracting the tar ball</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar xvfz pgrouting-0.1.0.tar.gz
+<span class="nb">cd</span> pgrouting-0.1.0
+</pre></div>
+</div>
+<p>To compile assuming you have all the dependencies in your search path:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir build
+<span class="nb">cd</span> build
+cmake  ..
+make
+sudo make install
+</pre></div>
+</div>
+<p>Once vrpRouting is installed, it needs to be enabled in each individual database you want to use it in.</p>
+<section id="enabling-and-upgrading-in-the-database">
+<h3><a class="toc-backref" href="#id4">Enabling and upgrading in the database</a><a class="headerlink" href="#enabling-and-upgrading-in-the-database" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Enabling the database</p>
+<p>vrpRouting is an extension and depends on postGIS. Enabling postGIS before enabling vrpRouting in the database</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="n">EXTENSION</span> <span class="n">vrprouting</span> <span class="k">CASCADE</span><span class="p">;</span>
+</pre></div>
+</div>
+<p class="rubric">Upgrading the database</p>
+<p>When the database has an old version of vrpRouting then an upgrade is needed.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span> <span class="n">EXTENSION</span> <span class="n">vrprouting</span> <span class="k">UPDATE</span> <span class="k">TO</span> <span class="ss">&quot;0.1.0&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p class="rubric">See also</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.postgresql.org/docs/current/sql-createextension.html">https://www.postgresql.org/docs/current/sql-createextension.html</a></p></li>
+<li><p><a class="reference external" href="https://www.postgresql.org/docs/current/sql-alterextension.html">https://www.postgresql.org/docs/current/sql-alterextension.html</a></p></li>
+</ul>
+</section>
+</section>
+<section id="dependencies">
+<h2><a class="toc-backref" href="#id5">Dependencies</a><a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">Compilation Dependencies</p>
+<p>To be able to compile vrpRouting, make sure that the following dependencies are met:</p>
+<ul class="simple">
+<li><p>C++ compilers with support of C++14 and C11</p></li>
+<li><p>Postgresql version &gt;= 12</p></li>
+<li><p>The Boost Graph Library (BGL). Version &gt;= 1.65</p></li>
+<li><p>CMake &gt;= 3.2</p></li>
+</ul>
+<p class="rubric">optional dependencies</p>
+<p>For user’s documentation</p>
+<ul class="simple">
+<li><p>Sphinx &gt;= TBD</p></li>
+<li><p>Latex</p></li>
+</ul>
+<p>For developer’s documentation</p>
+<ul class="simple">
+<li><p>Doxygen &gt;=  TBD</p></li>
+</ul>
+<p>For testing:</p>
+<ul class="simple">
+<li><p>pgtap</p></li>
+<li><p>pg_prove</p></li>
+</ul>
+<p>For using:</p>
+<ul class="simple">
+<li><p>PostGIS version &gt;= 3</p></li>
+</ul>
+<p class="rubric">Example: Installing dependencies on linux</p>
+<p>Installing the compilation dependencies</p>
+<p class="rubric">Database dependencies</p>
+<p>This example is for PostgreSQL 10</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install
+    postgresql-10 \
+    postgresql-server-dev-10 \
+    postgresql-10-postgis
+</pre></div>
+</div>
+<p class="rubric">Build dependencies</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install
+    cmake \
+    g++ \
+    libboost-graph-dev
+</pre></div>
+</div>
+<p class="rubric">Optional dependencies</p>
+<p>For documentation and testing</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install -y python-sphinx \
+    texlive \
+    doxygen \
+    libtap-parser-sourcehandler-pgtap-perl \
+    postgresql-10-pgtap
+</pre></div>
+</div>
+</section>
+<section id="configuring">
+<span id="install-configuring"></span><h2><a class="toc-backref" href="#id6">Configuring</a><a class="headerlink" href="#configuring" title="Permalink to this headline">¶</a></h2>
+<p>vrpRouting uses the <cite>cmake</cite> system to do the configuration.</p>
+<p>The build directory is different from the source directory</p>
+<p>Create the build directory</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build
+</pre></div>
+</div>
+<section id="configurable-variables">
+<h3><a class="toc-backref" href="#id7">Configurable variables</a><a class="headerlink" href="#configurable-variables" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">To see the variables that can be configured</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> build
+$ cmake -L ..
+</pre></div>
+</div>
+<p class="rubric">Configuring The Documentation</p>
+<p>Most of the effort of the documentation has being on the HTML files.
+Some variables for the documentation:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 9%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>WITH_DOC</p></td>
+<td><p>BOOL=OFF</p></td>
+<td><p>Turn on/off building the documentation</p></td>
+</tr>
+<tr class="row-odd"><td><p>BUILD_HTML</p></td>
+<td><p>BOOL=ON</p></td>
+<td><p>If ON, turn on/off building HTML for user’s documentation</p></td>
+</tr>
+<tr class="row-even"><td><p>BUILD_DOXY</p></td>
+<td><p>BOOL=ON</p></td>
+<td><p>If ON, turn on/off building HTML for developer’s documentation</p></td>
+</tr>
+<tr class="row-odd"><td><p>BUILD_LATEX</p></td>
+<td><p>BOOL=OFF</p></td>
+<td><p>If ON, turn on/off building PDF</p></td>
+</tr>
+<tr class="row-even"><td><p>BUILD_MAN</p></td>
+<td><p>BOOL=OFF</p></td>
+<td><p>If ON, turn on/off building MAN pages</p></td>
+</tr>
+<tr class="row-odd"><td><p>DOC_USE_BOOTSTRAP</p></td>
+<td><p>BOOL=OFF</p></td>
+<td><p>If ON, use sphinx-bootstrap for HTML pages of the users documentation</p></td>
+</tr>
+</tbody>
+</table>
+<p>Configuring with documentation</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cmake -DWITH_DOC<span class="o">=</span>ON ..
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most of the effort of the documentation has being on the html files.</p>
+</div>
+</section>
+</section>
+<section id="building">
+<span id="install-build"></span><h2><a class="toc-backref" href="#id8">Building</a><a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h2>
+<p>Using <code class="docutils literal notranslate"><span class="pre">make</span></code> to build the code and the documentation</p>
+<p>The following instructions start from <em>path/to/pgrouting/build</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ make          <span class="c1"># build the code but not the documentation</span>
+$ make doc      <span class="c1"># build only the documentation</span>
+$ make all doc  <span class="c1"># build both the code and the documentation</span>
+</pre></div>
+</div>
+<p>We have tested on several platforms, For installing or reinstalling all the steps are needed.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The sql signatures are configured and build in the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> command.</p>
+</div>
+<p class="rubric">MinGW on Windows</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build
+$ <span class="nb">cd</span> build
+$ cmake -G<span class="s2">&quot;MSYS Makefiles&quot;</span> ..
+$ make
+$ make install
+</pre></div>
+</div>
+<p class="rubric">Linux</p>
+<p>The following instructions start from <em>path/to/repository</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir build
+<span class="nb">cd</span> build
+cmake  ..
+make
+sudo make install
+</pre></div>
+</div>
+<p>When the configuration changes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm -rf build
+</pre></div>
+</div>
+<p>and start the build process as mentioned above.</p>
+</section>
+<section id="testing">
+<span id="install-testing"></span><h2><a class="toc-backref" href="#id9">Testing</a><a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>Currently there is no <code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> and testing is done as follows</p>
+<p>The following instructions start from <em>path/to/pgrouting/</em></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>tools/testers/doc_queries_generator.pl
+createdb  -U &lt;user&gt; ___vrp___test___
+bash ./tools/testers/pg_prove_tests.sh &lt;user&gt;
+dropdb  -U &lt;user&gt; ___vrp___test___
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2><a class="toc-backref" href="#id10">See Also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">Indices and tables</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright vrpRouting Contributors - Version v0.1.0.<br/>
+      Last updated on May 26, 2021.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
