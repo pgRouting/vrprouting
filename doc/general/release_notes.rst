@@ -23,13 +23,13 @@ To see the full list of changes check the list of `Git commits <https://github.c
 
 .. changelog start
 
-* `v0.0.0 Release Notes`_
+* `v0.1.0 Release Notes`_
 
 .. changelog end
 
 
 
-v0.0.0 Release Notes
+v0.1.0 Release Notes
 *******************************************************************************
 
 .. rubric:: Extraction tasks
