@@ -83,8 +83,7 @@ jobs:
         run: |
           cd build
           make doc
-          make -j 4
-          sudo make install
+          make doxy
 
       - name: Initialize mandatory git config
         run: |
@@ -107,6 +106,24 @@ jobs:
           git fetch origin
           git rebase origin/gh-pages
           git push origin gh-pages
+          git checkout @{-2}
+
+      - name: Update Developers Documentation
+        run: |
+          if [[ "${{ env.BRANCH }}" == "main" ]]; then
+            FOLDER_NAME="main"
+          elif [[ "${{ env.BRANCH }}" == "develop" ]]; then
+            FOLDER_NAME="dev"
+          fi
+          git checkout gh-pages
+          rm -rf doxy/${FOLDER_NAME}
+          cp -r build/doxygen/html doxy/${FOLDER_NAME}
+          git add doxy/${FOLDER_NAME}
+          git diff-index --quiet HEAD || git commit -m "Update developers documentation for ${PROJECT_VERSION} (${{ env.BRANCH }}): commit ${{ env.GIT_HASH }}"
+          git fetch origin
+          git rebase origin/gh-pages
+          git push origin gh-pages
+          git checkout @{-1}
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

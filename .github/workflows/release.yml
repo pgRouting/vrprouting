@@ -109,19 +109,6 @@ jobs:
           git push origin gh-pages
           git checkout @{-2}
 
-      - name: Update Developers Documentation
-        if: ${{ env.BRANCH == 'main' }}
-        run: |
-          git checkout gh-pages
-          rm -rf doxy/main
-          cp -r build/doxygen/html doxy/main
-          git add doxy/main
-          git diff-index --quiet HEAD || git commit -m "Update developers documentation for ${PROJECT_VERSION} (tag ${TAG_NAME})"
-          git fetch origin
-          git rebase origin/gh-pages
-          git push origin gh-pages
-          git checkout @{-1}
-
       - name: Download Assets
         run: |
           wget -c https://github.com/${{ github.repository }}/archive/${TAG_NAME}.zip
