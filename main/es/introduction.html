@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction &#8212; vrpRouting Manual (0.1)</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Table of Contents" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
+          vrpRouting</a>
+        <span class="navbar-text navbar-version pull-left"><b>v0.1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sampledata.html">Sample Data</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vrp_version.html">vrp_version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vrp_full_version.html">vrp_full_version</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="official.html">Oficial functions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="proposed.html">Proposed Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experimental.html">Experimental Functions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#licensing">Licensing</a></li>
+<li><a class="reference internal" href="#contributors">Contributors</a><ul>
+<li><a class="reference internal" href="#this-release-contributors">This Release Contributors</a><ul>
+<li><a class="reference internal" href="#individuals-in-alphabetical-order">Individuals (in alphabetical order)</a></li>
+<li><a class="reference internal" href="#corporate-sponsors-in-alphabetical-order">Corporate Sponsors (in alphabetical order)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contributors-past-present">Contributors Past &amp; Present:</a><ul>
+<li><a class="reference internal" href="#id1">Individuals (in alphabetical order)</a></li>
+<li><a class="reference internal" href="#id2">Corporate Sponsors (in alphabetical order)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#more-information">More Information</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Table of Contents"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Table of Contents</span>
+    </a>
+  </li>
+  <li>
+    <a href="installation.html" title="Next Chapter: Installation"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Installation &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://vrp.pgrouting.org/">Documentation</a> → <a class="reference external" href="https://vrp.pgrouting.org/0">vrpRouting 0</a></p></li>
+<li><p>Supported Versions
+<a class="reference external" href="https://vrp.pgrouting.org/latest/en/introduction.html">Latest</a>
+(<a class="reference external" href="https://vrp.pgrouting.org/0/en/introduction.html">0.0</a>)</p></li>
+</ul>
+<section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>vrpRouting is a <a class="reference external" href="https://www.postgresql.org">PostgreSQL</a> extension that extends
+of <a class="reference external" href="https://pgrouting.org">pgRouting</a> extension, by adding solutions to several
+Vehicle Routing Problems.</p>
+<p>The project is supported and manatianed by <a class="reference external" href="https://georepublic.info">Georepublic</a>,
+<a class="reference external" href="https://www.paragoncorporation.com/">Paragon Corporation</a> and a broad user community.</p>
+<p>vrpRouting is a subproduct of <a class="reference external" href="https://pgrouting.org">pgRouting</a>  organization which is an
+<a class="reference external" href="https://wiki.osgeo.org/wiki/OSGeo_Community_Projects">OSGeo Community Project</a>.</p>
+<section id="licensing">
+<span id="license"></span><h2>Licensing<a class="headerlink" href="#licensing" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>The following licenses can be found in vrpRouting:</p>
+<ul class="simple">
+<li><p>GNU General Public License 2 or latar, <a class="reference external" href="https://spdx.org/licenses/GPL-2.0-or-later.html">GPL-2.0-or-later</a>.</p>
+<ul>
+<li><p>For code in any language.</p></li>
+</ul>
+</li>
+<li><p>Boost extensions are available under <a class="reference external" href="https://www.boost.org/LICENSE_1_0.txt">Boost Software License - Version 1.0</a>.</p></li>
+<li><p>Creative Commons Attribution-Share Alike 3.0 License <a class="reference external" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</p>
+<ul>
+<li><p>For user’s &amp; developer’s documentation</p></li>
+</ul>
+</li>
+</ul>
+<p>In general license information should be included in the header of each source file.</p>
+</section>
+<section id="contributors">
+<h2>Contributors<a class="headerlink" href="#contributors" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="this-release-contributors">
+<h3>This Release Contributors<a class="headerlink" href="#this-release-contributors" title="Enlazar permanentemente con este título">¶</a></h3>
+<section id="individuals-in-alphabetical-order">
+<h4>Individuals (in alphabetical order)<a class="headerlink" href="#individuals-in-alphabetical-order" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>Virginia Vergara</p>
+<ul>
+<li><p>Porting the code from pgRouting</p></li>
+</ul>
+</li>
+</ul>
+<p>And all the people that give us a little of their time making comments, finding issues, making pull requests etc.</p>
+</section>
+<section id="corporate-sponsors-in-alphabetical-order">
+<h4>Corporate Sponsors (in alphabetical order)<a class="headerlink" href="#corporate-sponsors-in-alphabetical-order" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>These are corporate entities that have contributed developer time, hosting, or direct monetary funding to the vrpRouting project:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://georepublic.info/en/">Georepublic</a></p></li>
+<li><p><a class="reference external" href="https://www.leopark.mx/">Leopark</a></p></li>
+<li><p><a class="reference external" href="https://www.paragoncorporation.com/">Paragon Corporation</a></p></li>
+</ul>
+</section>
+</section>
+<section id="contributors-past-present">
+<h3>Contributors Past &amp; Present:<a class="headerlink" href="#contributors-past-present" title="Enlazar permanentemente con este título">¶</a></h3>
+<section id="id1">
+<h4>Individuals (in alphabetical order)<a class="headerlink" href="#id1" title="Enlazar permanentemente con este título">¶</a></h4>
+<p><a class="reference external" href="mailto:daniel&#37;&#52;&#48;georepublic&#46;de">Daniel Kastl</a>
+<a class="reference external" href="mailto:vicky&#37;&#52;&#48;georepublic&#46;de">Vicky Vergara</a></p>
+</section>
+<section id="id2">
+<h4>Corporate Sponsors (in alphabetical order)<a class="headerlink" href="#id2" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>These are corporate entities that have contributed developer time, hosting, or
+direct monetary funding to the vrpRouting project:</p>
+<ul class="simple">
+<li><p>Georepublic</p></li>
+<li><p>Leopark</p></li>
+<li><p>Paragon Corporation</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul class="simple">
+<li><p>The latest software, documentation and news items are available at the vrpRouting web site <a class="reference external" href="https://vrp.pgrouting.org">https://vrp.pgrouting.org</a>.</p></li>
+<li><p>PostgreSQL database server at the PostgreSQL main site <a class="reference external" href="https://www.postgresql.org">https://www.postgresql.org</a>.</p></li>
+<li><p>PostGIS extension at the PostGIS project web site <a class="reference external" href="https://postgis.net">https://postgis.net</a>.</p></li>
+<li><p>pgRouting extension at the pgRouting project web site <a class="reference external" href="https://pgRouting.org">https://pgRouting.org</a>.</p></li>
+<li><p>Boost C++ source libraries at <a class="reference external" href="https://www.boost.org">https://www.boost.org</a>.</p></li>
+</ul>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright vrpRouting Contributors - Version v0.1.0.<br/>
+      Actualizado por última vez en may. 28, 2021.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
