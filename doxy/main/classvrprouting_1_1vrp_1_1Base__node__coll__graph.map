@@ -1,4 +1,4 @@
 <map id="vrprouting::vrp::Base_node" name="vrprouting::vrp::Base_node">
-<area shape="rect" id="node1" title="The Base_node class defines the operations that can be performed in a 2D node." alt="" coords="5,80,184,107"/>
-<area shape="rect" id="node2" href="$classvrprouting_1_1Identifier.html" title="Class that stores the information about identifiers." alt="" coords="26,5,163,32"/>
+<area shape="rect" id="node1" title="The Base_node class defines the operations that can be performed in a 2D node." alt="" coords="5,80,203,107"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1Identifier.html" title="Class that stores the information about identifiers." alt="" coords="27,5,181,32"/>
 </map>

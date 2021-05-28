@@ -1,6 +1,6 @@
 <map id="vrprouting::vrp::Vehicle_pickDeliver" name="vrprouting::vrp::Vehicle_pickDeliver">
-<area shape="rect" id="node1" title=" " alt="" coords="177,124,333,165"/>
-<area shape="rect" id="node2" href="$classvrprouting_1_1vrp_1_1Vehicle.html" title="Vehicle with time windows." alt="" coords="5,13,161,39"/>
-<area shape="rect" id="node3" href="$classIdentifiers.html" title=" " alt="" coords="186,13,325,39"/>
-<area shape="rect" id="node4" href="$classvrprouting_1_1vrp_1_1PD__Orders.html" title=" " alt="" coords="349,5,481,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="193,124,367,165"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1vrp_1_1Vehicle.html" title="Vehicle with time windows." alt="" coords="5,13,179,39"/>
+<area shape="rect" id="node3" href="$classIdentifiers.html" title=" " alt="" coords="203,13,357,39"/>
+<area shape="rect" id="node4" href="$classvrprouting_1_1vrp_1_1PD__Orders.html" title=" " alt="" coords="381,5,525,47"/>
 </map>

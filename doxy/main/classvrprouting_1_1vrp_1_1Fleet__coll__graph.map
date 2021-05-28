@@ -1,6 +1,6 @@
 <map id="vrprouting::vrp::Fleet" name="vrprouting::vrp::Fleet">
-<area shape="rect" id="node1" title=" " alt="" coords="295,43,437,70"/>
-<area shape="rect" id="node2" href="$classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html" title=" " alt="" coords="544,36,677,77"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,188,47"/>
-<area shape="rect" id="node4" href="$classIdentifiers.html" title=" " alt="" coords="27,73,166,99"/>
+<area shape="rect" id="node1" title=" " alt="" coords="321,43,480,70"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html" title=" " alt="" coords="593,36,740,77"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,5,208,47"/>
+<area shape="rect" id="node4" href="$classIdentifiers.html" title=" " alt="" coords="29,73,184,99"/>
 </map>

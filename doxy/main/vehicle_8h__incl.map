@@ -1,13 +1,13 @@
 <map id="vehicle.h" name="vehicle.h">
-<area shape="rect" id="node1" title=" " alt="" coords="358,5,433,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,87,63,114"/>
-<area shape="rect" id="node3" title=" " alt="" coords="87,87,159,114"/>
-<area shape="rect" id="node4" title=" " alt="" coords="183,87,258,114"/>
-<area shape="rect" id="node5" title=" " alt="" coords="529,169,584,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="333,87,383,114"/>
-<area shape="rect" id="node7" title=" " alt="" coords="407,87,461,114"/>
-<area shape="rect" id="node8" title=" " alt="" coords="485,87,543,114"/>
-<area shape="rect" id="node9" href="$identifier_8h.html" title=" " alt="" coords="567,87,730,114"/>
-<area shape="rect" id="node10" href="$vehicle__node_8h.html" title=" " alt="" coords="754,87,885,114"/>
-<area shape="rect" id="node11" href="$general__vehicle__orders__t_8h.html" title=" " alt="" coords="909,80,1090,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="384,5,465,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,87,68,114"/>
+<area shape="rect" id="node3" title=" " alt="" coords="93,87,173,114"/>
+<area shape="rect" id="node4" title=" " alt="" coords="197,87,282,114"/>
+<area shape="rect" id="node5" title=" " alt="" coords="573,169,631,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="357,87,412,114"/>
+<area shape="rect" id="node7" title=" " alt="" coords="436,87,496,114"/>
+<area shape="rect" id="node8" title=" " alt="" coords="520,87,583,114"/>
+<area shape="rect" id="node9" href="$identifier_8h.html" title=" " alt="" coords="607,87,789,114"/>
+<area shape="rect" id="node10" href="$vehicle__node_8h.html" title=" " alt="" coords="813,87,959,114"/>
+<area shape="rect" id="node11" href="$general__vehicle__orders__t_8h.html" title=" " alt="" coords="983,80,1184,121"/>
 </map>

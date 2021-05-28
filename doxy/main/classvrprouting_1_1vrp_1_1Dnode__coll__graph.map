@@ -1,5 +1,5 @@
 <map id="vrprouting::vrp::Dnode" name="vrprouting::vrp::Dnode">
-<area shape="rect" id="node1" title="The Dnode class defines a the basic operations when data is a matrix." alt="" coords="79,109,229,136"/>
-<area shape="rect" id="node2" href="$classvrprouting_1_1Identifier.html" title="Class that stores the information about identifiers." alt="" coords="5,13,143,39"/>
-<area shape="rect" id="node3" href="$classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html" title=" " alt="" coords="167,5,301,47"/>
+<area shape="rect" id="node1" title="The Dnode class defines a the basic operations when data is a matrix." alt="" coords="85,109,253,136"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1Identifier.html" title="Class that stores the information about identifiers." alt="" coords="5,13,160,39"/>
+<area shape="rect" id="node3" href="$classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html" title=" " alt="" coords="184,5,331,47"/>
 </map>
