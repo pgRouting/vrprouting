@@ -9,10 +9,10 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__
+* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
 * Supported Versions
   `Latest <https://vrp.pgrouting.org/latest/en/concepts.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0/en/concepts.html>`__)
+  (`v0 <https://vrp.pgrouting.org/v0/en/concepts.html>`__)
 
 Concepts
 ===============================================================================
@@ -231,7 +231,7 @@ How to contribute
 
 .. rubric:: Adding Functionaity to vrpRouting
 
-Consult the `developer's documentation <https://vrp.pgrouting.org/doxygen/0/index.html>`_
+Consult the `developer's documentation <https://vrp.pgrouting.org/doxy/main/index.html>`_
 
 
 .. rubric:: Indices and tables

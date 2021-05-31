@@ -208,7 +208,7 @@ html_show_copyright = True
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'vrpRoutingDocumentationdoc'
+htmlhelp_basename = 'vrpRoutingDocumentation'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -314,8 +314,9 @@ pdf_style_path = ['.', '_styles']
 # cases to ignore during link checking
 linkcheck_ignore = [
     # might not exist yet (we are generating it!)
-    r"https://vrp.pgrouting.org",
-
+    r"https://gis.stackexchange.com/",
+    "https://vrp.pgrouting.org/v0/en/pgr-category.html",
+    "https://vrp.pgrouting.org/latest/en/pgr-category.html",
 
     # (see: https://github.com/sphinx-doc/sphinx/issues/7388)
     r"https://github.com/pgRouting/vrprouting/",    # limit only vrprouting

@@ -68,9 +68,15 @@ jobs:
           make -j 4
           sudo make install
 
-      - name: Test
+      - name: Unapck data
         run: |
-          echo "test pending"
+          cd tools/testers
+          tar -xf matrix_new_values.tar.gz
+
+      - name: pgTap test
+        run: |
           sudo service postgresql start
           sudo -u postgres createdb -p ${PGPORT}  ___vrp___test___
-          sudo -u postgres bash ./tools/testers/pg_prove_tests.sh postgres ${PGPORT}  Debug
+          cd tools/testers
+          sudo -u postgres psql -p "${PGPORT}" -U postgres -d ___vrp___test___ -X -q -v ON_ERROR_STOP=1 --pset pager=off -f setup_db.sql
+          sudo -u postgres pg_prove --failures --quiet --recurse --ext .sql -p "${PGPORT}" -d ___vrp___test___ -U postgres ../../pgtap/

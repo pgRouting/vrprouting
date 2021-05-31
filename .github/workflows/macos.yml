@@ -18,6 +18,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: install deps
+        run: |
+          brew install postgis boost pgrouting
+
+      - name: Configure
+        run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF ..
+
+      - name: Build
+        run: |
+          cd build
+          make -j
+          sudo make install
+
       - name: Cache pgtap
         id: cache-pgtap
         uses: actions/cache@v2
@@ -47,21 +63,10 @@ jobs:
           sudo make install
           cpan TAP::Parser::SourceHandler::pgTAP
 
-      - name: install deps
+      - name: Unapck data
         run: |
-          brew install postgis boost pgrouting
-
-      - name: Configure
-        run: |
-          mkdir build
-          cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF ..
-
-      - name: Build
-        run: |
-          cd build
-          make -j
-          sudo make install
+          cd tools/testers
+          tar -xf matrix_new_values.tar.gz
 
       - name: Test
         run: |
@@ -69,4 +74,6 @@ jobs:
           pg_ctl -D /usr/local/var/postgres start
           createuser -s postgres
           createdb ___vrp___test___
-          bash ./tools/testers/pg_prove_tests.sh postgres 5432 Release
+          cd tools/testers
+          psql -p 5432 -U postgres -d ___vrp___test___ -X -q -v ON_ERROR_STOP=1 --pset pager=off -f setup_db.sql
+          pg_prove --failures --quiet --recurse --ext .sql -p 5432 -d ___vrp___test___ -U postgres ../../pgtap/

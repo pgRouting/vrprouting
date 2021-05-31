@@ -19,7 +19,7 @@ open($ifh, "$in_file") || die "ERROR: failed to open '$in_file' for read! : $!\n
 my $skipping = 1;
 while (my $line = <$ifh>) {
   if ($skipping) {
-    if ($line =~ /^\.\. changelog end/) {
+    if ($line =~ /     :local:/) {
       $skipping = 0;
     }
     next;

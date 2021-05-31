@@ -9,10 +9,10 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__
+* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
 * Supported Versions
   `Latest <https://vrp.pgrouting.org/latest/en/official.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0/en/official.html>`__)
+  (`0 <https://vrp.pgrouting.org/v0/en/official.html>`__)
 
 Oficial functions
 *******************************************************************************

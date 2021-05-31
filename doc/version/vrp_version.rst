@@ -9,10 +9,10 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__
+* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
 * Supported Versions
   `Latest <https://vrp.pgrouting.org/latest/en/vrp_version.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0/en/vrp_version.html>`__)
+  (`v0 <https://vrp.pgrouting.org/v0/en/vrp_version.html>`__)
 
 vrp_version
 ===============================================================================
