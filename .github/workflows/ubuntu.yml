@@ -20,6 +20,7 @@ jobs:
         matrix:
           psql: [12, 13]
           postgis: [2.5,3]
+          release: [Debug, Release]
           os: [ubuntu-latest]
 
     steps:
@@ -59,7 +60,7 @@ jobs:
           export PATH=/usr/lib/postgresql/${{ matrix.psql }}/bin:$PATH
           mkdir build
           cd build
-          cmake -DPOSTGRESQL_VERSION=${{ matrix.psql }} -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF ..
+          cmake -DPOSTGRESQL_VERSION=${{ matrix.psql }} -DCMAKE_BUILD_TYPE=${{ matrix.release }} -DWITH_DOC=OFF ..
 
       - name: Build
         run: |
