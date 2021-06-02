@@ -1,0 +1,8 @@
+<map id="vrprouting::problem::PickDeliver" name="vrprouting::problem::PickDeliver">
+<area shape="rect" id="node1" title="the pick deliver problem" alt="" coords="640,135,791,176"/>
+<area shape="rect" id="node2" title=" " alt="" coords="297,5,491,47"/>
+<area shape="rect" id="node3" href="$classvrprouting_1_1Pgr__messages.html" title="Messages Handling." alt="" coords="5,107,196,134"/>
+<area shape="rect" id="node5" href="$classvrprouting_1_1problem_1_1Fleet.html" title=" " alt="" coords="319,135,469,176"/>
+<area shape="rect" id="node4" href="$classvrprouting_1_1problem_1_1Orders.html" title=" " alt="" coords="319,200,469,241"/>
+<area shape="rect" id="node6" href="$classvrprouting_1_1problem_1_1Matrix.html" title=" " alt="" coords="319,265,469,307"/>
+</map>

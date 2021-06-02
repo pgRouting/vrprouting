@@ -1,0 +1,5 @@
+<map id="vrprouting::problem::Tw_node" name="vrprouting::problem::Tw_node">
+<area shape="rect" id="node1" title="Time window attributes of a node." alt="" coords="7,80,158,121"/>
+<area shape="rect" id="node3" href="$classvrprouting_1_1problem_1_1Vehicle__node.html" title="Extend Tw_node to evaluate the vehicle at node level." alt="" coords="7,169,158,211"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1Identifier.html" title="Class that stores the information about identifiers." alt="" coords="5,5,160,32"/>
+</map>

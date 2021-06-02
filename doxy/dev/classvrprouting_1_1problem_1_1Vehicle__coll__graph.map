@@ -1,0 +1,5 @@
+<map id="vrprouting::problem::Vehicle" name="vrprouting::problem::Vehicle">
+<area shape="rect" id="node1" title="Vehicle with time windows." alt="" coords="95,95,246,136"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1Identifier.html" title="Class that stores the information about identifiers." alt="" coords="5,13,160,39"/>
+<area shape="rect" id="node3" title="STL class." alt="" coords="184,5,336,47"/>
+</map>

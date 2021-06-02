@@ -1,0 +1,6 @@
+<map id="vrprouting::Identifier" name="vrprouting::Identifier">
+<area shape="rect" id="node1" title="Class that stores the information about identifiers." alt="" coords="5,78,160,105"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1problem_1_1Order.html" title=" " alt="" coords="208,5,359,47"/>
+<area shape="rect" id="node3" href="$classvrprouting_1_1problem_1_1Tw__node.html" title="Time window attributes of a node." alt="" coords="208,71,359,112"/>
+<area shape="rect" id="node4" href="$classvrprouting_1_1problem_1_1Vehicle.html" title="Vehicle with time windows." alt="" coords="208,136,359,177"/>
+</map>
