@@ -73,13 +73,19 @@ jobs:
           tools/scripts/get_signatures.sh -p ${PGPORT}
           git diff --exit-code --quiet sql/sigs/*.sig
 
+      - name: Unapck data
+        run: |
+          cd tools/testers
+          tar -xf matrix_new_values.tar.gz
+
       - name: Test documentation queries are up to date
         run: |
-          sudo -u postgres createdb -p ${PGPORT}  pgr_test__db__test
+          sudo -u postgres createdb -p ${PGPORT}  ___vrp___test___
+
           TESTDIRS="version"
           for d in ${TESTDIRS}
           do
-            ./tools/testers/doc_queries_generator.pl -pgver "${PGVER}" -pguser runner -documentation -alg "${d}"
+            ./tools/testers/doc_queries_generator.pl -pgport "${PGPORT}" -documentation -alg "${d}"
           done
 
-          ./tools/testers/doc_queries_generator.pl -pgver "${PGVER}"
+          ./tools/testers/doc_queries_generator.pl -pgport "${PGPORT}"

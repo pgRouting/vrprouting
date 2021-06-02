@@ -5,12 +5,13 @@
 
     This documentation is licensed under a Creative Commons Attribution-Share
     Alike 3.0 License: https://creativecommons.org/licenses/by-sa/3.0/
+   ****************************************************************************
 
 |
 
 * Supported Versions
   `Latest <https://vrp.pgrouting.org/latest/en/proposed.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0.0/en/proposed.html>`__)
+  (`v0 <https://vrp.pgrouting.org/v0/en/proposed.html>`__)
 
 Proposed Functions
 ==================================

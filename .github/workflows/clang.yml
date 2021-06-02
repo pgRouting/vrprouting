@@ -18,8 +18,8 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          psql: [12]
           postgis: [3]
+          release: [Debug,Release]
           os: [ubuntu-latest]
 
     steps:
@@ -32,7 +32,7 @@ jobs:
           echo "PGVER=${pgver}" >> $GITHUB_ENV
           PGP=5433
           if [ "${{ matrix.psql }}" == "${pgver}" ]; then PGP=5432; fi
-          echo "PGPORT=${PGP}" >> $GITHUB_ENV
+          echo "PGPORT=5432" >> $GITHUB_ENV
 
       - name: Add PostgreSQL APT repository
         run: |
@@ -48,19 +48,19 @@ jobs:
             clang \
             libboost-graph-dev \
             libtap-parser-sourcehandler-pgtap-perl \
-            postgresql-${{ matrix.psql }} \
-            postgresql-${{ matrix.psql }}-pgtap \
-            postgresql-${{ matrix.psql }}-postgis-${{ matrix.postgis }} \
-            postgresql-${{ matrix.psql }}-postgis-${{ matrix.postgis }}-scripts \
-            postgresql-${{ matrix.psql }}-pgrouting \
-            postgresql-server-dev-${{ matrix.psql }}
+            postgresql-${PGVER} \
+            postgresql-${PGVER}-pgtap \
+            postgresql-${PGVER}-postgis-${{ matrix.postgis }} \
+            postgresql-${PGVER}-postgis-${{ matrix.postgis }}-scripts \
+            postgresql-${PGVER}-pgrouting \
+            postgresql-server-dev-${PGVER}
 
       - name: Configure
         run: |
-          export PATH=/usr/lib/postgresql/${{ matrix.psql }}/bin:$PATH
+          export PATH=/usr/lib/postgresql/${PGVER}/bin:$PATH
           mkdir build
           cd build
-          CXX=clang++ CC=clang cmake -DPOSTGRESQL_VERSION=${{ matrix.psql }} -DCMAKE_BUILD_TYPE=Debug -DWITH_DOC=OFF ..
+          CXX=clang++ CC=clang cmake -DPOSTGRESQL_VERSION=${PGVER} -DCMAKE_BUILD_TYPE=${{ matrix.release }} -DWITH_DOC=OFF ..
 
       - name: Build
         run: |
@@ -68,9 +68,15 @@ jobs:
           make -j 4
           sudo make install
 
-      - name: Test
+      - name: Unapck data
         run: |
-          echo "test pending"
+          cd tools/testers
+          tar -xf matrix_new_values.tar.gz
+
+      - name: pgTap test
+        run: |
           sudo service postgresql start
           sudo -u postgres createdb -p ${PGPORT}  ___vrp___test___
-          sudo -u postgres bash ./tools/testers/pg_prove_tests.sh postgres ${PGPORT}  Debug
+          cd tools/testers
+          sudo -u postgres psql -p "${PGPORT}" -U postgres -d ___vrp___test___ -X -q -v ON_ERROR_STOP=1 --pset pager=off -f setup_db.sql
+          sudo -u postgres pg_prove --failures --quiet --recurse --ext .sql -p "${PGPORT}" -d ___vrp___test___ -U postgres ../../pgtap/

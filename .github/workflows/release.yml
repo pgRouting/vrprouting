@@ -99,29 +99,15 @@ jobs:
         run: |
           git checkout origin/gh-pages
           git checkout -b gh-pages
-          PROJECT_MAJOR_MINOR="v${PROJECT_VERSION%.*}"
-          rm -rf ${PROJECT_MAJOR_MINOR}
-          cp -r build/doc/html ${PROJECT_MAJOR_MINOR}
-          rm -rf ${PROJECT_MAJOR_MINOR}/es
-          git add ${PROJECT_MAJOR_MINOR}
-          git diff-index --quiet HEAD || git commit -m "Update users documentation for ${PROJECT_VERSION}"
+          PROJECT_MAJOR="v${PROJECT_VERSION%%.*}"
+          rm -rf ${PROJECT_MAJOR}
+          cp -r build/doc/html ${PROJECT_MAJOR}
+          git add ${PROJECT_MAJOR}
+          git diff-index --quiet HEAD || git commit -m "Update users documentation for ${PROJECT_VERSION} (tag ${TAG_NAME})"
           git fetch origin
           git rebase origin/gh-pages
           git push origin gh-pages
           git checkout @{-2}
-
-      - name: Update Developers Documentation
-        if: ${{ env.BRANCH == 'main' }}
-        run: |
-          git checkout gh-pages
-          rm -rf doxy/main
-          cp -r build/doxygen/html doxy/main
-          git add doxy/main
-          git diff-index --quiet HEAD || git commit -m "Update developers documentation for ${PROJECT_VERSION}"
-          git fetch origin
-          git rebase origin/gh-pages
-          git push origin gh-pages
-          git checkout @{-1}
 
       - name: Download Assets
         run: |

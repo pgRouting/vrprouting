@@ -77,7 +77,7 @@ check_any_integer_type(Column_info_t info) {
         || info.type == INT8OID)) {
     ereport(ERROR,
         (errmsg_internal("Unexpected type in column '%s'.", info.name),
-         errhint("Found %ld", info.type)));
+         errhint("Found %lu", info.type)));
   }
 }
 
@@ -104,7 +104,7 @@ check_any_numerical_type(Column_info_t info) {
         || info.type == NUMERICOID)) {
     ereport(ERROR,
         (errmsg_internal("Unexpected type in column '%s'.", info.name),
-         errhint("Found: %ld\nExpected ANY-NUMERICAL", info.type)));
+         errhint("Found: %lu\nExpected ANY-NUMERICAL", info.type)));
   }
 }
 
@@ -167,7 +167,7 @@ spi_getBigInt(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info) {
     default:
     ereport(ERROR,
         (errmsg_internal("Unexpected type in column '%s'.", info.name),
-         errhint("Found: %ld\nExpected ANY-INTEGER", info.type)));
+         errhint("Found: %lu\nExpected ANY-INTEGER", info.type)));
   }
   return value;
 }
@@ -270,7 +270,7 @@ spi_getBigIntArr(
     HeapTuple *tuple,
     TupleDesc *tupdesc,
     Column_info_t info,
-    uint64_t *the_size) {
+    size_t *the_size) {
   bool is_null = false;
 
   Datum raw_array = SPI_getbinval(*tuple, *tupdesc, info.colNumber, &is_null);
@@ -531,7 +531,7 @@ spi_getFloat8(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info) {
     default:
     ereport(ERROR,
         (errmsg_internal("Unexpected type in column '%s'.", info.name),
-         errhint("Found: %ld\nExpected ANY-NUMERICAL", info.type)));
+         errhint("Found: %lu\nExpected ANY-NUMERICAL", info.type)));
   }
   return value;
 }

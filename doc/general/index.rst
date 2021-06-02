@@ -11,7 +11,7 @@
 
 * Supported Versions
   `Latest <https://vrp.pgrouting.org/latest/en/index.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0.0/en/index.html>`__)
+  (`v0 <https://vrp.pgrouting.org/v0/en/index.html>`__)
 
 .. _index:
 
