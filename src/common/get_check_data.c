@@ -77,7 +77,7 @@ check_any_integer_type(Column_info_t info) {
         || info.type == INT8OID)) {
     ereport(ERROR,
         (errmsg_internal("Unexpected type in column '%s'.", info.name),
-         errhint("Found %lu", info.type)));
+         errhint("Expected ANY-INTEGER")));
   }
 }
 

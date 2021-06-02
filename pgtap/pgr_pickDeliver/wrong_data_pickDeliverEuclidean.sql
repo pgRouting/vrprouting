@@ -257,26 +257,33 @@ SELECT throws_ok('vehicles10',
 -- testing wrong data on orders
 --------------------------------------
 
----------------------
---  d_open > d_close
----------------------
-UPDATE orders_1 SET d_close = 5 WHERE id = 1;
-
 PREPARE orders1 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
     $$SELECT * FROM orders_1$$,
     $$SELECT * FROM vehicles_1$$);
 
-SELECT todo_start('thorws text changed');
+---------------------
+--  amount <= 0
+---------------------
 
-SELECT CASE WHEN (pgr_full_version()).system LIKE 'Darwin%'
-THEN skip('test crashing server', 1 )
-ELSE collect_tap(
-  throws_ok('orders1',
+UPDATE orders_1 SET amount= -20 WHERE id =1;
+
+SELECT throws_ok('orders1',
     'XX000',
-    'Order not feasible on any truck was found',
-    'orders1, Should throw: d_open > d_close')
-) END;
+    'Unexpected Negative value in column amount',
+    'Should throw: pickup.demand < 0');
+
+UPDATE orders_1 SET amount= 10 WHERE id =1;
+
+---------------------
+--  d_open > d_close
+---------------------
+UPDATE orders_1 SET d_close = 5 WHERE id = 1;
+
+SELECT throws_ok('orders1',
+    'XX000',
+    'Unexpected delivery time windows found on shipments',
+    'orders1, Should throw: d_open > d_close');
 
 UPDATE orders_1 SET d_close = 15 WHERE id = 1;
 
@@ -285,34 +292,13 @@ UPDATE orders_1 SET d_close = 15 WHERE id = 1;
 ---------------------
 UPDATE orders_1 SET p_close = 1 WHERE id = 1;
 
-SELECT CASE WHEN (pgr_full_version()).system LIKE 'Darwin%'
-THEN skip('test crashing server', 1 )
-ELSE collect_tap(
-   throws_ok('orders1',
+SELECT throws_ok('orders1',
     'XX000',
-    'Order not feasible on any truck was found',
-    'orders1, Should throw: p_open > p_close')
-) END;
+    'Unexpected pickup time windows found on shipments',
+    'orders1, Should throw: p_open > p_close');
 
 UPDATE orders_1 SET p_close = 10 WHERE id = 1;
 
-SELECT todo_end();
----------------------
---  amount <= 0
----------------------
-
-UPDATE orders_1 SET amount= -20 WHERE id =1;
-
-SELECT CASE WHEN (pgr_full_version()).system LIKE 'Darwin%'
-THEN skip('test crashing server', 1 )
-ELSE collect_tap(
-  throws_ok('orders1',
-    'XX000',
-    'Unexpected Negative value in column amount',
-    'Should throw: amount(PICKUP) < 0')
-) END;
-
-UPDATE orders_1 SET amount= 10 WHERE id =11;
 
 SELECT finish();
 ROLLBACK;
