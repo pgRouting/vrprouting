@@ -4,9 +4,9 @@ SET client_min_messages TO NOTICE;
 SET
 -- q1
 SELECT version, library FROM vrp_full_version();
- version |     library
----------+------------------
- 0.2.0   | vrprouting-0.2.0
+  version  |     library
+-----------+------------------
+ 0.2.0-dev | vrprouting-0.2.0
 (1 row)
 
 -- q2

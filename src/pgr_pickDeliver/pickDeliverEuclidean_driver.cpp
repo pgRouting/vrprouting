@@ -67,11 +67,60 @@ get_initial_solution(vrprouting::problem::PickDeliver* problem_ptr, int m_initia
 
   return m_solutions;
 }
+
+bool
+are_shipments_ok(
+    PickDeliveryOrders_t *customers_arr,
+    size_t total_customers,
+    std::string &err_string,
+    std::string &hint_string) {
+  /**
+   * - demand > 0 (the type is unsigned so no need to check for negative values, only for it to be non 0
+   * - pick_service_t >=0
+   * - drop_service_t >=0
+   * - p_open <= p_close
+   * - d_open <= d_close
+   */
+  for (size_t i = 0; i < total_customers; ++i) {
+    if (customers_arr[i].demand == 0) {
+      err_string = "Unexpected zero value found on column 'demand' of shipments";
+      hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+      return false;
+    }
+
+    if (customers_arr[i].pick_service_t < 0) {
+      err_string = "Unexpected negative value found on column 'p_service_t' of shipments";
+      hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+      return false;
+    }
+
+    if (customers_arr[i].deliver_service_t < 0) {
+      err_string = "Unexpected negative value found on column 'd_service_t' of shipments";
+      hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+      return false;
+    }
+
+    if (customers_arr[i].pick_open_t > customers_arr[i].pick_close_t) {
+      err_string = "Unexpected pickup time windows found on shipments";
+      hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+      return false;
+    }
+
+    if (customers_arr[i].deliver_open_t > customers_arr[i].deliver_close_t) {
+      err_string = "Unexpected delivery time windows found on shipments";
+      hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+      return false;
+    }
+
+  }
+  return true;
+}
+
 }  // namespace
 
 void
 do_pgr_pickDeliverEuclidean(
-    struct PickDeliveryOrders_t *customers_arr,
+    PickDeliveryOrders_t *customers_arr,
     size_t total_customers,
 
     Vehicle_t *vehicles_arr,
@@ -93,6 +142,13 @@ do_pgr_pickDeliverEuclidean(
   try {
     *return_tuples = nullptr;
     *return_count = 0;
+    std::string err_string;
+    std::string hint_string;
+    if (!are_shipments_ok(customers_arr, total_customers, err_string, hint_string)) {
+      *err_msg = pgr_msg(err_string.c_str());
+      *log_msg = pgr_msg(hint_string.c_str());
+      return;
+    }
 
     /*
      * transform to C++ containers
@@ -105,25 +161,29 @@ do_pgr_pickDeliverEuclidean(
     std::map<std::pair<Coordinate, Coordinate>, Id> matrix_data;
 
     for (const auto &o : orders) {
-      matrix_data[std::pair<Coordinate, Coordinate>(o.pick_x, o.pick_y)] = o.pick_node_id;
-      matrix_data[std::pair<Coordinate, Coordinate>(o.deliver_x, o.deliver_y)] = o.deliver_node_id;
+      pgassert(o.pick_node_id==0);
+      pgassert(o.deliver_node_id==0);
+      matrix_data[std::pair<Coordinate, Coordinate>(o.pick_x, o.pick_y)] = 0;
+      matrix_data[std::pair<Coordinate, Coordinate>(o.deliver_x, o.deliver_y)] = 0;
     }
 
     for (const auto &v : vehicles) {
-      matrix_data[std::pair<Coordinate, Coordinate>(v.start_x, v.start_y)] = v.start_node_id;
-      matrix_data[std::pair<Coordinate, Coordinate>(v.end_x, v.end_y)] = v.end_node_id;
+      matrix_data[std::pair<Coordinate, Coordinate>(v.start_x, v.start_y)] = 0;
+      matrix_data[std::pair<Coordinate, Coordinate>(v.end_x, v.end_y)] = 0;
     }
 
     Identifiers<int64_t> unique_ids;
+    /*
+     * Data does not have ids for the locations'
+     */
+    Id id(0);
+    for (auto &e : matrix_data) {
+      e.second = id++;
+    }
+
     for (const auto &e : matrix_data) {
       unique_ids += e.second;
-    }
-    if (unique_ids.size() != matrix_data.size()) {
-      // ignoring ids given by the user
-      Id id(0);
-      for (auto &e : matrix_data) {
-        e.second = id++;
-      }
+      log << e.second << "(" << e.first.first << "," << e.first.second << ")\n";
     }
 
     for (size_t i = 0; i < total_customers; ++i) {
