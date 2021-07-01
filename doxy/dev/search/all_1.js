@@ -16,13 +16,14 @@ var searchData=
   ['any_5finteger_5farray_30',['ANY_INTEGER_ARRAY',['../column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bbab69209f60a4e5ed071994af1a2ad7424',1,'column_info_t.h']]],
   ['any_5fnumerical_31',['ANY_NUMERICAL',['../column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba49c81011e2dec235c268e79ce70aa044',1,'column_info_t.h']]],
   ['are_5fall_5fserved_32',['are_all_served',['../namespaceanonymous__namespace_02tabu_8cpp_03.html#aa15833c61c4021b6aa0a787c248920df',1,'anonymous_namespace{tabu.cpp}']]],
-  ['arrays_5finput_2ec_33',['arrays_input.c',['../arrays__input_8c.html',1,'']]],
-  ['arrays_5finput_2eh_34',['arrays_input.h',['../arrays__input_8h.html',1,'']]],
-  ['arrival_5fj_5fcloses_5fi_35',['arrival_j_closes_i',['../classvrprouting_1_1problem_1_1Tw__node.html#ae2958669863e96f5f4afc3ca6c80d429',1,'vrprouting::problem::Tw_node']]],
-  ['arrival_5fj_5fopens_5fi_36',['arrival_j_opens_i',['../classvrprouting_1_1problem_1_1Tw__node.html#a6189ba3a4f92886c12c8090db892d24f',1,'vrprouting::problem::Tw_node']]],
-  ['arrival_5ftime_37',['arrival_time',['../classvrprouting_1_1problem_1_1Vehicle__node.html#a09537e595554dc9699cf7dc4e49ece16',1,'vrprouting::problem::Vehicle_node']]],
-  ['arrivaltime_38',['arrivalTime',['../structSolution__rt.html#a575e965e328efff6ac4ced678463749e',1,'Solution_rt']]],
-  ['assertfailedexception_39',['AssertFailedException',['../classAssertFailedException.html',1,'AssertFailedException'],['../classAssertFailedException.html#a54ed2b5c12e7f66818b1167dc772dc2f',1,'AssertFailedException::AssertFailedException()']]],
-  ['assigned_40',['assigned',['../classvrprouting_1_1initialsol_1_1simple_1_1Initial__solution.html#a78b78703797cc2b4e5469a30ddd4f89f',1,'vrprouting::initialsol::simple::Initial_solution::assigned()'],['../classvrprouting_1_1vrp_1_1Initial__solution.html#a0ab5b92f62cf33ddc0f4ed67c0c7a0b9',1,'vrprouting::vrp::Initial_solution::assigned()']]],
-  ['at_41',['at',['../classvrprouting_1_1base_1_1Base__Matrix.html#aa869a91f0c1d5bbc8f572c3e80b4dba3',1,'vrprouting::base::Base_Matrix']]]
+  ['are_5fshipments_5fok_33',['are_shipments_ok',['../namespaceanonymous__namespace_02pickDeliverEuclidean__driver_8cpp_03.html#aaf9e65048b249ebcd569dcbee08f8ba7',1,'anonymous_namespace{pickDeliverEuclidean_driver.cpp}']]],
+  ['arrays_5finput_2ec_34',['arrays_input.c',['../arrays__input_8c.html',1,'']]],
+  ['arrays_5finput_2eh_35',['arrays_input.h',['../arrays__input_8h.html',1,'']]],
+  ['arrival_5fj_5fcloses_5fi_36',['arrival_j_closes_i',['../classvrprouting_1_1problem_1_1Tw__node.html#ae2958669863e96f5f4afc3ca6c80d429',1,'vrprouting::problem::Tw_node']]],
+  ['arrival_5fj_5fopens_5fi_37',['arrival_j_opens_i',['../classvrprouting_1_1problem_1_1Tw__node.html#a6189ba3a4f92886c12c8090db892d24f',1,'vrprouting::problem::Tw_node']]],
+  ['arrival_5ftime_38',['arrival_time',['../classvrprouting_1_1problem_1_1Vehicle__node.html#a09537e595554dc9699cf7dc4e49ece16',1,'vrprouting::problem::Vehicle_node']]],
+  ['arrivaltime_39',['arrivalTime',['../structSolution__rt.html#a575e965e328efff6ac4ced678463749e',1,'Solution_rt']]],
+  ['assertfailedexception_40',['AssertFailedException',['../classAssertFailedException.html',1,'AssertFailedException'],['../classAssertFailedException.html#a54ed2b5c12e7f66818b1167dc772dc2f',1,'AssertFailedException::AssertFailedException()']]],
+  ['assigned_41',['assigned',['../classvrprouting_1_1initialsol_1_1simple_1_1Initial__solution.html#a78b78703797cc2b4e5469a30ddd4f89f',1,'vrprouting::initialsol::simple::Initial_solution::assigned()'],['../classvrprouting_1_1vrp_1_1Initial__solution.html#a0ab5b92f62cf33ddc0f4ed67c0c7a0b9',1,'vrprouting::vrp::Initial_solution::assigned()']]],
+  ['at_42',['at',['../classvrprouting_1_1base_1_1Base__Matrix.html#aa869a91f0c1d5bbc8f572c3e80b4dba3',1,'vrprouting::base::Base_Matrix']]]
 ];

@@ -69,7 +69,7 @@ var NAVTREEINDEX =
 "classvrprouting_1_1problem_1_1Vehicle.html#a662dae269fe1fcecf4e2046af9800ff8",
 "functions.html",
 "optimizers_2tabu_8h.html",
-"vehicle_8h.html"
+"vehicle_8cpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
