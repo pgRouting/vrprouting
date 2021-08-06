@@ -3,17 +3,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sample Data &#8212; vrpRouting Manual (0.0)</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Sample Data &#8212; vrpRouting Manual (0.1)</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
           vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.0.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>v0.1.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -145,11 +145,11 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="sample-data">
+  <section id="sample-data">
 <h1>Sample Data<a class="headerlink" href="#sample-data" title="Permalink to this headline">¶</a></h1>
 <p>The documentation provides very simple example queries based on a small sample network.
 To be able to execute the sample queries, run the following SQL commands to create a table with a small network data set.</p>
-<div class="section" id="city-network">
+<section id="city-network">
 <h2>City Network<a class="headerlink" href="#city-network" title="Permalink to this headline">¶</a></h2>
 <p class="rubric">Create table</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">edge_table</span> <span class="p">(</span>
@@ -201,10 +201,10 @@ To be able to execute the sample queries, run the following SQL commands to crea
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">pgr_createTopology</span><span class="p">(</span><span class="s1">&#39;edge_table&#39;</span><span class="p">,</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">the_geom</span> <span class="o">=&gt;</span><span class="s1">&#39;geom&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pgr-pickdeliver-data">
+</section>
+<section id="pgr-pickdeliver-data">
 <h2><cite>pgr_PickDeliver</cite> data<a class="headerlink" href="#pgr-pickdeliver-data" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="vehicles-table">
+<section id="vehicles-table">
 <h3>Vehicles table<a class="headerlink" href="#vehicles-table" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">vehicles</span> <span class="p">(</span>
@@ -224,8 +224,8 @@ To be able to execute the sample queries, run the following SQL commands to crea
 
 </pre></div>
 </div>
-</div>
-<div class="section" id="orders-table">
+</section>
+<section id="orders-table">
 <h3>Orders table<a class="headerlink" href="#orders-table" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">orders</span> <span class="p">(</span>
     <span class="nb">id</span> <span class="n">BIGSERIAL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span>
@@ -264,9 +264,9 @@ To be able to execute the sample queries, run the following SQL commands to crea
 
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="vrp-onedepot-data">
+</section>
+</section>
+<section id="vrp-onedepot-data">
 <h2><cite>vrp_oneDepot</cite> data<a class="headerlink" href="#vrp-onedepot-data" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="n">DROP</span> <span class="n">TABLE</span> <span class="n">IF</span> <span class="n">EXISTS</span> <span class="n">solomon_100_RC_101</span> <span class="n">cascade</span><span class="p">;</span>
@@ -319,8 +319,8 @@ To be able to execute the sample queries, run the following SQL commands to crea
 <span class="n">FROM</span> <span class="n">the_matrix_info</span><span class="p">;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="images">
+</section>
+<section id="images">
 <h2>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Red arrows correspond when <code class="docutils literal notranslate"><span class="pre">cost</span></code> &gt; 0 in the edge table.</p></li>
@@ -329,11 +329,11 @@ To be able to execute the sample queries, run the following SQL commands to crea
 <li><p>Click on the graph to enlarge.</p></li>
 </ul>
 <p id="fig1">Currently VRP functions work on an undirected graph</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="_images/Fig6-undirected.png" src="_images/Fig6-undirected.png" />
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
 
 
     </div>
@@ -347,9 +347,9 @@ To be able to execute the sample queries, run the following SQL commands to crea
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.0.0.<br/>
-      Last updated on Feb 08, 2021.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+        &copy; Copyright vrpRouting Contributors - Version v0.1.0.<br/>
+      Last updated on Aug 06, 2021.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
     </p>
   </div>
 </footer>

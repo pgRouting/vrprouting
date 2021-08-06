@@ -3,17 +3,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vrp_pgr_pickDeliverEuclidean - Experimental &#8212; vrpRouting Manual (0.0)</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>vrp_pgr_pickDeliverEuclidean - Experimental &#8212; vrpRouting Manual (0.1)</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -41,7 +42,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
           vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.0.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>v0.1.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -157,7 +158,7 @@
 <a class="reference external" href="https://vrp.pgrouting.org/latest/en/vrp_pgr_pickDeliverEuclidean.html">Latest</a>
 (<a class="reference external" href="https://vrp.pgrouting.org/0/en/vrp_pgr_pickDeliverEuclidean.html">0.0</a>)</p></li>
 </ul>
-<div class="section" id="vrp-pgr-pickdelivereuclidean-experimental">
+<section id="vrp-pgr-pickdelivereuclidean-experimental">
 <h1>vrp_pgr_pickDeliverEuclidean - Experimental<a class="headerlink" href="#vrp-pgr-pickdelivereuclidean-experimental" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">vrp_pgr_pickDeliverEuclidean</span></code> - Pickup and delivery Vehicle Routing Problem</p>
 <div class="admonition warning">
@@ -199,7 +200,7 @@
 </ul>
 </li>
 </ul>
-<div class="section" id="synopsis">
+<section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <p>Problem: Distribute and optimize the pickup-delivery pairs into a fleet of vehicles.</p>
 <ul class="simple">
@@ -232,8 +233,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="characteristics">
+</section>
+<section id="characteristics">
 <h2>Characteristics<a class="headerlink" href="#characteristics" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>No multiple time windows for a location.</p></li>
@@ -246,8 +247,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="signature">
+</section>
+<section id="signature">
 <span id="index-0"></span><h2>Signature<a class="headerlink" href="#signature" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vrp_pgr_pickDeliverEuclidean</span><span class="p">(</span><span class="n">Orders</span> <span class="n">SQL</span><span class="p">,</span> <span class="n">Vehicles</span> <span class="n">SQL</span> <span class="p">[,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">max_cycles</span><span class="p">,</span> <span class="n">initial_sol</span><span class="p">])</span>
 <span class="n">RETURNS</span> <span class="n">SET</span> <span class="n">OF</span><span class="p">:</span>
@@ -256,8 +257,8 @@
     <span class="n">cargo</span><span class="p">,</span> <span class="n">travel_time</span><span class="p">,</span> <span class="n">arrival_time</span><span class="p">,</span> <span class="n">wait_time</span><span class="p">,</span> <span class="n">service_time</span><span class="p">,</span> <span class="n">departure_time</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="parameters">
+</section>
+<section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
@@ -310,10 +311,10 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="inner-queries">
+</section>
+<section id="inner-queries">
 <h2>Inner Queries<a class="headerlink" href="#inner-queries" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="orders-sql">
+<section id="orders-sql">
 <h3>Orders SQL<a class="headerlink" href="#orders-sql" title="Permalink to this headline">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">capacity</span>
@@ -398,8 +399,8 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="vehicles-sql">
+</section>
+<section id="vehicles-sql">
 <h3>Vehicles SQL<a class="headerlink" href="#vehicles-sql" title="Permalink to this headline">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">capacity</span><span class="p">,</span> <span class="p">[</span><span class="n">speed</span><span class="p">,]</span>
@@ -489,9 +490,9 @@
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="result-columns">
+</section>
+</section>
+<section id="result-columns">
 <h2>Result Columns<a class="headerlink" href="#result-columns" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
@@ -575,8 +576,8 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="example">
+</section>
+<section id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>This example use the following data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">vrp_pgr_pickDeliverEuclidean</span><span class="p">(</span>
@@ -610,8 +611,8 @@
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -625,9 +626,9 @@
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.0.0.<br/>
-      Last updated on Feb 08, 2021.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+        &copy; Copyright vrpRouting Contributors - Version v0.1.0.<br/>
+      Last updated on Aug 06, 2021.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
     </p>
   </div>
 </footer>
