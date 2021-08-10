@@ -1,8 +1,12 @@
 /*PGR-GNU*****************************************************************
-File: pgr_types.h
+File: vroom_break_t.h
 
-Copyright (c) 2015 Celia Virginia Vergara Castillo
-Mail: vicky_vergara@hotmail.com
+Copyright (c) 2021 pgRouting developers
+Mail: project@pgrouting.org
+
+Function's developer:
+Copyright (c) 2021 Ashish Kumar
+Mail: ashishkr23438@gmail.com
 
 ------
 
@@ -23,39 +27,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 /*! @file */
 
-#ifndef INCLUDE_C_TYPES_COLUMN_INFO_T_H_
-#define INCLUDE_C_TYPES_COLUMN_INFO_T_H_
+#ifndef INCLUDE_C_TYPES_VROOM_VROOM_BREAK_T_H_
+#define INCLUDE_C_TYPES_VROOM_VROOM_BREAK_T_H_
 #pragma once
 
-/* for int64_t */
-#ifndef __cplusplus
-#   include <stdbool.h>
-#   include <stdint.h>
-#endif
+#include "c_types/typedefs.h"
 
-// used for getting the data
-typedef
-enum {
-    INTEGER,
-    ANY_INTEGER,
-    ANY_NUMERICAL,
-    TEXT,
-    CHAR1,
-    INTEGER_ARRAY,
-    ANY_INTEGER_ARRAY,
-    TIMESTAMP,
-    INTERVAL
-} expectType;
+/** @brief Vehicle's break attributes
+
+@note C/C++/postgreSQL connecting structure for input
+name | description
+:----- | :-------
+id | Identifier of break
+vehicle_id | Identifier of vehicle
+service | Duration of break
+*/
+struct Vroom_break_t {
+  Idx id; /** Identifier of break */
+  Idx vehicle_id;  /** Identifier of vehicle */
+  Duration service; /** Duration of break */
+};
 
 
-typedef
-struct {
-    int colNumber;
-    uint64_t type;
-    bool strict;
-    char *name;
-    expectType eType;
-} Column_info_t;
-
-
-#endif  // INCLUDE_C_TYPES_COLUMN_INFO_T_H_
+#endif  // INCLUDE_C_TYPES_VROOM_VROOM_BREAK_T_H_
