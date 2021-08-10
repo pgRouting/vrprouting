@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS public.edge_table;
 DROP TABLE IF EXISTS public.edge_table_vertices_pgr;
 DROP TABLE IF EXISTS public.vehicles_1;
 DROP TABLE IF EXISTS public.orders_1;
+DROP TABLE IF EXISTS public.edges_matrix;
 
 --EDGE TABLE CREATE start
 CREATE TABLE public.edge_table (
@@ -1444,5 +1445,4 @@ COPY example2.shipments (p_tw_open, p_id, d_id, amount, booking_date) FROM stdin
 2019-12-13 12:30:00	3621711402494	3618891402722	1	2019-12-12 03:00:32.224789
 2019-12-13 15:15:00	3629761401900	3624961402867	1	2019-12-12 08:15:27.294694
 \.
-
 
