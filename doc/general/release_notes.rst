@@ -25,6 +25,12 @@ To see the full list of changes check the list of `Git commits <https://github.c
 v0.2.0 Release Notes
 *******************************************************************************
 
+.. rubric:: New experimental functions
+
+- vrp_vroom
+- vrp_vroomJobs
+- vrp_vroomShipments
+
 v0.1.0 Release Notes
 *******************************************************************************
 
