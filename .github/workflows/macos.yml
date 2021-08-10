@@ -9,6 +9,7 @@ on:
     paths-ignore:
       - '**.po'
 
+# TODO: Fix the macOS build for compiling and building VROOM with vrprouting.
 jobs:
   build:
     name: Build
@@ -22,11 +23,34 @@ jobs:
         run: |
           brew install postgis boost pgrouting
 
+      - name: Install VROOM dependencies
+        run: |
+          brew install openssl asio glpk
+
+      - name: Build VROOM v1.10.0
+        run: |
+          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v1.10.0.tar.gz
+          tar -zvxf v1.10.0.tar.gz
+          cd vroom-1.10.0/src
+
+          # Source: https://github.com/VROOM-Project/vroom/issues/378
+          ln -s /usr/local/opt/openssl/include/openssl /usr/local/include
+          ln -s /usr/local/opt/openssl/lib/libssl.dylib /usr/local/lib/
+          ln -s /usr/local/opt/openssl/lib/libcrypto.dylib /usr/local/lib/
+
+          # Create object file with position independent code using -fPIC flag
+          sed -i '' -e 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
+          sed -i '' -e 's/\/usr\/include\/glpk.h/\/usr\/local\/opt\/glpk\/include\/glpk.h/' makefile
+
+          make
+          cd ..
+          echo "VROOM_INSTALL_PATH=$(pwd)" >> $GITHUB_ENV
+
       - name: Configure
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF -DVROOM_INSTALL_PATH=${VROOM_INSTALL_PATH} ..
 
       - name: Build
         run: |
@@ -63,7 +87,7 @@ jobs:
           sudo make install
           cpan TAP::Parser::SourceHandler::pgTAP
 
-      - name: Unapck data
+      - name: Unpack data
         run: |
           cd tools/testers
           tar -xf matrix_new_values.tar.gz

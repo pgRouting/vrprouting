@@ -55,12 +55,29 @@ jobs:
             postgresql-${{ matrix.psql }}-pgrouting \
             postgresql-server-dev-${{ matrix.psql }}
 
+      - name: Install VROOM dependencies
+        run: |
+          sudo apt-get install libssl-dev libasio-dev libglpk-dev
+
+      - name: Build VROOM v1.10.0
+        run: |
+          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v1.10.0.tar.gz
+          tar -zvxf v1.10.0.tar.gz
+          cd vroom-1.10.0/src
+
+          # Create object file with position independent code using -fPIC flag
+          sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
+
+          make
+          cd ..
+          echo "VROOM_INSTALL_PATH=$(pwd)" >> $GITHUB_ENV
+
       - name: Configure
         run: |
           export PATH=/usr/lib/postgresql/${{ matrix.psql }}/bin:$PATH
           mkdir build
           cd build
-          cmake -DPOSTGRESQL_VERSION=${{ matrix.psql }} -DCMAKE_BUILD_TYPE=${{ matrix.release }} -DWITH_DOC=OFF ..
+          cmake -DPOSTGRESQL_VERSION=${{ matrix.psql }} -DCMAKE_BUILD_TYPE=${{ matrix.release }} -DWITH_DOC=OFF -DVROOM_INSTALL_PATH=${VROOM_INSTALL_PATH} ..
 
       - name: Build
         run: |
@@ -68,7 +85,7 @@ jobs:
           make -j 4
           sudo make install
 
-      - name: Unapck data
+      - name: Unpack data
         run: |
           cd tools/testers
           tar -xf matrix_new_values.tar.gz
