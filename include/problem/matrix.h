@@ -57,7 +57,7 @@ class Matrix : public base::Base_Matrix {
     Matrix(Matrix_cell_t *, size_t, const Identifiers<Id>&, Multiplier = 1.0);
 
     /** brief constructor for euclidean version default multipliers */
-    Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id>&, Multiplier = 1.0);
+    explicit Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id>&, Multiplier = 1.0);
 
     /** @brief retrun the travel time times when using the time dependant multipliers */
     TInterval travel_time(Id, Id, TTimestamp) const;
