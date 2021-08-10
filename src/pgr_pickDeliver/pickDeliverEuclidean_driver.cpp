@@ -72,8 +72,8 @@ bool
 are_shipments_ok(
     PickDeliveryOrders_t *customers_arr,
     size_t total_customers,
-    std::string &err_string,
-    std::string &hint_string) {
+    std::string *err_string,
+    std::string *hint_string) {
   /**
    * - demand > 0 (the type is unsigned so no need to check for negative values, only for it to be non 0
    * - pick_service_t >=0
@@ -83,35 +83,34 @@ are_shipments_ok(
    */
   for (size_t i = 0; i < total_customers; ++i) {
     if (customers_arr[i].demand == 0) {
-      err_string = "Unexpected zero value found on column 'demand' of shipments";
-      hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+      *err_string = "Unexpected zero value found on column 'demand' of shipments";
+      *hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
       return false;
     }
 
     if (customers_arr[i].pick_service_t < 0) {
-      err_string = "Unexpected negative value found on column 'p_service_t' of shipments";
-      hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+      *err_string = "Unexpected negative value found on column 'p_service_t' of shipments";
+      *hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
       return false;
     }
 
     if (customers_arr[i].deliver_service_t < 0) {
-      err_string = "Unexpected negative value found on column 'd_service_t' of shipments";
-      hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+      *err_string = "Unexpected negative value found on column 'd_service_t' of shipments";
+      *hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
       return false;
     }
 
     if (customers_arr[i].pick_open_t > customers_arr[i].pick_close_t) {
-      err_string = "Unexpected pickup time windows found on shipments";
-      hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+      *err_string = "Unexpected pickup time windows found on shipments";
+      *hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
       return false;
     }
 
     if (customers_arr[i].deliver_open_t > customers_arr[i].deliver_close_t) {
-      err_string = "Unexpected delivery time windows found on shipments";
-      hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+      *err_string = "Unexpected delivery time windows found on shipments";
+      *hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
       return false;
     }
-
   }
   return true;
 }
@@ -144,7 +143,7 @@ do_pgr_pickDeliverEuclidean(
     *return_count = 0;
     std::string err_string;
     std::string hint_string;
-    if (!are_shipments_ok(customers_arr, total_customers, err_string, hint_string)) {
+    if (!are_shipments_ok(customers_arr, total_customers, &err_string, &hint_string)) {
       *err_msg = pgr_msg(err_string.c_str());
       *log_msg = pgr_msg(hint_string.c_str());
       return;
@@ -161,8 +160,8 @@ do_pgr_pickDeliverEuclidean(
     std::map<std::pair<Coordinate, Coordinate>, Id> matrix_data;
 
     for (const auto &o : orders) {
-      pgassert(o.pick_node_id==0);
-      pgassert(o.deliver_node_id==0);
+      pgassert(o.pick_node_id == 0);
+      pgassert(o.deliver_node_id == 0);
       matrix_data[std::pair<Coordinate, Coordinate>(o.pick_x, o.pick_y)] = 0;
       matrix_data[std::pair<Coordinate, Coordinate>(o.deliver_x, o.deliver_y)] = 0;
     }

@@ -184,7 +184,8 @@ get_initial_stops(
  *  @param[in] new_values subset of stops that are to be used for the update
  */
 void
-update_stops(std::vector<Short_vehicle>& the_stops, const std::vector<Short_vehicle> new_values) {
+update_stops(std::vector<Short_vehicle>& the_stops,  // NOLINT [runtime/references]
+             const std::vector<Short_vehicle> new_values) {
   for (const auto &v : new_values) {
     auto v_id = v.id;
     auto v_to_modify = std::find_if(
