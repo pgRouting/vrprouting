@@ -28,6 +28,8 @@
 #  DEALINGS IN THE SOFTWARE.
 ###############################################################################
 
+set -e
+
 if ! test -d code_linter; then
     # Get our fork of codespell that adds --words-white-list and full filename support for -S option
     mkdir code_linter
@@ -84,4 +86,3 @@ else
         test_cpp_files "$(git ls-files | grep -w 'cpp' | grep ${DIRECTORY})"
     fi
 fi
-
