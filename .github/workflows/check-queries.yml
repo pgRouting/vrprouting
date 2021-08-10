@@ -52,12 +52,29 @@ jobs:
             postgresql-${PGVER}-pgrouting \
             postgresql-server-dev-${PGVER}
 
+      - name: Install VROOM dependencies
+        run: |
+          sudo apt-get install libssl-dev libasio-dev libglpk-dev
+
+      - name: Build VROOM v1.10.0
+        run: |
+          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v1.10.0.tar.gz
+          tar -zvxf v1.10.0.tar.gz
+          cd vroom-1.10.0/src
+
+          # Create object file with position independent code using -fPIC flag
+          sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
+
+          make
+          cd ..
+          echo "VROOM_INSTALL_PATH=$(pwd)" >> $GITHUB_ENV
+
       - name: Configure
         run: |
           export PATH=/usr/lib/postgresql/${PGVER}/bin:$PATH
           mkdir build
           cd build
-          cmake -DPOSTGRESQL_VERSION=${PGVER} -DCMAKE_BUILD_TYPE=Debug ..
+          cmake -DPOSTGRESQL_VERSION=${PGVER} -DCMAKE_BUILD_TYPE=Debug -DVROOM_INSTALL_PATH=${VROOM_INSTALL_PATH} ..
 
       - name: Build
         run: |
@@ -73,7 +90,7 @@ jobs:
           tools/scripts/get_signatures.sh -p ${PGPORT}
           git diff --exit-code --quiet sql/sigs/*.sig
 
-      - name: Unapck data
+      - name: Unpack data
         run: |
           cd tools/testers
           tar -xf matrix_new_values.tar.gz
