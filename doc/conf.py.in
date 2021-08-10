@@ -171,8 +171,8 @@ html_last_updated_fmt = '%b %d, %Y'
 
 # Custom sidebar templates, maps document names to template names.
 html_sidebars = {
-	# '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'],
-	# 'using/windows': ['windowssidebar.html', 'searchbox.html'],
+    # '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'],
+    # 'using/windows': ['windowssidebar.html', 'searchbox.html'],
 }
 
 # Additional templates that should be rendered to pages, maps page names to
@@ -317,6 +317,14 @@ linkcheck_ignore = [
     r"https://gis.stackexchange.com/",
     "https://vrp.pgrouting.org/v0/en/pgr-category.html",
     "https://vrp.pgrouting.org/latest/en/pgr-category.html",
+    "https://vrp.pgrouting.org/v0/en/vroom-category.html",
+    "https://vrp.pgrouting.org/latest/en/vroom-category.html",
+    "https://vrp.pgrouting.org/v0/en/vrp_vroom.html",
+    "https://vrp.pgrouting.org/latest/en/vrp_vroom.html",
+    "https://vrp.pgrouting.org/v0/en/vrp_vroomJobs.html",
+    "https://vrp.pgrouting.org/latest/en/vrp_vroomJobs.html",
+    "https://vrp.pgrouting.org/v0/en/vrp_vroomShipments.html",
+    "https://vrp.pgrouting.org/latest/en/vrp_vroomShipments.html",
 
     # (see: https://github.com/sphinx-doc/sphinx/issues/7388)
     r"https://github.com/pgRouting/vrprouting/",    # limit only vrprouting

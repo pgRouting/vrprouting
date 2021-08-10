@@ -1,17 +1,8 @@
 
 SET(LOCAL_FILES
-    concepts.rst
-    experimental.rst
-    index.rst
-    introduction.rst
-    official.rst
-    installation.rst
-    proposed.rst
-    release_notes.rst
-    sampledata.rst
-    support.rst
-    pgr-category.rst
-    vroom-category.rst
+    vrp_vroom.rst
+    vrp_vroomJobs.rst
+    vrp_vroomShipments.rst
     )
 
 foreach (f ${LOCAL_FILES})
@@ -20,4 +11,4 @@ foreach (f ${LOCAL_FILES})
 endforeach()
 
 set(PROJECT_DOC_FILES ${PROJECT_DOC_FILES} ${LOCAL_DOC_FILES} PARENT_SCOPE)
-
+set(PROJECT_IMG_FILES ${PROJECT_IMG_FILES} PARENT_SCOPE)
