@@ -1,8 +1,12 @@
 /*PGR-GNU*****************************************************************
-File: matrixRows_input.h
+File: shipments_input.h
 
-Copyright (c) 2015 Celia Virginia Vergara Castillo
-vicky_vergara@hotmail.com
+Copyright (c) 2021 pgRouting developers
+Mail: project@pgrouting.org
+
+Function's developer:
+Copyright (c) 2021 Ashish Kumar
+Mail: ashishkr23438@gmail.com
 
 ------
 
@@ -22,30 +26,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#ifndef INCLUDE_C_COMMON_MATRIXROWS_INPUT_H_
-#define INCLUDE_C_COMMON_MATRIXROWS_INPUT_H_
+#ifndef INCLUDE_C_COMMON_VROOM_SHIPMENTS_INPUT_H_
+#define INCLUDE_C_COMMON_VROOM_SHIPMENTS_INPUT_H_
 #pragma once
 
 #include <stddef.h>
 
-typedef struct Matrix_cell_t Matrix_cell_t;
+#include "c_common/get_check_data.h"
+#include "c_types/column_info_t.h"
+#include "c_types/vroom/vroom_shipment_t.h"
 
-/** @brief Get the travel time matrix */
-void get_matrixRows(
-    char *sql,
-    Matrix_cell_t **rows,
-    size_t *total_rows);
+#ifdef PROFILE
+#include "c_common/debug_macro.h"
+#include "c_common/time_msg.h"
+#endif
 
-/** @brief Get the travel time matrix with numerical types*/
-void get_matrixRows_plain(
-    char *sql,
-    Matrix_cell_t **rows,
-    size_t *total_rows);
+/** @brief Reads the VROOM shipments */
+void
+get_vroom_shipments(
+    char *shipments_sql,
+    Vroom_shipment_t **shipments,
+    size_t *total_shipments);
 
-/** @brief Get the travel time matrix of vroom with integer types*/
-void get_matrixRows_vroom_plain(
-    char *sql,
-    Matrix_cell_t **rows,
-    size_t *total_rows);
-
-#endif  // INCLUDE_C_COMMON_MATRIXROWS_INPUT_H_
+#endif  // INCLUDE_C_COMMON_VROOM_SHIPMENTS_INPUT_H_

@@ -44,7 +44,6 @@ spi_getChar(
     HeapTuple *tuple,
     TupleDesc *tupdesc,
     Column_info_t info,
-    bool strict,
     char default_value);
 
 /** @brief Function returns the values of specified columns in array.  */
@@ -58,6 +57,22 @@ spi_getBigIntArr(
 /** @brief Function returns the values of specified columns in array.  */
 int64_t*
 spi_getBigIntArr_allowEmpty(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info,
+    size_t *the_size);
+
+/** @brief Function returns the values of specified columns in array.  */
+int64_t*
+spi_getPositiveBigIntArr_allowEmpty(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info,
+    size_t *the_size);
+
+/** @brief Function returns the values of specified columns in array. */
+uint32_t*
+spi_getPositiveIntArr_allowEmpty(
     HeapTuple *tuple,
     TupleDesc *tupdesc,
     Column_info_t info,
@@ -81,7 +96,7 @@ spi_getText(
 /** @name timestamp related
  * @{ */
 /** @brief  Converts timestamp to timestamp without timezone */
-TTimestamp timestamp_without_timezone( TTimestamp timestamp);
+TTimestamp timestamp_without_timezone(TTimestamp timestamp);
 
 /** @brief gets a timestamp value from postgres type TIMESTAMP */
 TTimestamp get_TTimestamp(HeapTuple*, TupleDesc*, Column_info_t, TTimestamp);
@@ -113,6 +128,27 @@ TInterval get_PositiveTInterval_plain(HeapTuple*, TupleDesc*, Column_info_t, TIn
 
 /** get Id from data */
 Id get_Id(HeapTuple*, TupleDesc*, Column_info_t, Id);
+
+/** get Idx from data */
+Idx get_Idx(HeapTuple*, TupleDesc*, Column_info_t, Idx);
+
+/** get StepType from data */
+StepType get_StepType(HeapTuple *, TupleDesc *, Column_info_t, StepType);
+
+/** get MatrixIndex from data */
+MatrixIndex get_MatrixIndex(HeapTuple*, TupleDesc*, Column_info_t, MatrixIndex);
+
+/** get Duration from data */
+Duration get_Duration(HeapTuple*, TupleDesc*, Column_info_t, Duration);
+
+/** get Kind from data */
+char get_Kind(HeapTuple*, TupleDesc*, Column_info_t, char);
+
+/** get Priority from data */
+Priority get_Priority(HeapTuple*, TupleDesc*, Column_info_t, Priority);
+
+/** get Distance from data */
+Distance get_Distance(HeapTuple*, TupleDesc*, Column_info_t, Distance);
 
 /** get Amount from data */
 Amount get_Amount(HeapTuple*, TupleDesc*, Column_info_t, Amount);
