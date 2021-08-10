@@ -51,6 +51,7 @@ Experimental Functions
   :maxdepth: 2
 
   pgr-category
+  vroom-category
 
 .. rubric:: See Also
 
