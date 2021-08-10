@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/typedefs.h"
 #include "cpp_common/identifiers.hpp"
 
+#include "structures/generic/matrix.h"
+
 typedef struct Matrix_cell_t Matrix_cell_t;
 
 namespace vrprouting {
@@ -62,6 +64,7 @@ class Base_Matrix {
     Base_Matrix() = default;
     /** @brief Constructs a matrix for only specific identifiers */
     Base_Matrix(Matrix_cell_t *, size_t, const Identifiers<Id>&, Multiplier);
+    Base_Matrix(Matrix_cell_t *, size_t, const Identifiers<Id> &);
     explicit Base_Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id> &, Multiplier);
 
     /** @name status of the matrix
@@ -69,6 +72,8 @@ class Base_Matrix {
      */
     /** @brief does the matrix values not given by the user? */
     bool has_no_infinity() const;
+
+    vroom::Matrix<vroom::Cost> get_vroom_matrix() const;
 
     /** @brief does the matrix obeys the triangle inequality? */
     bool obeys_triangle_inequality() const;
