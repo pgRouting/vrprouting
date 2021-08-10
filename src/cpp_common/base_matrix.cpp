@@ -245,6 +245,74 @@ Base_Matrix::Base_Matrix(
   }
 }
 
+/**
+ * @brief Constructor for VROOM matrix input
+ *
+ * @param [in] data_costs  The set of costs
+ * @param [in] size_matrix The size of the set of costs
+ * @param [in] location_ids The location identifiers
+ *
+ * @pre data_costs is not empty
+ * @post ids has all the ids of node_ids
+ * @post data_costs[from_vid, to_vid] is ignored when from_vid is not in node_ids or  to_vid is not in node_ids
+ * @post costs[from_vid, to_vid] is not has the cell cost when from_vid, to_vid are in node_ids
+ * @post costs[from_vid, to_vid] = inf when cell from_vid, to_vid does not exist
+ * @post costs[from_vid, to_vid] = 0 when from_vid = to_vid
+ *
+ */
+Base_Matrix::Base_Matrix(Matrix_cell_t *data_costs, size_t size_matrix,
+                         const Identifiers<Id> &location_ids) {
+  /*
+   * Sets the selected nodes identifiers
+   */
+  m_ids.insert(m_ids.begin(), location_ids.begin(), location_ids.end());
+
+  /*
+   * Create matrix
+   */
+  m_time_matrix.resize(
+      m_ids.size(),
+      std::vector<TInterval>(m_ids.size(),
+                             /*
+                              * Set initial values to infinity
+                              */
+                             (std::numeric_limits<TInterval>::max)()));
+
+  Identifiers<Idx> inserted;
+  /*
+   * Cycle the matrix data
+   */
+  for (size_t i = 0; i < size_matrix; ++i) {
+    auto data = data_costs[i];
+    /*
+     * skip if row is not from selected nodes
+     */
+    if (!(has_id(data.from_vid) && has_id(data.to_vid))) continue;
+
+    /*
+     * Save the information
+     */
+    m_time_matrix[get_index(data.from_vid)][get_index(data.to_vid)] =
+      static_cast<Distance>(data.cost);
+
+    /*
+     * If the opposite direction is infinity insert the same cost
+     */
+    if (m_time_matrix[get_index(data.to_vid)][get_index(data.from_vid)] ==
+        (std::numeric_limits<TInterval>::max)()) {
+      m_time_matrix[get_index(data.to_vid)][get_index(data.from_vid)] =
+        m_time_matrix[get_index(data.from_vid)][get_index(data.to_vid)];
+    }
+  }
+
+  /*
+   * Set the diagonal values to 0
+   */
+  for (size_t i = 0; i < m_time_matrix.size(); ++i) {
+    m_time_matrix[i][i] = 0;
+  }
+}
+
 /*
  * constructor for euclidean
  */
@@ -274,7 +342,22 @@ Base_Matrix::Base_Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id> &
   }
 }
 
-
+/**
+ * @brief Get VROOM matrix from vrprouting Base Matrix
+ *
+ * @return vroom::Matrix<vroom::Cost> The vroom cost matrix
+ */
+vroom::Matrix<vroom::Cost>
+Base_Matrix::get_vroom_matrix() const {
+  size_t matrix_size = m_ids.size();
+  vroom::Matrix<vroom::Cost> vroom_matrix(matrix_size);
+  for (size_t i = 0; i < matrix_size; i++) {
+    for (size_t j = 0; j < matrix_size; j++) {
+      vroom_matrix[i][j] = static_cast<vroom::Cost>(m_time_matrix[i][j]);
+    }
+  }
+  return vroom_matrix;
+}
 
 /**
  * @returns false at the moment it finds an infinity value
