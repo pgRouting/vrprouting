@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>vrp_vroomJobs - Experimental &#8212; vrpRouting Manual (0.2-dev)</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="vrp_vroomShipments - Experimental" href="vrp_vroomShipments.html" />
+    <link rel="prev" title="vrp_vroom - Experimental" href="vrp_vroom.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
+          vrpRouting</a>
+        <span class="navbar-text navbar-version pull-left"><b>v0.2.0-dev</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sampledata.html">Sample Data</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vrp_version.html">vrp_version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vrp_full_version.html">vrp_full_version</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="official.html">Oficial functions</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="proposed.html">Proposed Functions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="experimental.html">Experimental Functions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">vrp_vroomJobs - Experimental</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#signature">Signature</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#inner-queries">Inner Queries</a><ul>
+<li><a class="reference internal" href="#jobs-sql">Jobs SQL</a></li>
+<li><a class="reference internal" href="#vehicles-sql">Vehicles SQL</a></li>
+<li><a class="reference internal" href="#breaks-sql">Breaks SQL</a></li>
+<li><a class="reference internal" href="#time-windows-sql">Time Windows SQL</a></li>
+<li><a class="reference internal" href="#time-matrix-sql">Time Matrix SQL</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#result-columns">Result Columns</a></li>
+<li><a class="reference internal" href="#additional-example">Additional Example</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="vrp_vroom.html" title="Previous Chapter: vrp_vroom - Experimental"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; vrp_vroom - E...</span>
+    </a>
+  </li>
+  <li>
+    <a href="vrp_vroomShipments.html" title="Next Chapter: vrp_vroomShipments - Experimental"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">vrp_vroomShip... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://vrp.pgrouting.org/">Documentation</a> → <a class="reference external" href="https://vrp.pgrouting.org/v0">vrpRouting v0</a></p></li>
+<li><p>Supported Versions
+<a class="reference external" href="https://vrp.pgrouting.org/latest/en/vrp_vroomJobs.html">Latest</a>
+(<a class="reference external" href="https://vrp.pgrouting.org/v0/en/vrp_vroomJobs.html">v0</a>)</p></li>
+</ul>
+<section id="vrp-vroomjobs-experimental">
+<h1>vrp_vroomJobs - Experimental<a class="headerlink" href="#vrp-vroomjobs-experimental" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">vrp_vroomJobs</span></code> - Vehicle Routing Problem with VROOM, involving only jobs.</p>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Possible server crash</p>
+<ul class="simple">
+<li><p>These functions might create a server crash</p></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Experimental functions</p>
+<ul class="simple">
+<li><p>They are not officially of the current release.</p></li>
+<li><p>They likely will not be officially be part of the next release:</p>
+<ul>
+<li><p>The functions might not make use of ANY-INTEGER and ANY-NUMERICAL</p></li>
+<li><p>Name might change.</p></li>
+<li><p>Signature might change.</p></li>
+<li><p>Functionality might change.</p></li>
+<li><p>pgTap tests might be missing.</p></li>
+<li><p>Might need c/c++ coding.</p></li>
+<li><p>May lack documentation.</p></li>
+<li><p>Documentation if any might need to be rewritten.</p></li>
+<li><p>Documentation examples might need to be automatically generated.</p></li>
+<li><p>Might need a lot of feedback from the comunity.</p></li>
+<li><p>Might depend on a proposed function of vrpRouting</p></li>
+<li><p>Might depend on a deprecated function of vrpRouting</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<p class="rubric">Availability</p>
+<p>Version 0.2.0</p>
+<ul class="simple">
+<li><p>New <strong>experimental</strong> function</p></li>
+</ul>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>VROOM is an open-source optimization engine that aims at providing good solutions
+to various real-life vehicle routing problems (VRP) within a small computing time.
+This function can be used to get the solution to a problem involving only jobs.</p>
+</section>
+<section id="signature">
+<span id="index-0"></span><h2>Signature<a class="headerlink" href="#signature" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>vrp_vroomJobs(
+  Jobs SQL, Jobs Time Windows SQL,
+  Vehicles SQL, Breaks SQL, Breaks Time Windows SQL,
+  Matrix SQL)  -- Experimental on v0.2
+
+RETURNS SET OF
+(seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
+ arrival, travel_time, service_time, waiting_time, load)
+</pre></div>
+</div>
+<p><strong>Example</strong>: This example is based on the VROOM Data of the <a class="reference internal" href="sampledata.html"><span class="doc">Sample Data</span></a> network:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span>
+<span class="n">FROM</span> <span class="n">vrp_vroomJobs</span><span class="p">(</span>
+  <span class="s1">&#39;SELECT * FROM vroom.jobs&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;SELECT * FROM vroom.jobs_time_windows&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;SELECT * FROM vroom.vehicles&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;SELECT * FROM vroom.breaks&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;SELECT * FROM vroom.breaks_time_windows&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;SELECT * FROM vroom.matrix&#39;</span>
+<span class="p">);</span>
+ <span class="n">seq</span> <span class="o">|</span> <span class="n">vehicle_seq</span> <span class="o">|</span> <span class="n">vehicle_id</span> <span class="o">|</span> <span class="n">step_seq</span> <span class="o">|</span> <span class="n">step_type</span> <span class="o">|</span> <span class="n">task_id</span> <span class="o">|</span> <span class="n">arrival</span> <span class="o">|</span> <span class="n">travel_time</span> <span class="o">|</span> <span class="n">service_time</span> <span class="o">|</span> <span class="n">waiting_time</span> <span class="o">|</span> <span class="n">load</span>
+<span class="o">-----+-------------+------------+----------+-----------+---------+---------+-------------+--------------+--------------+-------</span>
+   <span class="mi">1</span> <span class="o">|</span>           <span class="mi">1</span> <span class="o">|</span>          <span class="mi">1</span> <span class="o">|</span>        <span class="mi">1</span> <span class="o">|</span>         <span class="mi">1</span> <span class="o">|</span>      <span class="o">-</span><span class="mi">1</span> <span class="o">|</span>     <span class="mi">300</span> <span class="o">|</span>           <span class="mi">0</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span> <span class="p">{</span><span class="mi">20</span><span class="p">}</span>
+   <span class="mi">2</span> <span class="o">|</span>           <span class="mi">1</span> <span class="o">|</span>          <span class="mi">1</span> <span class="o">|</span>        <span class="mi">2</span> <span class="o">|</span>         <span class="mi">5</span> <span class="o">|</span>       <span class="mi">1</span> <span class="o">|</span>     <span class="mi">300</span> <span class="o">|</span>           <span class="mi">0</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span> <span class="p">{</span><span class="mi">20</span><span class="p">}</span>
+   <span class="mi">3</span> <span class="o">|</span>           <span class="mi">1</span> <span class="o">|</span>          <span class="mi">1</span> <span class="o">|</span>        <span class="mi">3</span> <span class="o">|</span>         <span class="mi">2</span> <span class="o">|</span>       <span class="mi">1</span> <span class="o">|</span>     <span class="mi">300</span> <span class="o">|</span>           <span class="mi">0</span> <span class="o">|</span>          <span class="mi">250</span> <span class="o">|</span>         <span class="mi">3325</span> <span class="o">|</span> <span class="p">{</span><span class="mi">20</span><span class="p">}</span>
+   <span class="mi">4</span> <span class="o">|</span>           <span class="mi">1</span> <span class="o">|</span>          <span class="mi">1</span> <span class="o">|</span>        <span class="mi">4</span> <span class="o">|</span>         <span class="mi">6</span> <span class="o">|</span>      <span class="o">-</span><span class="mi">1</span> <span class="o">|</span>    <span class="mi">3875</span> <span class="o">|</span>           <span class="mi">0</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span> <span class="p">{</span><span class="mi">20</span><span class="p">}</span>
+   <span class="mi">5</span> <span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>          <span class="mi">2</span> <span class="o">|</span>        <span class="mi">1</span> <span class="o">|</span>         <span class="mi">1</span> <span class="o">|</span>      <span class="o">-</span><span class="mi">1</span> <span class="o">|</span>     <span class="mi">275</span> <span class="o">|</span>           <span class="mi">0</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span> <span class="p">{</span><span class="mi">100</span><span class="p">}</span>
+   <span class="mi">6</span> <span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>          <span class="mi">2</span> <span class="o">|</span>        <span class="mi">2</span> <span class="o">|</span>         <span class="mi">5</span> <span class="o">|</span>       <span class="mi">2</span> <span class="o">|</span>     <span class="mi">275</span> <span class="o">|</span>           <span class="mi">0</span> <span class="o">|</span>           <span class="mi">10</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span> <span class="p">{</span><span class="mi">100</span><span class="p">}</span>
+   <span class="mi">7</span> <span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>          <span class="mi">2</span> <span class="o">|</span>        <span class="mi">3</span> <span class="o">|</span>         <span class="mi">2</span> <span class="o">|</span>       <span class="mi">2</span> <span class="o">|</span>     <span class="mi">335</span> <span class="o">|</span>          <span class="mi">50</span> <span class="o">|</span>          <span class="mi">250</span> <span class="o">|</span>          <span class="mi">915</span> <span class="o">|</span> <span class="p">{</span><span class="mi">100</span><span class="p">}</span>
+   <span class="mi">8</span> <span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>          <span class="mi">2</span> <span class="o">|</span>        <span class="mi">4</span> <span class="o">|</span>         <span class="mi">2</span> <span class="o">|</span>       <span class="mi">5</span> <span class="o">|</span>    <span class="mi">1590</span> <span class="o">|</span>         <span class="mi">140</span> <span class="o">|</span>          <span class="mi">250</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span> <span class="p">{</span><span class="mi">100</span><span class="p">}</span>
+   <span class="mi">9</span> <span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>          <span class="mi">2</span> <span class="o">|</span>        <span class="mi">5</span> <span class="o">|</span>         <span class="mi">2</span> <span class="o">|</span>       <span class="mi">3</span> <span class="o">|</span>    <span class="mi">1890</span> <span class="o">|</span>         <span class="mi">190</span> <span class="o">|</span>          <span class="mi">250</span> <span class="o">|</span>          <span class="mi">835</span> <span class="o">|</span> <span class="p">{</span><span class="mi">100</span><span class="p">}</span>
+  <span class="mi">10</span> <span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>          <span class="mi">2</span> <span class="o">|</span>        <span class="mi">6</span> <span class="o">|</span>         <span class="mi">2</span> <span class="o">|</span>       <span class="mi">4</span> <span class="o">|</span>    <span class="mi">2975</span> <span class="o">|</span>         <span class="mi">190</span> <span class="o">|</span>          <span class="mi">250</span> <span class="o">|</span>          <span class="mi">550</span> <span class="o">|</span> <span class="p">{</span><span class="mi">100</span><span class="p">}</span>
+  <span class="mi">11</span> <span class="o">|</span>           <span class="mi">2</span> <span class="o">|</span>          <span class="mi">2</span> <span class="o">|</span>        <span class="mi">7</span> <span class="o">|</span>         <span class="mi">6</span> <span class="o">|</span>      <span class="o">-</span><span class="mi">1</span> <span class="o">|</span>    <span class="mi">3775</span> <span class="o">|</span>         <span class="mi">190</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span>            <span class="mi">0</span> <span class="o">|</span> <span class="p">{</span><span class="mi">100</span><span class="p">}</span>
+<span class="p">(</span><span class="mi">11</span> <span class="n">rows</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</section>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Enlazar permanentemente con este título">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Jobs SQL</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p><a class="reference internal" href="#jobs-sql">Jobs SQL</a> query describing the single-location
+pickup and/or delivery tasks.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Jobs Time Windows SQL</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p><a class="reference internal" href="#time-windows-sql">Time Windows SQL</a> query describing valid slots
+for job service start.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Vehicles SQL</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p><a class="reference internal" href="#vehicles-sql">Vehicles SQL</a> query describing the available vehicles.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Breaks SQL</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p><a class="reference internal" href="#breaks-sql">Breaks SQL</a> query describing the driver breaks.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Breaks Time Windows SQL</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p><a class="reference internal" href="#time-windows-sql">Time Windows SQL</a> query describing valid slots for
+break start.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Matrix SQL</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p><a class="reference internal" href="#time-matrix-sql">Time Matrix SQL</a> query containing the distance or
+travel times between the locations.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="inner-queries">
+<h2>Inner Queries<a class="headerlink" href="#inner-queries" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="jobs-sql">
+<h3>Jobs SQL<a class="headerlink" href="#jobs-sql" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">location_index</span>
+<span class="p">[,</span> <span class="n">service</span><span class="p">,</span> <span class="n">delivery</span><span class="p">,</span> <span class="n">pickup</span><span class="p">,</span> <span class="n">skills</span><span class="p">,</span> <span class="n">priority</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 24%" />
+<col style="width: 11%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-INTEGER</span></code></p></td>
+<td></td>
+<td><p>Non-negative unique identifier of the job.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>location_index</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-INTEGER</span></code></p></td>
+<td></td>
+<td><p>Non-negative identifier of the job location.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>service</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>0</p></td>
+<td><p>Job service duration, in seconds</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>delivery</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ARRAY[ANY-INTEGER]</span></code></p></td>
+<td></td>
+<td><p>Array of non-negative integers describing
+multidimensional quantities for delivery such
+as number of items, weight, volume etc.</p>
+<ul class="simple">
+<li><p>All jobs must have the same value of
+<code class="code docutils literal notranslate"><span class="pre">array_length(delivery,</span> <span class="pre">1)</span></code></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>pickup</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ARRAY[ANY-INTEGER]</span></code></p></td>
+<td></td>
+<td><p>Array of non-negative integers describing
+multidimensional quantities for pickup such as
+number of items, weight, volume etc.</p>
+<ul class="simple">
+<li><p>All jobs must have the same value of
+<code class="code docutils literal notranslate"><span class="pre">array_length(pickup,</span> <span class="pre">1)</span></code></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>skills</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ARRAY[INTEGER]</span></code></p></td>
+<td></td>
+<td><p>Array of non-negative integers defining
+mandatory skills.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>priority</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>0</p></td>
+<td><p>Priority level of the job</p>
+<ul class="simple">
+<li><p>Ranges from <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">100]</span></code></p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Where:</p>
+<dl class="field-list simple">
+<dt class="field-odd">ANY-INTEGER</dt>
+<dd class="field-odd"><p>SMALLINT, INTEGER, BIGINT</p>
+</dd>
+</dl>
+</section>
+<section id="vehicles-sql">
+<h3>Vehicles SQL<a class="headerlink" href="#vehicles-sql" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span>
+<span class="p">[,</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">skills</span><span class="p">,</span> <span class="n">tw_open</span><span class="p">,</span> <span class="n">tw_close</span><span class="p">,</span> <span class="n">speed_factor</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 30%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-INTEGER</span></code></p></td>
+<td><p>Non-negative unique identifier of the job.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>start_index</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-INTEGER</span></code></p></td>
+<td><p>Non-negative identifier of the vehicle start location.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>end_index</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-INTEGER</span></code></p></td>
+<td><p>Non-negative identifier of the vehicle end location.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>capacity</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ARRAY[ANY-INTEGER]</span></code></p></td>
+<td><p>Array of non-negative integers describing
+multidimensional quantities such as
+number of items, weight, volume etc.</p>
+<ul class="simple">
+<li><p>All vehicles must have the same value of
+<code class="code docutils literal notranslate"><span class="pre">array_length(capacity,</span> <span class="pre">1)</span></code></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>skills</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ARRAY[INTEGER]</span></code></p></td>
+<td><p>Array of non-negative integers defining
+mandatory skills.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>tw_open</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Time window opening time.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>tw_close</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Time window closing time.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>speed_factor</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-NUMERICAL</span></code></p></td>
+<td><p>Vehicle travel time multiplier.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>:</p>
+<ul class="simple">
+<li><p>At least one of the <code class="docutils literal notranslate"><span class="pre">start_index</span></code> or <code class="docutils literal notranslate"><span class="pre">end_index</span></code> shall be present.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">end_index</span></code> is omitted, the resulting route will stop at the last visited task, whose choice is determined by the optimization process.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">start_index</span></code> is omitted, the resulting route will start at the first visited task, whose choice is determined by the optimization process.</p></li>
+<li><p>To request a round trip, specify both <code class="docutils literal notranslate"><span class="pre">start_index</span></code> and <code class="docutils literal notranslate"><span class="pre">end_index</span></code> as the same index.</p></li>
+<li><p>A vehicle is only allowed to serve a set of tasks if the resulting load at each route step is lower than the matching value in capacity for each metric. When using multiple components for amounts, it is recommended to put the most important/limiting metrics first.</p></li>
+<li><p>It is assumed that all delivery-related amounts for jobs are loaded at vehicle start, while all pickup-related amounts for jobs are brought back at vehicle end.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">tw_open</span> <span class="pre">≤</span> <span class="pre">tw_close</span></code></p></li>
+</ul>
+</section>
+<section id="breaks-sql">
+<h3>Breaks SQL<a class="headerlink" href="#breaks-sql" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">vehicle_id</span> <span class="p">[,</span> <span class="n">service</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 24%" />
+<col style="width: 11%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-INTEGER</span></code></p></td>
+<td></td>
+<td><p>Non-negative unique identifier of the break.
+(unique for the same vehicle).</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>vehicle_id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-INTEGER</span></code></p></td>
+<td></td>
+<td><p>Non-negative unique identifier of the vehicle.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>service</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>0</p></td>
+<td><p>The break duration, in seconds</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="time-windows-sql">
+<h3>Time Windows SQL<a class="headerlink" href="#time-windows-sql" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span> <span class="p">[,</span> <span class="n">kind</span><span class="p">],</span> <span class="n">tw_open</span><span class="p">,</span> <span class="n">tw_close</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 34%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-INTEGER</span></code></p></td>
+<td><p>Non-negative unique identifier of the job,
+pickup/delivery shipment, or break.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>kind</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CHAR</span></code></p></td>
+<td><p><strong>Only required for shipments</strong>. Value in [“p”, “d”]
+indicating whether the time window is for:</p>
+<ul class="simple">
+<li><p>Pickup shipment, or</p></li>
+<li><p>Delivery shipment.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>tw_open</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Time window opening time.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>tw_close</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Time window closing time.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>:</p>
+<ul class="simple">
+<li><p>All timing are in seconds.</p></li>
+<li><p>Every row must satisfy the condition: <code class="code docutils literal notranslate"><span class="pre">tw_open</span> <span class="pre">≤</span> <span class="pre">tw_close</span></code>.</p></li>
+<li><p>It is up to users to decide how to describe time windows:</p>
+<ul>
+<li><p><strong>Relative values</strong>, e.g. [0, 14400] for a 4 hours time window starting at the beginning of the planning horizon. In that case all times reported in output with the arrival column are relative to the start of the planning horizon.</p></li>
+<li><p><strong>Absolute values</strong>, «real» timestamps. In that case all times reported in output with the arrival column can be interpreted as timestamps.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="time-matrix-sql">
+<h3>Time Matrix SQL<a class="headerlink" href="#time-matrix-sql" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">start_vid</span><span class="p">,</span> <span class="n">end_vid</span><span class="p">,</span> <span class="n">agg_cost</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 21%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>start_vid</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-INTEGER</span></code></p></td>
+<td><p>Identifier of the start node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>end_vid</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANY-INTEGER</span></code></p></td>
+<td><p>Identifier of the end node.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>agg_cost</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Time to travel from <code class="docutils literal notranslate"><span class="pre">start_vid</span></code> to <code class="docutils literal notranslate"><span class="pre">end_vid</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="result-columns">
+<h2>Result Columns<a class="headerlink" href="#result-columns" title="Enlazar permanentemente con este título">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 14%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>seq</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p></td>
+<td><p>Sequential value starting from <strong>1</strong>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>vehicle_seq</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p></td>
+<td><p>Sequential value starting from <strong>1</strong> for current vehicles.
+The <span class="math notranslate nohighlight">\(n^{th}\)</span> vehicle in the solution.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>vehicle_id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p></td>
+<td><p>Current vehicle identifier.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>step_seq</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p></td>
+<td><p>Sequential value starting from <strong>1</strong> for the stops
+made by the current vehicle. The <span class="math notranslate nohighlight">\(m^{th}\)</span> stop
+of the current vehicle.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>step_type</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Kind of the step location the vehicle is at:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: Starting location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code>: Job location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code>: Pickup location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4</span></code>: Delivery location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">5</span></code>: Break location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">6</span></code>: Ending location</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>task_id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p></td>
+<td><p>Identifier of the task performed at this step.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-1</span></code>: If the step is starting/ending location.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>arrival</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Estimated time of arrival at this step, in seconds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>travel_time</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Cumulated travel time upon arrival at this step, in seconds</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>service_time</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Service time at this step, in seconds</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>waiting_time</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Waiting time upon arrival at this step, in seconds.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>load</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p></td>
+<td><p>Vehicle load after step completion (with capacity constraints)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="additional-example">
+<h2>Additional Example<a class="headerlink" href="#additional-example" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Problem involving 2 jobs, using a single vehicle, corresponding to the VROOM Documentation
+<a class="reference external" href="https://github.com/VROOM-Project/vroom/blob/master/docs/example_2.json">Example 2</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SELECT *
+FROM vrp_vroomJobs(
+  $jobs$
+    SELECT * FROM (
+      VALUES (1414, 2), (1515, 3)
+    ) AS C(id, location_index)
+  $jobs$,
+  NULL,
+  $vehicles$
+    SELECT * FROM (
+      VALUES (1, 1, 4)
+    ) AS C(id, start_index, end_index)
+  $vehicles$,
+  NULL,
+  NULL,
+  $matrix$
+    SELECT * FROM (
+      VALUES (1, 2, 2104), (1, 3, 197), (1, 4, 1299),
+             (2, 1, 2103), (2, 3, 2255), (2, 4, 3152),
+             (3, 1, 197), (3, 2, 2256), (3, 4, 1102),
+             (4, 1, 1299), (4, 2, 3153), (4, 3, 1102)
+    ) AS C(start_vid, end_vid, agg_cost)
+  $matrix$
+);
+ seq | vehicle_seq | vehicle_id | step_seq | step_type | task_id | arrival | travel_time | service_time | waiting_time | load
+-----+-------------+------------+----------+-----------+---------+---------+-------------+--------------+--------------+------
+   1 |           1 |          1 |        1 |         1 |      -1 |       0 |           0 |            0 |            0 | {}
+   2 |           1 |          1 |        2 |         2 |    1414 |    2104 |        2104 |            0 |            0 | {}
+   3 |           1 |          1 |        3 |         2 |    1515 |    4359 |        4359 |            0 |            0 | {}
+   4 |           1 |          1 |        4 |         6 |      -1 |    5461 |        5461 |            0 |            0 | {}
+(4 rows)
+
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="vroom-category.html"><span class="doc">VROOM - Category (Experimental)</span></a></p></li>
+<li><p>The queries use the <a class="reference internal" href="sampledata.html"><span class="doc">Sample Data</span></a> network.</p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Vehicle_routing_problem">Wikipedia: Vehicle Routing problems</a></p></li>
+<li><p><a class="reference external" href="https://github.com/VROOM-Project/vroom">VROOM: Vehicle Routing Open-source Optimization Machine</a></p></li>
+<li><p><a class="reference external" href="https://github.com/VROOM-Project/vroom/blob/master/docs/API.md">VROOM API Documentation</a></p></li>
+</ul>
+<p class="rubric">Indices and tables</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Índice</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Página de Búsqueda</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright vrpRouting Contributors - Version v0.2.0-dev.<br/>
+      Actualizado por última vez en ago. 11, 2021.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
