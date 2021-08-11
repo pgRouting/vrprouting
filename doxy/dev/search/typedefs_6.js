@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['time_5fmultipliers_5ft_1195',['Time_multipliers_t',['../time__multipliers__input_8h.html#adabaaff9836ff53f56f312bd20bcda71',1,'Time_multipliers_t():&#160;time_multipliers_input.h'],['../typedefs_8h.html#adabaaff9836ff53f56f312bd20bcda71',1,'Time_multipliers_t():&#160;typedefs.h'],['../compatibleVehicles__driver_8h.html#adabaaff9836ff53f56f312bd20bcda71',1,'Time_multipliers_t():&#160;compatibleVehicles_driver.h']]],
-  ['tinterval_1196',['TInterval',['../typedefs_8h.html#abd3d1cd518e380da9e897daee9332321',1,'typedefs.h']]],
-  ['ttimestamp_1197',['TTimestamp',['../typedefs_8h.html#a582af0358a8c1ba8b1829266ca5ac4cf',1,'typedefs.h']]]
+  ['short_5fvehicle_5frt_1416',['Short_vehicle_rt',['../typedefs_8h.html#a123443a5642ed80d094d1f5803ddd9b0',1,'typedefs.h']]],
+  ['skill_1417',['Skill',['../typedefs_8h.html#a1a61662970dcaa24526adf9f60f0dd80',1,'typedefs.h']]],
+  ['solution_5frt_1418',['Solution_rt',['../solution_8cpp.html#ac54bf52f3c85f2a0d55d8fac3614ed01',1,'Solution_rt():&#160;solution.cpp'],['../typedefs_8h.html#ac54bf52f3c85f2a0d55d8fac3614ed01',1,'Solution_rt():&#160;typedefs.h'],['../pgr__pickDeliver_2pickDeliver__driver_8h.html#ac54bf52f3c85f2a0d55d8fac3614ed01',1,'Solution_rt():&#160;pickDeliver_driver.h'],['../pickDeliverEuclidean__driver_8h.html#ac54bf52f3c85f2a0d55d8fac3614ed01',1,'Solution_rt():&#160;pickDeliverEuclidean_driver.h'],['../solution_8h.html#ac54bf52f3c85f2a0d55d8fac3614ed01',1,'Solution_rt():&#160;solution.h'],['../vehicle__node_8h.html#ac54bf52f3c85f2a0d55d8fac3614ed01',1,'Solution_rt():&#160;vehicle_node.h']]],
+  ['speed_1419',['Speed',['../typedefs_8h.html#a58d4fb32d93851c4bbac4f3b06de4848',1,'typedefs.h']]],
+  ['steptype_1420',['StepType',['../typedefs_8h.html#ab85fff833d3e81d23cb97b4576582cec',1,'typedefs.h']]]
 ];

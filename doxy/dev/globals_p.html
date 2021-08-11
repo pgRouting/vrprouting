@@ -93,6 +93,8 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="compatibleVehicles_8c.html#a0d52a6566fba94f686f4ce1c7d7694af">compatibleVehicles.c</a>
 , <a class="el" href="pgr__pickDeliver_2pickDeliver_8c.html#a542c2c4e550cf10524f6a11eb69664ae">pgr_pickDeliver/pickDeliver.c</a>
 , <a class="el" href="__version_8c.html#a88a127a681cef3e30b96d02bda017060">_version.c</a>
+, <a class="el" href="vroom_8c.html#a2e158902bc76ab95b3c47a366569cafa">vroom.c</a>
+, <a class="el" href="__version_8c.html#a0dca5b910ebf5ffc631aa251c5bf76a6">_version.c</a>
 , <a class="el" href="pickDeliverEuclidean_8c.html#a8b4a8005f8160a8a3a407d58065580e5">pickDeliverEuclidean.c</a>
 , <a class="el" href="__version_8c.html#a5eebfaa2554fbb4e1fb677e8d6c31970">_version.c</a>
 , <a class="el" href="optimize_8c.html#a9d020588431e683a861c1fb964944113">optimize.c</a>
@@ -141,13 +143,20 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <li>pgr_get_pd_orders_general()
 : <a class="el" href="orders__input_8c.html#aa8feea95a0f16cf279f642578e0d37cf">orders_input.c</a>
 </li>
+<li>pgr_get_positiveIntArr()
+: <a class="el" href="arrays__input_8c.html#a23457e65745fd1de0ed3c5f6d711c013">arrays_input.c</a>
+</li>
+<li>pgr_get_positiveIntArray_allowEmpty()
+: <a class="el" href="arrays__input_8c.html#af8db270b62555da508778dff72f12b32">arrays_input.c</a>
+, <a class="el" href="arrays__input_8h.html#af8db270b62555da508778dff72f12b32">arrays_input.h</a>
+</li>
 <li>pgr_global_report()
 : <a class="el" href="e__report_8c.html#aa7833fe4baf65aa901e1129575e7deb2">e_report.c</a>
 , <a class="el" href="e__report_8h.html#a6830cd4066d2cd17031c93da1b722ae0">e_report.h</a>
 </li>
 <li>pgr_msg()
-: <a class="el" href="pgr__alloc_8hpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_alloc.hpp</a>
-, <a class="el" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_alloc.cpp</a>
+: <a class="el" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_alloc.cpp</a>
+, <a class="el" href="pgr__alloc_8hpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_alloc.hpp</a>
 </li>
 <li>pgr_send_error()
 : <a class="el" href="postgres__connection_8c.html#a1b1c5e5998c9e01f49c037afe6f47bff">postgres_connection.c</a>
@@ -158,15 +167,12 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 , <a class="el" href="postgres__connection_8h.html#aef5deb780b1cf78c56b1794ab826ac64">postgres_connection.h</a>
 </li>
 <li>pgr_SPI_cursor_open()
-: <a class="el" href="postgres__connection_8c.html#a85cec439f5e567ec736a2a77a0533d9d">postgres_connection.c</a>
-, <a class="el" href="postgres__connection_8h.html#a85cec439f5e567ec736a2a77a0533d9d">postgres_connection.h</a>
+: <a class="el" href="postgres__connection_8h.html#a85cec439f5e567ec736a2a77a0533d9d">postgres_connection.h</a>
+, <a class="el" href="postgres__connection_8c.html#a85cec439f5e567ec736a2a77a0533d9d">postgres_connection.c</a>
 </li>
 <li>pgr_SPI_finish()
-: <a class="el" href="postgres__connection_8c.html#ae36e7862564b5e72c25c9e26ae8e355f">postgres_connection.c</a>
-, <a class="el" href="postgres__connection_8h.html#ae36e7862564b5e72c25c9e26ae8e355f">postgres_connection.h</a>
-</li>
-<li>pgr_SPI_getText()
-: <a class="el" href="get__check__data_8c.html#a186311e0ed2aa6513ae5257d17395132">get_check_data.c</a>
+: <a class="el" href="postgres__connection_8h.html#ae36e7862564b5e72c25c9e26ae8e355f">postgres_connection.h</a>
+, <a class="el" href="postgres__connection_8c.html#ae36e7862564b5e72c25c9e26ae8e355f">postgres_connection.c</a>
 </li>
 <li>pgr_SPI_prepare()
 : <a class="el" href="postgres__connection_8c.html#aeb63bcfc2ca89c02b30317112bae5f12">postgres_connection.c</a>
@@ -174,17 +180,21 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 </li>
 <li>PickDeliveryOrders_t
 : <a class="el" href="pgr__pickDeliver_2pickDeliver__driver_8h.html#afe5104a6cdb3d9331124f2a61ad998e2">pgr_pickDeliver/pickDeliver_driver.h</a>
-, <a class="el" href="pickDeliverEuclidean__driver_8h.html#afe5104a6cdb3d9331124f2a61ad998e2">pickDeliverEuclidean_driver.h</a>
-, <a class="el" href="orders__input_8h.html#afe5104a6cdb3d9331124f2a61ad998e2">orders_input.h</a>
 , <a class="el" href="compatibleVehicles__driver_8h.html#afe5104a6cdb3d9331124f2a61ad998e2">compatibleVehicles_driver.h</a>
+, <a class="el" href="pickDeliverEuclidean__driver_8h.html#afe5104a6cdb3d9331124f2a61ad998e2">pickDeliverEuclidean_driver.h</a>
 , <a class="el" href="typedefs_8h.html#afe5104a6cdb3d9331124f2a61ad998e2">typedefs.h</a>
+, <a class="el" href="orders__input_8h.html#afe5104a6cdb3d9331124f2a61ad998e2">orders_input.h</a>
+</li>
+<li>Priority
+: <a class="el" href="typedefs_8h.html#a8304b45d79116489e79791462fd04057">typedefs.h</a>
 </li>
 <li>process()
-: <a class="el" href="optimize_8c.html#a5687d46aa4bb481aa30edc8cae4e34dd">optimize.c</a>
+: <a class="el" href="pgr__pickDeliver_2pickDeliver_8c.html#aace18074d0a837d1d5e2be1fbdd4ce2b">pgr_pickDeliver/pickDeliver.c</a>
 , <a class="el" href="pickDeliver_2pickDeliver_8c.html#a28823c73fcac83e6c681bf0581939262">pickDeliver/pickDeliver.c</a>
-, <a class="el" href="compatibleVehicles_8c.html#ae04102890c9049900b4cfc4351795f3d">compatibleVehicles.c</a>
-, <a class="el" href="pgr__pickDeliver_2pickDeliver_8c.html#aace18074d0a837d1d5e2be1fbdd4ce2b">pgr_pickDeliver/pickDeliver.c</a>
 , <a class="el" href="pickDeliverEuclidean_8c.html#a9347576eaeed826208e393d07f4c067a">pickDeliverEuclidean.c</a>
+, <a class="el" href="optimize_8c.html#a5687d46aa4bb481aa30edc8cae4e34dd">optimize.c</a>
+, <a class="el" href="vroom_8c.html#a2f1a1e76af55adf19da08af1a8ed2785">vroom.c</a>
+, <a class="el" href="compatibleVehicles_8c.html#ae04102890c9049900b4cfc4351795f3d">compatibleVehicles.c</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -192,7 +202,7 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Jul 1 2021 17:45:46 for vrpRouting by
+    <li class="footer">Generated on Wed Aug 11 2021 16:40:52 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

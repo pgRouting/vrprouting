@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['vehicle_5ft_1198',['Vehicle_t',['../vehicles__input_8h.html#af8de26df58d0692ba86d75a2dd402362',1,'Vehicle_t():&#160;vehicles_input.h'],['../typedefs_8h.html#af8de26df58d0692ba86d75a2dd402362',1,'Vehicle_t():&#160;typedefs.h'],['../compatibleVehicles__driver_8h.html#af8de26df58d0692ba86d75a2dd402362',1,'Vehicle_t():&#160;compatibleVehicles_driver.h'],['../fleet_8h.html#af8de26df58d0692ba86d75a2dd402362',1,'Vehicle_t():&#160;fleet.h']]]
+  ['time_5fmultipliers_5ft_1421',['Time_multipliers_t',['../time__multipliers__input_8h.html#adabaaff9836ff53f56f312bd20bcda71',1,'Time_multipliers_t():&#160;time_multipliers_input.h'],['../typedefs_8h.html#adabaaff9836ff53f56f312bd20bcda71',1,'Time_multipliers_t():&#160;typedefs.h'],['../compatibleVehicles__driver_8h.html#adabaaff9836ff53f56f312bd20bcda71',1,'Time_multipliers_t():&#160;compatibleVehicles_driver.h']]],
+  ['tinterval_1422',['TInterval',['../typedefs_8h.html#abd3d1cd518e380da9e897daee9332321',1,'typedefs.h']]],
+  ['ttimestamp_1423',['TTimestamp',['../typedefs_8h.html#a582af0358a8c1ba8b1829266ca5ac4cf',1,'typedefs.h']]]
 ];

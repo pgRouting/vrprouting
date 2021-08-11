@@ -165,7 +165,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="vehicle__t_8h_source.html#l00051">Vehicle_t::id</a>, and <a class="el" href="vehicle__t_8h_source.html#l00056">Vehicle_t::stops_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00212">subdivide_processing()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00213">subdivide_processing()</a>.</p>
 
 </div>
 </div>
@@ -289,7 +289,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="pgr__messages_8cpp_source.html#l00053">vrprouting::Pgr_messages::get_error()</a>, <a class="el" href="pgr__messages_8cpp_source.html#l00036">vrprouting::Pgr_messages::get_log()</a>, and <a class="el" href="pickDeliver_8h_source.html#l00099">vrprouting::problem::PickDeliver::msg</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00349">do_optimize()</a>, and <a class="el" href="optimize__driver_8cpp_source.html#l00212">subdivide_processing()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00350">do_optimize()</a>, and <a class="el" href="optimize__driver_8cpp_source.html#l00213">subdivide_processing()</a>.</p>
 
 </div>
 </div>
@@ -343,7 +343,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="pickDeliveryOrders__t_8h_source.html#l00075">PickDeliveryOrders_t::deliver_close_t</a>, <a class="el" href="pickDeliveryOrders__t_8h_source.html#l00074">PickDeliveryOrders_t::deliver_open_t</a>, <a class="el" href="pickDeliveryOrders__t_8h_source.html#l00067">PickDeliveryOrders_t::pick_close_t</a>, and <a class="el" href="pickDeliveryOrders__t_8h_source.html#l00066">PickDeliveryOrders_t::pick_open_t</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00212">subdivide_processing()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00213">subdivide_processing()</a>.</p>
 
 </div>
 </div>
@@ -397,7 +397,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="vehicle__t_8h_source.html#l00067">Vehicle_t::end_close_t</a>, <a class="el" href="vehicle__t_8h_source.html#l00066">Vehicle_t::end_open_t</a>, <a class="el" href="vehicle__t_8h_source.html#l00060">Vehicle_t::start_close_t</a>, and <a class="el" href="vehicle__t_8h_source.html#l00059">Vehicle_t::start_open_t</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00212">subdivide_processing()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00213">subdivide_processing()</a>.</p>
 
 </div>
 </div>
@@ -485,76 +485,76 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>(vehicle id, stops vector) pair which hold the the new stops structure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="optimize__driver_8cpp_source.html#l00212">212</a> of file <a class="el" href="optimize__driver_8cpp_source.html">optimize_driver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                         {</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">auto</span> the_stops = <a class="code" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#a7dd6bb5b0a5b1775ba07126498a43061">get_initial_stops</a>(vehicles_arr, total_vehicles);</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keyword">auto</span> processing_times = subdivide_by_vehicle?</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;      <a class="code" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#af2262fa968b32ac949bc6e088254ccb6">processing_times_by_vehicle</a>(vehicles_arr, total_vehicles)</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;      : <a class="code" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#ad1d1a119fe1978e293c4c868031766d0">processing_times_by_shipment</a>(shipments_arr, total_shipments);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <a class="code" href="classIdentifiers.html">Identifiers&lt;Id&gt;</a> prev_shipments_in_stops;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;t : processing_times) {</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;      CHECK_FOR_INTERRUPTS();</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;      <span class="comment">/*</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment">       * Get active vehicles at time t</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="comment">       */</span></div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;      <span class="keyword">auto</span> vehicles_to_process = <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(std::distance(vehicles_arr,</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        std::partition(</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            vehicles_arr, vehicles_arr + total_vehicles,</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            [&amp;](<span class="keyword">const</span> <a class="code" href="structVehicle__t.html">Vehicle_t</a>&amp; v)</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            {<span class="keywordflow">return</span> v.<a class="code" href="structVehicle__t.html#aaae6c02da558966811121f90706167cf">start_open_t</a> &lt;= t &amp;&amp; t &lt;= v.<a class="code" href="structVehicle__t.html#ae231b8b4e807aa9998954db948389c4f">end_close_t</a>;})));</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;      <span class="comment">/* Get shipments in stops of active vehicles */</span></div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;      <a class="code" href="classIdentifiers.html">Identifiers&lt;Id&gt;</a> shipments_in_stops;</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; vehicles_to_process; ++i) {</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        <span class="keyword">auto</span> v_id = vehicles_arr[i].<a class="code" href="structVehicle__t.html#a87d9fbe504a3c8306b400b072355be05">id</a>;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keyword">auto</span> v_to_modify = std::find_if(</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            the_stops.begin(), the_stops.end(), [&amp;]</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            (<span class="keyword">const</span> <a class="code" href="structShort__vehicle.html">Short_vehicle</a>&amp; v) -&gt; <span class="keywordtype">bool</span> {return v.id == v_id;});</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;s : v_to_modify-&gt;stops) {</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;          shipments_in_stops += s;</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        }</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;      }</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;      <span class="comment">/*</span></div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="comment">       * Nothing to do:</span></div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="comment">       * - no shipments to process</span></div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="comment">       * - last optimization had exavtly the same shipments</span></div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="comment">       */</span></div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;      <span class="keywordflow">if</span> ((shipments_in_stops.<a class="code" href="classIdentifiers.html#afa735cce6596944fc64f95f4995ccc8e">size</a>() == 0)</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;          || (prev_shipments_in_stops == shipments_in_stops)) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;      log &lt;&lt; <span class="stringliteral">&quot;\nOptimizing at time: &quot;</span> &lt;&lt; t;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;      prev_shipments_in_stops = shipments_in_stops;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;      <span class="keyword">auto</span> shipments_to_process = <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(std::distance(shipments_arr,</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        std::partition(shipments_arr, shipments_arr + total_shipments,</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            [&amp;](<span class="keyword">const</span> <a class="code" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a>&amp; s){<span class="keywordflow">return</span> shipments_in_stops.<a class="code" href="classIdentifiers.html#abc73ed57af79c12963989657f99d4662">has</a>(s.<a class="code" href="structPickDeliveryOrders__t.html#aee73a50adf7fb7c66f6173865e23f833">id</a>);})));</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;      <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(shipments_to_process &gt; 0);</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;      <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(shipments_in_stops.<a class="code" href="classIdentifiers.html#afa735cce6596944fc64f95f4995ccc8e">size</a>() == <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(shipments_to_process));</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;      <span class="keyword">auto</span> new_stops = <a class="code" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#ad046c8a6f1a828b12a5a47fe19a0d487">one_processing</a>(</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;          shipments_arr, shipments_to_process,</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;          vehicles_arr, vehicles_to_process, the_stops,</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;          time_matrix,</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;          max_cycles, execution_date);</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;      <a class="code" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#a32fffbab8ddecbee96a9c2c228a7ce33">update_stops</a>(the_stops, new_stops);</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    }</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keywordflow">return</span> the_stops;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;  } <span class="keywordflow">catch</span>(...) {</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keywordflow">throw</span>;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  }</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="optimize__driver_8cpp_source.html#l00213">213</a> of file <a class="el" href="optimize__driver_8cpp_source.html">optimize_driver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                         {</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">auto</span> the_stops = <a class="code" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#a7dd6bb5b0a5b1775ba07126498a43061">get_initial_stops</a>(vehicles_arr, total_vehicles);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keyword">auto</span> processing_times = subdivide_by_vehicle?</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;      <a class="code" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#af2262fa968b32ac949bc6e088254ccb6">processing_times_by_vehicle</a>(vehicles_arr, total_vehicles)</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;      : <a class="code" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#ad1d1a119fe1978e293c4c868031766d0">processing_times_by_shipment</a>(shipments_arr, total_shipments);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <a class="code" href="classIdentifiers.html">Identifiers&lt;Id&gt;</a> prev_shipments_in_stops;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;t : processing_times) {</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;      CHECK_FOR_INTERRUPTS();</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;      <span class="comment">/*</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="comment">       * Get active vehicles at time t</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="comment">       */</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;      <span class="keyword">auto</span> vehicles_to_process = <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(std::distance(vehicles_arr,</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        std::partition(</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            vehicles_arr, vehicles_arr + total_vehicles,</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            [&amp;](<span class="keyword">const</span> <a class="code" href="structVehicle__t.html">Vehicle_t</a>&amp; v)</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            {<span class="keywordflow">return</span> v.<a class="code" href="structVehicle__t.html#aaae6c02da558966811121f90706167cf">start_open_t</a> &lt;= t &amp;&amp; t &lt;= v.<a class="code" href="structVehicle__t.html#ae231b8b4e807aa9998954db948389c4f">end_close_t</a>;})));</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;      <span class="comment">/* Get shipments in stops of active vehicles */</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;      <a class="code" href="classIdentifiers.html">Identifiers&lt;Id&gt;</a> shipments_in_stops;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; vehicles_to_process; ++i) {</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keyword">auto</span> v_id = vehicles_arr[i].<a class="code" href="structVehicle__t.html#a87d9fbe504a3c8306b400b072355be05">id</a>;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="keyword">auto</span> v_to_modify = std::find_if(</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            the_stops.begin(), the_stops.end(), [&amp;]</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            (<span class="keyword">const</span> <a class="code" href="structShort__vehicle.html">Short_vehicle</a>&amp; v) -&gt; <span class="keywordtype">bool</span> {return v.id == v_id;});</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;s : v_to_modify-&gt;stops) {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;          shipments_in_stops += s;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        }</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;      }</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;      <span class="comment">/*</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="comment">       * Nothing to do:</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="comment">       * - no shipments to process</span></div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="comment">       * - last optimization had exavtly the same shipments</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="comment">       */</span></div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;      <span class="keywordflow">if</span> ((shipments_in_stops.<a class="code" href="classIdentifiers.html#afa735cce6596944fc64f95f4995ccc8e">size</a>() == 0)</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;          || (prev_shipments_in_stops == shipments_in_stops)) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;      log &lt;&lt; <span class="stringliteral">&quot;\nOptimizing at time: &quot;</span> &lt;&lt; t;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;      prev_shipments_in_stops = shipments_in_stops;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;      <span class="keyword">auto</span> shipments_to_process = <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(std::distance(shipments_arr,</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        std::partition(shipments_arr, shipments_arr + total_shipments,</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            [&amp;](<span class="keyword">const</span> <a class="code" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a>&amp; s){<span class="keywordflow">return</span> shipments_in_stops.<a class="code" href="classIdentifiers.html#abc73ed57af79c12963989657f99d4662">has</a>(s.<a class="code" href="structPickDeliveryOrders__t.html#aee73a50adf7fb7c66f6173865e23f833">id</a>);})));</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;      <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(shipments_to_process &gt; 0);</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;      <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(shipments_in_stops.<a class="code" href="classIdentifiers.html#afa735cce6596944fc64f95f4995ccc8e">size</a>() == <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(shipments_to_process));</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;      <span class="keyword">auto</span> new_stops = <a class="code" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#ad046c8a6f1a828b12a5a47fe19a0d487">one_processing</a>(</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;          shipments_arr, shipments_to_process,</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;          vehicles_arr, vehicles_to_process, the_stops,</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;          time_matrix,</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;          max_cycles, execution_date);</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;      <a class="code" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#a32fffbab8ddecbee96a9c2c228a7ce33">update_stops</a>(the_stops, new_stops);</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    }</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="keywordflow">return</span> the_stops;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  } <span class="keywordflow">catch</span>(...) {</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="keywordflow">throw</span>;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  }</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="vehicle__t_8h_source.html#l00067">Vehicle_t::end_close_t</a>, <a class="el" href="optimize__driver_8cpp_source.html#l00165">get_initial_stops()</a>, <a class="el" href="identifiers_8hpp_source.html#l00100">Identifiers&lt; T &gt;::has()</a>, <a class="el" href="vehicle__t_8h_source.html#l00051">Vehicle_t::id</a>, <a class="el" href="pickDeliveryOrders__t_8h_source.html#l00059">PickDeliveryOrders_t::id</a>, <a class="el" href="optimize__driver_8cpp_source.html#l00069">one_processing()</a>, <a class="el" href="pgr__assert_8h_source.html#l00095">pgassert</a>, <a class="el" href="optimize__driver_8cpp_source.html#l00123">processing_times_by_shipment()</a>, <a class="el" href="optimize__driver_8cpp_source.html#l00144">processing_times_by_vehicle()</a>, <a class="el" href="identifiers_8hpp_source.html#l00077">Identifiers&lt; T &gt;::size()</a>, <a class="el" href="vehicle__t_8h_source.html#l00059">Vehicle_t::start_open_t</a>, and <a class="el" href="optimize__driver_8cpp_source.html#l00187">update_stops()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00349">do_optimize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00350">do_optimize()</a>.</p>
 
 </div>
 </div>
@@ -594,20 +594,20 @@ Functions</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="optimize__driver_8cpp_source.html#l00187">187</a> of file <a class="el" href="optimize__driver_8cpp_source.html">optimize_driver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                                                                                             {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;v : new_values) {</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keyword">auto</span> v_id = v.id;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keyword">auto</span> v_to_modify = std::find_if(</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        the_stops.begin(), the_stops.end(), [v_id]</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        (<span class="keyword">const</span> <a class="code" href="structShort__vehicle.html">Short_vehicle</a>&amp; v) -&gt; <span class="keywordtype">bool</span> {return v.id == v_id;});</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(v_to_modify != the_stops.end());</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    v_to_modify-&gt;stops = v.stops;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  }</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                                                        {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;v : new_values) {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keyword">auto</span> v_id = v.id;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">auto</span> v_to_modify = std::find_if(</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        the_stops.begin(), the_stops.end(), [v_id]</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        (<span class="keyword">const</span> <a class="code" href="structShort__vehicle.html">Short_vehicle</a>&amp; v) -&gt; <span class="keywordtype">bool</span> {return v.id == v_id;});</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(v_to_modify != the_stops.end());</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    v_to_modify-&gt;stops = v.stops;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  }</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="pgr__assert_8h_source.html#l00095">pgassert</a>, and <a class="el" href="short__vehicle_8h_source.html#l00043">Short_vehicle::stops</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00212">subdivide_processing()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="optimize__driver_8cpp_source.html#l00213">subdivide_processing()</a>.</p>
 
 </div>
 </div>
@@ -644,7 +644,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceanonymous__namespace_02optimize__driver_8cpp_03.html">anonymous_namespace{optimize_driver.cpp}</a></li>
-    <li class="footer">Generated on Thu Jul 1 2021 17:45:45 for vrpRouting by
+    <li class="footer">Generated on Wed Aug 11 2021 16:40:50 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

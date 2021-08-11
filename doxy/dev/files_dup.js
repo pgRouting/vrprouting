@@ -5,6 +5,8 @@ var files_dup =
     [ "arrays_input.h", "arrays__input_8h.html", "arrays__input_8h" ],
     [ "base_matrix.cpp", "base__matrix_8cpp.html", "base__matrix_8cpp" ],
     [ "base_matrix.h", "base__matrix_8h.html", "base__matrix_8h" ],
+    [ "breaks_input.c", "breaks__input_8c.html", "breaks__input_8c" ],
+    [ "breaks_input.h", "breaks__input_8h.html", "breaks__input_8h" ],
     [ "column_info_t.h", "column__info__t_8h.html", "column__info__t_8h" ],
     [ "compatibleVehicles.c", "compatibleVehicles_8c.html", "compatibleVehicles_8c" ],
     [ "compatibleVehicles_driver.cpp", "compatibleVehicles__driver_8cpp.html", "compatibleVehicles__driver_8cpp" ],
@@ -32,6 +34,8 @@ var files_dup =
     [ "initialsol/initials_code.h", "initialsol_2initials__code_8h.html", "initialsol_2initials__code_8h" ],
     [ "vrp/initials_code.h", "vrp_2initials__code_8h.html", "vrp_2initials__code_8h" ],
     [ "interruption.h", "interruption_8h.html", null ],
+    [ "jobs_input.c", "jobs__input_8c.html", "jobs__input_8c" ],
+    [ "jobs_input.h", "jobs__input_8h.html", "jobs__input_8h" ],
     [ "matrix.cpp", "matrix_8cpp.html", "matrix_8cpp" ],
     [ "matrix.h", "matrix_8h.html", [
       [ "Matrix", "classvrprouting_1_1problem_1_1Matrix.html", "classvrprouting_1_1problem_1_1Matrix" ]
@@ -82,6 +86,8 @@ var files_dup =
     ] ],
     [ "postgres_connection.c", "postgres__connection_8c.html", "postgres__connection_8c" ],
     [ "postgres_connection.h", "postgres__connection_8h.html", "postgres__connection_8h" ],
+    [ "shipments_input.c", "shipments__input_8c.html", "shipments__input_8c" ],
+    [ "shipments_input.h", "shipments__input_8h.html", "shipments__input_8h" ],
     [ "short_vehicle.h", "short__vehicle_8h.html", [
       [ "Short_vehicle", "structShort__vehicle.html", "structShort__vehicle" ]
     ] ],
@@ -120,6 +126,8 @@ var files_dup =
     [ "time_multipliers_t.h", "time__multipliers__t_8h.html", [
       [ "Time_multipliers_t", "structTime__multipliers__t.html", "structTime__multipliers__t" ]
     ] ],
+    [ "time_windows_input.c", "time__windows__input_8c.html", "time__windows__input_8c" ],
+    [ "time_windows_input.h", "time__windows__input_8h.html", "time__windows__input_8h" ],
     [ "tw_node.cpp", "tw__node_8cpp.html", "tw__node_8cpp" ],
     [ "tw_node.h", "tw__node_8h.html", [
       [ "Tw_node", "classvrprouting_1_1problem_1_1Tw__node.html", "classvrprouting_1_1problem_1_1Tw__node" ]
@@ -139,5 +147,31 @@ var files_dup =
       [ "Vehicle_t", "structVehicle__t.html", "structVehicle__t" ]
     ] ],
     [ "vehicles_input.c", "vehicles__input_8c.html", "vehicles__input_8c" ],
-    [ "vehicles_input.h", "vehicles__input_8h.html", "vehicles__input_8h" ]
+    [ "vroom/vehicles_input.c", "vroom_2vehicles__input_8c.html", "vroom_2vehicles__input_8c" ],
+    [ "vehicles_input.h", "vehicles__input_8h.html", "vehicles__input_8h" ],
+    [ "vroom/vehicles_input.h", "vroom_2vehicles__input_8h.html", "vroom_2vehicles__input_8h" ],
+    [ "vroom.c", "vroom_8c.html", "vroom_8c" ],
+    [ "vroom_break_t.h", "vroom__break__t_8h.html", [
+      [ "Vroom_break_t", "structVroom__break__t.html", "structVroom__break__t" ]
+    ] ],
+    [ "vroom_driver.cpp", "vroom__driver_8cpp.html", "vroom__driver_8cpp" ],
+    [ "vroom_driver.h", "vroom__driver_8h.html", "vroom__driver_8h" ],
+    [ "vroom_job_t.h", "vroom__job__t_8h.html", [
+      [ "Vroom_job_t", "structVroom__job__t.html", "structVroom__job__t" ]
+    ] ],
+    [ "vroom_rt.h", "vroom__rt_8h.html", [
+      [ "Vroom_rt", "structVroom__rt.html", "structVroom__rt" ]
+    ] ],
+    [ "vroom_shipment_t.h", "vroom__shipment__t_8h.html", [
+      [ "Vroom_shipment_t", "structVroom__shipment__t.html", "structVroom__shipment__t" ]
+    ] ],
+    [ "vroom_time_window_t.h", "vroom__time__window__t_8h.html", [
+      [ "Vroom_time_window_t", "structVroom__time__window__t.html", "structVroom__time__window__t" ]
+    ] ],
+    [ "vroom_vehicle_t.h", "vroom__vehicle__t_8h.html", [
+      [ "Vroom_vehicle_t", "structVroom__vehicle__t.html", "structVroom__vehicle__t" ]
+    ] ],
+    [ "vrp_vroom_problem.hpp", "vrp__vroom__problem_8hpp.html", [
+      [ "Vrp_vroom_problem", "classvrprouting_1_1Vrp__vroom__problem.html", "classvrprouting_1_1Vrp__vroom__problem" ]
+    ] ]
 ];

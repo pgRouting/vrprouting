@@ -26,6 +26,12 @@ var hierarchy =
     ] ],
     [ "Time_multipliers_t", "structTime__multipliers__t.html", null ],
     [ "Vehicle_t", "structVehicle__t.html", null ],
+    [ "Vroom_break_t", "structVroom__break__t.html", null ],
+    [ "Vroom_job_t", "structVroom__job__t.html", null ],
+    [ "Vroom_rt", "structVroom__rt.html", null ],
+    [ "Vroom_shipment_t", "structVroom__shipment__t.html", null ],
+    [ "Vroom_time_window_t", "structVroom__time__window__t.html", null ],
+    [ "Vroom_vehicle_t", "structVroom__vehicle__t.html", null ],
     [ "vrprouting::base::Base_Matrix", "classvrprouting_1_1base_1_1Base__Matrix.html", [
       [ "vrprouting::problem::Matrix", "classvrprouting_1_1problem_1_1Matrix.html", null ]
     ] ],
@@ -38,7 +44,9 @@ var hierarchy =
     ] ],
     [ "vrprouting::optimizers::tabu::Move", "classvrprouting_1_1optimizers_1_1tabu_1_1Move.html", null ],
     [ "vrprouting::optimizers::tabu::TabuList", "classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html", null ],
-    [ "vrprouting::Pgr_messages", "classvrprouting_1_1Pgr__messages.html", null ],
+    [ "vrprouting::Pgr_messages", "classvrprouting_1_1Pgr__messages.html", [
+      [ "vrprouting::Vrp_vroom_problem", "classvrprouting_1_1Vrp__vroom__problem.html", null ]
+    ] ],
     [ "vrprouting::problem::PickDeliver", "classvrprouting_1_1problem_1_1PickDeliver.html", null ],
     [ "vrprouting::problem::Solution", "classvrprouting_1_1problem_1_1Solution.html", [
       [ "vrprouting::initialsol::simple::Initial_solution", "classvrprouting_1_1initialsol_1_1simple_1_1Initial__solution.html", null ],

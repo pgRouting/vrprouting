@@ -4,5 +4,5 @@ var structColumn__info__t =
     [ "eType", "structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477", null ],
     [ "name", "structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9", null ],
     [ "strict", "structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518", null ],
-    [ "type", "structColumn__info__t.html#a619b103fbe9406711ad6c20da10a2193", null ]
+    [ "type", "structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748", null ]
 ];

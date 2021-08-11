@@ -9,6 +9,7 @@ var classvrprouting_1_1problem_1_1Matrix =
     [ "empty", "classvrprouting_1_1problem_1_1Matrix.html#aa114c6918e71f8691fd7822717370c48", null ],
     [ "fix_triangle_inequality", "classvrprouting_1_1problem_1_1Matrix.html#ac29d4dccd2a2895ee3ef1cfd5f6e5b51", null ],
     [ "get_index", "classvrprouting_1_1problem_1_1Matrix.html#aa808590c397ba77a1a1e5db7dd128548", null ],
+    [ "get_vroom_matrix", "classvrprouting_1_1problem_1_1Matrix.html#a3afb1e98000dac865b2baa432538a1ff", null ],
     [ "has_id", "classvrprouting_1_1problem_1_1Matrix.html#a6d8d6ace0bbdcbee6e242bf637fafa0c", null ],
     [ "has_no_infinity", "classvrprouting_1_1problem_1_1Matrix.html#a10946b36f44d0503cb6dca960c808ad2", null ],
     [ "is_symmetric", "classvrprouting_1_1problem_1_1Matrix.html#a9052c7732d455e967b23fa6d7f335183", null ],

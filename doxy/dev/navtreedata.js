@@ -42,7 +42,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ],
+        [ "Variables", "functions_vars.html", "functions_vars" ],
         [ "Typedefs", "functions_type.html", null ],
         [ "Related Functions", "functions_rela.html", null ]
       ] ]
@@ -51,7 +51,7 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
-        [ "Functions", "globals_func.html", null ],
+        [ "Functions", "globals_func.html", "globals_func" ],
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
@@ -65,11 +65,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "__version_8c.html",
-"classvrprouting_1_1optimizers_1_1tabu_1_1Optimize.html#a38b17135006ac74ace596bb19930f17e",
-"classvrprouting_1_1problem_1_1Vehicle.html#a662dae269fe1fcecf4e2046af9800ff8",
-"functions.html",
-"optimizers_2tabu_8h.html",
-"vehicle_8cpp_source.html"
+"classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html#a77ed24eccef1dec1fc8f79390db02267",
+"classvrprouting_1_1problem_1_1Tw__node.html#a623ae357608028a6da977d3a65a3a263",
+"classvrprouting_1_1problem_1_1Vehicle__pickDeliver.html#afc52a6e9c3f0f0e176127781d1b76c5f",
+"initialsol_2initials__code_8h.html#abbe39591f098e6437ba527de016af71da2b0da10fb3daf84dead2e2854ad4ecf0",
+"solution_8cpp.html#ac54bf52f3c85f2a0d55d8fac3614ed01",
+"vroom__break__t_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
