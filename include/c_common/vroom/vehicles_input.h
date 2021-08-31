@@ -46,6 +46,7 @@ void
 get_vroom_vehicles(
     char *vehicles_sql,
     Vroom_vehicle_t **vehicles,
-    size_t *total_vehicles);
+    size_t *total_vehicles,
+    bool is_plain);
 
 #endif  // INCLUDE_C_COMMON_VROOM_VEHICLES_INPUT_H_
