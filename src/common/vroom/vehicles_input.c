@@ -83,7 +83,8 @@ void fetch_vehicles(
     HeapTuple *tuple,
     TupleDesc *tupdesc,
     Column_info_t *info,
-    Vroom_vehicle_t *vehicle) {
+    Vroom_vehicle_t *vehicle,
+    bool is_plain) {
   vehicle->id = get_Idx(tuple, tupdesc, info[0], 0);
   vehicle->start_index = get_MatrixIndex(tuple, tupdesc, info[1], -1);
   vehicle->end_index = get_MatrixIndex(tuple, tupdesc, info[2], -1);
@@ -98,8 +99,15 @@ void fetch_vehicles(
     spi_getPositiveIntArr_allowEmpty(tuple, tupdesc, info[4], &vehicle->skills_size)
     : NULL;
 
-  vehicle->time_window_start = get_Duration(tuple, tupdesc, info[5], 0);
-  vehicle->time_window_end = get_Duration(tuple, tupdesc, info[6], UINT_MAX);
+  if (is_plain) {
+    vehicle->time_window_start = get_Duration(tuple, tupdesc, info[5], 0);
+    vehicle->time_window_end = get_Duration(tuple, tupdesc, info[6], UINT_MAX);
+  } else {
+    vehicle->time_window_start =
+        (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[5], 0);
+    vehicle->time_window_end =
+        (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[6], UINT_MAX);
+  }
 
   if (vehicle->time_window_start > vehicle->time_window_end) {
     ereport(ERROR,
@@ -123,7 +131,8 @@ void db_get_vehicles(
     size_t *total_vehicles,
 
     Column_info_t *info,
-    const int column_count) {
+    const int column_count,
+    bool is_plain) {
 #ifdef PROFILE
   clock_t start_t = clock();
   PGR_DBG("%s", vehicles_sql);
@@ -175,7 +184,7 @@ void db_get_vehicles(
       for (t = 0; t < ntuples; t++) {
         HeapTuple tuple = tuptable->vals[t];
         fetch_vehicles(&tuple, &tupdesc, info,
-            &(*vehicles)[total_tuples - ntuples + t]);
+            &(*vehicles)[total_tuples - ntuples + t], is_plain);
       }
       SPI_freetuptable(tuptable);
     } else {
@@ -206,7 +215,8 @@ void
 get_vroom_vehicles(
     char *sql,
     Vroom_vehicle_t **rows,
-    size_t *total_rows) {
+    size_t *total_rows,
+    bool is_plain) {
   int kColumnCount = 8;
   Column_info_t info[kColumnCount];
 
@@ -230,8 +240,12 @@ get_vroom_vehicles(
   info[4].eType = INTEGER_ARRAY;      // skills
   info[5].eType = INTEGER;            // tw_open
   info[6].eType = INTEGER;            // tw_close
-
   info[7].eType = ANY_NUMERICAL;      // speed_factor
+
+  if (!is_plain) {
+    info[5].eType = TIMESTAMP;        // tw_open
+    info[6].eType = TIMESTAMP;        // tw_close
+  }
 
   /**
    * id is mandatory.
@@ -239,5 +253,5 @@ get_vroom_vehicles(
    */
   info[0].strict = true;
 
-  db_get_vehicles(sql, rows, total_rows, info, kColumnCount);
+  db_get_vehicles(sql, rows, total_rows, info, kColumnCount, is_plain);
 }

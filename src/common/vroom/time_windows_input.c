@@ -72,7 +72,8 @@ void fetch_time_windows(
     TupleDesc *tupdesc,
     Column_info_t *info,
     Vroom_time_window_t *time_window,
-    bool is_shipment) {
+    bool is_shipment,
+    bool is_plain) {
 
   time_window->id = get_Idx(tuple, tupdesc, info[0], 0);
 
@@ -83,11 +84,25 @@ void fetch_time_windows(
                       errhint("Kind must be either 'p' or 'd'")));
     }
     time_window->kind = kind;
-    time_window->start_time = get_Duration(tuple, tupdesc, info[2], 0);
-    time_window->end_time = get_Duration(tuple, tupdesc, info[3], 0);
+    if (is_plain) {
+      time_window->start_time = get_Duration(tuple, tupdesc, info[2], 0);
+      time_window->end_time = get_Duration(tuple, tupdesc, info[3], 0);
+    } else {
+      time_window->start_time =
+          (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[2], 0);
+      time_window->end_time =
+          (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[3], 0);
+    }
   } else {
-    time_window->start_time = get_Duration(tuple, tupdesc, info[1], 0);
-    time_window->end_time = get_Duration(tuple, tupdesc, info[2], 0);
+    if (is_plain) {
+      time_window->start_time = get_Duration(tuple, tupdesc, info[1], 0);
+      time_window->end_time = get_Duration(tuple, tupdesc, info[2], 0);
+    } else {
+      time_window->start_time =
+          (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[1], 0);
+      time_window->end_time =
+          (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[2], 0);
+    }
   }
 
   if (time_window->start_time > time_window->end_time) {
@@ -109,7 +124,8 @@ void db_get_time_windows(
 
     Column_info_t *info,
     const int column_count,
-    bool is_shipment) {
+    bool is_shipment,
+    bool is_plain) {
 #ifdef PROFILE
   clock_t start_t = clock();
   PGR_DBG("%s", time_windows_sql);
@@ -155,7 +171,8 @@ void db_get_time_windows(
       for (t = 0; t < ntuples; t++) {
         HeapTuple tuple = tuptable->vals[t];
         fetch_time_windows(&tuple, &tupdesc, info,
-            &(*time_windows)[total_tuples - ntuples + t], is_shipment);
+            &(*time_windows)[total_tuples - ntuples + t],
+            is_shipment, is_plain);
       }
       SPI_freetuptable(tuptable);
     } else {
@@ -186,7 +203,8 @@ void
 get_vroom_time_windows(
     char *sql,
     Vroom_time_window_t **rows,
-    size_t *total_rows) {
+    size_t *total_rows,
+    bool is_plain) {
   int kColumnCount = 3;
   Column_info_t info[kColumnCount];
 
@@ -203,7 +221,12 @@ get_vroom_time_windows(
 
   info[0].eType = ANY_INTEGER;  // id
 
-  db_get_time_windows(sql, rows, total_rows, info, kColumnCount, 0);
+  if (!is_plain) {
+    info[1].eType = TIMESTAMP;  // tw_open
+    info[2].eType = TIMESTAMP;  // tw_close
+  }
+
+  db_get_time_windows(sql, rows, total_rows, info, kColumnCount, 0, is_plain);
 }
 
 /**
@@ -215,7 +238,8 @@ void
 get_vroom_shipments_time_windows(
     char *sql,
     Vroom_time_window_t **rows,
-    size_t *total_rows) {
+    size_t *total_rows,
+    bool is_plain) {
   int kColumnCount = 4;
   Column_info_t info[kColumnCount];
 
@@ -234,5 +258,10 @@ get_vroom_shipments_time_windows(
   info[0].eType = ANY_INTEGER;  // id
   info[1].eType = CHAR1;        // kind
 
-  db_get_time_windows(sql, rows, total_rows, info, kColumnCount, 1);
+  if (!is_plain) {
+    info[2].eType = TIMESTAMP;  // tw_open
+    info[3].eType = TIMESTAMP;  // tw_close
+  }
+
+  db_get_time_windows(sql, rows, total_rows, info, kColumnCount, 1, is_plain);
 }

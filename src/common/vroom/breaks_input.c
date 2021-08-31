@@ -56,10 +56,16 @@ void fetch_breaks(
     HeapTuple *tuple,
     TupleDesc *tupdesc,
     Column_info_t *info,
-    Vroom_break_t *vroom_break) {
+    Vroom_break_t *vroom_break,
+    bool is_plain) {
   vroom_break->id = get_Idx(tuple, tupdesc, info[0], 0);
   vroom_break->vehicle_id = get_Idx(tuple, tupdesc, info[1], 0);
-  vroom_break->service = get_Duration(tuple, tupdesc, info[2], 0);
+  if (is_plain) {
+    vroom_break->service = get_Duration(tuple, tupdesc, info[2], 0);
+  } else {
+    vroom_break->service =
+        (Duration)get_PositiveTInterval(tuple, tupdesc, info[2], 0);
+  }
 }
 
 
@@ -70,7 +76,8 @@ void db_get_breaks(
     size_t *total_breaks,
 
     Column_info_t *info,
-    const int column_count) {
+    const int column_count,
+    bool is_plain) {
 #ifdef PROFILE
   clock_t start_t = clock();
   PGR_DBG("%s", breaks_sql);
@@ -116,7 +123,7 @@ void db_get_breaks(
       for (t = 0; t < ntuples; t++) {
         HeapTuple tuple = tuptable->vals[t];
         fetch_breaks(&tuple, &tupdesc, info,
-            &(*breaks)[total_tuples - ntuples + t]);
+            &(*breaks)[total_tuples - ntuples + t], is_plain);
       }
       SPI_freetuptable(tuptable);
     } else {
@@ -148,7 +155,8 @@ void
 get_vroom_breaks(
     char *sql,
     Vroom_break_t **rows,
-    size_t *total_rows) {
+    size_t *total_rows,
+    bool is_plain) {
   int kColumnCount = 3;
   Column_info_t info[kColumnCount];
 
@@ -165,8 +173,12 @@ get_vroom_breaks(
 
   info[2].eType = INTEGER;  // service
 
+  if (!is_plain) {
+    info[2].eType = INTERVAL;  // service
+  }
+
   /* service is not mandatory */
   info[2].strict = false;
 
-  db_get_breaks(sql, rows, total_rows, info, kColumnCount);
+  db_get_breaks(sql, rows, total_rows, info, kColumnCount, is_plain);
 }
