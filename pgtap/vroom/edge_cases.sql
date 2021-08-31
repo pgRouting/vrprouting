@@ -44,7 +44,7 @@ BEGIN
   PREPARE empty_matrix AS SELECT * FROM matrix WHERE start_vid = -1;
 
   PREPARE vroom_sql AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -59,7 +59,7 @@ BEGIN
   -- tests for no jobs/shipments, no vehicles, or no matrix
 
   PREPARE no_jobs_and_shipments AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'empty_jobs',
     'jobs_time_windows',
     'empty_shipments',
@@ -73,7 +73,7 @@ BEGIN
   SELECT is_empty('no_jobs_and_shipments', 'Problem with no jobs and shipments');
 
   PREPARE no_vehicles AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -87,7 +87,7 @@ BEGIN
   SELECT is_empty('no_vehicles', 'Problem with no vehicles');
 
   PREPARE no_matrix AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -104,7 +104,7 @@ BEGIN
   -- priority range test (jobs)
 
   PREPARE jobs_neg_priority AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'SELECT id, location_index, service, delivery, pickup, skills, -1 AS priority FROM jobs',
     'jobs_time_windows',
     'shipments',
@@ -123,7 +123,7 @@ BEGIN
   );
 
   PREPARE jobs_101_priority AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'SELECT id, location_index, service, delivery, pickup, skills, 101 AS priority FROM jobs',
     'jobs_time_windows',
     'shipments',
@@ -142,7 +142,7 @@ BEGIN
   );
 
   PREPARE jobs_zero_priority AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'SELECT id, location_index, service, delivery, pickup, skills, 0 AS priority FROM jobs',
     'jobs_time_windows',
     'shipments',
@@ -156,7 +156,7 @@ BEGIN
   SELECT lives_ok('jobs_zero_priority', 'Problem with 0 priority jobs');
 
   PREPARE jobs_100_priority AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'SELECT id, location_index, service, delivery, pickup, skills, 0 AS priority FROM jobs',
     'jobs_time_windows',
     'shipments',
@@ -173,7 +173,7 @@ BEGIN
   -- priority range tests (shipments)
 
   PREPARE shipments_neg_priority AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'SELECT id, p_location_index, p_service, d_location_index, d_service,
@@ -193,7 +193,7 @@ BEGIN
   );
 
   PREPARE shipments_101_priority AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'SELECT id, p_location_index, p_service, d_location_index, d_service,
@@ -213,7 +213,7 @@ BEGIN
   );
 
   PREPARE shipments_zero_priority AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'SELECT id, p_location_index, p_service, d_location_index, d_service,
@@ -228,7 +228,7 @@ BEGIN
   SELECT lives_ok('shipments_zero_priority', 'Problem with 0 priority shipments');
 
   PREPARE shipments_100_priority AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'SELECT id, p_location_index, p_service, d_location_index, d_service,
@@ -246,7 +246,7 @@ BEGIN
   -- Missing id on matrix test
 
   PREPARE missing_id_on_matrix AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -265,7 +265,7 @@ BEGIN
   );
 
   PREPARE missing_same_vid_on_matrix AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -279,7 +279,7 @@ BEGIN
   SELECT set_eq('missing_same_vid_on_matrix', 'vroom_sql', 'Cost between same vertex is always 0');
 
   PREPARE missing_reverse_cost_on_matrix AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -299,7 +299,7 @@ BEGIN
   PREPARE jobs_invalid_tw AS SELECT id, 3001 AS tw_open, 3000 AS tw_close FROM jobs_time_windows;
 
   PREPARE jobs_equal_tw_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_equal_tw',
     'shipments',
@@ -313,7 +313,7 @@ BEGIN
   SELECT lives_ok('jobs_equal_tw_problem', 'Problem with jobs having equal time windows');
 
   PREPARE jobs_invalid_tw_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_invalid_tw',
     'shipments',
@@ -338,7 +338,7 @@ BEGIN
   PREPARE shipments_invalid_tw AS SELECT id, kind, 3001 AS tw_open, 3000 AS tw_close FROM shipments_time_windows;
 
   PREPARE shipments_equal_tw_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -352,7 +352,7 @@ BEGIN
   SELECT lives_ok('shipments_equal_tw_problem', 'Problem with shipments having equal time windows');
 
   PREPARE shipments_invalid_tw_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -377,7 +377,7 @@ BEGIN
   PREPARE breaks_invalid_tw AS SELECT id, 3001 AS tw_open, 3000 AS tw_close FROM breaks_time_windows;
 
   PREPARE breaks_equal_tw_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -391,7 +391,7 @@ BEGIN
   SELECT lives_ok('breaks_equal_tw_problem', 'Problem with breaks having equal time windows');
 
   PREPARE breaks_invalid_tw_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -418,7 +418,7 @@ BEGIN
   SELECT id, start_index, end_index, capacity, skills, 3001 AS tw_open, 3000 AS tw_close, speed_factor FROM vehicles;
 
   PREPARE vehicles_equal_tw_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -432,7 +432,7 @@ BEGIN
   SELECT lives_ok('vehicles_equal_tw_problem', 'Problem with vehicles having equal time windows');
 
   PREPARE vehicles_invalid_tw_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -456,7 +456,7 @@ BEGIN
   PREPARE jobs_only_delivery AS SELECT id, location_index, service, delivery, skills, priority FROM jobs;
   PREPARE jobs_only_pickup AS SELECT id, location_index, service, pickup, skills, priority FROM jobs;
   PREPARE jobs_only_delivery_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs_only_delivery',
     'jobs_time_windows',
     'shipments',
@@ -467,7 +467,7 @@ BEGIN
     'matrix'
   );
   PREPARE jobs_only_pickup_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs_only_pickup',
     'jobs_time_windows',
     'shipments',
@@ -486,7 +486,7 @@ BEGIN
   PREPARE vehicles_only_start_index AS SELECT id, start_index, capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
   PREPARE vehicles_only_end_index AS SELECT id, end_index, capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
   PREPARE vehicles_only_start_index_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -497,7 +497,7 @@ BEGIN
     'matrix'
   );
   PREPARE vehicles_only_end_index_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -515,7 +515,7 @@ BEGIN
 
   PREPARE vehicles_no_index AS SELECT id, capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
   PREPARE vehicles_no_index_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -546,7 +546,7 @@ BEGIN
   SELECT id, start_index, end_index, ARRAY[10, 20]::BIGINT[] AS capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
 
   PREPARE jobs_inconsistent_delivery_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs_inconsistent_delivery',
     'jobs_time_windows',
     'shipments',
@@ -557,7 +557,7 @@ BEGIN
     'matrix'
   );
   PREPARE jobs_inconsistent_pickup_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs_inconsistent_pickup',
     'jobs_time_windows',
     'shipments',
@@ -568,7 +568,7 @@ BEGIN
     'matrix'
   );
   PREPARE shipments_inconsistent_amount_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments_inconsistent_amount',
@@ -579,7 +579,7 @@ BEGIN
     'matrix'
   );
   PREPARE vehicles_inconsistent_capacity_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -639,7 +639,7 @@ BEGIN
   SELECT start_vid, end_vid, 4 * agg_cost AS agg_cost FROM matrix;
 
   PREPARE vehicles_2x_speed_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -650,7 +650,7 @@ BEGIN
     'matrix_2x_distance'
   );
   PREPARE vehicles_4x_speed_problem AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
@@ -673,7 +673,7 @@ BEGIN
   -- arrival, travel_time, service_time, waiting_time, load
 
   PREPARE one_job_q1 AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'SELECT * FROM jobs WHERE id = 1',
     'jobs_time_windows',
     'empty_shipments',
@@ -696,7 +696,7 @@ BEGIN
   );
 
   PREPARE one_job_q2 AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'SELECT * FROM jobs WHERE id = 5',
     'jobs_time_windows',
     'empty_shipments',
@@ -719,7 +719,7 @@ BEGIN
   );
 
   PREPARE one_shipment_q1 AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'empty_jobs',
     'jobs_time_windows',
     'SELECT * FROM shipments WHERE id = 1',
@@ -743,7 +743,7 @@ BEGIN
   );
 
   PREPARE one_shipment_q2 AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'empty_jobs',
     'jobs_time_windows',
     'SELECT * FROM shipments WHERE id = 5',
@@ -767,7 +767,7 @@ BEGIN
   );
 
   PREPARE one_job_shipment AS
-  SELECT * FROM vrp_vroom(
+  SELECT * FROM vrp_vroomPlain(
     'SELECT * FROM jobs WHERE id = 2',
     'jobs_time_windows',
     'SELECT * FROM shipments WHERE id = 2',

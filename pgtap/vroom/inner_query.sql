@@ -4,7 +4,7 @@ SET search_path TO 'vroom', 'public';
 SELECT CASE WHEN min_version('0.2.0') THEN plan (564) ELSE plan(1) END;
 
 /*
-SELECT * FROM vrp_vroom(
+SELECT * FROM vrp_vroomPlain(
   $$SELECT id, location_index, service, delivery, pickup, skills, priority FROM jobs$$,
   $$SELECT id, tw_open, tw_close FROM jobs_time_windows$$,
   $$SELECT id, p_location_index, p_service, d_location_index, d_service, amount, skills, priority FROM shipments$$,
@@ -255,9 +255,9 @@ BEGIN
     RETURN;
   END IF;
 
-  -- vrp_vroom
+  -- vrp_vroomPlain
 
-  fn := 'vrp_vroom';
+  fn := 'vrp_vroomPlain';
   start_sql := '';
   rest_sql := ', $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
               '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
@@ -308,9 +308,9 @@ BEGIN
   RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql);
 
 
-  -- vrp_vroomJobs
+  -- vrp_vroomJobsPlain
 
-  fn := 'vrp_vroomJobs';
+  fn := 'vrp_vroomJobsPlain';
   start_sql := '';
   rest_sql := ', $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
@@ -344,9 +344,9 @@ BEGIN
   RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql);
 
 
-  -- vrp_vroomShipments
+  -- vrp_vroomShipmentsPlain
 
-  fn := 'vrp_vroomShipments';
+  fn := 'vrp_vroomShipmentsPlain';
   start_sql := '';
   rest_sql := ', $$SELECT * FROM shipments_time_windows$$, $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';

@@ -77,7 +77,7 @@ BEGIN
   ]::TEXT[];
   non_empty_args = ARRAY[0, 1, 2, 3, 4, 6, 7]::INTEGER[];
 
-  RETURN query SELECT * FROM no_crash_test('vrp_vroom', params, subs, error_messages, non_empty_args);
+  RETURN query SELECT * FROM no_crash_test('vrp_vroomPlain', params, subs, error_messages, non_empty_args);
 
   params = ARRAY[
     '$$jobs$$',
@@ -105,7 +105,7 @@ BEGIN
   ]::TEXT[];
   non_empty_args = ARRAY[0, 2, 4, 5]::INTEGER[];
 
-  RETURN query SELECT * FROM no_crash_test('vrp_vroomJobs', params, subs, error_messages, non_empty_args);
+  RETURN query SELECT * FROM no_crash_test('vrp_vroomJobsPlain', params, subs, error_messages, non_empty_args);
 
   params = ARRAY[
     '$$shipments$$',
@@ -133,7 +133,7 @@ BEGIN
   ]::TEXT[];
   non_empty_args = ARRAY[0, 2, 4, 5]::INTEGER[];
 
-  RETURN query SELECT * FROM no_crash_test('vrp_vroomShipments'::TEXT, params, subs, error_messages, non_empty_args);
+  RETURN query SELECT * FROM no_crash_test('vrp_vroomShipmentsPlain'::TEXT, params, subs, error_messages, non_empty_args);
 
 END
 $BODY$
