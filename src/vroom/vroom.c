@@ -81,6 +81,7 @@ PG_FUNCTION_INFO_V1(_vrp_vroom);
  * @param breaks_tws_sql    SQL query describing the time windows for break start.
  * @param matrix_sql        SQL query describing the cells of the cost matrix
  * @param fn                Value denoting the function used.
+ * @param is_plain          Value denoting whether the plain/timestamp function is used.
  * @param result_tuples     the rows in the result
  * @param result_count      the count of rows in the result
  *
@@ -98,6 +99,7 @@ process(
     char *breaks_tws_sql,
     char *matrix_sql,
     int16_t fn,
+    bool is_plain,
 
     Vroom_rt **result_tuples,
     size_t *result_count) {
@@ -109,13 +111,13 @@ process(
   Vroom_job_t *jobs = NULL;
   size_t total_jobs = 0;
   if (jobs_sql) {
-    get_vroom_jobs(jobs_sql, &jobs, &total_jobs);
+    get_vroom_jobs(jobs_sql, &jobs, &total_jobs, is_plain);
   }
 
   Vroom_shipment_t *shipments = NULL;
   size_t total_shipments = 0;
   if (shipments_sql) {
-    get_vroom_shipments(shipments_sql, &shipments, &total_shipments);
+    get_vroom_shipments(shipments_sql, &shipments, &total_shipments, is_plain);
   }
 
   if (total_jobs == 0 && total_shipments == 0) {
@@ -138,18 +140,20 @@ process(
   Vroom_time_window_t *jobs_tws = NULL;
   size_t total_jobs_tws = 0;
   if (jobs_tws_sql) {
-    get_vroom_time_windows(jobs_tws_sql, &jobs_tws, &total_jobs_tws);
+    get_vroom_time_windows(jobs_tws_sql, &jobs_tws, &total_jobs_tws,
+                           is_plain);
   }
 
   Vroom_time_window_t *shipments_tws = NULL;
   size_t total_shipments_tws = 0;
   if (shipments_tws_sql) {
-    get_vroom_shipments_time_windows(shipments_tws_sql, &shipments_tws, &total_shipments_tws);
+    get_vroom_shipments_time_windows(shipments_tws_sql, &shipments_tws,
+                                     &total_shipments_tws, is_plain);
   }
 
   Vroom_vehicle_t *vehicles = NULL;
   size_t total_vehicles = 0;
-  get_vroom_vehicles(vehicles_sql, &vehicles, &total_vehicles);
+  get_vroom_vehicles(vehicles_sql, &vehicles, &total_vehicles, is_plain);
 
   if (total_vehicles == 0) {
     ereport(WARNING, (errmsg("Insufficient data found on Vehicles SQL query."),
@@ -163,13 +167,14 @@ process(
   Vroom_break_t *breaks = NULL;
   size_t total_breaks = 0;
   if (breaks_sql) {
-    get_vroom_breaks(breaks_sql, &breaks, &total_breaks);
+    get_vroom_breaks(breaks_sql, &breaks, &total_breaks, is_plain);
   }
 
   Vroom_time_window_t *breaks_tws = NULL;
   size_t total_breaks_tws = 0;
   if (breaks_tws_sql) {
-    get_vroom_time_windows(breaks_tws_sql, &breaks_tws, &total_breaks_tws);
+    get_vroom_time_windows(breaks_tws_sql, &breaks_tws, &total_breaks_tws,
+                           is_plain);
   }
 
   Matrix_cell_t *matrix_cells_arr = NULL;
@@ -274,6 +279,7 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
     }
 
     int16_t fn = PG_GETARG_INT16(8);
+    bool is_plain = PG_GETARG_BOOL(9);
 
     // Verify that both jobs_sql and shipments_sql are not NULL
     if (args[0] == NULL && args[2] == NULL) {
@@ -304,6 +310,7 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
         args[6],
         args[7],
         fn,
+        is_plain,
         &result_tuples,
         &result_count);
 

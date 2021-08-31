@@ -80,20 +80,22 @@ void fetch_shipments(
     HeapTuple *tuple,
     TupleDesc *tupdesc,
     Column_info_t *info,
-    Vroom_shipment_t *shipment) {
+    Vroom_shipment_t *shipment,
+    bool is_plain) {
   shipment->id = get_Idx(tuple, tupdesc, info[0], 0);
 
-  /*
-   * The pickups
-   */
   shipment->p_location_index = get_MatrixIndex(tuple, tupdesc, info[1], 0);
-  shipment->p_service = get_Duration(tuple, tupdesc, info[2], 0);
-
-  /*
-   * The deliveries
-   */
   shipment->d_location_index = get_MatrixIndex(tuple, tupdesc, info[3], 0);
-  shipment->d_service = get_Duration(tuple, tupdesc, info[4], 0);
+
+  if (is_plain) {
+    shipment->p_service = get_Duration(tuple, tupdesc, info[2], 0);
+    shipment->d_service = get_Duration(tuple, tupdesc, info[4], 0);
+  } else {
+    shipment->p_service =
+        (Duration)get_PositiveTInterval(tuple, tupdesc, info[2], 0);
+    shipment->d_service =
+        (Duration)get_PositiveTInterval(tuple, tupdesc, info[4], 0);
+  }
 
   shipment->amount_size = 0;
   shipment->amount = column_found(info[5].colNumber) ?
@@ -116,7 +118,8 @@ void db_get_shipments(
     size_t *total_shipments,
 
     Column_info_t *info,
-    const int column_count) {
+    const int column_count,
+    bool is_plain) {
 #ifdef PROFILE
   clock_t start_t = clock();
   PGR_DBG("%s", shipments_sql);
@@ -162,7 +165,7 @@ void db_get_shipments(
       for (t = 0; t < ntuples; t++) {
         HeapTuple tuple = tuptable->vals[t];
         fetch_shipments(&tuple, &tupdesc, info,
-            &(*shipments)[total_tuples - ntuples + t]);
+            &(*shipments)[total_tuples - ntuples + t], is_plain);
       }
       SPI_freetuptable(tuptable);
     } else {
@@ -193,7 +196,8 @@ void
 get_vroom_shipments(
     char *sql,
     Vroom_shipment_t **rows,
-    size_t *total_rows) {
+    size_t *total_rows,
+    bool is_plain) {
   int kColumnCount = 8;
   Column_info_t info[kColumnCount];
 
@@ -224,10 +228,15 @@ get_vroom_shipments(
   info[6].eType = INTEGER_ARRAY;      // skills
   info[7].eType = INTEGER;            // priority
 
+  if (!is_plain) {
+    info[2].eType = INTERVAL;         // p_service
+    info[4].eType = INTERVAL;         // d_service
+  }
+
   /* id and location_index of pickup and delivery are mandatory */
   info[0].strict = true;
   info[1].strict = true;
   info[3].strict = true;
 
-  db_get_shipments(sql, rows, total_rows, info, kColumnCount);
+  db_get_shipments(sql, rows, total_rows, info, kColumnCount, is_plain);
 }
