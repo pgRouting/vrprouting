@@ -46,6 +46,7 @@ void
 get_vroom_jobs(
     char *jobs_sql,
     Vroom_job_t **jobs,
-    size_t *total_jobs);
+    size_t *total_jobs,
+    bool is_plain);
 
 #endif  // INCLUDE_C_COMMON_VROOM_JOBS_INPUT_H_

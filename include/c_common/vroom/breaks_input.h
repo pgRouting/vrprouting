@@ -46,6 +46,7 @@ void
 get_vroom_breaks(
     char *breaks_sql,
     Vroom_break_t **breaks,
-    size_t *total_breaks);
+    size_t *total_breaks,
+    bool is_plain);
 
 #endif  // INCLUDE_C_COMMON_VROOM_BREAKS_INPUT_H_

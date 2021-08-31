@@ -47,13 +47,15 @@ void
 get_vroom_time_windows(
     char *time_windows_sql,
     Vroom_time_window_t **time_windows,
-    size_t *total_time_windows);
+    size_t *total_time_windows,
+    bool is_plain);
 
 /** @brief Reads the VROOM shipments time windows */
 void
 get_vroom_shipments_time_windows(
     char *time_windows_sql,
     Vroom_time_window_t **time_windows,
-    size_t *total_time_windows);
+    size_t *total_time_windows,
+    bool is_plain);
 
 #endif  // INCLUDE_C_COMMON_VROOM_TIME_WINDOWS_INPUT_H_

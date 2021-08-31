@@ -46,6 +46,7 @@ void
 get_vroom_shipments(
     char *shipments_sql,
     Vroom_shipment_t **shipments,
-    size_t *total_shipments);
+    size_t *total_shipments,
+    bool is_plain);
 
 #endif  // INCLUDE_C_COMMON_VROOM_SHIPMENTS_INPUT_H_
