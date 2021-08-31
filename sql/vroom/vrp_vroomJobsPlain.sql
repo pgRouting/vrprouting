@@ -26,43 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*
-signature start
-
-.. code-block:: none
-
-    vrp_vroomJobsPlain(
-      Jobs SQL, Jobs Time Windows SQL,
-      Vehicles SQL, Breaks SQL, Breaks Time Windows SQL,
-      Matrix SQL)  -- Experimental on v0.2
-
-    RETURNS SET OF
-    (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
-     arrival, travel_time, service_time, waiting_time, load)
-
-signature end
-
-parameters start
-
-============================== =========== =========================================================
-Parameter                      Type        Description
-============================== =========== =========================================================
-**Jobs SQL**                   ``TEXT``    `Jobs SQL`_ query describing the single-location
-                                           pickup and/or delivery tasks.
-**Jobs Time Windows SQL**      ``TEXT``    `Time Windows SQL`_ query describing valid slots
-                                           for job service start.
-**Vehicles SQL**               ``TEXT``    `Vehicles SQL`_ query describing the available vehicles.
-**Breaks SQL**                 ``TEXT``    `Breaks SQL`_ query describing the driver breaks.
-**Breaks Time Windows SQL**    ``TEXT``    `Time Windows SQL`_ query describing valid slots for
-                                           break start.
-**Matrix SQL**                 ``TEXT``    `Time Matrix SQL`_ query containing the distance or
-                                           travel times between the locations.
-============================== =========== =========================================================
-
-parameters end
-
-*/
-
 -- v0.2
 CREATE FUNCTION vrp_vroomJobsPlain(
     TEXT,  -- jobs_sql (required)
@@ -88,7 +51,7 @@ $BODY$
     SELECT *
     FROM _vrp_vroom(_pgr_get_statement($1), _pgr_get_statement($2), NULL, NULL,
                     _pgr_get_statement($3), _pgr_get_statement($4),
-                    _pgr_get_statement($5), _pgr_get_statement($6), 1::SMALLINT);
+                    _pgr_get_statement($5), _pgr_get_statement($6), 1::SMALLINT, true);
 $BODY$
 LANGUAGE SQL VOLATILE;
 

@@ -78,18 +78,29 @@ CREATE FUNCTION vrp_vroomShipments(
     OUT step_seq BIGINT,
     OUT step_type INTEGER,
     OUT task_id BIGINT,
-    OUT arrival INTEGER,
-    OUT travel_time INTEGER,
-    OUT service_time INTEGER,
-    OUT waiting_time INTEGER,
+    OUT arrival TIMESTAMP,
+    OUT travel_time INTERVAL,
+    OUT service_time INTERVAL,
+    OUT waiting_time INTERVAL,
     OUT load BIGINT[])
 RETURNS SETOF RECORD AS
 $BODY$
-    SELECT *
+    SELECT
+      seq,
+      vehicle_seq,
+      vehicle_id,
+      step_seq,
+      step_type,
+      task_id,
+      (to_timestamp(arrival) at time zone 'UTC')::TIMESTAMP,
+      make_interval(secs => travel_time),
+      make_interval(secs => service_time),
+      make_interval(secs => waiting_time),
+      load
     FROM _vrp_vroom(NULL, NULL, _pgr_get_statement($1),
                     _pgr_get_statement($2), _pgr_get_statement($3),
                     _pgr_get_statement($4), _pgr_get_statement($5),
-                    _pgr_get_statement($6), 2::SMALLINT);
+                    _pgr_get_statement($6), 2::SMALLINT, false);
 $BODY$
 LANGUAGE SQL VOLATILE;
 

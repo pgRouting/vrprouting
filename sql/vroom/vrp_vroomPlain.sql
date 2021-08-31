@@ -26,88 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*
-signature start
-
-.. code-block:: none
-
-    vrp_vroomPlain(
-      Jobs SQL, Jobs Time Windows SQL,
-      Shipments SQL, Shipments Time Windows SQL,
-      Vehicles SQL, Breaks SQL, Breaks Time Windows SQL,
-      Matrix SQL)  -- Experimental on v0.2
-
-    RETURNS SET OF
-    (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
-     arrival, travel_time, service_time, waiting_time, load)
-
-signature end
-
-parameters start
-
-============================== =========== =========================================================
-Parameter                      Type        Description
-============================== =========== =========================================================
-**Jobs SQL**                   ``TEXT``    `Jobs SQL`_ query describing the single-location
-                                           pickup and/or delivery tasks.
-**Jobs Time Windows SQL**      ``TEXT``    `Time Windows SQL`_ query describing valid slots
-                                           for job service start.
-**Shipments SQL**              ``TEXT``    `Shipments SQL`_ query describing pickup and delivery
-                                           tasks that should happen within same route.
-**Shipments Time Windows SQL** ``TEXT``    `Time Windows SQL`_ query describing valid slots
-                                           for pickup and delivery service start.
-**Vehicles SQL**               ``TEXT``    `Vehicles SQL`_ query describing the available vehicles.
-**Breaks SQL**                 ``TEXT``    `Breaks SQL`_ query describing the driver breaks.
-**Breaks Time Windows SQL**    ``TEXT``    `Time Windows SQL`_ query describing valid slots for
-                                           break start.
-**Matrix SQL**                 ``TEXT``    `Time Matrix SQL`_ query containing the distance or
-                                           travel times between the locations.
-============================== =========== =========================================================
-
-parameters end
-
-result start
-
-=================== ============= =================================================
-Column              Type           Description
-=================== ============= =================================================
-**seq**              ``BIGINT``   Sequential value starting from **1**.
-
-**vehicle_seq**      ``BIGINT``   Sequential value starting from **1** for current vehicles.
-                                  The :math:`n^{th}` vehicle in the solution.
-
-**vehicle_id**       ``BIGINT``   Current vehicle identifier.
-
-**step_seq**         ``BIGINT``   Sequential value starting from **1** for the stops
-                                  made by the current vehicle. The :math:`m^{th}` stop
-                                  of the current vehicle.
-
-**step_type**        ``INTEGER``  Kind of the step location the vehicle is at:
-
-                                  - ``1``: Starting location
-                                  - ``2``: Job location
-                                  - ``3``: Pickup location
-                                  - ``4``: Delivery location
-                                  - ``5``: Break location
-                                  - ``6``: Ending location
-
-**task_id**          ``BIGINT``   Identifier of the task performed at this step.
-
-                                  - ``-1``: If the step is starting/ending location.
-
-**arrival**          ``INTEGER``  Estimated time of arrival at this step, in seconds.
-
-**travel_time**      ``INTEGER``  Cumulated travel time upon arrival at this step, in seconds
-
-**service_time**     ``INTEGER``  Service time at this step, in seconds
-
-**waiting_time**     ``INTEGER``  Waiting time upon arrival at this step, in seconds.
-
-**load**             ``BIGINT``   Vehicle load after step completion (with capacity constraints)
-=================== ============= =================================================
-
-result end
-*/
 
 -- v0.2
 CREATE FUNCTION vrp_vroomPlain(
@@ -136,7 +54,7 @@ $BODY$
     SELECT *
     FROM _vrp_vroom(_pgr_get_statement($1), _pgr_get_statement($2), _pgr_get_statement($3),
                     _pgr_get_statement($4), _pgr_get_statement($5), _pgr_get_statement($6),
-                    _pgr_get_statement($7), _pgr_get_statement($8), 0::SMALLINT);
+                    _pgr_get_statement($7), _pgr_get_statement($8), 0::SMALLINT, true);
 $BODY$
 LANGUAGE SQL VOLATILE;
 
