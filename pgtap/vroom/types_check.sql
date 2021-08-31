@@ -14,18 +14,18 @@ BEGIN
     RETURN;
   END IF;
 
-  -- vrp_vroom
+  -- vrp_vroomPlain
   RETURN QUERY
-  SELECT has_function('vrp_vroom');
+  SELECT has_function('vrp_vroomplain');
   RETURN QUERY
-  SELECT has_function('vrp_vroom', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text']);
+  SELECT has_function('vrp_vroomplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text']);
   RETURN QUERY
-  SELECT function_returns('vrp_vroom', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text'], 'setof record');
+  SELECT function_returns('vrp_vroomplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text'], 'setof record');
 
   -- parameter names
   RETURN QUERY
   SELECT bag_has(
-    $$SELECT proargnames from pg_proc where proname = 'vrp_vroom'$$,
+    $$SELECT proargnames from pg_proc where proname = 'vrp_vroomplain'$$,
     $$SELECT '{"","","","","","","","","seq","vehicle_seq","vehicle_id","step_seq","step_type",'
               '"task_id","arrival","travel_time","service_time","waiting_time","load"}'::TEXT[]$$
   );
@@ -33,25 +33,25 @@ BEGIN
   -- parameter types
   RETURN QUERY
   SELECT set_eq(
-    $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroom'$$,
+    $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomplain'$$,
     $$VALUES
       ('{25,25,25,25,25,25,25,25,20,20,20,20,23,20,23,23,23,23,1016}'::OID[])
     $$
   );
 
 
-  -- vrp_vroomJobs
+  -- vrp_vroomJobsPlain
   RETURN QUERY
-  SELECT has_function('vrp_vroomjobs');
+  SELECT has_function('vrp_vroomjobsplain');
   RETURN QUERY
-  SELECT has_function('vrp_vroomjobs', ARRAY['text', 'text', 'text', 'text', 'text', 'text']);
+  SELECT has_function('vrp_vroomjobsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text']);
   RETURN QUERY
-  SELECT function_returns('vrp_vroomjobs', ARRAY['text', 'text', 'text', 'text', 'text', 'text'], 'setof record');
+  SELECT function_returns('vrp_vroomjobsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text'], 'setof record');
 
   -- parameter names
   RETURN QUERY
   SELECT bag_has(
-    $$SELECT proargnames from pg_proc where proname = 'vrp_vroomjobs'$$,
+    $$SELECT proargnames from pg_proc where proname = 'vrp_vroomjobsplain'$$,
     $$SELECT '{"","","","","","","seq","vehicle_seq","vehicle_id","step_seq","step_type",'
               '"task_id","arrival","travel_time","service_time","waiting_time","load"}'::TEXT[]$$
   );
@@ -59,25 +59,25 @@ BEGIN
   -- parameter types
   RETURN QUERY
   SELECT set_eq(
-    $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomjobs'$$,
+    $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomjobsplain'$$,
     $$VALUES
       ('{25,25,25,25,25,25,20,20,20,20,23,20,23,23,23,23,1016}'::OID[])
     $$
   );
 
 
-  -- vrp_vroomShipments
+  -- vrp_vroomShipmentsPlain
   RETURN QUERY
-  SELECT has_function('vrp_vroomshipments');
+  SELECT has_function('vrp_vroomshipmentsplain');
   RETURN QUERY
-  SELECT has_function('vrp_vroomshipments', ARRAY['text', 'text', 'text', 'text', 'text', 'text']);
+  SELECT has_function('vrp_vroomshipmentsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text']);
   RETURN QUERY
-  SELECT function_returns('vrp_vroomshipments', ARRAY['text', 'text', 'text', 'text', 'text', 'text'], 'setof record');
+  SELECT function_returns('vrp_vroomshipmentsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text'], 'setof record');
 
   -- parameter names
   RETURN QUERY
   SELECT bag_has(
-    $$SELECT proargnames from pg_proc where proname = 'vrp_vroomshipments'$$,
+    $$SELECT proargnames from pg_proc where proname = 'vrp_vroomshipmentsplain'$$,
     $$SELECT '{"","","","","","","seq","vehicle_seq","vehicle_id","step_seq","step_type",'
               '"task_id","arrival","travel_time","service_time","waiting_time","load"}'::TEXT[]$$
   );
@@ -85,7 +85,7 @@ BEGIN
   -- parameter types
   RETURN QUERY
   SELECT set_eq(
-    $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomshipments'$$,
+    $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomshipmentsplain'$$,
     $$VALUES
       ('{25,25,25,25,25,25,20,20,20,20,23,20,23,23,23,23,1016}'::OID[])
     $$

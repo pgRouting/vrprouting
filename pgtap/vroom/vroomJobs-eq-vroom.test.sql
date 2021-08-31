@@ -28,8 +28,8 @@ BEGIN
   FOR i in 1..array_length(ids, 1) LOOP
     FOR j in (i+1)..array_length(ids, 1) LOOP
       jobs_sql := '$$SELECT * FROM jobs WHERE id in (' || i || ', ' || j || ')$$, ' || empty_time_windows;
-      vroom_sql := 'SELECT * FROM vrp_vroom(' || jobs_sql || shipments_sql || rest_sql;
-      vroomJobs_sql := 'SELECT * FROM vrp_vroomJobs(' || jobs_sql || rest_sql;
+      vroom_sql := 'SELECT * FROM vrp_vroomPlain(' || jobs_sql || shipments_sql || rest_sql;
+      vroomJobs_sql := 'SELECT * FROM vrp_vroomJobsPlain(' || jobs_sql || rest_sql;
       RETURN query SELECT set_eq(vroom_sql, vroomJobs_sql);
     END LOOP;
   END LOOP;
@@ -39,8 +39,8 @@ BEGIN
     FOR j in (i+1)..array_length(ids, 1) LOOP
       FOR k in (j+1)..array_length(ids, 1) LOOP
         jobs_sql := '$$SELECT * FROM jobs WHERE id in (' || i || ', ' || j || ', ' || k || ')$$, ' || empty_time_windows;
-        vroom_sql := 'SELECT * FROM vrp_vroom(' || jobs_sql || shipments_sql || rest_sql;
-        vroomJobs_sql := 'SELECT * FROM vrp_vroomJobs(' || jobs_sql || rest_sql;
+        vroom_sql := 'SELECT * FROM vrp_vroomPlain(' || jobs_sql || shipments_sql || rest_sql;
+        vroomJobs_sql := 'SELECT * FROM vrp_vroomJobsPlain(' || jobs_sql || rest_sql;
         RETURN query SELECT set_eq(vroom_sql, vroomJobs_sql);
       END LOOP;
     END LOOP;
@@ -48,14 +48,14 @@ BEGIN
 
   -- All the five jobs
   jobs_sql := '$$SELECT * FROM jobs$$, ' || empty_time_windows;
-  vroom_sql := 'SELECT * FROM vrp_vroom(' || jobs_sql || shipments_sql || rest_sql;
-  vroomJobs_sql := 'SELECT * FROM vrp_vroomJobs(' || jobs_sql || rest_sql;
+  vroom_sql := 'SELECT * FROM vrp_vroomPlain(' || jobs_sql || shipments_sql || rest_sql;
+  vroomJobs_sql := 'SELECT * FROM vrp_vroomJobsPlain(' || jobs_sql || rest_sql;
   RETURN query SELECT set_eq(vroom_sql, vroomJobs_sql);
 
   -- No jobs
   jobs_sql := '$$SELECT * FROM jobs WHERE id = -1$$, ' || empty_time_windows;
-  vroom_sql := 'SELECT * FROM vrp_vroom(' || jobs_sql || shipments_sql || rest_sql;
-  vroomJobs_sql := 'SELECT * FROM vrp_vroomJobs(' || jobs_sql || rest_sql;
+  vroom_sql := 'SELECT * FROM vrp_vroomPlain(' || jobs_sql || shipments_sql || rest_sql;
+  vroomJobs_sql := 'SELECT * FROM vrp_vroomJobsPlain(' || jobs_sql || rest_sql;
   RETURN query SELECT set_eq(vroom_sql, vroomJobs_sql);
 END
 $BODY$
