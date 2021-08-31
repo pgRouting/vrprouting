@@ -37,6 +37,7 @@ CREATE FUNCTION _vrp_vroom(
     breaks_time_windows_sql TEXT,
     matrix_sql TEXT,
     fn SMALLINT,
+    is_plain BOOLEAN,
 
     OUT seq BIGINT,
     OUT vehicle_seq BIGINT,
@@ -55,5 +56,5 @@ LANGUAGE C VOLATILE;
 
 -- COMMENTS
 
-COMMENT ON FUNCTION _vrp_vroom(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, SMALLINT)
+COMMENT ON FUNCTION _vrp_vroom(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, SMALLINT, BOOLEAN)
 IS 'pgRouting internal function';
