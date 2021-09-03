@@ -4,7 +4,7 @@ SET client_min_messages TO NOTICE;
 SET
 SET extra_float_digits=-3;
 SET
---q1
+/* --q1 */
 SELECT * FROM vrp_pgr_pickDeliverEuclidean(
     'SELECT * FROM orders_1 ORDER BY id',
     'SELECT * from vehicles_1'
@@ -24,6 +24,6 @@ SELECT * FROM vrp_pgr_pickDeliverEuclidean(
   11 |          -2 |          0 |        0 |        -1 |       -1 |    -1 |          11 |           -1 |         1 |           17 |             29
 (11 rows)
 
---q2
+/* --q2 */
 ROLLBACK;
 ROLLBACK
