@@ -2,6 +2,31 @@ BEGIN;
 BEGIN
 SET client_min_messages TO NOTICE;
 SET
+/* -- q0 */
+ALTER TABLE vroom.jobs ALTER COLUMN service TYPE INTERVAL USING make_interval(secs => service);
+ALTER TABLE
+ALTER TABLE vroom.shipments ALTER COLUMN p_service TYPE INTERVAL USING make_interval(secs => p_service);
+ALTER TABLE
+ALTER TABLE vroom.shipments ALTER COLUMN d_service TYPE INTERVAL USING make_interval(secs => d_service);
+ALTER TABLE
+ALTER TABLE vroom.vehicles ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE
+ALTER TABLE vroom.vehicles ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE
+ALTER TABLE vroom.breaks ALTER COLUMN service TYPE INTERVAL USING make_interval(secs => service);
+ALTER TABLE
+ALTER TABLE vroom.jobs_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE
+ALTER TABLE vroom.jobs_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE
+ALTER TABLE vroom.shipments_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE
+ALTER TABLE vroom.shipments_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE
+ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE
+ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE
 /* -- q1 */
 SELECT *
 FROM vrp_vroomShipments(
@@ -12,24 +37,24 @@ FROM vrp_vroomShipments(
   'SELECT * FROM vroom.breaks_time_windows',
   'SELECT * FROM vroom.matrix'
 );
- seq | vehicle_seq | vehicle_id | step_seq | step_type | task_id | arrival | travel_time | service_time | waiting_time | load
------+-------------+------------+----------+-----------+---------+---------+-------------+--------------+--------------+------
-   1 |           1 |          1 |        1 |         1 |      -1 |     300 |           0 |            0 |            0 | {0}
-   2 |           1 |          1 |        2 |         5 |       1 |     300 |           0 |            0 |            0 | {0}
-   3 |           1 |          1 |        3 |         3 |       4 |     300 |           0 |         2250 |         6075 | {20}
-   4 |           1 |          1 |        4 |         4 |       4 |    8700 |          75 |         2250 |          225 | {0}
-   5 |           1 |          1 |        5 |         3 |       5 |   11265 |         165 |         2250 |         2085 | {10}
-   6 |           1 |          1 |        6 |         3 |       3 |   15650 |         215 |         2250 |            0 | {30}
-   7 |           1 |          1 |        7 |         4 |       5 |   17950 |         265 |         2250 |          225 | {20}
-   8 |           1 |          1 |        8 |         4 |       3 |   20425 |         265 |         2250 |          200 | {0}
-   9 |           1 |          1 |        9 |         6 |      -1 |   22925 |         315 |            0 |            0 | {0}
-  10 |           2 |          4 |        1 |         1 |      -1 |     250 |           0 |            0 |            0 | {0}
-  11 |           2 |          4 |        2 |         5 |       4 |     250 |           0 |            0 |            0 | {0}
-  12 |           2 |          4 |        3 |         3 |       2 |     275 |          25 |         2250 |          100 | {10}
-  13 |           2 |          4 |        4 |         3 |       1 |    2650 |          50 |         2250 |            0 | {20}
-  14 |           2 |          4 |        5 |         4 |       2 |    4990 |         140 |         2250 |            0 | {10}
-  15 |           2 |          4 |        6 |         4 |       1 |    7351 |         251 |         2250 |        17574 | {0}
-  16 |           2 |          4 |        7 |         6 |      -1 |   27200 |         276 |            0 |            0 | {0}
+ seq | vehicle_seq | vehicle_id | step_seq | step_type | task_id |       arrival       | travel_time | service_time | waiting_time | load
+-----+-------------+------------+----------+-----------+---------+---------------------+-------------+--------------+--------------+------
+   1 |           1 |          1 |        1 |         1 |      -1 | 2021-09-02 09:05:00 | 00:00:00    | 00:00:00     | 00:00:00     | {0}
+   2 |           1 |          1 |        2 |         5 |       1 | 2021-09-02 09:05:00 | 00:00:00    | 00:00:00     | 00:00:00     | {0}
+   3 |           1 |          1 |        3 |         3 |       4 | 2021-09-02 09:05:00 | 00:00:00    | 00:37:30     | 01:41:15     | {20}
+   4 |           1 |          1 |        4 |         4 |       4 | 2021-09-02 11:25:00 | 00:01:15    | 00:37:30     | 00:03:45     | {0}
+   5 |           1 |          1 |        5 |         3 |       5 | 2021-09-02 12:07:45 | 00:02:45    | 00:37:30     | 00:34:45     | {10}
+   6 |           1 |          1 |        6 |         3 |       3 | 2021-09-02 13:20:50 | 00:03:35    | 00:37:30     | 00:00:00     | {30}
+   7 |           1 |          1 |        7 |         4 |       5 | 2021-09-02 13:59:10 | 00:04:25    | 00:37:30     | 00:03:45     | {20}
+   8 |           1 |          1 |        8 |         4 |       3 | 2021-09-02 14:40:25 | 00:04:25    | 00:37:30     | 00:03:20     | {0}
+   9 |           1 |          1 |        9 |         6 |      -1 | 2021-09-02 15:22:05 | 00:05:15    | 00:00:00     | 00:00:00     | {0}
+  10 |           2 |          4 |        1 |         1 |      -1 | 2021-09-02 09:04:10 | 00:00:00    | 00:00:00     | 00:00:00     | {0}
+  11 |           2 |          4 |        2 |         5 |       4 | 2021-09-02 09:04:10 | 00:00:00    | 00:00:00     | 00:00:00     | {0}
+  12 |           2 |          4 |        3 |         3 |       2 | 2021-09-02 09:04:35 | 00:00:25    | 00:37:30     | 00:01:40     | {10}
+  13 |           2 |          4 |        4 |         3 |       1 | 2021-09-02 09:44:10 | 00:00:50    | 00:37:30     | 00:00:00     | {20}
+  14 |           2 |          4 |        5 |         4 |       2 | 2021-09-02 10:23:10 | 00:02:20    | 00:37:30     | 00:00:00     | {10}
+  15 |           2 |          4 |        6 |         4 |       1 | 2021-09-02 11:02:31 | 00:04:11    | 00:37:30     | 04:52:54     | {0}
+  16 |           2 |          4 |        7 |         6 |      -1 | 2021-09-02 16:33:20 | 00:04:36    | 00:00:00     | 00:00:00     | {0}
 (16 rows)
 
 /* -- q2 */
@@ -57,12 +82,12 @@ FROM vrp_vroomShipments(
     ) AS C(start_vid, end_vid, agg_cost)
   $matrix$
 );
- seq | vehicle_seq | vehicle_id | step_seq | step_type | task_id | arrival | travel_time | service_time | waiting_time | load
------+-------------+------------+----------+-----------+---------+---------+-------------+--------------+--------------+------
-   1 |           1 |          1 |        1 |         1 |      -1 |       0 |           0 |            0 |            0 | {}
-   2 |           1 |          1 |        2 |         3 |     100 |       0 |           0 |            0 |            0 | {}
-   3 |           1 |          1 |        3 |         4 |     100 |    1299 |        1299 |            0 |            0 | {}
-   4 |           1 |          1 |        4 |         6 |      -1 |    1299 |        1299 |            0 |            0 | {}
+ seq | vehicle_seq | vehicle_id | step_seq | step_type | task_id |       arrival       | travel_time | service_time | waiting_time | load
+-----+-------------+------------+----------+-----------+---------+---------------------+-------------+--------------+--------------+------
+   1 |           1 |          1 |        1 |         1 |      -1 | 1970-01-01 00:00:00 | 00:00:00    | 00:00:00     | 00:00:00     | {}
+   2 |           1 |          1 |        2 |         3 |     100 | 1970-01-01 00:00:00 | 00:00:00    | 00:00:00     | 00:00:00     | {}
+   3 |           1 |          1 |        3 |         4 |     100 | 1970-01-01 00:21:39 | 00:21:39    | 00:00:00     | 00:00:00     | {}
+   4 |           1 |          1 |        4 |         6 |      -1 | 1970-01-01 00:21:39 | 00:21:39    | 00:00:00     | 00:00:00     | {}
 (4 rows)
 
 /* -- q3 */
