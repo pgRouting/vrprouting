@@ -1,7 +1,7 @@
 BEGIN;
 SET search_path TO 'vroom', 'public';
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (564) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.2.0') THEN plan (1099) ELSE plan(1) END;
 
 /*
 SELECT * FROM vrp_vroomPlain(
@@ -114,14 +114,39 @@ RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   accept TEXT[] := ARRAY['CHAR'];
-  reject TEXT[] := ARRAY['VARCHAR', 'TEXT']::TEXT[];
+  reject TEXT[] := ARRAY['VARCHAR', 'TEXT'];
 BEGIN
   RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject);
 END;
 $BODY$ LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION inner_query_jobs(fn TEXT, start_sql TEXT, rest_sql TEXT)
+CREATE OR REPLACE FUNCTION test_Interval(fn TEXT, inner_query_table TEXT, start_sql TEXT, rest_sql TEXT, params TEXT[], parameter TEXT)
+RETURNS SETOF TEXT AS
+$BODY$
+DECLARE
+  accept TEXT[] := ARRAY['INTERVAL'];
+  reject TEXT[] := ARRAY['TIMESTAMP', 'DATE', 'TIME', 'INTEGER'];
+BEGIN
+  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject);
+END;
+$BODY$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION test_Timestamp(fn TEXT, inner_query_table TEXT, start_sql TEXT, rest_sql TEXT, params TEXT[], parameter TEXT)
+RETURNS SETOF TEXT AS
+$BODY$
+DECLARE
+  accept TEXT[] := ARRAY['TIMESTAMP'];
+  reject TEXT[] := ARRAY['INTERVAL', 'DATE', 'TIME', 'INTEGER'];
+BEGIN
+  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject);
+END;
+$BODY$ LANGUAGE plpgsql;
+
+
+
+CREATE OR REPLACE FUNCTION inner_query_jobs(fn TEXT, start_sql TEXT, rest_sql TEXT, is_plain BOOLEAN)
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
@@ -130,17 +155,21 @@ DECLARE
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'location_index');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'service');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'delivery');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'pickup');
   RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
   RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'priority');
+  IF is_plain = TRUE THEN
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'service');
+  ELSE
+    RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'service');
+  END IF;
 END;
 $BODY$
 LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION inner_query_shipments(fn TEXT, start_sql TEXT, rest_sql TEXT)
+CREATE OR REPLACE FUNCTION inner_query_shipments(fn TEXT, start_sql TEXT, rest_sql TEXT, is_plain BOOLEAN)
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
@@ -150,17 +179,22 @@ BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'p_location_index');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'd_location_index');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'p_service');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'd_service');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'amount');
   RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
   RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'priority');
+  IF is_plain = TRUE THEN
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'p_service');
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'd_service');
+  ELSE
+    RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'p_service');
+    RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'd_service');
+  END IF;
 END;
 $BODY$
 LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION inner_query_vehicles(fn TEXT, start_sql TEXT, rest_sql TEXT)
+CREATE OR REPLACE FUNCTION inner_query_vehicles(fn TEXT, start_sql TEXT, rest_sql TEXT, is_plain BOOLEAN)
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
@@ -172,15 +206,20 @@ BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_index');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'capacity');
   RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
   RETURN QUERY SELECT test_anyNumerical(fn, inner_query_table, start_sql, rest_sql, params, 'speed_factor');
+  IF is_plain = TRUE THEN
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+  ELSE
+    RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
+    RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+  END IF;
 END;
 $BODY$
 LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION inner_query_matrix(fn TEXT, start_sql TEXT, rest_sql TEXT)
+CREATE OR REPLACE FUNCTION inner_query_matrix(fn TEXT, start_sql TEXT, rest_sql TEXT, is_plain BOOLEAN)
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
@@ -195,7 +234,7 @@ $BODY$
 LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION inner_query_breaks(fn TEXT, start_sql TEXT, rest_sql TEXT)
+CREATE OR REPLACE FUNCTION inner_query_breaks(fn TEXT, start_sql TEXT, rest_sql TEXT, is_plain BOOLEAN)
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
@@ -204,27 +243,36 @@ DECLARE
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'vehicle_id');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'service');
+  IF is_plain = TRUE THEN
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'service');
+  ELSE
+    RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'service');
+  END IF;
 END;
 $BODY$
 LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION inner_query_time_windows(fn TEXT, inner_query_table TEXT, start_sql TEXT, rest_sql TEXT)
+CREATE OR REPLACE FUNCTION inner_query_time_windows(fn TEXT, inner_query_table TEXT, start_sql TEXT, rest_sql TEXT, is_plain BOOLEAN)
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   params TEXT[] := ARRAY['id', 'tw_open', 'tw_close'];
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+  IF is_plain = TRUE THEN
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+  ELSE
+    RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
+    RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+  END IF;
 END;
 $BODY$
 LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION inner_query_shipments_time_windows(fn TEXT, inner_query_table TEXT, start_sql TEXT, rest_sql TEXT)
+CREATE OR REPLACE FUNCTION inner_query_shipments_time_windows(fn TEXT, inner_query_table TEXT, start_sql TEXT, rest_sql TEXT, is_plain BOOLEAN)
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
@@ -232,14 +280,19 @@ DECLARE
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
   RETURN QUERY SELECT test_Char(fn, inner_query_table, start_sql, rest_sql, params, 'kind');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+  IF is_plain = TRUE THEN
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+  ELSE
+    RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
+    RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+  END IF;
 END;
 $BODY$
 LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION inner_query()
+CREATE OR REPLACE FUNCTION inner_query(is_plain BOOLEAN)
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
@@ -255,134 +308,163 @@ BEGIN
     RETURN;
   END IF;
 
-  -- vrp_vroomPlain
+  -- vrp_vroom
 
-  fn := 'vrp_vroomPlain';
+  IF is_plain = TRUE THEN
+    fn := 'vrp_vroomPlain';
+  ELSE
+    fn := 'vrp_vroom';
+  END IF;
   start_sql := '';
   rest_sql := ', $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
               '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
-  RETURN QUERY SELECT inner_query_jobs(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_jobs(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, ';
   rest_sql := ', $$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
               '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
   inner_query_table := 'jobs_time_windows';
-  RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, ';
   rest_sql := ', $$SELECT * FROM shipments_time_windows$$, ' ||
               '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
-  RETURN QUERY SELECT inner_query_shipments(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_shipments(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, ';
   rest_sql := ', $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
   inner_query_table := 'shipments_time_windows';
-  RETURN QUERY SELECT inner_query_shipments_time_windows(fn, inner_query_table, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_shipments_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, ' ||
                '$$SELECT * FROM shipments_time_windows$$, ';
   rest_sql := ', $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
-  RETURN QUERY SELECT inner_query_vehicles(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_vehicles(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, ' ||
                '$$SELECT * FROM shipments_time_windows$$, $$SELECT * FROM vehicles$$, ';
   rest_sql := ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
-  RETURN QUERY SELECT inner_query_breaks(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_breaks(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, ' ||
                '$$SELECT * FROM shipments_time_windows$$, $$SELECT * FROM vehicles$$, ' ||
                '$$SELECT * FROM breaks$$, ';
   rest_sql := ', $$SELECT * FROM matrix$$)';
   inner_query_table := 'breaks_time_windows';
-  RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, ' ||
                '$$SELECT * FROM shipments_time_windows$$, $$SELECT * FROM vehicles$$, ' ||
                '$$SELECT * FROM breaks$$, $$SELECT * FROM breaks_time_windows$$, ';
   rest_sql := ')';
-  RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql, is_plain);
 
 
-  -- vrp_vroomJobsPlain
+  -- vrp_vroomJobs
 
-  fn := 'vrp_vroomJobsPlain';
+  IF is_plain = TRUE THEN
+    fn := 'vrp_vroomJobsPlain';
+  ELSE
+    fn := 'vrp_vroomJobs';
+  END IF;
   start_sql := '';
   rest_sql := ', $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
-  RETURN QUERY SELECT inner_query_jobs(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_jobs(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, ';
   rest_sql := ', $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
   inner_query_table := 'jobs_time_windows';
-  RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, ';
   rest_sql := ', $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
-  RETURN QUERY SELECT inner_query_vehicles(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_vehicles(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, ';
   rest_sql := ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
-  RETURN QUERY SELECT inner_query_breaks(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_breaks(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ';
   rest_sql := ', $$SELECT * FROM matrix$$)';
   inner_query_table := 'breaks_time_windows';
-  RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, $$SELECT * FROM breaks_time_windows$$, ';
   rest_sql := ')';
-  RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql, is_plain);
 
 
-  -- vrp_vroomShipmentsPlain
+  -- vrp_vroomShipments
 
-  fn := 'vrp_vroomShipmentsPlain';
+  IF is_plain = TRUE THEN
+    fn := 'vrp_vroomShipmentsPlain';
+  ELSE
+    fn := 'vrp_vroomShipments';
+  END IF;
   start_sql := '';
   rest_sql := ', $$SELECT * FROM shipments_time_windows$$, $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
-  RETURN QUERY SELECT inner_query_shipments(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_shipments(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM shipments$$, ';
   rest_sql := ', $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
               '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
   inner_query_table := 'shipments_time_windows';
-  RETURN QUERY SELECT inner_query_shipments_time_windows(fn, inner_query_table, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_shipments_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ';
   rest_sql := ', $$SELECT * FROM breaks$$, $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
-  RETURN QUERY SELECT inner_query_vehicles(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_vehicles(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, ';
   rest_sql := ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
-  RETURN QUERY SELECT inner_query_breaks(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_breaks(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ';
   rest_sql := ', $$SELECT * FROM matrix$$)';
   inner_query_table := 'breaks_time_windows';
-  RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, $$SELECT * FROM breaks_time_windows$$, ';
   rest_sql := ')';
-  RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql);
+  RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql, is_plain);
+
 END;
 $BODY$
 LANGUAGE plpgsql;
 
 
-SELECT inner_query();
+SELECT inner_query(is_plain => TRUE);
+
+-- Adjust the column types to the expected types for vroom functions with timestamps/interval
+ALTER TABLE vroom.jobs ALTER COLUMN service TYPE INTERVAL USING make_interval(secs => service);
+ALTER TABLE vroom.shipments ALTER COLUMN p_service TYPE INTERVAL USING make_interval(secs => p_service);
+ALTER TABLE vroom.shipments ALTER COLUMN d_service TYPE INTERVAL USING make_interval(secs => d_service);
+ALTER TABLE vroom.vehicles ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE vroom.vehicles ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE vroom.breaks ALTER COLUMN service TYPE INTERVAL USING make_interval(secs => service);
+ALTER TABLE vroom.jobs_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE vroom.jobs_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE vroom.shipments_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE vroom.shipments_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+
+SELECT inner_query(is_plain => FALSE);
 
 SELECT * FROM finish();
 ROLLBACK;
