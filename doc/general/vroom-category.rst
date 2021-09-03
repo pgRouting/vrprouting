@@ -30,6 +30,9 @@ VROOM - Category (Experimental)
 .. toctree::
   :maxdepth: 1
 
+  vrp_vroom
+  vrp_vroomJobs
+  vrp_vroomShipments
   vrp_vroomPlain
   vrp_vroomJobsPlain
   vrp_vroomShipmentsPlain

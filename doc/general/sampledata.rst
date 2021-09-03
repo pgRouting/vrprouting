@@ -126,6 +126,15 @@ Matrix
    :start-after: -- MATRIX TABLE start
    :end-before: -- MATRIX TABLE end
 
+Modified VROOM Data
+-------------------------------------------------------------------------------
+
+The tables created using the above VROOM Data are modified for the VROOM functions
+with timestamps/interval, as:
+
+.. literalinclude:: ../../docqueries/vroom/doc-vrp_vroom.test.sql
+   :start-after: -- q0
+   :end-before: -- q1
 
 Images
 -------------------------------------------------------------------------------

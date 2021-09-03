@@ -1,5 +1,8 @@
 
 SET(LOCAL_FILES
+    vrp_vroom.rst
+    vrp_vroomJobs.rst
+    vrp_vroomShipments.rst
     vrp_vroomPlain.rst
     vrp_vroomJobsPlain.rst
     vrp_vroomShipmentsPlain.rst
