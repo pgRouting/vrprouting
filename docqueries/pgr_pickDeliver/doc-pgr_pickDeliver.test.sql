@@ -1,5 +1,5 @@
 SET extra_float_digits=-3;
-\echo --q1
+/* --q1 */
 SELECT * FROM vrp_pgr_pickDeliver(
     'SELECT * FROM orders_1 ORDER BY id',
     'SELECT * from vehicles_1',
@@ -16,7 +16,7 @@ SELECT * FROM vrp_pgr_pickDeliver(
     FROM A, A AS B WHERE A.id != B.id'
     );
 
-\echo --q2
+/* --q2 */
 
 SELECT * FROM vrp_pgr_pickDeliver(
     $$ SELECT * FROM orders_1 ORDER BY id $$,
@@ -31,4 +31,4 @@ SELECT * FROM vrp_pgr_pickDeliver(
     $$
 );
 
-\echo --q3
+/* --q3 */

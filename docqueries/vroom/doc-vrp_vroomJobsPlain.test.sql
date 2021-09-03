@@ -1,4 +1,4 @@
-\echo -- q1
+/* -- q1 */
 SELECT *
 FROM vrp_vroomJobsPlain(
   'SELECT * FROM vroom.jobs',
@@ -8,7 +8,7 @@ FROM vrp_vroomJobsPlain(
   'SELECT * FROM vroom.breaks_time_windows',
   'SELECT * FROM vroom.matrix'
 );
-\echo -- q2
+/* -- q2 */
 SELECT *
 FROM vrp_vroomJobsPlain(
   $jobs$
@@ -33,4 +33,4 @@ FROM vrp_vroomJobsPlain(
     ) AS C(start_vid, end_vid, agg_cost)
   $matrix$
 );
-\echo -- q3
+/* -- q3 */

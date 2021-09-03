@@ -2,7 +2,7 @@ BEGIN;
 BEGIN
 SET client_min_messages TO NOTICE;
 SET
--- q1
+/* -- q1 */
 SELECT *
 FROM vrp_vroomJobsPlain(
   'SELECT * FROM vroom.jobs',
@@ -27,7 +27,7 @@ FROM vrp_vroomJobsPlain(
   11 |           2 |          2 |        7 |         6 |      -1 |    3775 |         190 |            0 |            0 | {100}
 (11 rows)
 
--- q2
+/* -- q2 */
 SELECT *
 FROM vrp_vroomJobsPlain(
   $jobs$
@@ -60,6 +60,6 @@ FROM vrp_vroomJobsPlain(
    4 |           1 |          1 |        4 |         6 |      -1 |    5461 |        5461 |            0 |            0 | {}
 (4 rows)
 
--- q3
+/* -- q3 */
 ROLLBACK;
 ROLLBACK
