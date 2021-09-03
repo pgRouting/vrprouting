@@ -49,7 +49,8 @@ Signature
    :start-after: signature start
    :end-before: signature end
 
-**Example**: This example is based on the VROOM Data of the :doc:`sampledata` network:
+**Example**: This example is based on the modified VROOM Data of the :doc:`sampledata` network.
+The modification in the tables is mentioned at the end of the :doc:`sampledata`.
 
 .. literalinclude:: doc-vrp_vroom.queries
    :start-after: -- q1
