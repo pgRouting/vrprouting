@@ -46,7 +46,9 @@ Column                Type                       Default     Description
 
 **location_index**    ``ANY-INTEGER``                        Non-negative identifier of the job location.
 
-**service**           ``INTEGER``                0           Job service duration, in seconds
+**service**           ``INTERVAL``               0           Job service duration, in seconds
+
+                                                             - ``INTEGER`` for plain VROOM functions.
 
 **delivery**          ``ARRAY[ANY-INTEGER]``                 Array of non-negative integers describing
                                                              multidimensional quantities for delivery such

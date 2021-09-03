@@ -46,11 +46,15 @@ Column                  Type                       Default     Description
 
 **p_location_index**    ``ANY-INTEGER``                         Non-negative identifier of the pickup location.
 
-**p_service**           ``INTEGER``                0            Pickup service duration, in seconds
+**p_service**           ``INTERVAL``               0            Pickup service duration, in seconds
+
+                                                                - ``INTEGER`` for plain VROOM functions.
 
 **d_location_index**    ``ANY-INTEGER``                         Non-negative identifier of the delivery location.
 
-**d_service**           ``INTEGER``                0            Delivery service duration, in seconds
+**d_service**           ``INTERVAL``               0            Delivery service duration, in seconds
+
+                                                                - ``INTEGER`` for plain VROOM functions.
 
 **amount**              ``ARRAY[ANY-INTEGER]``                  Array of non-negative integers describing
                                                                 multidimensional quantities such as number

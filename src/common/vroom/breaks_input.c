@@ -45,7 +45,9 @@ Column                Type                       Default     Description
 
 **vehicle_id**        ``ANY-INTEGER``                         Non-negative unique identifier of the vehicle.
 
-**service**           ``INTEGER``                0            The break duration, in seconds
+**service**           ``INTERVAL``               0            The break duration, in seconds.
+
+                                                              - ``INTEGER`` for plain VROOM functions.
 ====================  =========================  =========== ================================================
 
 .. vrp_vroom end

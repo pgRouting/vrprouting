@@ -49,9 +49,13 @@ Column                Type                                   Description
                                                               - Pickup shipment, or
                                                               - Delivery shipment.
 
-**tw_open**           ``INTEGER``                             Time window opening time.
+**tw_open**           ``TIMESTAMP``                           Time window opening time.
 
-**tw_close**          ``INTEGER``                             Time window closing time.
+                                                              - ``INTEGER`` for plain VROOM functions.
+
+**tw_close**          ``TIMESTAMP``                           Time window closing time.
+
+                                                              - ``INTEGER`` for plain VROOM functions.
 ====================  ====================================== =====================================================
 
 **Note**:
