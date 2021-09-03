@@ -68,43 +68,58 @@ parameters end
 
 result start
 
-=================== ============= =================================================
-Column              Type           Description
-=================== ============= =================================================
-**seq**              ``BIGINT``   Sequential value starting from **1**.
+Returns set of
 
-**vehicle_seq**      ``BIGINT``   Sequential value starting from **1** for current vehicles.
-                                  The :math:`n^{th}` vehicle in the solution.
+.. code-block:: none
 
-**vehicle_id**       ``BIGINT``   Current vehicle identifier.
+    (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
+     arrival, travel_time, service_time, waiting_time, load)
 
-**step_seq**         ``BIGINT``   Sequential value starting from **1** for the stops
-                                  made by the current vehicle. The :math:`m^{th}` stop
-                                  of the current vehicle.
+=================== ================= =================================================
+Column              Type              Description
+=================== ================= =================================================
+**seq**              ``BIGINT``       Sequential value starting from **1**.
 
-**step_type**        ``INTEGER``  Kind of the step location the vehicle is at:
+**vehicle_seq**      ``BIGINT``       Sequential value starting from **1** for current vehicles.
+                                      The :math:`n^{th}` vehicle in the solution.
 
-                                  - ``1``: Starting location
-                                  - ``2``: Job location
-                                  - ``3``: Pickup location
-                                  - ``4``: Delivery location
-                                  - ``5``: Break location
-                                  - ``6``: Ending location
+**vehicle_id**       ``BIGINT``       Current vehicle identifier.
 
-**task_id**          ``BIGINT``   Identifier of the task performed at this step.
+**step_seq**         ``BIGINT``       Sequential value starting from **1** for the stops
+                                      made by the current vehicle. The :math:`m^{th}` stop
+                                      of the current vehicle.
 
-                                  - ``-1``: If the step is starting/ending location.
+**step_type**        ``INTEGER``      Kind of the step location the vehicle is at:
 
-**arrival**          ``INTEGER``  Estimated time of arrival at this step, in seconds.
+                                      - ``1``: Starting location
+                                      - ``2``: Job location
+                                      - ``3``: Pickup location
+                                      - ``4``: Delivery location
+                                      - ``5``: Break location
+                                      - ``6``: Ending location
 
-**travel_time**      ``INTEGER``  Cumulated travel time upon arrival at this step, in seconds
+**task_id**          ``BIGINT``       Identifier of the task performed at this step.
 
-**service_time**     ``INTEGER``  Service time at this step, in seconds
+                                      - ``-1``: If the step is starting/ending location.
 
-**waiting_time**     ``INTEGER``  Waiting time upon arrival at this step, in seconds.
+**arrival**          ``TIMESTAMP``    Estimated time of arrival at this step, in seconds.
 
-**load**             ``BIGINT``   Vehicle load after step completion (with capacity constraints)
-=================== ============= =================================================
+                                      - ``INTEGER`` for plain VROOM functions.
+
+**travel_time**      ``INTERVAL``     Cumulated travel time upon arrival at this step, in seconds
+
+                                      - ``INTEGER`` for plain VROOM functions.
+
+**service_time**     ``INTERVAL``     Service time at this step, in seconds
+
+                                      - ``INTEGER`` for plain VROOM functions.
+
+**waiting_time**     ``INTERVAL``     Waiting time upon arrival at this step, in seconds.
+
+                                      - ``INTEGER`` for plain VROOM functions.
+
+**load**             ``BIGINT``       Vehicle load after step completion (with capacity constraints)
+=================== ================= =================================================
 
 result end
 */
