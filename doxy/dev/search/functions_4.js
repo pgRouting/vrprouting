@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['db_5fget_5fbreaks_924',['db_get_breaks',['../breaks__input_8c.html#a67a5281ed239583df6993c8f18201c58',1,'breaks_input.c']]],
-  ['db_5fget_5fjobs_925',['db_get_jobs',['../jobs__input_8c.html#acee88a5b9f72d3b60012811883139b5c',1,'jobs_input.c']]],
-  ['db_5fget_5fshipments_926',['db_get_shipments',['../shipments__input_8c.html#aa5fee317340b884d1f3ee18caff809e5',1,'shipments_input.c']]],
-  ['db_5fget_5ftime_5fwindows_927',['db_get_time_windows',['../time__windows__input_8c.html#a24b4727a3365b8603c99d195b6ded762',1,'time_windows_input.c']]],
-  ['db_5fget_5fvehicles_928',['db_get_vehicles',['../vehicles__input_8c.html#aee79776487ded74deed6705b851fa6f9',1,'db_get_vehicles(char *vehicles_sql, Vehicle_t **vehicles, size_t *total_vehicles, Column_info_t *info, const int column_count, int kind, bool with_stops):&#160;vehicles_input.c'],['../vroom_2vehicles__input_8c.html#a065657fa49e3f6c773d34340bd85f3e4',1,'db_get_vehicles(char *vehicles_sql, Vroom_vehicle_t **vehicles, size_t *total_vehicles, Column_info_t *info, const int column_count):&#160;vehicles_input.c']]],
+  ['db_5fget_5fbreaks_924',['db_get_breaks',['../breaks__input_8c.html#ac0cd266439567ef6df6150218e99c280',1,'breaks_input.c']]],
+  ['db_5fget_5fjobs_925',['db_get_jobs',['../jobs__input_8c.html#ab366c30d505270aced6bd7f9f6924bed',1,'jobs_input.c']]],
+  ['db_5fget_5fshipments_926',['db_get_shipments',['../shipments__input_8c.html#a83a5eafb1554cd05aa8dbf7789d8ff08',1,'shipments_input.c']]],
+  ['db_5fget_5ftime_5fwindows_927',['db_get_time_windows',['../time__windows__input_8c.html#a2558af15850ce5b7cd8346366019755e',1,'time_windows_input.c']]],
+  ['db_5fget_5fvehicles_928',['db_get_vehicles',['../vehicles__input_8c.html#aee79776487ded74deed6705b851fa6f9',1,'db_get_vehicles(char *vehicles_sql, Vehicle_t **vehicles, size_t *total_vehicles, Column_info_t *info, const int column_count, int kind, bool with_stops):&#160;vehicles_input.c'],['../vroom_2vehicles__input_8c.html#a68a1e1be62075550e13388f0f367a4cb',1,'db_get_vehicles(char *vehicles_sql, Vroom_vehicle_t **vehicles, size_t *total_vehicles, Column_info_t *info, const int column_count, bool is_plain):&#160;vehicles_input.c']]],
   ['decrease_5ftruck_929',['decrease_truck',['../classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html#abbca3ccaf77bc37bb99b43bad6fa6643',1,'vrprouting::optimizers::simple::Optimize::decrease_truck()'],['../classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html#a943404d43fcb630c60069b4615f8e065',1,'vrprouting::optimizers::simple::Optimize::decrease_truck(size_t)']]],
   ['delete_5fempty_5ftruck_930',['delete_empty_truck',['../classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html#a24c367282893ac6588efa38ae35d6b85',1,'vrprouting::optimizers::simple::Optimize::delete_empty_truck()'],['../classvrprouting_1_1optimizers_1_1tabu_1_1Optimize.html#aa85c5eb8672b446550d7191dc2d5d7be',1,'vrprouting::optimizers::tabu::Optimize::delete_empty_truck()']]],
   ['delivery_931',['delivery',['../classvrprouting_1_1problem_1_1Order.html#a3120254c43bd181a1596c859e1bc70ac',1,'vrprouting::problem::Order']]],

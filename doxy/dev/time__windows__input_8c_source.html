@@ -138,218 +138,254 @@ $(document).ready(function(){initNavTree('time__windows__input_8c_source.html','
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">                                                              - Pickup shipment, or</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">                                                              - Delivery shipment.</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">**tw_open**           ``INTEGER``                             Time window opening time.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">**tw_open**           ``TIMESTAMP``                           Time window opening time.</span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">**tw_close**          ``INTEGER``                             Time window closing time.</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">====================  ====================================== =====================================================</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">**Note**:</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">- All timing are in seconds.</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">- Every row must satisfy the condition: :code:`tw_open ≤ tw_close`.</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">- It is up to users to decide how to describe time windows:</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">                                                              - ``INTEGER`` for plain VROOM functions.</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">**tw_close**          ``TIMESTAMP``                           Time window closing time.</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">                                                              - ``INTEGER`` for plain VROOM functions.</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">====================  ====================================== =====================================================</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">**Note**:</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">  - **Relative values**, e.g. [0, 14400] for a 4 hours time window starting at the beginning of the planning horizon. In that case all times reported in output with the arrival column are relative to the start of the planning horizon.</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">  - **Absolute values**, &quot;real&quot; timestamps. In that case all times reported in output with the arrival column can be interpreted as timestamps.</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">.. vrp_vroom end</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">static</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="time__windows__input_8c.html#a58ef2009f1609a13dd89f22c1e6e92f0">   70</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="time__windows__input_8c.html#a58ef2009f1609a13dd89f22c1e6e92f0">fetch_time_windows</a>(</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    HeapTuple *tuple,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    TupleDesc *tupdesc,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="structColumn__info__t.html">Column_info_t</a> *info,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *time_window,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">bool</span> is_shipment) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a1b35cb0a33ab3502ed3911d3314106fc">id</a> = <a class="code" href="get__check__data_8c.html#a4d0319e7cafbc4d90779476eef6b536f">get_Idx</a>(tuple, tupdesc, info[0], 0);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordflow">if</span> (is_shipment) {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">char</span> kind = <a class="code" href="get__check__data_8c.html#a3f128e9d3f0144042e308abf5f3ca9c0">get_Kind</a>(tuple, tupdesc, info[1], <span class="charliteral">&#39; &#39;</span>);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">if</span> (kind != <span class="charliteral">&#39;p&#39;</span> &amp;&amp; kind != <span class="charliteral">&#39;d&#39;</span>) {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      ereport(ERROR, (errmsg(<span class="stringliteral">&quot;Invalid kind %c&quot;</span>, kind),</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                      errhint(<span class="stringliteral">&quot;Kind must be either &#39;p&#39; or &#39;d&#39;&quot;</span>)));</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a0a8afe6b91f7744d72cca79accfed3b5">kind</a> = kind;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a> = <a class="code" href="get__check__data_8c.html#aa9e009203a735952f47f497758e240d2">get_Duration</a>(tuple, tupdesc, info[2], 0);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a> = <a class="code" href="get__check__data_8c.html#aa9e009203a735952f47f497758e240d2">get_Duration</a>(tuple, tupdesc, info[3], 0);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a> = <a class="code" href="get__check__data_8c.html#aa9e009203a735952f47f497758e240d2">get_Duration</a>(tuple, tupdesc, info[1], 0);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a> = <a class="code" href="get__check__data_8c.html#aa9e009203a735952f47f497758e240d2">get_Duration</a>(tuple, tupdesc, info[2], 0);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordflow">if</span> (time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a> &gt; time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a>) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    ereport(ERROR,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        (errmsg(<span class="stringliteral">&quot;Invalid time window (%d, %d)&quot;</span>,</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a>, time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a>),</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;         errhint(<span class="stringliteral">&quot;Time window start time %d must be &quot;</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;             <span class="stringliteral">&quot;less than or equal to time window end time %d&quot;</span>,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;             time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a>, time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a>)));</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">static</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="time__windows__input_8c.html#a24b4727a3365b8603c99d195b6ded762">  105</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="time__windows__input_8c.html#a24b4727a3365b8603c99d195b6ded762">db_get_time_windows</a>(</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">char</span> *time_windows_sql,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> **time_windows,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">size_t</span> *total_time_windows,</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="structColumn__info__t.html">Column_info_t</a> *info,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> column_count,</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">bool</span> is_shipment) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#ifdef PROFILE</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  clock_t start_t = clock();</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <a class="code" href="debug__macro_8h.html#a1de36e41fe82179fc7f8841b522787cf">PGR_DBG</a>(<span class="stringliteral">&quot;%s&quot;</span>, time_windows_sql);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> tuple_limit = 1000000;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keywordtype">size_t</span> total_tuples;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">- All timing are in seconds.</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">- Every row must satisfy the condition: :code:`tw_open ≤ tw_close`.</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">- It is up to users to decide how to describe time windows:</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">  - **Relative values**, e.g. [0, 14400] for a 4 hours time window starting at the beginning of the planning horizon. In that case all times reported in output with the arrival column are relative to the start of the planning horizon.</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">  - **Absolute values**, &quot;real&quot; timestamps. In that case all times reported in output with the arrival column can be interpreted as timestamps.</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">.. vrp_vroom end</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">static</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="time__windows__input_8c.html#ab96391530fd5dc3af043f87e8d8860fb">   74</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="time__windows__input_8c.html#ab96391530fd5dc3af043f87e8d8860fb">fetch_time_windows</a>(</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    HeapTuple *tuple,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    TupleDesc *tupdesc,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="structColumn__info__t.html">Column_info_t</a> *info,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *time_window,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">bool</span> is_shipment,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">bool</span> is_plain) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a1b35cb0a33ab3502ed3911d3314106fc">id</a> = <a class="code" href="get__check__data_8c.html#a4d0319e7cafbc4d90779476eef6b536f">get_Idx</a>(tuple, tupdesc, info[0], 0);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordflow">if</span> (is_shipment) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">char</span> kind = <a class="code" href="get__check__data_8c.html#a3f128e9d3f0144042e308abf5f3ca9c0">get_Kind</a>(tuple, tupdesc, info[1], <span class="charliteral">&#39; &#39;</span>);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">if</span> (kind != <span class="charliteral">&#39;p&#39;</span> &amp;&amp; kind != <span class="charliteral">&#39;d&#39;</span>) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      ereport(ERROR, (errmsg(<span class="stringliteral">&quot;Invalid kind %c&quot;</span>, kind),</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                      errhint(<span class="stringliteral">&quot;Kind must be either &#39;p&#39; or &#39;d&#39;&quot;</span>)));</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a0a8afe6b91f7744d72cca79accfed3b5">kind</a> = kind;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">if</span> (is_plain) {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a> = <a class="code" href="get__check__data_8c.html#aa9e009203a735952f47f497758e240d2">get_Duration</a>(tuple, tupdesc, info[2], 0);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a> = <a class="code" href="get__check__data_8c.html#aa9e009203a735952f47f497758e240d2">get_Duration</a>(tuple, tupdesc, info[3], 0);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a> =</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;          (<a class="code" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a>)<a class="code" href="get__check__data_8c.html#a365f507b0103c35f59f2176fffb9512e">get_PositiveTTimestamp</a>(tuple, tupdesc, info[2], 0);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a> =</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;          (<a class="code" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a>)<a class="code" href="get__check__data_8c.html#a365f507b0103c35f59f2176fffb9512e">get_PositiveTTimestamp</a>(tuple, tupdesc, info[3], 0);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">if</span> (is_plain) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a> = <a class="code" href="get__check__data_8c.html#aa9e009203a735952f47f497758e240d2">get_Duration</a>(tuple, tupdesc, info[1], 0);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a> = <a class="code" href="get__check__data_8c.html#aa9e009203a735952f47f497758e240d2">get_Duration</a>(tuple, tupdesc, info[2], 0);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a> =</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;          (<a class="code" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a>)<a class="code" href="get__check__data_8c.html#a365f507b0103c35f59f2176fffb9512e">get_PositiveTTimestamp</a>(tuple, tupdesc, info[1], 0);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a> =</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;          (<a class="code" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a>)<a class="code" href="get__check__data_8c.html#a365f507b0103c35f59f2176fffb9512e">get_PositiveTTimestamp</a>(tuple, tupdesc, info[2], 0);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordflow">if</span> (time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a> &gt; time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a>) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    ereport(ERROR,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        (errmsg(<span class="stringliteral">&quot;Invalid time window (%d, %d)&quot;</span>,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a>, time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a>),</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;         errhint(<span class="stringliteral">&quot;Time window start time %d must be &quot;</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;             <span class="stringliteral">&quot;less than or equal to time window end time %d&quot;</span>,</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;             time_window-&gt;<a class="code" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a>, time_window-&gt;<a class="code" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a>)));</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keywordtype">void</span> *SPIplan;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  SPIplan = <a class="code" href="postgres__connection_8c.html#aeb63bcfc2ca89c02b30317112bae5f12">pgr_SPI_prepare</a>(time_windows_sql);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  Portal SPIportal;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  SPIportal = <a class="code" href="postgres__connection_8c.html#a85cec439f5e567ec736a2a77a0533d9d">pgr_SPI_cursor_open</a>(SPIplan);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keywordtype">bool</span> moredata = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  (*total_time_windows) = total_tuples = 0;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="comment">/* on the first tuple get the column numbers */</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keywordflow">while</span> (moredata == <span class="keyword">true</span>) {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    SPI_cursor_fetch(SPIportal, <span class="keyword">true</span>, tuple_limit);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">if</span> (total_tuples == 0) {</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;      <a class="code" href="get__check__data_8c.html#ae6967f852e7bc95d5d5131b06131de46">pgr_fetch_column_info</a>(info, column_count);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">size_t</span> ntuples = SPI_processed;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    total_tuples += ntuples;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">if</span> (ntuples &gt; 0) {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;      <span class="keywordflow">if</span> ((*time_windows) == NULL)</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        (*time_windows) = (<a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *)palloc0(</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            total_tuples * <span class="keyword">sizeof</span>(<a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a>));</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;      <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        (*time_windows) = (<a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *)repalloc(</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            (*time_windows),</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            total_tuples * <span class="keyword">sizeof</span>(<a class="code" href="typedefs_8h.html#a218e8271b3366e2486d66e1927b1bbca">Vroom_time_window_t</a>));</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;      <span class="keywordflow">if</span> ((*time_windows) == NULL) {</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        elog(ERROR, <span class="stringliteral">&quot;Out of memory&quot;</span>);</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;      }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">static</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="time__windows__input_8c.html#a2558af15850ce5b7cd8346366019755e">  124</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="time__windows__input_8c.html#a2558af15850ce5b7cd8346366019755e">db_get_time_windows</a>(</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">char</span> *time_windows_sql,</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> **time_windows,</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordtype">size_t</span> *total_time_windows,</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <a class="code" href="structColumn__info__t.html">Column_info_t</a> *info,</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> column_count,</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">bool</span> is_shipment,</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">bool</span> is_plain) {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#ifdef PROFILE</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  clock_t start_t = clock();</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <a class="code" href="debug__macro_8h.html#a1de36e41fe82179fc7f8841b522787cf">PGR_DBG</a>(<span class="stringliteral">&quot;%s&quot;</span>, time_windows_sql);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> tuple_limit = 1000000;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <span class="keywordtype">size_t</span> total_tuples;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="keywordtype">void</span> *SPIplan;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  SPIplan = <a class="code" href="postgres__connection_8c.html#aeb63bcfc2ca89c02b30317112bae5f12">pgr_SPI_prepare</a>(time_windows_sql);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  Portal SPIportal;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  SPIportal = <a class="code" href="postgres__connection_8c.html#a85cec439f5e567ec736a2a77a0533d9d">pgr_SPI_cursor_open</a>(SPIplan);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <span class="keywordtype">bool</span> moredata = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  (*total_time_windows) = total_tuples = 0;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  <span class="comment">/* on the first tuple get the column numbers */</span></div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;      <span class="keywordtype">size_t</span> t;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;      SPITupleTable *tuptable = SPI_tuptable;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;      TupleDesc tupdesc = SPI_tuptable-&gt;tupdesc;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      <span class="keywordflow">for</span> (t = 0; t &lt; ntuples; t++) {</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        HeapTuple tuple = tuptable-&gt;vals[t];</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <a class="code" href="time__windows__input_8c.html#a58ef2009f1609a13dd89f22c1e6e92f0">fetch_time_windows</a>(&amp;tuple, &amp;tupdesc, info,</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            &amp;(*time_windows)[total_tuples - ntuples + t], is_shipment);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;      }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;      SPI_freetuptable(tuptable);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;      moredata = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    }</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  }</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  SPI_cursor_close(SPIportal);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  <span class="keywordflow">while</span> (moredata == <span class="keyword">true</span>) {</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    SPI_cursor_fetch(SPIportal, <span class="keyword">true</span>, tuple_limit);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">if</span> (total_tuples == 0) {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      <a class="code" href="get__check__data_8c.html#ae6967f852e7bc95d5d5131b06131de46">pgr_fetch_column_info</a>(info, column_count);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    }</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordtype">size_t</span> ntuples = SPI_processed;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    total_tuples += ntuples;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">if</span> (ntuples &gt; 0) {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;      <span class="keywordflow">if</span> ((*time_windows) == NULL)</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        (*time_windows) = (<a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *)palloc0(</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            total_tuples * <span class="keyword">sizeof</span>(<a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a>));</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        (*time_windows) = (<a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *)repalloc(</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            (*time_windows),</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            total_tuples * <span class="keyword">sizeof</span>(<a class="code" href="typedefs_8h.html#a218e8271b3366e2486d66e1927b1bbca">Vroom_time_window_t</a>));</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  <span class="keywordflow">if</span> (total_tuples == 0) {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    (*total_time_windows) = 0;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  }</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  (*total_time_windows) = total_tuples;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="preprocessor">#ifdef PROFILE</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  <a class="code" href="time__msg_8c.html#a989d9723eb6d9be4cbf1214136286dbe">time_msg</a>(<span class="stringliteral">&quot;reading time windows&quot;</span>, start_t, clock());</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;}</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="time__windows__input_8h.html#aa2ca6c37b65bb6973d96c1f997bda303">  186</a></span>&#160;<a class="code" href="time__windows__input_8c.html#ad983340d60af01d8b96962cb4522299e">get_vroom_time_windows</a>(</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordtype">char</span> *sql,</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> **rows,</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordtype">size_t</span> *total_rows) {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <span class="keywordtype">int</span> kColumnCount = 3;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  <a class="code" href="structColumn__info__t.html">Column_info_t</a> info[kColumnCount];</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; kColumnCount; ++i) {</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a64816c9aa1e9203df8ed391fb9c6e849">colNumber</a> = -1;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748">type</a> = 0;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba5a063e265d2ac903b6808e9f6e73ec46">INTEGER</a>;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;      <span class="keywordflow">if</span> ((*time_windows) == NULL) {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        elog(ERROR, <span class="stringliteral">&quot;Out of memory&quot;</span>);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      }</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;      <span class="keywordtype">size_t</span> t;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;      SPITupleTable *tuptable = SPI_tuptable;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;      TupleDesc tupdesc = SPI_tuptable-&gt;tupdesc;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;      <span class="keywordflow">for</span> (t = 0; t &lt; ntuples; t++) {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        HeapTuple tuple = tuptable-&gt;vals[t];</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <a class="code" href="time__windows__input_8c.html#ab96391530fd5dc3af043f87e8d8860fb">fetch_time_windows</a>(&amp;tuple, &amp;tupdesc, info,</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            &amp;(*time_windows)[total_tuples - ntuples + t],</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            is_shipment, is_plain);</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;      }</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;      SPI_freetuptable(tuptable);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;      moredata = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  }</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  SPI_cursor_close(SPIportal);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <span class="keywordflow">if</span> (total_tuples == 0) {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    (*total_time_windows) = 0;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  }</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  (*total_time_windows) = total_tuples;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">#ifdef PROFILE</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  <a class="code" href="time__msg_8c.html#a989d9723eb6d9be4cbf1214136286dbe">time_msg</a>(<span class="stringliteral">&quot;reading time windows&quot;</span>, start_t, clock());</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;}</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;id&quot;</span>;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  info[1].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;tw_open&quot;</span>;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  info[2].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;tw_close&quot;</span>;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb">ANY_INTEGER</a>;  <span class="comment">// id</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  <a class="code" href="time__windows__input_8c.html#a24b4727a3365b8603c99d195b6ded762">db_get_time_windows</a>(sql, rows, total_rows, info, kColumnCount, 0);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;}</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="time__windows__input_8h.html#a01d6f23f3de609d1a04cee161d48cfa1">  215</a></span>&#160;<a class="code" href="time__windows__input_8c.html#a79204c51acc4010772e883327cc8a2d9">get_vroom_shipments_time_windows</a>(</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordtype">char</span> *sql,</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> **rows,</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keywordtype">size_t</span> *total_rows) {</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  <span class="keywordtype">int</span> kColumnCount = 4;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  <a class="code" href="structColumn__info__t.html">Column_info_t</a> info[kColumnCount];</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="keywordtype">void</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno"><a class="line" href="time__windows__input_8h.html#a209da72689b8c65a614a43d82ff588d5">  207</a></span>&#160;<a class="code" href="time__windows__input_8c.html#a4320adbd0d4437349ae76fdcd9d0ad83">get_vroom_time_windows</a>(</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keywordtype">char</span> *sql,</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> **rows,</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordtype">size_t</span> *total_rows,</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordtype">bool</span> is_plain) {</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  <span class="keywordtype">int</span> kColumnCount = 3;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  <a class="code" href="structColumn__info__t.html">Column_info_t</a> info[kColumnCount];</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; kColumnCount; ++i) {</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a64816c9aa1e9203df8ed391fb9c6e849">colNumber</a> = -1;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748">type</a> = 0;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba5a063e265d2ac903b6808e9f6e73ec46">INTEGER</a>;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  }</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; kColumnCount; ++i) {</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a64816c9aa1e9203df8ed391fb9c6e849">colNumber</a> = -1;</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748">type</a> = 0;</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba5a063e265d2ac903b6808e9f6e73ec46">INTEGER</a>;</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  }</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;id&quot;</span>;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  info[1].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;kind&quot;</span>;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  info[2].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;tw_open&quot;</span>;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  info[3].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;tw_close&quot;</span>;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb">ANY_INTEGER</a>;  <span class="comment">// id</span></div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  info[1].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3604ea9b63f3d952ec3321bc76ce3ef7">CHAR1</a>;        <span class="comment">// kind</span></div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  <a class="code" href="time__windows__input_8c.html#a24b4727a3365b8603c99d195b6ded762">db_get_time_windows</a>(sql, rows, total_rows, info, kColumnCount, 1);</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;}</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;id&quot;</span>;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;  info[1].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;tw_open&quot;</span>;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  info[2].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;tw_close&quot;</span>;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb">ANY_INTEGER</a>;  <span class="comment">// id</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;  <span class="keywordflow">if</span> (!is_plain) {</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    info[1].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda">TIMESTAMP</a>;  <span class="comment">// tw_open</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    info[2].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda">TIMESTAMP</a>;  <span class="comment">// tw_close</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  }</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  <a class="code" href="time__windows__input_8c.html#a2558af15850ce5b7cd8346366019755e">db_get_time_windows</a>(sql, rows, total_rows, info, kColumnCount, 0, is_plain);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;}</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="keywordtype">void</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="time__windows__input_8h.html#aaa2e5ac53c31bf4b94879ed29dd4cdb5">  242</a></span>&#160;<a class="code" href="time__windows__input_8c.html#a8e8fb702e67d62a25aeb52e7b3674996">get_vroom_shipments_time_windows</a>(</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordtype">char</span> *sql,</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> **rows,</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordtype">size_t</span> *total_rows,</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keywordtype">bool</span> is_plain) {</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  <span class="keywordtype">int</span> kColumnCount = 4;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  <a class="code" href="structColumn__info__t.html">Column_info_t</a> info[kColumnCount];</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; kColumnCount; ++i) {</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a64816c9aa1e9203df8ed391fb9c6e849">colNumber</a> = -1;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748">type</a> = 0;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba5a063e265d2ac903b6808e9f6e73ec46">INTEGER</a>;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  }</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;id&quot;</span>;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  info[1].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;kind&quot;</span>;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  info[2].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;tw_open&quot;</span>;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  info[3].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;tw_close&quot;</span>;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb">ANY_INTEGER</a>;  <span class="comment">// id</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  info[1].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3604ea9b63f3d952ec3321bc76ce3ef7">CHAR1</a>;        <span class="comment">// kind</span></div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;  <span class="keywordflow">if</span> (!is_plain) {</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    info[2].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda">TIMESTAMP</a>;  <span class="comment">// tw_open</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    info[3].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda">TIMESTAMP</a>;  <span class="comment">// tw_close</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;  }</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  <a class="code" href="time__windows__input_8c.html#a2558af15850ce5b7cd8346366019755e">db_get_time_windows</a>(sql, rows, total_rows, info, kColumnCount, 1, is_plain);</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructColumn__info__t_html_a64816c9aa1e9203df8ed391fb9c6e849"><div class="ttname"><a href="structColumn__info__t.html#a64816c9aa1e9203df8ed391fb9c6e849">Column_info_t::colNumber</a></div><div class="ttdeci">int colNumber</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00053">column_info_t.h:53</a></div></div>
 <div class="ttc" id="atime__windows__input_8h_html"><div class="ttname"><a href="time__windows__input_8h.html">time_windows_input.h</a></div></div>
-<div class="ttc" id="atime__windows__input_8c_html_a58ef2009f1609a13dd89f22c1e6e92f0"><div class="ttname"><a href="time__windows__input_8c.html#a58ef2009f1609a13dd89f22c1e6e92f0">fetch_time_windows</a></div><div class="ttdeci">static void fetch_time_windows(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t *info, Vroom_time_window_t *time_window, bool is_shipment)</div><div class="ttdef"><b>Definition:</b> <a href="time__windows__input_8c_source.html#l00070">time_windows_input.c:70</a></div></div>
 <div class="ttc" id="astructColumn__info__t_html_a72833df7d9b7fd577a9e5c866c390518"><div class="ttname"><a href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">Column_info_t::strict</a></div><div class="ttdeci">bool strict</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00055">column_info_t.h:55</a></div></div>
 <div class="ttc" id="apostgres__connection_8c_html_aeb63bcfc2ca89c02b30317112bae5f12"><div class="ttname"><a href="postgres__connection_8c.html#aeb63bcfc2ca89c02b30317112bae5f12">pgr_SPI_prepare</a></div><div class="ttdeci">SPIPlanPtr pgr_SPI_prepare(char *sql)</div><div class="ttdef"><b>Definition:</b> <a href="postgres__connection_8c_source.html#l00088">postgres_connection.c:88</a></div></div>
 <div class="ttc" id="astructVroom__time__window__t_html"><div class="ttname"><a href="structVroom__time__window__t.html">Vroom_time_window_t</a></div><div class="ttdoc">Time window's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__time__window__t_8h_source.html#l00046">vroom_time_window_t.h:46</a></div></div>
 <div class="ttc" id="astructVroom__time__window__t_html_a1b35cb0a33ab3502ed3911d3314106fc"><div class="ttname"><a href="structVroom__time__window__t.html#a1b35cb0a33ab3502ed3911d3314106fc">Vroom_time_window_t::id</a></div><div class="ttdeci">Idx id</div><div class="ttdef"><b>Definition:</b> <a href="vroom__time__window__t_8h_source.html#l00047">vroom_time_window_t.h:47</a></div></div>
 <div class="ttc" id="astructVroom__time__window__t_html_a0a8afe6b91f7744d72cca79accfed3b5"><div class="ttname"><a href="structVroom__time__window__t.html#a0a8afe6b91f7744d72cca79accfed3b5">Vroom_time_window_t::kind</a></div><div class="ttdeci">char kind</div><div class="ttdef"><b>Definition:</b> <a href="vroom__time__window__t_8h_source.html#l00048">vroom_time_window_t.h:48</a></div></div>
 <div class="ttc" id="aget__check__data_8c_html_ae6967f852e7bc95d5d5131b06131de46"><div class="ttname"><a href="get__check__data_8c.html#ae6967f852e7bc95d5d5131b06131de46">pgr_fetch_column_info</a></div><div class="ttdeci">void pgr_fetch_column_info(Column_info_t info[], int info_size)</div><div class="ttdoc">Function tells expected type of each column and then check the correspondence type of each column.</div><div class="ttdef"><b>Definition:</b> <a href="get__check__data_8c_source.html#l00860">get_check_data.c:860</a></div></div>
+<div class="ttc" id="aget__check__data_8c_html_a365f507b0103c35f59f2176fffb9512e"><div class="ttname"><a href="get__check__data_8c.html#a365f507b0103c35f59f2176fffb9512e">get_PositiveTTimestamp</a></div><div class="ttdeci">TTimestamp get_PositiveTTimestamp(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, TTimestamp opt_value)</div><div class="ttdoc">@params [in] tuple @params [in] tupdesc @params [in] info about the column been fetched @params [in] ...</div><div class="ttdef"><b>Definition:</b> <a href="get__check__data_8c_source.html#l00452">get_check_data.c:452</a></div></div>
 <div class="ttc" id="astructColumn__info__t_html_ac166599b0a83f7da1a40e75cc1a955b9"><div class="ttname"><a href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">Column_info_t::name</a></div><div class="ttdeci">char * name</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00056">column_info_t.h:56</a></div></div>
 <div class="ttc" id="apostgres__connection_8c_html_a85cec439f5e567ec736a2a77a0533d9d"><div class="ttname"><a href="postgres__connection_8c.html#a85cec439f5e567ec736a2a77a0533d9d">pgr_SPI_cursor_open</a></div><div class="ttdeci">Portal pgr_SPI_cursor_open(SPIPlanPtr SPIplan)</div><div class="ttdef"><b>Definition:</b> <a href="postgres__connection_8c_source.html#l00098">postgres_connection.c:98</a></div></div>
+<div class="ttc" id="atime__windows__input_8c_html_a8e8fb702e67d62a25aeb52e7b3674996"><div class="ttname"><a href="time__windows__input_8c.html#a8e8fb702e67d62a25aeb52e7b3674996">get_vroom_shipments_time_windows</a></div><div class="ttdeci">void get_vroom_shipments_time_windows(char *sql, Vroom_time_window_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM shipments time windows.</div><div class="ttdef"><b>Definition:</b> <a href="time__windows__input_8c_source.html#l00242">time_windows_input.c:242</a></div></div>
 <div class="ttc" id="adebug__macro_8h_html_a1de36e41fe82179fc7f8841b522787cf"><div class="ttname"><a href="debug__macro_8h.html#a1de36e41fe82179fc7f8841b522787cf">PGR_DBG</a></div><div class="ttdeci">#define PGR_DBG(...)</div><div class="ttdef"><b>Definition:</b> <a href="debug__macro_8h_source.html#l00034">debug_macro.h:34</a></div></div>
 <div class="ttc" id="aget__check__data_8c_html_aa9e009203a735952f47f497758e240d2"><div class="ttname"><a href="get__check__data_8c.html#aa9e009203a735952f47f497758e240d2">get_Duration</a></div><div class="ttdeci">Duration get_Duration(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Duration opt_value)</div><div class="ttdoc">@params [in] tuple @params [in] tupdesc @params [in] info about the column been fetched @params [in] ...</div><div class="ttdef"><b>Definition:</b> <a href="get__check__data_8c_source.html#l00657">get_check_data.c:657</a></div></div>
 <div class="ttc" id="astructColumn__info__t_html_a80df9b5f6ef4c51effc2da146bb0d477"><div class="ttname"><a href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">Column_info_t::eType</a></div><div class="ttdeci">expectType eType</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00057">column_info_t.h:57</a></div></div>
 <div class="ttc" id="aget__check__data_8c_html_a3f128e9d3f0144042e308abf5f3ca9c0"><div class="ttname"><a href="get__check__data_8c.html#a3f128e9d3f0144042e308abf5f3ca9c0">get_Kind</a></div><div class="ttdeci">char get_Kind(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, char opt_value)</div><div class="ttdoc">@params [in] tuple @params [in] tupdesc @params [in] info about the column been fetched @params [in] ...</div><div class="ttdef"><b>Definition:</b> <a href="get__check__data_8c_source.html#l00677">get_check_data.c:677</a></div></div>
+<div class="ttc" id="atime__windows__input_8c_html_a4320adbd0d4437349ae76fdcd9d0ad83"><div class="ttname"><a href="time__windows__input_8c.html#a4320adbd0d4437349ae76fdcd9d0ad83">get_vroom_time_windows</a></div><div class="ttdeci">void get_vroom_time_windows(char *sql, Vroom_time_window_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM time windows.</div><div class="ttdef"><b>Definition:</b> <a href="time__windows__input_8c_source.html#l00207">time_windows_input.c:207</a></div></div>
 <div class="ttc" id="atime__msg_8c_html_a989d9723eb6d9be4cbf1214136286dbe"><div class="ttname"><a href="time__msg_8c.html#a989d9723eb6d9be4cbf1214136286dbe">time_msg</a></div><div class="ttdeci">void time_msg(char *msg, clock_t start_t, clock_t end_t)</div><div class="ttdef"><b>Definition:</b> <a href="time__msg_8c_source.html#l00032">time_msg.c:32</a></div></div>
 <div class="ttc" id="acolumn__info__t_8h_html_a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb"><div class="ttname"><a href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb">ANY_INTEGER</a></div><div class="ttdeci">@ ANY_INTEGER</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00040">column_info_t.h:40</a></div></div>
-<div class="ttc" id="atime__windows__input_8c_html_ad983340d60af01d8b96962cb4522299e"><div class="ttname"><a href="time__windows__input_8c.html#ad983340d60af01d8b96962cb4522299e">get_vroom_time_windows</a></div><div class="ttdeci">void get_vroom_time_windows(char *sql, Vroom_time_window_t **rows, size_t *total_rows)</div><div class="ttdoc">Reads the VROOM time windows.</div><div class="ttdef"><b>Definition:</b> <a href="time__windows__input_8c_source.html#l00186">time_windows_input.c:186</a></div></div>
+<div class="ttc" id="atypedefs_8h_html_ab9909ec063ebb7ba9b134db52e1cbb01"><div class="ttname"><a href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a></div><div class="ttdeci">uint32_t Duration</div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8h_source.html#l00077">typedefs.h:77</a></div></div>
 <div class="ttc" id="aget__check__data_8c_html_a4d0319e7cafbc4d90779476eef6b536f"><div class="ttname"><a href="get__check__data_8c.html#a4d0319e7cafbc4d90779476eef6b536f">get_Idx</a></div><div class="ttdeci">Idx get_Idx(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Idx opt_value)</div><div class="ttdoc">@params [in] tuple @params [in] tupdesc @params [in] info about the column been fetched @params [in] ...</div><div class="ttdef"><b>Definition:</b> <a href="get__check__data_8c_source.html#l00557">get_check_data.c:557</a></div></div>
-<div class="ttc" id="atime__windows__input_8c_html_a79204c51acc4010772e883327cc8a2d9"><div class="ttname"><a href="time__windows__input_8c.html#a79204c51acc4010772e883327cc8a2d9">get_vroom_shipments_time_windows</a></div><div class="ttdeci">void get_vroom_shipments_time_windows(char *sql, Vroom_time_window_t **rows, size_t *total_rows)</div><div class="ttdoc">Reads the VROOM shipments time windows.</div><div class="ttdef"><b>Definition:</b> <a href="time__windows__input_8c_source.html#l00215">time_windows_input.c:215</a></div></div>
 <div class="ttc" id="astructVroom__time__window__t_html_a300de6b2c4e8dd9620ebf8ceb352030f"><div class="ttname"><a href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">Vroom_time_window_t::start_time</a></div><div class="ttdeci">Duration start_time</div><div class="ttdef"><b>Definition:</b> <a href="vroom__time__window__t_8h_source.html#l00049">vroom_time_window_t.h:49</a></div></div>
 <div class="ttc" id="astructColumn__info__t_html_aabe9ce1c2584f121ef9886ae81bfb748"><div class="ttname"><a href="structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748">Column_info_t::type</a></div><div class="ttdeci">uint64_t type</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00054">column_info_t.h:54</a></div></div>
+<div class="ttc" id="acolumn__info__t_8h_html_a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda"><div class="ttname"><a href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda">TIMESTAMP</a></div><div class="ttdeci">@ TIMESTAMP</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00046">column_info_t.h:46</a></div></div>
 <div class="ttc" id="acolumn__info__t_8h_html_a5bc91ed782fe6c30eaf15fe73b4474bba3604ea9b63f3d952ec3321bc76ce3ef7"><div class="ttname"><a href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3604ea9b63f3d952ec3321bc76ce3ef7">CHAR1</a></div><div class="ttdeci">@ CHAR1</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00043">column_info_t.h:43</a></div></div>
 <div class="ttc" id="astructVroom__time__window__t_html_abee03826b32298f17594599b71a8ab46"><div class="ttname"><a href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">Vroom_time_window_t::end_time</a></div><div class="ttdeci">Duration end_time</div><div class="ttdef"><b>Definition:</b> <a href="vroom__time__window__t_8h_source.html#l00050">vroom_time_window_t.h:50</a></div></div>
 <div class="ttc" id="astructColumn__info__t_html"><div class="ttname"><a href="structColumn__info__t.html">Column_info_t</a></div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00051">column_info_t.h:51</a></div></div>
 <div class="ttc" id="acolumn__info__t_8h_html_a5bc91ed782fe6c30eaf15fe73b4474bba5a063e265d2ac903b6808e9f6e73ec46"><div class="ttname"><a href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba5a063e265d2ac903b6808e9f6e73ec46">INTEGER</a></div><div class="ttdeci">@ INTEGER</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00039">column_info_t.h:39</a></div></div>
 <div class="ttc" id="atypedefs_8h_html_a218e8271b3366e2486d66e1927b1bbca"><div class="ttname"><a href="typedefs_8h.html#a218e8271b3366e2486d66e1927b1bbca">Vroom_time_window_t</a></div><div class="ttdeci">struct Vroom_time_window_t Vroom_time_window_t</div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8h_source.html#l00092">typedefs.h:92</a></div></div>
-<div class="ttc" id="atime__windows__input_8c_html_a24b4727a3365b8603c99d195b6ded762"><div class="ttname"><a href="time__windows__input_8c.html#a24b4727a3365b8603c99d195b6ded762">db_get_time_windows</a></div><div class="ttdeci">static void db_get_time_windows(char *time_windows_sql, Vroom_time_window_t **time_windows, size_t *total_time_windows, Column_info_t *info, const int column_count, bool is_shipment)</div><div class="ttdef"><b>Definition:</b> <a href="time__windows__input_8c_source.html#l00105">time_windows_input.c:105</a></div></div>
+<div class="ttc" id="atime__windows__input_8c_html_ab96391530fd5dc3af043f87e8d8860fb"><div class="ttname"><a href="time__windows__input_8c.html#ab96391530fd5dc3af043f87e8d8860fb">fetch_time_windows</a></div><div class="ttdeci">static void fetch_time_windows(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t *info, Vroom_time_window_t *time_window, bool is_shipment, bool is_plain)</div><div class="ttdef"><b>Definition:</b> <a href="time__windows__input_8c_source.html#l00074">time_windows_input.c:74</a></div></div>
+<div class="ttc" id="atime__windows__input_8c_html_a2558af15850ce5b7cd8346366019755e"><div class="ttname"><a href="time__windows__input_8c.html#a2558af15850ce5b7cd8346366019755e">db_get_time_windows</a></div><div class="ttdeci">static void db_get_time_windows(char *time_windows_sql, Vroom_time_window_t **time_windows, size_t *total_time_windows, Column_info_t *info, const int column_count, bool is_shipment, bool is_plain)</div><div class="ttdef"><b>Definition:</b> <a href="time__windows__input_8c_source.html#l00124">time_windows_input.c:124</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fdedb0aba14d44ce9d99bc100e026e6a.html">common</a></li><li class="navelem"><a class="el" href="dir_aaeda4ccd16660a500120753fd7f20c7.html">vroom</a></li><li class="navelem"><a class="el" href="time__windows__input_8c.html">time_windows_input.c</a></li>
-    <li class="footer">Generated on Fri Aug 13 2021 16:16:17 for vrpRouting by
+    <li class="footer">Generated on Fri Sep 3 2021 14:50:04 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
