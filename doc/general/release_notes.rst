@@ -32,6 +32,9 @@ v0.2.0 Release Notes
   - vrp_vroom
   - vrp_vroomJobs
   - vrp_vroomShipments
+  - vrp_vroomPlain
+  - vrp_vroomJobsPlain
+  - vrp_vroomShipmentsPlain
 
 v0.1.0 Release Notes
 *******************************************************************************
