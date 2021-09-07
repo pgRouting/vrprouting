@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>vrp_oneDepot - Experimental &#8212; vrpRouting Manual (0.1)</title>
+    <title>vrp_oneDepot - Experimental &#8212; vrpRouting Manual (0.2)</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
-    <link rel="next" title="Release Notes" href="release_notes.html" />
+    <link rel="next" title="VROOM - Category (Experimental)" href="vroom-category.html" />
     <link rel="prev" title="vrp_pgr_pickDeliverEuclidean - Experimental" href="vrp_pgr_pickDeliverEuclidean.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -42,7 +42,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
           vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.1.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>v0.2.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -117,7 +117,7 @@
     </a>
   </li>
   <li>
-    <a href="release_notes.html" title="Next Chapter: Release Notes"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Release Notes &raquo;</span>
+    <a href="vroom-category.html" title="Next Chapter: VROOM - Category (Experimental)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">VROOM - Categ... &raquo;</span>
     </a>
   </li>
               
@@ -149,10 +149,10 @@
 <div class="line"><br /></div>
 </div>
 <ul class="simple">
-<li><p><a class="reference external" href="https://vrp.pgrouting.org/">Documentation</a> → <a class="reference external" href="https://vrp.pgrouting.org/0">vrpRouting 0</a></p></li>
+<li><p><a class="reference external" href="https://vrp.pgrouting.org/">Documentation</a> → <a class="reference external" href="https://vrp.pgrouting.org/v0">vrpRouting v0</a></p></li>
 <li><p>Supported Versions
 <a class="reference external" href="https://vrp.pgrouting.org/latest/en/vrp_oneDepot.html">Latest</a>
-(<a class="reference external" href="https://vrp.pgrouting.org/0/en/vrp_oneDepot.html">0.0</a>)</p></li>
+(<a class="reference external" href="https://vrp.pgrouting.org/v0/en/vrp_oneDepot.html">v0</a>)</p></li>
 </ul>
 <section id="vrp-onedepot-experimental">
 <h1>vrp_oneDepot - Experimental<a class="headerlink" href="#vrp-onedepot-experimental" title="Enlazar permanentemente con este título">¶</a></h1>
@@ -258,8 +258,8 @@
 </div>
 <p class="rubric">Data</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="n">DROP</span> <span class="n">TABLE</span> <span class="n">IF</span> <span class="n">EXISTS</span> <span class="n">solomon_100_RC_101</span> <span class="n">cascade</span><span class="p">;</span>
-<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">solomon_100_RC_101</span> <span class="p">(</span>
+<span class="n">DROP</span> <span class="n">TABLE</span> <span class="n">IF</span> <span class="n">EXISTS</span> <span class="n">public</span><span class="o">.</span><span class="n">solomon_100_RC_101</span> <span class="n">cascade</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">public</span><span class="o">.</span><span class="n">solomon_100_RC_101</span> <span class="p">(</span>
     <span class="nb">id</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span>
     <span class="n">order_unit</span> <span class="n">integer</span><span class="p">,</span>
     <span class="n">open_time</span> <span class="n">integer</span><span class="p">,</span>
@@ -269,7 +269,7 @@
     <span class="n">y</span> <span class="n">float8</span>
 <span class="p">);</span>
 
-<span class="n">COPY</span> <span class="n">solomon_100_RC_101</span>
+<span class="n">COPY</span> <span class="n">public</span><span class="o">.</span><span class="n">solomon_100_RC_101</span>
 <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">order_unit</span><span class="p">,</span> <span class="n">open_time</span><span class="p">,</span> <span class="n">close_time</span><span class="p">,</span> <span class="n">service_time</span><span class="p">)</span> <span class="n">FROM</span> <span class="n">stdin</span><span class="p">;</span>
 <span class="mi">1</span>	<span class="mf">40.000000</span>	<span class="mf">50.000000</span>	<span class="mi">0</span>	<span class="mi">0</span>	<span class="mi">240</span>	<span class="mi">0</span>
 <span class="mi">2</span>	<span class="mf">25.000000</span>	<span class="mf">85.000000</span>	<span class="mi">20</span>	<span class="mi">145</span>	<span class="mi">175</span>	<span class="mi">10</span>
@@ -284,27 +284,27 @@
 <span class="mi">11</span>	<span class="mf">10.000000</span>	<span class="mf">40.000000</span>	<span class="mi">30</span>	<span class="mi">119</span>	<span class="mi">149</span>	<span class="mi">10</span>
 \<span class="o">.</span>
 
-<span class="n">DROP</span> <span class="n">TABLE</span> <span class="n">IF</span> <span class="n">EXISTS</span> <span class="n">vrp_vehicles</span> <span class="n">cascade</span><span class="p">;</span>
-<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">vrp_vehicles</span> <span class="p">(</span>
+<span class="n">DROP</span> <span class="n">TABLE</span> <span class="n">IF</span> <span class="n">EXISTS</span> <span class="n">public</span><span class="o">.</span><span class="n">vrp_vehicles</span> <span class="n">cascade</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">public</span><span class="o">.</span><span class="n">vrp_vehicles</span> <span class="p">(</span>
     <span class="n">vehicle_id</span> <span class="n">integer</span> <span class="ow">not</span> <span class="n">null</span> <span class="n">primary</span> <span class="n">key</span><span class="p">,</span>
     <span class="n">capacity</span> <span class="n">integer</span><span class="p">,</span>
     <span class="n">case_no</span> <span class="n">integer</span>
 <span class="p">);</span>
 
-<span class="n">copy</span> <span class="n">vrp_vehicles</span> <span class="p">(</span><span class="n">vehicle_id</span><span class="p">,</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">case_no</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">stdin</span><span class="p">;</span>
+<span class="n">copy</span> <span class="n">public</span><span class="o">.</span><span class="n">vrp_vehicles</span> <span class="p">(</span><span class="n">vehicle_id</span><span class="p">,</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">case_no</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">stdin</span><span class="p">;</span>
 <span class="mi">1</span>	<span class="mi">200</span>	<span class="mi">5</span>
 <span class="mi">2</span>	<span class="mi">200</span>	<span class="mi">5</span>
 <span class="mi">3</span>	<span class="mi">200</span>	<span class="mi">5</span>
 \<span class="o">.</span>
 
-<span class="n">DROP</span> <span class="n">TABLE</span> <span class="n">IF</span> <span class="n">EXISTS</span> <span class="n">vrp_distance</span> <span class="n">cascade</span><span class="p">;</span>
+<span class="n">DROP</span> <span class="n">TABLE</span> <span class="n">IF</span> <span class="n">EXISTS</span> <span class="n">public</span><span class="o">.</span><span class="n">vrp_distance</span> <span class="n">cascade</span><span class="p">;</span>
 <span class="n">WITH</span>
 <span class="n">the_matrix_info</span> <span class="n">AS</span> <span class="p">(</span>
     <span class="n">SELECT</span> <span class="n">A</span><span class="o">.</span><span class="n">id</span> <span class="n">AS</span> <span class="n">src_id</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">id</span> <span class="n">AS</span> <span class="n">dest_id</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">(</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">y</span><span class="p">))</span> <span class="n">AS</span> <span class="n">cost</span>
     <span class="n">FROM</span> <span class="n">solomon_100_rc_101</span> <span class="n">AS</span> <span class="n">A</span><span class="p">,</span> <span class="n">solomon_100_rc_101</span> <span class="n">AS</span> <span class="n">B</span> <span class="n">WHERE</span> <span class="n">A</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">B</span><span class="o">.</span><span class="n">id</span>
 <span class="p">)</span>
 <span class="n">SELECT</span> <span class="n">src_id</span><span class="p">,</span> <span class="n">dest_id</span><span class="p">,</span> <span class="n">cost</span><span class="p">,</span> <span class="n">cost</span> <span class="n">AS</span> <span class="n">distance</span><span class="p">,</span> <span class="n">cost</span> <span class="n">AS</span> <span class="n">traveltime</span>
-<span class="n">INTO</span> <span class="n">vrp_distance</span>
+<span class="n">INTO</span> <span class="n">public</span><span class="o">.</span><span class="n">vrp_distance</span>
 <span class="n">FROM</span> <span class="n">the_matrix_info</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -334,9 +334,9 @@
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.1.0.<br/>
-      Actualizado por última vez en may. 28, 2021.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+        &copy; Copyright vrpRouting Contributors - Version v0.2.0.<br/>
+      Actualizado por última vez en sept. 07, 2021.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
     </p>
   </div>
 </footer>
