@@ -22,6 +22,10 @@ To see the full list of changes check the list of `Git commits <https://github.c
 .. contents:: Contents
      :local:
 
+v0.3.0 Release Notes
+*******************************************************************************
+
+
 v0.2.0 Release Notes
 *******************************************************************************
 
