@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -116,32 +116,43 @@ $(document).ready(function(){initNavTree('vehicles__input_8h_source.html',''); i
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="vehicle__t_8h.html">c_types/pickDeliver/vehicle_t.h</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<a class="code" href="vehicles__input_8h.html#a7e8b7a1a200a9d6118438700f8cddcab">pgr_get_vehicles</a>(</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordtype">char</span> *vehicles_sql,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="structVehicle__t.html">Vehicle_t</a> **vehicles,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">size_t</span> *total_vehicles);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<a class="code" href="vehicles__input_8h.html#af2d3adde1bee2a9377cab1b035c5169a">pgr_get_vehicles_with_id</a>(</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">char</span> *vehicles_sql,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="structVehicle__t.html">Vehicle_t</a> **vehicles,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">size_t</span> *total_vehicles);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif  // INCLUDE_C_COMMON_VEHICLES_INPUT_H_</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="vehicles__input_8h.html#af8de26df58d0692ba86d75a2dd402362">   32</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structVehicle__t.html">Vehicle_t</a> <a class="code" href="structVehicle__t.html">Vehicle_t</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<a class="code" href="vehicles__input_8h.html#ad9ebafec4979aeec53bca45c27779891">get_vehicles</a>(</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">char</span> *,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="structVehicle__t.html">Vehicle_t</a> **,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">size_t</span> *,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">bool</span>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">void</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<a class="code" href="vehicles__input_8h.html#acadc48c63c0e01319d8c92bc4cc69187">get_vehicles_raw</a>(</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">char</span> *,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="structVehicle__t.html">Vehicle_t</a> **,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">size_t</span> *,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">bool</span>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">void</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<a class="code" href="vehicles__input_8h.html#a48e39e0cb3731625806169ab20f34e66">get_vehicles_euclidean</a>(</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">char</span> *,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="structVehicle__t.html">Vehicle_t</a> **,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">size_t</span> *,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">bool</span>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif  // INCLUDE_C_COMMON_VEHICLES_INPUT_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="avehicle__t_8h_html"><div class="ttname"><a href="vehicle__t_8h.html">vehicle_t.h</a></div></div>
-<div class="ttc" id="avehicles__input_8h_html_af2d3adde1bee2a9377cab1b035c5169a"><div class="ttname"><a href="vehicles__input_8h.html#af2d3adde1bee2a9377cab1b035c5169a">pgr_get_vehicles_with_id</a></div><div class="ttdeci">void pgr_get_vehicles_with_id(char *vehicles_sql, Vehicle_t **vehicles, size_t *total_vehicles)</div><div class="ttdoc">Reads the vehicles orders.</div><div class="ttdef"><b>Definition:</b> <a href="vehicles__input_8c_source.html#l00327">vehicles_input.c:327</a></div></div>
-<div class="ttc" id="astructVehicle__t_html"><div class="ttname"><a href="structVehicle__t.html">Vehicle_t</a></div><div class="ttdef"><b>Definition:</b> <a href="vehicle__t_8h_source.html#l00040">vehicle_t.h:40</a></div></div>
-<div class="ttc" id="avehicles__input_8h_html_a7e8b7a1a200a9d6118438700f8cddcab"><div class="ttname"><a href="vehicles__input_8h.html#a7e8b7a1a200a9d6118438700f8cddcab">pgr_get_vehicles</a></div><div class="ttdeci">void pgr_get_vehicles(char *vehicles_sql, Vehicle_t **vehicles, size_t *total_vehicles)</div><div class="ttdoc">Reads the vehicles orders.</div><div class="ttdef"><b>Definition:</b> <a href="vehicles__input_8c_source.html#l00319">vehicles_input.c:319</a></div></div>
+<div class="ttc" id="avehicles__input_8h_html_a48e39e0cb3731625806169ab20f34e66"><div class="ttname"><a href="vehicles__input_8h.html#a48e39e0cb3731625806169ab20f34e66">get_vehicles_euclidean</a></div><div class="ttdeci">void get_vehicles_euclidean(char *, Vehicle_t **, size_t *, bool)</div><div class="ttdoc">Reads the vehicles information.</div><div class="ttdef"><b>Definition:</b> <a href="vehicles__input_8c_source.html#l00569">vehicles_input.c:569</a></div></div>
+<div class="ttc" id="astructVehicle__t_html"><div class="ttname"><a href="structVehicle__t.html">Vehicle_t</a></div><div class="ttdoc">vehicles's attributes</div><div class="ttdef"><b>Definition:</b> <a href="vehicle__t_8h_source.html#l00050">vehicle_t.h:50</a></div></div>
+<div class="ttc" id="avehicles__input_8h_html_ad9ebafec4979aeec53bca45c27779891"><div class="ttname"><a href="vehicles__input_8h.html#ad9ebafec4979aeec53bca45c27779891">get_vehicles</a></div><div class="ttdeci">void get_vehicles(char *, Vehicle_t **, size_t *, bool)</div><div class="ttdoc">Reads the vehicles information.</div><div class="ttdef"><b>Definition:</b> <a href="vehicles__input_8c_source.html#l00469">vehicles_input.c:469</a></div></div>
+<div class="ttc" id="avehicles__input_8h_html_acadc48c63c0e01319d8c92bc4cc69187"><div class="ttname"><a href="vehicles__input_8h.html#acadc48c63c0e01319d8c92bc4cc69187">get_vehicles_raw</a></div><div class="ttdeci">void get_vehicles_raw(char *, Vehicle_t **, size_t *, bool)</div><div class="ttdoc">Reads the vehicles information.</div><div class="ttdef"><b>Definition:</b> <a href="vehicles__input_8c_source.html#l00522">vehicles_input.c:522</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9c50192407c36db226c38a2cd2bf7829.html">c_common</a></li><li class="navelem"><a class="el" href="vehicles__input_8h.html">vehicles_input.h</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:12 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

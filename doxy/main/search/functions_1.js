@@ -1,12 +1,20 @@
 var searchData=
 [
-  ['add_5fnode_580',['add_node',['../classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a36738c0de90ad28624db65db918c5749',1,'vrprouting::vrp::Pgr_pickDeliver']]],
-  ['add_5forder_581',['add_order',['../classvrprouting_1_1vrp_1_1PD__Orders.html#a8bca2c070f04e93f1839c6357214b594',1,'vrprouting::vrp::PD_Orders']]],
-  ['add_5fvehicle_582',['add_vehicle',['../classvrprouting_1_1vrp_1_1Fleet.html#a081a760fe723156351920af6d3466f2d',1,'vrprouting::vrp::Fleet']]],
-  ['almost_5fequal_583',['almost_equal',['../namespaceanonymous__namespace_02node_8cpp_03.html#aa2c878af3761459f93021494c7f6773a',1,'anonymous_namespace{node.cpp}']]],
-  ['arrival_5fi_5farrives_5fj_584',['arrival_i_arrives_j',['../classvrprouting_1_1vrp_1_1Vehicle__node.html#a3cbc1cd4b15e8b8bf0cc066f4db41b7b',1,'vrprouting::vrp::Vehicle_node']]],
-  ['arrival_5fj_5fcloses_5fi_585',['arrival_j_closes_i',['../classvrprouting_1_1vrp_1_1Tw__node.html#a2a3a8fe496b643eacc5dc5aac61c7a1b',1,'vrprouting::vrp::Tw_node']]],
-  ['arrival_5fj_5fopens_5fi_586',['arrival_j_opens_i',['../classvrprouting_1_1vrp_1_1Tw__node.html#a5adcb2c53d7852026d7b575e0361c6ce',1,'vrprouting::vrp::Tw_node']]],
-  ['arrival_5ftime_587',['arrival_time',['../classvrprouting_1_1vrp_1_1Vehicle__node.html#ab4b0b9a0b3c09e80bfd30c0a20c5405a',1,'vrprouting::vrp::Vehicle_node']]],
-  ['assertfailedexception_588',['AssertFailedException',['../classAssertFailedException.html#a54ed2b5c12e7f66818b1167dc772dc2f',1,'AssertFailedException']]]
+  ['add_883',['add',['../classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html#ac547d77f3e35770c1f9929dfc9c1ddc1',1,'vrprouting::optimizers::tabu::TabuList']]],
+  ['add_5finfeasible_884',['add_infeasible',['../classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html#ac9c10c5cfca76a374c2499f7fd5a79f4',1,'vrprouting::optimizers::tabu::TabuList']]],
+  ['add_5fjobs_885',['add_jobs',['../classvrprouting_1_1Vrp__vroom__problem.html#a82cf60b99ce4643e4d8623ace3e939cb',1,'vrprouting::Vrp_vroom_problem::add_jobs(const std::vector&lt; Vroom_job_t &gt; &amp;jobs, const std::vector&lt; Vroom_time_window_t &gt; &amp;jobs_tws)'],['../classvrprouting_1_1Vrp__vroom__problem.html#a5b0477ea8c4bf5ef499eef4d1be77c7a',1,'vrprouting::Vrp_vroom_problem::add_jobs(const Vroom_job_t *jobs, size_t count, const Vroom_time_window_t *jobs_tws, size_t total_jobs_tws)']]],
+  ['add_5fmatrix_886',['add_matrix',['../classvrprouting_1_1Vrp__vroom__problem.html#a58e0be8eb804ff3c2613f4d03950a192',1,'vrprouting::Vrp_vroom_problem']]],
+  ['add_5fnode_887',['add_node',['../classvrprouting_1_1problem_1_1PickDeliver.html#a6c5168fbee3422d80abfa8def4a5b2fe',1,'vrprouting::problem::PickDeliver']]],
+  ['add_5forder_888',['add_order',['../classvrprouting_1_1problem_1_1Orders.html#a8d8deade1023acf0a352945239ec10ef',1,'vrprouting::problem::Orders']]],
+  ['add_5fseen_889',['add_seen',['../classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html#aaa6070b58b105264cb8364b2d3e3d4d4',1,'vrprouting::optimizers::tabu::TabuList']]],
+  ['add_5fshipments_890',['add_shipments',['../classvrprouting_1_1Vrp__vroom__problem.html#aa8a6fe81dcebb174e548c001a5f063dc',1,'vrprouting::Vrp_vroom_problem::add_shipments(const std::vector&lt; Vroom_shipment_t &gt; &amp;shipments, const std::vector&lt; Vroom_time_window_t &gt; &amp;shipments_tws)'],['../classvrprouting_1_1Vrp__vroom__problem.html#a0757d16c5d2c03b7a95585ecc7b7381e',1,'vrprouting::Vrp_vroom_problem::add_shipments(const Vroom_shipment_t *shipments, size_t count, const Vroom_time_window_t *shipment_tws, size_t total_shipment_tws)']]],
+  ['add_5fvehicle_891',['add_vehicle',['../classvrprouting_1_1problem_1_1Fleet.html#ad73f2b446501d8fec66a519ab00e6b61',1,'vrprouting::problem::Fleet']]],
+  ['add_5fvehicles_892',['add_vehicles',['../classvrprouting_1_1Vrp__vroom__problem.html#a538c3bac7fd68031ad1688681a7c79a0',1,'vrprouting::Vrp_vroom_problem::add_vehicles(const std::vector&lt; Vroom_vehicle_t &gt; &amp;vehicles, const std::vector&lt; Vroom_break_t &gt; &amp;breaks, const std::vector&lt; Vroom_time_window_t &gt; &amp;breaks_tws)'],['../classvrprouting_1_1Vrp__vroom__problem.html#a5b4bfe5716c4407710fdfa1ff0d6dd24',1,'vrprouting::Vrp_vroom_problem::add_vehicles(const Vroom_vehicle_t *vehicles, size_t count, const Vroom_break_t *breaks, size_t total_breaks, const Vroom_time_window_t *breaks_tws, size_t total_breaks_tws)']]],
+  ['are_5fall_5fserved_893',['are_all_served',['../namespaceanonymous__namespace_02tabu_8cpp_03.html#aa15833c61c4021b6aa0a787c248920df',1,'anonymous_namespace{tabu.cpp}']]],
+  ['are_5fshipments_5fok_894',['are_shipments_ok',['../namespaceanonymous__namespace_02pickDeliverEuclidean__driver_8cpp_03.html#af237a893f6aecf85f25feb8de62f6dc0',1,'anonymous_namespace{pickDeliverEuclidean_driver.cpp}']]],
+  ['arrival_5fj_5fcloses_5fi_895',['arrival_j_closes_i',['../classvrprouting_1_1problem_1_1Tw__node.html#ae2958669863e96f5f4afc3ca6c80d429',1,'vrprouting::problem::Tw_node']]],
+  ['arrival_5fj_5fopens_5fi_896',['arrival_j_opens_i',['../classvrprouting_1_1problem_1_1Tw__node.html#a6189ba3a4f92886c12c8090db892d24f',1,'vrprouting::problem::Tw_node']]],
+  ['arrival_5ftime_897',['arrival_time',['../classvrprouting_1_1problem_1_1Vehicle__node.html#a09537e595554dc9699cf7dc4e49ece16',1,'vrprouting::problem::Vehicle_node']]],
+  ['assertfailedexception_898',['AssertFailedException',['../classAssertFailedException.html#a54ed2b5c12e7f66818b1167dc772dc2f',1,'AssertFailedException']]],
+  ['at_899',['at',['../classvrprouting_1_1base_1_1Base__Matrix.html#aa869a91f0c1d5bbc8f572c3e80b4dba3',1,'vrprouting::base::Base_Matrix']]]
 ];

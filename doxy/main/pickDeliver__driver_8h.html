@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -89,22 +89,14 @@ $(document).ready(function(){initNavTree('pickDeliver__driver_8h.html',''); init
 <div class="title">pickDeliver_driver.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stddef.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="pickDeliveryOrders__t_8h_source.html">c_types/pickDeliver/pickDeliveryOrders_t.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="vehicle__t_8h_source.html">c_types/pickDeliver/vehicle_t.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="matrix__cell__t_8h_source.html">c_types/matrix_cell_t.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="general__vehicle__orders__t_8h_source.html">c_types/pickDeliver/general_vehicle_orders_t.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="typedefs_8h_source.html">c_types/typedefs.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for pickDeliver_driver.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="pickDeliver__driver_8h__incl.png" border="0" usemap="#pickDeliver__driver_8h" alt=""/></div>
 <map name="pickDeliver__driver_8h" id="pickDeliver__driver_8h">
-<area shape="rect" title=" " alt="" coords="303,5,455,32"/>
-<area shape="rect" title=" " alt="" coords="5,87,80,114"/>
-<area shape="rect" href="pickDeliveryOrders__t_8h.html" title=" " alt="" coords="105,80,279,121"/>
-<area shape="rect" href="vehicle__t_8h.html" title=" " alt="" coords="303,80,454,121"/>
-<area shape="rect" href="matrix__cell__t_8h.html" title=" " alt="" coords="479,87,652,114"/>
-<area shape="rect" href="general__vehicle__orders__t_8h.html" title=" " alt="" coords="677,80,878,121"/>
+<area shape="rect" title=" " alt="" coords="5,5,157,32"/>
+<area shape="rect" href="typedefs_8h.html" title=" " alt="" coords="9,80,154,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -113,8 +105,8 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="center"><img src="pickDeliver__driver_8h__dep__incl.png" border="0" usemap="#pickDeliver__driver_8hdep" alt=""/></div>
 <map name="pickDeliver__driver_8hdep" id="pickDeliver__driver_8hdep">
 <area shape="rect" title=" " alt="" coords="63,5,215,32"/>
-<area shape="rect" href="pickDeliver_8c.html" title=" " alt="" coords="5,80,112,107"/>
-<area shape="rect" href="pickDeliver__driver_8cpp.html" title=" " alt="" coords="137,80,303,107"/>
+<area shape="rect" href="pickDeliver_2pickDeliver_8c.html" title=" " alt="" coords="5,80,112,107"/>
+<area shape="rect" href="pickDeliver_2pickDeliver__driver_8cpp.html" title=" " alt="" coords="137,80,303,107"/>
 </map>
 </div>
 </div>
@@ -122,27 +114,28 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a764e5be7ed41a8b62654d5e4550b4187"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pickDeliver__driver_8h.html#a764e5be7ed41a8b62654d5e4550b4187">do_pgr_pickDeliver</a> (<a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> *pd_orders_arr, size_t total_pd_orders, <a class="el" href="structVehicle__t.html">Vehicle_t</a> *vehicles_arr, size_t total_vehicles, <a class="el" href="matrix__cell__t_8h.html#ac4aacf926dfbbfbfc449bddab7772b3d">Matrix_cell_t</a> *matrix_cells_arr, size_t total_cells, double factor, int max_cycles, int initial_solution_id, <a class="el" href="structGeneral__vehicle__orders__t.html">General_vehicle_orders_t</a> **return_tuples, size_t *return_count, char **log_msg, char **notice_msg, char **err_msg)</td></tr>
-<tr class="separator:a764e5be7ed41a8b62654d5e4550b4187"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d5b9a2be878edbb784a0072c13bfbaa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pickDeliver__driver_8h.html#a2d5b9a2be878edbb784a0072c13bfbaa">do_pickDeliver</a> (<a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> customers_arr[], size_t total_customers, <a class="el" href="structVehicle__t.html">Vehicle_t</a> *vehicles_arr, size_t total_vehicles, <a class="el" href="structMatrix__cell__t.html">Matrix_cell_t</a> *matrix_cells_arr, size_t total_cells, <a class="el" href="structTime__multipliers__t.html">Time_multipliers_t</a> *multipliers_arr, size_t total_multipliers, bool, double factor, int max_cycles, bool stop_on_all_served, int64_t execution_date, <a class="el" href="structSolution__rt.html">Solution_rt</a> **return_tuples, size_t *return_count, char **log_msg, char **notice_msg, char **err_msg)</td></tr>
+<tr class="memdesc:a2d5b9a2be878edbb784a0072c13bfbaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for processing a pickupDeliver problem.  <a href="pickDeliver__driver_8h.html#a2d5b9a2be878edbb784a0072c13bfbaa">More...</a><br /></td></tr>
+<tr class="separator:a2d5b9a2be878edbb784a0072c13bfbaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a764e5be7ed41a8b62654d5e4550b4187"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a764e5be7ed41a8b62654d5e4550b4187">&#9670;&nbsp;</a></span>do_pgr_pickDeliver()</h2>
+<a id="a2d5b9a2be878edbb784a0072c13bfbaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d5b9a2be878edbb784a0072c13bfbaa">&#9670;&nbsp;</a></span>do_pickDeliver()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void do_pgr_pickDeliver </td>
+          <td class="memname">void do_pickDeliver </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> *&#160;</td>
-          <td class="paramname"><em>pd_orders_arr</em>, </td>
+          <td class="paramtype"><a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a>&#160;</td>
+          <td class="paramname"><em>customers_arr</em>[], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>total_pd_orders</em>, </td>
+          <td class="paramname"><em>total_customers</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -159,7 +152,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="matrix__cell__t_8h.html#ac4aacf926dfbbfbfc449bddab7772b3d">Matrix_cell_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structMatrix__cell__t.html">Matrix_cell_t</a> *&#160;</td>
           <td class="paramname"><em>matrix_cells_arr</em>, </td>
         </tr>
         <tr>
@@ -167,6 +160,24 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>total_cells</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structTime__multipliers__t.html">Time_multipliers_t</a> *&#160;</td>
+          <td class="paramname"><em>multipliers_arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>total_multipliers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -183,13 +194,19 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>initial_solution_id</em>, </td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>stop_on_all_served</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structGeneral__vehicle__orders__t.html">General_vehicle_orders_t</a> **&#160;</td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>execution_date</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structSolution__rt.html">Solution_rt</a> **&#160;</td>
           <td class="paramname"><em>return_tuples</em>, </td>
         </tr>
         <tr>
@@ -224,6 +241,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Driver for processing a pickupDeliver problem. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -231,8 +250,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_4fe5cf12322eb0f9892753dc20f1484c.html">drivers</a></li><li class="navelem"><a class="el" href="dir_593591bc9028524ce7ceba84b7c648ef.html">pickDeliver</a></li><li class="navelem"><a class="el" href="pickDeliver__driver_8h.html">pickDeliver_driver.h</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_4fe5cf12322eb0f9892753dc20f1484c.html">drivers</a></li><li class="navelem"><a class="el" href="pickDeliver__driver_8h.html">pickDeliver_driver.h</a></li>
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:12 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

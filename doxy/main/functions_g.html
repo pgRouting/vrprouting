@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -86,21 +86,20 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>get_amount()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#a5d457411359296497e45f8219e608203">vrprouting::Vrp_vroom_problem</a>
+</li>
 <li>get_error()
 : <a class="el" href="classvrprouting_1_1Pgr__messages.html#a99560110a2603768544da82383713f3b">vrprouting::Pgr_messages</a>
 </li>
 <li>get_first_order()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle__pickDeliver.html#aaa5939bb0f647239d4407350a49995ee">vrprouting::vrp::Vehicle_pickDeliver</a>
-</li>
-<li>get_id()
-: <a class="el" href="classvrprouting_1_1Matrix.html#a4843ae2d0c967eb4fa80f81d79c0151b">vrprouting::Matrix</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle__pickDeliver.html#aed35827cbef1aed4191710673557509b">vrprouting::problem::Vehicle_pickDeliver</a>
 </li>
 <li>get_index()
-: <a class="el" href="classvrprouting_1_1Matrix.html#a74d4409d0cedd033ecab35f201575625">vrprouting::Matrix</a>
+: <a class="el" href="classvrprouting_1_1base_1_1Base__Matrix.html#aa808590c397ba77a1a1e5db7dd128548">vrprouting::base::Base_Matrix</a>
 </li>
 <li>get_kind()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#aebf897aa66047b36462947f7353f6460">vrprouting::vrp::Pgr_pickDeliver</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Solution.html#aa9710be127177cd6f8413ee111a26ec8">vrprouting::vrp::Solution</a>
+: <a class="el" href="classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html#ad8f75ebc7fe22db6ef0436f20aa9de5a">vrprouting::optimizers::simple::Optimize</a>
 </li>
 <li>get_log()
 : <a class="el" href="classvrprouting_1_1Pgr__messages.html#a717b9e1a37bf88631eb06081dbde44d4">vrprouting::Pgr_messages</a>
@@ -108,28 +107,71 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 <li>get_notice()
 : <a class="el" href="classvrprouting_1_1Pgr__messages.html#a4703d17c7ec194e84015674e9c90d96f">vrprouting::Pgr_messages</a>
 </li>
-<li>get_postgres_result()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#af330f270b9e6d4642c6ddd5ca671aa09">vrprouting::vrp::Pgr_pickDeliver</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Solution.html#a3772c68348df6230eb664875fed90c14">vrprouting::vrp::Solution</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#a284b8488afd6c4d912859bfc74d6a8d0">vrprouting::vrp::Vehicle</a>
+<li>get_pg_compatibleVehicles()
+: <a class="el" href="classvrprouting_1_1problem_1_1PickDeliver.html#ae57b9bfe303f4587c32388dc79f2fcd5">vrprouting::problem::PickDeliver</a>
 </li>
-<li>get_row()
-: <a class="el" href="classvrprouting_1_1Matrix.html#a4208fc74aaedc1a9a03ee249e7ad31d2">vrprouting::Matrix</a>
+<li>get_phony()
+: <a class="el" href="classvrprouting_1_1problem_1_1Fleet.html#ac8d26e0fc49634855fade6c4c4b866e8">vrprouting::problem::Fleet</a>
+</li>
+<li>get_postgres_result()
+: <a class="el" href="classvrprouting_1_1problem_1_1Solution.html#a370202f109ab46e17d4a8dd97329ac0b">vrprouting::problem::Solution</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#a17886840c77f626e754ac82d3c0c369c">vrprouting::problem::Vehicle</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Vehicle__node.html#a20ac4591817805467fb1487bee7a9540">vrprouting::problem::Vehicle_node</a>
+</li>
+<li>get_results()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#a1c1bc176ab0d58ae8be5a8ded0f7cc49">vrprouting::Vrp_vroom_problem</a>
+</li>
+<li>get_stops()
+: <a class="el" href="classvrprouting_1_1problem_1_1Solution.html#aad1f61b5d81ab13d43788b9ace4d1b65">vrprouting::problem::Solution</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#ac45b6ca17b0642118ca8158942aee535">vrprouting::problem::Vehicle</a>
 </li>
 <li>get_truck()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Fleet.html#a1cdf065a86b4bf4ff3c3fe9abaa51fce">vrprouting::vrp::Fleet</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Fleet.html#accf963ae2a8bce0c97f3a791605f4c62">vrprouting::problem::Fleet</a>
 </li>
-<li>get_worse_order()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle__pickDeliver.html#a3b85865e88c18a9d95d42af5485904d8">vrprouting::vrp::Vehicle_pickDeliver</a>
+<li>get_unused_trucks()
+: <a class="el" href="classvrprouting_1_1problem_1_1Fleet.html#ac0617e383978795eb9d5ae836bf7e98c">vrprouting::problem::Fleet</a>
+</li>
+<li>get_used_trucks()
+: <a class="el" href="classvrprouting_1_1problem_1_1Fleet.html#a7b898c010e39ac6a0570048dcf471718">vrprouting::problem::Fleet</a>
+</li>
+<li>get_vroom_amounts()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#a9ff1efbdf745d424d3254e173e6fe28c">vrprouting::Vrp_vroom_problem</a>
+</li>
+<li>get_vroom_break()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#a99363a69ea0f8dd00f5befbb6d512fe8">vrprouting::Vrp_vroom_problem</a>
+</li>
+<li>get_vroom_breaks()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#ae9c046846ffb6973765d7686de6cff86">vrprouting::Vrp_vroom_problem</a>
+</li>
+<li>get_vroom_job()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#ad2acfb737653bb13516dd069a7ee0bf6">vrprouting::Vrp_vroom_problem</a>
+</li>
+<li>get_vroom_matrix()
+: <a class="el" href="classvrprouting_1_1base_1_1Base__Matrix.html#a3afb1e98000dac865b2baa432538a1ff">vrprouting::base::Base_Matrix</a>
+</li>
+<li>get_vroom_shipment()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#a00f9d8d21573f60196097ecef0c3b6eb">vrprouting::Vrp_vroom_problem</a>
+</li>
+<li>get_vroom_skills()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#a791300738efc736bc06fd4395a3bbf8b">vrprouting::Vrp_vroom_problem</a>
+</li>
+<li>get_vroom_time_window()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#a8ec0fdcd8f8f49078762043d17d225f2">vrprouting::Vrp_vroom_problem</a>
+</li>
+<li>get_vroom_time_windows()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#acb800da94b64981738b05ee339ade167">vrprouting::Vrp_vroom_problem</a>
+</li>
+<li>get_vroom_vehicle()
+: <a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html#a2f6ce76b83cbd4b2cd3250487a1c6c37">vrprouting::Vrp_vroom_problem</a>
 </li>
 <li>getDropPosLowLimit()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#a7261ce52b07f6712dbd0494a1d14846c">vrprouting::vrp::Vehicle</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#ab641cf88195637b2fc492518718736e8">vrprouting::problem::Vehicle</a>
 </li>
 <li>getPosHighLimit()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#a542bc0caeebffc0fa8ced9b809b6680d">vrprouting::vrp::Vehicle</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#ad31d422dde0ce1e0239a8f4296c143c7">vrprouting::problem::Vehicle</a>
 </li>
 <li>getPosLowLimit()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#a75428b74ec2bf144e121996eef29cb92">vrprouting::vrp::Vehicle</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#aa271bdf076ed59c1c9093ee53c856e48">vrprouting::problem::Vehicle</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -137,7 +179,7 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:14 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

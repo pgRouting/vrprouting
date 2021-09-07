@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -124,16 +124,19 @@ $(document).ready(function(){initNavTree('arrays__input_8h_source.html',''); ini
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;int64_t* <a class="code" href="arrays__input_8h.html#acc139acaca9d25eca8151cb70f90a90f">pgr_get_bigIntArray_allowEmpty</a>(<span class="keywordtype">size_t</span> *arrlen, ArrayType *input);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#endif  // INCLUDE_C_COMMON_ARRAYS_INPUT_H_</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;uint32_t* <a class="code" href="arrays__input_8h.html#af8db270b62555da508778dff72f12b32">pgr_get_positiveIntArray_allowEmpty</a>(<span class="keywordtype">size_t</span> *arrlen, ArrayType *input);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif  // INCLUDE_C_COMMON_ARRAYS_INPUT_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aarrays__input_8h_html_acc139acaca9d25eca8151cb70f90a90f"><div class="ttname"><a href="arrays__input_8h.html#acc139acaca9d25eca8151cb70f90a90f">pgr_get_bigIntArray_allowEmpty</a></div><div class="ttdeci">int64_t * pgr_get_bigIntArray_allowEmpty(size_t *arrlen, ArrayType *input)</div><div class="ttdoc">Allows the input array to be empty.</div><div class="ttdef"><b>Definition:</b> <a href="arrays__input_8c_source.html#l00133">arrays_input.c:133</a></div></div>
-<div class="ttc" id="aarrays__input_8h_html_a8b3b624e84ed449440408d11251384c1"><div class="ttname"><a href="arrays__input_8h.html#a8b3b624e84ed449440408d11251384c1">pgr_get_bigIntArray</a></div><div class="ttdeci">int64_t * pgr_get_bigIntArray(size_t *arrlen, ArrayType *input)</div><div class="ttdoc">enforces the input array to be NOT empty</div><div class="ttdef"><b>Definition:</b> <a href="arrays__input_8c_source.html#l00127">arrays_input.c:127</a></div></div>
+<div class="ttc" id="aarrays__input_8h_html_acc139acaca9d25eca8151cb70f90a90f"><div class="ttname"><a href="arrays__input_8h.html#acc139acaca9d25eca8151cb70f90a90f">pgr_get_bigIntArray_allowEmpty</a></div><div class="ttdeci">int64_t * pgr_get_bigIntArray_allowEmpty(size_t *arrlen, ArrayType *input)</div><div class="ttdoc">Allows the input array to be empty.</div><div class="ttdef"><b>Definition:</b> <a href="arrays__input_8c_source.html#l00223">arrays_input.c:223</a></div></div>
+<div class="ttc" id="aarrays__input_8h_html_a8b3b624e84ed449440408d11251384c1"><div class="ttname"><a href="arrays__input_8h.html#a8b3b624e84ed449440408d11251384c1">pgr_get_bigIntArray</a></div><div class="ttdeci">int64_t * pgr_get_bigIntArray(size_t *arrlen, ArrayType *input)</div><div class="ttdoc">enforces the input array to be NOT empty</div><div class="ttdef"><b>Definition:</b> <a href="arrays__input_8c_source.html#l00217">arrays_input.c:217</a></div></div>
+<div class="ttc" id="aarrays__input_8h_html_af8db270b62555da508778dff72f12b32"><div class="ttname"><a href="arrays__input_8h.html#af8db270b62555da508778dff72f12b32">pgr_get_positiveIntArray_allowEmpty</a></div><div class="ttdeci">uint32_t * pgr_get_positiveIntArray_allowEmpty(size_t *arrlen, ArrayType *input)</div><div class="ttdoc">Allows the input array, with non-negative elements to be empty.</div><div class="ttdef"><b>Definition:</b> <a href="arrays__input_8c_source.html#l00228">arrays_input.c:228</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9c50192407c36db226c38a2cd2bf7829.html">c_common</a></li><li class="navelem"><a class="el" href="arrays__input_8h.html">arrays_input.h</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:11 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -87,116 +87,136 @@ $(document).ready(function(){initNavTree('functions_i.html',''); initResizable()
 
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>id
-: <a class="el" href="structPickDeliveryOrders__t.html#ab68c7b8acf30b09d2e74cf36b3cc4b69">PickDeliveryOrders_t</a>
-, <a class="el" href="structVehicle__t.html#a1d2f519aa6566beeeccc67edf3701922">Vehicle_t</a>
+: <a class="el" href="structPickDeliveryOrders__t.html#aee73a50adf7fb7c66f6173865e23f833">PickDeliveryOrders_t</a>
+, <a class="el" href="structShort__vehicle.html#a9bfbf1f39ca35b362a22f7d74d7a7138">Short_vehicle</a>
+, <a class="el" href="structVehicle__t.html#a87d9fbe504a3c8306b400b072355be05">Vehicle_t</a>
+, <a class="el" href="structVroom__break__t.html#a7f372a204283e219c5512c8a8a907006">Vroom_break_t</a>
+, <a class="el" href="structVroom__job__t.html#a6ff64f23d7947e6587c00679764172e8">Vroom_job_t</a>
+, <a class="el" href="structVroom__shipment__t.html#a47d3f8b43937ccd04d29e82a2ceb62aa">Vroom_shipment_t</a>
+, <a class="el" href="structVroom__time__window__t.html#a1b35cb0a33ab3502ed3911d3314106fc">Vroom_time_window_t</a>
+, <a class="el" href="structVroom__vehicle__t.html#af5dac20570e5224917b1358f3e9779a8">Vroom_vehicle_t</a>
 , <a class="el" href="classvrprouting_1_1Identifier.html#a82216b73e871c0123836f73036957d01">vrprouting::Identifier</a>
 </li>
 <li>Identifier()
 : <a class="el" href="classvrprouting_1_1Identifier.html#abbe04e0f43e16d197ff720c4d9f03afb">vrprouting::Identifier</a>
 </li>
 <li>Identifiers()
-: <a class="el" href="classIdentifiers.html#a74517f7f7f7af7303512cc5ad9228861">Identifiers&lt; T &gt;</a>
-</li>
-<li>ids
-: <a class="el" href="classvrprouting_1_1Matrix.html#a61be7004d76aa55f54e2b42aac075706">vrprouting::Matrix</a>
+: <a class="el" href="classIdentifiers.html#aec0b735bdbb707a91b12d4659aef534e">Identifiers&lt; T &gt;</a>
 </li>
 <li>idx()
 : <a class="el" href="classvrprouting_1_1Identifier.html#aced77fba627e8928115a378326ab94b6">vrprouting::Identifier</a>
 </li>
 <li>Initial_solution()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Initial__solution.html#adae871a7bec7a2830e120d3cb929a846">vrprouting::vrp::Initial_solution</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a1f401c86bb3ac96f79a506fb4ee2067d">vrprouting::vrp::Pgr_pickDeliver</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle__pickDeliver.html#a196ba6fb904c6d6b31d970df3ff28f25">vrprouting::vrp::Vehicle_pickDeliver</a>
+: <a class="el" href="classvrprouting_1_1initialsol_1_1simple_1_1Initial__solution.html#a399e3b68a16fd8110073c46d48439b55">vrprouting::initialsol::simple::Initial_solution</a>
+, <a class="el" href="classvrprouting_1_1initialsol_1_1tabu_1_1Initial__solution.html#ad3330949c3554dfe7f0013d7cf25a539">vrprouting::initialsol::tabu::Initial_solution</a>
+, <a class="el" href="classvrprouting_1_1vrp_1_1Initial__solution.html#adae871a7bec7a2830e120d3cb929a846">vrprouting::vrp::Initial_solution</a>
+</li>
+<li>Initials_code
+: <a class="el" href="classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html#a2e7cb98ed2a0afd790166dbff0ba863f">vrprouting::optimizers::simple::Optimize</a>
 </li>
 <li>insert()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#ae2e5d1ecbc47c2dac10dbcb69deba20e">vrprouting::vrp::Vehicle</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle__pickDeliver.html#a225004f324380d8305c07d852a3a0913">vrprouting::vrp::Vehicle_pickDeliver</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#a65edd5bf60ff74bb3d3c88264e5cf593">vrprouting::problem::Vehicle</a>
 </li>
-<li>insert_less_travel_time()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#af5f078616936bb08e0664ddff1d26808">vrprouting::vrp::Vehicle</a>
+<li>insert_node()
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#a92c3ed57d06dc1bf9702f53236b8b6ef">vrprouting::problem::Vehicle</a>
+</li>
+<li>intensify()
+: <a class="el" href="classvrprouting_1_1optimizers_1_1tabu_1_1Optimize.html#a918304cd31082ca8be1bc2e8af2f8bcf">vrprouting::optimizers::tabu::Optimize</a>
 </li>
 <li>inter_swap()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Optimize.html#a31e5fde8b43368a040a8c1a6ba822eca">vrprouting::vrp::Optimize</a>
+: <a class="el" href="classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html#a74fed2ee2eb68b73a715d8ed21f2f02b">vrprouting::optimizers::simple::Optimize</a>
 </li>
 <li>invariant()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Initial__solution.html#aa4763c36543c2827beb6fa55d2d7c27e">vrprouting::vrp::Initial_solution</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#a248cee67d4cff1280c200a9611dd7132">vrprouting::vrp::Vehicle</a>
+: <a class="el" href="classvrprouting_1_1initialsol_1_1simple_1_1Initial__solution.html#aa87de4ea4f29fefd3156164199fbe75e">vrprouting::initialsol::simple::Initial_solution</a>
+, <a class="el" href="classvrprouting_1_1initialsol_1_1tabu_1_1Initial__solution.html#aa5fa76bf11b4742d936ceaeaedd72d30">vrprouting::initialsol::tabu::Initial_solution</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Fleet.html#aafcdfee64fc041753a3bd229bc8c4617">vrprouting::problem::Fleet</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#a821d82f24def2c2d2268b718a35d65f5">vrprouting::problem::Vehicle</a>
+, <a class="el" href="classvrprouting_1_1vrp_1_1Initial__solution.html#aa4763c36543c2827beb6fa55d2d7c27e">vrprouting::vrp::Initial_solution</a>
 </li>
 <li>is_compatible_IJ()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a2db1124371bf73a5fac02a76d5a9d8a8">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#a630896ce22fbe634c66eaff19a7faf26">vrprouting::problem::Tw_node</a>
 </li>
 <li>is_delivery()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a5d6c8da80b3a1f42a6f8eecf5da71671">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#a40bf56bdbbb42765ae705516fb5c565f">vrprouting::problem::Tw_node</a>
 </li>
 <li>is_dump()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a3793d9387ec18f7b1dcc286dd9c72085">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#a864f6d96e20bf1e5d8c596e65fa64b3e">vrprouting::problem::Tw_node</a>
 </li>
 <li>is_early_arrival()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#afb4c068da519868aebffe7d70c7bff9b">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#ab595620ce5ea6e39a09ab862dc46f9e2">vrprouting::problem::Tw_node</a>
+</li>
+<li>is_empty()
+: <a class="el" href="classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html#a4360875be7f03ac1c4bce33783d61ba6">vrprouting::optimizers::tabu::TabuList</a>
 </li>
 <li>is_end()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a4de61c377390ce3bd9445b100ffb9fb3">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#a574f225268f909134d628041929bcc90">vrprouting::problem::Tw_node</a>
 </li>
-<li>is_feasable()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Solution.html#a8e28bb383e4013346f78f76d8cc9838f">vrprouting::vrp::Solution</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#a0e47f3f8bcc6933ea22d69c5a21c450a">vrprouting::vrp::Vehicle</a>
+<li>is_feasible()
+: <a class="el" href="classvrprouting_1_1problem_1_1Solution.html#afd3617625d0ae9c94dfa6b0ae130862f">vrprouting::problem::Solution</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#afc52a6e9c3f0f0e176127781d1b76c5f">vrprouting::problem::Vehicle</a>
 </li>
 <li>is_fleet_ok()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Fleet.html#adabe18b1a02839ed2bc7860141a45e18">vrprouting::vrp::Fleet</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Fleet.html#a9ff29d46643e47fc014dc53fce8dba8a">vrprouting::problem::Fleet</a>
 </li>
 <li>is_late_arrival()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a59727cd00e8483467bb5e30940266c55">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#ad115a55b707dc4ba0b4c2d4053785526">vrprouting::problem::Tw_node</a>
 </li>
 <li>is_load()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#afd4f6c8c7a7a8017b3352449e6b85364">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#a626edfc8278be13852e89cfdf7faf6dd">vrprouting::problem::Tw_node</a>
 </li>
 <li>is_ok()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#a2a070c0cc4ddaaa4b0d1005750e110e8">vrprouting::vrp::Vehicle</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#a1fb23ee46d6e62112cf78b9164ee1668">vrprouting::problem::Vehicle</a>
 </li>
 <li>is_on_time()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a0de3ca507f2bf8ca1b899deda464314d">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#a7ae66e493045affd37be9fe17241e764">vrprouting::problem::Tw_node</a>
 </li>
-<li>is_order_feasable()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle__pickDeliver.html#aa7b7faed98a3bce6fbf9f48ece8df1f5">vrprouting::vrp::Vehicle_pickDeliver</a>
+<li>is_order_feasible()
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle__pickDeliver.html#aece71ec9bfd6531bafc7dae4e8071c28">vrprouting::problem::Vehicle_pickDeliver</a>
 </li>
 <li>is_order_ok()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Fleet.html#ae67e2ddd5f5b406511a5486954cec4a9">vrprouting::vrp::Fleet</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Fleet.html#a5af0728a0b8c17d1a824370efb36fe4a">vrprouting::problem::Fleet</a>
 </li>
 <li>is_partially_compatible_IJ()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a1699eae0818d8ac028ffba5a9a717d82">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#ac611645b87817455f90ba6cbf381156d">vrprouting::problem::Tw_node</a>
 </li>
 <li>is_partially_waitTime_compatible_IJ()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a4a8c6780c72d96ae45a131c2af6ab339">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#aa62b4d2d242525b5fd3bc064f36f4711">vrprouting::problem::Tw_node</a>
 </li>
 <li>is_phony()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#acc278daefc41da70027c4df0ca76f18a">vrprouting::vrp::Vehicle</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#aad1cf913cd2ed7eb6dd6dea2d5c4207d">vrprouting::problem::Vehicle</a>
 </li>
 <li>is_pickup()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#ab60d4a61f6994a626720f4484d621e95">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#a9bd0aea72edf06f6a42b4e503bf44840">vrprouting::problem::Tw_node</a>
+</li>
+<li>is_real()
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#a15b264fb12303eb59f0e20ea775b68c8">vrprouting::problem::Vehicle</a>
 </li>
 <li>is_start()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a49641b44aa74688fdc3dbc8bc6c017de">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#ad6dba2b230de473833527ffcb0ca3319">vrprouting::problem::Tw_node</a>
+</li>
+<li>is_swap()
+: <a class="el" href="classvrprouting_1_1optimizers_1_1tabu_1_1Move.html#af87ab26f3610aca1cf38dae3085a3e50">vrprouting::optimizers::tabu::Move</a>
 </li>
 <li>is_symmetric()
-: <a class="el" href="classvrprouting_1_1Matrix.html#ae5380c8efb788f7d2cf14e32ba3656be">vrprouting::Matrix</a>
+: <a class="el" href="classvrprouting_1_1base_1_1Base__Matrix.html#a9052c7732d455e967b23fa6d7f335183">vrprouting::base::Base_Matrix</a>
 </li>
 <li>is_tight_compatible_IJ()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#af4625f8129fe610068df2aa560efbaf2">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#afdd180420e90b2cffb7e3e57add3d570">vrprouting::problem::Tw_node</a>
 </li>
 <li>is_valid()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Order.html#a80ee2ce98e39b8b9a53dd3e8b100c2cf">vrprouting::vrp::Order</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1PD__Orders.html#a15258a920be9587af308d4b31c7bd82b">vrprouting::vrp::PD_Orders</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a82bf22edc3b7a086c2a35e639d8b1f28">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Order.html#a31d819c814fe649cc884da6eb8024a6e">vrprouting::problem::Order</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Orders.html#aa373bae7a2215a552b63f90fc1c60767">vrprouting::problem::Orders</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#ac5d95119c13c9ec8feac29ee5e806213">vrprouting::problem::Tw_node</a>
 </li>
 <li>is_waitTime_compatible_IJ()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html#a82ef639697934e5e0a1591ef10db430a">vrprouting::vrp::Tw_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#af270445dfb081c2fa67c861752fe4fbb">vrprouting::problem::Tw_node</a>
 </li>
 <li>isCompatibleIJ()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Order.html#a43681b92a561f85573a0705202cb41ab">vrprouting::vrp::Order</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Order.html#a62e851408e6e1661edd557886be93816">vrprouting::problem::Order</a>
 </li>
 <li>iterator
 : <a class="el" href="classIdentifiers.html#a3a7ad466683cb1aeaa3be0743c7bc6cf">Identifiers&lt; T &gt;</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Fleet.html#a2b43863a55b16c733f3a2f2ff875fa67">vrprouting::vrp::Fleet</a>
+, <a class="el" href="classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html#a4f2a8703a0f9eac392fa27a81b34dd85">vrprouting::optimizers::tabu::TabuList</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -204,7 +224,7 @@ $(document).ready(function(){initNavTree('functions_i.html',''); initResizable()
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:14 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

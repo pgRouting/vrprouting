@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -84,21 +84,20 @@ $(document).ready(function(){initNavTree('orders__input_8h.html',''); initResiza
 
 <div class="header">
   <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">orders_input.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;stddef.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="pickDeliveryOrders__t_8h_source.html">c_types/pickDeliver/pickDeliveryOrders_t.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for orders_input.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="orders__input_8h__incl.png" border="0" usemap="#orders__input_8h" alt=""/></div>
 <map name="orders__input_8h" id="orders__input_8h">
-<area shape="rect" title=" " alt="" coords="60,5,175,32"/>
-<area shape="rect" title=" " alt="" coords="5,87,80,114"/>
-<area shape="rect" href="pickDeliveryOrders__t_8h.html" title=" " alt="" coords="105,80,279,121"/>
+<area shape="rect" title=" " alt="" coords="5,5,120,32"/>
+<area shape="rect" title=" " alt="" coords="25,80,100,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -106,48 +105,76 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="orders__input_8h__dep__incl.png" border="0" usemap="#orders__input_8hdep" alt=""/></div>
 <map name="orders__input_8hdep" id="orders__input_8hdep">
-<area shape="rect" title=" " alt="" coords="140,5,255,32"/>
+<area shape="rect" title=" " alt="" coords="377,5,492,32"/>
 <area shape="rect" href="orders__input_8c.html" title=" " alt="" coords="5,80,120,107"/>
-<area shape="rect" href="pickDeliver_8c.html" title=" " alt="" coords="144,80,251,107"/>
-<area shape="rect" href="pickDeliverEuclidean_8c.html" title=" " alt="" coords="275,80,445,107"/>
+<area shape="rect" href="compatibleVehicles_8c.html" title=" " alt="" coords="144,80,304,107"/>
+<area shape="rect" href="optimize_8c.html" title=" " alt="" coords="328,80,419,107"/>
+<area shape="rect" href="pgr__pickDeliver_2pickDeliver_8c.html" title=" " alt="" coords="443,80,549,107"/>
+<area shape="rect" href="pickDeliverEuclidean_8c.html" title=" " alt="" coords="573,80,744,107"/>
+<area shape="rect" href="pickDeliver_2pickDeliver_8c.html" title=" " alt="" coords="768,80,875,107"/>
 </map>
 </div>
 </div>
 <p><a href="orders__input_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:afe5104a6cdb3d9331124f2a61ad998e2"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="orders__input_8h.html#afe5104a6cdb3d9331124f2a61ad998e2">PickDeliveryOrders_t</a></td></tr>
+<tr class="separator:afe5104a6cdb3d9331124f2a61ad998e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a945d85e26067fe4585f772e544ab9d18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="orders__input_8h.html#a945d85e26067fe4585f772e544ab9d18">get_pd_orders_with_id</a> (char *pd_orders_sql, <a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> **pd_orders, size_t *total_pd_orders)</td></tr>
-<tr class="memdesc:a945d85e26067fe4585f772e544ab9d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the pick-Deliver orders.  <a href="orders__input_8h.html#a945d85e26067fe4585f772e544ab9d18">More...</a><br /></td></tr>
-<tr class="separator:a945d85e26067fe4585f772e544ab9d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37b88b6f6ab64b2b19a87d16ec213363"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="orders__input_8h.html#a37b88b6f6ab64b2b19a87d16ec213363">pgr_get_pd_orders</a> (char *pd_orders_sql, <a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> **pd_orders, size_t *total_pd_orders)</td></tr>
-<tr class="memdesc:a37b88b6f6ab64b2b19a87d16ec213363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the pick-Deliver orders.  <a href="orders__input_8h.html#a37b88b6f6ab64b2b19a87d16ec213363">More...</a><br /></td></tr>
-<tr class="separator:a37b88b6f6ab64b2b19a87d16ec213363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8446461ff72b7c544121328dec87919c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="orders__input_8h.html#a8446461ff72b7c544121328dec87919c">get_shipments</a> (char *, <a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> **, size_t *)</td></tr>
+<tr class="memdesc:a8446461ff72b7c544121328dec87919c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the pick-Deliver shipments for timestams and intervals.  <a href="orders__input_8h.html#a8446461ff72b7c544121328dec87919c">More...</a><br /></td></tr>
+<tr class="separator:a8446461ff72b7c544121328dec87919c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84c59171fef5a780fa1fcb090bb36d50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="orders__input_8h.html#a84c59171fef5a780fa1fcb090bb36d50">get_shipments_euclidean</a> (char *, <a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> **, size_t *)</td></tr>
+<tr class="memdesc:a84c59171fef5a780fa1fcb090bb36d50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the pick-Deliver shipments for euclidean information.  <a href="orders__input_8h.html#a84c59171fef5a780fa1fcb090bb36d50">More...</a><br /></td></tr>
+<tr class="separator:a84c59171fef5a780fa1fcb090bb36d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a313d68996e8f173100e06138ccd085fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="orders__input_8h.html#a313d68996e8f173100e06138ccd085fa">get_shipments_raw</a> (char *, <a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> **, size_t *)</td></tr>
+<tr class="memdesc:a313d68996e8f173100e06138ccd085fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the pick-Deliver shipments for raw data.  <a href="orders__input_8h.html#a313d68996e8f173100e06138ccd085fa">More...</a><br /></td></tr>
+<tr class="separator:a313d68996e8f173100e06138ccd085fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="afe5104a6cdb3d9331124f2a61ad998e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe5104a6cdb3d9331124f2a61ad998e2">&#9670;&nbsp;</a></span>PickDeliveryOrders_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> <a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="orders__input_8h_source.html#l00030">30</a> of file <a class="el" href="orders__input_8h_source.html">orders_input.h</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a945d85e26067fe4585f772e544ab9d18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a945d85e26067fe4585f772e544ab9d18">&#9670;&nbsp;</a></span>get_pd_orders_with_id()</h2>
+<a id="a8446461ff72b7c544121328dec87919c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8446461ff72b7c544121328dec87919c">&#9670;&nbsp;</a></span>get_shipments()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void get_pd_orders_with_id </td>
+          <td class="memname">void get_shipments </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>pd_orders_sql</em>, </td>
+          <td class="paramname"><em>sql</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> **&#160;</td>
-          <td class="paramname"><em>pd_orders</em>, </td>
+          <td class="paramname"><em>rows</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t *&#160;</td>
-          <td class="paramname"><em>total_pd_orders</em>&#160;</td>
+          <td class="paramname"><em>total_rows</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -157,50 +184,82 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Reads the pick-Deliver orders. </p>
+<p>Reads the pick-Deliver shipments for timestams and intervals. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">pd_orders_sql</td><td></td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">pd_orders</td><td></td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">total_pd_orders</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sql</td><td>SQL query to execute </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rows</td><td>C Container that holds the data </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">total_rows</td><td>Total rows recieved </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="orders__input_8c_source.html#l00274">274</a> of file <a class="el" href="orders__input_8c_source.html">orders_input.c</a>.</p>
-<div class="fragment"><div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                                 {</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <a class="code" href="orders__input_8c.html#ab3262397da4122ba16c4a04490c075d2">pgr_get_pd_orders_general</a>(pd_orders_sql, pd_orders, total_pd_orders, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="orders__input_8c_source.html#l00331">331</a> of file <a class="el" href="orders__input_8c_source.html">orders_input.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                        {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> column_count = 10;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;  <a class="code" href="structColumn__info__t.html">Column_info_t</a> info[10];</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160; </div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; column_count; ++i) {</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a64816c9aa1e9203df8ed391fb9c6e849">colNumber</a> = -1;</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748">type</a> = 0;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb">ANY_INTEGER</a>;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;  }</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;id&quot;</span>;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;  info[1].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;amount&quot;</span>;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;  info[2].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_id&quot;</span>;</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  info[3].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_tw_open&quot;</span>;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;  info[4].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_tw_close&quot;</span>;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;  info[5].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_t_service&quot;</span>;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;  info[6].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_id&quot;</span>;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  info[7].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_tw_open&quot;</span>;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;  info[8].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_tw_close&quot;</span>;</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  info[9].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_t_service&quot;</span>;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;  info[3].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda">TIMESTAMP</a>;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;  info[4].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda">TIMESTAMP</a>;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;  info[7].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda">TIMESTAMP</a>;</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;  info[8].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda">TIMESTAMP</a>;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;  info[5].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba15685f61e1f7ab09f7543d6ffbb51ac6">INTERVAL</a>;</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;  info[9].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba15685f61e1f7ab09f7543d6ffbb51ac6">INTERVAL</a>;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160; </div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;  <span class="comment">/* service is optional*/</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;  info[5].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;  info[9].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;  <a class="code" href="orders__input_8c.html#aa8feea95a0f16cf279f642578e0d37cf">pgr_get_pd_orders_general</a>(sql, rows, total_rows, info, column_count, 0);</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="orders__input_8c_source.html#l00138">pgr_get_pd_orders_general()</a>.</p>
+<p class="reference">References <a class="el" href="column__info__t_8h_source.html#l00040">ANY_INTEGER</a>, <a class="el" href="column__info__t_8h_source.html#l00053">Column_info_t::colNumber</a>, <a class="el" href="column__info__t_8h_source.html#l00057">Column_info_t::eType</a>, <a class="el" href="column__info__t_8h_source.html#l00047">INTERVAL</a>, <a class="el" href="column__info__t_8h_source.html#l00056">Column_info_t::name</a>, <a class="el" href="orders__input_8c_source.html#l00240">pgr_get_pd_orders_general()</a>, <a class="el" href="column__info__t_8h_source.html#l00055">Column_info_t::strict</a>, <a class="el" href="column__info__t_8h_source.html#l00046">TIMESTAMP</a>, and <a class="el" href="column__info__t_8h_source.html#l00054">Column_info_t::type</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pickDeliver_8c_source.html#l00046">process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="compatibleVehicles_8c_source.html#l00048">process()</a>.</p>
 
 </div>
 </div>
-<a id="a37b88b6f6ab64b2b19a87d16ec213363"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37b88b6f6ab64b2b19a87d16ec213363">&#9670;&nbsp;</a></span>pgr_get_pd_orders()</h2>
+<a id="a84c59171fef5a780fa1fcb090bb36d50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84c59171fef5a780fa1fcb090bb36d50">&#9670;&nbsp;</a></span>get_shipments_euclidean()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void pgr_get_pd_orders </td>
+          <td class="memname">void get_shipments_euclidean </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>pd_orders_sql</em>, </td>
+          <td class="paramname"><em>sql</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> **&#160;</td>
-          <td class="paramname"><em>pd_orders</em>, </td>
+          <td class="paramname"><em>rows</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t *&#160;</td>
-          <td class="paramname"><em>total_pd_orders</em>&#160;</td>
+          <td class="paramname"><em>total_rows</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -210,35 +269,156 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Reads the pick-Deliver orders. </p>
+<p>Reads the pick-Deliver shipments for euclidean information. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">pd_orders_sql</td><td></td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">pd_orders</td><td></td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">total_pd_orders</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sql</td><td>SQL query to execute </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rows</td><td>C Container that holds the data </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">total_rows</td><td>Total rows recieved </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="orders__input_8c_source.html#l00266">266</a> of file <a class="el" href="orders__input_8c_source.html">orders_input.c</a>.</p>
-<div class="fragment"><div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                                 {</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <a class="code" href="orders__input_8c.html#ab3262397da4122ba16c4a04490c075d2">pgr_get_pd_orders_general</a>(pd_orders_sql, pd_orders, total_pd_orders, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="orders__input_8c_source.html#l00414">414</a> of file <a class="el" href="orders__input_8c_source.html">orders_input.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                        {</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> column_count = 12;</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;  <a class="code" href="structColumn__info__t.html">Column_info_t</a> info[12];</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; column_count; ++i) {</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a64816c9aa1e9203df8ed391fb9c6e849">colNumber</a> = -1;</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748">type</a> = 0;</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb">ANY_INTEGER</a>;</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;  }</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160; </div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;id&quot;</span>;</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;  info[1].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;amount&quot;</span>;</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;  info[2].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_open&quot;</span>;</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;  info[3].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_close&quot;</span>;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;  info[4].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_service&quot;</span>;</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;  info[5].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_open&quot;</span>;</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;  info[6].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_close&quot;</span>;</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;  info[7].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_service&quot;</span>;</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;  info[8].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_x&quot;</span>;</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;  info[9].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_y&quot;</span>;</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;  info[10].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_x&quot;</span>;</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;  info[11].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_y&quot;</span>;</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160; </div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;  <span class="comment">/* service is optional*/</span></div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;  info[4].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;  info[7].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160; </div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;  <span class="comment">/* (x,y) are ignored*/</span></div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;  info[8].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba49c81011e2dec235c268e79ce70aa044">ANY_NUMERICAL</a>;</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;  info[9].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba49c81011e2dec235c268e79ce70aa044">ANY_NUMERICAL</a>;</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;  info[10].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba49c81011e2dec235c268e79ce70aa044">ANY_NUMERICAL</a>;</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;  info[11].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba49c81011e2dec235c268e79ce70aa044">ANY_NUMERICAL</a>;</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160; </div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;  <a class="code" href="orders__input_8c.html#aa8feea95a0f16cf279f642578e0d37cf">pgr_get_pd_orders_general</a>(sql, rows, total_rows, info, column_count, 2);</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="orders__input_8c_source.html#l00138">pgr_get_pd_orders_general()</a>.</p>
+<p class="reference">References <a class="el" href="column__info__t_8h_source.html#l00040">ANY_INTEGER</a>, <a class="el" href="column__info__t_8h_source.html#l00041">ANY_NUMERICAL</a>, <a class="el" href="column__info__t_8h_source.html#l00053">Column_info_t::colNumber</a>, <a class="el" href="column__info__t_8h_source.html#l00057">Column_info_t::eType</a>, <a class="el" href="column__info__t_8h_source.html#l00056">Column_info_t::name</a>, <a class="el" href="orders__input_8c_source.html#l00240">pgr_get_pd_orders_general()</a>, <a class="el" href="column__info__t_8h_source.html#l00055">Column_info_t::strict</a>, and <a class="el" href="column__info__t_8h_source.html#l00054">Column_info_t::type</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pickDeliverEuclidean_8c_source.html#l00047">process()</a>.</p>
 
 </div>
 </div>
+<a id="a313d68996e8f173100e06138ccd085fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a313d68996e8f173100e06138ccd085fa">&#9670;&nbsp;</a></span>get_shipments_raw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_shipments_raw </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>sql</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structPickDeliveryOrders__t.html">PickDeliveryOrders_t</a> **&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>total_rows</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads the pick-Deliver shipments for raw data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">sql</td><td>SQL query to execute </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rows</td><td>C Container that holds the data </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">total_rows</td><td>Total rows recieved </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="orders__input_8c_source.html#l00376">376</a> of file <a class="el" href="orders__input_8c_source.html">orders_input.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;                        {</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> column_count = 10;</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;  <a class="code" href="structColumn__info__t.html">Column_info_t</a> info[10];</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160; </div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; column_count; ++i) {</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a64816c9aa1e9203df8ed391fb9c6e849">colNumber</a> = -1;</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748">type</a> = 0;</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    info[i].<a class="code" href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">eType</a> = <a class="code" href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb">ANY_INTEGER</a>;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;  }</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;  info[0].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;id&quot;</span>;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;  info[1].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;amount&quot;</span>;</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;  info[2].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_open&quot;</span>;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;  info[3].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_close&quot;</span>;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;  info[4].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_service&quot;</span>;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;  info[5].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_open&quot;</span>;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;  info[6].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_close&quot;</span>;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;  info[7].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_service&quot;</span>;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;  info[8].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;p_id&quot;</span>;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;  info[9].<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a> = <span class="stringliteral">&quot;d_id&quot;</span>;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;  <span class="comment">/* service is optional*/</span></div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;  info[4].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;  info[7].<a class="code" href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">strict</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160; </div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;  <a class="code" href="orders__input_8c.html#aa8feea95a0f16cf279f642578e0d37cf">pgr_get_pd_orders_general</a>(sql, rows, total_rows, info, column_count, 1);</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="column__info__t_8h_source.html#l00040">ANY_INTEGER</a>, <a class="el" href="column__info__t_8h_source.html#l00053">Column_info_t::colNumber</a>, <a class="el" href="column__info__t_8h_source.html#l00057">Column_info_t::eType</a>, <a class="el" href="column__info__t_8h_source.html#l00056">Column_info_t::name</a>, <a class="el" href="orders__input_8c_source.html#l00240">pgr_get_pd_orders_general()</a>, <a class="el" href="column__info__t_8h_source.html#l00055">Column_info_t::strict</a>, and <a class="el" href="column__info__t_8h_source.html#l00054">Column_info_t::type</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="compatibleVehicles_8c_source.html#l00048">process()</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aorders__input_8c_html_ab3262397da4122ba16c4a04490c075d2"><div class="ttname"><a href="orders__input_8c.html#ab3262397da4122ba16c4a04490c075d2">pgr_get_pd_orders_general</a></div><div class="ttdeci">static void pgr_get_pd_orders_general(char *pd_orders_sql, PickDeliveryOrders_t **pd_orders, size_t *total_pd_orders, bool with_id)</div><div class="ttdef"><b>Definition:</b> <a href="orders__input_8c_source.html#l00138">orders_input.c:138</a></div></div>
+<div class="ttc" id="astructColumn__info__t_html_a64816c9aa1e9203df8ed391fb9c6e849"><div class="ttname"><a href="structColumn__info__t.html#a64816c9aa1e9203df8ed391fb9c6e849">Column_info_t::colNumber</a></div><div class="ttdeci">int colNumber</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00053">column_info_t.h:53</a></div></div>
+<div class="ttc" id="astructColumn__info__t_html_a72833df7d9b7fd577a9e5c866c390518"><div class="ttname"><a href="structColumn__info__t.html#a72833df7d9b7fd577a9e5c866c390518">Column_info_t::strict</a></div><div class="ttdeci">bool strict</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00055">column_info_t.h:55</a></div></div>
+<div class="ttc" id="astructColumn__info__t_html_ac166599b0a83f7da1a40e75cc1a955b9"><div class="ttname"><a href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">Column_info_t::name</a></div><div class="ttdeci">char * name</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00056">column_info_t.h:56</a></div></div>
+<div class="ttc" id="acolumn__info__t_8h_html_a5bc91ed782fe6c30eaf15fe73b4474bba15685f61e1f7ab09f7543d6ffbb51ac6"><div class="ttname"><a href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba15685f61e1f7ab09f7543d6ffbb51ac6">INTERVAL</a></div><div class="ttdeci">@ INTERVAL</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00047">column_info_t.h:47</a></div></div>
+<div class="ttc" id="astructColumn__info__t_html_a80df9b5f6ef4c51effc2da146bb0d477"><div class="ttname"><a href="structColumn__info__t.html#a80df9b5f6ef4c51effc2da146bb0d477">Column_info_t::eType</a></div><div class="ttdeci">expectType eType</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00057">column_info_t.h:57</a></div></div>
+<div class="ttc" id="acolumn__info__t_8h_html_a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb"><div class="ttname"><a href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba40c811f5bb6ca18790fe16aad0115fdb">ANY_INTEGER</a></div><div class="ttdeci">@ ANY_INTEGER</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00040">column_info_t.h:40</a></div></div>
+<div class="ttc" id="acolumn__info__t_8h_html_a5bc91ed782fe6c30eaf15fe73b4474bba49c81011e2dec235c268e79ce70aa044"><div class="ttname"><a href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba49c81011e2dec235c268e79ce70aa044">ANY_NUMERICAL</a></div><div class="ttdeci">@ ANY_NUMERICAL</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00041">column_info_t.h:41</a></div></div>
+<div class="ttc" id="aorders__input_8c_html_aa8feea95a0f16cf279f642578e0d37cf"><div class="ttname"><a href="orders__input_8c.html#aa8feea95a0f16cf279f642578e0d37cf">pgr_get_pd_orders_general</a></div><div class="ttdeci">static void pgr_get_pd_orders_general(char *pd_orders_sql, PickDeliveryOrders_t **pd_orders, size_t *total_pd_orders, Column_info_t *info, const int column_count, int kind)</div><div class="ttdef"><b>Definition:</b> <a href="orders__input_8c_source.html#l00240">orders_input.c:240</a></div></div>
+<div class="ttc" id="astructColumn__info__t_html_aabe9ce1c2584f121ef9886ae81bfb748"><div class="ttname"><a href="structColumn__info__t.html#aabe9ce1c2584f121ef9886ae81bfb748">Column_info_t::type</a></div><div class="ttdeci">uint64_t type</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00054">column_info_t.h:54</a></div></div>
+<div class="ttc" id="acolumn__info__t_8h_html_a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda"><div class="ttname"><a href="column__info__t_8h.html#a5bc91ed782fe6c30eaf15fe73b4474bba3f2dbbd8fe9ad35caa594416336ceeda">TIMESTAMP</a></div><div class="ttdeci">@ TIMESTAMP</div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00046">column_info_t.h:46</a></div></div>
+<div class="ttc" id="astructColumn__info__t_html"><div class="ttname"><a href="structColumn__info__t.html">Column_info_t</a></div><div class="ttdef"><b>Definition:</b> <a href="column__info__t_8h_source.html#l00051">column_info_t.h:51</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9c50192407c36db226c38a2cd2bf7829.html">c_common</a></li><li class="navelem"><a class="el" href="orders__input_8h.html">orders_input.h</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:12 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

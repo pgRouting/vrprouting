@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -102,11 +102,10 @@ Inheritance diagram for vrprouting::Identifier:</div>
 <div class="dyncontent">
 <div class="center"><img src="classvrprouting_1_1Identifier__inherit__graph.png" border="0" usemap="#vrprouting_1_1Identifier_inherit__map" alt="Inheritance graph"/></div>
 <map name="vrprouting_1_1Identifier_inherit__map" id="vrprouting_1_1Identifier_inherit__map">
-<area shape="rect" title="Class that stores the information about identifiers." alt="" coords="5,81,160,108"/>
-<area shape="rect" href="classvrprouting_1_1vrp_1_1Base__node.html" title="The Base_node class defines the operations that can be performed in a 2D node." alt="" coords="208,5,405,32"/>
-<area shape="rect" href="classvrprouting_1_1vrp_1_1Dnode.html" title="The Dnode class defines a the basic operations when data is a matrix." alt="" coords="223,56,391,83"/>
-<area shape="rect" href="classvrprouting_1_1vrp_1_1Order.html" title=" " alt="" coords="225,107,388,133"/>
-<area shape="rect" href="classvrprouting_1_1vrp_1_1Vehicle.html" title="Vehicle with time windows." alt="" coords="220,157,393,184"/>
+<area shape="rect" title="Class that stores the information about identifiers." alt="" coords="5,78,160,105"/>
+<area shape="rect" href="classvrprouting_1_1problem_1_1Order.html" title=" " alt="" coords="208,5,359,47"/>
+<area shape="rect" href="classvrprouting_1_1problem_1_1Tw__node.html" title="Time window attributes of a node." alt="" coords="208,71,359,112"/>
+<area shape="rect" href="classvrprouting_1_1problem_1_1Vehicle.html" title="Vehicle with time windows." alt="" coords="208,136,359,177"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -135,7 +134,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that stores the information about identifiers. </p>
 <div class="dotgraph">
-<img src="dot_inline_dotgraph_1.png" alt="dot_inline_dotgraph_1.png" border="0" usemap="#dot_inline_dotgraph_1.map"/>
+<img src="dot_inline_dotgraph_5.png" alt="dot_inline_dotgraph_5.png" border="0" usemap="#dot_inline_dotgraph_5.map"/>
 </div>
 <p>Data comes with an identifier</p><ul>
 <li>does not check for uniquenes of those identifiers<ul>
@@ -262,7 +261,7 @@ Friends</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="identifier_8h_source.html#l00087">m_id</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dnode_8cpp_source.html#l00043">vrprouting::vrp::Dnode::distance()</a>, <a class="el" href="vehicle_8cpp_source.html#l00146">vrprouting::vrp::Vehicle::get_postgres_result()</a>, <a class="el" href="vehicle_8h_source.html#l00107">vrprouting::vrp::Vehicle::is_phony()</a>, <a class="el" href="base__node_8cpp_source.html#l00033">vrprouting::vrp::operator&lt;&lt;()</a>, <a class="el" href="identifier_8cpp_source.html#l00051">vrprouting::operator&lt;&lt;()</a>, <a class="el" href="node_8cpp_source.html#l00090">vrprouting::vrp::Node::operator==()</a>, <a class="el" href="base__node_8cpp_source.html#l00043">vrprouting::vrp::Base_node::operator==()</a>, <a class="el" href="dnode_8cpp_source.html#l00055">vrprouting::vrp::Dnode::operator==()</a>, <a class="el" href="tw__node_8cpp_source.html#l00190">vrprouting::vrp::Tw_node::operator==()</a>, <a class="el" href="node_8cpp_source.html#l00055">vrprouting::vrp::Node::print()</a>, <a class="el" href="vehicle_8cpp_source.html#l00580">vrprouting::vrp::Vehicle::tau()</a>, and <a class="el" href="vehicle_8cpp_source.html#l00525">vrprouting::vrp::Vehicle::Vehicle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vehicle__node_8cpp_source.html#l00193">vrprouting::problem::Vehicle_node::get_postgres_result()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00444">vrprouting::problem::Vehicle_pickDeliver::hillClimb()</a>, <a class="el" href="vehicle_8cpp_source.html#l00116">vrprouting::problem::Vehicle::is_phony()</a>, <a class="el" href="identifier_8cpp_source.html#l00051">vrprouting::operator&lt;&lt;()</a>, <a class="el" href="tw__node_8cpp_source.html#l00362">vrprouting::problem::operator&lt;&lt;()</a>, <a class="el" href="tw__node_8cpp_source.html#l00258">vrprouting::problem::Tw_node::operator==()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00171">vrprouting::problem::Vehicle_pickDeliver::set_initial_solution()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00292">vrprouting::problem::Vehicle_pickDeliver::set_unmovable()</a>, <a class="el" href="vehicle_8cpp_source.html#l00251">vrprouting::problem::Vehicle::tau()</a>, and <a class="el" href="tw__node_8cpp_source.html#l00051">vrprouting::problem::Tw_node::travel_time_to()</a>.</p>
 
 </div>
 </div>
@@ -290,7 +289,7 @@ Friends</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="identifier_8h_source.html#l00086">m_idx</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00343">vrprouting::vrp::Vehicle_pickDeliver::erase()</a>, <a class="el" href="vehicle_8cpp_source.html#l00249">vrprouting::vrp::Vehicle::erase()</a>, <a class="el" href="fleet_8cpp_source.html#l00129">vrprouting::vrp::Fleet::get_truck()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00105">vrprouting::vrp::Vehicle_pickDeliver::has_order()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00111">vrprouting::vrp::Vehicle_pickDeliver::insert()</a>, <a class="el" href="vehicle_8cpp_source.html#l00065">vrprouting::vrp::Vehicle::insert()</a>, <a class="el" href="base__node_8cpp_source.html#l00033">vrprouting::vrp::operator&lt;&lt;()</a>, <a class="el" href="identifier_8cpp_source.html#l00051">vrprouting::operator&lt;&lt;()</a>, <a class="el" href="node_8cpp_source.html#l00090">vrprouting::vrp::Node::operator==()</a>, <a class="el" href="base__node_8cpp_source.html#l00043">vrprouting::vrp::Base_node::operator==()</a>, <a class="el" href="dnode_8cpp_source.html#l00055">vrprouting::vrp::Dnode::operator==()</a>, <a class="el" href="tw__node_8cpp_source.html#l00190">vrprouting::vrp::Tw_node::operator==()</a>, <a class="el" href="node_8cpp_source.html#l00055">vrprouting::vrp::Node::print()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00229">vrprouting::vrp::Vehicle_pickDeliver::push_back()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00247">vrprouting::vrp::Vehicle_pickDeliver::push_front()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00428">vrprouting::vrp::Vehicle_pickDeliver::semiLIFO()</a>, <a class="el" href="order_8cpp_source.html#l00111">vrprouting::vrp::Order::set_compatibles()</a>, <a class="el" href="vehicle_8cpp_source.html#l00580">vrprouting::vrp::Vehicle::tau()</a>, <a class="el" href="tw__node_8cpp_source.html#l00040">vrprouting::vrp::Tw_node::travel_time_to()</a>, and <a class="el" href="vehicle_8cpp_source.html#l00525">vrprouting::vrp::Vehicle::Vehicle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00154">vrprouting::problem::Vehicle_pickDeliver::erase()</a>, <a class="el" href="vehicle_8cpp_source.html#l00184">vrprouting::problem::Vehicle::erase()</a>, <a class="el" href="vehicle__pickDeliver_8h_source.html#l00108">vrprouting::problem::Vehicle_pickDeliver::has_order()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00444">vrprouting::problem::Vehicle_pickDeliver::hillClimb()</a>, <a class="el" href="identifier_8cpp_source.html#l00051">vrprouting::operator&lt;&lt;()</a>, <a class="el" href="order_8cpp_source.html#l00077">vrprouting::problem::operator&lt;&lt;()</a>, <a class="el" href="tw__node_8cpp_source.html#l00258">vrprouting::problem::Tw_node::operator==()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00057">vrprouting::problem::Vehicle_pickDeliver::push_back()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00084">vrprouting::problem::Vehicle_pickDeliver::push_front()</a>, <a class="el" href="vehicle__pickDeliver_8cpp_source.html#l00361">vrprouting::problem::Vehicle_pickDeliver::semiLIFO()</a>, <a class="el" href="order_8cpp_source.html#l00130">vrprouting::problem::Order::set_compatibles()</a>, and <a class="el" href="vehicle_8cpp_source.html#l00251">vrprouting::problem::Vehicle::tau()</a>.</p>
 
 </div>
 </div>
@@ -319,7 +318,7 @@ Friends</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="identifier_8h_source.html#l00087">m_id</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tw__node_8cpp_source.html#l00246">vrprouting::vrp::Tw_node::Tw_node()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tw__node_8cpp_source.html#l00313">vrprouting::problem::Tw_node::Tw_node()</a>.</p>
 
 </div>
 </div>
@@ -434,7 +433,7 @@ Friends</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacevrprouting.html">vrprouting</a></li><li class="navelem"><a class="el" href="classvrprouting_1_1Identifier.html">Identifier</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:12 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

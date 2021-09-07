@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -85,31 +85,30 @@ $(document).ready(function(){initNavTree('fleet_8h.html',''); initResizable(); }
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">fleet.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;iosfwd&gt;</code><br />
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-<code>#include &quot;<a class="el" href="identifiers_8hpp_source.html">cpp_common/identifiers.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="pd__problem_8h_source.html">vrp/pd_problem.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="vehicle__pickDeliver_8h_source.html">vrp/vehicle_pickDeliver.h</a>&quot;</code><br />
+<code>#include &lt;numeric&gt;</code><br />
+<code>#include &quot;<a class="el" href="typedefs_8h_source.html">c_types/typedefs.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="short__vehicle_8h_source.html">c_types/short_vehicle.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="vehicle__pickDeliver_8h_source.html">problem/vehicle_pickDeliver.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for fleet.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="fleet_8h__incl.png" border="0" usemap="#fleet_8h" alt=""/></div>
 <map name="fleet_8h" id="fleet_8h">
-<area shape="rect" title=" " alt="" coords="282,5,345,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,69,107"/>
-<area shape="rect" title=" " alt="" coords="94,80,157,107"/>
-<area shape="rect" title=" " alt="" coords="181,80,259,107"/>
-<area shape="rect" title=" " alt="" coords="283,80,343,107"/>
-<area shape="rect" href="identifiers_8hpp.html" title=" " alt="" coords="423,155,630,181"/>
-<area shape="rect" href="pd__problem_8h.html" title=" " alt="" coords="419,80,555,107"/>
-<area shape="rect" href="vehicle__pickDeliver_8h.html" title=" " alt="" coords="579,80,765,107"/>
+<area shape="rect" title=" " alt="" coords="327,5,390,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,85,107"/>
+<area shape="rect" title=" " alt="" coords="217,155,279,181"/>
+<area shape="rect" title=" " alt="" coords="653,80,728,107"/>
+<area shape="rect" href="typedefs_8h.html" title=" " alt="" coords="397,155,542,181"/>
+<area shape="rect" href="short__vehicle_8h.html" title=" " alt="" coords="161,80,335,107"/>
+<area shape="rect" href="vehicle__pickDeliver_8h.html" title=" " alt="" coords="360,80,579,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -117,12 +116,10 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="fleet_8h__dep__incl.png" border="0" usemap="#fleet_8hdep" alt=""/></div>
 <map name="fleet_8hdep" id="fleet_8hdep">
-<area shape="rect" title=" " alt="" coords="188,5,251,32"/>
-<area shape="rect" href="fleet_8cpp.html" title=" " alt="" coords="5,229,84,256"/>
-<area shape="rect" href="pd__problem_8cpp.html" title=" " alt="" coords="257,155,384,181"/>
-<area shape="rect" href="pgr__pickDeliver_8cpp.html" title=" " alt="" coords="144,229,295,256"/>
-<area shape="rect" href="pgr__pickDeliver_8h.html" title=" " alt="" coords="47,155,181,181"/>
-<area shape="rect" href="solution_8h.html" title=" " alt="" coords="176,80,263,107"/>
+<area shape="rect" title=" " alt="" coords="131,5,193,32"/>
+<area shape="rect" href="fleet_8cpp.html" title=" " alt="" coords="5,80,84,107"/>
+<area shape="rect" href="pickDeliver_8h.html" title=" " alt="" coords="109,80,215,107"/>
+<area shape="rect" href="solution_8h.html" title=" " alt="" coords="240,80,327,107"/>
 </map>
 </div>
 </div>
@@ -130,23 +127,45 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvrprouting_1_1vrp_1_1Fleet.html">vrprouting::vrp::Fleet</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvrprouting_1_1problem_1_1Fleet.html">vrprouting::problem::Fleet</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacevrprouting"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting.html">vrprouting</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacevrprouting_1_1vrp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1vrp.html">vrprouting::vrp</a></td></tr>
+<tr class="memitem:namespacevrprouting_1_1problem"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1problem.html">vrprouting::problem</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:af8de26df58d0692ba86d75a2dd402362"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structVehicle__t.html">Vehicle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fleet_8h.html#af8de26df58d0692ba86d75a2dd402362">Vehicle_t</a></td></tr>
+<tr class="separator:af8de26df58d0692ba86d75a2dd402362"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="af8de26df58d0692ba86d75a2dd402362"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8de26df58d0692ba86d75a2dd402362">&#9670;&nbsp;</a></span>Vehicle_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structVehicle__t.html">Vehicle_t</a> <a class="el" href="structVehicle__t.html">Vehicle_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="fleet_8h_source.html#l00040">40</a> of file <a class="el" href="fleet_8h_source.html">fleet.h</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_651e52dddefd92e6e6d00bb3f78dc931.html">vrp</a></li><li class="navelem"><a class="el" href="fleet_8h.html">fleet.h</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_a9bf1e2ff3b1c5d204023c6ce562f275.html">problem</a></li><li class="navelem"><a class="el" href="fleet_8h.html">fleet.h</a></li>
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:12 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

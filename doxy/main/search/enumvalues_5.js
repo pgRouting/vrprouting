@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['onedepot_951',['OneDepot',['../namespacevrprouting_1_1vrp.html#ab9a66ca0c8ef3cb8ba90c55a1620c30caaf266da2afda1f55f22aa138c687a9d4',1,'vrprouting::vrp']]],
-  ['onepertruck_952',['OnePerTruck',['../namespacevrprouting_1_1vrp.html#ab9a66ca0c8ef3cb8ba90c55a1620c30ca8e0d52775497705975284892e0d37be3',1,'vrprouting::vrp']]],
-  ['onetruck_953',['OneTruck',['../namespacevrprouting_1_1vrp.html#ab9a66ca0c8ef3cb8ba90c55a1620c30ca98c622e9551599e764a7c15244c26660',1,'vrprouting::vrp']]]
+  ['kdelivery_1446',['kDelivery',['../namespacevrprouting_1_1problem.html#a29fb3599a707e5b1a7620e587924bfabaf04355a9f2f540f6e06955fff1e894f9',1,'vrprouting::problem']]],
+  ['kdump_1447',['kDump',['../namespacevrprouting_1_1problem.html#a29fb3599a707e5b1a7620e587924bfaba39ccf1bf84a3d2a8de0a6d30c1c1777a',1,'vrprouting::problem']]],
+  ['kend_1448',['kEnd',['../namespacevrprouting_1_1problem.html#a29fb3599a707e5b1a7620e587924bfaba6a6796d180ac3690659bc505064128cd',1,'vrprouting::problem']]],
+  ['kload_1449',['kLoad',['../namespacevrprouting_1_1problem.html#a29fb3599a707e5b1a7620e587924bfabab3b1aa455a1bccdf4f4e887dc94b33da',1,'vrprouting::problem']]],
+  ['kpickup_1450',['kPickup',['../namespacevrprouting_1_1problem.html#a29fb3599a707e5b1a7620e587924bfaba6157ad169982cfcdc5bac27f3b4f5e5c',1,'vrprouting::problem']]],
+  ['kstart_1451',['kStart',['../namespacevrprouting_1_1problem.html#a29fb3599a707e5b1a7620e587924bfabafb47716e647ca93c22f5f001415e54f7',1,'vrprouting::problem']]]
 ];

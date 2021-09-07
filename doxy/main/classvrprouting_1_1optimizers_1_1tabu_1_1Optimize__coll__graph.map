@@ -1,0 +1,6 @@
+<map id="vrprouting::optimizers::tabu::Optimize" name="vrprouting::optimizers::tabu::Optimize">
+<area shape="rect" id="node1" title="Class that optimizes a solution." alt="" coords="361,52,528,93"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1problem_1_1Solution.html" title=" " alt="" coords="13,5,164,47"/>
+<area shape="rect" id="node3" href="$classIdentifiers.html" title=" " alt="" coords="11,82,166,109"/>
+<area shape="rect" id="node4" href="$classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html" title="The TabuList class defines the tabu list to be used in optimization." alt="" coords="5,133,172,175"/>
+</map>

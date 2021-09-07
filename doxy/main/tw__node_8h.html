@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -91,25 +91,19 @@ $(document).ready(function(){initNavTree('tw__node_8h.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &quot;<a class="el" href="pickDeliveryOrders__t_8h_source.html">c_types/pickDeliver/pickDeliveryOrders_t.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="vehicle__t_8h_source.html">c_types/pickDeliver/vehicle_t.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="pgr__assert_8h_source.html">cpp_common/pgr_assert.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="typedefs_8h_source.html">c_types/typedefs.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="identifier_8h_source.html">cpp_common/identifier.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="pd__problem_8h_source.html">vrp/pd_problem.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="dnode_8h_source.html">vrp/dnode.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="node__types_8h_source.html">problem/node_types.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for tw_node.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="tw__node_8h__incl.png" border="0" usemap="#tw__node_8h" alt=""/></div>
 <map name="tw__node_8h" id="tw__node_8h">
-<area shape="rect" title=" " alt="" coords="565,5,655,32"/>
-<area shape="rect" title=" " alt="" coords="581,169,639,196"/>
-<area shape="rect" href="pickDeliveryOrders__t_8h.html" title=" " alt="" coords="223,80,397,121"/>
-<area shape="rect" href="vehicle__t_8h.html" title=" " alt="" coords="421,80,572,121"/>
-<area shape="rect" href="pgr__assert_8h.html" title="An assert functionality that uses C++ throw()." alt="" coords="5,87,199,114"/>
-<area shape="rect" href="identifier_8h.html" title=" " alt="" coords="757,169,940,196"/>
-<area shape="rect" href="pd__problem_8h.html" title=" " alt="" coords="770,87,906,114"/>
-<area shape="rect" href="dnode_8h.html" title=" " alt="" coords="647,87,746,114"/>
+<area shape="rect" title=" " alt="" coords="210,5,299,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,64,107"/>
+<area shape="rect" href="typedefs_8h.html" title=" " alt="" coords="89,80,234,107"/>
+<area shape="rect" href="identifier_8h.html" title=" " alt="" coords="258,80,441,107"/>
+<area shape="rect" href="node__types_8h.html" title=" " alt="" coords="465,80,631,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -117,11 +111,10 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="tw__node_8h__dep__incl.png" border="0" usemap="#tw__node_8hdep" alt=""/></div>
 <map name="tw__node_8hdep" id="tw__node_8hdep">
-<area shape="rect" title=" " alt="" coords="232,5,321,32"/>
-<area shape="rect" href="pd__problem_8cpp.html" title=" " alt="" coords="5,80,132,107"/>
-<area shape="rect" href="tw__node_8cpp.html" title=" " alt="" coords="157,80,261,107"/>
-<area shape="rect" href="vehicle__node_8h.html" title=" " alt="" coords="285,80,405,107"/>
-<area shape="rect" href="vehicle__pickDeliver_8h.html" title=" " alt="" coords="429,80,591,107"/>
+<area shape="rect" title=" " alt="" coords="102,5,191,32"/>
+<area shape="rect" href="tw__node_8cpp.html" title=" " alt="" coords="5,80,109,107"/>
+<area shape="rect" href="orders_8h.html" title=" " alt="" coords="157,155,232,181"/>
+<area shape="rect" href="vehicle__node_8h.html" title=" " alt="" coords="184,80,304,107"/>
 </map>
 </div>
 </div>
@@ -129,15 +122,15 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvrprouting_1_1vrp_1_1Tw__node.html">vrprouting::vrp::Tw_node</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extends the <a class="el" href="classvrprouting_1_1vrp_1_1Node.html" title="The Node class defines a point in 2D space with an id.">Node</a> class to create a <a class="el" href="classvrprouting_1_1vrp_1_1Node.html" title="The Node class defines a point in 2D space with an id.">Node</a> with time window attributes.  <a href="classvrprouting_1_1vrp_1_1Tw__node.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html">vrprouting::problem::Tw_node</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time window attributes of a node.  <a href="classvrprouting_1_1problem_1_1Tw__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacevrprouting"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting.html">vrprouting</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacevrprouting_1_1vrp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1vrp.html">vrprouting::vrp</a></td></tr>
+<tr class="memitem:namespacevrprouting_1_1problem"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1problem.html">vrprouting::problem</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
@@ -145,8 +138,8 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_651e52dddefd92e6e6d00bb3f78dc931.html">vrp</a></li><li class="navelem"><a class="el" href="tw__node_8h.html">tw_node.h</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_a9bf1e2ff3b1c5d204023c6ce562f275.html">problem</a></li><li class="navelem"><a class="el" href="tw__node_8h.html">tw_node.h</a></li>
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:12 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

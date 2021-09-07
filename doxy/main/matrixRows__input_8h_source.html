@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('matrixRows__input_8h_source.html','');
 </div><!--header-->
 <div class="contents">
 <a href="matrixRows__input_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*PGR-GNU*****************************************************************</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">File: distances_input.h</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">File: matrixRows_input.h</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">Copyright (c) 2015 Celia Virginia Vergara Castillo</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">vicky_vergara@hotmail.com</span></div>
@@ -117,24 +117,35 @@ $(document).ready(function(){initNavTree('matrixRows__input_8h_source.html','');
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="matrix__cell__t_8h.html">c_types/matrix_cell_t.h</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="matrixRows__input_8h.html#a565f46ba9fa0f4ee8dfc7e91592b95ad">   31</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structMatrix__cell__t.html">Matrix_cell_t</a> <a class="code" href="structMatrix__cell__t.html">Matrix_cell_t</a>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrixRows__input_8h.html#a6d9e7937e5b60b1f2d1b49c5e19c68e5">pgr_get_matrixRows</a>(</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordtype">char</span> *sql,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="structmatrix__cell.html">Matrix_cell_t</a> **distaces,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordtype">size_t</span> *total_distances);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif  // INCLUDE_C_COMMON_MATRIXROWS_INPUT_H_</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrixRows__input_8h.html#a01c1906e1a0576014ba37b9063a86d13">get_matrixRows</a>(</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">char</span> *sql,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="structMatrix__cell__t.html">Matrix_cell_t</a> **rows,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">size_t</span> *total_rows);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrixRows__input_8h.html#a0f6d623c1f845949a6249556f67724bb">get_matrixRows_plain</a>(</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">char</span> *sql,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="structMatrix__cell__t.html">Matrix_cell_t</a> **rows,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">size_t</span> *total_rows);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrixRows__input_8h.html#a7487f1c9e90a0cb0dd1cb7df7be31908">get_matrixRows_vroom_plain</a>(</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">char</span> *sql,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="structMatrix__cell__t.html">Matrix_cell_t</a> **rows,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">size_t</span> *total_rows);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif  // INCLUDE_C_COMMON_MATRIXROWS_INPUT_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="amatrixRows__input_8h_html_a6d9e7937e5b60b1f2d1b49c5e19c68e5"><div class="ttname"><a href="matrixRows__input_8h.html#a6d9e7937e5b60b1f2d1b49c5e19c68e5">pgr_get_matrixRows</a></div><div class="ttdeci">void pgr_get_matrixRows(char *sql, Matrix_cell_t **distaces, size_t *total_distances)</div><div class="ttdoc">bigint start_vid, bigint end_vid, float agg_cost,</div><div class="ttdef"><b>Definition:</b> <a href="matrixRows__input_8c_source.html#l00075">matrixRows_input.c:75</a></div></div>
-<div class="ttc" id="astructmatrix__cell_html"><div class="ttname"><a href="structmatrix__cell.html">matrix_cell</a></div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00037">matrix_cell_t.h:37</a></div></div>
-<div class="ttc" id="amatrix__cell__t_8h_html"><div class="ttname"><a href="matrix__cell__t_8h.html">matrix_cell_t.h</a></div></div>
+<div class="ttc" id="amatrixRows__input_8h_html_a01c1906e1a0576014ba37b9063a86d13"><div class="ttname"><a href="matrixRows__input_8h.html#a01c1906e1a0576014ba37b9063a86d13">get_matrixRows</a></div><div class="ttdeci">void get_matrixRows(char *sql, Matrix_cell_t **rows, size_t *total_rows)</div><div class="ttdoc">Get the travel time matrix.</div><div class="ttdef"><b>Definition:</b> <a href="matrixRows__input_8c_source.html#l00194">matrixRows_input.c:194</a></div></div>
+<div class="ttc" id="astructMatrix__cell__t_html"><div class="ttname"><a href="structMatrix__cell__t.html">Matrix_cell_t</a></div><div class="ttdoc">traveling costs</div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00041">matrix_cell_t.h:41</a></div></div>
+<div class="ttc" id="amatrixRows__input_8h_html_a0f6d623c1f845949a6249556f67724bb"><div class="ttname"><a href="matrixRows__input_8h.html#a0f6d623c1f845949a6249556f67724bb">get_matrixRows_plain</a></div><div class="ttdeci">void get_matrixRows_plain(char *sql, Matrix_cell_t **rows, size_t *total_rows)</div><div class="ttdoc">Get the travel time matrix with numerical types.</div><div class="ttdef"><b>Definition:</b> <a href="matrixRows__input_8c_source.html#l00221">matrixRows_input.c:221</a></div></div>
+<div class="ttc" id="amatrixRows__input_8h_html_a7487f1c9e90a0cb0dd1cb7df7be31908"><div class="ttname"><a href="matrixRows__input_8h.html#a7487f1c9e90a0cb0dd1cb7df7be31908">get_matrixRows_vroom_plain</a></div><div class="ttdeci">void get_matrixRows_vroom_plain(char *sql, Matrix_cell_t **rows, size_t *total_rows)</div><div class="ttdoc">Get the travel time matrix of vroom with integer types.</div><div class="ttdef"><b>Definition:</b> <a href="matrixRows__input_8c_source.html#l00247">matrixRows_input.c:247</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9c50192407c36db226c38a2cd2bf7829.html">c_common</a></li><li class="navelem"><a class="el" href="matrixRows__input_8h.html">matrixRows_input.h</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:11 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

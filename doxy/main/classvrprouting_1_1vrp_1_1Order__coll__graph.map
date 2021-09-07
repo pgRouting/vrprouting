@@ -1,6 +1,0 @@
-<map id="vrprouting::vrp::Order" name="vrprouting::vrp::Order">
-<area shape="rect" id="node1" title=" " alt="" coords="209,109,372,136"/>
-<area shape="rect" id="node2" href="$classvrprouting_1_1Identifier.html" title="Class that stores the information about identifiers." alt="" coords="5,5,160,32"/>
-<area shape="rect" id="node3" href="$classvrprouting_1_1vrp_1_1Vehicle__node.html" title="Extend Tw_node to evaluate the vehicle at node level." alt="" coords="185,5,397,32"/>
-<area shape="rect" id="node4" href="$classIdentifiers.html" title=" " alt="" coords="420,5,575,32"/>
-</map>

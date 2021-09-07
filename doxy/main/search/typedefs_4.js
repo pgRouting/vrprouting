@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['o_5fconst_5fiterator_929',['o_const_iterator',['../classvrprouting_1_1vrp_1_1PD__Orders.html#a05152782afa553b51aa55c2fb821f75e',1,'vrprouting::vrp::PD_Orders']]],
-  ['o_5fiterator_930',['o_iterator',['../classvrprouting_1_1vrp_1_1PD__Orders.html#ae074b65be7f498acfba55489c1ff727d',1,'vrprouting::vrp::PD_Orders']]],
-  ['orders_931',['Orders',['../classvrprouting_1_1vrp_1_1PD__Orders.html#a3894079d893cd80e597d05fd9c848931',1,'vrprouting::vrp::PD_Orders']]]
+  ['matrix_5fcell_5ft_1410',['Matrix_cell_t',['../matrixRows__input_8h.html#a565f46ba9fa0f4ee8dfc7e91592b95ad',1,'Matrix_cell_t():&#160;matrixRows_input.h'],['../typedefs_8h.html#a565f46ba9fa0f4ee8dfc7e91592b95ad',1,'Matrix_cell_t():&#160;typedefs.h'],['../base__matrix_8h.html#a565f46ba9fa0f4ee8dfc7e91592b95ad',1,'Matrix_cell_t():&#160;base_matrix.h'],['../compatibleVehicles__driver_8h.html#a565f46ba9fa0f4ee8dfc7e91592b95ad',1,'Matrix_cell_t():&#160;compatibleVehicles_driver.h']]],
+  ['matrixindex_1411',['MatrixIndex',['../typedefs_8h.html#a3372021cd9b649c8ec8a18f78a7812e0',1,'typedefs.h']]],
+  ['multiplier_1412',['Multiplier',['../typedefs_8h.html#aa89564049249aa05129bca1644836281',1,'typedefs.h']]]
 ];

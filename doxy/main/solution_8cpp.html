@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -85,29 +85,39 @@ $(document).ready(function(){initNavTree('solution_8cpp.html',''); initResizable
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">solution.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="solution_8h_source.html">vrp/solution.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="solution_8h_source.html">problem/solution.h</a>&quot;</code><br />
+<code>#include &lt;deque&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;ostream&gt;</code><br />
+<code>#include &lt;numeric&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
-<code>#include &quot;<a class="el" href="pgr__pickDeliver_8h_source.html">vrp/pgr_pickDeliver.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="general__vehicle__orders__t_8h_source.html">c_types/pickDeliver/general_vehicle_orders_t.h</a>&quot;</code><br />
+<code>#include &lt;tuple&gt;</code><br />
+<code>#include &lt;iomanip&gt;</code><br />
+<code>#include &quot;<a class="el" href="pickDeliver_8h_source.html">problem/pickDeliver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="short__vehicle_8h_source.html">c_types/short_vehicle.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for solution.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="solution_8cpp__incl.png" border="0" usemap="#solution_8cpp" alt=""/></div>
 <map name="solution_8cpp" id="solution_8cpp">
-<area shape="rect" title=" " alt="" coords="197,5,299,32"/>
-<area shape="rect" href="solution_8h.html" title=" " alt="" coords="26,162,137,189"/>
-<area shape="rect" title=" " alt="" coords="5,244,64,271"/>
-<area shape="rect" title=" " alt="" coords="143,244,206,271"/>
-<area shape="rect" title=" " alt="" coords="279,80,364,107"/>
-<area shape="rect" href="pgr__pickDeliver_8h.html" title=" " alt="" coords="95,80,255,107"/>
-<area shape="rect" href="general__vehicle__orders__t_8h.html" title=" " alt="" coords="213,155,414,196"/>
+<area shape="rect" title=" " alt="" coords="364,5,465,32"/>
+<area shape="rect" href="solution_8h.html" title=" " alt="" coords="452,80,596,107"/>
+<area shape="rect" title=" " alt="" coords="75,155,138,181"/>
+<area shape="rect" title=" " alt="" coords="203,229,266,256"/>
+<area shape="rect" title=" " alt="" coords="162,155,221,181"/>
+<area shape="rect" title=" " alt="" coords="246,155,322,181"/>
+<area shape="rect" title=" " alt="" coords="596,155,670,181"/>
+<area shape="rect" title=" " alt="" coords="694,155,780,181"/>
+<area shape="rect" title=" " alt="" coords="804,155,859,181"/>
+<area shape="rect" title=" " alt="" coords="884,155,958,181"/>
+<area shape="rect" href="short__vehicle_8h.html" title=" " alt="" coords="346,155,520,181"/>
+<area shape="rect" href="pickDeliver_8h.html" title=" " alt="" coords="26,80,192,107"/>
 </map>
 </div>
 </div>
@@ -117,21 +127,38 @@ Include dependency graph for solution.cpp:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacevrprouting"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting.html">vrprouting</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacevrprouting_1_1vrp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1vrp.html">vrprouting::vrp</a></td></tr>
+<tr class="memitem:namespacevrprouting_1_1problem"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1problem.html">vrprouting::problem</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a7ea364e8ecb4067b87063fbb2bcbe72e"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1vrp.html#a7ea364e8ecb4067b87063fbb2bcbe72e">vrprouting::vrp::operator&lt;&lt;</a> (std::ostream &amp;log, const Solution &amp;solution)</td></tr>
-<tr class="separator:a7ea364e8ecb4067b87063fbb2bcbe72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ac54bf52f3c85f2a0d55d8fac3614ed01"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structSolution__rt.html">Solution_rt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="solution_8cpp.html#ac54bf52f3c85f2a0d55d8fac3614ed01">Solution_rt</a></td></tr>
+<tr class="separator:ac54bf52f3c85f2a0d55d8fac3614ed01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ac54bf52f3c85f2a0d55d8fac3614ed01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac54bf52f3c85f2a0d55d8fac3614ed01">&#9670;&nbsp;</a></span>Solution_rt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structSolution__rt.html">Solution_rt</a> <a class="el" href="structSolution__rt.html">Solution_rt</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="solution_8cpp_source.html#l00040">40</a> of file <a class="el" href="solution_8cpp_source.html">solution.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e1e5aebfba040cfbae1d1213d15e41c3.html">pickDeliver</a></li><li class="navelem"><a class="el" href="solution_8cpp.html">solution.cpp</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_257650e510f890b8a8ea2d5cfb610434.html">problem</a></li><li class="navelem"><a class="el" href="solution_8cpp.html">solution.cpp</a></li>
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:12 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

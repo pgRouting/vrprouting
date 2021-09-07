@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['_7eassertfailedexception_811',['~AssertFailedException',['../classAssertFailedException.html#add60057af23323b1c5bd4220e0c0517e',1,'AssertFailedException']]],
-  ['_7ebase_5fnode_812',['~Base_node',['../classvrprouting_1_1vrp_1_1Base__node.html#ac6868a1f8387b8f7f891f617b7537ad8',1,'vrprouting::vrp::Base_node']]]
+  ['update_5fstops_1219',['update_stops',['../namespaceanonymous__namespace_02optimize__driver_8cpp_03.html#a32fffbab8ddecbee96a9c2c228a7ce33',1,'anonymous_namespace{optimize_driver.cpp}']]]
 ];

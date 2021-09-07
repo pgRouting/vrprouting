@@ -6,6 +6,7 @@ var classIdentifiers =
     [ "Identifiers", "classIdentifiers.html#a74517f7f7f7af7303512cc5ad9228861", null ],
     [ "Identifiers", "classIdentifiers.html#a458d516f984c0144451bcfb89e75233c", null ],
     [ "Identifiers", "classIdentifiers.html#aec0b735bdbb707a91b12d4659aef534e", null ],
+    [ "back", "classIdentifiers.html#a264f9027d014260979cfcd48e297ae73", null ],
     [ "begin", "classIdentifiers.html#a577c266fec689637dea4caef857e6b8c", null ],
     [ "begin", "classIdentifiers.html#a86a7dfb403d49326e8cbf8b6450dfe3f", null ],
     [ "clear", "classIdentifiers.html#a25c5b0e66e42636322e638e7583b3736", null ],

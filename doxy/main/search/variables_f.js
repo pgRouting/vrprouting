@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['vehicle_5fid_920',['vehicle_id',['../structGeneral__vehicle__orders__t.html#a82bf7b16638378bbba41e8752d563bd7',1,'General_vehicle_orders_t']]],
-  ['vehicle_5fseq_921',['vehicle_seq',['../structGeneral__vehicle__orders__t.html#a2804978ad81fce1570b216108661bb0a',1,'General_vehicle_orders_t']]]
+  ['unassigned_1395',['unassigned',['../classvrprouting_1_1initialsol_1_1simple_1_1Initial__solution.html#a1f6b4968328930e42780dd66b219bde6',1,'vrprouting::initialsol::simple::Initial_solution::unassigned()'],['../classvrprouting_1_1vrp_1_1Initial__solution.html#acc32c7b45c067bda763bb766746ff236',1,'vrprouting::vrp::Initial_solution::unassigned()']]]
 ];

@@ -1,7 +1,6 @@
 <map id="vrprouting::Identifier" name="vrprouting::Identifier">
-<area shape="rect" id="node1" title="Class that stores the information about identifiers." alt="" coords="5,81,160,108"/>
-<area shape="rect" id="node2" href="$classvrprouting_1_1vrp_1_1Base__node.html" title="The Base_node class defines the operations that can be performed in a 2D node." alt="" coords="208,5,405,32"/>
-<area shape="rect" id="node3" href="$classvrprouting_1_1vrp_1_1Dnode.html" title="The Dnode class defines a the basic operations when data is a matrix." alt="" coords="223,56,391,83"/>
-<area shape="rect" id="node4" href="$classvrprouting_1_1vrp_1_1Order.html" title=" " alt="" coords="225,107,388,133"/>
-<area shape="rect" id="node5" href="$classvrprouting_1_1vrp_1_1Vehicle.html" title="Vehicle with time windows." alt="" coords="220,157,393,184"/>
+<area shape="rect" id="node1" title="Class that stores the information about identifiers." alt="" coords="5,78,160,105"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1problem_1_1Order.html" title=" " alt="" coords="208,5,359,47"/>
+<area shape="rect" id="node3" href="$classvrprouting_1_1problem_1_1Tw__node.html" title="Time window attributes of a node." alt="" coords="208,71,359,112"/>
+<area shape="rect" id="node4" href="$classvrprouting_1_1problem_1_1Vehicle.html" title="Vehicle with time windows." alt="" coords="208,136,359,177"/>
 </map>

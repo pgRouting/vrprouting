@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -114,32 +114,29 @@ $(document).ready(function(){initNavTree('matrix__cell__t_8h_source.html',''); i
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define INCLUDE_C_TYPES_MATRIX_CELL_T_H_</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">/* for int64_t */</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#   include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#   include &lt;stdint.h&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structmatrix__cell.html">   37</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structmatrix__cell.html">matrix_cell</a> {</div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structmatrix__cell.html#ab28cdf0c3643ac5bf0f42b70b4f6398d">   38</a></span>&#160;    int64_t <a class="code" href="structmatrix__cell.html#ab28cdf0c3643ac5bf0f42b70b4f6398d">from_vid</a>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structmatrix__cell.html#af970a7b211030451819a6397501e685d">   39</a></span>&#160;    int64_t <a class="code" href="structmatrix__cell.html#af970a7b211030451819a6397501e685d">to_vid</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structmatrix__cell.html#a938fb9d685bbcd6ca9f1e85e525fdefe">   40</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="structmatrix__cell.html#a938fb9d685bbcd6ca9f1e85e525fdefe">cost</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <a class="code" href="matrix__cell__t_8h.html#ac4aacf926dfbbfbfc449bddab7772b3d">Matrix_cell_t</a>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif  // INCLUDE_C_TYPES_MATRIX_CELL_T_H_</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="typedefs_8h.html">c_types/typedefs.h</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structMatrix__cell__t.html">   41</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structMatrix__cell__t.html">Matrix_cell_t</a> {</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structMatrix__cell__t.html#a26cb2568936b536f439354504d01e875">   42</a></span>&#160;  <a class="code" href="typedefs_8h.html#a82c58a7478f24e027792cce1a67a3242">Id</a> <a class="code" href="structMatrix__cell__t.html#a26cb2568936b536f439354504d01e875">from_vid</a>; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structMatrix__cell__t.html#ae2bde0c6f09ab727e427d1678bd184fc">   43</a></span>&#160;  <a class="code" href="typedefs_8h.html#a82c58a7478f24e027792cce1a67a3242">Id</a> <a class="code" href="structMatrix__cell__t.html#ae2bde0c6f09ab727e427d1678bd184fc">to_vid</a>;   </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structMatrix__cell__t.html#a719421151aaa716dac2497ddea18723f">   44</a></span>&#160;  <a class="code" href="typedefs_8h.html#abd3d1cd518e380da9e897daee9332321">TInterval</a> <a class="code" href="structMatrix__cell__t.html#a719421151aaa716dac2497ddea18723f">cost</a>;      </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif  // INCLUDE_C_TYPES_MATRIX_CELL_T_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructmatrix__cell_html_af970a7b211030451819a6397501e685d"><div class="ttname"><a href="structmatrix__cell.html#af970a7b211030451819a6397501e685d">matrix_cell::to_vid</a></div><div class="ttdeci">int64_t to_vid</div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00039">matrix_cell_t.h:39</a></div></div>
-<div class="ttc" id="astructmatrix__cell_html_a938fb9d685bbcd6ca9f1e85e525fdefe"><div class="ttname"><a href="structmatrix__cell.html#a938fb9d685bbcd6ca9f1e85e525fdefe">matrix_cell::cost</a></div><div class="ttdeci">double cost</div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00040">matrix_cell_t.h:40</a></div></div>
-<div class="ttc" id="amatrix__cell__t_8h_html_ac4aacf926dfbbfbfc449bddab7772b3d"><div class="ttname"><a href="matrix__cell__t_8h.html#ac4aacf926dfbbfbfc449bddab7772b3d">Matrix_cell_t</a></div><div class="ttdeci">struct matrix_cell Matrix_cell_t</div></div>
-<div class="ttc" id="astructmatrix__cell_html_ab28cdf0c3643ac5bf0f42b70b4f6398d"><div class="ttname"><a href="structmatrix__cell.html#ab28cdf0c3643ac5bf0f42b70b4f6398d">matrix_cell::from_vid</a></div><div class="ttdeci">int64_t from_vid</div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00038">matrix_cell_t.h:38</a></div></div>
-<div class="ttc" id="astructmatrix__cell_html"><div class="ttname"><a href="structmatrix__cell.html">matrix_cell</a></div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00037">matrix_cell_t.h:37</a></div></div>
+<div class="ttc" id="atypedefs_8h_html_a82c58a7478f24e027792cce1a67a3242"><div class="ttname"><a href="typedefs_8h.html#a82c58a7478f24e027792cce1a67a3242">Id</a></div><div class="ttdeci">int64_t Id</div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8h_source.html#l00074">typedefs.h:74</a></div></div>
+<div class="ttc" id="atypedefs_8h_html"><div class="ttname"><a href="typedefs_8h.html">typedefs.h</a></div></div>
+<div class="ttc" id="astructMatrix__cell__t_html"><div class="ttname"><a href="structMatrix__cell__t.html">Matrix_cell_t</a></div><div class="ttdoc">traveling costs</div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00041">matrix_cell_t.h:41</a></div></div>
+<div class="ttc" id="astructMatrix__cell__t_html_a719421151aaa716dac2497ddea18723f"><div class="ttname"><a href="structMatrix__cell__t.html#a719421151aaa716dac2497ddea18723f">Matrix_cell_t::cost</a></div><div class="ttdeci">TInterval cost</div><div class="ttdoc">arrival node's identifier</div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00044">matrix_cell_t.h:44</a></div></div>
+<div class="ttc" id="astructMatrix__cell__t_html_a26cb2568936b536f439354504d01e875"><div class="ttname"><a href="structMatrix__cell__t.html#a26cb2568936b536f439354504d01e875">Matrix_cell_t::from_vid</a></div><div class="ttdeci">Id from_vid</div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00042">matrix_cell_t.h:42</a></div></div>
+<div class="ttc" id="atypedefs_8h_html_abd3d1cd518e380da9e897daee9332321"><div class="ttname"><a href="typedefs_8h.html#abd3d1cd518e380da9e897daee9332321">TInterval</a></div><div class="ttdeci">int64_t TInterval</div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8h_source.html#l00068">typedefs.h:68</a></div></div>
+<div class="ttc" id="astructMatrix__cell__t_html_ae2bde0c6f09ab727e427d1678bd184fc"><div class="ttname"><a href="structMatrix__cell__t.html#ae2bde0c6f09ab727e427d1678bd184fc">Matrix_cell_t::to_vid</a></div><div class="ttdeci">Id to_vid</div><div class="ttdoc">departure node's identifier</div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00043">matrix_cell_t.h:43</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5995d5871f728649bd47ea0d6428e03.html">c_types</a></li><li class="navelem"><a class="el" href="matrix__cell__t_8h.html">matrix_cell_t.h</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:11 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

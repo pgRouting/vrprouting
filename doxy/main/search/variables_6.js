@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['id_843',['id',['../structPickDeliveryOrders__t.html#ab68c7b8acf30b09d2e74cf36b3cc4b69',1,'PickDeliveryOrders_t::id()'],['../structVehicle__t.html#a1d2f519aa6566beeeccc67edf3701922',1,'Vehicle_t::id()']]],
-  ['ids_844',['ids',['../classvrprouting_1_1Matrix.html#a61be7004d76aa55f54e2b42aac075706',1,'vrprouting::Matrix']]],
-  ['initial_5fsolution_845',['Initial_solution',['../classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html#a1f401c86bb3ac96f79a506fb4ee2067d',1,'vrprouting::vrp::Pgr_pickDeliver']]]
+  ['id_1268',['id',['../structPickDeliveryOrders__t.html#aee73a50adf7fb7c66f6173865e23f833',1,'PickDeliveryOrders_t::id()'],['../structShort__vehicle.html#a9bfbf1f39ca35b362a22f7d74d7a7138',1,'Short_vehicle::id()'],['../structVehicle__t.html#a87d9fbe504a3c8306b400b072355be05',1,'Vehicle_t::id()'],['../structVroom__break__t.html#a7f372a204283e219c5512c8a8a907006',1,'Vroom_break_t::id()'],['../structVroom__job__t.html#a6ff64f23d7947e6587c00679764172e8',1,'Vroom_job_t::id()'],['../structVroom__shipment__t.html#a47d3f8b43937ccd04d29e82a2ceb62aa',1,'Vroom_shipment_t::id()'],['../structVroom__time__window__t.html#a1b35cb0a33ab3502ed3911d3314106fc',1,'Vroom_time_window_t::id()'],['../structVroom__vehicle__t.html#af5dac20570e5224917b1358f3e9779a8',1,'Vroom_vehicle_t::id()']]]
 ];

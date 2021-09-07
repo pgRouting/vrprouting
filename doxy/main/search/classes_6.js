@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['identifier_471',['Identifier',['../classvrprouting_1_1Identifier.html',1,'vrprouting']]],
-  ['identifiers_472',['Identifiers',['../classIdentifiers.html',1,'']]],
-  ['identifiers_3c_20size_5ft_20_3e_473',['Identifiers&lt; size_t &gt;',['../classIdentifiers.html',1,'']]],
-  ['initial_5fsolution_474',['Initial_solution',['../classvrprouting_1_1vrp_1_1Initial__solution.html',1,'vrprouting::vrp']]]
+  ['optimize_720',['Optimize',['../classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html',1,'vrprouting::optimizers::simple::Optimize'],['../classvrprouting_1_1optimizers_1_1tabu_1_1Optimize.html',1,'vrprouting::optimizers::tabu::Optimize']]],
+  ['order_721',['Order',['../classvrprouting_1_1problem_1_1Order.html',1,'vrprouting::problem']]],
+  ['orders_722',['Orders',['../classvrprouting_1_1problem_1_1Orders.html',1,'vrprouting::problem']]]
 ];

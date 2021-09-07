@@ -1,6 +1,10 @@
 <map id="e_report.h" name="e_report.h">
-<area shape="rect" id="node1" title=" " alt="" coords="126,5,214,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="425,5,513,32"/>
 <area shape="rect" id="node2" href="$e__report_8c.html" title=" " alt="" coords="5,80,92,107"/>
-<area shape="rect" id="node3" href="$pickDeliver_8c.html" title=" " alt="" coords="117,80,223,107"/>
-<area shape="rect" id="node4" href="$pickDeliverEuclidean_8c.html" title=" " alt="" coords="247,80,418,107"/>
+<area shape="rect" id="node3" href="$compatibleVehicles_8c.html" title=" " alt="" coords="117,80,277,107"/>
+<area shape="rect" id="node4" href="$optimize_8c.html" title=" " alt="" coords="301,80,391,107"/>
+<area shape="rect" id="node5" href="$pgr__pickDeliver_2pickDeliver_8c.html" title=" " alt="" coords="415,80,522,107"/>
+<area shape="rect" id="node6" href="$pickDeliverEuclidean_8c.html" title=" " alt="" coords="546,80,717,107"/>
+<area shape="rect" id="node7" href="$pickDeliver_2pickDeliver_8c.html" title=" " alt="" coords="741,80,847,107"/>
+<area shape="rect" id="node8" href="$vroom_8c.html" title="Connecting code with postgres." alt="" coords="871,80,946,107"/>
 </map>

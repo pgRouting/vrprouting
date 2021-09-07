@@ -1,4 +1,4 @@
 var solution_8cpp =
 [
-    [ "operator<<", "solution_8cpp.html#a7ea364e8ecb4067b87063fbb2bcbe72e", null ]
+    [ "Solution_rt", "solution_8cpp.html#ac54bf52f3c85f2a0d55d8fac3614ed01", null ]
 ];

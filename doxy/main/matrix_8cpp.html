@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('matrix_8cpp.html',''); initResizable()
 <div class="title">matrix.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="matrix_8h_source.html">cpp_common/matrix.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="matrix_8h_source.html">problem/matrix.h</a>&quot;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
@@ -99,23 +99,31 @@ $(document).ready(function(){initNavTree('matrix_8cpp.html',''); initResizable()
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;iomanip&gt;</code><br />
+<code>#include &lt;tuple&gt;</code><br />
 <code>#include &quot;<a class="el" href="pgr__assert_8h_source.html">cpp_common/pgr_assert.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="matrix__cell__t_8h_source.html">c_types/matrix_cell_t.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="time__multipliers__t_8h_source.html">c_types/time_multipliers_t.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for matrix.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="matrix_8cpp__incl.png" border="0" usemap="#matrix_8cpp" alt=""/></div>
 <map name="matrix_8cpp" id="matrix_8cpp">
-<area shape="rect" title=" " alt="" coords="367,5,459,32"/>
-<area shape="rect" href="matrix_8h.html" title=" " alt="" coords="39,80,207,107"/>
-<area shape="rect" title=" " alt="" coords="5,155,68,181"/>
-<area shape="rect" title=" " alt="" coords="113,155,163,181"/>
-<area shape="rect" title=" " alt="" coords="233,155,293,181"/>
-<area shape="rect" title=" " alt="" coords="347,155,406,181"/>
-<area shape="rect" title=" " alt="" coords="602,80,677,107"/>
-<area shape="rect" title=" " alt="" coords="701,80,786,107"/>
-<area shape="rect" title=" " alt="" coords="810,80,869,107"/>
-<area shape="rect" title=" " alt="" coords="893,80,956,107"/>
-<area shape="rect" href="pgr__assert_8h.html" title="An assert functionality that uses C++ throw()." alt="" coords="384,80,577,107"/>
+<area shape="rect" title=" " alt="" coords="558,5,650,32"/>
+<area shape="rect" href="matrix_8h.html" title=" " alt="" coords="117,80,251,107"/>
+<area shape="rect" title=" " alt="" coords="5,155,56,181"/>
+<area shape="rect" title=" " alt="" coords="97,155,157,181"/>
+<area shape="rect" title=" " alt="" coords="189,155,243,181"/>
+<area shape="rect" title=" " alt="" coords="361,155,420,181"/>
+<area shape="rect" title=" " alt="" coords="271,155,334,181"/>
+<area shape="rect" title=" " alt="" coords="647,80,721,107"/>
+<area shape="rect" title=" " alt="" coords="745,80,831,107"/>
+<area shape="rect" title=" " alt="" coords="855,80,913,107"/>
+<area shape="rect" title=" " alt="" coords="938,80,1001,107"/>
+<area shape="rect" title=" " alt="" coords="1025,80,1100,107"/>
+<area shape="rect" href="pgr__assert_8h.html" title="An assert functionality that uses C++ throw()." alt="" coords="429,80,622,107"/>
+<area shape="rect" href="matrix__cell__t_8h.html" title=" " alt="" coords="1124,80,1297,107"/>
+<area shape="rect" href="time__multipliers__t_8h.html" title=" " alt="" coords="1322,80,1529,107"/>
 </map>
 </div>
 </div>
@@ -125,21 +133,29 @@ Include dependency graph for matrix.cpp:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacevrprouting"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting.html">vrprouting</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacevrprouting_1_1problem"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1problem.html">vrprouting::problem</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacevrprouting_1_1problem_1_1anonymous__namespace_02matrix_8cpp_03"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1problem_1_1anonymous__namespace_02matrix_8cpp_03.html">vrprouting::problem::anonymous_namespace{matrix.cpp}</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a840f555f918483913b629aa917726f69"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting.html#a840f555f918483913b629aa917726f69">vrprouting::get_distance</a> (std::pair&lt; double, double &gt; p1, std::pair&lt; double, double &gt; p2)</td></tr>
-<tr class="separator:a840f555f918483913b629aa917726f69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05049d37d4edc25c4d7365e4f50089e6"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting.html#a05049d37d4edc25c4d7365e4f50089e6">vrprouting::operator&lt;&lt;</a> (std::ostream &amp;log, const Matrix &amp;matrix)</td></tr>
-<tr class="separator:a05049d37d4edc25c4d7365e4f50089e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33266abd7625acae84ea3a5614b9ad41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#aa89564049249aa05129bca1644836281">Multiplier</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1problem_1_1anonymous__namespace_02matrix_8cpp_03.html#a33266abd7625acae84ea3a5614b9ad41">vrprouting::problem::anonymous_namespace{matrix.cpp}::get_tdm</a> (const std::vector&lt; std::tuple&lt; <a class="el" href="typedefs_8h.html#a582af0358a8c1ba8b1829266ca5ac4cf">TTimestamp</a>, <a class="el" href="typedefs_8h.html#aa89564049249aa05129bca1644836281">Multiplier</a> &gt;&gt; &amp;tdm, <a class="el" href="typedefs_8h.html#a582af0358a8c1ba8b1829266ca5ac4cf">TTimestamp</a> time)</td></tr>
+<tr class="separator:a33266abd7625acae84ea3a5614b9ad41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f03ebe176bbcc629a9775d0bae4a954"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#aa89564049249aa05129bca1644836281">Multiplier</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1problem_1_1anonymous__namespace_02matrix_8cpp_03.html#a0f03ebe176bbcc629a9775d0bae4a954">vrprouting::problem::anonymous_namespace{matrix.cpp}::next_tdm</a> (const std::vector&lt; std::tuple&lt; <a class="el" href="typedefs_8h.html#a582af0358a8c1ba8b1829266ca5ac4cf">TTimestamp</a>, <a class="el" href="typedefs_8h.html#aa89564049249aa05129bca1644836281">Multiplier</a> &gt;&gt; &amp;tdm, <a class="el" href="typedefs_8h.html#a582af0358a8c1ba8b1829266ca5ac4cf">TTimestamp</a> time)</td></tr>
+<tr class="separator:a0f03ebe176bbcc629a9775d0bae4a954"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e305427a7f1adec7eca95aa83c0f6dd"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::tuple&lt; <a class="el" href="typedefs_8h.html#a582af0358a8c1ba8b1829266ca5ac4cf">TTimestamp</a>, <a class="el" href="typedefs_8h.html#aa89564049249aa05129bca1644836281">Multiplier</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1problem_1_1anonymous__namespace_02matrix_8cpp_03.html#a1e305427a7f1adec7eca95aa83c0f6dd">vrprouting::problem::anonymous_namespace{matrix.cpp}::set_tdm</a> (<a class="el" href="structTime__multipliers__t.html">Time_multipliers_t</a> *p_multipliers, size_t size_multipliers)</td></tr>
+<tr class="separator:a1e305427a7f1adec7eca95aa83c0f6dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6ebf27baf2fdf4dacac9b454b655683"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#a582af0358a8c1ba8b1829266ca5ac4cf">TTimestamp</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevrprouting_1_1problem_1_1anonymous__namespace_02matrix_8cpp_03.html#aa6ebf27baf2fdf4dacac9b454b655683">vrprouting::problem::anonymous_namespace{matrix.cpp}::time_change</a> (const std::vector&lt; std::tuple&lt; <a class="el" href="typedefs_8h.html#a582af0358a8c1ba8b1829266ca5ac4cf">TTimestamp</a>, <a class="el" href="typedefs_8h.html#aa89564049249aa05129bca1644836281">Multiplier</a> &gt;&gt; &amp;tdm, <a class="el" href="typedefs_8h.html#a582af0358a8c1ba8b1829266ca5ac4cf">TTimestamp</a> time)</td></tr>
+<tr class="separator:aa6ebf27baf2fdf4dacac9b454b655683"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2eba639dab30005524456cb76acac5e8.html">cpp_common</a></li><li class="navelem"><a class="el" href="matrix_8cpp.html">matrix.cpp</a></li>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_257650e510f890b8a8ea2d5cfb610434.html">problem</a></li><li class="navelem"><a class="el" href="matrix_8cpp.html">matrix.cpp</a></li>
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:12 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

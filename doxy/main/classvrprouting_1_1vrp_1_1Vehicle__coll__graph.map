@@ -1,6 +1,0 @@
-<map id="vrprouting::vrp::Vehicle" name="vrprouting::vrp::Vehicle">
-<area shape="rect" id="node1" title="Vehicle with time windows." alt="" coords="284,64,457,91"/>
-<area shape="rect" id="node2" href="$classvrprouting_1_1Identifier.html" title="Class that stores the information about identifiers." alt="" coords="14,5,169,32"/>
-<area shape="rect" id="node3" href="$classvrprouting_1_1vrp_1_1Pgr__pickDeliver.html" title=" " alt="" coords="18,57,165,98"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,122,177,163"/>
-</map>

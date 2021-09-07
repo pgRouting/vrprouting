@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
   </td>
  </tr>
@@ -88,26 +88,42 @@ $(document).ready(function(){initNavTree('functions_func_h.html',''); initResiza
 <h3><a id="index_h"></a>- h -</h3><ul>
 <li>has()
 : <a class="el" href="classIdentifiers.html#abc73ed57af79c12963989657f99d4662">Identifiers&lt; T &gt;</a>
+, <a class="el" href="classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html#af75ac1017b7e2bcca74cbb2747800e91">vrprouting::optimizers::tabu::TabuList</a>
 </li>
 <li>has_cv()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#a2fd3d160b4d086fd8c91e7268ba5462c">vrprouting::vrp::Vehicle</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle__node.html#a8981cc272f331f61ba8c269e0da677f5">vrprouting::vrp::Vehicle_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#a58a54e73399e33d35a3a9fa33d09d6e7">vrprouting::problem::Vehicle</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Vehicle__node.html#a846b08bd3aa6f2e3390b2a884ac87df8">vrprouting::problem::Vehicle_node</a>
 </li>
 <li>has_error()
 : <a class="el" href="classvrprouting_1_1Pgr__messages.html#a478788dcd727f5734f49a5159a65d05b">vrprouting::Pgr_messages</a>
 </li>
 <li>has_id()
-: <a class="el" href="classvrprouting_1_1Matrix.html#ab3d455716d0d23258b524b14ec17acc8">vrprouting::Matrix</a>
+: <a class="el" href="classvrprouting_1_1base_1_1Base__Matrix.html#a6d8d6ace0bbdcbee6e242bf637fafa0c">vrprouting::base::Base_Matrix</a>
+</li>
+<li>has_infeasible()
+: <a class="el" href="classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html#aefaf41e89dc0b486dfd374b4c261c8c9">vrprouting::optimizers::tabu::TabuList</a>
+</li>
+<li>has_move()
+: <a class="el" href="classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html#a84e744da1d8c5af32d6778e5ff0c0272">vrprouting::optimizers::tabu::TabuList</a>
 </li>
 <li>has_no_infinity()
-: <a class="el" href="classvrprouting_1_1Matrix.html#a69dc9fe11b5e6958f11604885f615c4b">vrprouting::Matrix</a>
+: <a class="el" href="classvrprouting_1_1base_1_1Base__Matrix.html#a10946b36f44d0503cb6dca960c808ad2">vrprouting::base::Base_Matrix</a>
 </li>
 <li>has_order()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle__pickDeliver.html#ab07a9e075c5544b20df8137f4d468665">vrprouting::vrp::Vehicle_pickDeliver</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle__pickDeliver.html#ab20080f8901bfb2668584611f06094e9">vrprouting::problem::Vehicle_pickDeliver</a>
+</li>
+<li>has_seen()
+: <a class="el" href="classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html#ad2863661c4e063d6ee324915e036b670">vrprouting::optimizers::tabu::TabuList</a>
+</li>
+<li>has_swap()
+: <a class="el" href="classvrprouting_1_1optimizers_1_1tabu_1_1TabuList.html#a7b93303eea5eb97747ed3cb90dcadd01">vrprouting::optimizers::tabu::TabuList</a>
 </li>
 <li>has_twv()
-: <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle.html#aadb5c7ff204af6d8a9542f7293842bce">vrprouting::vrp::Vehicle</a>
-, <a class="el" href="classvrprouting_1_1vrp_1_1Vehicle__node.html#afc8d156dcd6b45dbdbb6906e7de6cf83">vrprouting::vrp::Vehicle_node</a>
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#ae2e6ae1019355a0d4723ce138408280e">vrprouting::problem::Vehicle</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Vehicle__node.html#afa9cec6f7b38fbdaf5a1220b3dc64f6c">vrprouting::problem::Vehicle_node</a>
+</li>
+<li>hillClimb()
+: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle__pickDeliver.html#ae7d2fed1b1aed7497f7f328af38a85b2">vrprouting::problem::Vehicle_pickDeliver</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -115,7 +131,7 @@ $(document).ready(function(){initNavTree('functions_func_h.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri May 28 2021 15:22:25 for vrpRouting by
+    <li class="footer">Generated on Tue Sep 7 2021 15:27:14 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
