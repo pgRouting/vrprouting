@@ -28,9 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #pragma once
 
 /* for int64_t */
-#ifdef __cplusplus
-#   include <cstdint>
-#else
+#ifndef __cplusplus
 #   include <stdbool.h>
 #   include <stdint.h>
 #endif
@@ -38,11 +36,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 // used for getting the data
 typedef
 enum {
+    INTEGER,
     ANY_INTEGER,
     ANY_NUMERICAL,
     TEXT,
     CHAR1,
-    ANY_INTEGER_ARRAY
+    INTEGER_ARRAY,
+    ANY_INTEGER_ARRAY,
+    TIMESTAMP,
+    INTERVAL
 } expectType;
 
 

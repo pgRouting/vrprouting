@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: distances_input.h
+File: matrixRows_input.h
 
 Copyright (c) 2015 Celia Virginia Vergara Castillo
 vicky_vergara@hotmail.com
@@ -28,16 +28,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <stddef.h>
 
-#include "c_types/matrix_cell_t.h"
+typedef struct Matrix_cell_t Matrix_cell_t;
 
-/*!
-  bigint start_vid,
-  bigint end_vid,
-  float agg_cost,
-  */
-void pgr_get_matrixRows(
-        char *sql,
-        Matrix_cell_t **distaces,
-        size_t *total_distances);
+/** @brief Get the travel time matrix */
+void get_matrixRows(
+    char *sql,
+    Matrix_cell_t **rows,
+    size_t *total_rows);
+
+/** @brief Get the travel time matrix with numerical types*/
+void get_matrixRows_plain(
+    char *sql,
+    Matrix_cell_t **rows,
+    size_t *total_rows);
+
+/** @brief Get the travel time matrix of vroom with integer types*/
+void get_matrixRows_vroom_plain(
+    char *sql,
+    Matrix_cell_t **rows,
+    size_t *total_rows);
 
 #endif  // INCLUDE_C_COMMON_MATRIXROWS_INPUT_H_

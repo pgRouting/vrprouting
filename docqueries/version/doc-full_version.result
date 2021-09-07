@@ -2,13 +2,13 @@ BEGIN;
 BEGIN
 SET client_min_messages TO NOTICE;
 SET
--- q1
-SELECT * FROM vrp_full_version();
- version | build_type | compile_date |     library      |         system         | postgresql |   compiler   | boost  |   hash
----------+------------+--------------+------------------+------------------------+------------+--------------+--------+-----------
- 0.1.0   | Debug      | 2021/05/27   | vrprouting-0.1.0 | Linux-5.4.0-73-generic | 12.6       | Clang-10.0.0 | 1.71.0 | 351402121
+/* -- q1 */
+SELECT version, library FROM vrp_full_version();
+ version |     library
+---------+------------------
+ 0.2.0   | vrprouting-0.2.0
 (1 row)
 
--- q2
+/* -- q2 */
 ROLLBACK;
 ROLLBACK

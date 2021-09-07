@@ -10,34 +10,40 @@ variables:
 
 before_script:
   - apt-get update -yqq
-  - apt-get install -y cmake postgresql postgresql-client sudo
-  - sudo service postgresql start
+  - apt-get install -y cmake sudo lsb-release
   # access the postgres repository
   - curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
   - sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
   - apt-get update -yqq
-
-  - sudo -u postgres psql -d template1 -c "CREATE USER root WITH PASSWORD 'runner' CREATEDB SUPERUSER;"
-  - pgver=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d \()')
-  - echo "PGVER=${pgver}"
+  - pgver="12"
   - apt-get install -yqq libboost-graph-dev libtap-parser-sourcehandler-pgtap-perl
+    postgresql-${pgver}
+    postgresql-client-${pgver}
     postgresql-${pgver}-pgtap
     postgresql-${pgver}-postgis-${PGIS_VER}
     postgresql-${pgver}-postgis-${PGIS_VER}-scripts
     postgresql-${pgver}-pgrouting
     postgresql-server-dev-${pgver}
+  - pg_ctlcluster "${pgver}" main start
+  - sudo -u postgres psql -d template1 -c "CREATE USER root WITH PASSWORD 'runner' CREATEDB SUPERUSER;"
+  - pgver=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d* \()')
+  - echo "pgver=${pgver}"
 
 
 build_vrprouting:
   stage: build
   script:
+    - psql --version
+    - psql -c "select version()" template1
     - mkdir build
     - cd build
     - cmake -DCMAKE_BUILD_TYPE=Debug ..
     - make -j 4
     - sudo make install
-    - cd ..
-
-    - createdb ___vrp___test___
+    - cd ../tools/testers
+    - tar -xf matrix_new_values.tar.gz
+    - ls
+    - cd ../..
+    - tools/testers/doc_queries_generator.pl
     - bash ./tools/testers/pg_prove_tests.sh root 5432
 

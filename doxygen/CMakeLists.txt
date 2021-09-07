@@ -6,7 +6,7 @@
 option(BUILD_DOXY
     "Set ON|OFF (default=OFF) to build Developers Documentation" ON)
 
-if (BUILD_DOXY AND WITH_DOC)
+if (BUILD_DOXY)
     message(STATUS "Developers documentation.")
     find_package(Doxygen ${DOXYGEN_MINIMUM_VERSION})
 
@@ -17,6 +17,7 @@ if (BUILD_DOXY AND WITH_DOC)
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
             COMMENT "Generating API documentation with Doxygen" VERBATIM
             )
+        message(".....OK")
     endif()
 
 endif()

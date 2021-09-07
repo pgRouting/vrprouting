@@ -9,25 +9,32 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__
+* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
 * Supported Versions
   `Latest <https://vrp.pgrouting.org/latest/en/release_notes.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0.0/en/release_notes.html>`__)
+  (`v0 <https://vrp.pgrouting.org/v0/en/release_notes.html>`__)
 
 Release Notes
 -------------------------------------------------------------------------------
 
 To see the full list of changes check the list of `Git commits <https://github.com/pgRouting/vrprouting/commits>`_ on Github.
 
-.. rubric:: Table of contents
+.. contents:: Contents
+     :local:
 
-.. changelog start
+v0.2.0 Release Notes
+*******************************************************************************
 
-* `v0.1.0 Release Notes`_
+.. rubric:: New experimental functions
 
-.. changelog end
+- VROOM
 
-
+  - vrp_vroom
+  - vrp_vroomJobs
+  - vrp_vroomShipments
+  - vrp_vroomPlain
+  - vrp_vroomJobsPlain
+  - vrp_vroomShipmentsPlain
 
 v0.1.0 Release Notes
 *******************************************************************************

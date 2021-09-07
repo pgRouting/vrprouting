@@ -27,17 +27,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_C_TYPES_MATRIX_CELL_T_H_
 #pragma once
 
-/* for int64_t */
-#ifdef __cplusplus
-#   include <cstdint>
-#else
-#   include <stdint.h>
-#endif
+#include "c_types/typedefs.h"
 
-typedef struct matrix_cell {
-    int64_t from_vid;
-    int64_t to_vid;
-    double cost;
-} Matrix_cell_t;
+/** @brief traveling costs
+
+  @note C/C++/postgreSQL connecting structure for input
+  name | description
+  :----- | :-------
+  from_vid | Departure node's identifier
+  to_vid | Arrival node's identifier
+  cost | Travel cost from departure to arrival
+  */
+struct Matrix_cell_t {
+  Id from_vid; /** @b departure node's identifier */
+  Id to_vid;   /** @b arrival node's identifier */
+  TInterval cost;      /** Travel Interval from departure to arrival */
+};
 
 #endif  // INCLUDE_C_TYPES_MATRIX_CELL_T_H_

@@ -18,8 +18,9 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          psql: [10,11,12, 13]
+          psql: [12, 13]
           postgis: [2.5,3]
+          release: [Debug, Release]
           os: [ubuntu-latest]
 
     steps:
@@ -54,12 +55,29 @@ jobs:
             postgresql-${{ matrix.psql }}-pgrouting \
             postgresql-server-dev-${{ matrix.psql }}
 
+      - name: Install VROOM dependencies
+        run: |
+          sudo apt-get install libssl-dev libasio-dev libglpk-dev
+
+      - name: Build VROOM v1.10.0
+        run: |
+          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v1.10.0.tar.gz
+          tar -zvxf v1.10.0.tar.gz
+          cd vroom-1.10.0/src
+
+          # Create object file with position independent code using -fPIC flag
+          sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
+
+          make
+          cd ..
+          echo "VROOM_INSTALL_PATH=$(pwd)" >> $GITHUB_ENV
+
       - name: Configure
         run: |
           export PATH=/usr/lib/postgresql/${{ matrix.psql }}/bin:$PATH
           mkdir build
           cd build
-          cmake -DPOSTGRESQL_VERSION=${{ matrix.psql }} -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF ..
+          cmake -DPOSTGRESQL_VERSION=${{ matrix.psql }} -DCMAKE_BUILD_TYPE=${{ matrix.release }} -DWITH_DOC=OFF -DVROOM_INSTALL_PATH=${VROOM_INSTALL_PATH} ..
 
       - name: Build
         run: |
@@ -67,8 +85,15 @@ jobs:
           make -j 4
           sudo make install
 
-      - name: Test
+      - name: Unpack data
+        run: |
+          cd tools/testers
+          tar -xf matrix_new_values.tar.gz
+
+      - name: pgTap test
         run: |
           sudo service postgresql start
           sudo -u postgres createdb -p ${PGPORT}  ___vrp___test___
-          sudo -u postgres bash ./tools/testers/pg_prove_tests.sh postgres ${PGPORT}  Release
+          cd tools/testers
+          sudo -u postgres psql -p "${PGPORT}" -U postgres -d ___vrp___test___ -X -q -v ON_ERROR_STOP=1 --pset pager=off -f setup_db.sql
+          sudo -u postgres pg_prove --failures --quiet --recurse --ext .sql -p "${PGPORT}" -d ___vrp___test___ -U postgres ../../pgtap/

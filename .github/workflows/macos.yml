@@ -9,6 +9,7 @@ on:
     paths-ignore:
       - '**.po'
 
+# TODO: Fix the macOS build for compiling and building VROOM with vrprouting.
 jobs:
   build:
     name: Build
@@ -17,6 +18,45 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: install deps
+        run: |
+          brew install postgis boost pgrouting
+
+      - name: Install VROOM dependencies
+        run: |
+          brew install openssl asio glpk
+
+      - name: Build VROOM v1.10.0
+        run: |
+          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v1.10.0.tar.gz
+          tar -zvxf v1.10.0.tar.gz
+          cd vroom-1.10.0/src
+
+          # Source: https://github.com/VROOM-Project/vroom/issues/378
+          ln -s /usr/local/opt/openssl/include/openssl /usr/local/include
+          ln -s /usr/local/opt/openssl/lib/libssl.dylib /usr/local/lib/
+          ln -s /usr/local/opt/openssl/lib/libcrypto.dylib /usr/local/lib/
+
+          # Create object file with position independent code using -fPIC flag
+          sed -i '' -e 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
+          sed -i '' -e 's/\/usr\/include\/glpk.h/\/usr\/local\/opt\/glpk\/include\/glpk.h/' makefile
+
+          make
+          cd ..
+          echo "VROOM_INSTALL_PATH=$(pwd)" >> $GITHUB_ENV
+
+      - name: Configure
+        run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF -DVROOM_INSTALL_PATH=${VROOM_INSTALL_PATH} ..
+
+      - name: Build
+        run: |
+          cd build
+          make -j
+          sudo make install
 
       - name: Cache pgtap
         id: cache-pgtap
@@ -47,21 +87,10 @@ jobs:
           sudo make install
           cpan TAP::Parser::SourceHandler::pgTAP
 
-      - name: install deps
+      - name: Unpack data
         run: |
-          brew install postgis boost pgrouting
-
-      - name: Configure
-        run: |
-          mkdir build
-          cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF ..
-
-      - name: Build
-        run: |
-          cd build
-          make -j
-          sudo make install
+          cd tools/testers
+          tar -xf matrix_new_values.tar.gz
 
       - name: Test
         run: |
@@ -69,4 +98,7 @@ jobs:
           pg_ctl -D /usr/local/var/postgres start
           createuser -s postgres
           createdb ___vrp___test___
-          bash ./tools/testers/pg_prove_tests.sh postgres 5432 Release
+          cd tools/testers
+          psql -p 5432 -U postgres -d ___vrp___test___ -X -q -v ON_ERROR_STOP=1 --pset pager=off -f setup_db.sql
+          psql -p 5432 -U postgres -d ___vrp___test___ -c "SELECT * FROM pgr_full_version();"
+          pg_prove --failures --quiet --recurse --ext .sql -p 5432 -d ___vrp___test___ -U postgres ../../pgtap/

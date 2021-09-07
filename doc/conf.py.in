@@ -171,8 +171,8 @@ html_last_updated_fmt = '%b %d, %Y'
 
 # Custom sidebar templates, maps document names to template names.
 html_sidebars = {
-	# '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'],
-	# 'using/windows': ['windowssidebar.html', 'searchbox.html'],
+    # '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'],
+    # 'using/windows': ['windowssidebar.html', 'searchbox.html'],
 }
 
 # Additional templates that should be rendered to pages, maps page names to
@@ -208,7 +208,7 @@ html_show_copyright = True
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'vrpRoutingDocumentationdoc'
+htmlhelp_basename = 'vrpRoutingDocumentation'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -314,9 +314,23 @@ pdf_style_path = ['.', '_styles']
 # cases to ignore during link checking
 linkcheck_ignore = [
     # might not exist yet (we are generating it!)
-    r"https://vrp.pgrouting.org",
-    r"https://gis.stackexchange.com",
-
+    r"https://gis.stackexchange.com/",
+    "https://vrp.pgrouting.org/v0/en/pgr-category.html",
+    "https://vrp.pgrouting.org/latest/en/pgr-category.html",
+    "https://vrp.pgrouting.org/v0/en/vroom-category.html",
+    "https://vrp.pgrouting.org/latest/en/vroom-category.html",
+    "https://vrp.pgrouting.org/v0/en/vrp_vroom.html",
+    "https://vrp.pgrouting.org/latest/en/vrp_vroom.html",
+    "https://vrp.pgrouting.org/v0/en/vrp_vroomJobs.html",
+    "https://vrp.pgrouting.org/latest/en/vrp_vroomJobs.html",
+    "https://vrp.pgrouting.org/v0/en/vrp_vroomShipments.html",
+    "https://vrp.pgrouting.org/latest/en/vrp_vroomShipments.html",
+    "https://vrp.pgrouting.org/v0/en/vrp_vroomPlain.html",
+    "https://vrp.pgrouting.org/latest/en/vrp_vroomPlain.html",
+    "https://vrp.pgrouting.org/v0/en/vrp_vroomJobsPlain.html",
+    "https://vrp.pgrouting.org/latest/en/vrp_vroomJobsPlain.html",
+    "https://vrp.pgrouting.org/v0/en/vrp_vroomShipmentsPlain.html",
+    "https://vrp.pgrouting.org/latest/en/vrp_vroomShipmentsPlain.html",
 
     # (see: https://github.com/sphinx-doc/sphinx/issues/7388)
     r"https://github.com/pgRouting/vrprouting/",    # limit only vrprouting

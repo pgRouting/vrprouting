@@ -1,0 +1,28 @@
+SET search_path TO 'example2', 'public';
+
+UPDATE vehicles
+    SET stops = NULL;
+
+/*******
+No change should happen
+Optimize takes precedence on other flags
+*******/
+WITH
+new_stops AS (
+    SELECT vehicle_id AS id, array_remove(array_agg(order_id ORDER BY seq),-1::BIGINT)::BIGINT[] AS new_stops
+    FROM vrp_pickDeliverRaw(
+        $$SELECT * FROM shipments WHERE date_trunc('day', p_tw_open) = '2019-12-09 00:00:00'$$,
+        $$SELECT * FROM vehicles  WHERE date_trunc('day', s_tw_open) = '2019-12-09 00:00:00'$$,
+        $$SELECT start_vid, end_vid, agg_cost FROM timeMatrix$$,
+        $$SELECT * FROM tdm_raw('2019-12-09'::TIMESTAMP)$$,
+        optimize => false, factor => 1::float, max_cycles => 1, stop_on_all_served => false)
+    GROUP BY vehicle_id
+),
+original_stops AS (
+    SELECT id, stops::BIGINT[]
+    FROM vehicles
+    WHERE date_trunc('day', s_tw_open) = '2019-12-09 00:00:00'
+)
+SELECT count(*) = 36, 'All stops are the same'
+FROM original_stops
+    LEFT JOIN new_stops USING(id) WHERE stops = new_stops;

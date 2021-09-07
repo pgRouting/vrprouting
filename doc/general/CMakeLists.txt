@@ -10,6 +10,8 @@ SET(LOCAL_FILES
     release_notes.rst
     sampledata.rst
     support.rst
+    pgr-category.rst
+    vroom-category.rst
     )
 
 foreach (f ${LOCAL_FILES})

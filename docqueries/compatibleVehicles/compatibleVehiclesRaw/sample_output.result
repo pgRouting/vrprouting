@@ -1,0 +1,52 @@
+BEGIN;
+BEGIN
+SET client_min_messages TO NOTICE;
+SET
+SET search_path TO 'example2', 'public';
+SET
+SELECT *
+FROM vrp_compatibleVehiclesRaw(
+    $$SELECT * FROM shipments$$,
+    $$SELECT * FROM vehicles$$::TEXT,
+    $$SELECT start_vid, end_vid, agg_cost FROM timeMatrix$$,
+    $$SELECT * FROM tdm_raw('2019-12-09'::TIMESTAMP, '2019-12-13'::TIMESTAMP)$$,
+    83,
+    factor => 1.0::FLOAT,
+    dryrun => true
+);
+ order_id | vehicle_id |                                          cmd
+----------+------------+----------------------------------------------------------------------------------------
+          |            |                                                                                       +
+          |            |       SELECT *, NULL::TEXT FROM _vrp_compatibleVehicles(                              +
+          |            |         'SELECT * FROM (SELECT * FROM shipments) AS __a__ WHERE id  = 83 LIMIT 1',    +
+          |            |         'SELECT * FROM vehicles',                                                     +
+          |            |         'SELECT start_vid, end_vid, agg_cost FROM timeMatrix',                        +
+          |            |         'SELECT * FROM tdm_raw(''2019-12-09''::TIMESTAMP, ''2019-12-13''::TIMESTAMP)',+
+          |            |         1::FLOAT,                                                                     +
+          |            |         false)                                                                        +
+          |            |
+(1 row)
+
+SELECT *
+FROM vrp_compatibleVehiclesRaw(
+    $$SELECT * FROM shipments$$,
+    $$SELECT * FROM vehicles$$::TEXT,
+    $$SELECT start_vid, end_vid, agg_cost FROM timeMatrix$$,
+    $$SELECT * FROM tdm_raw('2019-12-09'::TIMESTAMP)$$,
+    83,
+    factor => 1.0::FLOAT
+) ORDER BY vehicle_id;
+ order_id | vehicle_id | cmd
+----------+------------+-----
+       83 |        571 |
+       83 |        575 |
+       83 |        579 |
+       83 |        583 |
+       83 |        587 |
+       83 |        595 |
+       83 |        599 |
+       83 |        603 |
+(8 rows)
+
+ROLLBACK;
+ROLLBACK

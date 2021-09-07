@@ -9,10 +9,10 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__
+* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
 * Supported Versions
   `Latest <https://vrp.pgrouting.org/latest/en/introduction.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0/en/introduction.html>`__)
+  (`v0 <https://vrp.pgrouting.org/v0/en/introduction.html>`__)
 
 Introduction
 ===============================================================================
@@ -56,6 +56,10 @@ This Release Contributors
 Individuals (in alphabetical order)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+- Ashish Kumar
+
+  - Adding new experimental VROOM category functions: vrp_vroom, vrp_vroomJobs, vrp_vroomShipments.
+
 - Virginia Vergara
 
   - Porting the code from pgRouting
@@ -83,6 +87,7 @@ Individuals (in alphabetical order)
    name
    `name <email>`__
 
+`Ashish Kumar <ashishkr23438@gmail.com>`__
 `Daniel Kastl <daniel@georepublic.de>`__
 `Vicky Vergara <vicky@georepublic.de>`__
 

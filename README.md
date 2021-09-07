@@ -7,7 +7,7 @@
 ### Branches
 
 * The *master* branch has the development of the next micro release
-* The *develop* branch has the development of the next minor/mayor release
+* The *develop* branch has the development of the next minor/major release
 
 For the complete list of releases go to:
 https://github.com/pgRouting/pgrouting/releases
@@ -26,25 +26,29 @@ Status of the project can be found [here](https://github.com/pgRouting/vrproutin
 
 ## INTRODUCTION
 
-vrpRouting extends the pgRouting/PostGIS/PostgreSQL geospatial database to provide algorithms for Vehilce Routing Problems
+vrpRouting extends the pgRouting/PostGIS/PostgreSQL geospatial database to provide algorithms for Vehicle Routing Problems.
+It requires VROOM as a dependency for building and computing the VRP solution. This release is compatible with VROOM version 1.10.0
 
-This library is under develpment an currently contains the following features:
+This library is under development and currently contains the following functions:
 
 * `vrp_onedepot`
 * `vrp_pgr_pickdelivereuclidean`
-* `vrp_pgr_pickdelive`r
+* `vrp_pgr_pickdeliver`
+* `vrp_vroom`
+* `vrp_vroomJobs`
+* `vrp_vroomShipments`
 
 ## REQUIREMENTS
 
 Building requirements
 --------------------
 * Perl
-* C and C++ compilers with C++14 standard support
+* C and C++ compilers with C++17 standard support
 * Postgresql >= TBD
 * The Boost Graph Library (BGL) >= 1.65
 * CMake >= 3.12
 * Sphinx >= TBD
-
+* VROOM >= 1.10.0
 
 User's requirements
 --------------------

@@ -2,13 +2,13 @@ BEGIN;
 BEGIN
 SET client_min_messages TO NOTICE;
 SET
--- q1
+/* -- q1 */
 SELECT vrp_version();
  vrp_version
 -------------
- 0.1.0
+ 0.2.0
 (1 row)
 
--- q2
+/* -- q2 */
 ROLLBACK;
 ROLLBACK

@@ -1,0 +1,40 @@
+BEGIN;
+BEGIN
+SET client_min_messages TO NOTICE;
+SET
+SET search_path TO 'example2', 'public';
+SET
+SELECT * FROM _vrp_vehiclesAtTime(
+    $$SELECT * FROM vehicles$$,
+    '2019-12-09 15:15:00'::TIMESTAMP,
+    dryrun => true
+);
+ id |                           cmd
+----+---------------------------------------------------------
+    |                                                        +
+    |     SELECT a.*, NULL::TEXT                             +
+    |     FROM (SELECT * FROM vehicles) a                    +
+    |     WHERE s_tw_open <= '2019-12-09 15:15:00'::TIMESTAMP+
+    |     AND e_tw_close >= '2019-12-09 15:15:00'::TIMESTAMP +
+    |     ORDER BY id                                        +
+    |
+(1 row)
+
+SELECT * FROM _vrp_vehiclesAtTime(
+    $$SELECT * FROM vehicles$$,
+    '2019-12-09 15:15:00'::TIMESTAMP,
+    dryrun => false
+);
+ id  | cmd
+-----+-----
+ 577 |
+ 581 |
+ 585 |
+ 589 |
+ 597 |
+ 601 |
+ 605 |
+(7 rows)
+
+ROLLBACK;
+ROLLBACK

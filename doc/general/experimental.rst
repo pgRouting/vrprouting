@@ -5,12 +5,13 @@
 
     This documentation is licensed under a Creative Commons Attribution-Share
     Alike 3.0 License: https://creativecommons.org/licenses/by-sa/3.0/
+   ****************************************************************************
 
 |
 
 * Supported Versions
   `Latest <https://vrp.pgrouting.org/latest/en/experimental.html>`__
-  (`0.0 <https://vrp.pgrouting.org/0.0/en/experimental.html>`__)
+  (`v0 <https://vrp.pgrouting.org/v0/en/experimental.html>`__)
 
 Experimental Functions
 ===============================================================================
@@ -43,13 +44,14 @@ Experimental Functions
 
 .. rubric:: categories
 
-:doc:`VRP-category`
+:doc:`pgr-category`
 
 
 .. toctree::
   :maxdepth: 2
 
-  VRP-category
+  pgr-category
+  vroom-category
 
 .. rubric:: See Also
 

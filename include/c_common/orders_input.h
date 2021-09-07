@@ -27,30 +27,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #pragma once
 
 #include <stddef.h>
-#include "c_types/pickDeliver/pickDeliveryOrders_t.h"
+typedef struct PickDeliveryOrders_t PickDeliveryOrders_t;
 
-/** @brief Reads the pick-Deliver orders
- *
- * @param[in] pd_orders_sql
- * @param[out] pd_orders
- * @param[out] total_pd_orders
- */
+/** @brief Reads the pick-Deliver shipments for timestams and intervals*/
 void
-pgr_get_pd_orders(
-        char *pd_orders_sql,
-        PickDeliveryOrders_t **pd_orders,
-        size_t *total_pd_orders);
+get_shipments(
+    char *,
+    PickDeliveryOrders_t **,
+    size_t *);
 
-/** @brief Reads the pick-Deliver orders
- *
- * @param[in] pd_orders_sql
- * @param[out] pd_orders
- * @param[out] total_pd_orders
- */
+/** @brief Reads the pick-Deliver shipments for raw data*/
 void
-get_pd_orders_with_id(
-        char *pd_orders_sql,
-        PickDeliveryOrders_t **pd_orders,
-        size_t *total_pd_orders);
+get_shipments_raw(
+    char *,
+    PickDeliveryOrders_t **,
+    size_t *);
+
+/** @brief Reads the pick-Deliver shipments for euclidean information*/
+void
+get_shipments_euclidean(
+    char *,
+    PickDeliveryOrders_t **,
+    size_t *);
 
 #endif  // INCLUDE_C_COMMON_ORDERS_INPUT_H_

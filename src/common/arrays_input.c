@@ -1,8 +1,11 @@
 /*PGR-GNU*****************************************************************
 File: arrays_input.c
 
+Copyright (c) 2015 pgRouting developers
+Mail: project@pgrouting.org
+
+Developer:
 Copyright (c) 2015 Celia Virginia Vergara Castillo
-vicky_vergara@hotmail.com
 
 ------
 
@@ -31,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
 #ifdef PROFILE
-#include "c_common/time_msg.h"
 #include "c_common/debug_macro.h"
 #endif
 
@@ -117,7 +119,95 @@ pgr_get_bigIntArr(ArrayType *v, size_t *arrlen, bool allow_empty) {
     pfree(elements);
     pfree(nulls);
 #ifdef PROFILE
-    PGR_DBG("Array size %ld", (*arrlen));
+    time_msg("reading Array", start_t, clock());
+#endif
+    return c_array;
+}
+
+
+static
+uint32_t*
+pgr_get_positiveIntArr(ArrayType *v, size_t *arrlen, bool allow_empty) {
+#ifdef PROFILE
+    clock_t start_t = clock();
+#endif
+
+    uint32_t *c_array = NULL;
+
+    Oid     element_type = ARR_ELEMTYPE(v);
+    int    *dim = ARR_DIMS(v);
+    int     ndim = ARR_NDIM(v);
+    int     nitems = ArrayGetNItems(ndim, dim);
+    Datum  *elements;
+    bool   *nulls;
+    int16   typlen;
+    bool    typbyval;
+    char    typalign;
+
+    assert((*arrlen) == 0);
+
+
+    if (allow_empty && (ndim == 0 || nitems <= 0)) {
+        return (uint32_t*) NULL;
+    }
+    /* the array is not empty*/
+
+    if (ndim != 1) {
+        elog(ERROR, "One dimension expected");
+    }
+
+    if (nitems <= 0) {
+        elog(ERROR, "No elements found");
+    }
+
+    get_typlenbyvalalign(element_type,
+            &typlen, &typbyval, &typalign);
+
+    /* validate input data type */
+    switch (element_type) {
+        case INT2OID:
+        case INT4OID:
+            break;
+        default:
+            elog(ERROR, "Expected array of INTEGER");
+    }
+
+    deconstruct_array(v, element_type, typlen, typbyval,
+            typalign, &elements, &nulls,
+            &nitems);
+
+    c_array = (uint32_t *) palloc(sizeof(uint32_t) * (size_t)nitems);
+    if (!c_array) {
+        elog(ERROR, "Out of memory!");
+    }
+
+
+    int i;
+    for (i = 0; i < nitems; i++) {
+        if (nulls[i]) {
+            pfree(c_array);
+            elog(ERROR, "NULL value found in Array!");
+        } else {
+            int32_t element;
+            switch (element_type) {
+                case INT2OID:
+                    element = (int32_t) DatumGetInt16(elements[i]);
+                    break;
+                case INT4OID:
+                    element = (int32_t) DatumGetInt32(elements[i]);
+                    break;
+            }
+            if (element < 0) {
+                elog(ERROR, "Unexpected Negative value %d in array", element);
+            }
+            c_array[i] = (uint32_t) element;
+        }
+    }
+    (*arrlen) = (size_t)nitems;
+
+    pfree(elements);
+    pfree(nulls);
+#ifdef PROFILE
     time_msg("reading Array", start_t, clock());
 #endif
     return c_array;
@@ -132,4 +222,9 @@ int64_t* pgr_get_bigIntArray(size_t *arrlen, ArrayType *input) {
 
 int64_t* pgr_get_bigIntArray_allowEmpty(size_t *arrlen, ArrayType *input) {
     return pgr_get_bigIntArr(input, arrlen, true);
+}
+
+
+uint32_t* pgr_get_positiveIntArray_allowEmpty(size_t *arrlen, ArrayType *input) {
+    return pgr_get_positiveIntArr(input, arrlen, true);
 }

@@ -19,6 +19,8 @@ fi
 PGDATABASE="___vrp___test___"
 echo "$PGPORT"
 
+dropdb --if-exists ___vrp___test___
+createdb ___vrp___test___
 
 echo "cd ./tools/testers/"
 cd ./tools/testers/
@@ -26,3 +28,5 @@ echo "psql -f setup_db.sql"
 psql "$PGPORT" -U "$PGUSER"  -d "$PGDATABASE" -X -q -v ON_ERROR_STOP=1 --pset pager=off -f setup_db.sql
 
 pg_prove --failures --quiet --recurse --ext .sql "$PGPORT" -d "$PGDATABASE"  -U "$PGUSER"  ../../pgtap/
+
+dropdb --if-exists ___vrp___test___
