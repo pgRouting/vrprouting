@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>vrp_pgr_pickDeliver - Experimental &#8212; vrpRouting Manual (0.1)</title>
+    <title>vrp_pgr_pickDeliver - Experimental &#8212; vrpRouting Manual (0.2)</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -20,7 +20,7 @@
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
     <link rel="next" title="vrp_pgr_pickDeliverEuclidean - Experimental" href="vrp_pgr_pickDeliverEuclidean.html" />
-    <link rel="prev" title="Vehicle Routing Functions - Category (Experimental)" href="VRP-category.html" />
+    <link rel="prev" title="Vehicle Routing Functions - Category (Experimental)" href="pgr-category.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -43,7 +43,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
           vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.1.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>v0.2.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -122,7 +122,7 @@
               
                 
   <li>
-    <a href="VRP-category.html" title="Previous Chapter: Vehicle Routing Functions - Category (Experimental)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Vehicle Routi...</span>
+    <a href="pgr-category.html" title="Previous Chapter: Vehicle Routing Functions - Category (Experimental)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Vehicle Routi...</span>
     </a>
   </li>
   <li>
@@ -158,10 +158,10 @@
 <div class="line"><br /></div>
 </div>
 <ul class="simple">
-<li><p><a class="reference external" href="https://vrp.pgrouting.org/">Documentation</a> → <a class="reference external" href="https://vrp.pgrouting.org/0">vrpRouting 0</a></p></li>
+<li><p><a class="reference external" href="https://vrp.pgrouting.org/">Documentation</a> → <a class="reference external" href="https://vrp.pgrouting.org/v0">vrpRouting v0</a></p></li>
 <li><p>Supported Versions
 <a class="reference external" href="https://vrp.pgrouting.org/latest/en/vrp_pgr_pickDeliver.html">Latest</a>
-(<a class="reference external" href="https://vrp.pgrouting.org/0/en/vrp_pgr_pickDeliver.html">0.0</a>)</p></li>
+(<a class="reference external" href="https://vrp.pgrouting.org/v0/en/vrp_pgr_pickDeliver.html">v0</a>)</p></li>
 </ul>
 <section id="vrp-pgr-pickdeliver-experimental">
 <h1>vrp_pgr_pickDeliver - Experimental<a class="headerlink" href="#vrp-pgr-pickdeliver-experimental" title="Enlazar permanentemente con este título">¶</a></h1>
@@ -327,9 +327,9 @@
 <section id="orders-sql">
 <h3>Orders SQL<a class="headerlink" href="#orders-sql" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">demand</span>
-<span class="n">p_node_id</span><span class="p">,</span> <span class="n">p_open</span><span class="p">,</span> <span class="n">p_close</span><span class="p">,</span> <span class="p">[</span><span class="n">p_service</span><span class="p">,]</span>
-<span class="n">d_node_id</span><span class="p">,</span> <span class="n">d_open</span><span class="p">,</span> <span class="n">d_close</span><span class="p">,</span> <span class="p">[</span><span class="n">d_service</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">amount</span>
+<span class="n">p_id</span><span class="p">,</span> <span class="n">p_tw_open</span><span class="p">,</span> <span class="n">p_tw_close</span><span class="p">,</span> <span class="p">[</span><span class="n">p_service</span><span class="p">,]</span>
+<span class="n">d_id</span><span class="p">,</span> <span class="n">d_tw_open</span><span class="p">,</span> <span class="n">d_tw_close</span><span class="p">,</span> <span class="p">[</span><span class="n">d_service</span><span class="p">]</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
@@ -352,22 +352,22 @@
 <td></td>
 <td><p>Identifier of the pick-delivery order pair.</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>demand</strong></p></td>
+<tr class="row-odd"><td><p><strong>amount</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
 <td></td>
 <td><p>Number of units in the order</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>p_node_id</strong></p></td>
+<tr class="row-even"><td><p><strong>p_id</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT">ANY-INTEGER</abbr></p></td>
 <td></td>
 <td><p>The identifier of the pickup node.</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>p_open</strong></p></td>
+<tr class="row-odd"><td><p><strong>p_tw_open</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
 <td></td>
 <td><p>The time, relative to 0, when the pickup location opens.</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>p_close</strong></p></td>
+<tr class="row-even"><td><p><strong>p_tw_close</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
 <td></td>
 <td><p>The time, relative to 0, when the pickup location closes.</p></td>
@@ -377,17 +377,17 @@
 <td><p>0</p></td>
 <td><p>The duration of the loading at the pickup location.</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>d_node_id</strong></p></td>
+<tr class="row-even"><td><p><strong>d_id</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT">ANY-INTEGER</abbr></p></td>
 <td></td>
 <td><p>The identifier of the delivery node.</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>d_open</strong></p></td>
+<tr class="row-odd"><td><p><strong>d_tw_open</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
 <td></td>
 <td><p>The time, relative to 0, when the delivery location opens.</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>d_close</strong></p></td>
+<tr class="row-even"><td><p><strong>d_tw_close</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
 <td></td>
 <td><p>The time, relative to 0, when the delivery location closes.</p></td>
@@ -404,8 +404,8 @@
 <h3>Vehicles SQL<a class="headerlink" href="#vehicles-sql" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">capacity</span><span class="p">,</span> <span class="p">[</span><span class="n">speed</span><span class="p">,]</span>
-<span class="n">start_node_id</span><span class="p">,</span> <span class="n">start_open</span><span class="p">,</span> <span class="n">start_close</span><span class="p">,</span> <span class="p">[</span><span class="n">start_service</span><span class="p">,]</span>
-<span class="p">[</span><span class="n">end_node_id</span><span class="p">,</span> <span class="n">end_open</span><span class="p">,</span> <span class="n">end_close</span><span class="p">,</span> <span class="n">end_service</span><span class="p">]</span>
+<span class="n">s_id</span><span class="p">,</span> <span class="n">s_tw_open</span><span class="p">,</span> <span class="n">s_tw_close</span><span class="p">,</span> <span class="p">[</span><span class="n">s_service</span><span class="p">,]</span>
+<span class="p">[</span><span class="n">e_id</span><span class="p">,</span> <span class="n">e_tw_open</span><span class="p">,</span> <span class="n">e_tw_close</span><span class="p">,</span> <span class="n">e_service</span><span class="p">]</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
@@ -426,60 +426,76 @@
 <tr class="row-even"><td><p><strong>id</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT">ANY-INTEGER</abbr></p></td>
 <td></td>
-<td><p>Identifier of the pick-delivery order pair.</p></td>
+<td><p>Identifier of the vehicle</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>capacity</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
 <td></td>
-<td><p>Number of units in the order</p></td>
+<td><p>Capacity of the vehicle</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>speed</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
 <td><p><cite>1</cite></p></td>
 <td><p>Average speed of the vehicle.</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>start_node_id</strong></p></td>
+<tr class="row-odd"><td><p><strong>s_id</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT">ANY-INTEGER</abbr></p></td>
 <td></td>
 <td><p>The node identifier of the starting location, must match a node identifier in the matrix table.</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>start_open</strong></p></td>
+<tr class="row-even"><td><p><strong>s_tw_open</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
-<td></td>
-<td><p>The time, relative to 0, when the starting location opens.</p></td>
+<td><p><cite>0</cite></p></td>
+<td><p>The time, relative to 0, when the starting location opens.
+When <cite>s_tw_open</cite> column exist  then <cite>s_tw_close</cite> column is expected
+Default value when (<cite>s_tw_open</cite>, s_tw_close) columns do not exist</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>start_close</strong></p></td>
+<tr class="row-odd"><td><p><strong>s_tw_close</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
-<td></td>
-<td><p>The time, relative to 0, when the starting location closes.</p></td>
+<td><p><cite>INFINITY</cite></p></td>
+<td><p>The time, relative to 0, when the starting location closes.
+When <cite>s_tw_close</cite> column exist  then <cite>e_tw_open</cite> column is expected
+Default value when <cite>(s_tw_open, s_tw_close)</cite> columns do not exist</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>start_service</strong></p></td>
+<tr class="row-even"><td><p><strong>s_service</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
 <td><p><cite>0</cite></p></td>
 <td><p>The duration of the loading at the starting location.</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>end_node_id</strong></p></td>
+<tr class="row-odd"><td><p><strong>e_id</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT">ANY-INTEGER</abbr></p></td>
-<td><p><cite>start_node_id</cite></p></td>
+<td><p><cite>s_id</cite></p></td>
 <td><p>The node identifier of the ending location, must match a node identifier in the matrix table.</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>end_open</strong></p></td>
+<tr class="row-even"><td><p><strong>e_tw_open</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
-<td><p><cite>start_open</cite></p></td>
-<td><p>The time, relative to 0, when the ending location opens.</p></td>
+<td><p><cite>s_tw_open</cite></p></td>
+<td><p>The time, relative to 0, when the ending location opens.
+When <cite>e_tw_open</cite> column exist  then <cite>e__tw_close</cite> column is expected
+Default value when (<cite>e_tw_open</cite>, e_tw_close) columns do not exist</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>end_close</strong></p></td>
+<tr class="row-odd"><td><p><strong>e_tw_close</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
-<td><p><cite>start_close</cite></p></td>
-<td><p>The time, relative to 0, when the ending location closes.</p></td>
+<td><p><cite>s_tw_close</cite></p></td>
+<td><p>The time, relative to 0, when the ending location closes.
+When <cite>e_tw_close</cite> column exist  then <cite>e_tw_open</cite> column is expected
+Default value when <cite>(e_tw_open</cite>, e_tw_close)` columns do not exist</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>end_service</strong></p></td>
+<tr class="row-even"><td><p><strong>e_service</strong></p></td>
 <td><p><abbr title="SMALLINT, INTEGER, BIGINT, REAL, FLOAT">ANY-NUMERICAL</abbr></p></td>
-<td><p><cite>start_service</cite></p></td>
+<td><p><cite>s_service</cite></p></td>
 <td><p>The duration of the unloading at the ending location.</p></td>
 </tr>
 </tbody>
 </table>
+<p>Throws:
+* When column <cite>id</cite> is missing
+* When column <cite>capacity</cite> is missing
+* When column <cite>s_id</cite> is missing
+* When column <cite>s_tw_open</cite> exists but not <cite>s_tw_close</cite>
+* When column <cite>s_tw_close`exists but not `s_tw_open</cite>
+* When column <cite>e_tw_open</cite> exists but not <cite>e_tw_close</cite>
+* When column <cite>e_tw_close`exists but not `e_tw_open</cite></p>
 </section>
 <section id="time-matrix-sql">
 <h3>Time Matrix SQL<a class="headerlink" href="#time-matrix-sql" title="Enlazar permanentemente con este título">¶</a></h3>
@@ -609,21 +625,21 @@
 <h2>Example<a class="headerlink" href="#example" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>This example use the following data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SELECT * FROM vrp_pgr_pickDeliver(
-    $$ SELECT * FROM orders ORDER BY id $$,
-    $$ SELECT * FROM vehicles ORDER BY id$$,
-    $$ SELECT * from pgr_dijkstraCostMatrix(
+    $$ SELECT * FROM orders_1 ORDER BY id $$,
+    $$ SELECT * FROM vehicles_1 ORDER BY id$$,
+    $$ SELECT start_vid, end_vid, agg_cost::INTEGER  FROM pgr_dijkstraCostMatrix(
         &#39;SELECT * FROM edge_table &#39;,
-        (SELECT array_agg(id) FROM (SELECT p_node_id AS id FROM orders
+        (SELECT array_agg(id) FROM (SELECT p_id AS id FROM orders_1
         UNION
-        SELECT d_node_id FROM orders
+        SELECT d_id FROM orders_1
         UNION
-        SELECT start_node_id FROM vehicles) a))
+        SELECT s_id FROM vehicles_1) a))
     $$
 );
  seq | vehicle_seq | vehicle_id | stop_seq | stop_type | stop_id | order_id | cargo | travel_time | arrival_time | wait_time | service_time | departure_time
 -----+-------------+------------+----------+-----------+---------+----------+-------+-------------+--------------+-----------+--------------+----------------
-   1 |           1 |          1 |        1 |         1 |       6 |       -1 |     0 |           0 |            0 |         0 |            0 |              0
-   2 |           1 |          1 |        2 |         2 |       5 |        3 |    30 |           1 |            1 |         1 |            3 |              5
+   1 |           1 |          1 |        1 |         1 |       6 |       -1 |     0 |           0 |            0 |         1 |            0 |              1
+   2 |           1 |          1 |        2 |         2 |       5 |        3 |    30 |           1 |            2 |         0 |            3 |              5
    3 |           1 |          1 |        3 |         3 |      11 |        3 |     0 |           2 |            7 |         0 |            3 |             10
    4 |           1 |          1 |        4 |         2 |       9 |        2 |    20 |           2 |           12 |         0 |            2 |             14
    5 |           1 |          1 |        5 |         3 |       4 |        2 |     0 |           1 |           15 |         0 |            3 |             18
@@ -641,7 +657,7 @@
 <section id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Enlazar permanentemente con este título">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="VRP-category.html"><span class="doc">Vehicle Routing Functions - Category (Experimental)</span></a></p></li>
+<li><p><a class="reference internal" href="pgr-category.html"><span class="doc">Vehicle Routing Functions - Category (Experimental)</span></a></p></li>
 <li><p>The queries use the <a class="reference internal" href="sampledata.html"><span class="doc">Sample Data</span></a> network.</p></li>
 </ul>
 <p class="rubric">Indices and tables</p>
@@ -664,8 +680,8 @@
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.1.0.<br/>
-      Actualizado por última vez en ago. 06, 2021.<br/>
+        &copy; Copyright vrpRouting Contributors - Version v0.2.0.<br/>
+      Actualizado por última vez en sept. 07, 2021.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
     </p>
   </div>
