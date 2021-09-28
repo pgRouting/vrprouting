@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.0.0
+# Copyright (C) vrpRouting Contributors - Version v0.3.0-dev
 # This file is distributed under the same license as the vrpRouting package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.0.0\n"
+"Project-Id-Version: vrpRouting v0.3.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 09:17-0600\n"
+"POT-Creation-Date: 2021-09-28 10:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,267 +116,270 @@ msgstr ""
 msgid "To be able to compile vrpRouting, make sure that the following dependencies are met:"
 msgstr ""
 
-#: ../../build/doc/installation.rst:107
-msgid "C and C++0x compilers * g++ version >= 4.8"
-msgstr ""
-
 #: ../../build/doc/installation.rst:109
-msgid "Postgresql version >= 12"
+msgid "C++ compilers with support of C++14 and C11"
 msgstr ""
 
 #: ../../build/doc/installation.rst:110
-msgid "The Boost Graph Library (BGL). Version >= 1.71"
+msgid "Postgresql version >= 12"
 msgstr ""
 
 #: ../../build/doc/installation.rst:111
+msgid "The Boost Graph Library (BGL). Version >= 1.65"
+msgstr ""
+
+#: ../../build/doc/installation.rst:112
 msgid "CMake >= 3.2"
 msgstr ""
 
-#: ../../build/doc/installation.rst:115
+#: ../../build/doc/installation.rst:116
 msgid "optional dependencies"
 msgstr ""
 
-#: ../../build/doc/installation.rst:116
+#: ../../build/doc/installation.rst:117
 msgid "For user's documentation"
 msgstr ""
 
-#: ../../build/doc/installation.rst:118
-msgid "Sphinx >= 1.1"
+#: ../../build/doc/installation.rst:119
+msgid "Sphinx >= TBD"
 msgstr ""
 
-#: ../../build/doc/installation.rst:119
+#: ../../build/doc/installation.rst:120
 msgid "Latex"
 msgstr ""
 
-#: ../../build/doc/installation.rst:121
+#: ../../build/doc/installation.rst:122
 msgid "For developer's documentation"
 msgstr ""
 
-#: ../../build/doc/installation.rst:123
-msgid "Doxygen >= 1.7"
+#: ../../build/doc/installation.rst:124
+msgid "Doxygen >=  TBD"
 msgstr ""
 
-#: ../../build/doc/installation.rst:125
-msgid "For testing"
-msgstr ""
-
-#: ../../build/doc/installation.rst:127
-msgid "pgtap"
+#: ../../build/doc/installation.rst:126
+msgid "For testing:"
 msgstr ""
 
 #: ../../build/doc/installation.rst:128
+msgid "pgtap"
+msgstr ""
+
+#: ../../build/doc/installation.rst:129
 msgid "pg_prove"
 msgstr ""
 
-#: ../../build/doc/installation.rst:130
+#: ../../build/doc/installation.rst:131
 msgid "For using:"
 msgstr ""
 
-#: ../../build/doc/installation.rst:132
-msgid "PostGIS version >= 2.2"
-msgstr ""
-
-#: ../../build/doc/installation.rst:135
-msgid "Example: Installing dependencies on linux"
+#: ../../build/doc/installation.rst:133
+msgid "PostGIS version >= 3"
 msgstr ""
 
 #: ../../build/doc/installation.rst:136
+msgid "Example: Installing dependencies on linux"
+msgstr ""
+
+#: ../../build/doc/installation.rst:137
 msgid "Installing the compilation dependencies"
 msgstr ""
 
-#: ../../build/doc/installation.rst:139
+#: ../../build/doc/installation.rst:140
 msgid "Database dependencies"
 msgstr ""
 
-#: ../../build/doc/installation.rst:149
+#: ../../build/doc/installation.rst:141
+msgid "This example is for PostgreSQL 10"
+msgstr ""
+
+#: ../../build/doc/installation.rst:152
 msgid "Build dependencies"
 msgstr ""
 
-#: ../../build/doc/installation.rst:158
+#: ../../build/doc/installation.rst:161
 msgid "Optional dependencies"
 msgstr ""
 
-#: ../../build/doc/installation.rst:159
+#: ../../build/doc/installation.rst:162
 msgid "For documentation and testing"
 msgstr ""
 
-#: ../../build/doc/installation.rst:173
+#: ../../build/doc/installation.rst:176
 msgid "Configuring"
 msgstr ""
 
-#: ../../build/doc/installation.rst:175
+#: ../../build/doc/installation.rst:178
 msgid "vrpRouting uses the `cmake` system to do the configuration."
 msgstr ""
 
-#: ../../build/doc/installation.rst:177
+#: ../../build/doc/installation.rst:180
 msgid "The build directory is different from the source directory"
 msgstr ""
 
-#: ../../build/doc/installation.rst:179
+#: ../../build/doc/installation.rst:182
 msgid "Create the build directory"
 msgstr ""
 
-#: ../../build/doc/installation.rst:186
+#: ../../build/doc/installation.rst:189
 msgid "Configurable variables"
 msgstr ""
 
-#: ../../build/doc/installation.rst:190
+#: ../../build/doc/installation.rst:193
 msgid "To see the variables that can be configured"
 msgstr ""
 
-#: ../../build/doc/installation.rst:198
+#: ../../build/doc/installation.rst:201
 msgid "Configuring The Documentation"
 msgstr ""
 
-#: ../../build/doc/installation.rst:199
+#: ../../build/doc/installation.rst:202
 msgid "Most of the effort of the documentation has being on the HTML files. Some variables for the documentation:"
 msgstr ""
 
-#: ../../build/doc/installation.rst:203
+#: ../../build/doc/installation.rst:206
 msgid "Variable"
 msgstr ""
 
-#: ../../build/doc/installation.rst:203
+#: ../../build/doc/installation.rst:206
 msgid "Default"
 msgstr ""
 
-#: ../../build/doc/installation.rst:203
+#: ../../build/doc/installation.rst:206
 msgid "Comment"
 msgstr ""
 
-#: ../../build/doc/installation.rst:205
+#: ../../build/doc/installation.rst:208
 msgid "WITH_DOC"
 msgstr ""
 
-#: ../../build/doc/installation.rst:205
 #: ../../build/doc/installation.rst:208
-#: ../../build/doc/installation.rst:209
-#: ../../build/doc/installation.rst:210
+#: ../../build/doc/installation.rst:211
+#: ../../build/doc/installation.rst:212
+#: ../../build/doc/installation.rst:213
 msgid "BOOL=OFF"
 msgstr ""
 
-#: ../../build/doc/installation.rst:205
+#: ../../build/doc/installation.rst:208
 msgid "Turn on/off building the documentation"
 msgstr ""
 
-#: ../../build/doc/installation.rst:206
+#: ../../build/doc/installation.rst:209
 msgid "BUILD_HTML"
 msgstr ""
 
-#: ../../build/doc/installation.rst:206
-#: ../../build/doc/installation.rst:207
+#: ../../build/doc/installation.rst:209
+#: ../../build/doc/installation.rst:210
 msgid "BOOL=ON"
 msgstr ""
 
-#: ../../build/doc/installation.rst:206
+#: ../../build/doc/installation.rst:209
 msgid "If ON, turn on/off building HTML for user's documentation"
 msgstr ""
 
-#: ../../build/doc/installation.rst:207
+#: ../../build/doc/installation.rst:210
 msgid "BUILD_DOXY"
 msgstr ""
 
-#: ../../build/doc/installation.rst:207
+#: ../../build/doc/installation.rst:210
 msgid "If ON, turn on/off building HTML for developer's documentation"
 msgstr ""
 
-#: ../../build/doc/installation.rst:208
+#: ../../build/doc/installation.rst:211
 msgid "BUILD_LATEX"
 msgstr ""
 
-#: ../../build/doc/installation.rst:208
+#: ../../build/doc/installation.rst:211
 msgid "If ON, turn on/off building PDF"
 msgstr ""
 
-#: ../../build/doc/installation.rst:209
+#: ../../build/doc/installation.rst:212
 msgid "BUILD_MAN"
 msgstr ""
 
-#: ../../build/doc/installation.rst:209
+#: ../../build/doc/installation.rst:212
 msgid "If ON, turn on/off building MAN pages"
 msgstr ""
 
-#: ../../build/doc/installation.rst:210
+#: ../../build/doc/installation.rst:213
 msgid "DOC_USE_BOOTSTRAP"
 msgstr ""
 
-#: ../../build/doc/installation.rst:210
+#: ../../build/doc/installation.rst:213
 msgid "If ON, use sphinx-bootstrap for HTML pages of the users documentation"
 msgstr ""
 
-#: ../../build/doc/installation.rst:213
+#: ../../build/doc/installation.rst:216
 msgid "Configuring with documentation"
 msgstr ""
 
-#: ../../build/doc/installation.rst:219
+#: ../../build/doc/installation.rst:222
 msgid "Most of the effort of the documentation has being on the html files."
 msgstr ""
 
-#: ../../build/doc/installation.rst:225
+#: ../../build/doc/installation.rst:228
 msgid "Building"
 msgstr ""
 
-#: ../../build/doc/installation.rst:227
+#: ../../build/doc/installation.rst:230
 msgid "Using ``make`` to build the code and the documentation"
 msgstr ""
 
-#: ../../build/doc/installation.rst:229
+#: ../../build/doc/installation.rst:232
 msgid "The following instructions start from *path/to/pgrouting/build*"
 msgstr ""
 
-#: ../../build/doc/installation.rst:238
+#: ../../build/doc/installation.rst:241
 msgid "We have tested on several platforms, For installing or reinstalling all the steps are needed."
 msgstr ""
 
-#: ../../build/doc/installation.rst:240
+#: ../../build/doc/installation.rst:243
 msgid "The sql signatures are configured and build in the ``cmake`` command."
 msgstr ""
 
-#: ../../build/doc/installation.rst:243
+#: ../../build/doc/installation.rst:247
 msgid "MinGW on Windows"
 msgstr ""
 
-#: ../../build/doc/installation.rst:254
+#: ../../build/doc/installation.rst:258
 msgid "Linux"
 msgstr ""
 
-#: ../../build/doc/installation.rst:255
-msgid "The following instructions start from *path/to/pgrouting*"
+#: ../../build/doc/installation.rst:259
+msgid "The following instructions start from *path/to/repository*"
 msgstr ""
 
-#: ../../build/doc/installation.rst:265
+#: ../../build/doc/installation.rst:269
 msgid "When the configuration changes:"
 msgstr ""
 
-#: ../../build/doc/installation.rst:271
+#: ../../build/doc/installation.rst:275
 msgid "and start the build process as mentioned above."
 msgstr ""
 
-#: ../../build/doc/installation.rst:276
+#: ../../build/doc/installation.rst:280
 msgid "Testing"
 msgstr ""
 
-#: ../../build/doc/installation.rst:278
+#: ../../build/doc/installation.rst:282
 msgid "Currently there is no :code:`make test` and testing is done as follows"
 msgstr ""
 
-#: ../../build/doc/installation.rst:280
+#: ../../build/doc/installation.rst:284
 msgid "The following instructions start from *path/to/pgrouting/*"
 msgstr ""
 
-#: ../../build/doc/installation.rst:290
+#: ../../build/doc/installation.rst:294
 msgid "See Also"
 msgstr ""
 
-#: ../../build/doc/installation.rst:293
+#: ../../build/doc/installation.rst:297
 msgid "Indices and tables"
 msgstr ""
 
-#: ../../build/doc/installation.rst:294
+#: ../../build/doc/installation.rst:298
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../build/doc/installation.rst:295
+#: ../../build/doc/installation.rst:299
 msgid ":ref:`search`"
 msgstr ""
-

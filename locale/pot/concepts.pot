@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.0.0
+# Copyright (C) vrpRouting Contributors - Version v0.3.0-dev
 # This file is distributed under the same license as the vrpRouting package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.0.0\n"
+"Project-Id-Version: vrpRouting v0.3.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 09:17-0600\n"
+"POT-Creation-Date: 2021-09-28 10:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../build/doc/concepts.rst:12
-msgid "`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__"
+msgid "`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__"
 msgstr ""
 
 #: ../../build/doc/concepts.rst:13
-msgid "Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/concepts.html>`__ (`0.0 <https://vrp.pgrouting.org/0/en/concepts.html>`__)"
+msgid "Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/concepts.html>`__ (`v0 <https://vrp.pgrouting.org/v0/en/concepts.html>`__)"
 msgstr ""
 
 #: ../../build/doc/concepts.rst:18
@@ -449,7 +449,7 @@ msgid "Adding Functionaity to vrpRouting"
 msgstr ""
 
 #: ../../build/doc/concepts.rst:234
-msgid "Consult the `developer's documentation <https://vrp.pgrouting.org/doxygen/0/index.html>`_"
+msgid "Consult the `developer's documentation <https://vrp.pgrouting.org/doxy/main/index.html>`_"
 msgstr ""
 
 #: ../../build/doc/concepts.rst:238
@@ -463,4 +463,3 @@ msgstr ""
 #: ../../build/doc/concepts.rst:240
 msgid ":ref:`search`"
 msgstr ""
-
