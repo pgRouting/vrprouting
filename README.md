@@ -47,7 +47,7 @@ Building requirements
 * Postgresql >= TBD
 * The Boost Graph Library (BGL) >= 1.65
 * CMake >= 3.12
-* Sphinx >= TBD
+* Sphinx > 4.0.0
 * VROOM >= 1.10.0
 
 User's requirements
