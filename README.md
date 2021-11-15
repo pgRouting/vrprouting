@@ -78,7 +78,7 @@ Postgresql
 
 ## USAGE
 
-See online documentation: http://docs.pgrouting.org/latest/en/index.html
+See online documentation: https://vrp.pgrouting.org/latest/en/index.html
 
 ## LICENSE
 
