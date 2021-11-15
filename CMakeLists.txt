@@ -132,7 +132,7 @@ find_package(Perl REQUIRED)
 # PostgreSQL
 #---------------------------------------------
 #---------------------------------------------
-set(PostgreSQL_ADDITIONAL_VERSIONS "12" "13")
+set(PostgreSQL_ADDITIONAL_VERSIONS "12" "13" "14")
 find_package(PostgreSQL ${POSTGRESQL_MINIMUM_VERSION} REQUIRED)
 if(POSTGRESQL_BIN)
   # Checking POSTGRESQL_PG_CONFIG
