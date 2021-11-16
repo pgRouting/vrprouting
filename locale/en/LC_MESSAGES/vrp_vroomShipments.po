@@ -1,0 +1,834 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) vrpRouting Contributors - Version v0.3.0-dev
+# This file is distributed under the same license as the vrpRouting package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: vrpRouting v0.3.0-dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-28 10:43+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../build/doc/vrp_vroomShipments.rst:12
+msgid ""
+"`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 "
+"<https://vrp.pgrouting.org/v0>`__"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:13
+msgid ""
+"Supported Versions `Latest "
+"<https://vrp.pgrouting.org/latest/en/vrp_vroomShipments.html>`__ (`v0 "
+"<https://vrp.pgrouting.org/v0/en/vrp_vroomShipments.html>`__)"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:19
+msgid "vrp_vroomShipments - Experimental"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:21
+msgid ""
+"``vrp_vroomShipments`` - Vehicle Routing Problem with VROOM, involving "
+"only shipments."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:3
+msgid "Possible server crash"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:5
+msgid "These functions might create a server crash"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:7
+msgid "Experimental functions"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:9
+msgid "They are not officially of the current release."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:10
+msgid "They likely will not be officially be part of the next release:"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:12
+msgid "The functions might not make use of ANY-INTEGER and ANY-NUMERICAL"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:13
+msgid "Name might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:14
+msgid "Signature might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:15
+msgid "Functionality might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:16
+msgid "pgTap tests might be missing."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:17
+msgid "Might need c/c++ coding."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:18
+msgid "May lack documentation."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:19
+msgid "Documentation if any might need to be rewritten."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:20
+msgid "Documentation examples might need to be automatically generated."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:21
+msgid "Might need a lot of feedback from the comunity."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:22
+msgid "Might depend on a proposed function of vrpRouting"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:23
+msgid "Might depend on a deprecated function of vrpRouting"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:28
+msgid "Availability"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:29
+msgid "Version 0.2.0"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:31
+msgid "New **experimental** function"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:35
+#: ../../build/sql/vroom/vrp_vroom.sql:11
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:4
+#: ../../src/common/matrixRows_input.c:10
+#: ../../src/common/vroom/breaks_input.c:10
+#: ../../src/common/vroom/shipments_input.c:12
+#: ../../src/common/vroom/time_windows_input.c:10
+#: ../../src/common/vroom/vehicles_input.c:12
+msgid "Description"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:37
+msgid ""
+"VROOM is an open-source optimization engine that aims at providing good "
+"solutions to various real-life vehicle routing problems (VRP) within a "
+"small computing time. This function can be used to get the solution to a "
+"problem involving only shipments."
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:45
+msgid "Signature"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:51
+msgid ""
+"**Example**: This example is based on the modified VROOM Data of the "
+":doc:`sampledata` network. The modification in the tables is mentioned at"
+" the end of the :doc:`sampledata`."
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:59
+msgid "Parameters"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:4
+msgid "Parameter"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:11
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:4
+#: ../../src/common/matrixRows_input.c:10
+#: ../../src/common/vroom/breaks_input.c:10
+#: ../../src/common/vroom/shipments_input.c:12
+#: ../../src/common/vroom/time_windows_input.c:10
+#: ../../src/common/vroom/vehicles_input.c:12
+msgid "Type"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:6
+msgid "**Shipments SQL**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:6
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:8
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:10
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:11
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:12
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:14
+msgid "``TEXT``"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:6
+msgid ""
+"`Shipments SQL`_ query describing pickup and delivery tasks that should "
+"happen within same route."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:8
+msgid "**Shipments Time Windows SQL**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:8
+msgid ""
+"`Time Windows SQL`_ query describing valid slots for pickup and delivery "
+"service start."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:10
+msgid "**Vehicles SQL**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:10
+msgid "`Vehicles SQL`_ query describing the available vehicles."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:11
+msgid "**Breaks SQL**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:11
+msgid "`Breaks SQL`_ query describing the driver breaks."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:12
+msgid "**Breaks Time Windows SQL**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:12
+msgid "`Time Windows SQL`_ query describing valid slots for break start."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:14
+msgid "**Matrix SQL**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroomShipments.sql:14
+msgid ""
+"`Time Matrix SQL`_ query containing the distance or travel times between "
+"the locations."
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:66
+msgid "Inner Queries"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:69
+msgid "Shipments SQL"
+msgstr ""
+
+#: ../../src/common/matrixRows_input.c:3
+#: ../../src/common/vroom/breaks_input.c:3
+#: ../../src/common/vroom/shipments_input.c:3
+#: ../../src/common/vroom/time_windows_input.c:3
+#: ../../src/common/vroom/vehicles_input.c:3
+msgid "A ``SELECT`` statement that returns the following columns:"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:11
+#: ../../src/common/matrixRows_input.c:10
+#: ../../src/common/vroom/breaks_input.c:10
+#: ../../src/common/vroom/shipments_input.c:12
+#: ../../src/common/vroom/time_windows_input.c:10
+#: ../../src/common/vroom/vehicles_input.c:12
+msgid "Column"
+msgstr ""
+
+#: ../../src/common/vroom/breaks_input.c:10
+#: ../../src/common/vroom/shipments_input.c:12
+msgid "Default"
+msgstr ""
+
+#: ../../src/common/vroom/breaks_input.c:12
+#: ../../src/common/vroom/shipments_input.c:14
+#: ../../src/common/vroom/time_windows_input.c:12
+#: ../../src/common/vroom/vehicles_input.c:14
+msgid "**id**"
+msgstr ""
+
+#: ../../src/common/matrixRows_input.c:12
+#: ../../src/common/matrixRows_input.c:13
+#: ../../src/common/vroom/breaks_input.c:12
+#: ../../src/common/vroom/breaks_input.c:15
+#: ../../src/common/vroom/shipments_input.c:14
+#: ../../src/common/vroom/shipments_input.c:16
+#: ../../src/common/vroom/shipments_input.c:22
+#: ../../src/common/vroom/time_windows_input.c:12
+#: ../../src/common/vroom/vehicles_input.c:14
+#: ../../src/common/vroom/vehicles_input.c:16
+#: ../../src/common/vroom/vehicles_input.c:18
+msgid "``ANY-INTEGER``"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:14
+msgid "Non-negative unique identifier of the shipment."
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:16
+msgid "**p_location_index**"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:16
+msgid "Non-negative identifier of the pickup location."
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:18
+msgid "**p_service**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:41
+#: ../../build/sql/vroom/vrp_vroom.sql:45
+#: ../../build/sql/vroom/vrp_vroom.sql:49
+#: ../../src/common/vroom/breaks_input.c:17
+#: ../../src/common/vroom/shipments_input.c:18
+#: ../../src/common/vroom/shipments_input.c:24
+msgid "``INTERVAL``"
+msgstr ""
+
+#: ../../src/common/vroom/breaks_input.c:17
+#: ../../src/common/vroom/shipments_input.c:18
+#: ../../src/common/vroom/shipments_input.c:24
+#: ../../src/common/vroom/shipments_input.c:38
+msgid "0"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:18
+msgid "Pickup service duration, in seconds"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:39
+#: ../../build/sql/vroom/vrp_vroom.sql:43
+#: ../../build/sql/vroom/vrp_vroom.sql:47
+#: ../../build/sql/vroom/vrp_vroom.sql:51
+#: ../../src/common/vroom/breaks_input.c:19
+#: ../../src/common/vroom/shipments_input.c:20
+#: ../../src/common/vroom/shipments_input.c:26
+#: ../../src/common/vroom/time_windows_input.c:23
+#: ../../src/common/vroom/time_windows_input.c:27
+#: ../../src/common/vroom/vehicles_input.c:32
+#: ../../src/common/vroom/vehicles_input.c:36
+msgid "``INTEGER`` for plain VROOM functions."
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:22
+msgid "**d_location_index**"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:22
+msgid "Non-negative identifier of the delivery location."
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:24
+msgid "**d_service**"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:24
+msgid "Delivery service duration, in seconds"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:28
+msgid "**amount**"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:28
+#: ../../src/common/vroom/vehicles_input.c:20
+msgid "``ARRAY[ANY-INTEGER]``"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:28
+#: ../../src/common/vroom/vehicles_input.c:20
+msgid ""
+"Array of non-negative integers describing multidimensional quantities "
+"such as number of items, weight, volume etc."
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:32
+msgid "All shipments must have the same value of :code:`array_length(amount, 1)`"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:35
+#: ../../src/common/vroom/vehicles_input.c:27
+msgid "**skills**"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:35
+#: ../../src/common/vroom/vehicles_input.c:27
+msgid "``ARRAY[INTEGER]``"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:35
+#: ../../src/common/vroom/vehicles_input.c:27
+msgid "Array of non-negative integers defining mandatory skills."
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:38
+msgid "**priority**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:24
+#: ../../src/common/matrixRows_input.c:14
+#: ../../src/common/vroom/shipments_input.c:38
+msgid "``INTEGER``"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:38
+msgid "Priority level of the shipment."
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:40
+msgid "Ranges from ``[0, 100]``"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:44
+msgid "Where:"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c
+msgid "ANY-INTEGER"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:46
+msgid "SMALLINT, INTEGER, BIGINT"
+msgstr ""
+
+#: ../../build/doc/vroom-category.rst:4
+msgid "Vehicles SQL"
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:14
+msgid "Non-negative unique identifier of the job."
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:16
+msgid "**start_index**"
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:16
+msgid "Non-negative identifier of the vehicle start location."
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:18
+msgid "**end_index**"
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:18
+msgid "Non-negative identifier of the vehicle end location."
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:20
+msgid "**capacity**"
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:24
+msgid "All vehicles must have the same value of :code:`array_length(capacity, 1)`"
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:21
+#: ../../src/common/vroom/vehicles_input.c:30
+msgid "**tw_open**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:37
+#: ../../src/common/vroom/time_windows_input.c:21
+#: ../../src/common/vroom/time_windows_input.c:25
+#: ../../src/common/vroom/vehicles_input.c:30
+#: ../../src/common/vroom/vehicles_input.c:34
+msgid "``TIMESTAMP``"
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:21
+#: ../../src/common/vroom/vehicles_input.c:30
+msgid "Time window opening time."
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:25
+#: ../../src/common/vroom/vehicles_input.c:34
+msgid "**tw_close**"
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:25
+#: ../../src/common/vroom/vehicles_input.c:34
+msgid "Time window closing time."
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:38
+msgid "**speed_factor**"
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:38
+msgid "``ANY-NUMERICAL``"
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:38
+msgid "Vehicle travel time multiplier."
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:30
+#: ../../src/common/vroom/vehicles_input.c:41
+msgid "**Note**:"
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:43
+msgid "At least one of the ``start_index`` or ``end_index`` shall be present."
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:44
+msgid ""
+"If ``end_index`` is omitted, the resulting route will stop at the last "
+"visited task, whose choice is determined by the optimization process."
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:45
+msgid ""
+"If ``start_index`` is omitted, the resulting route will start at the "
+"first visited task, whose choice is determined by the optimization "
+"process."
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:46
+msgid ""
+"To request a round trip, specify both ``start_index`` and ``end_index`` "
+"as the same index."
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:47
+msgid ""
+"A vehicle is only allowed to serve a set of tasks if the resulting load "
+"at each route step is lower than the matching value in capacity for each "
+"metric. When using multiple components for amounts, it is recommended to "
+"put the most important/limiting metrics first."
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:48
+msgid ""
+"It is assumed that all delivery-related amounts for jobs are loaded at "
+"vehicle start, while all pickup-related amounts for jobs are brought back"
+" at vehicle end."
+msgstr ""
+
+#: ../../src/common/vroom/vehicles_input.c:49
+msgid ":code:`tw_open ≤ tw_close`"
+msgstr ""
+
+#: ../../build/doc/vroom-category.rst:11
+msgid "Breaks SQL"
+msgstr ""
+
+#: ../../src/common/vroom/breaks_input.c:12
+msgid ""
+"Non-negative unique identifier of the break. (unique for the same "
+"vehicle)."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:18
+#: ../../src/common/vroom/breaks_input.c:15
+msgid "**vehicle_id**"
+msgstr ""
+
+#: ../../src/common/vroom/breaks_input.c:15
+msgid "Non-negative unique identifier of the vehicle."
+msgstr ""
+
+#: ../../src/common/vroom/breaks_input.c:17
+msgid "**service**"
+msgstr ""
+
+#: ../../src/common/vroom/breaks_input.c:17
+msgid "The break duration, in seconds."
+msgstr ""
+
+#: ../../build/doc/vroom-category.rst:18
+msgid "Time Windows SQL"
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:12
+msgid ""
+"Non-negative unique identifier of the job, pickup/delivery shipment, or "
+"break."
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:15
+msgid "**kind**"
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:15
+msgid "``CHAR``"
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:15
+msgid ""
+"**Only required for shipments**. Value in ['p', 'd'] indicating whether "
+"the time window is for:"
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:18
+msgid "Pickup shipment, or"
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:19
+msgid "Delivery shipment."
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:32
+msgid "All timing are in seconds."
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:33
+msgid "Every row must satisfy the condition: :code:`tw_open ≤ tw_close`."
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:34
+msgid "It is up to users to decide how to describe time windows:"
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:36
+msgid ""
+"**Relative values**, e.g. [0, 14400] for a 4 hours time window starting "
+"at the beginning of the planning horizon. In that case all times reported"
+" in output with the arrival column are relative to the start of the "
+"planning horizon."
+msgstr ""
+
+#: ../../src/common/vroom/time_windows_input.c:37
+msgid ""
+"**Absolute values**, \"real\" timestamps. In that case all times reported"
+" in output with the arrival column can be interpreted as timestamps."
+msgstr ""
+
+#: ../../build/doc/vroom-category.rst:25
+msgid "Time Matrix SQL"
+msgstr ""
+
+#: ../../src/common/matrixRows_input.c:12
+msgid "**start_vid**"
+msgstr ""
+
+#: ../../src/common/matrixRows_input.c:12
+msgid "Identifier of the start node."
+msgstr ""
+
+#: ../../src/common/matrixRows_input.c:13
+msgid "**end_vid**"
+msgstr ""
+
+#: ../../src/common/matrixRows_input.c:13
+msgid "Identifier of the end node."
+msgstr ""
+
+#: ../../src/common/matrixRows_input.c:14
+msgid "**agg_cost**"
+msgstr ""
+
+#: ../../src/common/matrixRows_input.c:14
+msgid "Time to travel from ``start_vid`` to ``end_vid``"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:80
+msgid "Result Columns"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:3
+msgid "Returns set of"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:13
+msgid "**seq**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:13
+#: ../../build/sql/vroom/vrp_vroom.sql:15
+#: ../../build/sql/vroom/vrp_vroom.sql:18
+#: ../../build/sql/vroom/vrp_vroom.sql:20
+#: ../../build/sql/vroom/vrp_vroom.sql:33
+#: ../../build/sql/vroom/vrp_vroom.sql:53
+msgid "``BIGINT``"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:13
+msgid "Sequential value starting from **1**."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:15
+msgid "**vehicle_seq**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:15
+msgid ""
+"Sequential value starting from **1** for current vehicles. The "
+":math:`n^{th}` vehicle in the solution."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:18
+msgid "Current vehicle identifier."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:20
+msgid "**step_seq**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:20
+msgid ""
+"Sequential value starting from **1** for the stops made by the current "
+"vehicle. The :math:`m^{th}` stop of the current vehicle."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:24
+msgid "**step_type**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:24
+msgid "Kind of the step location the vehicle is at:"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:26
+msgid "``1``: Starting location"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:27
+msgid "``2``: Job location"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:28
+msgid "``3``: Pickup location"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:29
+msgid "``4``: Delivery location"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:30
+msgid "``5``: Break location"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:31
+msgid "``6``: Ending location"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:33
+msgid "**task_id**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:33
+msgid "Identifier of the task performed at this step."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:35
+msgid "``-1``: If the step is starting/ending location."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:37
+msgid "**arrival**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:37
+msgid "Estimated time of arrival at this step, in seconds."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:41
+msgid "**travel_time**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:41
+msgid "Cumulated travel time upon arrival at this step, in seconds"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:45
+msgid "**service_time**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:45
+msgid "Service time at this step, in seconds"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:49
+msgid "**waiting_time**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:49
+msgid "Waiting time upon arrival at this step, in seconds."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:53
+msgid "**load**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:53
+msgid "Vehicle load after step completion (with capacity constraints)"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:87
+msgid "Additional Example"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:89
+msgid ""
+"Problem involving 1 shipment, using a single vehicle, similar to the "
+"VROOM Documentation `Example 2 <https://github.com/VROOM-"
+"Project/vroom/blob/master/docs/example_2.json>`__ without jobs and with a"
+" shipment."
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:98
+msgid "See Also"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:100
+msgid ":doc:`vroom-category`"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:101
+msgid "The queries use the :doc:`sampledata` network."
+msgstr ""
+
+#: ../../build/doc/vroom-category.rst:3
+msgid ""
+"`Wikipedia: Vehicle Routing problems "
+"<https://en.wikipedia.org/wiki/Vehicle_routing_problem>`__"
+msgstr ""
+
+#: ../../build/doc/vroom-category.rst:4
+msgid ""
+"`VROOM: Vehicle Routing Open-source Optimization Machine "
+"<https://github.com/VROOM-Project/vroom>`__"
+msgstr ""
+
+#: ../../build/doc/vroom-category.rst:5
+msgid ""
+"`VROOM API Documentation <https://github.com/VROOM-"
+"Project/vroom/blob/master/docs/API.md>`__"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:108
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:109
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../build/doc/vrp_vroomShipments.rst:110
+msgid ":ref:`search`"
+msgstr ""
+

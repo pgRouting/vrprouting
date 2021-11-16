@@ -8,87 +8,87 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vrpRouting v0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 09:17-0600\n"
+"POT-Creation-Date: 2021-09-28 10:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.1\n"
 
-#: ../../build/doc/proposed.rst:11
+#: ../../build/doc/proposed.rst:12
 msgid ""
 "Supported Versions `Latest "
-"<https://vrp.pgrouting.org/latest/en/proposed.html>`__ (`0.0 "
-"<https://vrp.pgrouting.org/0.0/en/proposed.html>`__)"
+"<https://vrp.pgrouting.org/latest/en/proposed.html>`__ (`v0 "
+"<https://vrp.pgrouting.org/v0/en/proposed.html>`__)"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:16
+#: ../../build/doc/proposed.rst:17
 msgid "Proposed Functions"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:20
+#: ../../build/doc/proposed.rst:21
 msgid "Proposed functions for next mayor release."
 msgstr ""
 
-#: ../../build/doc/proposed.rst:22
+#: ../../build/doc/proposed.rst:23
 msgid "They are not officially in the current release."
 msgstr ""
 
-#: ../../build/doc/proposed.rst:23
+#: ../../build/doc/proposed.rst:24
 msgid "They will likely officially be part of the next mayor release:"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:25
+#: ../../build/doc/proposed.rst:26
 msgid "The functions make use of ANY-INTEGER and ANY-NUMERICAL"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:26
+#: ../../build/doc/proposed.rst:27
 msgid "Name might not change. (But still can)"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:27
+#: ../../build/doc/proposed.rst:28
 msgid "Signature might not change. (But still can)"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:28
+#: ../../build/doc/proposed.rst:29
 msgid "Functionality might not change. (But still can)"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:29
+#: ../../build/doc/proposed.rst:30
 msgid "pgTap tests have being done. But might need more."
 msgstr ""
 
-#: ../../build/doc/proposed.rst:30
+#: ../../build/doc/proposed.rst:31
 msgid "Documentation might need refinement."
 msgstr ""
 
-#: ../../build/doc/proposed.rst:36
+#: ../../build/doc/proposed.rst:37
 msgid "Families"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:38
+#: ../../build/doc/proposed.rst:39
 msgid "See Also"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:39
+#: ../../build/doc/proposed.rst:40
 msgid ":doc:`experimental`"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:40
+#: ../../build/doc/proposed.rst:41
 msgid ":doc:`official`"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:43
+#: ../../build/doc/proposed.rst:44
 msgid "Indices and tables"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:44
+#: ../../build/doc/proposed.rst:45
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../build/doc/proposed.rst:45
+#: ../../build/doc/proposed.rst:46
 msgid ":ref:`search`"
 msgstr ""
 

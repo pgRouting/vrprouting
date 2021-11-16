@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.0.0
+# Copyright (C) vrpRouting Contributors - Version v0.3.0-dev
 # This file is distributed under the same license as the vrpRouting package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.0.0\n"
+"Project-Id-Version: vrpRouting v0.3.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 09:17-0600\n"
+"POT-Creation-Date: 2021-09-28 10:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../build/doc/index.rst:12
-msgid "Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/index.html>`__ (`0.0 <https://vrp.pgrouting.org/0.0/en/index.html>`__)"
+msgid "Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/index.html>`__ (`v0 <https://vrp.pgrouting.org/v0/en/index.html>`__)"
 msgstr ""
 
 #: ../../build/doc/index.rst:20
@@ -30,6 +30,10 @@ msgstr ""
 
 #: ../../build/doc/index.rst:25
 msgid "This is the manual for vrpRouting |release|."
+msgstr ""
+
+#: ../../build/doc/index.rst:None
+msgid "Creative Commons Attribution-Share Alike 3.0 License"
 msgstr ""
 
 #: ../../build/doc/index.rst:31
@@ -83,4 +87,3 @@ msgstr ""
 #: ../../build/doc/index.rst:109
 msgid ":ref:`search`"
 msgstr ""
-

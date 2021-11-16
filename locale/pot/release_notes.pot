@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.0.0
+# Copyright (C) vrpRouting Contributors - Version v0.3.0-dev
 # This file is distributed under the same license as the vrpRouting package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.0.0\n"
+"Project-Id-Version: vrpRouting v0.3.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 09:17-0600\n"
+"POT-Creation-Date: 2021-09-28 10:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../build/doc/release_notes.rst:12
-msgid "`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 <https://vrp.pgrouting.org/0>`__"
+msgid "`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:13
-msgid "Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/release_notes.html>`__ (`0.0 <https://vrp.pgrouting.org/0.0/en/release_notes.html>`__)"
+msgid "Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/release_notes.html>`__ (`v0 <https://vrp.pgrouting.org/v0/en/release_notes.html>`__)"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:18
@@ -33,34 +33,69 @@ msgid "To see the full list of changes check the list of `Git commits <https://g
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:23
-msgid "Table of contents"
+msgid "Contents"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:26
-msgid "`v0.0.0 Release Notes`_"
+msgid "v0.3.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:30
+msgid "v0.2.0 Release Notes"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:33
-msgid "v0.0.0 Release Notes"
+msgid "New experimental functions"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:34
+msgid "VROOM"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:36
-msgid "Extraction tasks"
+msgid "vrp_vroom"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:37
-msgid "Porting pgRouting's VRP functionality"
+msgid "vrp_vroomJobs"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:38
+msgid "vrp_vroomShipments"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:39
+msgid "vrp_vroomPlain"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:40
-msgid "New official functions"
+msgid "vrp_vroomJobsPlain"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:41
+msgid "vrp_vroomShipmentsPlain"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:44
+msgid "v0.1.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:47
+msgid "Extraction tasks"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:48
+msgid "Porting pgRouting's VRP functionality"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:51
+msgid "New official functions"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:52
 msgid "vrp_version"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:42
+#: ../../build/doc/release_notes.rst:53
 msgid "vrp_full_version"
 msgstr ""
-
