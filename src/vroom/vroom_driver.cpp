@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * function `vrp_vroom` which calls the main function defined in the
  * C++ Header file. It also does exception handling.
  *
- * @param jobs_sql          SQL query describing the jobs
+ * @param jobs          SQL query describing the jobs
  * @param jobs_tw_sql       SQL query describing the time window for jobs
  * @param shipments_sql     SQL query describing the shipments
  * @param shipments_tw_sql  SQL query describing the time windows for shipment
@@ -79,7 +79,7 @@ do_vrp_vroom(
     Vroom_vehicle_t *vehicles, size_t total_vehicles,
     Vroom_break_t *breaks, size_t total_breaks,
     Vroom_time_window_t *breaks_tws, size_t total_breaks_tws,
-    Matrix_cell_t *matrix_cells_arr, size_t total_cells,
+    Vroom_matrix_t *matrix_rows, size_t total_matrix_rows,
 
     Vroom_rt **return_tuples,
     size_t *return_count,
@@ -98,10 +98,10 @@ do_vrp_vroom(
     pgassert(!(*return_count));
     pgassert(jobs || shipments);
     pgassert(vehicles);
-    pgassert(matrix_cells_arr);
+    pgassert(matrix_rows);
     pgassert(total_jobs || total_shipments);
     pgassert(total_vehicles);
-    pgassert(total_cells);
+    pgassert(total_matrix_rows);
 
     Identifiers<Id> location_ids;
 
@@ -123,12 +123,12 @@ do_vrp_vroom(
       }
     }
 
-    vrprouting::base::Base_Matrix time_matrix(matrix_cells_arr, total_cells, location_ids);
+    vrprouting::base::Base_Matrix matrix(matrix_rows, total_matrix_rows, location_ids);
 
     /*
      * Verify matrix cells preconditions
      */
-    if (!time_matrix.has_no_infinity()) {
+    if (!matrix.has_no_infinity()) {
       (*return_tuples) = NULL;
       (*return_count) = 0;
       err << "An Infinity value was found on the Matrix. Might be missing information of a node";
@@ -139,7 +139,7 @@ do_vrp_vroom(
     /*
      * Verify size of matrix cell lies in the limit
      */
-    if (time_matrix.size() > (std::numeric_limits<vroom::Index>::max)()) {
+    if (matrix.size() > (std::numeric_limits<vroom::Index>::max)()) {
       (*return_tuples) = NULL;
       (*return_count) = 0;
       err << "The size of time matrix exceeds the limit";
@@ -148,7 +148,7 @@ do_vrp_vroom(
     }
 
     vrprouting::Vrp_vroom_problem problem;
-    problem.add_matrix(time_matrix);
+    problem.add_matrix(matrix);
     problem.add_vehicles(vehicles, total_vehicles,
                          breaks, total_breaks,
                          breaks_tws, total_breaks_tws);

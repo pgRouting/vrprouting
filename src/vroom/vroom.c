@@ -51,13 +51,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/vroom/vroom_job_t.h"
 #include "c_types/vroom/vroom_shipment_t.h"
 #include "c_types/vroom/vroom_vehicle_t.h"
+#include "c_types/vroom/vroom_matrix_t.h"
 
 #include "c_common/vroom/jobs_input.h"
 #include "c_common/vroom/breaks_input.h"
 #include "c_common/vroom/time_windows_input.h"
 #include "c_common/vroom/shipments_input.h"
 #include "c_common/vroom/vehicles_input.h"
-#include "c_common/matrixRows_input.h"
+#include "c_common/vroom/matrix_input.h"
 
 #include "drivers/vroom/vroom_driver.h"
 
@@ -177,11 +178,11 @@ process(
                            is_plain);
   }
 
-  Matrix_cell_t *matrix_cells_arr = NULL;
-  size_t total_cells = 0;
-  get_matrixRows_vroom_plain(matrix_sql, &matrix_cells_arr, &total_cells);
+  Vroom_matrix_t *matrix_rows = NULL;
+  size_t total_matrix_rows = 0;
+  get_vroom_matrix(matrix_sql, &matrix_rows, &total_matrix_rows, is_plain);
 
-  if (total_cells == 0) {
+  if (total_matrix_rows == 0) {
     ereport(WARNING, (errmsg("Insufficient data found on Matrix SQL query."),
                       errhint("%s", matrix_sql)));
     (*result_count) = 0;
@@ -203,7 +204,7 @@ process(
     vehicles, total_vehicles,
     breaks, total_breaks,
     breaks_tws, total_breaks_tws,
-    matrix_cells_arr, total_cells,
+    matrix_rows, total_matrix_rows,
 
     result_tuples,
     result_count,
@@ -229,7 +230,7 @@ process(
   if (jobs) pfree(jobs);
   if (shipments) pfree(shipments);
   if (vehicles) pfree(vehicles);
-  if (matrix_cells_arr) pfree(matrix_cells_arr);
+  if (matrix_rows) pfree(matrix_rows);
 
   pgr_SPI_finish();
 }
