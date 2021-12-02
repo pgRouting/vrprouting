@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: vroom_driver.h
+File: vroom_matrix_t.h
 
 Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,36 +25,30 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
+/*! @file */
 
-#ifndef INCLUDE_DRIVERS_VROOM_VROOM_DRIVER_H_
-#define INCLUDE_DRIVERS_VROOM_VROOM_DRIVER_H_
+#ifndef INCLUDE_C_TYPES_VROOM_VROOM_MATRIX_T_H_
+#define INCLUDE_C_TYPES_VROOM_VROOM_MATRIX_T_H_
 #pragma once
 
 #include "c_types/typedefs.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+/** @brief Matrix's attributes
 
-  void do_vrp_vroom(
-      Vroom_job_t *jobs, size_t total_jobs,
-      Vroom_time_window_t *jobs_tws, size_t total_jobs_tws,
-      Vroom_shipment_t *shipments, size_t total_shipments,
-      Vroom_time_window_t *shipments_tws, size_t total_shipments_tws,
-      Vroom_vehicle_t *vehicles, size_t total_vehicles,
-      Vroom_break_t *breaks, size_t total_breaks,
-      Vroom_time_window_t *breaks_tws, size_t total_breaks_tws,
-      Vroom_matrix_t *matrix_cells_arr, size_t total_cells,
+@note C/C++/postgreSQL connecting structure for input
+name | description
+:----- | :-------
+start_id | Start node identifier
+end_id | End node identifier
+duration | Duration to travel from start to end
+cost | Cost to travel from start to end
+*/
+struct Vroom_matrix_t {
+  MatrixIndex start_id;  /** Start node identifier */
+  MatrixIndex end_id;    /** End node identifier */
 
-      Vroom_rt **return_tuples,
-      size_t *return_count,
+  Duration duration;     /** Duration to travel from start to end */
+  TravelCost cost;       /** Cost to travel from start to end */
+};
 
-      char ** log_msg,
-      char ** notice_msg,
-      char ** err_msg);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif  // INCLUDE_DRIVERS_VROOM_VROOM_DRIVER_H_
+#endif  // INCLUDE_C_TYPES_VROOM_VROOM_MATRIX_T_H_

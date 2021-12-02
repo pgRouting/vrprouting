@@ -64,7 +64,7 @@ class Base_Matrix {
     Base_Matrix() = default;
     /** @brief Constructs a matrix for only specific identifiers */
     Base_Matrix(Matrix_cell_t *, size_t, const Identifiers<Id>&, Multiplier);
-    Base_Matrix(Matrix_cell_t *, size_t, const Identifiers<Id> &);
+    Base_Matrix(Vroom_matrix_t *, size_t, const Identifiers<Id> &);
     explicit Base_Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id> &, Multiplier);
 
     /** @name status of the matrix
@@ -73,7 +73,8 @@ class Base_Matrix {
     /** @brief does the matrix values not given by the user? */
     bool has_no_infinity() const;
 
-    vroom::Matrix<vroom::Cost> get_vroom_matrix() const;
+    vroom::Matrix<vroom::Duration> get_vroom_duration_matrix() const;
+    vroom::Matrix<vroom::Cost> get_vroom_cost_matrix() const;
 
     /** @brief does the matrix obeys the triangle inequality? */
     bool obeys_triangle_inequality() const;
@@ -120,6 +121,12 @@ class Base_Matrix {
      * m_time_matrix[i][j] i and j are index from the ids
      */
     std::vector<std::vector<TInterval>> m_time_matrix;
+
+    /** @brief the cost matrix for vroom
+     *
+     * m_cost_matrix[i][j] i and j are index from the ids
+     */
+    std::vector<std::vector<TravelCost>> m_cost_matrix;
 };
 
 }  // namespace base
