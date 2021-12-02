@@ -27,7 +27,7 @@ Status of the project can be found [here](https://github.com/pgRouting/vrproutin
 ## INTRODUCTION
 
 vrpRouting extends the pgRouting/PostGIS/PostgreSQL geospatial database to provide algorithms for Vehicle Routing Problems.
-It requires VROOM as a dependency for building and computing the VRP solution. This release is compatible with VROOM version 1.10.0
+It requires VROOM as a dependency for building and computing the VRP solution. This release is compatible with VROOM version 1.11.0
 
 This library is under development and currently contains the following functions:
 
@@ -48,7 +48,7 @@ Building requirements
 * The Boost Graph Library (BGL) >= 1.65
 * CMake >= 3.12
 * Sphinx > 4.0.0
-* VROOM >= 1.10.0
+* VROOM >= 1.11.0
 
 User's requirements
 --------------------
