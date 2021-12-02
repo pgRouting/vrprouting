@@ -142,7 +142,7 @@ Time Windows SQL
 Time Matrix SQL
 ...............................................................................
 
-.. include:: ../../src/common/matrixRows_input.c
+.. include:: ../../src/common/vroom/matrix_input.c
    :start-after: vrp_vroom start
    :end-before: vrp_vroom end
 
