@@ -420,8 +420,8 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
   ///@}
 
 
-  void add_matrix(vrprouting::base::Base_Matrix time_matrix) {
-    m_matrix = time_matrix;
+  void add_matrix(vrprouting::base::Base_Matrix matrix) {
+    m_matrix = matrix;
   }
 
   void get_amount(vroom::Amount vroom_amount, Amount **amount) {
@@ -508,8 +508,10 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
       for (const auto &shipment : m_shipments) {
         problem_instance.add_shipment(shipment.first, shipment.second);
       }
-      vroom::Matrix<vroom::Cost> matrix = m_matrix.get_vroom_matrix();
-      problem_instance.set_matrix(vroom::DEFAULT_PROFILE, std::move(matrix));
+      vroom::Matrix<vroom::Duration> duration_matrix = m_matrix.get_vroom_duration_matrix();
+      vroom::Matrix<vroom::Cost> cost_matrix = m_matrix.get_vroom_cost_matrix();
+      problem_instance.set_durations_matrix(vroom::DEFAULT_PROFILE, std::move(duration_matrix));
+      problem_instance.set_costs_matrix(vroom::DEFAULT_PROFILE, std::move(cost_matrix));
 
       auto solution = problem_instance.solve(5, 4);
       results = get_results(solution);
