@@ -40,8 +40,10 @@ name | description
 :----- | :-------
 id | Shipment identifier
 p_location_index | Pickup location index in matrix
+p_setup | Pickup setup time
 p_service | Pickup service time
 d_location_index | Delivery location index in matrix
+d_setup | Delivery setup time
 d_service | Delivery service time
 amount | Quantities for shipment
 amount_size | Number of quantities
@@ -54,10 +56,12 @@ struct Vroom_shipment_t {
 
   /** pickup shipment */
   MatrixIndex p_location_index; /** Pickup location index in matrix */
+  Duration p_setup; /** Pickup setup time */
   Duration p_service; /** Pickup service time */
 
   /** delivery shipment */
   MatrixIndex d_location_index; /** Delivery location index in matrix */
+  Duration d_setup; /** Delivery setup time */
   Duration d_service; /** Delivery service time */
 
   Amount *amount; /** Quantities for shipment */
