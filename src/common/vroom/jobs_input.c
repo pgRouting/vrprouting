@@ -36,7 +36,7 @@ A ``SELECT`` statement that returns the following columns:
 ::
 
     id, location_index
-    [, service, delivery, pickup, skills, priority]
+    [, setup, service, delivery, pickup, skills, priority]
 
 
 ====================  =========================  =========== ================================================
@@ -45,6 +45,10 @@ Column                Type                       Default     Description
 **id**                ``ANY-INTEGER``                        Non-negative unique identifier of the job.
 
 **location_index**    ``ANY-INTEGER``                        Non-negative identifier of the job location.
+
+**setup**             ``INTERVAL``               0           Job setup duration, in seconds
+
+                                                             - ``INTEGER`` for plain VROOM functions.
 
 **service**           ``INTERVAL``               0           Job service duration, in seconds
 
@@ -90,33 +94,35 @@ void fetch_jobs(
   job->location_index = get_MatrixIndex(tuple, tupdesc, info[1], 0);
 
   if (is_plain) {
-    job->service = get_Duration(tuple, tupdesc, info[2], 0);
+    job->setup = get_Duration(tuple, tupdesc, info[2], 0);
+    job->service = get_Duration(tuple, tupdesc, info[3], 0);
   } else {
-    job->service = (Duration)get_PositiveTInterval(tuple, tupdesc, info[2], 0);
+    job->setup = (Duration)get_PositiveTInterval(tuple, tupdesc, info[2], 0);
+    job->service = (Duration)get_PositiveTInterval(tuple, tupdesc, info[3], 0);
   }
 
   /*
    * The deliveries
    */
   job->delivery_size = 0;
-  job->delivery = column_found(info[3].colNumber) ?
-    spi_getPositiveBigIntArr_allowEmpty(tuple, tupdesc, info[3], &job->delivery_size)
+  job->delivery = column_found(info[4].colNumber) ?
+    spi_getPositiveBigIntArr_allowEmpty(tuple, tupdesc, info[4], &job->delivery_size)
     : NULL;
 
   /*
    * The pickups
    */
   job->pickup_size = 0;
-  job->pickup = column_found(info[4].colNumber) ?
-    spi_getPositiveBigIntArr_allowEmpty(tuple, tupdesc, info[4], &job->pickup_size)
+  job->pickup = column_found(info[5].colNumber) ?
+    spi_getPositiveBigIntArr_allowEmpty(tuple, tupdesc, info[5], &job->pickup_size)
     : NULL;
 
   job->skills_size = 0;
-  job->skills = column_found(info[5].colNumber) ?
-    spi_getPositiveIntArr_allowEmpty(tuple, tupdesc, info[5], &job->skills_size)
+  job->skills = column_found(info[6].colNumber) ?
+    spi_getPositiveIntArr_allowEmpty(tuple, tupdesc, info[6], &job->skills_size)
     : NULL;
 
-  job->priority = get_Priority(tuple, tupdesc, info[6], 0);
+  job->priority = get_Priority(tuple, tupdesc, info[7], 0);
 }
 
 
@@ -207,7 +213,7 @@ get_vroom_jobs(
     Vroom_job_t **rows,
     size_t *total_rows,
     bool is_plain) {
-  int kColumnCount = 7;
+  int kColumnCount = 8;
   Column_info_t info[kColumnCount];
 
   for (int i = 0; i < kColumnCount; ++i) {
@@ -219,20 +225,23 @@ get_vroom_jobs(
 
   info[0].name = "id";
   info[1].name = "location_index";
-  info[2].name = "service";
-  info[3].name = "delivery";
-  info[4].name = "pickup";
-  info[5].name = "skills";
-  info[6].name = "priority";
+  info[2].name = "setup";
+  info[3].name = "service";
+  info[4].name = "delivery";
+  info[5].name = "pickup";
+  info[6].name = "skills";
+  info[7].name = "priority";
 
-  info[2].eType = INTEGER;            // service
-  info[3].eType = ANY_INTEGER_ARRAY;  // delivery
-  info[4].eType = ANY_INTEGER_ARRAY;  // pickup
-  info[5].eType = INTEGER_ARRAY;      // skills
-  info[6].eType = INTEGER;            // priority
+  info[2].eType = INTEGER;            // setup
+  info[3].eType = INTEGER;            // service
+  info[4].eType = ANY_INTEGER_ARRAY;  // delivery
+  info[5].eType = ANY_INTEGER_ARRAY;  // pickup
+  info[6].eType = INTEGER_ARRAY;      // skills
+  info[7].eType = INTEGER;            // priority
 
   if (!is_plain) {
-    info[2].eType = INTERVAL;         // service
+    info[2].eType = INTERVAL;         // setup
+    info[3].eType = INTERVAL;         // service
   }
 
   /* Only id and location_index are mandatory */
