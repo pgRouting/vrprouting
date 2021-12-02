@@ -663,6 +663,30 @@ get_Duration(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Duration 
   return opt_value;
 }
 
+
+/**
+ * @params [in] tuple
+ * @params [in] tupdesc
+ * @params [in] info about the column been fetched
+ * @params [in] opt_value default value when the column does not exist
+ *
+ * @returns The value found
+ * @returns opt_value when the column does not exist
+ *
+ * exceptions when the value is negative
+ * @pre for non-negative values only
+ */
+TravelCost
+get_Cost(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, TravelCost opt_value) {
+  if (column_found(info.colNumber)) {
+    int32_t value = spi_getInt(tuple, tupdesc, info);
+    if (value < 0) elog(ERROR, "Unexpected Negative value in column %s", info.name);
+    return (TravelCost)value;
+  }
+  return opt_value;
+}
+
+
 /**
  * @params [in] tuple
  * @params [in] tupdesc
