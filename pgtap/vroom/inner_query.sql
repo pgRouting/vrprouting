@@ -1,7 +1,7 @@
 BEGIN;
 SET search_path TO 'vroom', 'public';
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (1099) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.2.0') THEN plan (1132) ELSE plan(1) END;
 
 /*
 SELECT * FROM vrp_vroomPlain(
@@ -12,7 +12,7 @@ SELECT * FROM vrp_vroomPlain(
   $$SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close FROM vehicles$$,
   $$SELECT id, vehicle_id, service FROM breaks$$,
   $$SELECT id, tw_open, tw_close FROM breaks_time_windows$$,
-  $$SELECT start_vid, end_vid, agg_cost FROM matrix$$
+  $$SELECT start_id, end_id, duration FROM matrix$$
 );
 */
 
@@ -224,11 +224,16 @@ RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   inner_query_table TEXT := 'matrix';
-  params TEXT[] := ARRAY['start_vid', 'end_vid', 'agg_cost'];
+  params TEXT[] := ARRAY['start_id', 'end_id', 'duration', 'cost'];
 BEGIN
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_vid');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_vid');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'agg_cost');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_id');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_id');
+  IF is_plain = TRUE THEN
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'duration');
+  ELSE
+    RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'duration');
+  END IF;
+  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'cost');
 END;
 $BODY$
 LANGUAGE plpgsql;
@@ -463,6 +468,7 @@ ALTER TABLE vroom.shipments_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USI
 ALTER TABLE vroom.shipments_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
 ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
 ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE vroom.matrix ALTER COLUMN duration TYPE INTERVAL USING make_interval(secs => duration);
 
 SELECT inner_query(is_plain => FALSE);
 

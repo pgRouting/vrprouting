@@ -41,7 +41,7 @@ BEGIN
   PREPARE empty_breaks_time_windows AS SELECT * FROM breaks_time_windows WHERE id = -1;
 
   PREPARE matrix AS SELECT * FROM matrix;
-  PREPARE empty_matrix AS SELECT * FROM matrix WHERE start_vid = -1;
+  PREPARE empty_matrix AS SELECT * FROM matrix WHERE start_id = -1;
 
   PREPARE vroom_sql AS
   SELECT * FROM vrp_vroomPlain(
@@ -254,7 +254,7 @@ BEGIN
     'vehicles',
     'breaks',
     'breaks_time_windows',
-    'SELECT * FROM matrix WHERE start_vid != 5 AND end_vid != 5'
+    'SELECT * FROM matrix WHERE start_id != 5 AND end_id != 5'
   );
   RETURN QUERY
   SELECT throws_ok(
@@ -273,7 +273,7 @@ BEGIN
     'vehicles',
     'breaks',
     'breaks_time_windows',
-    'SELECT * FROM matrix WHERE start_vid != end_vid'
+    'SELECT * FROM matrix WHERE start_id != end_id'
   );
   RETURN QUERY
   SELECT set_eq('missing_same_vid_on_matrix', 'vroom_sql', 'Cost between same vertex is always 0');
@@ -287,7 +287,7 @@ BEGIN
     'vehicles',
     'breaks',
     'breaks_time_windows',
-    'SELECT * FROM matrix WHERE start_vid < end_vid'
+    'SELECT * FROM matrix WHERE start_id < end_id'
   );
   RETURN QUERY
   SELECT set_eq('missing_reverse_cost_on_matrix', 'vroom_sql', 'Reverse cost is equal to the cost, if not specified');
@@ -626,17 +626,17 @@ BEGIN
   );
 
 
-  -- If speed_factor and agg_cost are multiplied by same number, result should be same
+  -- If speed_factor and duration are multiplied by same number, result should be same
 
   PREPARE vehicles_2x_speed AS
   SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, 2 * speed_factor AS speed_factor FROM vehicles;
   PREPARE matrix_2x_distance AS
-  SELECT start_vid, end_vid, 2 * agg_cost AS agg_cost FROM matrix;
+  SELECT start_id, end_id, 2 * duration AS duration FROM matrix;
 
   PREPARE vehicles_4x_speed AS
   SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, 4 * speed_factor AS speed_factor FROM vehicles;
   PREPARE matrix_4x_distance AS
-  SELECT start_vid, end_vid, 4 * agg_cost AS agg_cost FROM matrix;
+  SELECT start_id, end_id, 4 * duration AS duration FROM matrix;
 
   PREPARE vehicles_2x_speed_problem AS
   SELECT * FROM vrp_vroomPlain(

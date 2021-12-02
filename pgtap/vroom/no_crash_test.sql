@@ -169,6 +169,7 @@ ALTER TABLE vroom.shipments_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USI
 ALTER TABLE vroom.shipments_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
 ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
 ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE vroom.matrix ALTER COLUMN duration TYPE INTERVAL USING make_interval(secs => duration);
 
 SELECT * FROM no_crash(is_plain => FALSE);
 
