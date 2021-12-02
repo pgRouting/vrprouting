@@ -158,13 +158,14 @@ INSERT INTO vroom.breaks_time_windows (
 
 -- MATRIX TABLE start
 CREATE TABLE vroom.matrix (
-  start_vid BIGINT,
-  end_vid BIGINT,
-  agg_cost INTEGER
+  start_id BIGINT,
+  end_id BIGINT,
+  duration INTEGER,
+  cost INTEGER
 );
 
 INSERT INTO vroom.matrix (
-  start_vid, end_vid, agg_cost)
+  start_id, end_id, duration)
   VALUES
 (1, 1, 0), (1, 2, 50), (1, 3, 90), (1, 4, 75), (1, 5, 106), (1, 6, 127),
 (2, 1, 50), (2, 2, 0), (2, 3, 125), (2, 4, 90), (2, 5, 145), (2, 6, 127),
@@ -172,4 +173,6 @@ INSERT INTO vroom.matrix (
 (4, 1, 75), (4, 2, 90), (4, 3, 50), (4, 4, 0), (4, 5, 75), (4, 6, 55),
 (5, 1, 106), (5, 2, 145), (5, 3, 25), (5, 4, 75), (5, 5, 0), (5, 6, 111),
 (6, 1, 127), (6, 2, 127), (6, 3, 90), (6, 4, 55), (6, 5, 111), (6, 6, 0);
+
+UPDATE vroom.matrix SET cost = duration;
 -- MATRIX TABLE end
