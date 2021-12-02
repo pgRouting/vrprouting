@@ -178,7 +178,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
         get_vroom_time_windows(job_tws);
     vroom::Index location_index =
         static_cast<vroom::Index>(m_matrix.get_index(job.location_index));
-    return vroom::Job(job.id, location_index, job.service, delivery, pickup,
+    return vroom::Job(job.id, location_index, job.setup, job.service, delivery, pickup,
                       skills, job.priority, time_windows);
   }
 
@@ -240,12 +240,14 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
         m_matrix.get_index(shipment.p_location_index));
     vroom::Index d_location_index = static_cast<vroom::Index>(
         m_matrix.get_index(shipment.d_location_index));
-    vroom::Job pickup = vroom::Job(shipment.id, vroom::JOB_TYPE::PICKUP,
-                                   p_location_index, shipment.p_service, amount,
-                                   skills, shipment.priority, p_time_windows);
+    vroom::Job pickup = vroom::Job(
+        shipment.id, vroom::JOB_TYPE::PICKUP, p_location_index,
+        shipment.p_setup, shipment.p_service, amount,
+        skills, shipment.priority, p_time_windows);
     vroom::Job delivery = vroom::Job(
         shipment.id, vroom::JOB_TYPE::DELIVERY, d_location_index,
-        shipment.d_service, amount, skills, shipment.priority, d_time_windows);
+        shipment.d_setup, shipment.d_service, amount,
+        skills, shipment.priority, d_time_windows);
     return std::make_pair(pickup, delivery);
   }
 

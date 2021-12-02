@@ -40,6 +40,7 @@ name | description
 :----- | :-------
 id | The job's identifier
 location_index | Location index of job in matrix
+setup | Job setup duration
 service | Job service duration
 delivery | Quantities for delivery
 delivery_size | Number of delivery quantities
@@ -53,6 +54,7 @@ struct Vroom_job_t {
   Idx id; /** The job's identifier */
   MatrixIndex location_index; /** Location index of job in matrix */
 
+  Duration setup; /** Job setup duration */
   Duration service; /** Job service duration */
 
   Amount *delivery; /** Quantities for delivery */
