@@ -38,6 +38,7 @@ jobs:
              PROCESS=${{ true }}
            fi
            echo "PROCESS=${PROCESS}" >> $GITHUB_ENV
+           echo "VROOMVER=1.10.0" >> $GITHUB_ENV
 
       - name: Get postgres version
         if: env.PROCESS == 'true'
@@ -80,18 +81,28 @@ jobs:
         run: |
           sudo apt-get install libssl-dev libasio-dev libglpk-dev
 
-      - name: Build VROOM v1.10.0
+      - name: Cache VROOM
+        id: cache-vroom
+        uses: actions/cache@v2
+        env:
+          cache-name: vroom
+        with:
+          path: |
+            ~/vroom-${{ env.VROOMVER }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ env.VROOMVER }}
+
+      - name: Build VROOM
+        if: steps.cache-vroom.outputs.cache-hit != 'true'
         run: |
-          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v1.10.0.tar.gz
-          tar -zvxf v1.10.0.tar.gz
-          cd vroom-1.10.0/src
+          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v${{ env.VROOMVER }}.tar.gz -O /tmp/${{ env.VROOMVER }}.tar.gz
+          tar -zvxf /tmp/${{ env.VROOMVER }}.tar.gz -C ~/
+          cd ~/vroom-${{ env.VROOMVER }}/src
 
           # Create object file with position independent code using -fPIC flag
           sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
 
+          cd ~/vroom-${{ env.VROOMVER }}/src
           make
-          cd ..
-          echo "VROOM_INSTALL_PATH=$(pwd)" >> $GITHUB_ENV
 
       - name: Configure
         if: env.PROCESS == 'true'
@@ -102,7 +113,7 @@ jobs:
           cmake -DLINKCHECK=ON -DHTML=ON -DWITH_DOC=ON \
                 -DDE=ON -DES=ON -DFR=ON -DJA=ON -DIT=ON \
                 -DPOSTGRESQL_VERSION=${PGVER} -DCMAKE_BUILD_TYPE=Release \
-                -DVROOM_INSTALL_PATH=${VROOM_INSTALL_PATH} ..
+                -DVROOM_INSTALL_PATH=$HOME/vroom-${{ env.VROOMVER }} ..
 
       - name: Check Links
         if: env.PROCESS == 'true'
