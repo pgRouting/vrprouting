@@ -29,7 +29,7 @@ jobs:
           pgver=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d \()')
           echo "PGVER=${pgver}" >> $GITHUB_ENV
           echo "PGIS=3" >> $GITHUB_ENV
-          echo "VROOMVER=1.10.0" >> $GITHUB_ENV
+          echo "VROOMVER=1.11.0" >> $GITHUB_ENV
 
       - name: Add PostgreSQL APT repository
         run: |
