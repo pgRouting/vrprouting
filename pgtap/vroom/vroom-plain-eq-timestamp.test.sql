@@ -37,7 +37,7 @@ DECLARE
                    ', $$SELECT id, vehicle_id, make_interval(secs => service) AS service FROM breaks$$' ||
                    ', $$SELECT id, (to_timestamp(tw_open) at time zone ''UTC'')::TIMESTAMP AS tw_open' ||
                    ', (to_timestamp(tw_close) at time zone ''UTC'')::TIMESTAMP AS tw_close FROM breaks_time_windows$$, ' ||
-                   '$$SELECT * FROM matrix$$)';
+                   '$$SELECT start_id, end_id, make_interval(secs => duration) AS duration, cost FROM matrix$$)';
 
   returnPlain_sql TEXT := 'SELECT * FROM vrp_vroomPlain(';
   return_sql TEXT := 'SELECT seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id, ' ||
@@ -66,6 +66,8 @@ BEGIN
       jobsPlain_sql := jobsPlain || id_filter || jobsPlain_time_windows;
       shipmentsPlain_sql := shipmentsPlain || id_filter || shipmentsPlain_time_windows;
       vroomPlain_sql := returnPlain_sql || jobsPlain_sql || ', ' || shipmentsPlain_sql || restPlain_sql;
+      RAISE WARNING '%', vroom_sql;
+      RAISE WARNING '%', vroomPlain_sql;
       RETURN query SELECT set_eq(vroom_sql, vroomPlain_sql);
     END LOOP;
   END LOOP;
