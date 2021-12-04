@@ -2,7 +2,7 @@ BEGIN;
 SET search_path TO 'vroom', 'public';
 SET client_min_messages TO ERROR;
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (38) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.2.0') THEN plan (45) ELSE plan(1) END;
 
 CREATE OR REPLACE FUNCTION edge_cases()
 RETURNS SETOF TEXT AS
@@ -55,6 +55,40 @@ BEGIN
     'matrix'
   );
 
+  RETURN QUERY
+  SELECT set_eq('vroom_sql',
+    $$
+      VALUES
+      (1, 1, 1, 1, 1, -1, 300, 0, 0, 0, ARRAY[30]),
+      (2, 1, 1, 2, 5, 1, 300, 0, 0, 0, ARRAY[30]),
+      (3, 1, 1, 3, 2, 2, 350, 50, 250, 900, ARRAY[30]),
+      (4, 1, 1, 4, 3, 5, 1500, 50, 2250, 11850, ARRAY[40]),
+      (5, 1, 1, 5, 3, 3, 15650, 100, 2250, 0, ARRAY[60]),
+      (6, 1, 1, 6, 4, 5, 17950, 150, 2250, 225, ARRAY[50]),
+      (7, 1, 1, 7, 4, 3, 20425, 150, 2250, 200, ARRAY[30]),
+      (8, 1, 1, 8, 6, -1, 22925, 200, 0, 0, ARRAY[30]),
+      (9, 2, 2, 1, 1, -1, 275, 0, 0, 0, ARRAY[70]),
+      (10, 2, 2, 2, 5, 2, 275, 0, 10, 0, ARRAY[70]),
+      (11, 2, 2, 3, 2, 5, 360, 75, 250, 665, ARRAY[70]),
+      (12, 2, 2, 4, 2, 3, 1325, 125, 250, 1400, ARRAY[70]),
+      (13, 2, 2, 5, 2, 4, 2975, 125, 250, 550, ARRAY[70]),
+      (14, 2, 2, 6, 6, -1, 3775, 125, 0, 0, ARRAY[70]),
+      (15, 3, 3, 1, 1, -1, 0, 0, 0, 0, ARRAY[20]),
+      (16, 3, 3, 2, 5, 3, 0, 0, 0, 0, ARRAY[20]),
+      (17, 3, 3, 3, 2, 1, 0, 0, 250, 3625, ARRAY[20]),
+      (18, 3, 3, 4, 3, 4, 3875, 0, 2250, 2500, ARRAY[40]),
+      (19, 3, 3, 5, 4, 4, 8700, 75, 2250, 225, ARRAY[20]),
+      (20, 3, 3, 6, 6, -1, 11250, 150, 0, 0, ARRAY[20]),
+      (21, 4, 4, 1, 1, -1, 250, 0, 0, 0, ARRAY[0]),
+      (22, 4, 4, 2, 5, 4, 250, 0, 0, 0, ARRAY[0]),
+      (23, 4, 4, 3, 3, 2, 275, 25, 2250, 100, ARRAY[10]),
+      (24, 4, 4, 4, 3, 1, 2650, 50, 2250, 0, ARRAY[20]),
+      (25, 4, 4, 5, 4, 2, 4990, 140, 2250, 0, ARRAY[10]),
+      (26, 4, 4, 6, 4, 1, 7351, 251, 2250, 17574, ARRAY[0]),
+      (27, 4, 4, 7, 6, -1, 27200, 276, 0, 0, ARRAY[0])
+    $$,
+    'Query with the vroomdata'
+  );
 
   -- tests for no jobs/shipments, no vehicles, or no matrix
 
@@ -793,6 +827,162 @@ BEGIN
     $$,
     'Problem with one job and one shipment having id 2'
   );
+
+  PREPARE exploration_level_negative AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix',
+    exploration_level => -1::SMALLINT
+  );
+  RETURN QUERY
+  SELECT throws_ok(
+    'exploration_level_negative',
+    'P0001',
+    'Invalid value found on ''exploration_level''',
+    'Problem with negative exploration_level'
+  );
+
+  PREPARE exploration_level_greater_5 AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix',
+    exploration_level => 6::SMALLINT
+  );
+  RETURN QUERY
+  SELECT throws_ok(
+    'exploration_level_greater_5',
+    'P0001',
+    'Invalid value found on ''exploration_level''',
+    'Problem with exploration_level => 6'
+  );
+
+  PREPARE exploration_level_0 AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix',
+    exploration_level => 0::SMALLINT
+  );
+  RETURN QUERY
+  SELECT set_eq('exploration_level_0',
+    $$
+      VALUES
+      (1, 1, 1, 1, 1, -1, 300, 0, 0, 0, ARRAY[20]),
+      (2, 1, 1, 2, 5, 1, 300, 0, 0, 0, ARRAY[20]),
+      (3, 1, 1, 3, 2, 1, 300, 0, 250, 3325, ARRAY[20]),
+      (4, 1, 1, 4, 3, 4, 3875, 0, 2250, 2500, ARRAY[40]),
+      (5, 1, 1, 5, 4, 4, 8700, 75, 2250, 225, ARRAY[20]),
+      (6, 1, 1, 6, 3, 5, 11265, 165, 2250, 2085, ARRAY[30]),
+      (7, 1, 1, 7, 3, 3, 15650, 215, 2250, 0, ARRAY[50]),
+      (8, 1, 1, 8, 4, 5, 17950, 265, 2250, 225, ARRAY[40]),
+      (9, 1, 1, 9, 4, 3, 20425, 265, 2250, 200, ARRAY[20]),
+      (10, 1, 1, 10, 6, -1, 22925, 315, 0, 0, ARRAY[20]),
+      (11, 2, 2, 1, 1, -1, 275, 0, 0, 0, ARRAY[50]),
+      (12, 2, 2, 2, 5, 2, 275, 0, 10, 0, ARRAY[50]),
+      (13, 2, 2, 3, 2, 2, 335, 50, 250, 915, ARRAY[50]),
+      (14, 2, 2, 4, 2, 5, 1590, 140, 250, 0, ARRAY[50]),
+      (15, 2, 2, 5, 3, 1, 1890, 190, 2250, 0, ARRAY[60]),
+      (16, 2, 2, 6, 4, 1, 4165, 215, 2250, 20760, ARRAY[50]),
+      (17, 2, 2, 7, 6, -1, 27200, 240, 0, 0, ARRAY[50]),
+      (18, 3, 4, 1, 1, -1, 250, 0, 0, 0, ARRAY[50]),
+      (19, 3, 4, 2, 5, 4, 250, 0, 0, 0, ARRAY[50]),
+      (20, 3, 4, 3, 3, 2, 275, 25, 2250, 100, ARRAY[60]),
+      (21, 3, 4, 4, 2, 3, 2650, 50, 250, 75, ARRAY[60]),
+      (22, 3, 4, 5, 2, 4, 2975, 50, 250, 550, ARRAY[60]),
+      (23, 3, 4, 6, 4, 2, 3865, 140, 2250, 385, ARRAY[50]),
+      (24, 3, 4, 7, 6, -1, 6590, 230, 0, 0, ARRAY[50])
+    $$,
+    'Query with the vroomdata and exploration_level => 0'
+  );
+
+  PREPARE exploration_level_5 AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix',
+    exploration_level => 5::SMALLINT
+  );
+  RETURN QUERY
+  SELECT set_eq('exploration_level_5', 'vroom_sql', 'Problem with exploration_level => 5');
+
+
+  PREPARE timeout_0 AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix',
+    timeout => 0
+  );
+  RETURN QUERY
+  SELECT set_eq('timeout_0',
+    $$
+      VALUES
+      (1, 1, 1, 1, 1, -1, 300, 0, 0, 0, ARRAY[110]),
+      (2, 1, 1, 2, 5, 1, 300, 0, 0, 0, ARRAY[110]),
+      (3, 1, 1, 3, 2, 2, 350, 50, 250, 900, ARRAY[110]),
+      (4, 1, 1, 4, 2, 5, 1590, 140, 250, 0, ARRAY[110]),
+      (5, 1, 1, 5, 2, 4, 1890, 190, 250, 1635, ARRAY[110]),
+      (6, 1, 1, 6, 2, 1, 3865, 280, 250, 0, ARRAY[110]),
+      (7, 1, 1, 7, 6, -1, 4115, 280, 0, 0, ARRAY[110]),
+      (8, 2, 4, 1, 1, -1, 250, 0, 0, 0, ARRAY[10]),
+      (9, 2, 4, 2, 5, 4, 250, 0, 0, 0, ARRAY[10]),
+      (10, 2, 4, 3, 3, 2, 275, 25, 2250, 100, ARRAY[20]),
+      (11, 2, 4, 4, 2, 3, 2650, 50, 250, 75, ARRAY[20]),
+      (12, 2, 4, 5, 3, 1, 2975, 50, 2250, 0, ARRAY[30]),
+      (13, 2, 4, 6, 4, 2, 5315, 140, 2250, 0, ARRAY[20]),
+      (14, 2, 4, 7, 3, 4, 7692, 267, 2250, 0, ARRAY[40]),
+      (15, 2, 4, 8, 4, 4, 10017, 342, 2250, 0, ARRAY[20]),
+      (16, 2, 4, 9, 3, 5, 12357, 432, 2250, 993, ARRAY[30]),
+      (17, 2, 4, 10, 3, 3, 15650, 482, 2250, 0, ARRAY[50]),
+      (18, 2, 4, 11, 4, 5, 17950, 532, 2250, 225, ARRAY[40]),
+      (19, 2, 4, 12, 4, 3, 20425, 532, 2250, 200, ARRAY[20]),
+      (20, 2, 4, 13, 4, 1, 23020, 677, 2250, 1905, ARRAY[10]),
+      (21, 2, 4, 14, 6, -1, 27200, 702, 0, 0, ARRAY[10])
+    $$,
+    'Query with the vroomdata and timeout => 0'
+  );
+
+  PREPARE timeout_negative AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix',
+    timeout => -1
+  );
+  RETURN QUERY
+  SELECT set_eq('exploration_level_5', 'vroom_sql', 'Problem with timeout => -1');
 
 END;
 $BODY$

@@ -2,7 +2,7 @@ BEGIN;
 SET search_path TO 'vroom', 'public';
 SET client_min_messages TO ERROR;
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (92) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.2.0') THEN plan (116) ELSE plan(1) END;
 
 CREATE OR REPLACE FUNCTION no_crash(is_plain BOOLEAN)
 RETURNS SETOF TEXT AS
@@ -53,7 +53,9 @@ BEGIN
     '$$vehicles$$',
     '$$breaks$$',
     '$$breaks_time_windows$$',
-    '$$matrix$$'
+    '$$matrix$$',
+    'exploration_level => 5::SMALLINT',
+    'timeout => -1'
   ]::TEXT[];
   subs = ARRAY[
     'NULL',
@@ -63,7 +65,9 @@ BEGIN
     'NULL',
     'NULL',
     'NULL',
-    'NULL'
+    'NULL',
+    'exploration_level => NULL',
+    'timeout => NULL'
   ]::TEXT[];
   error_messages = ARRAY[
     '',
@@ -73,13 +77,17 @@ BEGIN
     'Vehicles SQL must not be NULL',
     '',
     '',
-    'Matrix SQL must not be NULL'
+    'Matrix SQL must not be NULL',
+    '',
+    ''
   ]::TEXT[];
-  non_empty_args = ARRAY[0, 1, 2, 3, 4, 6, 7]::INTEGER[];
+  non_empty_args = ARRAY[0, 1, 2, 3, 4, 6, 7, 9, 10]::INTEGER[];
 
   IF is_plain = TRUE THEN
+    params[10] = 'timeout => -1';
     RETURN query SELECT * FROM no_crash_test('vrp_vroomPlain', params, subs, error_messages, non_empty_args);
   ELSE
+    params[10] = 'timeout => $$-00:00:01$$::INTERVAL';
     RETURN query SELECT * FROM no_crash_test('vrp_vroom', params, subs, error_messages, non_empty_args);
   END IF;
 
@@ -89,7 +97,9 @@ BEGIN
     '$$vehicles$$',
     '$$breaks$$',
     '$$breaks_time_windows$$',
-    '$$matrix$$'
+    '$$matrix$$',
+    'exploration_level => 5::SMALLINT',
+    'timeout => -1'
   ]::TEXT[];
   subs = ARRAY[
     'NULL',
@@ -97,7 +107,9 @@ BEGIN
     'NULL',
     'NULL',
     'NULL',
-    'NULL'
+    'NULL',
+    'exploration_level => NULL',
+    'timeout => NULL'
   ]::TEXT[];
   error_messages = ARRAY[
     'Jobs SQL must not be NULL',
@@ -105,13 +117,17 @@ BEGIN
     'Vehicles SQL must not be NULL',
     '',
     '',
-    'Matrix SQL must not be NULL'
+    'Matrix SQL must not be NULL',
+    '',
+    ''
   ]::TEXT[];
-  non_empty_args = ARRAY[0, 2, 4, 5]::INTEGER[];
+  non_empty_args = ARRAY[0, 2, 4, 5, 7, 8]::INTEGER[];
 
   IF is_plain = TRUE THEN
+    params[8] = 'timeout => -1';
     RETURN query SELECT * FROM no_crash_test('vrp_vroomJobsPlain', params, subs, error_messages, non_empty_args);
   ELSE
+    params[8] = 'timeout => $$-00:00:01$$::INTERVAL';
     RETURN query SELECT * FROM no_crash_test('vrp_vroomJobs', params, subs, error_messages, non_empty_args);
   END IF;
 
@@ -121,7 +137,9 @@ BEGIN
     '$$vehicles$$',
     '$$breaks$$',
     '$$breaks_time_windows$$',
-    '$$matrix$$'
+    '$$matrix$$',
+    'exploration_level => 5::SMALLINT',
+    'timeout => -1'
   ]::TEXT[];
   subs = ARRAY[
     'NULL',
@@ -129,7 +147,9 @@ BEGIN
     'NULL',
     'NULL',
     'NULL',
-    'NULL'
+    'NULL',
+    'exploration_level => NULL',
+    'timeout => NULL'
   ]::TEXT[];
   error_messages = ARRAY[
     'Shipments SQL must not be NULL',
@@ -137,13 +157,17 @@ BEGIN
     'Vehicles SQL must not be NULL',
     '',
     '',
-    'Matrix SQL must not be NULL'
+    'Matrix SQL must not be NULL',
+    '',
+    ''
   ]::TEXT[];
-  non_empty_args = ARRAY[0, 2, 4, 5]::INTEGER[];
+  non_empty_args = ARRAY[0, 2, 4, 5, 7, 8]::INTEGER[];
 
   IF is_plain = TRUE THEN
+    params[8] = 'timeout => -1';
     RETURN query SELECT * FROM no_crash_test('vrp_vroomShipmentsPlain', params, subs, error_messages, non_empty_args);
   ELSE
+    params[8] = 'timeout => $$-00:00:01$$::INTERVAL';
     RETURN query SELECT * FROM no_crash_test('vrp_vroomShipments', params, subs, error_messages, non_empty_args);
   END IF;
 
