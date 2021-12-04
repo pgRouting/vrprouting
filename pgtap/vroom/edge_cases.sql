@@ -2,7 +2,7 @@ BEGIN;
 SET search_path TO 'vroom', 'public';
 SET client_min_messages TO ERROR;
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (50) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.2.0') THEN plan (54) ELSE plan(1) END;
 
 CREATE OR REPLACE FUNCTION edge_cases()
 RETURNS SETOF TEXT AS
@@ -1090,6 +1090,111 @@ BEGIN
 
   RETURN QUERY
   SELECT set_eq('empty_skills_2', 'vroom_sql', 'Test for empty skills array - 2');
+
+  PREPARE problem_negative_speed_factor AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, -1 AS speed_factor, max_tasks FROM vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix'
+  );
+  RETURN QUERY
+  SELECT throws_ok(
+    'problem_negative_speed_factor',
+    'XX000',
+    'Invalid speed_factor -1.000000',
+    'Problem with speed_factor as -1'
+  );
+
+  PREPARE problem_0_speed_factor AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, 0 AS speed_factor, max_tasks FROM vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix'
+  );
+  RETURN QUERY
+  SELECT throws_ok(
+    'problem_negative_speed_factor',
+    'XX000',
+    'Invalid speed_factor -1.000000',
+    'Problem with speed_factor as 0'
+  );
+
+  UPDATE vehicles SET speed_factor = 5.01 WHERE id = 4;
+  PREPARE problem_more_than_5times_speed_factor AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix'
+  );
+  RETURN QUERY
+  SELECT throws_ok(
+    'problem_more_than_5times_speed_factor',
+    'XX000',
+    'The speed_factor 5.01 is more than five times the speed factor 1',
+    'Problem with one speed factor more than five times the other'
+  );
+  UPDATE vehicles SET speed_factor = 1.0 WHERE id = 4;
+
+  PREPARE problem_speed_factor_5times_scaled AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, speed_factor * 5 AS speed_factor, max_tasks FROM vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix'
+  );
+  RETURN QUERY
+  SELECT set_eq('problem_speed_factor_5times_scaled',
+    $$
+      VALUES
+      (1, 1, 1, 1, 1, -1, 300, 0, 0, 0, ARRAY[30]),
+      (2, 1, 1, 2, 5, 1, 300, 0, 0, 0, ARRAY[30]),
+      (3, 1, 1, 3, 2, 2, 310, 10, 250, 940, ARRAY[30]),
+      (4, 1, 1, 4, 3, 5, 1500, 10, 2250, 11850, ARRAY[40]),
+      (5, 1, 1, 5, 3, 3, 15610, 20, 2250, 0, ARRAY[60]),
+      (6, 1, 1, 6, 4, 5, 17870, 30, 2250, 305, ARRAY[50]),
+      (7, 1, 1, 7, 4, 3, 20425, 30, 2250, 200, ARRAY[30]),
+      (8, 1, 1, 8, 6, -1, 22885, 40, 0, 0, ARRAY[30]),
+      (9, 2, 2, 1, 1, -1, 275, 0, 0, 0, ARRAY[70]),
+      (10, 2, 2, 2, 5, 2, 275, 0, 10, 0, ARRAY[70]),
+      (11, 2, 2, 3, 2, 5, 300, 15, 250, 725, ARRAY[70]),
+      (12, 2, 2, 4, 2, 3, 1285, 25, 250, 1440, ARRAY[70]),
+      (13, 2, 2, 5, 2, 4, 2975, 25, 250, 550, ARRAY[70]),
+      (14, 2, 2, 6, 6, -1, 3775, 25, 0, 0, ARRAY[70]),
+      (15, 3, 3, 1, 1, -1, 0, 0, 0, 0, ARRAY[20]),
+      (16, 3, 3, 2, 5, 3, 0, 0, 0, 0, ARRAY[20]),
+      (17, 3, 3, 3, 2, 1, 0, 0, 250, 3625, ARRAY[20]),
+      (18, 3, 3, 4, 3, 4, 3875, 0, 2250, 2500, ARRAY[40]),
+      (19, 3, 3, 5, 4, 4, 8640, 15, 2250, 285, ARRAY[20]),
+      (20, 3, 3, 6, 6, -1, 11190, 30, 0, 0, ARRAY[20]),
+      (21, 4, 4, 1, 1, -1, 250, 0, 0, 0, ARRAY[0]),
+      (22, 4, 4, 2, 5, 4, 250, 0, 0, 0, ARRAY[0]),
+      (23, 4, 4, 3, 3, 2, 255, 5, 2250, 120, ARRAY[10]),
+      (24, 4, 4, 4, 3, 1, 2630, 10, 2250, 0, ARRAY[20]),
+      (25, 4, 4, 5, 4, 2, 4898, 28, 2250, 0, ARRAY[10]),
+      (26, 4, 4, 6, 4, 1, 7170, 50, 2250, 17755, ARRAY[0]),
+      (27, 4, 4, 7, 6, -1, 27180, 55, 0, 0, ARRAY[0])
+    $$,
+    'Query with speed factor scaled five times'
+  );
 
 END;
 $BODY$
