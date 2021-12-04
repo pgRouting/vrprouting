@@ -46,6 +46,10 @@ extern "C" {
       Vroom_time_window_t *breaks_tws, size_t total_breaks_tws,
       Vroom_matrix_t *matrix_cells_arr, size_t total_cells,
 
+      int16_t exploration_level,
+      int32_t timeout,
+      int32_t loading_time,
+
       Vroom_rt **return_tuples,
       size_t *return_count,
 

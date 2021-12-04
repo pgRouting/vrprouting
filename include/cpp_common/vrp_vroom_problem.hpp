@@ -29,22 +29,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_CPP_COMMON_VRP_VROOM_PROBLEM_HPP_
 #pragma once
 
-#include <string>
-#include <vector>
 #include <map>
+#include <string>
 #include <unordered_set>
 #include <utility>
+#include <vector>
 
+#include "c_types/matrix_cell_t.h"
+#include "c_types/vroom/vroom_break_t.h"
 #include "c_types/vroom/vroom_job_t.h"
 #include "c_types/vroom/vroom_rt.h"
-#include "c_types/vroom/vroom_break_t.h"
 #include "c_types/vroom/vroom_shipment_t.h"
 #include "c_types/vroom/vroom_time_window_t.h"
 #include "c_types/vroom/vroom_vehicle_t.h"
-#include "c_types/matrix_cell_t.h"
-#include "cpp_common/pgr_messages.h"
 #include "cpp_common/base_matrix.h"
-
+#include "cpp_common/interruption.h"
+#include "cpp_common/pgr_messages.h"
 #include "structures/vroom/input/input.h"
 #include "structures/vroom/job.h"
 #include "structures/vroom/vehicle.h"
@@ -490,8 +490,12 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     return results;
   }
 
-  std::vector < Vroom_rt > solve() {
+  std::vector<Vroom_rt> solve(int16_t exploration_level, int32_t timeout,
+                              int32_t loading_time) {
     std::vector <Vroom_rt> results;
+
+    /* abort in case an interruption occurs (e.g. the query is being cancelled) */
+    CHECK_FOR_INTERRUPTS();
     try {
       const unsigned int amount_size =
           m_vehicles.size()
@@ -513,8 +517,15 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
       problem_instance.set_durations_matrix(vroom::DEFAULT_PROFILE, std::move(duration_matrix));
       problem_instance.set_costs_matrix(vroom::DEFAULT_PROFILE, std::move(cost_matrix));
 
-      auto solution = problem_instance.solve(5, 4);
-      results = get_results(solution);
+      int32_t threads = 4;
+      if (timeout < 0) {
+        auto solution = problem_instance.solve(exploration_level, threads);
+        results = get_results(solution);
+      } else {
+        int timeout_ms = (loading_time <= timeout * 1000) ? (timeout * 1000 - loading_time) : 0;
+        auto solution = problem_instance.solve(exploration_level, threads, timeout_ms);
+        results = get_results(solution);
+      }
     } catch (const vroom::Exception &ex) {
       throw;
     } catch (const std::exception &ex) {
