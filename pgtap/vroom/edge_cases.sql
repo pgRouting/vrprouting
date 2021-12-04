@@ -2,7 +2,7 @@ BEGIN;
 SET search_path TO 'vroom', 'public';
 SET client_min_messages TO ERROR;
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (48) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.2.0') THEN plan (50) ELSE plan(1) END;
 
 CREATE OR REPLACE FUNCTION edge_cases()
 RETURNS SETOF TEXT AS
@@ -1060,6 +1060,36 @@ BEGIN
     $$,
     'Query with max_tasks as 1'
   );
+
+  PREPARE empty_skills_1 AS
+  SELECT * FROM vrp_vroomPlain(
+    'SELECT id, location_index, service, delivery, pickup, ARRAY[]::INTEGER[] AS skills, priority FROM jobs',
+    'jobs_time_windows',
+    'SELECT id, p_location_index, p_service, d_location_index, d_service, amount, ARRAY[]::INTEGER[] AS skills, priority FROM shipments',
+    'shipments_time_windows',
+    'SELECT id, start_index, end_index, capacity, ARRAY[]::INTEGER[] AS skills, tw_open, tw_close, speed_factor, max_tasks FROM vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix'
+  );
+
+  RETURN QUERY
+  SELECT set_eq('empty_skills_1', 'vroom_sql', 'Test for empty skills array - 1');
+
+  PREPARE empty_skills_2 AS
+  SELECT * FROM vrp_vroomPlain(
+    'SELECT id, location_index, service, delivery, pickup, ARRAY[]::INTEGER[] AS skills, priority FROM jobs',
+    'jobs_time_windows',
+    'SELECT id, p_location_index, p_service, d_location_index, d_service, amount, ARRAY[]::INTEGER[] AS skills, priority FROM shipments',
+    'shipments_time_windows',
+    'vehicles',
+    'breaks',
+    'breaks_time_windows',
+    'matrix'
+  );
+
+  RETURN QUERY
+  SELECT set_eq('empty_skills_2', 'vroom_sql', 'Test for empty skills array - 2');
 
 END;
 $BODY$
