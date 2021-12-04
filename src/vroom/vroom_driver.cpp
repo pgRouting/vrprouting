@@ -54,19 +54,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * function `vrp_vroom` which calls the main function defined in the
  * C++ Header file. It also does exception handling.
  *
- * @param jobs          SQL query describing the jobs
- * @param jobs_tw_sql       SQL query describing the time window for jobs
- * @param shipments_sql     SQL query describing the shipments
- * @param shipments_tw_sql  SQL query describing the time windows for shipment
- * @param vehicles_sql      SQL query describing the vehicles
- * @param breaks_sql        SQL query describing the driver breaks.
- * @param breaks_tws_sql    SQL query describing the time windows for break start.
- * @param matrix_sql        SQL query describing the cells of the cost matrix
- * @param result_tuples     the rows in the result
- * @param result_count      the count of rows in the result
- * @param log_msg           stores the log message
- * @param notice_msg        stores the notice message
- * @param err_msg           stores the error message
+ * @param jobs                Pointer to the array of jobs
+ * @param total_jobs          The total number of jobs
+ * @param jobs_tws            Pointer to the array of jobs time windows
+ * @param total_jobs_tws      The total number of jobs time windows
+ * @param shipments           Pointer to the array of shipments
+ * @param total_shipments     The total number of shipments
+ * @param shipments_tws       Pointer to the array of shipments time windows
+ * @param total_shipments_tws The total number of shipments time windows
+ * @param vehicles            Pointer to the array of vehicles
+ * @param total_vehicles      The total number of total vehicles
+ * @param breaks              Pointer to the array of breaks
+ * @param total_breaks        The total number of total breaks
+ * @param matrix_rows         Pointer to the array of matrix rows
+ * @param total_matrix_rows   The total number of matrix rows
+ * @param exploration_level   Exploration level to use while solving.
+ * @param timeout             Timeout value to stop the solving process (seconds).
+ * @param loading_timeout     Additional time spent in loading the data from SQL Query (seconds).
+ * @param result_tuples       The rows in the result
+ * @param result_count        The count of rows in the result
+ * @param log_msg             Stores the log message
+ * @param notice_msg          Stores the notice message
+ * @param err_msg             Stores the error message
  *
  * @returns void
  */
@@ -80,6 +89,10 @@ do_vrp_vroom(
     Vroom_break_t *breaks, size_t total_breaks,
     Vroom_time_window_t *breaks_tws, size_t total_breaks_tws,
     Vroom_matrix_t *matrix_rows, size_t total_matrix_rows,
+
+    int16_t exploration_level,
+    int32_t timeout,
+    int32_t loading_time,
 
     Vroom_rt **return_tuples,
     size_t *return_count,
@@ -102,6 +115,8 @@ do_vrp_vroom(
     pgassert(total_jobs || total_shipments);
     pgassert(total_vehicles);
     pgassert(total_matrix_rows);
+
+    auto start_time = std::chrono::high_resolution_clock::now();
 
     Identifiers<Id> location_ids;
 
@@ -157,7 +172,12 @@ do_vrp_vroom(
     problem.add_shipments(shipments, total_shipments,
                           shipments_tws, total_shipments_tws);
 
-    std::vector < Vroom_rt > results = problem.solve();
+    auto end_time = std::chrono::high_resolution_clock::now();
+    loading_time += static_cast<int32_t>(
+        std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time)
+            .count());
+
+    std::vector < Vroom_rt > results = problem.solve(exploration_level, timeout, loading_time);
 
     auto count = results.size();
     if (count == 0) {

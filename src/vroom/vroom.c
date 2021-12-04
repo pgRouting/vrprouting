@@ -81,6 +81,8 @@ PG_FUNCTION_INFO_V1(_vrp_vroom);
  * @param breaks_sql        SQL query describing the driver breaks.
  * @param breaks_tws_sql    SQL query describing the time windows for break start.
  * @param matrix_sql        SQL query describing the cells of the cost matrix
+ * @param exploration_level Exploration level to use while solving.
+ * @param timeout           Timeout value to stop the solving process.
  * @param fn                Value denoting the function used.
  * @param is_plain          Value denoting whether the plain/timestamp function is used.
  * @param result_tuples     the rows in the result
@@ -99,11 +101,15 @@ process(
     char *breaks_sql,
     char *breaks_tws_sql,
     char *matrix_sql,
+
+    int16_t exploration_level,
+    int32_t timeout,
     int16_t fn,
     bool is_plain,
 
     Vroom_rt **result_tuples,
     size_t *result_count) {
+  clock_t start_loading = clock();
   pgr_SPI_connect();
 
   (*result_tuples) = NULL;
@@ -196,6 +202,8 @@ process(
   char *notice_msg = NULL;
   char *err_msg = NULL;
 
+  int32_t loading_time = (int)((clock() - start_loading) / CLOCKS_PER_SEC) * 1000;
+
   do_vrp_vroom(
     jobs, total_jobs,
     jobs_tws, total_jobs_tws,
@@ -205,6 +213,10 @@ process(
     breaks, total_breaks,
     breaks_tws, total_breaks_tws,
     matrix_rows, total_matrix_rows,
+
+    exploration_level,
+    timeout,
+    loading_time,
 
     result_tuples,
     result_count,
@@ -265,7 +277,10 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
      *     breaks_sql TEXT,
      *     breaks_time_windows_sql TEXT,
      *     matrix_sql TEXT,
-     *     fn SMALLINT
+     *     exploration_level SMALLINT default 5,
+     *     timeout INTEGER default -1,
+     *     fn SMALLINT,
+     *     is_plain BOOLEAN
      *   );
      *
      **********************************************************************/
@@ -279,8 +294,10 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
       }
     }
 
-    int16_t fn = PG_GETARG_INT16(8);
-    bool is_plain = PG_GETARG_BOOL(9);
+    int16_t exploration_level = PG_GETARG_INT16(8);
+    int32_t timeout = PG_GETARG_INT32(9);
+    int16_t fn = PG_GETARG_INT16(10);
+    bool is_plain = PG_GETARG_BOOL(11);
 
     // Verify that both jobs_sql and shipments_sql are not NULL
     if (args[0] == NULL && args[2] == NULL) {
@@ -310,6 +327,8 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
         args[5],
         args[6],
         args[7],
+        exploration_level,
+        timeout,
         fn,
         is_plain,
         &result_tuples,
