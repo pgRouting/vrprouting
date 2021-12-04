@@ -368,7 +368,8 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     }
     return vroom::Vehicle(vehicle.id, start_index, end_index,
                           vroom::DEFAULT_PROFILE, capacity, skills, time_window,
-                          v_breaks, "", vehicle.speed_factor, vehicle.max_tasks);
+                          v_breaks, "", vehicle.speed_factor,
+                          static_cast<size_t>(vehicle.max_tasks));
   }
 
   void problem_add_vehicle(
@@ -517,13 +518,15 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
       problem_instance.set_durations_matrix(vroom::DEFAULT_PROFILE, std::move(duration_matrix));
       problem_instance.set_costs_matrix(vroom::DEFAULT_PROFILE, std::move(cost_matrix));
 
-      int32_t threads = 4;
+      unsigned threads = 4;
       if (timeout < 0) {
-        auto solution = problem_instance.solve(exploration_level, threads);
+        auto solution = problem_instance.solve(
+            static_cast<unsigned>(exploration_level), threads);
         results = get_results(solution);
       } else {
         int timeout_ms = (loading_time <= timeout * 1000) ? (timeout * 1000 - loading_time) : 0;
-        auto solution = problem_instance.solve(exploration_level, threads, timeout_ms);
+        auto solution = problem_instance.solve(
+            static_cast<unsigned>(exploration_level), threads, timeout_ms);
         results = get_results(solution);
       }
     } catch (const vroom::Exception &ex) {
