@@ -108,17 +108,18 @@ CREATE TABLE vroom.vehicles (
   skills INTEGER[],
   tw_open INTEGER,
   tw_close INTEGER,
-  speed_factor FLOAT
+  speed_factor FLOAT,
+  max_tasks INTEGER
 );
 
 INSERT INTO vroom.vehicles (
   id, start_index, end_index, capacity, skills,
-  tw_open, tw_close, speed_factor)
+  tw_open, tw_close, speed_factor, max_tasks)
   VALUES
-(1, 1, 1, ARRAY[200], ARRAY[0], 0, 30900, 1.0),
-(2, 1, 3, ARRAY[200], ARRAY[0], 100, 30900, 1.0),
-(3, 1, 1, ARRAY[200], ARRAY[0], 0, 30900, 1.0),
-(4, 3, 3, ARRAY[200], ARRAY[0], 0, 30900, 1.0);
+(1, 1, 1, ARRAY[200], ARRAY[0], 0, 30900, 1.0, 20),
+(2, 1, 3, ARRAY[200], ARRAY[0], 100, 30900, 1.0, 20),
+(3, 1, 1, ARRAY[200], ARRAY[0], 0, 30900, 1.0, 20),
+(4, 3, 3, ARRAY[200], ARRAY[0], 0, 30900, 1.0, 20);
 -- VEHICLES TABLE end
 
 
