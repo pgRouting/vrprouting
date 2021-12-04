@@ -92,6 +92,12 @@ spi_getText(
     TupleDesc *tupdesc,
     Column_info_t info);
 
+/** @brief  gets the vehicle max tasks value */
+int32_t
+spi_getMaxTasks(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info);
 
 /** @name timestamp related
  * @{ */

@@ -368,7 +368,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     }
     return vroom::Vehicle(vehicle.id, start_index, end_index,
                           vroom::DEFAULT_PROFILE, capacity, skills, time_window,
-                          v_breaks, "", vehicle.speed_factor);
+                          v_breaks, "", vehicle.speed_factor, vehicle.max_tasks);
   }
 
   void problem_add_vehicle(
