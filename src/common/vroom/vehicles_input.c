@@ -36,38 +36,42 @@ A ``SELECT`` statement that returns the following columns:
 ::
 
     id, start_index, end_index
-    [, capacity, skills, tw_open, tw_close, speed_factor]
+    [, capacity, skills, tw_open, tw_close, speed_factor, max_tasks]
 
 
-======================  ================================= ================================================
-Column                  Type                              Description
-======================  ================================= ================================================
-**id**                  ``ANY-INTEGER``                    Non-negative unique identifier of the job.
+======================  ======================== =================== ================================================
+Column                  Type                     Default             Description
+======================  ======================== =================== ================================================
+**id**                  ``ANY-INTEGER``                              Non-negative unique identifier of the job.
 
-**start_index**         ``ANY-INTEGER``                    Non-negative identifier of the vehicle start location.
+**start_index**         ``ANY-INTEGER``                              Non-negative identifier of the vehicle start location.
 
-**end_index**           ``ANY-INTEGER``                    Non-negative identifier of the vehicle end location.
+**end_index**           ``ANY-INTEGER``                              Non-negative identifier of the vehicle end location.
 
-**capacity**            ``ARRAY[ANY-INTEGER]``             Array of non-negative integers describing
-                                                           multidimensional quantities such as
-                                                           number of items, weight, volume etc.
+**capacity**            ``ARRAY[ANY-INTEGER]``                       Array of non-negative integers describing
+                                                                     multidimensional quantities such as
+                                                                     number of items, weight, volume etc.
 
-                                                           - All vehicles must have the same value of
-                                                             :code:`array_length(capacity, 1)`
+                                                                     - All vehicles must have the same value of
+                                                                       :code:`array_length(capacity, 1)`
 
-**skills**              ``ARRAY[INTEGER]``                 Array of non-negative integers defining
-                                                           mandatory skills.
+**skills**              ``ARRAY[INTEGER]``                           Array of non-negative integers defining
+                                                                     mandatory skills.
 
-**tw_open**             ``TIMESTAMP``                      Time window opening time.
+**tw_open**             ``TIMESTAMP``                                Time window opening time.
 
-                                                           - ``INTEGER`` for plain VROOM functions.
+                                                                     - ``INTEGER`` for plain VROOM functions.
 
-**tw_close**            ``TIMESTAMP``                      Time window closing time.
+**tw_close**            ``TIMESTAMP``                                Time window closing time.
 
-                                                           - ``INTEGER`` for plain VROOM functions.
+                                                                     - ``INTEGER`` for plain VROOM functions.
 
-**speed_factor**        ``ANY-NUMERICAL``                  Vehicle travel time multiplier.
-======================  ================================= ================================================
+**speed_factor**        ``ANY-NUMERICAL``                            Vehicle travel time multiplier.
+
+**max_tasks**           ``INTEGER``              :math:`2147483647`  Maximum number of tasks in a route for the vehicle.
+
+                                                                     - A job, pickup, or delivery is counted as a single task.
+======================  ======================== =================== ================================================
 
 **Note**:
 
@@ -125,6 +129,10 @@ void fetch_vehicles(
   vehicle->speed_factor = column_found(info[7].colNumber) ?
     spi_getFloat8(tuple, tupdesc, info[7])
     : 1.0;
+
+  vehicle->max_tasks = column_found(info[8].colNumber)
+                           ? spi_getMaxTasks(tuple, tupdesc, info[8])
+                           : INT_MAX;  // 2147483647
 }
 
 
@@ -221,7 +229,7 @@ get_vroom_vehicles(
     Vroom_vehicle_t **rows,
     size_t *total_rows,
     bool is_plain) {
-  int kColumnCount = 8;
+  int kColumnCount = 9;
   Column_info_t info[kColumnCount];
 
   for (int i = 0; i < kColumnCount; ++i) {
@@ -239,12 +247,14 @@ get_vroom_vehicles(
   info[5].name = "tw_open";
   info[6].name = "tw_close";
   info[7].name = "speed_factor";
+  info[8].name = "max_tasks";
 
   info[3].eType = ANY_INTEGER_ARRAY;  // capacity
   info[4].eType = INTEGER_ARRAY;      // skills
   info[5].eType = INTEGER;            // tw_open
   info[6].eType = INTEGER;            // tw_close
   info[7].eType = ANY_NUMERICAL;      // speed_factor
+  info[8].eType = INTEGER;            // max_tasks
 
   if (!is_plain) {
     info[5].eType = TIMESTAMP;        // tw_open
