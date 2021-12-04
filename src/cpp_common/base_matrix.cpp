@@ -262,7 +262,7 @@ Base_Matrix::Base_Matrix(
  *
  */
 Base_Matrix::Base_Matrix(Vroom_matrix_t *matrix_rows, size_t total_matrix_rows,
-                         const Identifiers<Id> &location_ids) {
+                         const Identifiers<Id> &location_ids, double scaling_factor) {
   /*
    * Sets the selected nodes identifiers
    */
@@ -294,10 +294,10 @@ Base_Matrix::Base_Matrix(Vroom_matrix_t *matrix_rows, size_t total_matrix_rows,
     if (!(has_id(cell.start_id) && has_id(cell.end_id))) continue;
 
     /*
-     * Save the information
+     * Save the information. Scale the time matrix according to scaling_factor
      */
     m_time_matrix[get_index(cell.start_id)][get_index(cell.end_id)] =
-      static_cast<Duration>(cell.duration);
+      static_cast<Duration>(std::round(cell.duration / scaling_factor));
     m_cost_matrix[get_index(cell.start_id)][get_index(cell.end_id)] =
       static_cast<Duration>(cell.cost);
 

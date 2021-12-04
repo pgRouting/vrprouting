@@ -68,6 +68,9 @@ Column                  Type                     Default             Description
 
 **speed_factor**        ``ANY-NUMERICAL``                            Vehicle travel time multiplier.
 
+                                                                     - Max value of speed factor for a vehicle shall not be
+                                                                       greater than 5 times the speed factor of any other vehicle.
+
 **max_tasks**           ``INTEGER``              :math:`2147483647`  Maximum number of tasks in a route for the vehicle.
 
                                                                      - A job, pickup, or delivery is counted as a single task.
@@ -129,6 +132,11 @@ void fetch_vehicles(
   vehicle->speed_factor = column_found(info[7].colNumber) ?
     spi_getFloat8(tuple, tupdesc, info[7])
     : 1.0;
+
+  if (vehicle->speed_factor <= 0.0) {
+    ereport(ERROR, (errmsg("Invalid speed_factor %lf", vehicle->speed_factor),
+                    errhint("Speed factor must be greater than 0")));
+  }
 
   vehicle->max_tasks = column_found(info[8].colNumber)
                            ? spi_getMaxTasks(tuple, tupdesc, info[8])

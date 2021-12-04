@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <algorithm>
 #include <string>
 #include <limits>
+#include <cmath>
 
 #include "c_common/pgr_alloc.hpp"
 #include "cpp_common/pgr_assert.h"
@@ -129,7 +130,12 @@ do_vrp_vroom(
       location_ids += shipments[i].d_location_index;
     }
 
+    double min_speed_factor, max_speed_factor;
+    min_speed_factor = max_speed_factor = vehicles[0].speed_factor;
+
     for (size_t i = 0; i < total_vehicles; ++i) {
+      min_speed_factor = std::min(min_speed_factor, vehicles[i].speed_factor);
+      max_speed_factor = std::max(min_speed_factor, vehicles[i].speed_factor);
       if (vehicles[i].start_index != -1) {
         location_ids += vehicles[i].start_index;
       }
@@ -138,7 +144,31 @@ do_vrp_vroom(
       }
     }
 
-    vrprouting::base::Base_Matrix matrix(matrix_rows, total_matrix_rows, location_ids);
+    /*
+     * Verify that max value of speed factor is not greater
+     * than 5 times the speed factor of any other vehicle.
+     */
+    if (max_speed_factor > 5 * min_speed_factor) {
+      (*return_tuples) = NULL;
+      (*return_count) = 0;
+      err << "The speed_factor " << max_speed_factor << " is more than five times "
+             "the speed factor " << min_speed_factor;
+      *err_msg = pgr_msg(err.str());
+      return;
+    }
+
+    /*
+     * Scale the vehicles speed factors according to the minimum speed factor
+     */
+    for (size_t i = 0; i < total_vehicles; ++i) {
+      vehicles[i].speed_factor = std::round(vehicles[i].speed_factor / min_speed_factor);
+    }
+
+    /*
+     * Create the matrix. Also, scale the time matrix according to min_speed_factor
+     */
+    vrprouting::base::Base_Matrix matrix(matrix_rows, total_matrix_rows,
+                                         location_ids, min_speed_factor);
 
     /*
      * Verify matrix cells preconditions
