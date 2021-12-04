@@ -44,9 +44,19 @@ This function can be used to get the solution to a problem involving only jobs.
 Signature
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/vroom/vrp_vroomJobs.sql
+.. rubric:: Summary
+
+.. include:: ../sql/vroom/vrp_vroomJobsPlain.sql
    :start-after: signature start
    :end-before: signature end
+
+Optional parameters are `named parameters` and have a default value.
+
+.. rubric:: Using defaults
+
+.. include:: ../sql/vroom/vrp_vroomJobsPlain.sql
+   :start-after: default signature start
+   :end-before: default signature end
 
 **Example**: This example is based on the VROOM Data of the :doc:`sampledata` network:
 
@@ -60,6 +70,13 @@ Parameters
 .. include:: ../sql/vroom/vrp_vroomJobs.sql
    :start-after: parameters start
    :end-before: parameters end
+
+Optional Parameters
+...............................................................................
+
+.. include:: ../sql/vroom/vrp_vroomPlain.sql
+   :start-after: optional parameters start
+   :end-before: optional parameters end
 
 Inner Queries
 -------------------------------------------------------------------------------
