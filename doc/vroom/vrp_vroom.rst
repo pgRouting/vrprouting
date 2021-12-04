@@ -45,9 +45,19 @@ shipments.
 Signature
 -------------------------------------------------------------------------------
 
+.. rubric:: Summary
+
 .. include:: ../sql/vroom/vrp_vroom.sql
    :start-after: signature start
    :end-before: signature end
+
+Optional parameters are `named parameters` and have a default value.
+
+.. rubric:: Using defaults
+
+.. include:: ../sql/vroom/vrp_vroom.sql
+   :start-after: default signature start
+   :end-before: default signature end
 
 **Example**: This example is based on the modified VROOM Data of the :doc:`sampledata` network.
 The modification in the tables is mentioned at the end of the :doc:`sampledata`.
@@ -62,6 +72,13 @@ Parameters
 .. include:: ../sql/vroom/vrp_vroom.sql
    :start-after: parameters start
    :end-before: parameters end
+
+Optional Parameters
+...............................................................................
+
+.. include:: ../sql/vroom/vrp_vroom.sql
+   :start-after: optional parameters start
+   :end-before: optional parameters end
 
 Inner Queries
 -------------------------------------------------------------------------------
