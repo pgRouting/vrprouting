@@ -20,6 +20,9 @@ do
         # comparing within same mayors only
         if [ "$mayor1" != "$mayor2" ]; then continue; fi
 
+        # ignoring any signature changes made on v0
+        if [ "$mayor1" == 0 ]; then continue; fi
+
         missing+=$(diff "vrprouting--$s1.sig" "vrprouting--$s2.sig" | grep '<')
     done
 done
