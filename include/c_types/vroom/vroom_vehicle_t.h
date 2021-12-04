@@ -48,6 +48,7 @@ skills_size | Number of vehicle's skills
 time_window_start | Time window start time
 time_window_end | Time window end time
 speed_factor | Vehicle travel time multiplier
+max_tasks | Max number of tasks in a route for the vehicle
 */
 struct Vroom_vehicle_t {
   Idx id; /** The vehicle's identifier */
@@ -64,6 +65,8 @@ struct Vroom_vehicle_t {
   Duration time_window_end; /** Time window end time */
 
   double speed_factor; /** Vehicle travel time multiplier */
+
+  int32_t max_tasks; /** Max number of tasks in a route for the vehicle */
 };
 
 
