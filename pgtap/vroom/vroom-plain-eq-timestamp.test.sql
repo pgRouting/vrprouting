@@ -33,7 +33,7 @@ DECLARE
                          ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$, exploration_level => 5, timeout => -1)';
 
   rest_sql TEXT := ', $$SELECT id, start_index, end_index, capacity, skills, (to_timestamp(tw_open) at time zone ''UTC'')::TIMESTAMP AS tw_open' ||
-                   ', (to_timestamp(tw_close) at time zone ''UTC'')::TIMESTAMP AS tw_close, speed_factor FROM vehicles$$' ||
+                   ', (to_timestamp(tw_close) at time zone ''UTC'')::TIMESTAMP AS tw_close, speed_factor, max_tasks FROM vehicles$$' ||
                    ', $$SELECT id, vehicle_id, make_interval(secs => service) AS service FROM breaks$$' ||
                    ', $$SELECT id, (to_timestamp(tw_open) at time zone ''UTC'')::TIMESTAMP AS tw_open' ||
                    ', (to_timestamp(tw_close) at time zone ''UTC'')::TIMESTAMP AS tw_close FROM breaks_time_windows$$, ' ||

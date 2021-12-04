@@ -2,7 +2,7 @@ BEGIN;
 SET search_path TO 'vroom', 'public';
 SET client_min_messages TO ERROR;
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (45) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.2.0') THEN plan (48) ELSE plan(1) END;
 
 CREATE OR REPLACE FUNCTION edge_cases()
 RETURNS SETOF TEXT AS
@@ -983,6 +983,83 @@ BEGIN
   );
   RETURN QUERY
   SELECT set_eq('exploration_level_5', 'vroom_sql', 'Problem with timeout => -1');
+
+  PREPARE vehicles_negative_task AS
+  SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, speed_factor, -1 AS max_tasks FROM vehicles;
+
+  PREPARE vehicles_0_task AS
+  SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, speed_factor, 0 AS max_tasks FROM vehicles;
+
+  PREPARE vehicles_1_task AS
+  SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, speed_factor, 1 AS max_tasks FROM vehicles;
+
+  PREPARE problem_negative_tasks AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'vehicles_negative_task',
+    'breaks',
+    'breaks_time_windows',
+    'matrix'
+  );
+  RETURN QUERY
+  SELECT throws_ok(
+    'problem_negative_tasks',
+    'XX000',
+    'Invalid max_tasks value -1',
+    'Problem with max_tasks as -1'
+  );
+
+  PREPARE problem_0_tasks AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'vehicles_0_task',
+    'breaks',
+    'breaks_time_windows',
+    'matrix'
+  );
+  RETURN QUERY
+  SELECT is_empty('problem_0_tasks', 'Problem with max_tasks as 0');
+
+  PREPARE problem_1_task AS
+  SELECT * FROM vrp_vroomPlain(
+    'jobs',
+    'jobs_time_windows',
+    'shipments',
+    'shipments_time_windows',
+    'vehicles_1_task',
+    'breaks',
+    'breaks_time_windows',
+    'matrix'
+  );
+  RETURN QUERY
+  SELECT set_eq('problem_1_task',
+    $$
+      VALUES
+      (1, 1, 1, 1, 1, -1, 300, 0, 0, 0, ARRAY[30]),
+      (2, 1, 1, 2, 5, 1, 300, 0, 0, 0, ARRAY[30]),
+      (3, 1, 1, 3, 2, 2, 350, 50, 250, 900, ARRAY[30]),
+      (4, 1, 1, 4, 6, -1, 1550, 100, 0, 0, ARRAY[30]),
+      (5, 2, 2, 1, 1, -1, 275, 0, 0, 0, ARRAY[10]),
+      (6, 2, 2, 2, 5, 2, 275, 0, 10, 0, ARRAY[10]),
+      (7, 2, 2, 3, 2, 3, 375, 90, 250, 2350, ARRAY[10]),
+      (8, 2, 2, 4, 6, -1, 2975, 90, 0, 0, ARRAY[10]),
+      (9, 3, 3, 1, 1, -1, 0, 0, 0, 0, ARRAY[20]),
+      (10, 3, 3, 2, 5, 3, 0, 0, 0, 0, ARRAY[20]),
+      (11, 3, 3, 3, 2, 1, 0, 0, 250, 3625, ARRAY[20]),
+      (12, 3, 3, 4, 6, -1, 3875, 0, 0, 0, ARRAY[20]),
+      (13, 4, 4, 1, 1, -1, 250, 0, 0, 0, ARRAY[40]),
+      (14, 4, 4, 2, 5, 4, 250, 0, 0, 0, ARRAY[40]),
+      (15, 4, 4, 3, 2, 4, 250, 0, 250, 3275, ARRAY[40]),
+      (16, 4, 4, 4, 6, -1, 3775, 0, 0, 0, ARRAY[40])
+    $$,
+    'Query with max_tasks as 1'
+  );
 
 END;
 $BODY$

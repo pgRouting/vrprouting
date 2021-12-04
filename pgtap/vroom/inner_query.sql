@@ -1,7 +1,7 @@
 BEGIN;
 SET search_path TO 'vroom', 'public';
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (3396) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.2.0') THEN plan (3504) ELSE plan(1) END;
 
 /*
 SELECT * FROM vrp_vroomPlain(
@@ -199,7 +199,7 @@ RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   inner_query_table TEXT := 'vehicles';
-  params TEXT[] := ARRAY['id', 'start_index', 'end_index', 'capacity', 'skills', 'tw_open', 'tw_close', 'speed_factor'];
+  params TEXT[] := ARRAY['id', 'start_index', 'end_index', 'capacity', 'skills', 'tw_open', 'tw_close', 'speed_factor', 'max_tasks'];
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_index');
@@ -214,6 +214,7 @@ BEGIN
     RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
     RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
   END IF;
+  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'max_tasks');
 END;
 $BODY$
 LANGUAGE plpgsql;
