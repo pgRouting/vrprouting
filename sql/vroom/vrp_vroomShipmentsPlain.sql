@@ -26,6 +26,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
+/*
+signature start
+
+.. code-block:: none
+
+    vrp_vroomShipmentsPlain(
+      Shipments SQL, Shipments Time Windows SQL,
+      Vehicles SQL, Breaks SQL, Breaks Time Windows SQL,
+      Matrix SQL [, exploration_level] [, timeout])  -- Experimental on v0.2
+
+    RETURNS SET OF
+    (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
+     arrival, travel_time, service_time, waiting_time, load)
+
+signature end
+
+default signature start
+
+.. code-block:: none
+
+    vrp_vroomShipmentsPlain(
+      Shipments SQL, Shipments Time Windows SQL,
+      Vehicles SQL, Breaks SQL, Breaks Time Windows SQL,
+      Matrix SQL)
+
+    RETURNS SET OF
+    (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
+     arrival, travel_time, service_time, waiting_time, load)
+
+default signature end
+*/
 
 -- v0.2
 CREATE FUNCTION vrp_vroomShipmentsPlain(
@@ -35,6 +66,9 @@ CREATE FUNCTION vrp_vroomShipmentsPlain(
     TEXT,  -- breaks_sql (required)
     TEXT,  -- breaks_time_windows_sql (required)
     TEXT,  -- matrix_sql (required)
+
+    exploration_level SMALLINT DEFAULT 5,
+    timeout INTEGER DEFAULT -1,
 
     OUT seq BIGINT,
     OUT vehicle_seq BIGINT,
@@ -49,18 +83,27 @@ CREATE FUNCTION vrp_vroomShipmentsPlain(
     OUT load BIGINT[])
 RETURNS SETOF RECORD AS
 $BODY$
+BEGIN
+    IF exploration_level < 0 OR exploration_level > 5 THEN
+        RAISE EXCEPTION 'Invalid value found on ''exploration_level'''
+        USING HINT = format('Value found: %s. It must lie in the range 0 to 5 (inclusive)', exploration_level);
+    END IF;
+
+    RETURN QUERY
     SELECT *
     FROM _vrp_vroom(NULL, NULL, _pgr_get_statement($1),
                     _pgr_get_statement($2), _pgr_get_statement($3),
                     _pgr_get_statement($4), _pgr_get_statement($5),
-                    _pgr_get_statement($6), 2::SMALLINT, true);
+                    _pgr_get_statement($6), exploration_level,
+                    timeout, 2::SMALLINT, true);
+END;
 $BODY$
-LANGUAGE SQL VOLATILE;
+LANGUAGE plpgsql VOLATILE;
 
 
 -- COMMENTS
 
-COMMENT ON FUNCTION vrp_vroomShipmentsPlain(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT)
+COMMENT ON FUNCTION vrp_vroomShipmentsPlain(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, SMALLINT, INTEGER)
 IS 'vrp_vroomShipmentsPlain
  - EXPERIMENTAL
  - Parameters:
@@ -78,6 +121,9 @@ IS 'vrp_vroomShipmentsPlain
        id, tw_open, tw_close
    - Matrix SQL with columns:
        start_vid, end_vid, agg_cost
+- Optional parameters
+   - exploration_level := 5::SMALLINT
+   - timeout := -1
  - Documentation:
    - ${PROJECT_DOC_LINK}/vrp_vroomShipmentsPlain.html
 ';
