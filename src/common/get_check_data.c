@@ -308,6 +308,22 @@ spi_getChar(
   return value;
 }
 
+int32_t
+spi_getMaxTasks(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info) {
+  int32_t value = spi_getInt(tuple, tupdesc, info);
+  if (value < 0) {
+    ereport(
+        ERROR,
+        (errmsg("Invalid max_tasks value %d", value),
+         errhint(
+             "Maximum number of tasks must be greater than or equal to 0")));
+  }
+  return value;
+}
+
 int64_t*
 spi_getBigIntArr(
     HeapTuple *tuple,
