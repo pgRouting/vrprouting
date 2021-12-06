@@ -1,7 +1,7 @@
 BEGIN;
 SET search_path TO 'vroom', 'public';
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (3504) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.3.0') THEN plan (3504) ELSE plan(1) END;
 
 /*
 SELECT * FROM vrp_vroomPlain(
@@ -308,9 +308,9 @@ DECLARE
   inner_query_table TEXT;
 BEGIN
 
-  IF NOT min_version('0.2.0') THEN
+  IF NOT min_version('0.3.0') THEN
     RETURN QUERY
-    SELECT skip(1, 'Function is new on 0.2.0');
+    SELECT skip(1, 'Function is modified on 0.3.0');
     RETURN;
   END IF;
 
