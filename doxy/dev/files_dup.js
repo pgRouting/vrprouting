@@ -33,7 +33,7 @@ var files_dup =
     ] ],
     [ "initialsol/initials_code.h", "initialsol_2initials__code_8h.html", "initialsol_2initials__code_8h" ],
     [ "vrp/initials_code.h", "vrp_2initials__code_8h.html", "vrp_2initials__code_8h" ],
-    [ "interruption.h", "interruption_8h.html", null ],
+    [ "interruption.h", "interruption_8h.html", "interruption_8h" ],
     [ "jobs_input.c", "jobs__input_8c.html", "jobs__input_8c" ],
     [ "jobs_input.h", "jobs__input_8h.html", "jobs__input_8h" ],
     [ "matrix.cpp", "matrix_8cpp.html", "matrix_8cpp" ],
@@ -43,6 +43,8 @@ var files_dup =
     [ "matrix_cell_t.h", "matrix__cell__t_8h.html", [
       [ "Matrix_cell_t", "structMatrix__cell__t.html", "structMatrix__cell__t" ]
     ] ],
+    [ "matrix_input.c", "matrix__input_8c.html", "matrix__input_8c" ],
+    [ "matrix_input.h", "matrix__input_8h.html", "matrix__input_8h" ],
     [ "matrixRows_input.c", "matrixRows__input_8c.html", "matrixRows__input_8c" ],
     [ "matrixRows_input.h", "matrixRows__input_8h.html", "matrixRows__input_8h" ],
     [ "move.cpp", "move_8cpp.html", "move_8cpp" ],
@@ -158,6 +160,9 @@ var files_dup =
     [ "vroom_driver.h", "vroom__driver_8h.html", "vroom__driver_8h" ],
     [ "vroom_job_t.h", "vroom__job__t_8h.html", [
       [ "Vroom_job_t", "structVroom__job__t.html", "structVroom__job__t" ]
+    ] ],
+    [ "vroom_matrix_t.h", "vroom__matrix__t_8h.html", [
+      [ "Vroom_matrix_t", "structVroom__matrix__t.html", "structVroom__matrix__t" ]
     ] ],
     [ "vroom_rt.h", "vroom__rt_8h.html", [
       [ "Vroom_rt", "structVroom__rt.html", "structVroom__rt" ]

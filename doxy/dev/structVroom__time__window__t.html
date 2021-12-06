@@ -98,14 +98,14 @@ $(document).ready(function(){initNavTree('structVroom__time__window__t.html','')
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:abee03826b32298f17594599b71a8ab46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVroom__time__window__t.html#abee03826b32298f17594599b71a8ab46">end_time</a></td></tr>
-<tr class="separator:abee03826b32298f17594599b71a8ab46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b35cb0a33ab3502ed3911d3314106fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#ab012e5ea1f449a772e8895260286c491">Idx</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVroom__time__window__t.html#a1b35cb0a33ab3502ed3911d3314106fc">id</a></td></tr>
 <tr class="separator:a1b35cb0a33ab3502ed3911d3314106fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a8afe6b91f7744d72cca79accfed3b5"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVroom__time__window__t.html#a0a8afe6b91f7744d72cca79accfed3b5">kind</a></td></tr>
 <tr class="separator:a0a8afe6b91f7744d72cca79accfed3b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a300de6b2c4e8dd9620ebf8ceb352030f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVroom__time__window__t.html#a300de6b2c4e8dd9620ebf8ceb352030f">start_time</a></td></tr>
-<tr class="separator:a300de6b2c4e8dd9620ebf8ceb352030f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14a45a18e53abd19d4825c42431a7a1e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVroom__time__window__t.html#a14a45a18e53abd19d4825c42431a7a1e">tw_close</a></td></tr>
+<tr class="separator:a14a45a18e53abd19d4825c42431a7a1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a137c9b67669432bd38e6b47807b9cbea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVroom__time__window__t.html#a137c9b67669432bd38e6b47807b9cbea">tw_open</a></td></tr>
+<tr class="separator:a137c9b67669432bd38e6b47807b9cbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Time window's attributes. </p>
@@ -117,32 +117,14 @@ Public Attributes</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">kind </td><td class="markdownTableBodyLeft">Whether the shipment is a pickup ('p') or a delivery ('d')  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">start_time </td><td class="markdownTableBodyLeft">Time window start time  </td></tr>
+<td class="markdownTableBodyLeft">tw_open </td><td class="markdownTableBodyLeft">Time window opening time  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">end_time </td><td class="markdownTableBodyLeft">Time window end time  </td></tr>
+<td class="markdownTableBodyLeft">tw_close </td><td class="markdownTableBodyLeft">Time window closing time  </td></tr>
 </table>
 </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="vroom__time__window__t_8h_source.html#l00046">46</a> of file <a class="el" href="vroom__time__window__t_8h_source.html">vroom_time_window_t.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="abee03826b32298f17594599b71a8ab46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abee03826b32298f17594599b71a8ab46">&#9670;&nbsp;</a></span>end_time</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a> Vroom_time_window_t::end_time</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="vroom__time__window__t_8h_source.html#l00050">50</a> of file <a class="el" href="vroom__time__window__t_8h_source.html">vroom_time_window_t.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="time__windows__input_8c_source.html#l00074">fetch_time_windows()</a>, and <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00073">vrprouting::Vrp_vroom_problem::get_vroom_time_window()</a>.</p>
-
-</div>
-</div>
 <a id="a1b35cb0a33ab3502ed3911d3314106fc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1b35cb0a33ab3502ed3911d3314106fc">&#9670;&nbsp;</a></span>id</h2>
 
@@ -157,7 +139,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vroom__time__window__t_8h_source.html#l00047">47</a> of file <a class="el" href="vroom__time__window__t_8h_source.html">vroom_time_window_t.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="time__windows__input_8c_source.html#l00074">fetch_time_windows()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="time__windows__input_8c_source.html#l00071">fetch_time_windows()</a>.</p>
 
 </div>
 </div>
@@ -175,25 +157,43 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vroom__time__window__t_8h_source.html#l00048">48</a> of file <a class="el" href="vroom__time__window__t_8h_source.html">vroom_time_window_t.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="time__windows__input_8c_source.html#l00074">fetch_time_windows()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="time__windows__input_8c_source.html#l00071">fetch_time_windows()</a>.</p>
 
 </div>
 </div>
-<a id="a300de6b2c4e8dd9620ebf8ceb352030f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a300de6b2c4e8dd9620ebf8ceb352030f">&#9670;&nbsp;</a></span>start_time</h2>
+<a id="a14a45a18e53abd19d4825c42431a7a1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14a45a18e53abd19d4825c42431a7a1e">&#9670;&nbsp;</a></span>tw_close</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a> Vroom_time_window_t::start_time</td>
+          <td class="memname"><a class="el" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a> Vroom_time_window_t::tw_close</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vroom__time__window__t_8h_source.html#l00050">50</a> of file <a class="el" href="vroom__time__window__t_8h_source.html">vroom_time_window_t.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="time__windows__input_8c_source.html#l00071">fetch_time_windows()</a>, and <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00073">vrprouting::Vrp_vroom_problem::get_vroom_time_window()</a>.</p>
+
+</div>
+</div>
+<a id="a137c9b67669432bd38e6b47807b9cbea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a137c9b67669432bd38e6b47807b9cbea">&#9670;&nbsp;</a></span>tw_open</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a> Vroom_time_window_t::tw_open</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="vroom__time__window__t_8h_source.html#l00049">49</a> of file <a class="el" href="vroom__time__window__t_8h_source.html">vroom_time_window_t.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="time__windows__input_8c_source.html#l00074">fetch_time_windows()</a>, and <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00073">vrprouting::Vrp_vroom_problem::get_vroom_time_window()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="time__windows__input_8c_source.html#l00071">fetch_time_windows()</a>, and <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00073">vrprouting::Vrp_vroom_problem::get_vroom_time_window()</a>.</p>
 
 </div>
 </div>
@@ -206,7 +206,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structVroom__time__window__t.html">Vroom_time_window_t</a></li>
-    <li class="footer">Generated on Tue Nov 16 2021 07:56:33 for vrpRouting by
+    <li class="footer">Generated on Mon Dec 6 2021 20:38:53 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

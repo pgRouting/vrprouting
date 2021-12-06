@@ -14,6 +14,7 @@ var annotated_dup =
     [ "Vehicle_t", "structVehicle__t.html", "structVehicle__t" ],
     [ "Vroom_break_t", "structVroom__break__t.html", "structVroom__break__t" ],
     [ "Vroom_job_t", "structVroom__job__t.html", "structVroom__job__t" ],
+    [ "Vroom_matrix_t", "structVroom__matrix__t.html", "structVroom__matrix__t" ],
     [ "Vroom_rt", "structVroom__rt.html", "structVroom__rt" ],
     [ "Vroom_shipment_t", "structVroom__shipment__t.html", "structVroom__shipment__t" ],
     [ "Vroom_time_window_t", "structVroom__time__window__t.html", "structVroom__time__window__t" ],

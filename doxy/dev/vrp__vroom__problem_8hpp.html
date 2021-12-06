@@ -90,20 +90,21 @@ $(document).ready(function(){initNavTree('vrp__vroom__problem_8hpp.html',''); in
 <div class="title">vrp_vroom_problem.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
+<div class="textblock"><code>#include &lt;map&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;unordered_set&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="matrix__cell__t_8h_source.html">c_types/matrix_cell_t.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="vroom__break__t_8h_source.html">c_types/vroom/vroom_break_t.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vroom__job__t_8h_source.html">c_types/vroom/vroom_job_t.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vroom__rt_8h_source.html">c_types/vroom/vroom_rt.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="vroom__break__t_8h_source.html">c_types/vroom/vroom_break_t.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vroom__shipment__t_8h_source.html">c_types/vroom/vroom_shipment_t.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vroom__time__window__t_8h_source.html">c_types/vroom/vroom_time_window_t.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vroom__vehicle__t_8h_source.html">c_types/vroom/vroom_vehicle_t.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="matrix__cell__t_8h_source.html">c_types/matrix_cell_t.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="pgr__messages_8h_source.html">cpp_common/pgr_messages.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="base__matrix_8h_source.html">cpp_common/base_matrix.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="interruption_8h_source.html">cpp_common/interruption.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="pgr__messages_8h_source.html">cpp_common/pgr_messages.h</a>&quot;</code><br />
 <code>#include &quot;structures/vroom/input/input.h&quot;</code><br />
 <code>#include &quot;structures/vroom/job.h&quot;</code><br />
 <code>#include &quot;structures/vroom/vehicle.h&quot;</code><br />
@@ -112,24 +113,25 @@ Include dependency graph for vrp_vroom_problem.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="vrp__vroom__problem_8hpp__incl.png" border="0" usemap="#vrp__vroom__problem_8hpp" alt=""/></div>
 <map name="vrp__vroom__problem_8hpp" id="vrp__vroom__problem_8hpp">
-<area shape="rect" title=" " alt="" coords="1016,5,1197,32"/>
-<area shape="rect" title=" " alt="" coords="149,169,208,196"/>
-<area shape="rect" title=" " alt="" coords="289,169,351,196"/>
-<area shape="rect" title=" " alt="" coords="431,169,481,196"/>
-<area shape="rect" title=" " alt="" coords="683,87,797,114"/>
-<area shape="rect" title=" " alt="" coords="521,169,581,196"/>
-<area shape="rect" href="vroom__job__t_8h.html" title=" " alt="" coords="822,80,986,121"/>
-<area shape="rect" href="vroom__rt_8h.html" title=" " alt="" coords="1010,87,1203,114"/>
-<area shape="rect" href="vroom__break__t_8h.html" title=" " alt="" coords="1227,80,1391,121"/>
-<area shape="rect" href="vroom__shipment__t_8h.html" title=" " alt="" coords="1415,80,1579,121"/>
-<area shape="rect" href="vroom__time__window__t_8h.html" title=" " alt="" coords="1603,80,1767,121"/>
-<area shape="rect" href="vroom__vehicle__t_8h.html" title=" " alt="" coords="1791,80,1955,121"/>
-<area shape="rect" href="matrix__cell__t_8h.html" title=" " alt="" coords="1980,87,2153,114"/>
-<area shape="rect" href="pgr__messages_8h.html" title=" " alt="" coords="5,87,224,114"/>
-<area shape="rect" href="base__matrix_8h.html" title=" " alt="" coords="401,87,607,114"/>
-<area shape="rect" title=" " alt="" coords="2177,80,2348,121"/>
-<area shape="rect" title=" " alt="" coords="2373,87,2542,114"/>
-<area shape="rect" title=" " alt="" coords="2566,87,2762,114"/>
+<area shape="rect" title=" " alt="" coords="1076,5,1257,32"/>
+<area shape="rect" title=" " alt="" coords="13,169,64,196"/>
+<area shape="rect" title=" " alt="" coords="380,169,438,196"/>
+<area shape="rect" title=" " alt="" coords="654,87,769,114"/>
+<area shape="rect" title=" " alt="" coords="119,169,179,196"/>
+<area shape="rect" title=" " alt="" coords="256,169,319,196"/>
+<area shape="rect" href="matrix__cell__t_8h.html" title=" " alt="" coords="793,87,966,114"/>
+<area shape="rect" href="vroom__break__t_8h.html" title=" " alt="" coords="991,80,1155,121"/>
+<area shape="rect" href="vroom__job__t_8h.html" title=" " alt="" coords="1179,80,1343,121"/>
+<area shape="rect" href="vroom__rt_8h.html" title=" " alt="" coords="1367,87,1560,114"/>
+<area shape="rect" href="vroom__shipment__t_8h.html" title=" " alt="" coords="1584,80,1748,121"/>
+<area shape="rect" href="vroom__time__window__t_8h.html" title=" " alt="" coords="1772,80,1936,121"/>
+<area shape="rect" href="vroom__vehicle__t_8h.html" title=" " alt="" coords="1960,80,2124,121"/>
+<area shape="rect" href="base__matrix_8h.html" title=" " alt="" coords="28,87,235,114"/>
+<area shape="rect" href="interruption_8h.html" title=" " alt="" coords="2148,87,2350,114"/>
+<area shape="rect" href="pgr__messages_8h.html" title=" " alt="" coords="412,87,630,114"/>
+<area shape="rect" title=" " alt="" coords="2374,80,2545,121"/>
+<area shape="rect" title=" " alt="" coords="2570,87,2739,114"/>
+<area shape="rect" title=" " alt="" coords="2763,87,2959,114"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -160,7 +162,7 @@ Namespaces</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_f413d2883acb285bdeb0fac3ae939ed0.html">cpp_common</a></li><li class="navelem"><a class="el" href="vrp__vroom__problem_8hpp.html">vrp_vroom_problem.hpp</a></li>
-    <li class="footer">Generated on Tue Nov 16 2021 07:56:33 for vrpRouting by
+    <li class="footer">Generated on Mon Dec 6 2021 20:38:53 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,5 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title="STL class." alt="" coords="5,46,135,73"/>
-<area shape="rect" id="node2" href="$classvrprouting_1_1problem_1_1Fleet.html" title=" " alt="" coords="183,5,333,47"/>
-<area shape="rect" id="node3" href="$classvrprouting_1_1problem_1_1Orders.html" title=" " alt="" coords="183,71,333,112"/>
+<area shape="rect" id="node1" href="$classvrprouting_1_1Pgr__messages.html" title="Messages Handling." alt="" coords="5,13,196,39"/>
+<area shape="rect" id="node2" href="$classvrprouting_1_1Vrp__vroom__problem.html" title=" " alt="" coords="244,5,412,47"/>
 </map>

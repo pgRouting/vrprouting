@@ -114,13 +114,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0867db36ff3a3d6415a782f270ec477a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vroom__driver_8h.html#a0867db36ff3a3d6415a782f270ec477a">do_vrp_vroom</a> (<a class="el" href="structVroom__job__t.html">Vroom_job_t</a> *jobs, size_t total_jobs, <a class="el" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *jobs_tws, size_t total_jobs_tws, <a class="el" href="structVroom__shipment__t.html">Vroom_shipment_t</a> *shipments, size_t total_shipments, <a class="el" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *shipments_tws, size_t total_shipments_tws, <a class="el" href="structVroom__vehicle__t.html">Vroom_vehicle_t</a> *vehicles, size_t total_vehicles, <a class="el" href="structVroom__break__t.html">Vroom_break_t</a> *breaks, size_t total_breaks, <a class="el" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *breaks_tws, size_t total_breaks_tws, <a class="el" href="structMatrix__cell__t.html">Matrix_cell_t</a> *matrix_cells_arr, size_t total_cells, <a class="el" href="structVroom__rt.html">Vroom_rt</a> **return_tuples, size_t *return_count, char **log_msg, char **notice_msg, char **err_msg)</td></tr>
-<tr class="memdesc:a0867db36ff3a3d6415a782f270ec477a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs exception handling and converts the results to postgres.  <a href="vroom__driver_8h.html#a0867db36ff3a3d6415a782f270ec477a">More...</a><br /></td></tr>
-<tr class="separator:a0867db36ff3a3d6415a782f270ec477a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a9b69cc4dc9711d004a0c6ac9ab7569"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vroom__driver_8h.html#a9a9b69cc4dc9711d004a0c6ac9ab7569">do_vrp_vroom</a> (<a class="el" href="structVroom__job__t.html">Vroom_job_t</a> *jobs, size_t total_jobs, <a class="el" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *jobs_tws, size_t total_jobs_tws, <a class="el" href="structVroom__shipment__t.html">Vroom_shipment_t</a> *shipments, size_t total_shipments, <a class="el" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *shipments_tws, size_t total_shipments_tws, <a class="el" href="structVroom__vehicle__t.html">Vroom_vehicle_t</a> *vehicles, size_t total_vehicles, <a class="el" href="structVroom__break__t.html">Vroom_break_t</a> *breaks, size_t total_breaks, <a class="el" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *breaks_tws, size_t total_breaks_tws, <a class="el" href="structVroom__matrix__t.html">Vroom_matrix_t</a> *matrix_cells_arr, size_t total_cells, int32_t exploration_level, int32_t timeout, int32_t loading_time, <a class="el" href="structVroom__rt.html">Vroom_rt</a> **return_tuples, size_t *return_count, char **log_msg, char **notice_msg, char **err_msg)</td></tr>
+<tr class="memdesc:a9a9b69cc4dc9711d004a0c6ac9ab7569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs exception handling and converts the results to postgres.  <a href="vroom__driver_8h.html#a9a9b69cc4dc9711d004a0c6ac9ab7569">More...</a><br /></td></tr>
+<tr class="separator:a9a9b69cc4dc9711d004a0c6ac9ab7569"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a0867db36ff3a3d6415a782f270ec477a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0867db36ff3a3d6415a782f270ec477a">&#9670;&nbsp;</a></span>do_vrp_vroom()</h2>
+<a id="a9a9b69cc4dc9711d004a0c6ac9ab7569"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a9b69cc4dc9711d004a0c6ac9ab7569">&#9670;&nbsp;</a></span>do_vrp_vroom()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,14 +212,32 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structMatrix__cell__t.html">Matrix_cell_t</a> *&#160;</td>
-          <td class="paramname"><em>matrix_cells_arr</em>, </td>
+          <td class="paramtype"><a class="el" href="structVroom__matrix__t.html">Vroom_matrix_t</a> *&#160;</td>
+          <td class="paramname"><em>matrix_rows</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>total_cells</em>, </td>
+          <td class="paramname"><em>total_matrix_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>exploration_level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>timeout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>loading_time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -272,182 +290,228 @@ return_count is 0</dd></dl>
 <p>It converts the C types to the C++ types, and passes these variables to the function <code>vrp_vroom</code> which calls the main function defined in the C++ Header file. It also does exception handling.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jobs_sql</td><td>SQL query describing the jobs </td></tr>
-    <tr><td class="paramname">jobs_tw_sql</td><td>SQL query describing the time window for jobs </td></tr>
-    <tr><td class="paramname">shipments_sql</td><td>SQL query describing the shipments </td></tr>
-    <tr><td class="paramname">shipments_tw_sql</td><td>SQL query describing the time windows for shipment </td></tr>
-    <tr><td class="paramname">vehicles_sql</td><td>SQL query describing the vehicles </td></tr>
-    <tr><td class="paramname">breaks_sql</td><td>SQL query describing the driver breaks. </td></tr>
-    <tr><td class="paramname">breaks_tws_sql</td><td>SQL query describing the time windows for break start. </td></tr>
-    <tr><td class="paramname">matrix_sql</td><td>SQL query describing the cells of the cost matrix </td></tr>
-    <tr><td class="paramname">result_tuples</td><td>the rows in the result </td></tr>
-    <tr><td class="paramname">result_count</td><td>the count of rows in the result </td></tr>
-    <tr><td class="paramname">log_msg</td><td>stores the log message </td></tr>
-    <tr><td class="paramname">notice_msg</td><td>stores the notice message </td></tr>
-    <tr><td class="paramname">err_msg</td><td>stores the error message</td></tr>
+    <tr><td class="paramname">jobs</td><td>Pointer to the array of jobs </td></tr>
+    <tr><td class="paramname">total_jobs</td><td>The total number of jobs </td></tr>
+    <tr><td class="paramname">jobs_tws</td><td>Pointer to the array of jobs time windows </td></tr>
+    <tr><td class="paramname">total_jobs_tws</td><td>The total number of jobs time windows </td></tr>
+    <tr><td class="paramname">shipments</td><td>Pointer to the array of shipments </td></tr>
+    <tr><td class="paramname">total_shipments</td><td>The total number of shipments </td></tr>
+    <tr><td class="paramname">shipments_tws</td><td>Pointer to the array of shipments time windows </td></tr>
+    <tr><td class="paramname">total_shipments_tws</td><td>The total number of shipments time windows </td></tr>
+    <tr><td class="paramname">vehicles</td><td>Pointer to the array of vehicles </td></tr>
+    <tr><td class="paramname">total_vehicles</td><td>The total number of total vehicles </td></tr>
+    <tr><td class="paramname">breaks</td><td>Pointer to the array of breaks </td></tr>
+    <tr><td class="paramname">total_breaks</td><td>The total number of total breaks </td></tr>
+    <tr><td class="paramname">matrix_rows</td><td>Pointer to the array of matrix rows </td></tr>
+    <tr><td class="paramname">total_matrix_rows</td><td>The total number of matrix rows </td></tr>
+    <tr><td class="paramname">exploration_level</td><td>Exploration level to use while solving. </td></tr>
+    <tr><td class="paramname">timeout</td><td>Timeout value to stop the solving process (seconds). </td></tr>
+    <tr><td class="paramname">loading_timeout</td><td>Additional time spent in loading the data from SQL Query (seconds). </td></tr>
+    <tr><td class="paramname">result_tuples</td><td>The rows in the result </td></tr>
+    <tr><td class="paramname">result_count</td><td>The count of rows in the result </td></tr>
+    <tr><td class="paramname">log_msg</td><td>Stores the log message </td></tr>
+    <tr><td class="paramname">notice_msg</td><td>Stores the notice message </td></tr>
+    <tr><td class="paramname">err_msg</td><td>Stores the error message</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="vroom__driver_8cpp_source.html#l00074">74</a> of file <a class="el" href="vroom__driver_8cpp_source.html">vroom_driver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                     {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  std::ostringstream log;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  std::ostringstream err;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  std::ostringstream notice;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(!(*log_msg));</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(!(*notice_msg));</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(!(*err_msg));</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(!(*return_tuples));</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(!(*return_count));</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(jobs || shipments);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(vehicles);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(matrix_cells_arr);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(total_jobs || total_shipments);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(total_vehicles);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(total_cells);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="classIdentifiers.html">Identifiers&lt;Id&gt;</a> location_ids;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; total_jobs; ++i) {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      location_ids += jobs[i].<a class="code" href="structVroom__job__t.html#a9783bb6f52cdabf8df8b4c67ff8751ed">location_index</a>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; total_shipments; ++i) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      location_ids += shipments[i].<a class="code" href="structVroom__shipment__t.html#a54d45169700fdccac1e68488e1e4baf6">p_location_index</a>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      location_ids += shipments[i].<a class="code" href="structVroom__shipment__t.html#aec59fcccf1da54d379a112c9deecdc3b">d_location_index</a>;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; total_vehicles; ++i) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keywordflow">if</span> (vehicles[i].start_index != -1) {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        location_ids += vehicles[i].<a class="code" href="structVroom__vehicle__t.html#a1430096a6f530ade71cd39ce882e7293">start_index</a>;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      <span class="keywordflow">if</span> (vehicles[i].end_index != -1) {</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        location_ids += vehicles[i].<a class="code" href="structVroom__vehicle__t.html#abb5da014e4cccd9a8175563ff49e4fd2">end_index</a>;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;      }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="classvrprouting_1_1base_1_1Base__Matrix.html">vrprouting::base::Base_Matrix</a> time_matrix(matrix_cells_arr, total_cells, location_ids);</div>
+<p class="definition">Definition at line <a class="el" href="vroom__driver_8cpp_source.html#l00084">84</a> of file <a class="el" href="vroom__driver_8cpp_source.html">vroom_driver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                     {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  std::ostringstream log;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  std::ostringstream err;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  std::ostringstream notice;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(!(*log_msg));</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(!(*notice_msg));</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(!(*err_msg));</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(!(*return_tuples));</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(!(*return_count));</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(jobs || shipments);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(vehicles);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(matrix_rows);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(total_jobs || total_shipments);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(total_vehicles);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(total_matrix_rows);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">auto</span> start_time = std::chrono::high_resolution_clock::now();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="classIdentifiers.html">Identifiers&lt;Id&gt;</a> location_ids;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; total_jobs; ++i) {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      location_ids += jobs[i].<a class="code" href="structVroom__job__t.html#aa38a2299834fbdf1362be5c94ef84b8c">location_id</a>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">     * Verify matrix cells preconditions</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">if</span> (!time_matrix.has_no_infinity()) {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;      (*return_tuples) = NULL;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;      (*return_count) = 0;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;      err &lt;&lt; <span class="stringliteral">&quot;An Infinity value was found on the Matrix. Might be missing information of a node&quot;</span>;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;      *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str());</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">     * Verify size of matrix cell lies in the limit</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">if</span> (time_matrix.size() &gt; (std::numeric_limits&lt;vroom::Index&gt;::max)()) {</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;      (*return_tuples) = NULL;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;      (*return_count) = 0;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;      err &lt;&lt; <span class="stringliteral">&quot;The size of time matrix exceeds the limit&quot;</span>;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;      *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str());</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html">vrprouting::Vrp_vroom_problem</a> problem;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    problem.<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a58e0be8eb804ff3c2613f4d03950a192">add_matrix</a>(time_matrix);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    problem.<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a538c3bac7fd68031ad1688681a7c79a0">add_vehicles</a>(vehicles, total_vehicles,</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                         breaks, total_breaks,</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                         breaks_tws, total_breaks_tws);</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    problem.<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a82cf60b99ce4643e4d8623ace3e939cb">add_jobs</a>(jobs, total_jobs,</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                     jobs_tws, total_jobs_tws);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    problem.<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#aa8a6fe81dcebb174e548c001a5f063dc">add_shipments</a>(shipments, total_shipments,</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                          shipments_tws, total_shipments_tws);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; total_shipments; ++i) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;      location_ids += shipments[i].<a class="code" href="structVroom__shipment__t.html#a94b3002c98f67cb37e746aeb6005d066">p_location_id</a>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;      location_ids += shipments[i].<a class="code" href="structVroom__shipment__t.html#aac449b0a6d10800a5ab9952ab9a4649d">d_location_id</a>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">double</span> min_speed_factor, max_speed_factor;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    min_speed_factor = max_speed_factor = vehicles[0].<a class="code" href="structVroom__vehicle__t.html#ab157c264ecb220e3720c2ce840842aee">speed_factor</a>;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; total_vehicles; ++i) {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      min_speed_factor = std::min(min_speed_factor, vehicles[i].speed_factor);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      max_speed_factor = std::max(min_speed_factor, vehicles[i].speed_factor);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;      <span class="keywordflow">if</span> (vehicles[i].start_id != -1) {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        location_ids += vehicles[i].<a class="code" href="structVroom__vehicle__t.html#a089e53be721489464398bb27c0c64a6f">start_id</a>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;      }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;      <span class="keywordflow">if</span> (vehicles[i].end_id != -1) {</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        location_ids += vehicles[i].<a class="code" href="structVroom__vehicle__t.html#a9eb25741ba4fab0efb8dd3aa62235f0e">end_id</a>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;      }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">     * Verify that max value of speed factor is not greater</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">     * than 5 times the speed factor of any other vehicle.</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">if</span> (max_speed_factor &gt; 5 * min_speed_factor) {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;      (*return_tuples) = NULL;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;      (*return_count) = 0;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;      err &lt;&lt; <span class="stringliteral">&quot;The speed_factor &quot;</span> &lt;&lt; max_speed_factor &lt;&lt; <span class="stringliteral">&quot; is more than five times &quot;</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;             <span class="stringliteral">&quot;the speed factor &quot;</span> &lt;&lt; min_speed_factor;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;      *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str());</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    std::vector &lt; Vroom_rt &gt; results = problem.<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a6ed0f80da691ed44b129992b4135e5b8">solve</a>();</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keyword">auto</span> count = results.size();</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordflow">if</span> (count == 0) {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;      (*return_tuples) = NULL;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;      (*return_count) = 0;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      notice &lt;&lt; <span class="stringliteral">&quot;No results found&quot;</span>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;      *notice_msg = notice.str().empty()?</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        *notice_msg :</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(notice.str().c_str());</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    }</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">     * Scale the vehicles speed factors according to the minimum speed factor</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; total_vehicles; ++i) {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;      vehicles[i].<a class="code" href="structVroom__vehicle__t.html#ab157c264ecb220e3720c2ce840842aee">speed_factor</a> = std::round(vehicles[i].speed_factor / min_speed_factor);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment">     * Create the matrix. Also, scale the time matrix according to min_speed_factor</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <a class="code" href="classvrprouting_1_1base_1_1Base__Matrix.html">vrprouting::base::Base_Matrix</a> matrix(matrix_rows, total_matrix_rows,</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                                         location_ids, min_speed_factor);</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    (*return_tuples) = <a class="code" href="pgr__alloc_8hpp.html#ac9d34b4a4d403ed9f24050b973087a9c">pgr_alloc</a>(count, (*return_tuples));</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; count; i++) {</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;      *((*return_tuples) + i) = results[i];</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    }</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    (*return_count) = count;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(*err_msg == NULL);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    *log_msg = log.str().empty()?</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;      *log_msg :</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;      <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(log.str().c_str());</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    *notice_msg = notice.str().empty()?</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;      *notice_msg :</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;      <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(notice.str().c_str());</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  } <span class="keywordflow">catch</span> (<a class="code" href="classAssertFailedException.html">AssertFailedException</a> &amp;except) {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    (*return_tuples) = <a class="code" href="pgr__alloc_8hpp.html#aae87e343d8516ca2c6a60dcfbbf7fde6">pgr_free</a>(*return_tuples);</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    (*return_count) = 0;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    err &lt;&lt; except.<a class="code" href="classAssertFailedException.html#a7f00e7275e82f7b6bafec6339a27bc88">what</a>();</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str().c_str());</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    *log_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(log.str().c_str());</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  } <span class="keywordflow">catch</span> (<span class="keyword">const</span> vroom::Exception &amp;except) {</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    (*return_tuples) = <a class="code" href="pgr__alloc_8hpp.html#aae87e343d8516ca2c6a60dcfbbf7fde6">pgr_free</a>(*return_tuples);</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    (*return_count) = 0;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    err &lt;&lt; except.message;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str().c_str());</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    *log_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(log.str().c_str());</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  } <span class="keywordflow">catch</span> (std::exception &amp;except) {</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    (*return_tuples) = <a class="code" href="pgr__alloc_8hpp.html#aae87e343d8516ca2c6a60dcfbbf7fde6">pgr_free</a>(*return_tuples);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    (*return_count) = 0;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    err &lt;&lt; except.what();</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str().c_str());</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    *log_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(log.str().c_str());</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  } <span class="keywordflow">catch</span>(...) {</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    (*return_tuples) = <a class="code" href="pgr__alloc_8hpp.html#aae87e343d8516ca2c6a60dcfbbf7fde6">pgr_free</a>(*return_tuples);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    (*return_count) = 0;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    err &lt;&lt; <span class="stringliteral">&quot;Caught unknown exception!&quot;</span>;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str().c_str());</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    *log_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(log.str().c_str());</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  }</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;}</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">     * Verify matrix cells preconditions</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordflow">if</span> (!matrix.has_no_infinity()) {</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;      (*return_tuples) = NULL;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;      (*return_count) = 0;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;      err &lt;&lt; <span class="stringliteral">&quot;An Infinity value was found on the Matrix. Might be missing information of a node&quot;</span>;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;      *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str());</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;      <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    }</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="comment">     * Verify size of matrix cell lies in the limit</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordflow">if</span> (matrix.size() &gt; (std::numeric_limits&lt;vroom::Index&gt;::max)()) {</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;      (*return_tuples) = NULL;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;      (*return_count) = 0;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;      err &lt;&lt; <span class="stringliteral">&quot;The size of time matrix exceeds the limit&quot;</span>;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;      *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str());</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;      <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    }</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html">vrprouting::Vrp_vroom_problem</a> problem;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    problem.<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a5741dfee29ed586190185658a069a5a2">add_matrix</a>(matrix);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    problem.<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a538c3bac7fd68031ad1688681a7c79a0">add_vehicles</a>(vehicles, total_vehicles,</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                         breaks, total_breaks,</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                         breaks_tws, total_breaks_tws);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    problem.<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a82cf60b99ce4643e4d8623ace3e939cb">add_jobs</a>(jobs, total_jobs,</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                     jobs_tws, total_jobs_tws);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    problem.<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#aa8a6fe81dcebb174e548c001a5f063dc">add_shipments</a>(shipments, total_shipments,</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                          shipments_tws, total_shipments_tws);</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keyword">auto</span> end_time = std::chrono::high_resolution_clock::now();</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    loading_time += <span class="keyword">static_cast&lt;</span>int32_t<span class="keyword">&gt;</span>(</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(end_time - start_time)</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            .count());</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    std::vector &lt; Vroom_rt &gt; results = problem.<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a6d09ec26861e6f120e01f1768f8b33da">solve</a>(exploration_level, timeout, loading_time);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keyword">auto</span> count = results.size();</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordflow">if</span> (count == 0) {</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;      (*return_tuples) = NULL;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;      (*return_count) = 0;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;      notice &lt;&lt; <span class="stringliteral">&quot;No results found&quot;</span>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;      *notice_msg = notice.str().empty()?</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        *notice_msg :</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(notice.str().c_str());</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;      <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    }</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    (*return_tuples) = <a class="code" href="pgr__alloc_8hpp.html#ac9d34b4a4d403ed9f24050b973087a9c">pgr_alloc</a>(count, (*return_tuples));</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; count; i++) {</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;      *((*return_tuples) + i) = results[i];</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    }</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    (*return_count) = count;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <a class="code" href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a>(*err_msg == NULL);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    *log_msg = log.str().empty()?</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;      *log_msg :</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;      <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(log.str().c_str());</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    *notice_msg = notice.str().empty()?</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;      *notice_msg :</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;      <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(notice.str().c_str());</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  } <span class="keywordflow">catch</span> (<a class="code" href="classAssertFailedException.html">AssertFailedException</a> &amp;except) {</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    (*return_tuples) = <a class="code" href="pgr__alloc_8hpp.html#aae87e343d8516ca2c6a60dcfbbf7fde6">pgr_free</a>(*return_tuples);</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    (*return_count) = 0;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    err &lt;&lt; except.<a class="code" href="classAssertFailedException.html#a7f00e7275e82f7b6bafec6339a27bc88">what</a>();</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str().c_str());</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    *log_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(log.str().c_str());</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  } <span class="keywordflow">catch</span> (<span class="keyword">const</span> vroom::Exception &amp;except) {</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    (*return_tuples) = <a class="code" href="pgr__alloc_8hpp.html#aae87e343d8516ca2c6a60dcfbbf7fde6">pgr_free</a>(*return_tuples);</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    (*return_count) = 0;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    err &lt;&lt; except.message;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str().c_str());</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    *log_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(log.str().c_str());</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  } <span class="keywordflow">catch</span> (std::exception &amp;except) {</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    (*return_tuples) = <a class="code" href="pgr__alloc_8hpp.html#aae87e343d8516ca2c6a60dcfbbf7fde6">pgr_free</a>(*return_tuples);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    (*return_count) = 0;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    err &lt;&lt; except.what();</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str().c_str());</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    *log_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(log.str().c_str());</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  } <span class="keywordflow">catch</span>(...) {</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    (*return_tuples) = <a class="code" href="pgr__alloc_8hpp.html#aae87e343d8516ca2c6a60dcfbbf7fde6">pgr_free</a>(*return_tuples);</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    (*return_count) = 0;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    err &lt;&lt; <span class="stringliteral">&quot;Caught unknown exception!&quot;</span>;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    *err_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(err.str().c_str());</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    *log_msg = <a class="code" href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a>(log.str().c_str());</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  }</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00190">vrprouting::Vrp_vroom_problem::add_jobs()</a>, <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00421">vrprouting::Vrp_vroom_problem::add_matrix()</a>, <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00260">vrprouting::Vrp_vroom_problem::add_shipments()</a>, <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00379">vrprouting::Vrp_vroom_problem::add_vehicles()</a>, <a class="el" href="vroom__shipment__t_8h_source.html#l00060">Vroom_shipment_t::d_location_index</a>, <a class="el" href="vroom__vehicle__t_8h_source.html#l00055">Vroom_vehicle_t::end_index</a>, <a class="el" href="base__matrix_8cpp_source.html#l00389">vrprouting::base::Base_Matrix::has_no_infinity()</a>, <a class="el" href="vroom__job__t_8h_source.html#l00054">Vroom_job_t::location_index</a>, <a class="el" href="vroom__shipment__t_8h_source.html#l00056">Vroom_shipment_t::p_location_index</a>, <a class="el" href="pgr__assert_8h_source.html#l00095">pgassert</a>, <a class="el" href="pgr__alloc_8hpp_source.html#l00066">pgr_alloc()</a>, <a class="el" href="pgr__alloc_8hpp_source.html#l00077">pgr_free()</a>, <a class="el" href="pgr__alloc_8cpp_source.html#l00033">pgr_msg()</a>, <a class="el" href="base__matrix_8h_source.html#l00089">vrprouting::base::Base_Matrix::size()</a>, <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00491">vrprouting::Vrp_vroom_problem::solve()</a>, <a class="el" href="vroom__vehicle__t_8h_source.html#l00054">Vroom_vehicle_t::start_index</a>, and <a class="el" href="pgr__assert_8cpp_source.html#l00067">AssertFailedException::what()</a>.</p>
+<p class="reference">References <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00190">vrprouting::Vrp_vroom_problem::add_jobs()</a>, <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00424">vrprouting::Vrp_vroom_problem::add_matrix()</a>, <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00262">vrprouting::Vrp_vroom_problem::add_shipments()</a>, <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00382">vrprouting::Vrp_vroom_problem::add_vehicles()</a>, <a class="el" href="vroom__shipment__t_8h_source.html#l00063">Vroom_shipment_t::d_location_id</a>, <a class="el" href="vroom__vehicle__t_8h_source.html#l00056">Vroom_vehicle_t::end_id</a>, <a class="el" href="base__matrix_8cpp_source.html#l00418">vrprouting::base::Base_Matrix::has_no_infinity()</a>, <a class="el" href="vroom__job__t_8h_source.html#l00055">Vroom_job_t::location_id</a>, <a class="el" href="vroom__shipment__t_8h_source.html#l00058">Vroom_shipment_t::p_location_id</a>, <a class="el" href="pgr__assert_8h_source.html#l00095">pgassert</a>, <a class="el" href="pgr__alloc_8hpp_source.html#l00066">pgr_alloc()</a>, <a class="el" href="pgr__alloc_8hpp_source.html#l00077">pgr_free()</a>, <a class="el" href="pgr__alloc_8cpp_source.html#l00033">pgr_msg()</a>, <a class="el" href="base__matrix_8h_source.html#l00090">vrprouting::base::Base_Matrix::size()</a>, <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00494">vrprouting::Vrp_vroom_problem::solve()</a>, <a class="el" href="vroom__vehicle__t_8h_source.html#l00067">Vroom_vehicle_t::speed_factor</a>, <a class="el" href="vroom__vehicle__t_8h_source.html#l00055">Vroom_vehicle_t::start_id</a>, and <a class="el" href="pgr__assert_8cpp_source.html#l00067">AssertFailedException::what()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vroom_8c_source.html#l00092">process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vroom_8c_source.html#l00095">process()</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a6ed0f80da691ed44b129992b4135e5b8"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a6ed0f80da691ed44b129992b4135e5b8">vrprouting::Vrp_vroom_problem::solve</a></div><div class="ttdeci">std::vector&lt; Vroom_rt &gt; solve()</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00491">vrp_vroom_problem.hpp:491</a></div></div>
 <div class="ttc" id="apgr__alloc_8hpp_html_ac9d34b4a4d403ed9f24050b973087a9c"><div class="ttname"><a href="pgr__alloc_8hpp.html#ac9d34b4a4d403ed9f24050b973087a9c">pgr_alloc</a></div><div class="ttdeci">T * pgr_alloc(std::size_t size, T *ptr)</div><div class="ttdoc">allocates memory</div><div class="ttdef"><b>Definition:</b> <a href="pgr__alloc_8hpp_source.html#l00066">pgr_alloc.hpp:66</a></div></div>
-<div class="ttc" id="astructVroom__vehicle__t_html_abb5da014e4cccd9a8175563ff49e4fd2"><div class="ttname"><a href="structVroom__vehicle__t.html#abb5da014e4cccd9a8175563ff49e4fd2">Vroom_vehicle_t::end_index</a></div><div class="ttdeci">MatrixIndex end_index</div><div class="ttdoc">Start location index in matrix.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00055">vroom_vehicle_t.h:55</a></div></div>
-<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a538c3bac7fd68031ad1688681a7c79a0"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a538c3bac7fd68031ad1688681a7c79a0">vrprouting::Vrp_vroom_problem::add_vehicles</a></div><div class="ttdeci">void add_vehicles(const std::vector&lt; Vroom_vehicle_t &gt; &amp;vehicles, const std::vector&lt; Vroom_break_t &gt; &amp;breaks, const std::vector&lt; Vroom_time_window_t &gt; &amp;breaks_tws)</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00379">vrp_vroom_problem.hpp:379</a></div></div>
-<div class="ttc" id="astructVroom__job__t_html_a9783bb6f52cdabf8df8b4c67ff8751ed"><div class="ttname"><a href="structVroom__job__t.html#a9783bb6f52cdabf8df8b4c67ff8751ed">Vroom_job_t::location_index</a></div><div class="ttdeci">MatrixIndex location_index</div><div class="ttdoc">The job's identifier.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__job__t_8h_source.html#l00054">vroom_job_t.h:54</a></div></div>
+<div class="ttc" id="astructVroom__vehicle__t_html_a9eb25741ba4fab0efb8dd3aa62235f0e"><div class="ttname"><a href="structVroom__vehicle__t.html#a9eb25741ba4fab0efb8dd3aa62235f0e">Vroom_vehicle_t::end_id</a></div><div class="ttdeci">MatrixIndex end_id</div><div class="ttdoc">Start location index in matrix.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00056">vroom_vehicle_t.h:56</a></div></div>
+<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a538c3bac7fd68031ad1688681a7c79a0"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a538c3bac7fd68031ad1688681a7c79a0">vrprouting::Vrp_vroom_problem::add_vehicles</a></div><div class="ttdeci">void add_vehicles(const std::vector&lt; Vroom_vehicle_t &gt; &amp;vehicles, const std::vector&lt; Vroom_break_t &gt; &amp;breaks, const std::vector&lt; Vroom_time_window_t &gt; &amp;breaks_tws)</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00382">vrp_vroom_problem.hpp:382</a></div></div>
 <div class="ttc" id="apgr__alloc_8cpp_html_a03fe028457780ee3a4d223cd7fe9d53e"><div class="ttname"><a href="pgr__alloc_8cpp.html#a03fe028457780ee3a4d223cd7fe9d53e">pgr_msg</a></div><div class="ttdeci">char * pgr_msg(const std::string &amp;msg)</div><div class="ttdef"><b>Definition:</b> <a href="pgr__alloc_8cpp_source.html#l00033">pgr_alloc.cpp:33</a></div></div>
 <div class="ttc" id="aclassAssertFailedException_html_a7f00e7275e82f7b6bafec6339a27bc88"><div class="ttname"><a href="classAssertFailedException.html#a7f00e7275e82f7b6bafec6339a27bc88">AssertFailedException::what</a></div><div class="ttdeci">virtual const char * what() const</div><div class="ttdef"><b>Definition:</b> <a href="pgr__assert_8cpp_source.html#l00067">pgr_assert.cpp:67</a></div></div>
 <div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html">vrprouting::Vrp_vroom_problem</a></div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00054">vrp_vroom_problem.hpp:54</a></div></div>
+<div class="ttc" id="astructVroom__vehicle__t_html_ab157c264ecb220e3720c2ce840842aee"><div class="ttname"><a href="structVroom__vehicle__t.html#ab157c264ecb220e3720c2ce840842aee">Vroom_vehicle_t::speed_factor</a></div><div class="ttdeci">double speed_factor</div><div class="ttdoc">Time window end time.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00067">vroom_vehicle_t.h:67</a></div></div>
 <div class="ttc" id="apgr__assert_8h_html_a09250239ca707f56bc1bbfdd04a635b1"><div class="ttname"><a href="pgr__assert_8h.html#a09250239ca707f56bc1bbfdd04a635b1">pgassert</a></div><div class="ttdeci">#define pgassert(expr)</div><div class="ttdoc">Uses the standard assert syntax.</div><div class="ttdef"><b>Definition:</b> <a href="pgr__assert_8h_source.html#l00095">pgr_assert.h:95</a></div></div>
+<div class="ttc" id="astructVroom__shipment__t_html_a94b3002c98f67cb37e746aeb6005d066"><div class="ttname"><a href="structVroom__shipment__t.html#a94b3002c98f67cb37e746aeb6005d066">Vroom_shipment_t::p_location_id</a></div><div class="ttdeci">MatrixIndex p_location_id</div><div class="ttdoc">Shipment identifier.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00058">vroom_shipment_t.h:58</a></div></div>
+<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a5741dfee29ed586190185658a069a5a2"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a5741dfee29ed586190185658a069a5a2">vrprouting::Vrp_vroom_problem::add_matrix</a></div><div class="ttdeci">void add_matrix(vrprouting::base::Base_Matrix matrix)</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00424">vrp_vroom_problem.hpp:424</a></div></div>
 <div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a82cf60b99ce4643e4d8623ace3e939cb"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a82cf60b99ce4643e4d8623ace3e939cb">vrprouting::Vrp_vroom_problem::add_jobs</a></div><div class="ttdeci">void add_jobs(const std::vector&lt; Vroom_job_t &gt; &amp;jobs, const std::vector&lt; Vroom_time_window_t &gt; &amp;jobs_tws)</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00190">vrp_vroom_problem.hpp:190</a></div></div>
-<div class="ttc" id="astructVroom__shipment__t_html_aec59fcccf1da54d379a112c9deecdc3b"><div class="ttname"><a href="structVroom__shipment__t.html#aec59fcccf1da54d379a112c9deecdc3b">Vroom_shipment_t::d_location_index</a></div><div class="ttdeci">MatrixIndex d_location_index</div><div class="ttdoc">Pickup service time.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00060">vroom_shipment_t.h:60</a></div></div>
-<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_aa8a6fe81dcebb174e548c001a5f063dc"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#aa8a6fe81dcebb174e548c001a5f063dc">vrprouting::Vrp_vroom_problem::add_shipments</a></div><div class="ttdeci">void add_shipments(const std::vector&lt; Vroom_shipment_t &gt; &amp;shipments, const std::vector&lt; Vroom_time_window_t &gt; &amp;shipments_tws)</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00260">vrp_vroom_problem.hpp:260</a></div></div>
-<div class="ttc" id="astructVroom__vehicle__t_html_a1430096a6f530ade71cd39ce882e7293"><div class="ttname"><a href="structVroom__vehicle__t.html#a1430096a6f530ade71cd39ce882e7293">Vroom_vehicle_t::start_index</a></div><div class="ttdeci">MatrixIndex start_index</div><div class="ttdoc">The vehicle's identifier.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00054">vroom_vehicle_t.h:54</a></div></div>
+<div class="ttc" id="astructVroom__job__t_html_aa38a2299834fbdf1362be5c94ef84b8c"><div class="ttname"><a href="structVroom__job__t.html#aa38a2299834fbdf1362be5c94ef84b8c">Vroom_job_t::location_id</a></div><div class="ttdeci">MatrixIndex location_id</div><div class="ttdoc">The job's identifier.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__job__t_8h_source.html#l00055">vroom_job_t.h:55</a></div></div>
+<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a6d09ec26861e6f120e01f1768f8b33da"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a6d09ec26861e6f120e01f1768f8b33da">vrprouting::Vrp_vroom_problem::solve</a></div><div class="ttdeci">std::vector&lt; Vroom_rt &gt; solve(int32_t exploration_level, int32_t timeout, int32_t loading_time)</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00494">vrp_vroom_problem.hpp:494</a></div></div>
+<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_aa8a6fe81dcebb174e548c001a5f063dc"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#aa8a6fe81dcebb174e548c001a5f063dc">vrprouting::Vrp_vroom_problem::add_shipments</a></div><div class="ttdeci">void add_shipments(const std::vector&lt; Vroom_shipment_t &gt; &amp;shipments, const std::vector&lt; Vroom_time_window_t &gt; &amp;shipments_tws)</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00262">vrp_vroom_problem.hpp:262</a></div></div>
+<div class="ttc" id="astructVroom__shipment__t_html_aac449b0a6d10800a5ab9952ab9a4649d"><div class="ttname"><a href="structVroom__shipment__t.html#aac449b0a6d10800a5ab9952ab9a4649d">Vroom_shipment_t::d_location_id</a></div><div class="ttdeci">MatrixIndex d_location_id</div><div class="ttdoc">Pickup service time.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00063">vroom_shipment_t.h:63</a></div></div>
 <div class="ttc" id="apgr__alloc_8hpp_html_aae87e343d8516ca2c6a60dcfbbf7fde6"><div class="ttname"><a href="pgr__alloc_8hpp.html#aae87e343d8516ca2c6a60dcfbbf7fde6">pgr_free</a></div><div class="ttdeci">T * pgr_free(T *ptr)</div><div class="ttdef"><b>Definition:</b> <a href="pgr__alloc_8hpp_source.html#l00077">pgr_alloc.hpp:77</a></div></div>
 <div class="ttc" id="aclassvrprouting_1_1base_1_1Base__Matrix_html"><div class="ttname"><a href="classvrprouting_1_1base_1_1Base__Matrix.html">vrprouting::base::Base_Matrix</a></div><div class="ttdoc">N x N matrix.</div><div class="ttdef"><b>Definition:</b> <a href="base__matrix_8h_source.html#l00061">base_matrix.h:61</a></div></div>
-<div class="ttc" id="astructVroom__shipment__t_html_a54d45169700fdccac1e68488e1e4baf6"><div class="ttname"><a href="structVroom__shipment__t.html#a54d45169700fdccac1e68488e1e4baf6">Vroom_shipment_t::p_location_index</a></div><div class="ttdeci">MatrixIndex p_location_index</div><div class="ttdoc">Shipment identifier.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00056">vroom_shipment_t.h:56</a></div></div>
-<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a58e0be8eb804ff3c2613f4d03950a192"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a58e0be8eb804ff3c2613f4d03950a192">vrprouting::Vrp_vroom_problem::add_matrix</a></div><div class="ttdeci">void add_matrix(vrprouting::base::Base_Matrix time_matrix)</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00421">vrp_vroom_problem.hpp:421</a></div></div>
+<div class="ttc" id="astructVroom__vehicle__t_html_a089e53be721489464398bb27c0c64a6f"><div class="ttname"><a href="structVroom__vehicle__t.html#a089e53be721489464398bb27c0c64a6f">Vroom_vehicle_t::start_id</a></div><div class="ttdeci">MatrixIndex start_id</div><div class="ttdoc">The vehicle's identifier.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00055">vroom_vehicle_t.h:55</a></div></div>
 <div class="ttc" id="aclassIdentifiers_html"><div class="ttname"><a href="classIdentifiers.html">Identifiers</a></div><div class="ttdef"><b>Definition:</b> <a href="identifiers_8hpp_source.html#l00051">identifiers.hpp:51</a></div></div>
 <div class="ttc" id="aclassAssertFailedException_html"><div class="ttname"><a href="classAssertFailedException.html">AssertFailedException</a></div><div class="ttdoc">Extends std::exception and is the exception that we throw if an assert fails.</div><div class="ttdef"><b>Definition:</b> <a href="pgr__assert_8h_source.html#l00140">pgr_assert.h:140</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_4fe5cf12322eb0f9892753dc20f1484c.html">drivers</a></li><li class="navelem"><a class="el" href="dir_3c1eec4c252ff318ee6e1323a180c63d.html">vroom</a></li><li class="navelem"><a class="el" href="vroom__driver_8h.html">vroom_driver.h</a></li>
-    <li class="footer">Generated on Tue Nov 16 2021 07:56:33 for vrpRouting by
+    <li class="footer">Generated on Mon Dec 6 2021 20:38:53 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
