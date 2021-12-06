@@ -11,9 +11,9 @@ set(PROJECT_SHORT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}${PR
 set(PROJECT_FULL_VERSION "v${PROJECT_VERSION}${PROJECT_VERSION_DEV}")
 
 if (PROJECT_VERSION_DEV)
-    set(PROJECT_DOC_LINK "https://docs.pgrouting.org/dev/en")
+    set(PROJECT_DOC_LINK "https://vrp.pgrouting.org/dev/en")
 else()
-    set(PROJECT_DOC_LINK "https://docs.pgrouting.org/${PROJECT_LIB_VERSION}/en")
+    set(PROJECT_DOC_LINK "https://vrp.pgrouting.org/${PROJECT_LIB_VERSION}/en")
 endif()
 
 
