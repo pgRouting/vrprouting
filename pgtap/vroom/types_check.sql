@@ -18,9 +18,9 @@ BEGIN
   RETURN QUERY
   SELECT has_function('vrp_vroomplain');
   RETURN QUERY
-  SELECT has_function('vrp_vroomplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'integer']);
+  SELECT has_function('vrp_vroomplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'integer', 'integer']);
   RETURN QUERY
-  SELECT function_returns('vrp_vroomplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'integer'], 'setof record');
+  SELECT function_returns('vrp_vroomplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'integer', 'integer'], 'setof record');
 
   -- parameter names
   RETURN QUERY
@@ -35,7 +35,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomplain'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,25,25,21,23,20,20,20,20,23,20,23,23,23,23,1016}'::OID[])
+      ('{25,25,25,25,25,25,25,25,23,23,20,20,20,20,23,20,23,23,23,23,1016}'::OID[])
     $$
   );
 
@@ -44,9 +44,9 @@ BEGIN
   RETURN QUERY
   SELECT has_function('vrp_vroom');
   RETURN QUERY
-  SELECT has_function('vrp_vroom', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'interval']);
+  SELECT has_function('vrp_vroom', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'integer', 'interval']);
   RETURN QUERY
-  SELECT function_returns('vrp_vroom', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'interval'], 'setof record');
+  SELECT function_returns('vrp_vroom', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'integer', 'interval'], 'setof record');
 
   -- parameter names
   RETURN QUERY
@@ -61,7 +61,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroom'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,25,25,21,1186,20,20,20,20,23,20,1114,1186,1186,1186,1016}'::OID[])
+      ('{25,25,25,25,25,25,25,25,23,1186,20,20,20,20,23,20,1114,1186,1186,1186,1016}'::OID[])
     $$
   );
 
@@ -70,9 +70,9 @@ BEGIN
   RETURN QUERY
   SELECT has_function('vrp_vroomjobsplain');
   RETURN QUERY
-  SELECT has_function('vrp_vroomjobsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'integer']);
+  SELECT has_function('vrp_vroomjobsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'integer', 'integer']);
   RETURN QUERY
-  SELECT function_returns('vrp_vroomjobsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'integer'], 'setof record');
+  SELECT function_returns('vrp_vroomjobsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'integer', 'integer'], 'setof record');
 
   -- parameter names
   RETURN QUERY
@@ -87,7 +87,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomjobsplain'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,21,23,20,20,20,20,23,20,23,23,23,23,1016}'::OID[])
+      ('{25,25,25,25,25,25,23,23,20,20,20,20,23,20,23,23,23,23,1016}'::OID[])
     $$
   );
 
@@ -96,9 +96,9 @@ BEGIN
   RETURN QUERY
   SELECT has_function('vrp_vroomjobs');
   RETURN QUERY
-  SELECT has_function('vrp_vroomjobs', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'interval']);
+  SELECT has_function('vrp_vroomjobs', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'integer', 'interval']);
   RETURN QUERY
-  SELECT function_returns('vrp_vroomjobs', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'interval'], 'setof record');
+  SELECT function_returns('vrp_vroomjobs', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'integer', 'interval'], 'setof record');
 
   -- parameter names
   RETURN QUERY
@@ -113,7 +113,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomjobs'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,21,1186,20,20,20,20,23,20,1114,1186,1186,1186,1016}'::OID[])
+      ('{25,25,25,25,25,25,23,1186,20,20,20,20,23,20,1114,1186,1186,1186,1016}'::OID[])
     $$
   );
 
@@ -122,9 +122,9 @@ BEGIN
   RETURN QUERY
   SELECT has_function('vrp_vroomshipmentsplain');
   RETURN QUERY
-  SELECT has_function('vrp_vroomshipmentsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'integer']);
+  SELECT has_function('vrp_vroomshipmentsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'integer', 'integer']);
   RETURN QUERY
-  SELECT function_returns('vrp_vroomshipmentsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'integer'], 'setof record');
+  SELECT function_returns('vrp_vroomshipmentsplain', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'integer', 'integer'], 'setof record');
 
   -- parameter names
   RETURN QUERY
@@ -139,7 +139,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomshipmentsplain'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,21,23,20,20,20,20,23,20,23,23,23,23,1016}'::OID[])
+      ('{25,25,25,25,25,25,23,23,20,20,20,20,23,20,23,23,23,23,1016}'::OID[])
     $$
   );
 
@@ -148,9 +148,9 @@ BEGIN
   RETURN QUERY
   SELECT has_function('vrp_vroomshipments');
   RETURN QUERY
-  SELECT has_function('vrp_vroomshipments', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'interval']);
+  SELECT has_function('vrp_vroomshipments', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'integer', 'interval']);
   RETURN QUERY
-  SELECT function_returns('vrp_vroomshipments', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'smallint', 'interval'], 'setof record');
+  SELECT function_returns('vrp_vroomshipments', ARRAY['text', 'text', 'text', 'text', 'text', 'text', 'integer', 'interval'], 'setof record');
 
   -- parameter names
   RETURN QUERY
@@ -165,7 +165,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomshipments'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,21,1186,20,20,20,20,23,20,1114,1186,1186,1186,1016}'::OID[])
+      ('{25,25,25,25,25,25,23,1186,20,20,20,20,23,20,1114,1186,1186,1186,1016}'::OID[])
     $$
   );
 END;

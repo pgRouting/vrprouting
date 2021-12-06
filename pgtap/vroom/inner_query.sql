@@ -453,9 +453,9 @@ $BODY$
 LANGUAGE plpgsql;
 
 
-SELECT inner_query(is_plain => TRUE, additional => ', exploration_level => 5::SMALLINT)');
+SELECT inner_query(is_plain => TRUE, additional => ', exploration_level => 5)');
 SELECT inner_query(is_plain => TRUE, additional => ', timeout => -1)');
-SELECT inner_query(is_plain => TRUE, additional => ', exploration_level => 5::SMALLINT, timeout => -1)');
+SELECT inner_query(is_plain => TRUE, additional => ', exploration_level => 5, timeout => -1)');
 
 -- Adjust the column types to the expected types for vroom functions with timestamps/interval
 ALTER TABLE vroom.jobs ALTER COLUMN service TYPE INTERVAL USING make_interval(secs => service);
@@ -472,9 +472,9 @@ ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USING 
 ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
 ALTER TABLE vroom.matrix ALTER COLUMN duration TYPE INTERVAL USING make_interval(secs => duration);
 
-SELECT inner_query(is_plain => FALSE, additional => ', exploration_level => 5::SMALLINT)');
+SELECT inner_query(is_plain => FALSE, additional => ', exploration_level => 5)');
 SELECT inner_query(is_plain => FALSE, additional => ', timeout => $$-00:00:01$$::INTERVAL)');
-SELECT inner_query(is_plain => FALSE, additional => ', exploration_level => 5::SMALLINT, timeout => $$-00:00:01$$::INTERVAL)');
+SELECT inner_query(is_plain => FALSE, additional => ', exploration_level => 5, timeout => $$-00:00:01$$::INTERVAL)');
 
 
 SELECT * FROM finish();

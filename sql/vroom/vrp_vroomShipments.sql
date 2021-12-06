@@ -87,7 +87,7 @@ CREATE FUNCTION vrp_vroomShipments(
     TEXT,  -- breaks_time_windows_sql (required)
     TEXT,  -- matrix_sql (required)
 
-    exploration_level SMALLINT DEFAULT 5,
+    exploration_level INTEGER DEFAULT 5,
     timeout INTERVAL DEFAULT '-00:00:01'::INTERVAL,
 
     OUT seq BIGINT,
@@ -134,7 +134,7 @@ LANGUAGE plpgsql VOLATILE;
 
 -- COMMENTS
 
-COMMENT ON FUNCTION vrp_vroomShipments(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, SMALLINT, INTERVAL)
+COMMENT ON FUNCTION vrp_vroomShipments(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, INTERVAL)
 IS 'vrp_vroomShipments
  - EXPERIMENTAL
  - Parameters:
@@ -153,7 +153,7 @@ IS 'vrp_vroomShipments
    - Matrix SQL with columns:
        start_vid, end_vid, agg_cost
 - Optional parameters
-   - exploration_level := 5::SMALLINT
+   - exploration_level := 5
    - timeout := ''-00:00:01''::INTERVAL
  - Documentation:
    - ${PROJECT_DOC_LINK}/vrp_vroomShipments.html

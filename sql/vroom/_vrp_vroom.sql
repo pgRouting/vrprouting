@@ -37,7 +37,7 @@ CREATE FUNCTION _vrp_vroom(
     breaks_time_windows_sql TEXT,
     matrix_sql TEXT,
 
-    exploration_level SMALLINT,
+    exploration_level INTEGER,
     timeout INTEGER,
 
     fn SMALLINT,
@@ -60,5 +60,5 @@ LANGUAGE C VOLATILE;
 
 -- COMMENTS
 
-COMMENT ON FUNCTION _vrp_vroom(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, SMALLINT, INTEGER, SMALLINT, BOOLEAN)
+COMMENT ON FUNCTION _vrp_vroom(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, INTEGER, SMALLINT, BOOLEAN)
 IS 'pgRouting internal function';

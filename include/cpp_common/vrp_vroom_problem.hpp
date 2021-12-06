@@ -490,7 +490,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     return results;
   }
 
-  std::vector<Vroom_rt> solve(int16_t exploration_level, int32_t timeout,
+  std::vector<Vroom_rt> solve(int32_t exploration_level, int32_t timeout,
                               int32_t loading_time) {
     std::vector <Vroom_rt> results;
 

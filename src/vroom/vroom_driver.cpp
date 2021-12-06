@@ -90,7 +90,7 @@ do_vrp_vroom(
     Vroom_time_window_t *breaks_tws, size_t total_breaks_tws,
     Vroom_matrix_t *matrix_rows, size_t total_matrix_rows,
 
-    int16_t exploration_level,
+    int32_t exploration_level,
     int32_t timeout,
     int32_t loading_time,
 

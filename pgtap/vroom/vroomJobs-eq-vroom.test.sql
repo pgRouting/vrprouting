@@ -13,7 +13,7 @@ DECLARE
   empty_time_windows TEXT := '$$SELECT * FROM jobs_time_windows WHERE id = -1$$';
   shipments_sql TEXT := ', $$SELECT * FROM shipments WHERE id = -1$$, $$SELECT * FROM shipments_time_windows WHERE id = -1$$';
   rest_sql TEXT := ', $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$' ||
-                   ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$, exploration_level => 5::SMALLINT, timeout => -1)';
+                   ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$, exploration_level => 5, timeout => -1)';
   vroom_sql TEXT;
   vroomJobs_sql TEXT;
 data TEXT;

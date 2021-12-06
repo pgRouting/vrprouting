@@ -87,12 +87,12 @@ optional parameters start
 ===================== ============ ============================= =================================================
 Parameter             Type         Default                       Description
 ===================== ============ ============================= =================================================
-**exploration_level** ``SMALLINT`` :math:`5::SMALLINT`           Exploration level to use while solving.
+**exploration_level** ``INTEGER``  :math:`5`                     Exploration level to use while solving.
 
                                                                  - Ranges from ``[0, 5]``
                                                                  - A smaller exploration level gives faster result.
 
-**timeout**           ``INTERVAL`` :math:`'-00:00:01'::INTERVAL` Timeout value to stop the solving process.
+**timeout**           ``INTERVAL`` '-00:00:01'::INTERVAL         Timeout value to stop the solving process.
 
                                                                  - Gives the best possible solution within a time
                                                                    limit. Note that some additional seconds may be
@@ -171,7 +171,7 @@ CREATE FUNCTION vrp_vroom(
     TEXT,  -- breaks_time_windows_sql (required)
     TEXT,  -- matrix_sql (required)
 
-    exploration_level SMALLINT DEFAULT 5,
+    exploration_level INTEGER DEFAULT 5,
     timeout INTERVAL DEFAULT '-00:00:01'::INTERVAL,
 
     OUT seq BIGINT,
@@ -217,7 +217,7 @@ LANGUAGE plpgsql VOLATILE;
 
 -- COMMENTS
 
-COMMENT ON FUNCTION vrp_vroom(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, SMALLINT, INTERVAL)
+COMMENT ON FUNCTION vrp_vroom(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, INTERVAL)
 IS 'vrp_vroom
  - EXPERIMENTAL
  - Parameters:
@@ -240,7 +240,7 @@ IS 'vrp_vroom
    - Matrix SQL with columns:
        start_vid, end_vid, agg_cost
 - Optional parameters
-   - exploration_level := 5::SMALLINT
+   - exploration_level := 5
    - timeout := ''-00:00:01''::INTERVAL
  - Documentation:
    - ${PROJECT_DOC_LINK}/vrp_vroom.html
