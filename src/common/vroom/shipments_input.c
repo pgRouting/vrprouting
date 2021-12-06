@@ -35,7 +35,7 @@ A ``SELECT`` statement that returns the following columns:
 
 ::
 
-    id, p_location_index [, p_service], d_location_index [, d_service]
+    id, p_location_id [, p_service], d_location_id [, d_service]
     [, amount, skills, priority]
 
 
@@ -44,13 +44,13 @@ Column                  Type                       Default     Description
 ======================  =========================  =========== ================================================
 **id**                  ``ANY-INTEGER``                         Non-negative unique identifier of the shipment.
 
-**p_location_index**    ``ANY-INTEGER``                         Non-negative identifier of the pickup location.
+**p_location_id**       ``ANY-INTEGER``                         Non-negative identifier of the pickup location.
 
 **p_setup**             |interval|                 |interval0|  Pickup setup duration.
 
 **p_service**           |interval|                 |interval0|  Pickup service duration.
 
-**d_location_index**    ``ANY-INTEGER``                         Non-negative identifier of the delivery location.
+**d_location_id**       ``ANY-INTEGER``                         Non-negative identifier of the delivery location.
 
 **d_setup**             |interval|                 |interval0|  Delivery setup duration.
 
@@ -88,8 +88,8 @@ void fetch_shipments(
     bool is_plain) {
   shipment->id = get_Idx(tuple, tupdesc, info[0], 0);
 
-  shipment->p_location_index = get_MatrixIndex(tuple, tupdesc, info[1], 0);
-  shipment->d_location_index = get_MatrixIndex(tuple, tupdesc, info[4], 0);
+  shipment->p_location_id = get_MatrixIndex(tuple, tupdesc, info[1], 0);
+  shipment->d_location_id = get_MatrixIndex(tuple, tupdesc, info[4], 0);
 
   if (is_plain) {
     shipment->p_setup = get_Duration(tuple, tupdesc, info[2], 0);
@@ -221,12 +221,12 @@ get_vroom_shipments(
   info[0].name = "id";
 
   /* pickup shipments */
-  info[1].name = "p_location_index";
+  info[1].name = "p_location_id";
   info[2].name = "p_setup";
   info[3].name = "p_service";
 
   /* delivery shipments */
-  info[4].name = "d_location_index";
+  info[4].name = "d_location_id";
   info[5].name = "d_setup";
   info[6].name = "d_service";
 
@@ -249,7 +249,7 @@ get_vroom_shipments(
     info[6].eType = INTERVAL;         // d_service
   }
 
-  /* id and location_index of pickup and delivery are mandatory */
+  /* id and location_id of pickup and delivery are mandatory */
   info[0].strict = true;
   info[1].strict = true;
   info[4].strict = true;
