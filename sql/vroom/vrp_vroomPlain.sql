@@ -69,7 +69,7 @@ Parameter             Type         Default                       Description
                                                                  - Ranges from ``[0, 5]``
                                                                  - A smaller exploration level gives faster result.
 
-**timeout**           ``INTEGER``  :math:`-1`                    Timeout value to stop the solving process, in seconds.
+**timeout**           ``INTEGER``  :math:`-1`                    Timeout value to stop the solving process.
 
                                                                  - Gives the best possible solution within a time
                                                                    limit. Note that some additional seconds may be

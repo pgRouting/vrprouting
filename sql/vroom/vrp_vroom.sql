@@ -138,21 +138,13 @@ Column              Type              Description
 
                                       - ``-1``: If the step is starting/ending location.
 
-**arrival**          ``TIMESTAMP``    Estimated time of arrival at this step, in seconds.
+**arrival**          |timestamp|      Estimated time of arrival at this step.
 
-                                      - ``INTEGER`` for plain VROOM functions.
+**travel_time**      |interval|       Cumulated travel time upon arrival at this step.
 
-**travel_time**      ``INTERVAL``     Cumulated travel time upon arrival at this step, in seconds
+**service_time**     |interval|       Service time at this step.
 
-                                      - ``INTEGER`` for plain VROOM functions.
-
-**service_time**     ``INTERVAL``     Service time at this step, in seconds
-
-                                      - ``INTEGER`` for plain VROOM functions.
-
-**waiting_time**     ``INTERVAL``     Waiting time upon arrival at this step, in seconds.
-
-                                      - ``INTEGER`` for plain VROOM functions.
+**waiting_time**     |interval|       Waiting time upon arrival at this step.
 
 **load**             ``BIGINT``       Vehicle load after step completion (with capacity constraints)
 =================== ================= =================================================
