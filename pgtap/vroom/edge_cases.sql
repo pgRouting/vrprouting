@@ -2,7 +2,7 @@ BEGIN;
 SET search_path TO 'vroom', 'public';
 SET client_min_messages TO ERROR;
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (54) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.3.0') THEN plan (54) ELSE plan(1) END;
 
 CREATE OR REPLACE FUNCTION edge_cases()
 RETURNS SETOF TEXT AS
@@ -13,9 +13,9 @@ DECLARE
   rest_sql TEXT;
 BEGIN
 
-  IF NOT min_version('0.2.0') THEN
+  IF NOT min_version('0.3.0') THEN
     RETURN QUERY
-    SELECT skip(1, 'Function is new on 0.2.0');
+    SELECT skip(1, 'Function is modified on 0.3.0');
     RETURN;
   END IF;
 
