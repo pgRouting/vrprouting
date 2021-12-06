@@ -189,26 +189,26 @@ can be found in
 <p>To get this release, download the repository or download the</p>
 <p class="rubric">Download the repository</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git://github.com/pgRouting/vrprouting.git
-<span class="nb">cd</span> pgrouting
+<span class="nb">cd</span> vrprouting
 git checkout v0.3.0
 </pre></div>
 </div>
 <p class="rubric">Download this release</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget -O pgrouting-0.3.0.tar.gz https://github.com/pgRouting/vrprouting/archive/v0.3.0.tar.gz
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget -O vrprouting-0.3.0.tar.gz https://github.com/pgRouting/vrprouting/archive/v0.3.0.tar.gz
 </pre></div>
 </div>
 </section>
 <section id="short-version">
 <h2><a class="toc-backref" href="#id3">Short Version</a><a class="headerlink" href="#short-version" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Extracting the tar ball</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar xvfz pgrouting-0.3.0.tar.gz
-<span class="nb">cd</span> pgrouting-0.3.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar xvfz vrprouting-0.3.0.tar.gz
+<span class="nb">cd</span> vrprouting-0.3.0
 </pre></div>
 </div>
 <p>To compile assuming you have all the dependencies in your search path:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir build
 <span class="nb">cd</span> build
-cmake  ..
+cmake ..
 make
 sudo make install
 </pre></div>
@@ -238,15 +238,16 @@ sudo make install
 <p class="rubric">Compilation Dependencies</p>
 <p>To be able to compile vrpRouting, make sure that the following dependencies are met:</p>
 <ul class="simple">
-<li><p>C++ compilers with support of C++14 and C11</p></li>
-<li><p>Postgresql version &gt;= 12</p></li>
-<li><p>The Boost Graph Library (BGL). Version &gt;= 1.65</p></li>
-<li><p>CMake &gt;= 3.2</p></li>
+<li><p>C and C++ compilers with C++17 standard support</p></li>
+<li><p>Postgresql version &gt;= TBD</p></li>
+<li><p>The Boost Graph Library (BGL) &gt;= 1.65</p></li>
+<li><p>CMake &gt;= 3.12</p></li>
+<li><p>VROOM &gt;= 1.11.0</p></li>
 </ul>
 <p class="rubric">optional dependencies</p>
 <p>For user’s documentation</p>
 <ul class="simple">
-<li><p>Sphinx &gt;= TBD</p></li>
+<li><p>Sphinx &gt; 4.0.0</p></li>
 <li><p>Latex</p></li>
 </ul>
 <p>For developer’s documentation</p>
@@ -265,11 +266,13 @@ sudo make install
 <p class="rubric">Example: Installing dependencies on linux</p>
 <p>Installing the compilation dependencies</p>
 <p class="rubric">Database dependencies</p>
-<p>This example is for PostgreSQL 10</p>
+<p>This example is for PostgreSQL 13 and PostGIS 3</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install
-    postgresql-10 \
-    postgresql-server-dev-10 \
-    postgresql-10-postgis
+    postgresql-13 \
+    postgresql-server-dev-13 \
+    postgresql-13-postgis-3 \
+    postgresql-13-postgis-3-scripts \
+    postgresql-13-pgrouting
 </pre></div>
 </div>
 <p class="rubric">Build dependencies</p>
@@ -279,13 +282,29 @@ sudo make install
     libboost-graph-dev
 </pre></div>
 </div>
+<p class="rubric">Build dependencies (VROOM)</p>
+<p>Install VROOM dependencies</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install libssl-dev libasio-dev libglpk-dev
+</pre></div>
+</div>
+<p>Build VROOM v1.11.0</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v1.11.0.tar.gz
+tar -zvxf v1.11.0.tar.gz
+cd vroom-1.11.0/src
+
+# Create object file with position independent code using -fPIC flag
+sed -i &#39;s/CXXFLAGS = /CXXFLAGS = -fPIC /&#39; makefile
+
+make
+</pre></div>
+</div>
 <p class="rubric">Optional dependencies</p>
 <p>For documentation and testing</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install -y python-sphinx \
     texlive \
     doxygen \
     libtap-parser-sourcehandler-pgtap-perl \
-    postgresql-10-pgtap
+    postgresql-13-pgtap
 </pre></div>
 </div>
 </section>
@@ -300,8 +319,9 @@ sudo make install
 <section id="configurable-variables">
 <h3><a class="toc-backref" href="#id7">Configurable variables</a><a class="headerlink" href="#configurable-variables" title="Enlazar permanentemente con este título">¶</a></h3>
 <p class="rubric">To see the variables that can be configured</p>
+<p>Here, the variable VROOM_INSTALL_PATH corresponds to the location of the root directory of VROOM.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> build
-$ cmake -L ..
+$ cmake -DVROOM_INSTALL_PATH<span class="o">=</span>/path/to/vroom-dir/ -L ..
 </pre></div>
 </div>
 <p class="rubric">Configuring The Documentation</p>
@@ -347,7 +367,7 @@ Some variables for the documentation:</p>
 </tbody>
 </table>
 <p>Configuring with documentation</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cmake -DWITH_DOC<span class="o">=</span>ON ..
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cmake -DVROOM_INSTALL_PATH<span class="o">=</span>/home/runner/vroom-1.11.0 -DWITH_DOC<span class="o">=</span>ON ..
 </pre></div>
 </div>
 <div class="admonition note">
@@ -427,8 +447,8 @@ dropdb  -U &lt;user&gt; ___vrp___test___
     </p>
     <p>
         &copy; Copyright vrpRouting Contributors - Version v0.3.0-dev.<br/>
-      Actualizado por última vez en nov. 16, 2021.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.0.<br/>
+      Actualizado por última vez en dic. 06, 2021.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1.<br/>
     </p>
   </div>
 </footer>
