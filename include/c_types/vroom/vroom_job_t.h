@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 name | description
 :----- | :-------
 id | The job's identifier
-location_index | Location index of job in matrix
+location_id | Location index of job in matrix
 setup | Job setup duration
 service | Job service duration
 delivery | Quantities for delivery
@@ -52,7 +52,7 @@ priority | Priority level of job
 */
 struct Vroom_job_t {
   Idx id; /** The job's identifier */
-  MatrixIndex location_index; /** Location index of job in matrix */
+  MatrixIndex location_id; /** Location index of job in matrix */
 
   Duration setup; /** Job setup duration */
   Duration service; /** Job service duration */

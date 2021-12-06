@@ -72,13 +72,13 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
   vroom::TimeWindow
   get_vroom_time_window(const Vroom_time_window_t &time_window) const {
     return
-    vroom::TimeWindow(time_window.start_time,
-                      time_window.end_time);
+    vroom::TimeWindow(time_window.tw_open,
+                      time_window.tw_close);
   }
 
   vroom::TimeWindow
-  get_vroom_time_window(Duration start_time, Duration end_time) const {
-    return vroom::TimeWindow(start_time, end_time);
+  get_vroom_time_window(Duration tw_open, Duration tw_close) const {
+    return vroom::TimeWindow(tw_open, tw_close);
   }
 
   std::vector<vroom::TimeWindow>
@@ -176,9 +176,9 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
         get_vroom_skills(job.skills, job.skills_size);
     std::vector<vroom::TimeWindow> time_windows =
         get_vroom_time_windows(job_tws);
-    vroom::Index location_index =
-        static_cast<vroom::Index>(m_matrix.get_index(job.location_index));
-    return vroom::Job(job.id, location_index, job.setup, job.service, delivery, pickup,
+    vroom::Index location_id =
+        static_cast<vroom::Index>(m_matrix.get_index(job.location_id));
+    return vroom::Job(job.id, location_id, job.setup, job.service, delivery, pickup,
                       skills, job.priority, time_windows);
   }
 
@@ -236,16 +236,16 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
         get_vroom_time_windows(pickup_tws);
     std::vector<vroom::TimeWindow> d_time_windows =
         get_vroom_time_windows(delivery_tws);
-    vroom::Index p_location_index = static_cast<vroom::Index>(
-        m_matrix.get_index(shipment.p_location_index));
-    vroom::Index d_location_index = static_cast<vroom::Index>(
-        m_matrix.get_index(shipment.d_location_index));
+    vroom::Index p_location_id = static_cast<vroom::Index>(
+        m_matrix.get_index(shipment.p_location_id));
+    vroom::Index d_location_id = static_cast<vroom::Index>(
+        m_matrix.get_index(shipment.d_location_id));
     vroom::Job pickup = vroom::Job(
-        shipment.id, vroom::JOB_TYPE::PICKUP, p_location_index,
+        shipment.id, vroom::JOB_TYPE::PICKUP, p_location_id,
         shipment.p_setup, shipment.p_service, amount,
         skills, shipment.priority, p_time_windows);
     vroom::Job delivery = vroom::Job(
-        shipment.id, vroom::JOB_TYPE::DELIVERY, d_location_index,
+        shipment.id, vroom::JOB_TYPE::DELIVERY, d_location_id,
         shipment.d_setup, shipment.d_service, amount,
         skills, shipment.priority, d_time_windows);
     return std::make_pair(pickup, delivery);
@@ -353,20 +353,20 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     vroom::Skills skills =
         get_vroom_skills(vehicle.skills, vehicle.skills_size);
     vroom::TimeWindow time_window =
-        get_vroom_time_window(vehicle.time_window_start,
-                              vehicle.time_window_end);
+        get_vroom_time_window(vehicle.tw_open,
+                              vehicle.tw_close);
     std::vector<vroom::Break> v_breaks = get_vroom_breaks(breaks, breaks_tws);
 
-    std::optional<vroom::Location> start_index;
-    std::optional<vroom::Location> end_index;
+    std::optional<vroom::Location> start_id;
+    std::optional<vroom::Location> end_id;
     // Set the value of start or end index only if they are present
-    if (vehicle.start_index != -1) {
-      start_index = static_cast<vroom::Index>(m_matrix.get_index(vehicle.start_index));
+    if (vehicle.start_id != -1) {
+      start_id = static_cast<vroom::Index>(m_matrix.get_index(vehicle.start_id));
     }
-    if (vehicle.end_index != -1) {
-      end_index = static_cast<vroom::Index>(m_matrix.get_index(vehicle.end_index));
+    if (vehicle.end_id != -1) {
+      end_id = static_cast<vroom::Index>(m_matrix.get_index(vehicle.end_id));
     }
-    return vroom::Vehicle(vehicle.id, start_index, end_index,
+    return vroom::Vehicle(vehicle.id, start_id, end_id,
                           vroom::DEFAULT_PROFILE, capacity, skills, time_window,
                           v_breaks, "", vehicle.speed_factor,
                           static_cast<size_t>(vehicle.max_tasks));
