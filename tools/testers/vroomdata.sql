@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS vroom.matrix;
 -- JOBS TABLE start
 CREATE TABLE vroom.jobs (
   id BIGSERIAL PRIMARY KEY,
-  location_index BIGINT,
+  location_id BIGINT,
   service INTEGER,
   delivery BIGINT[],
   pickup BIGINT[],
@@ -23,7 +23,7 @@ CREATE TABLE vroom.jobs (
 );
 
 INSERT INTO vroom.jobs (
-  id, location_index, service, delivery, pickup, skills, priority)
+  id, location_id, service, delivery, pickup, skills, priority)
   VALUES
 (1, 1, 250, ARRAY[20], ARRAY[20], ARRAY[0], 0),
 (2, 2, 250, ARRAY[30], ARRAY[30], ARRAY[0], 0),
@@ -54,9 +54,9 @@ INSERT INTO vroom.jobs_time_windows (
 -- SHIPMENTS TABLE start
 CREATE TABLE vroom.shipments (
   id BIGSERIAL PRIMARY KEY,
-  p_location_index BIGINT,
+  p_location_id BIGINT,
   p_service INTEGER,
-  d_location_index BIGINT,
+  d_location_id BIGINT,
   d_service INTEGER,
   amount BIGINT[],
   skills INTEGER[],
@@ -64,7 +64,7 @@ CREATE TABLE vroom.shipments (
 );
 
 INSERT INTO vroom.shipments (
-  id, p_location_index, p_service, d_location_index, d_service,
+  id, p_location_id, p_service, d_location_id, d_service,
   amount, skills, priority)
   VALUES
 (1, 3, 2250, 5, 2250, ARRAY[10], ARRAY[0], 0),
@@ -102,8 +102,8 @@ INSERT INTO vroom.shipments_time_windows (
 -- VEHICLES TABLE start
 CREATE TABLE vroom.vehicles (
   id BIGSERIAL PRIMARY KEY,
-  start_index BIGINT,
-  end_index BIGINT,
+  start_id BIGINT,
+  end_id BIGINT,
   capacity BIGINT[],
   skills INTEGER[],
   tw_open INTEGER,
@@ -113,7 +113,7 @@ CREATE TABLE vroom.vehicles (
 );
 
 INSERT INTO vroom.vehicles (
-  id, start_index, end_index, capacity, skills,
+  id, start_id, end_id, capacity, skills,
   tw_open, tw_close, speed_factor, max_tasks)
   VALUES
 (1, 1, 1, ARRAY[200], ARRAY[0], 0, 30900, 1.0, 20),

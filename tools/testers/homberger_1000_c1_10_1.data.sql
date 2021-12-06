@@ -15,7 +15,7 @@ $BODY$ LANGUAGE plpgsql IMMUTABLE STRICT;
 DROP TABLE IF EXISTS homberger_1000_c1_10_1.jobs;
 CREATE TABLE homberger_1000_c1_10_1.jobs (
   id              INTEGER   NOT NULL PRIMARY KEY,
-  location_index  BIGINT    NOT NULL GENERATED ALWAYS AS (coord_to_id(x, y)) STORED,
+  location_id  BIGINT    NOT NULL GENERATED ALWAYS AS (coord_to_id(x, y)) STORED,
   x               INTEGER   NOT NULL,
   y               INTEGER   NOT NULL,
   delivery        INTEGER   NOT NULL,
@@ -1034,14 +1034,14 @@ COPY homberger_1000_c1_10_1.jobs
 DROP TABLE IF EXISTS homberger_1000_c1_10_1.vehicles;
 CREATE TABLE IF NOT EXISTS homberger_1000_c1_10_1.vehicles (
   id            BIGINT    PRIMARY KEY,
-  start_index   BIGINT    NOT NULL,
-  end_index     BIGINT    NOT NULL,
+  start_id   BIGINT    NOT NULL,
+  end_id     BIGINT    NOT NULL,
   capacity      BIGINT    NOT NULL,
   tw_open       INTEGER   NOT NULL,
   tw_close      INTEGER   NOT NULL
 );
 
-INSERT INTO homberger_1000_c1_10_1.vehicles (id, start_index, end_index, capacity, tw_open, tw_close)
+INSERT INTO homberger_1000_c1_10_1.vehicles (id, start_id, end_id, capacity, tw_open, tw_close)
 VALUES(generate_series(1, 250), 2500250, 2500250, 200, 0, 1824);
 
 
@@ -1056,8 +1056,8 @@ CREATE TABLE IF NOT EXISTS homberger_1000_c1_10_1.matrix (
 WITH
 the_matrix_info AS (
     SELECT
-      A.location_index AS start_id,
-      B.location_index AS end_id,
+      A.location_id AS start_id,
+      B.location_id AS end_id,
       ROUND(sqrt((A.x - B.x) * (A.x - B.x) + (A.y - B.y) * (A.y - B.y)))::INTEGER AS duration
     FROM jobs AS A, jobs AS B WHERE A.id != B.id
 )
@@ -1069,9 +1069,9 @@ FROM the_matrix_info;
 /*
 -- To run the query (takes around 01:05 minutes)
 SELECT * FROM vrp_vroomJobsPlain(
-  'SELECT id, location_index, ARRAY[delivery], service FROM jobs WHERE id > 0',
+  'SELECT id, location_id, ARRAY[delivery], service FROM jobs WHERE id > 0',
   'SELECT id, tw_open, tw_close FROM jobs WHERE id > 0',
-  'SELECT id, start_index, end_index, ARRAY[capacity], tw_open, tw_close FROM vehicles',
+  'SELECT id, start_id, end_id, ARRAY[capacity], tw_open, tw_close FROM vehicles',
   NULL,
   NULL,
   'SELECT * FROM matrix'
