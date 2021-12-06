@@ -34,7 +34,7 @@ To get this release, download the repository or download the
 .. code-block:: bash
 
     git clone git://github.com/pgRouting/vrprouting.git
-    cd pgrouting
+    cd vrprouting
     git checkout v${PROJECT_VERSION}
 
 
@@ -42,7 +42,7 @@ To get this release, download the repository or download the
 
 .. code-block:: bash
 
-    wget -O pgrouting-${PROJECT_VERSION}.tar.gz https://github.com/pgRouting/vrprouting/archive/v${PROJECT_VERSION}.tar.gz
+    wget -O vrprouting-${PROJECT_VERSION}.tar.gz https://github.com/pgRouting/vrprouting/archive/v${PROJECT_VERSION}.tar.gz
 
 
 Short Version
@@ -53,8 +53,8 @@ Extracting the tar ball
 
 .. code-block:: bash
 
-    tar xvfz pgrouting-${PROJECT_VERSION}.tar.gz
-    cd pgrouting-${PROJECT_VERSION}
+    tar xvfz vrprouting-${PROJECT_VERSION}.tar.gz
+    cd vrprouting-${PROJECT_VERSION}
 
 To compile assuming you have all the dependencies in your search path:
 
@@ -62,7 +62,7 @@ To compile assuming you have all the dependencies in your search path:
 
     mkdir build
     cd build
-    cmake  ..
+    cmake ..
     make
     sudo make install
 
@@ -106,17 +106,17 @@ To be able to compile vrpRouting, make sure that the following dependencies are 
 
 .. TODO fill this numbers based on what is on the CMakeLists
 
-* C++ compilers with support of C++14 and C11
-* Postgresql version >= 12
-* The Boost Graph Library (BGL). Version >= 1.65
-* CMake >= 3.2
-
+* C and C++ compilers with C++17 standard support
+* Postgresql version >= TBD
+* The Boost Graph Library (BGL) >= 1.65
+* CMake >= 3.12
+* VROOM >= ${VROOM_MINIMUM_VERSION}
 
 .. rubric:: optional dependencies
 
 For user's documentation
 
-* Sphinx >= TBD
+* Sphinx > 4.0.0
 * Latex
 
 For developer's documentation
@@ -138,14 +138,16 @@ Installing the compilation dependencies
 
 .. rubric:: Database dependencies
 
-This example is for PostgreSQL 10
+This example is for PostgreSQL 13 and PostGIS 3
 
 .. code-block:: none
 
     sudo apt-get install
-        postgresql-10 \
-        postgresql-server-dev-10 \
-        postgresql-10-postgis
+        postgresql-13 \
+        postgresql-server-dev-13 \
+        postgresql-13-postgis-3 \
+        postgresql-13-postgis-3-scripts \
+        postgresql-13-pgrouting
 
 
 .. rubric:: Build dependencies
@@ -157,6 +159,27 @@ This example is for PostgreSQL 10
         g++ \
         libboost-graph-dev
 
+.. rubric:: Build dependencies (VROOM)
+
+Install VROOM dependencies
+
+.. code-block:: none
+
+    sudo apt-get install libssl-dev libasio-dev libglpk-dev
+
+Build VROOM v${VROOM_MINIMUM_VERSION}
+
+.. code-block:: none
+
+    wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v${VROOM_MINIMUM_VERSION}.tar.gz
+    tar -zvxf v${VROOM_MINIMUM_VERSION}.tar.gz
+    cd vroom-${VROOM_MINIMUM_VERSION}/src
+
+    # Create object file with position independent code using -fPIC flag
+    sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
+
+    make
+
 .. rubric:: Optional dependencies
 
 For documentation and testing
@@ -167,7 +190,7 @@ For documentation and testing
         texlive \
         doxygen \
         libtap-parser-sourcehandler-pgtap-perl \
-        postgresql-10-pgtap
+        postgresql-13-pgtap
 
 
 .. _install_configuring:
@@ -190,11 +213,12 @@ Configurable variables
 
 .. rubric:: To see the variables that can be configured
 
+Here, the variable VROOM_INSTALL_PATH corresponds to the location of the root directory of VROOM.
 
 .. code-block:: bash
 
     $ cd build
-    $ cmake -L ..
+    $ cmake -DVROOM_INSTALL_PATH=/path/to/vroom-dir/ -L ..
 
 
 .. rubric:: Configuring The Documentation
@@ -217,7 +241,7 @@ Configuring with documentation
 
 .. code-block:: bash
 
-    $ cmake -DWITH_DOC=ON ..
+    $ cmake -DVROOM_INSTALL_PATH=${VROOM_INSTALL_PATH} -DWITH_DOC=ON ..
 
 .. note:: Most of the effort of the documentation has being on the html files.
 
