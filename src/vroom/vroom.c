@@ -102,7 +102,7 @@ process(
     char *breaks_tws_sql,
     char *matrix_sql,
 
-    int16_t exploration_level,
+    int32_t exploration_level,
     int32_t timeout,
     int16_t fn,
     bool is_plain,
@@ -277,7 +277,7 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
      *     breaks_sql TEXT,
      *     breaks_time_windows_sql TEXT,
      *     matrix_sql TEXT,
-     *     exploration_level SMALLINT default 5,
+     *     exploration_level INTEGER default 5,
      *     timeout INTEGER default -1,
      *     fn SMALLINT,
      *     is_plain BOOLEAN
@@ -294,7 +294,7 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
       }
     }
 
-    int16_t exploration_level = PG_GETARG_INT16(8);
+    int32_t exploration_level = PG_GETARG_INT32(8);
     int32_t timeout = PG_GETARG_INT32(9);
     int16_t fn = PG_GETARG_INT16(10);
     bool is_plain = PG_GETARG_BOOL(11);

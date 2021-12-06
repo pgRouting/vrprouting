@@ -30,7 +30,7 @@ DECLARE
                                  '(to_timestamp(tw_close) at time zone ''UTC'')::TIMESTAMP AS tw_close  FROM shipments_time_windows$$';
 
   restPlain_sql TEXT := ', $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$' ||
-                         ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$, exploration_level => 5::SMALLINT, timeout => -1)';
+                         ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$, exploration_level => 5, timeout => -1)';
 
   rest_sql TEXT := ', $$SELECT id, start_index, end_index, capacity, skills, (to_timestamp(tw_open) at time zone ''UTC'')::TIMESTAMP AS tw_open' ||
                    ', (to_timestamp(tw_close) at time zone ''UTC'')::TIMESTAMP AS tw_close, speed_factor FROM vehicles$$' ||
@@ -38,7 +38,7 @@ DECLARE
                    ', $$SELECT id, (to_timestamp(tw_open) at time zone ''UTC'')::TIMESTAMP AS tw_open' ||
                    ', (to_timestamp(tw_close) at time zone ''UTC'')::TIMESTAMP AS tw_close FROM breaks_time_windows$$, ' ||
                    '$$SELECT start_id, end_id, make_interval(secs => duration) AS duration, cost FROM matrix$$, ' ||
-                   'exploration_level => 5::SMALLINT, timeout => $$-00:00:01$$::INTERVAL)';
+                   'exploration_level => 5, timeout => $$-00:00:01$$::INTERVAL)';
 
   returnPlain_sql TEXT := 'SELECT * FROM vrp_vroomPlain(';
   return_sql TEXT := 'SELECT seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id, ' ||

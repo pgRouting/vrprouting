@@ -54,7 +54,7 @@ BEGIN
     '$$breaks$$',
     '$$breaks_time_windows$$',
     '$$matrix$$',
-    'exploration_level => 5::SMALLINT',
+    'exploration_level => 5',
     'timeout => -1'
   ]::TEXT[];
   subs = ARRAY[
@@ -98,7 +98,7 @@ BEGIN
     '$$breaks$$',
     '$$breaks_time_windows$$',
     '$$matrix$$',
-    'exploration_level => 5::SMALLINT',
+    'exploration_level => 5',
     'timeout => -1'
   ]::TEXT[];
   subs = ARRAY[
@@ -138,7 +138,7 @@ BEGIN
     '$$breaks$$',
     '$$breaks_time_windows$$',
     '$$matrix$$',
-    'exploration_level => 5::SMALLINT',
+    'exploration_level => 5',
     'timeout => -1'
   ]::TEXT[];
   subs = ARRAY[

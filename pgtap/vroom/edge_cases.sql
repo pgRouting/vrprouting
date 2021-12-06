@@ -838,7 +838,7 @@ BEGIN
     'breaks',
     'breaks_time_windows',
     'matrix',
-    exploration_level => -1::SMALLINT
+    exploration_level => -1
   );
   RETURN QUERY
   SELECT throws_ok(
@@ -858,7 +858,7 @@ BEGIN
     'breaks',
     'breaks_time_windows',
     'matrix',
-    exploration_level => 6::SMALLINT
+    exploration_level => 6
   );
   RETURN QUERY
   SELECT throws_ok(
@@ -878,7 +878,7 @@ BEGIN
     'breaks',
     'breaks_time_windows',
     'matrix',
-    exploration_level => 0::SMALLINT
+    exploration_level => 0
   );
   RETURN QUERY
   SELECT set_eq('exploration_level_0',
@@ -922,7 +922,7 @@ BEGIN
     'breaks',
     'breaks_time_windows',
     'matrix',
-    exploration_level => 5::SMALLINT
+    exploration_level => 5
   );
   RETURN QUERY
   SELECT set_eq('exploration_level_5', 'vroom_sql', 'Problem with exploration_level => 5');

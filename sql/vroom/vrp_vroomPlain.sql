@@ -64,7 +64,7 @@ optional parameters start
 ===================== ============ ============================= =================================================
 Parameter             Type         Default                       Description
 ===================== ============ ============================= =================================================
-**exploration_level** ``SMALLINT`` :math:`5::SMALLINT`           Exploration level to use while solving.
+**exploration_level** ``INTEGER``  :math:`5`                     Exploration level to use while solving.
 
                                                                  - Ranges from ``[0, 5]``
                                                                  - A smaller exploration level gives faster result.
@@ -91,7 +91,7 @@ CREATE FUNCTION vrp_vroomPlain(
     TEXT,  -- breaks_time_windows_sql (required)
     TEXT,  -- matrix_sql (required)
 
-    exploration_level SMALLINT DEFAULT 5,
+    exploration_level INTEGER DEFAULT 5,
     timeout INTEGER DEFAULT -1,
 
     OUT seq BIGINT,
@@ -126,7 +126,7 @@ LANGUAGE plpgsql VOLATILE;
 
 -- COMMENTS
 
-COMMENT ON FUNCTION vrp_vroomPlain(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, SMALLINT, INTEGER)
+COMMENT ON FUNCTION vrp_vroomPlain(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, INTEGER)
 IS 'vrp_vroomPlain
  - EXPERIMENTAL
  - Parameters:
@@ -149,7 +149,7 @@ IS 'vrp_vroomPlain
    - Matrix SQL with columns:
        start_vid, end_vid, agg_cost
 - Optional parameters
-   - exploration_level := 5::SMALLINT
+   - exploration_level := 5
    - timeout := -1
  - Documentation:
    - ${PROJECT_DOC_LINK}/vrp_vroomPlain.html
