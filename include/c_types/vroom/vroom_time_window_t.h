@@ -40,14 +40,14 @@ name | description
 :----- | :-------
 id | Identifier of the job/shipment/break
 kind | Whether the shipment is a pickup ('p') or a delivery ('d')
-start_time | Time window start time
-end_time | Time window end time
+tw_open | Time window opening time
+tw_close | Time window closing time
 */
 struct Vroom_time_window_t {
   Idx id;
   char kind;
-  Duration start_time;
-  Duration end_time;
+  Duration tw_open;
+  Duration tw_close;
 };
 
 #endif  // INCLUDE_C_TYPES_VROOM_VROOM_TIME_WINDOW_T_H_

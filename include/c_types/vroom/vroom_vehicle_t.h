@@ -39,21 +39,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 name | description
 :----- | :-------
 id | The vehicle's identifier
-start_index | Start location index in matrix
-end_index | End location index in matrix
+start_id | Start location index in matrix
+end_id | End location index in matrix
 capacity | Vehicle's capacity array
 capacity_size | Vehicle's capacity array size
 skills | Vehicle's skills
 skills_size | Number of vehicle's skills
-time_window_start | Time window start time
-time_window_end | Time window end time
+tw_open | Time window start time
+tw_close | Time window end time
 speed_factor | Vehicle travel time multiplier
 max_tasks | Max number of tasks in a route for the vehicle
 */
 struct Vroom_vehicle_t {
   Idx id; /** The vehicle's identifier */
-  MatrixIndex start_index; /** Start location index in matrix */
-  MatrixIndex end_index; /** End location index in matrix */
+  MatrixIndex start_id; /** Start location index in matrix */
+  MatrixIndex end_id; /** End location index in matrix */
 
   Amount *capacity; /** Vehicle's capacity array */
   size_t capacity_size; /** Vehicle's capacity array size */
@@ -61,8 +61,8 @@ struct Vroom_vehicle_t {
   Skill *skills; /** Vehicle's skills */
   size_t skills_size; /** Number of vehicle's skills */
 
-  Duration time_window_start; /** Time window start time */
-  Duration time_window_end; /** Time window end time */
+  Duration tw_open; /** Time window start time */
+  Duration tw_close; /** Time window end time */
 
   double speed_factor; /** Vehicle travel time multiplier */
 
