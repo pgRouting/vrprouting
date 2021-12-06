@@ -99,6 +99,12 @@ Terminologies
 - **Travel time**: The total time the vehicle travels during its route.
 - **Waiting time**: The total time the vehicle is idle, i.e. it is neither traveling nor servicing any task. It is generally the time spent by a vehicle waiting for a task service to open.
 
+.. |timestamp| replace:: ``TIMESTAMP`` or ``INTEGER``
+.. |interval| replace:: ``INTERVAL`` or ``INTEGER``
+.. |interval0| replace:: '00:00:00'::INTERVAL or :math:`0`
+.. |tw_open_default| replace:: '1970-01-01 00:00:00'::TIMESTAMP or :math:`0`
+.. |tw_close_default| replace:: '2106-02-07 06:28:15'::TIMESTAMP or :math:`4294967295`
+
 Inner Queries
 -------------------------------------------------------------------------------
 

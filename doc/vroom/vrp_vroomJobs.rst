@@ -26,6 +26,10 @@ vrp_vroomJobs - Experimental
 
 .. rubric:: Availability
 
+Version 0.3.0
+
+* Function **modified** for VROOM 1.11.0
+
 Version 0.2.0
 
 * New **experimental** function
@@ -64,6 +68,12 @@ The modification in the tables is mentioned at the end of the :doc:`sampledata`.
 .. literalinclude:: doc-vrp_vroomJobs.queries
    :start-after: -- q1
    :end-before: -- q2
+
+.. |timestamp| replace:: ``TIMESTAMP``
+.. |interval| replace:: ``INTERVAL``
+.. |interval0| replace:: '00:00:00'::INTERVAL
+.. |tw_open_default| replace:: '1970-01-01 00:00:00'::TIMESTAMP
+.. |tw_close_default| replace:: '2106-02-07 06:28:15'::TIMESTAMP
 
 Parameters
 -------------------------------------------------------------------------------

@@ -18,13 +18,17 @@
 vrp_vroomJobsPlain - Experimental
 ===============================================================================
 
-``vrp_vroomJobsPlain`` - Vehicle Routing Problem with VROOM, involving only jobs.
+``vrp_vroomJobsPlain`` - Vehicle Routing Problem with VROOM, involving only jobs, with plain integer values instead of TIMESTAMP or INTERVAL.
 
 .. include:: experimental.rst
    :start-after: begin-warn-expr
    :end-before: end-warn-expr
 
 .. rubric:: Availability
+
+Version 0.3.0
+
+* Function **modified** for VROOM 1.11.0
 
 Version 0.2.0
 
@@ -63,6 +67,12 @@ Optional parameters are `named parameters` and have a default value.
 .. literalinclude:: doc-vrp_vroomJobsPlain.queries
    :start-after: -- q1
    :end-before: -- q2
+
+.. |timestamp| replace:: ``INTEGER``
+.. |interval| replace:: ``INTEGER``
+.. |interval0| replace:: :math:`0`
+.. |tw_open_default| replace:: :math:`0`
+.. |tw_close_default| replace:: :math:`4294967295`
 
 Parameters
 -------------------------------------------------------------------------------
