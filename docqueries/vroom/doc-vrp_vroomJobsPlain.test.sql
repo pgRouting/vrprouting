@@ -14,13 +14,13 @@ FROM vrp_vroomJobsPlain(
   $jobs$
     SELECT * FROM (
       VALUES (1414, 2), (1515, 3)
-    ) AS C(id, location_index)
+    ) AS C(id, location_id)
   $jobs$,
   NULL,
   $vehicles$
     SELECT * FROM (
       VALUES (1, 1, 4)
-    ) AS C(id, start_index, end_index)
+    ) AS C(id, start_id, end_id)
   $vehicles$,
   NULL,
   NULL,

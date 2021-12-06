@@ -16,19 +16,19 @@ FROM vrp_vroomPlain(
   $jobs$
     SELECT * FROM (
       VALUES (1414, 2), (1515, 3)
-    ) AS C(id, location_index)
+    ) AS C(id, location_id)
   $jobs$,
   NULL,
   $shipments$
     SELECT * FROM (
       VALUES (100, 1, 4)
-    ) AS C(id, p_location_index, d_location_index)
+    ) AS C(id, p_location_id, d_location_id)
   $shipments$,
   NULL,
   $vehicles$
     SELECT * FROM (
       VALUES (1, 1, 4)
-    ) AS C(id, start_index, end_index)
+    ) AS C(id, start_id, end_id)
   $vehicles$,
   NULL,
   NULL,
