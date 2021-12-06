@@ -86,33 +86,33 @@ void fetch_time_windows(
     }
     time_window->kind = kind;
     if (is_plain) {
-      time_window->start_time = get_Duration(tuple, tupdesc, info[2], 0);
-      time_window->end_time = get_Duration(tuple, tupdesc, info[3], 0);
+      time_window->tw_open = get_Duration(tuple, tupdesc, info[2], 0);
+      time_window->tw_close = get_Duration(tuple, tupdesc, info[3], 0);
     } else {
-      time_window->start_time =
+      time_window->tw_open =
           (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[2], 0);
-      time_window->end_time =
+      time_window->tw_close =
           (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[3], 0);
     }
   } else {
     if (is_plain) {
-      time_window->start_time = get_Duration(tuple, tupdesc, info[1], 0);
-      time_window->end_time = get_Duration(tuple, tupdesc, info[2], 0);
+      time_window->tw_open = get_Duration(tuple, tupdesc, info[1], 0);
+      time_window->tw_close = get_Duration(tuple, tupdesc, info[2], 0);
     } else {
-      time_window->start_time =
+      time_window->tw_open =
           (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[1], 0);
-      time_window->end_time =
+      time_window->tw_close =
           (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[2], 0);
     }
   }
 
-  if (time_window->start_time > time_window->end_time) {
+  if (time_window->tw_open > time_window->tw_close) {
     ereport(ERROR,
         (errmsg("Invalid time window (%d, %d)",
-            time_window->start_time, time_window->end_time),
+            time_window->tw_open, time_window->tw_close),
          errhint("Time window start time %d must be "
              "less than or equal to time window end time %d",
-             time_window->start_time, time_window->end_time)));
+             time_window->tw_open, time_window->tw_close)));
   }
 }
 

@@ -122,12 +122,12 @@ do_vrp_vroom(
     Identifiers<Id> location_ids;
 
     for (size_t i = 0; i < total_jobs; ++i) {
-      location_ids += jobs[i].location_index;
+      location_ids += jobs[i].location_id;
     }
 
     for (size_t i = 0; i < total_shipments; ++i) {
-      location_ids += shipments[i].p_location_index;
-      location_ids += shipments[i].d_location_index;
+      location_ids += shipments[i].p_location_id;
+      location_ids += shipments[i].d_location_id;
     }
 
     double min_speed_factor, max_speed_factor;
@@ -136,11 +136,11 @@ do_vrp_vroom(
     for (size_t i = 0; i < total_vehicles; ++i) {
       min_speed_factor = std::min(min_speed_factor, vehicles[i].speed_factor);
       max_speed_factor = std::max(min_speed_factor, vehicles[i].speed_factor);
-      if (vehicles[i].start_index != -1) {
-        location_ids += vehicles[i].start_index;
+      if (vehicles[i].start_id != -1) {
+        location_ids += vehicles[i].start_id;
       }
-      if (vehicles[i].end_index != -1) {
-        location_ids += vehicles[i].end_index;
+      if (vehicles[i].end_id != -1) {
+        location_ids += vehicles[i].end_id;
       }
     }
 

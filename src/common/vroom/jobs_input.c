@@ -35,7 +35,7 @@ A ``SELECT`` statement that returns the following columns:
 
 ::
 
-    id, location_index
+    id, location_id
     [, setup, service, delivery, pickup, skills, priority]
 
 
@@ -44,7 +44,7 @@ Column                Type                       Default     Description
 ====================  =========================  =========== ================================================
 **id**                ``ANY-INTEGER``                        Non-negative unique identifier of the job.
 
-**location_index**    ``ANY-INTEGER``                        Non-negative identifier of the job location.
+**location_id**       ``ANY-INTEGER``                        Non-negative identifier of the job location.
 
 **setup**             |interval|                 |interval0| Job setup duration.
 
@@ -87,7 +87,7 @@ void fetch_jobs(
     Vroom_job_t *job,
     bool is_plain) {
   job->id = get_Idx(tuple, tupdesc, info[0], 0);
-  job->location_index = get_MatrixIndex(tuple, tupdesc, info[1], 0);
+  job->location_id = get_MatrixIndex(tuple, tupdesc, info[1], 0);
 
   if (is_plain) {
     job->setup = get_Duration(tuple, tupdesc, info[2], 0);
@@ -220,7 +220,7 @@ get_vroom_jobs(
   }
 
   info[0].name = "id";
-  info[1].name = "location_index";
+  info[1].name = "location_id";
   info[2].name = "setup";
   info[3].name = "service";
   info[4].name = "delivery";
@@ -240,7 +240,7 @@ get_vroom_jobs(
     info[3].eType = INTERVAL;         // service
   }
 
-  /* Only id and location_index are mandatory */
+  /* Only id and location_id are mandatory */
   info[0].strict = true;
   info[1].strict = true;
 
