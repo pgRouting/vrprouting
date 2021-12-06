@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vrpRouting v0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 10:43+0000\n"
+"POT-Creation-Date: 2021-12-06 20:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,63 +48,120 @@ msgstr ""
 msgid "v0.3.0 Release Notes"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:30
-msgid "v0.2.0 Release Notes"
+#: ../../build/doc/release_notes.rst:28
+#, python-format
+msgid ""
+"To see all issues & pull requests closed by this release see the `Git "
+"closed milestone for 0.3.0 "
+"<https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.3.0%22>`_"
+" on Github."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:33
-msgid "New experimental functions"
+#: ../../build/doc/release_notes.rst:31
+msgid "Modification of experimental functions"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:34
+#: ../../build/doc/release_notes.rst:32 ../../build/doc/release_notes.rst:61
 msgid "VROOM"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:36
+#: ../../build/doc/release_notes.rst:34 ../../build/doc/release_notes.rst:63
 msgid "vrp_vroom"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:37
+#: ../../build/doc/release_notes.rst:35 ../../build/doc/release_notes.rst:64
 msgid "vrp_vroomJobs"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:38
+#: ../../build/doc/release_notes.rst:36 ../../build/doc/release_notes.rst:65
 msgid "vrp_vroomShipments"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:39
+#: ../../build/doc/release_notes.rst:37 ../../build/doc/release_notes.rst:66
 msgid "vrp_vroomPlain"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:40
+#: ../../build/doc/release_notes.rst:38 ../../build/doc/release_notes.rst:67
 msgid "vrp_vroomJobsPlain"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:41
+#: ../../build/doc/release_notes.rst:39 ../../build/doc/release_notes.rst:68
 msgid "vrp_vroomShipmentsPlain"
 msgstr ""
 
+#: ../../build/doc/release_notes.rst:42
+msgid "Added support for VROOM 1.11.0 (#24)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:43
+msgid "Added setup time in jobs and shipments to refine service time modeling."
+msgstr ""
+
 #: ../../build/doc/release_notes.rst:44
-msgid "v0.1.0 Release Notes"
+msgid ""
+"Added support for custom cost matrices, along with the duration matrix. -"
+" Using start_id, end_id, duration, cost as matrix table columns."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:46
+msgid ""
+"Added timeout and exploration_level parameters to vroom-category "
+"functions."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:47
-msgid "Extraction tasks"
+msgid "Added max_tasks column in vehicles."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:48
-msgid "Porting pgRouting's VRP functionality"
+msgid "Added tests for empty skills arrays."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:51
-msgid "New official functions"
+#: ../../build/doc/release_notes.rst:49
+msgid "Added custom scaling logic for speed_factor."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:52
-msgid "vrp_version"
+#: ../../build/doc/release_notes.rst:50
+msgid "Modified parameter names to make the naming consistent."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:53
+msgid "Fixes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:54
+msgid "Honor client cancel requests for vroom-category functions."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:57
+msgid "v0.2.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:60
+msgid "New experimental functions"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:71
+msgid "v0.1.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:74
+msgid "Extraction tasks"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:75
+msgid "Porting pgRouting's VRP functionality"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:78
+msgid "New official functions"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:79
+msgid "vrp_version"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:80
 msgid "vrp_full_version"
 msgstr ""
 
