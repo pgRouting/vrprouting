@@ -42,31 +42,27 @@ A ``SELECT`` statement that returns the following columns:
 ======================  ======================== =================== ================================================
 Column                  Type                     Default             Description
 ======================  ======================== =================== ================================================
-**id**                  ``ANY-INTEGER``                              Non-negative unique identifier of the job.
+**id**                  ``ANY-INTEGER``                              Non-negative unique identifier of the vehicle.
 
 **start_index**         ``ANY-INTEGER``                              Non-negative identifier of the vehicle start location.
 
 **end_index**           ``ANY-INTEGER``                              Non-negative identifier of the vehicle end location.
 
-**capacity**            ``ARRAY[ANY-INTEGER]``                       Array of non-negative integers describing
+**capacity**            ``ARRAY[ANY-INTEGER]``   Empty Array         Array of non-negative integers describing
                                                                      multidimensional quantities such as
                                                                      number of items, weight, volume etc.
 
                                                                      - All vehicles must have the same value of
                                                                        :code:`array_length(capacity, 1)`
 
-**skills**              ``ARRAY[INTEGER]``                           Array of non-negative integers defining
+**skills**              ``ARRAY[INTEGER]``       Empty Array         Array of non-negative integers defining
                                                                      mandatory skills.
 
-**tw_open**             ``TIMESTAMP``                                Time window opening time.
+**tw_open**             |timestamp|              |tw_open_default|   Time window opening time.
 
-                                                                     - ``INTEGER`` for plain VROOM functions.
+**tw_close**            |timestamp|              |tw_close_default|  Time window closing time.
 
-**tw_close**            ``TIMESTAMP``                                Time window closing time.
-
-                                                                     - ``INTEGER`` for plain VROOM functions.
-
-**speed_factor**        ``ANY-NUMERICAL``                            Vehicle travel time multiplier.
+**speed_factor**        ``ANY-NUMERICAL``        :math:`1.0`         Vehicle travel time multiplier.
 
                                                                      - Max value of speed factor for a vehicle shall not be
                                                                        greater than 5 times the speed factor of any other vehicle.

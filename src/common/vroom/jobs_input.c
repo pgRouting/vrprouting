@@ -46,29 +46,25 @@ Column                Type                       Default     Description
 
 **location_index**    ``ANY-INTEGER``                        Non-negative identifier of the job location.
 
-**setup**             ``INTERVAL``               0           Job setup duration, in seconds
+**setup**             |interval|                 |interval0| Job setup duration.
 
-                                                             - ``INTEGER`` for plain VROOM functions.
+**service**           |interval|                 |interval0| Job service duration.
 
-**service**           ``INTERVAL``               0           Job service duration, in seconds
-
-                                                             - ``INTEGER`` for plain VROOM functions.
-
-**delivery**          ``ARRAY[ANY-INTEGER]``                 Array of non-negative integers describing
+**delivery**          ``ARRAY[ANY-INTEGER]``     Empty Array Array of non-negative integers describing
                                                              multidimensional quantities for delivery such
                                                              as number of items, weight, volume etc.
 
                                                              - All jobs must have the same value of
                                                                :code:`array_length(delivery, 1)`
 
-**pickup**            ``ARRAY[ANY-INTEGER]``                 Array of non-negative integers describing
+**pickup**            ``ARRAY[ANY-INTEGER]``     Empty Array Array of non-negative integers describing
                                                              multidimensional quantities for pickup such as
                                                              number of items, weight, volume etc.
 
                                                              - All jobs must have the same value of
                                                                :code:`array_length(pickup, 1)`
 
-**skills**            ``ARRAY[INTEGER]``                     Array of non-negative integers defining
+**skills**            ``ARRAY[INTEGER]``         Empty Array Array of non-negative integers defining
                                                              mandatory skills.
 
 **priority**          ``INTEGER``                0           Priority level of the job

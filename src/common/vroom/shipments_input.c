@@ -46,32 +46,24 @@ Column                  Type                       Default     Description
 
 **p_location_index**    ``ANY-INTEGER``                         Non-negative identifier of the pickup location.
 
-**p_setup**             ``INTERVAL``               0            Pickup setup duration, in seconds
+**p_setup**             |interval|                 |interval0|  Pickup setup duration.
 
-                                                                - ``INTEGER`` for plain VROOM functions.
-
-**p_service**           ``INTERVAL``               0            Pickup service duration, in seconds
-
-                                                                - ``INTEGER`` for plain VROOM functions.
+**p_service**           |interval|                 |interval0|  Pickup service duration.
 
 **d_location_index**    ``ANY-INTEGER``                         Non-negative identifier of the delivery location.
 
-**d_setup**             ``INTERVAL``               0            Delivery setup duration, in seconds
+**d_setup**             |interval|                 |interval0|  Delivery setup duration.
 
-                                                                - ``INTEGER`` for plain VROOM functions.
+**d_service**           |interval|                 |interval0|  Delivery service duration.
 
-**d_service**           ``INTERVAL``               0            Delivery service duration, in seconds
-
-                                                                - ``INTEGER`` for plain VROOM functions.
-
-**amount**              ``ARRAY[ANY-INTEGER]``                  Array of non-negative integers describing
+**amount**              ``ARRAY[ANY-INTEGER]``     Empty Array  Array of non-negative integers describing
                                                                 multidimensional quantities such as number
                                                                 of items, weight, volume etc.
 
                                                                 - All shipments must have the same value of
                                                                   :code:`array_length(amount, 1)`
 
-**skills**              ``ARRAY[INTEGER]``                      Array of non-negative integers defining
+**skills**              ``ARRAY[INTEGER]``         Empty Array  Array of non-negative integers defining
                                                                 mandatory skills.
 
 **priority**            ``INTEGER``                0            Priority level of the shipment.

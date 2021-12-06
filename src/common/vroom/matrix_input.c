@@ -37,21 +37,17 @@ A ``SELECT`` statement that returns the following columns:
 
     start_id, end_id, duration [, cost]
 
-=============== ================= ==================================================
-Column          Type              Description
-=============== ================= ==================================================
-**start_id**    ``ANY-INTEGER``   Identifier of the start node.
+=============== ================= ============== ==================================================
+Column          Type              Default        Description
+=============== ================= ============== ==================================================
+**start_id**    ``ANY-INTEGER``                  Identifier of the start node.
 
-**end_id**      ``ANY-INTEGER``   Identifier of the end node.
+**end_id**      ``ANY-INTEGER``                  Identifier of the end node.
 
-**duration**    ``INTERVAL``      Time to travel from ``start_id`` to ``end_id``
+**duration**    |interval|                       Time to travel from ``start_id`` to ``end_id``
 
-                                  - ``INTEGER`` for plain VROOM functions.
-
-**cost**        ``INTEGER``       Cost to travel from ``start_id`` to ``end_id``
-
-                                  - If unspecified, duration is taken as the cost.
-=============== ================= ==================================================
+**cost**        ``INTEGER``       *duration*     Cost to travel from ``start_id`` to ``end_id``
+=============== ================= ============== ==================================================
 
 .. vrp_vroom end
 */

@@ -43,24 +43,21 @@ Column                Type                                   Description
 **id**                ``ANY-INTEGER``                         Non-negative unique identifier of the job,
                                                               pickup/delivery shipment, or break.
 
-**kind**              ``CHAR``                                **Only required for shipments**. Value in ['p', 'd']
-                                                              indicating whether the time window is for:
+**kind**              ``CHAR``                                **Only required for shipments time windows**.
+                                                              Value in ['p', 'd'] indicating whether
+                                                              the time window is for:
 
                                                               - Pickup shipment, or
                                                               - Delivery shipment.
 
-**tw_open**           ``TIMESTAMP``                           Time window opening time.
+**tw_open**           |timestamp|                             Time window opening time.
 
-                                                              - ``INTEGER`` for plain VROOM functions.
-
-**tw_close**          ``TIMESTAMP``                           Time window closing time.
-
-                                                              - ``INTEGER`` for plain VROOM functions.
+**tw_close**          |timestamp|                             Time window closing time.
 ====================  ====================================== =====================================================
 
 **Note**:
 
-- All timing are in seconds.
+- All timings are in **seconds** when represented as an ``INTEGER``.
 - Every row must satisfy the condition: :code:`tw_open ≤ tw_close`.
 - It is up to users to decide how to describe time windows:
 

@@ -38,16 +38,14 @@ A ``SELECT`` statement that returns the following columns:
     id, vehicle_id [, service]
 
 ====================  =========================  =========== ================================================
-Column                Type                       Default     Description
+Column                Type                       Default      Description
 ====================  =========================  =========== ================================================
 **id**                ``ANY-INTEGER``                         Non-negative unique identifier of the break.
                                                               (unique for the same vehicle).
 
 **vehicle_id**        ``ANY-INTEGER``                         Non-negative unique identifier of the vehicle.
 
-**service**           ``INTERVAL``               0            The break duration, in seconds.
-
-                                                              - ``INTEGER`` for plain VROOM functions.
+**service**           |interval|                 |interval0|  The break duration.
 ====================  =========================  =========== ================================================
 
 .. vrp_vroom end
