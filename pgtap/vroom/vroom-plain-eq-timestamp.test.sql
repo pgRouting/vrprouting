@@ -12,13 +12,13 @@ DECLARE
 
   jobsPlain TEXT := '$$SELECT * FROM jobs';
   jobsPlain_sql TEXT;
-  jobs TEXT := '$$SELECT id, location_index, make_interval(secs => service) AS service, delivery, pickup, skills, priority FROM jobs';
+  jobs TEXT := '$$SELECT id, location_id, make_interval(secs => service) AS service, delivery, pickup, skills, priority FROM jobs';
   jobs_sql TEXT;
 
   shipmentsPlain TEXT := '$$SELECT * FROM shipments';
   shipmentsPlain_sql TEXT;
-  shipments TEXT := '$$SELECT id, p_location_index, make_interval(secs => p_service) AS p_service, ' ||
-                    'd_location_index, make_interval(secs => d_service) AS d_service, amount, skills, priority FROM shipments';
+  shipments TEXT := '$$SELECT id, p_location_id, make_interval(secs => p_service) AS p_service, ' ||
+                    'd_location_id, make_interval(secs => d_service) AS d_service, amount, skills, priority FROM shipments';
   shipments_sql TEXT;
 
   jobsPlain_time_windows TEXT := '$$SELECT * FROM jobs_time_windows$$';
@@ -32,7 +32,7 @@ DECLARE
   restPlain_sql TEXT := ', $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$' ||
                          ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$, exploration_level => 5, timeout => -1)';
 
-  rest_sql TEXT := ', $$SELECT id, start_index, end_index, capacity, skills, (to_timestamp(tw_open) at time zone ''UTC'')::TIMESTAMP AS tw_open' ||
+  rest_sql TEXT := ', $$SELECT id, start_id, end_id, capacity, skills, (to_timestamp(tw_open) at time zone ''UTC'')::TIMESTAMP AS tw_open' ||
                    ', (to_timestamp(tw_close) at time zone ''UTC'')::TIMESTAMP AS tw_close, speed_factor, max_tasks FROM vehicles$$' ||
                    ', $$SELECT id, vehicle_id, make_interval(secs => service) AS service FROM breaks$$' ||
                    ', $$SELECT id, (to_timestamp(tw_open) at time zone ''UTC'')::TIMESTAMP AS tw_open' ||

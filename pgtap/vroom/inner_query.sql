@@ -5,11 +5,11 @@ SELECT CASE WHEN min_version('0.3.0') THEN plan (3504) ELSE plan(1) END;
 
 /*
 SELECT * FROM vrp_vroomPlain(
-  $$SELECT id, location_index, service, delivery, pickup, skills, priority FROM jobs$$,
+  $$SELECT id, location_id, service, delivery, pickup, skills, priority FROM jobs$$,
   $$SELECT id, tw_open, tw_close FROM jobs_time_windows$$,
-  $$SELECT id, p_location_index, p_service, d_location_index, d_service, amount, skills, priority FROM shipments$$,
+  $$SELECT id, p_location_id, p_service, d_location_id, d_service, amount, skills, priority FROM shipments$$,
   $$SELECT id, kind, tw_open, tw_close FROM shipments_time_windows$$,
-  $$SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close FROM vehicles$$,
+  $$SELECT id, start_id, end_id, capacity, skills, tw_open, tw_close FROM vehicles$$,
   $$SELECT id, vehicle_id, service FROM breaks$$,
   $$SELECT id, tw_open, tw_close FROM breaks_time_windows$$,
   $$SELECT start_id, end_id, duration FROM matrix$$
@@ -151,10 +151,10 @@ RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   inner_query_table TEXT := 'jobs';
-  params TEXT[] := ARRAY['id', 'location_index', 'service', 'delivery', 'pickup', 'skills', 'priority'];
+  params TEXT[] := ARRAY['id', 'location_id', 'service', 'delivery', 'pickup', 'skills', 'priority'];
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'location_index');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'location_id');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'delivery');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'pickup');
   RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
@@ -174,11 +174,11 @@ RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   inner_query_table TEXT := 'shipments';
-  params TEXT[] := ARRAY['id', 'p_location_index', 'p_service', 'd_location_index', 'd_service', 'amount', 'skills', 'priority'];
+  params TEXT[] := ARRAY['id', 'p_location_id', 'p_service', 'd_location_id', 'd_service', 'amount', 'skills', 'priority'];
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'p_location_index');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'd_location_index');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'p_location_id');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'd_location_id');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'amount');
   RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
   RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'priority');
@@ -199,11 +199,11 @@ RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   inner_query_table TEXT := 'vehicles';
-  params TEXT[] := ARRAY['id', 'start_index', 'end_index', 'capacity', 'skills', 'tw_open', 'tw_close', 'speed_factor', 'max_tasks'];
+  params TEXT[] := ARRAY['id', 'start_id', 'end_id', 'capacity', 'skills', 'tw_open', 'tw_close', 'speed_factor', 'max_tasks'];
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_index');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_index');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_id');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_id');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'capacity');
   RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
   RETURN QUERY SELECT test_anyNumerical(fn, inner_query_table, start_sql, rest_sql, params, 'speed_factor');

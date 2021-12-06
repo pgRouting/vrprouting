@@ -139,7 +139,7 @@ BEGIN
 
   PREPARE jobs_neg_priority AS
   SELECT * FROM vrp_vroomPlain(
-    'SELECT id, location_index, service, delivery, pickup, skills, -1 AS priority FROM jobs',
+    'SELECT id, location_id, service, delivery, pickup, skills, -1 AS priority FROM jobs',
     'jobs_time_windows',
     'shipments',
     'shipments_time_windows',
@@ -158,7 +158,7 @@ BEGIN
 
   PREPARE jobs_101_priority AS
   SELECT * FROM vrp_vroomPlain(
-    'SELECT id, location_index, service, delivery, pickup, skills, 101 AS priority FROM jobs',
+    'SELECT id, location_id, service, delivery, pickup, skills, 101 AS priority FROM jobs',
     'jobs_time_windows',
     'shipments',
     'shipments_time_windows',
@@ -177,7 +177,7 @@ BEGIN
 
   PREPARE jobs_zero_priority AS
   SELECT * FROM vrp_vroomPlain(
-    'SELECT id, location_index, service, delivery, pickup, skills, 0 AS priority FROM jobs',
+    'SELECT id, location_id, service, delivery, pickup, skills, 0 AS priority FROM jobs',
     'jobs_time_windows',
     'shipments',
     'shipments_time_windows',
@@ -191,7 +191,7 @@ BEGIN
 
   PREPARE jobs_100_priority AS
   SELECT * FROM vrp_vroomPlain(
-    'SELECT id, location_index, service, delivery, pickup, skills, 0 AS priority FROM jobs',
+    'SELECT id, location_id, service, delivery, pickup, skills, 0 AS priority FROM jobs',
     'jobs_time_windows',
     'shipments',
     'shipments_time_windows',
@@ -210,7 +210,7 @@ BEGIN
   SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
-    'SELECT id, p_location_index, p_service, d_location_index, d_service,
+    'SELECT id, p_location_id, p_service, d_location_id, d_service,
     amount, skills, -1 AS priority FROM shipments',
     'shipments_time_windows',
     'vehicles',
@@ -230,7 +230,7 @@ BEGIN
   SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
-    'SELECT id, p_location_index, p_service, d_location_index, d_service,
+    'SELECT id, p_location_id, p_service, d_location_id, d_service,
     amount, skills, 101 AS priority FROM shipments',
     'shipments_time_windows',
     'vehicles',
@@ -250,7 +250,7 @@ BEGIN
   SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
-    'SELECT id, p_location_index, p_service, d_location_index, d_service,
+    'SELECT id, p_location_id, p_service, d_location_id, d_service,
     amount, skills, 0 AS priority FROM shipments',
     'shipments_time_windows',
     'vehicles',
@@ -265,7 +265,7 @@ BEGIN
   SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
-    'SELECT id, p_location_index, p_service, d_location_index, d_service,
+    'SELECT id, p_location_id, p_service, d_location_id, d_service,
     amount, skills, 100 AS priority FROM shipments',
     'shipments_time_windows',
     'vehicles',
@@ -447,9 +447,9 @@ BEGIN
   -- vehicles time windows validate
 
   PREPARE vehicles_equal_tw AS
-  SELECT id, start_index, end_index, capacity, skills, 3000 AS tw_open, 3000 AS tw_close, speed_factor FROM vehicles;
+  SELECT id, start_id, end_id, capacity, skills, 3000 AS tw_open, 3000 AS tw_close, speed_factor FROM vehicles;
   PREPARE vehicles_invalid_tw AS
-  SELECT id, start_index, end_index, capacity, skills, 3001 AS tw_open, 3000 AS tw_close, speed_factor FROM vehicles;
+  SELECT id, start_id, end_id, capacity, skills, 3001 AS tw_open, 3000 AS tw_close, speed_factor FROM vehicles;
 
   PREPARE vehicles_equal_tw_problem AS
   SELECT * FROM vrp_vroomPlain(
@@ -487,8 +487,8 @@ BEGIN
 
   -- Query with jobs having only one of delivery or pickup amount should succeed
 
-  PREPARE jobs_only_delivery AS SELECT id, location_index, service, delivery, skills, priority FROM jobs;
-  PREPARE jobs_only_pickup AS SELECT id, location_index, service, pickup, skills, priority FROM jobs;
+  PREPARE jobs_only_delivery AS SELECT id, location_id, service, delivery, skills, priority FROM jobs;
+  PREPARE jobs_only_pickup AS SELECT id, location_id, service, pickup, skills, priority FROM jobs;
   PREPARE jobs_only_delivery_problem AS
   SELECT * FROM vrp_vroomPlain(
     'jobs_only_delivery',
@@ -515,37 +515,37 @@ BEGIN
   RETURN QUERY SELECT lives_ok('jobs_only_pickup_problem', 'Problem with jobs having only pickup amount');
 
 
-  -- Query with vehicles having only one of start_index or end_index should succeed
+  -- Query with vehicles having only one of start_id or end_id should succeed
 
-  PREPARE vehicles_only_start_index AS SELECT id, start_index, capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
-  PREPARE vehicles_only_end_index AS SELECT id, end_index, capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
-  PREPARE vehicles_only_start_index_problem AS
+  PREPARE vehicles_only_start_id AS SELECT id, start_id, capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
+  PREPARE vehicles_only_end_id AS SELECT id, end_id, capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
+  PREPARE vehicles_only_start_id_problem AS
   SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
     'shipments_time_windows',
-    'vehicles_only_start_index',
+    'vehicles_only_start_id',
     'breaks',
     'breaks_time_windows',
     'matrix'
   );
-  PREPARE vehicles_only_end_index_problem AS
+  PREPARE vehicles_only_end_id_problem AS
   SELECT * FROM vrp_vroomPlain(
     'jobs',
     'jobs_time_windows',
     'shipments',
     'shipments_time_windows',
-    'vehicles_only_end_index',
+    'vehicles_only_end_id',
     'breaks',
     'breaks_time_windows',
     'matrix'
   );
-  RETURN QUERY SELECT lives_ok('vehicles_only_start_index_problem', 'Problem with vehicles having only start_index');
-  RETURN QUERY SELECT lives_ok('vehicles_only_end_index_problem', 'Problem with vehicles having only end_index');
+  RETURN QUERY SELECT lives_ok('vehicles_only_start_id_problem', 'Problem with vehicles having only start_id');
+  RETURN QUERY SELECT lives_ok('vehicles_only_end_id_problem', 'Problem with vehicles having only end_id');
 
 
-  -- Query with vehicles having neither start_index nor end_index must fail
+  -- Query with vehicles having neither start_id nor end_id must fail
 
   PREPARE vehicles_no_index AS SELECT id, capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
   PREPARE vehicles_no_index_problem AS
@@ -563,21 +563,21 @@ BEGIN
   SELECT throws_ok(
     'vehicles_no_index_problem',
     'XX000',
-    'At least one out of start_index or end_index must be present',
-    'Problem with vehicles having neither start_index nor end_index'
+    'At least one out of start_id or end_id must be present',
+    'Problem with vehicles having neither start_id nor end_id'
   );
 
 
   -- Number of quantities of delivery, pickup, amount and capacity must be the same
 
   PREPARE jobs_inconsistent_delivery AS
-  SELECT id, location_index, service, ARRAY[10, 20]::BIGINT[] AS delivery, pickup, skills, priority FROM jobs;
+  SELECT id, location_id, service, ARRAY[10, 20]::BIGINT[] AS delivery, pickup, skills, priority FROM jobs;
   PREPARE jobs_inconsistent_pickup AS
-  SELECT id, location_index, service, delivery, ARRAY[10, 20]::BIGINT[] AS pickup, skills, priority FROM jobs;
+  SELECT id, location_id, service, delivery, ARRAY[10, 20]::BIGINT[] AS pickup, skills, priority FROM jobs;
   PREPARE shipments_inconsistent_amount AS
-  SELECT id, p_location_index, p_service, d_location_index, d_service, ARRAY[10, 20]::BIGINT[] AS amount, skills, priority FROM shipments;
+  SELECT id, p_location_id, p_service, d_location_id, d_service, ARRAY[10, 20]::BIGINT[] AS amount, skills, priority FROM shipments;
   PREPARE vehicles_inconsistent_capacity AS
-  SELECT id, start_index, end_index, ARRAY[10, 20]::BIGINT[] AS capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
+  SELECT id, start_id, end_id, ARRAY[10, 20]::BIGINT[] AS capacity, skills, tw_open, tw_close, speed_factor FROM vehicles;
 
   PREPARE jobs_inconsistent_delivery_problem AS
   SELECT * FROM vrp_vroomPlain(
@@ -663,12 +663,12 @@ BEGIN
   -- If speed_factor and duration are multiplied by same number, result should be same
 
   PREPARE vehicles_2x_speed AS
-  SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, 2 * speed_factor AS speed_factor FROM vehicles;
+  SELECT id, start_id, end_id, capacity, skills, tw_open, tw_close, 2 * speed_factor AS speed_factor FROM vehicles;
   PREPARE matrix_2x_distance AS
   SELECT start_id, end_id, 2 * duration AS duration FROM matrix;
 
   PREPARE vehicles_4x_speed AS
-  SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, 4 * speed_factor AS speed_factor FROM vehicles;
+  SELECT id, start_id, end_id, capacity, skills, tw_open, tw_close, 4 * speed_factor AS speed_factor FROM vehicles;
   PREPARE matrix_4x_distance AS
   SELECT start_id, end_id, 4 * duration AS duration FROM matrix;
 
@@ -985,13 +985,13 @@ BEGIN
   SELECT set_eq('exploration_level_5', 'vroom_sql', 'Problem with timeout => -1');
 
   PREPARE vehicles_negative_task AS
-  SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, speed_factor, -1 AS max_tasks FROM vehicles;
+  SELECT id, start_id, end_id, capacity, skills, tw_open, tw_close, speed_factor, -1 AS max_tasks FROM vehicles;
 
   PREPARE vehicles_0_task AS
-  SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, speed_factor, 0 AS max_tasks FROM vehicles;
+  SELECT id, start_id, end_id, capacity, skills, tw_open, tw_close, speed_factor, 0 AS max_tasks FROM vehicles;
 
   PREPARE vehicles_1_task AS
-  SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, speed_factor, 1 AS max_tasks FROM vehicles;
+  SELECT id, start_id, end_id, capacity, skills, tw_open, tw_close, speed_factor, 1 AS max_tasks FROM vehicles;
 
   PREPARE problem_negative_tasks AS
   SELECT * FROM vrp_vroomPlain(
@@ -1063,11 +1063,11 @@ BEGIN
 
   PREPARE empty_skills_1 AS
   SELECT * FROM vrp_vroomPlain(
-    'SELECT id, location_index, service, delivery, pickup, ARRAY[]::INTEGER[] AS skills, priority FROM jobs',
+    'SELECT id, location_id, service, delivery, pickup, ARRAY[]::INTEGER[] AS skills, priority FROM jobs',
     'jobs_time_windows',
-    'SELECT id, p_location_index, p_service, d_location_index, d_service, amount, ARRAY[]::INTEGER[] AS skills, priority FROM shipments',
+    'SELECT id, p_location_id, p_service, d_location_id, d_service, amount, ARRAY[]::INTEGER[] AS skills, priority FROM shipments',
     'shipments_time_windows',
-    'SELECT id, start_index, end_index, capacity, ARRAY[]::INTEGER[] AS skills, tw_open, tw_close, speed_factor, max_tasks FROM vehicles',
+    'SELECT id, start_id, end_id, capacity, ARRAY[]::INTEGER[] AS skills, tw_open, tw_close, speed_factor, max_tasks FROM vehicles',
     'breaks',
     'breaks_time_windows',
     'matrix'
@@ -1078,9 +1078,9 @@ BEGIN
 
   PREPARE empty_skills_2 AS
   SELECT * FROM vrp_vroomPlain(
-    'SELECT id, location_index, service, delivery, pickup, ARRAY[]::INTEGER[] AS skills, priority FROM jobs',
+    'SELECT id, location_id, service, delivery, pickup, ARRAY[]::INTEGER[] AS skills, priority FROM jobs',
     'jobs_time_windows',
-    'SELECT id, p_location_index, p_service, d_location_index, d_service, amount, ARRAY[]::INTEGER[] AS skills, priority FROM shipments',
+    'SELECT id, p_location_id, p_service, d_location_id, d_service, amount, ARRAY[]::INTEGER[] AS skills, priority FROM shipments',
     'shipments_time_windows',
     'vehicles',
     'breaks',
@@ -1097,7 +1097,7 @@ BEGIN
     'jobs_time_windows',
     'shipments',
     'shipments_time_windows',
-    'SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, -1 AS speed_factor, max_tasks FROM vehicles',
+    'SELECT id, start_id, end_id, capacity, skills, tw_open, tw_close, -1 AS speed_factor, max_tasks FROM vehicles',
     'breaks',
     'breaks_time_windows',
     'matrix'
@@ -1116,7 +1116,7 @@ BEGIN
     'jobs_time_windows',
     'shipments',
     'shipments_time_windows',
-    'SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, 0 AS speed_factor, max_tasks FROM vehicles',
+    'SELECT id, start_id, end_id, capacity, skills, tw_open, tw_close, 0 AS speed_factor, max_tasks FROM vehicles',
     'breaks',
     'breaks_time_windows',
     'matrix'
@@ -1156,7 +1156,7 @@ BEGIN
     'jobs_time_windows',
     'shipments',
     'shipments_time_windows',
-    'SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close, speed_factor * 5 AS speed_factor, max_tasks FROM vehicles',
+    'SELECT id, start_id, end_id, capacity, skills, tw_open, tw_close, speed_factor * 5 AS speed_factor, max_tasks FROM vehicles',
     'breaks',
     'breaks_time_windows',
     'matrix'
