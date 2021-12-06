@@ -38,6 +38,8 @@ This library is under development and currently contains the following functions
 * `vrp_vroomJobs`
 * `vrp_vroomShipments`
 
+The detailed steps for installation can be found [here](https://vrp.pgrouting.org/latest/en/installation.html).
+
 ## REQUIREMENTS
 
 Building requirements
