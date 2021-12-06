@@ -138,11 +138,11 @@ IS 'vrp_vroomJobs
  - EXPERIMENTAL
  - Parameters:
    - Jobs SQL with columns:
-       id, location_index [, service, delivery, pickup, skills, priority, time_windows]
+       id, location_id [, service, delivery, pickup, skills, priority, time_windows]
    - Jobs Time Windows SQL with columns:
        id, tw_open, tw_close
    - Vehicles SQL with columns:
-       id, start_index, end_index
+       id, start_id, end_id
        [, service, delivery, pickup, skills, priority, time_window, breaks_sql, steps_sql]
    - Breaks SQL with columns:
        id [, service]

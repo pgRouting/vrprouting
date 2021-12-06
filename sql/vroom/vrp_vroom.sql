@@ -214,16 +214,16 @@ IS 'vrp_vroom
  - EXPERIMENTAL
  - Parameters:
    - Jobs SQL with columns:
-       id, location_index [, service, delivery, pickup, skills, priority, time_windows]
+       id, location_id [, service, delivery, pickup, skills, priority, time_windows]
    - Jobs Time Windows SQL with columns:
        id, tw_open, tw_close
    - Shipments SQL with columns:
-       p_id, p_location_index [, p_service, p_time_windows],
-       d_id, d_location_index [, d_service, d_time_windows] [, amount, skills, priority]
+       p_id, p_location_id [, p_service, p_time_windows],
+       d_id, d_location_id [, d_service, d_time_windows] [, amount, skills, priority]
    - Shipments Time Windows SQL with columns:
        id, kind, tw_open, tw_close
    - Vehicles SQL with columns:
-       id, start_index, end_index
+       id, start_id, end_id
        [, service, delivery, pickup, skills, priority, time_window, breaks_sql, steps_sql]
    - Breaks SQL with columns:
        id [, service]
