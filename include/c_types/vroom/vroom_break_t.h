@@ -41,11 +41,13 @@ name | description
 id | Identifier of break
 vehicle_id | Identifier of vehicle
 service | Duration of break
+data | Metadata information of break
 */
 struct Vroom_break_t {
   Idx id; /** Identifier of break */
   Idx vehicle_id;  /** Identifier of vehicle */
   Duration service; /** Duration of break */
+  char *data; /** Metadata information of break */
 };
 
 

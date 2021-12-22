@@ -49,6 +49,7 @@ tw_open | Time window start time
 tw_close | Time window end time
 speed_factor | Vehicle travel time multiplier
 max_tasks | Max number of tasks in a route for the vehicle
+data | Metadata information of vehicle
 */
 struct Vroom_vehicle_t {
   Idx id; /** The vehicle's identifier */
@@ -67,6 +68,8 @@ struct Vroom_vehicle_t {
   double speed_factor; /** Vehicle travel time multiplier */
 
   int32_t max_tasks; /** Max number of tasks in a route for the vehicle */
+
+  char *data; /** Metadata information of vehicle */
 };
 
 

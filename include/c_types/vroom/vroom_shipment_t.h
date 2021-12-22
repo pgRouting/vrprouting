@@ -50,6 +50,8 @@ amount_size | Number of quantities
 skills | Mandatory skills
 skills_size | Number of skills
 priority | Priority level of shipment
+p_data | Metadata information of pickup shipment
+d_data | Metadata information of delivery shipment
 */
 struct Vroom_shipment_t {
   Idx id; /** Shipment identifier */
@@ -71,6 +73,9 @@ struct Vroom_shipment_t {
   size_t skills_size; /** Number of skills */
 
   Priority priority; /** Priority level of shipment */
+
+  char *p_data; /** Metadata information of pickup shipment */
+  char *d_data; /** Metadata information of delivery shipment */
 };
 
 #endif  // INCLUDE_C_TYPES_VROOM_VROOM_SHIPMENT_T_H_

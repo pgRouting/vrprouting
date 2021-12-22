@@ -40,9 +40,11 @@ name | description
 :----- | :-------
 vehicle_seq | Sequence for ordering a single vehicle
 vehicle_id | The vehicle's identifier
+vehicle_data | The vehicle's metadata information
 step_seq | Step sequence of the vehicle
 step_type | Step sequence of the vehicle
 task_id | The task's identifier
+task_data | The task's metadata information
 arrival_time | Estimated time of arrival
 travel_time | Cumulated travel time upon arrival
 service_time | Service time at this step
@@ -52,9 +54,11 @@ load | Vehicle load after step completion
 struct Vroom_rt {
   Idx vehicle_seq; /** Sequence for ordering a single vehicle */
   Idx vehicle_id; /** The vehicle's identifier */
+  char *vehicle_data; /** The vehicle's metadata information */
   Idx step_seq; /** Step sequence of the vehicle */
   StepType step_type; /** Type of the step */
   Idx task_id; /** The task's identifier */
+  char *task_data; /** The task's metadata information */
   Duration arrival_time; /** Estimated time of arrival */
   Duration travel_time; /** Cumulated travel time upon arrival */
   Duration service_time; /** Service time at this step */

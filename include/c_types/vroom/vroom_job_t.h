@@ -49,6 +49,7 @@ pickup_size | Number of pickup quantities
 skills | Mandatory skills
 skills_size | Number of mandatory skills
 priority | Priority level of job
+data | Metadata information of job
 */
 struct Vroom_job_t {
   Idx id; /** The job's identifier */
@@ -67,6 +68,8 @@ struct Vroom_job_t {
   size_t skills_size; /** Number of mandatory skills */
 
   Priority priority; /** Priority level of job */
+
+  char *data; /** Metadata information of job */
 };
 
 #endif  // INCLUDE_C_TYPES_VROOM_VROOM_JOB_T_H_

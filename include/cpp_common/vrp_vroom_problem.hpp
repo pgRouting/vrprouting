@@ -179,7 +179,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     vroom::Index location_id =
         static_cast<vroom::Index>(m_matrix.get_index(job.location_id));
     return vroom::Job(job.id, location_id, job.setup, job.service, delivery, pickup,
-                      skills, job.priority, time_windows);
+                      skills, job.priority, time_windows, job.data);
   }
 
   void problem_add_job(const Vroom_job_t &job,
@@ -243,11 +243,11 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     vroom::Job pickup = vroom::Job(
         shipment.id, vroom::JOB_TYPE::PICKUP, p_location_id,
         shipment.p_setup, shipment.p_service, amount,
-        skills, shipment.priority, p_time_windows);
+        skills, shipment.priority, p_time_windows, shipment.p_data);
     vroom::Job delivery = vroom::Job(
         shipment.id, vroom::JOB_TYPE::DELIVERY, d_location_id,
         shipment.d_setup, shipment.d_service, amount,
-        skills, shipment.priority, d_time_windows);
+        skills, shipment.priority, d_time_windows, shipment.d_data);
     return std::make_pair(pickup, delivery);
   }
 
@@ -308,7 +308,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
       const Vroom_break_t &v_break,
       const std::vector<Vroom_time_window_t> &break_tws) const {
     std::vector <vroom::TimeWindow> tws = get_vroom_time_windows(break_tws);
-    return vroom::Break(v_break.id, tws, v_break.service);
+    return vroom::Break(v_break.id, tws, v_break.service, v_break.data);
   }
 
   std::vector < vroom::Break >
@@ -368,7 +368,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     }
     return vroom::Vehicle(vehicle.id, start_id, end_id,
                           vroom::DEFAULT_PROFILE, capacity, skills, time_window,
-                          v_breaks, "", vehicle.speed_factor,
+                          v_breaks, vehicle.data, vehicle.speed_factor,
                           static_cast<size_t>(vehicle.max_tasks));
   }
 
@@ -471,14 +471,18 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     std::vector < Vroom_rt > results;
     std::vector<vroom::Route> routes = solution.routes;
     Idx vehicle_seq = 1;
+    char *empty_desc = strdup("{}");
     for (auto route : routes) {
       Idx step_seq = 1;
       Duration prev_duration = 0;
       for (auto step : route.steps) {
         Idx task_id = step.id;
+        char *vehicle_data = strdup(route.description.c_str());
+        char *task_data = strdup(step.description.c_str());
         StepType step_type = get_step_type(step);
         if (step_type == 1 || step_type == 6) {
           task_id = static_cast<Idx>(-1);
+          task_data = empty_desc;
         }
 
         size_t load_size = step.load.size();
@@ -488,34 +492,38 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
         Duration travel_time = step.duration - prev_duration;
         prev_duration = step.duration;
         results.push_back({
-          vehicle_seq,        // vehicles_seq
-          route.vehicle,      // vehicles_id
-          step_seq,           // step_seq
-          step_type,          // step_type
-          task_id,            // task_id
-          step.arrival,       // arrival
-          travel_time,        // travel_time
-          step.service,       // service_time
-          step.waiting_time,  // waiting_time
-          load,               // load
-          load_size           // load size
+            vehicle_seq,        // vehicles_seq
+            route.vehicle,      // vehicles_id
+            vehicle_data,       // vehicle_data
+            step_seq,           // step_seq
+            step_type,          // step_type
+            task_id,            // task_id
+            task_data,          // task_data
+            step.arrival,       // arrival
+            travel_time,        // travel_time
+            step.service,       // service_time
+            step.waiting_time,  // waiting_time
+            load,               // load
+            load_size           // load size
         });
         step_seq++;
       }
       // The summary of this route
       Idx task_id = 0;
       results.push_back({
-        vehicle_seq,         // vehicles_seq
-        route.vehicle,       // vehicles_id
-        0,                   // step_seq = 0 for route summary
-        0,                   // step_type = 0 for route summary
-        task_id,             // task_id = 0 for route summary
-        0,                   // No arrival time
-        route.duration,      // duration
-        route.service,       // service_time
-        route.waiting_time,  // waiting_time
-        {},                  // load
-        0                    // load size
+          vehicle_seq,         // vehicles_seq
+          route.vehicle,       // vehicles_id
+          empty_desc,          // vehicle_data
+          0,                   // step_seq = 0 for route summary
+          0,                   // step_type = 0 for route summary
+          task_id,             // task_id = 0 for route summary
+          empty_desc,          // task_data
+          0,                   // No arrival time
+          route.duration,      // duration
+          route.service,       // service_time
+          route.waiting_time,  // waiting_time
+          {},                  // load
+          0                    // load size
       });
       vehicle_seq++;
     }
@@ -526,18 +534,21 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
       StepType job_step = get_job_step_type(job.type);
       Idx vehicle_id = static_cast<Idx>(-1);
       Idx job_id = job.id;
+      char *task_data = strdup(job.description.c_str());
       results.push_back({
-        vehicle_seq,           // vehicles_seq
-        vehicle_id,            // vehicles_id = -1 for unassigned jobs
-        step_seq,              // step_seq
-        job_step,              // step_type
-        job_id,                // task_id
-        0,                     // No arrival time
-        0,                     // No travel_time
-        0,                     // No service_time
-        0,                     // No waiting_time
-        {},                    // load
-        0                      // load size
+          vehicle_seq,      // vehicles_seq
+          vehicle_id,       // vehicles_id = -1 for unassigned jobs
+          empty_desc,       // vehicle_data
+          step_seq,         // step_seq
+          job_step,         // step_type
+          job_id,           // task_id
+          task_data,        // task_data
+          0,                // No arrival time
+          0,                // No travel_time
+          0,                // No service_time
+          0,                // No waiting_time
+          {},               // load
+          0                 // load size
       });
       step_seq++;
     }
@@ -547,17 +558,19 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     Idx vehicle_id = 0;
     Idx job_id = 0;
     results.push_back({
-      0,                     // vehicles_seq = 0 for problem summary
-      vehicle_id,            // vehicles_id = 0 for problem summary
-      0,                     // step_seq = 0 for problem summary
-      0,                     // step_type = 0 for problem summary
-      job_id,                // task_id = 0 for problem summary
-      0,                     // No arrival time
-      summary.duration,      // duration
-      summary.service,       // service_time
-      summary.waiting_time,  // waiting_time
-      {},                    // load
-      0                      // load size
+        0,                     // vehicles_seq = 0 for problem summary
+        vehicle_id,            // vehicles_id = 0 for problem summary
+        empty_desc,            // vehicle_data
+        0,                     // step_seq = 0 for problem summary
+        0,                     // step_type = 0 for problem summary
+        job_id,                // task_id = 0 for problem summary
+        empty_desc,            // task_data
+        0,                     // No arrival time
+        summary.duration,      // duration
+        summary.service,       // service_time
+        summary.waiting_time,  // waiting_time
+        {},                    // load
+        0                      // load size
     });
     return results;
   }
