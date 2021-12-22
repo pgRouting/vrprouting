@@ -55,6 +55,7 @@ CREATE FUNCTION _vrp_vroom(
     OUT travel_time INTEGER,
     OUT service_time INTEGER,
     OUT waiting_time INTEGER,
+    OUT departure INTEGER,
     OUT load BIGINT[])
 RETURNS SETOF RECORD AS
  'MODULE_PATHNAME'
