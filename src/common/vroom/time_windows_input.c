@@ -40,7 +40,7 @@ A ``SELECT`` statement that returns the following columns:
 ====================  ====================================== =====================================================
 Column                Type                                   Description
 ====================  ====================================== =====================================================
-**id**                ``ANY-INTEGER``                         Non-negative unique identifier of the job,
+**id**                ``ANY-INTEGER``                         Positive unique identifier of the job,
                                                               pickup/delivery shipment, or break.
 
 **kind**              ``CHAR``                                **Only required for shipments time windows**.

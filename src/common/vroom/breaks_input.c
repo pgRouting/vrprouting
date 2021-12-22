@@ -40,10 +40,10 @@ A ``SELECT`` statement that returns the following columns:
 ====================  =========================  =========== ================================================
 Column                Type                       Default      Description
 ====================  =========================  =========== ================================================
-**id**                ``ANY-INTEGER``                         Non-negative unique identifier of the break.
+**id**                ``ANY-INTEGER``                         Positive unique identifier of the break.
                                                               (unique for the same vehicle).
 
-**vehicle_id**        ``ANY-INTEGER``                         Non-negative unique identifier of the vehicle.
+**vehicle_id**        ``ANY-INTEGER``                         Positive unique identifier of the vehicle.
 
 **service**           |interval|                 |interval0|  The break duration.
 ====================  =========================  =========== ================================================

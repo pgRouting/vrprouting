@@ -42,19 +42,17 @@ A ``SELECT`` statement that returns the following columns:
 ======================  =========================  =========== ================================================
 Column                  Type                       Default     Description
 ======================  =========================  =========== ================================================
-**id**                  ``ANY-INTEGER``                         Non-negative unique identifier of the shipment.
+**id**                  ``ANY-INTEGER``                         Positive unique identifier of the shipment.
 
-**p_location_id**       ``ANY-INTEGER``                         Non-negative identifier of the pickup location.
+**p_location_id**       ``ANY-INTEGER``                         Positive identifier of the pickup location.
 
 **p_setup**             |interval|                 |interval0|  Pickup setup duration.
 
 **p_service**           |interval|                 |interval0|  Pickup service duration.
 
-**d_location_id**       ``ANY-INTEGER``                         Non-negative identifier of the delivery location.
+**d_location_id**       ``ANY-INTEGER``                         Positive identifier of the delivery location.
 
-**d_setup**             |interval|                 |interval0|  Delivery setup duration.
 
-**d_service**           |interval|                 |interval0|  Delivery service duration.
 
 **amount**              ``ARRAY[ANY-INTEGER]``     Empty Array  Array of non-negative integers describing
                                                                 multidimensional quantities such as number

@@ -42,11 +42,11 @@ A ``SELECT`` statement that returns the following columns:
 ======================  ======================== =================== ================================================
 Column                  Type                     Default             Description
 ======================  ======================== =================== ================================================
-**id**                  ``ANY-INTEGER``                              Non-negative unique identifier of the vehicle.
+**id**                  ``ANY-INTEGER``                              Positive unique identifier of the vehicle.
 
-**start_id**            ``ANY-INTEGER``                              Non-negative identifier of the vehicle start location.
+**start_id**            ``ANY-INTEGER``                              Positive identifier of the vehicle start location.
 
-**end_id**              ``ANY-INTEGER``                              Non-negative identifier of the vehicle end location.
+**end_id**              ``ANY-INTEGER``                              Positive identifier of the vehicle end location.
 
 **capacity**            ``ARRAY[ANY-INTEGER]``   Empty Array         Array of non-negative integers describing
                                                                      multidimensional quantities such as

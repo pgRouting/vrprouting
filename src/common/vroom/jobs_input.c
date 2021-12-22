@@ -42,9 +42,9 @@ A ``SELECT`` statement that returns the following columns:
 ====================  =========================  =========== ================================================
 Column                Type                       Default     Description
 ====================  =========================  =========== ================================================
-**id**                ``ANY-INTEGER``                        Non-negative unique identifier of the job.
+**id**                ``ANY-INTEGER``                        Positive unique identifier of the job.
 
-**location_id**       ``ANY-INTEGER``                        Non-negative identifier of the job location.
+**location_id**       ``ANY-INTEGER``                        Positive identifier of the job location.
 
 **setup**             |interval|                 |interval0| Job setup duration.
 

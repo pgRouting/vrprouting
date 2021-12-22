@@ -566,13 +566,13 @@ get_Id(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Id opt_value) {
  * @returns The value found
  * @returns opt_value when the column does not exist
  *
- * exceptions when the value is negative
- * @pre for non-negative values only
+ * exceptions when the value is not positive
+ * @pre for positive values only
  */
 Idx
 get_Idx(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Idx opt_value) {
   Id value = get_Id(tuple, tupdesc, info, 0);
-  if (value < 0) elog(ERROR, "Unexpected Negative value in column %s", info.name);
+  if (value <= 0) elog(ERROR, "Unexpected Negative value or Zero in column %s", info.name);
   return column_found(info.colNumber)? (Idx) value : opt_value;
 }
 
@@ -643,14 +643,14 @@ get_PositiveAmount(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, PAm
  * @returns The value found
  * @returns opt_value when the column does not exist
  *
- * exceptions when the value is negative
- * @pre for non-negative values only
+ * exceptions when the value is not positive
+ * @pre for positive values only
  */
 MatrixIndex
 get_MatrixIndex(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, MatrixIndex opt_value) {
   if (column_found(info.colNumber)) {
     int64_t value = spi_getBigInt(tuple, tupdesc, info);
-    if (value < 0) elog(ERROR, "Unexpected Negative value in column %s", info.name);
+    if (value <= 0) elog(ERROR, "Unexpected Negative value or Zero in column %s", info.name);
     return (MatrixIndex) value;
   }
   return opt_value;
