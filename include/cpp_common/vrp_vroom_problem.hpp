@@ -432,45 +432,61 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     }
   }
 
+  StepType get_job_step_type(vroom::JOB_TYPE vroom_job_type) {
+    StepType step_type;
+    switch (vroom_job_type) {
+      case vroom::JOB_TYPE::SINGLE:
+        step_type = 2;
+        break;
+      case vroom::JOB_TYPE::PICKUP:
+        step_type = 3;
+        break;
+      case vroom::JOB_TYPE::DELIVERY:
+        step_type = 4;
+        break;
+    }
+    return step_type;
+  }
+
+  StepType get_step_type(vroom::Step step) {
+    StepType step_type = 0;
+    switch (step.step_type) {
+      case vroom::STEP_TYPE::START:
+        step_type = 1;
+        break;
+      case vroom::STEP_TYPE::END:
+        step_type = 6;
+        break;
+      case vroom::STEP_TYPE::BREAK:
+        step_type = 5;
+        break;
+      case vroom::STEP_TYPE::JOB:
+        step_type = get_job_step_type(step.job_type);
+        break;
+    }
+    return step_type;
+  }
+
   std::vector < Vroom_rt > get_results(vroom::Solution solution) {
     std::vector < Vroom_rt > results;
     std::vector<vroom::Route> routes = solution.routes;
     Idx vehicle_seq = 1;
     for (auto route : routes) {
       Idx step_seq = 1;
+      Duration prev_duration = 0;
       for (auto step : route.steps) {
-        int32_t step_type = 0;
-        Id task_id = static_cast<Id> (step.id);
-        switch (step.step_type) {
-          case vroom::STEP_TYPE::START:
-            step_type = 1;
-            task_id = -1;
-            break;
-          case vroom::STEP_TYPE::END:
-            step_type = 6;
-            task_id = -1;
-            break;
-          case vroom::STEP_TYPE::BREAK:
-            step_type = 5;
-            break;
-          case vroom::STEP_TYPE::JOB:
-            switch (step.job_type) {
-              case vroom::JOB_TYPE::SINGLE:
-                step_type = 2;
-                break;
-              case vroom::JOB_TYPE::PICKUP:
-                step_type = 3;
-                break;
-              case vroom::JOB_TYPE::DELIVERY:
-                step_type = 4;
-                break;
-            }
-            break;
+        Idx task_id = step.id;
+        StepType step_type = get_step_type(step);
+        if (step_type == 1 || step_type == 6) {
+          task_id = static_cast<Idx>(-1);
         }
+
         size_t load_size = step.load.size();
         Amount *load = reinterpret_cast<Amount*>(malloc(load_size * sizeof(Amount)));
         get_amount(step.load, &load);
 
+        Duration travel_time = step.duration - prev_duration;
+        prev_duration = step.duration;
         results.push_back({
           vehicle_seq,        // vehicles_seq
           route.vehicle,      // vehicles_id
@@ -478,7 +494,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
           step_type,          // step_type
           task_id,            // task_id
           step.arrival,       // arrival
-          step.duration,      // duration
+          travel_time,        // travel_time
           step.service,       // service_time
           step.waiting_time,  // waiting_time
           load,               // load
@@ -486,8 +502,63 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
         });
         step_seq++;
       }
+      // The summary of this route
+      Idx task_id = 0;
+      results.push_back({
+        vehicle_seq,         // vehicles_seq
+        route.vehicle,       // vehicles_id
+        0,                   // step_seq = 0 for route summary
+        0,                   // step_type = 0 for route summary
+        task_id,             // task_id = 0 for route summary
+        0,                   // No arrival time
+        route.duration,      // duration
+        route.service,       // service_time
+        route.waiting_time,  // waiting_time
+        {},                  // load
+        0                    // load size
+      });
       vehicle_seq++;
     }
+
+    std::vector<vroom::Job> unassigned = solution.unassigned;
+    Idx step_seq = 1;
+    for (auto job : unassigned) {
+      StepType job_step = get_job_step_type(job.type);
+      Idx vehicle_id = static_cast<Idx>(-1);
+      Idx job_id = job.id;
+      results.push_back({
+        vehicle_seq,           // vehicles_seq
+        vehicle_id,            // vehicles_id = -1 for unassigned jobs
+        step_seq,              // step_seq
+        job_step,              // step_type
+        job_id,                // task_id
+        0,                     // No arrival time
+        0,                     // No travel_time
+        0,                     // No service_time
+        0,                     // No waiting_time
+        {},                    // load
+        0                      // load size
+      });
+      step_seq++;
+    }
+
+    // The summary of the entire problem
+    vroom::Summary summary = solution.summary;
+    Idx vehicle_id = 0;
+    Idx job_id = 0;
+    results.push_back({
+      0,                     // vehicles_seq = 0 for problem summary
+      vehicle_id,            // vehicles_id = 0 for problem summary
+      0,                     // step_seq = 0 for problem summary
+      0,                     // step_type = 0 for problem summary
+      job_id,                // task_id = 0 for problem summary
+      0,                     // No arrival time
+      summary.duration,      // duration
+      summary.service,       // service_time
+      summary.waiting_time,  // waiting_time
+      {},                    // load
+      0                      // load size
+    });
     return results;
   }
 
