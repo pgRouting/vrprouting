@@ -54,7 +54,7 @@ struct Vroom_rt {
   Idx vehicle_id; /** The vehicle's identifier */
   Idx step_seq; /** Step sequence of the vehicle */
   StepType step_type; /** Type of the step */
-  Id task_id; /** The task's identifier */
+  Idx task_id; /** The task's identifier */
   Duration arrival_time; /** Estimated time of arrival */
   Duration travel_time; /** Cumulated travel time upon arrival */
   Duration service_time; /** Service time at this step */
