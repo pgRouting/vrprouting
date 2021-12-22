@@ -108,8 +108,8 @@ Returns set of
 
 .. code-block:: none
 
-    (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
-     arrival, travel_time, service_time, waiting_time, load)
+    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
+     task_data, arrival, travel_time, service_time, waiting_time, load)
 
 =================== ================= =================================================
 Column              Type              Description
@@ -125,6 +125,8 @@ Column              Type              Description
 
                                       - ``-1``: Vehicle denoting all the unallocated tasks.
                                       - ``0``: Summary row for the complete problem
+
+**vehicle_data**     ``JSONB``        Metadata information of the vehicle
 
 **step_seq**         ``BIGINT``       Sequential value starting from **1** for the stops
                                       made by the current vehicle. The :math:`m^{th}` stop
@@ -147,6 +149,8 @@ Column              Type              Description
                                       - ``0``: Summary row
                                       - ``-1``: If the step is starting/ending location.
 
+**task_data**        ``JSONB``        Metadata information of the task
+
 **arrival**          |timestamp|      Estimated time of arrival at this step.
 
 **travel_time**      |interval|       Travel time from previous ``step_seq`` to current ``step_seq``.
@@ -158,6 +162,8 @@ Column              Type              Description
 **waiting_time**     |interval|       Waiting time upon arrival at this step.
 
 **load**             ``BIGINT``       Vehicle load after step completion (with capacity constraints)
+
+
 =================== ================= =================================================
 
 **Note**:
@@ -186,9 +192,11 @@ CREATE FUNCTION vrp_vroom(
     OUT seq BIGINT,
     OUT vehicle_seq BIGINT,
     OUT vehicle_id BIGINT,
+    OUT vehicle_data JSONB,
     OUT step_seq BIGINT,
     OUT step_type INTEGER,
     OUT task_id BIGINT,
+    OUT task_data JSONB,
     OUT arrival TIMESTAMP,
     OUT travel_time INTERVAL,
     OUT service_time INTERVAL,
@@ -207,9 +215,11 @@ BEGIN
       A.seq,
       A.vehicle_seq,
       A.vehicle_id,
+      A.vehicle_data::JSONB,
       A.step_seq,
       A.step_type,
       A.task_id,
+      A.task_data::JSONB,
       (to_timestamp(A.arrival) at time zone 'UTC')::TIMESTAMP,
       make_interval(secs => A.travel_time),
       make_interval(secs => A.service_time),
