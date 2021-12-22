@@ -70,6 +70,8 @@ Column                  Type                     Default             Description
 **max_tasks**           ``INTEGER``              :math:`2147483647`  Maximum number of tasks in a route for the vehicle.
 
                                                                      - A job, pickup, or delivery is counted as a single task.
+
+**data**                ``JSONB``                '{}'                Any metadata information of the vehicle.
 ======================  ======================== =================== ================================================
 
 **Note**:
@@ -137,6 +139,10 @@ void fetch_vehicles(
   vehicle->max_tasks = column_found(info[8].colNumber)
                            ? spi_getMaxTasks(tuple, tupdesc, info[8])
                            : INT_MAX;  // 2147483647
+
+  vehicle->data = column_found(info[9].colNumber)
+                      ? spi_getText(tuple, tupdesc, info[9])
+                      : strdup("{}");
 }
 
 
@@ -233,7 +239,7 @@ get_vroom_vehicles(
     Vroom_vehicle_t **rows,
     size_t *total_rows,
     bool is_plain) {
-  int kColumnCount = 9;
+  int kColumnCount = 10;
   Column_info_t info[kColumnCount];
 
   for (int i = 0; i < kColumnCount; ++i) {
@@ -252,6 +258,7 @@ get_vroom_vehicles(
   info[6].name = "tw_close";
   info[7].name = "speed_factor";
   info[8].name = "max_tasks";
+  info[9].name = "data";
 
   info[3].eType = ANY_INTEGER_ARRAY;  // capacity
   info[4].eType = INTEGER_ARRAY;      // skills
@@ -259,6 +266,7 @@ get_vroom_vehicles(
   info[6].eType = INTEGER;            // tw_close
   info[7].eType = ANY_NUMERICAL;      // speed_factor
   info[8].eType = INTEGER;            // max_tasks
+  info[9].eType = JSONB;              // data
 
   if (!is_plain) {
     info[5].eType = TIMESTAMP;        // tw_open

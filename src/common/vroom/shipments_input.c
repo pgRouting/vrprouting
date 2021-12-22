@@ -68,6 +68,9 @@ Column                  Type                       Default     Description
 
                                                                 - Ranges from ``[0, 100]``
 
+**p_data**              ``JSONB``                  '{}'        Any metadata information of the pickup shipment.
+
+**d_data**              ``JSONB``                  '{}'        Any metadata information of the delivery shipment.
 ======================  =========================  =========== ================================================
 
 Where:
@@ -116,6 +119,13 @@ void fetch_shipments(
     : NULL;
 
   shipment->priority = get_Priority(tuple, tupdesc, info[9], 0);
+
+  shipment->p_data = column_found(info[10].colNumber)
+                         ? spi_getText(tuple, tupdesc, info[10])
+                         : strdup("{}");
+  shipment->d_data = column_found(info[11].colNumber)
+                         ? spi_getText(tuple, tupdesc, info[11])
+                         : strdup("{}");
 }
 
 
@@ -206,7 +216,7 @@ get_vroom_shipments(
     Vroom_shipment_t **rows,
     size_t *total_rows,
     bool is_plain) {
-  int kColumnCount = 10;
+  int kColumnCount = 12;
   Column_info_t info[kColumnCount];
 
   for (int i = 0; i < kColumnCount; ++i) {
@@ -231,6 +241,8 @@ get_vroom_shipments(
   info[7].name = "amount";
   info[8].name = "skills";
   info[9].name = "priority";
+  info[10].name = "p_data";
+  info[11].name = "d_data";
 
   info[2].eType = INTEGER;            // p_setup
   info[3].eType = INTEGER;            // p_service
@@ -239,6 +251,8 @@ get_vroom_shipments(
   info[7].eType = ANY_INTEGER_ARRAY;  // amount
   info[8].eType = INTEGER_ARRAY;      // skills
   info[9].eType = INTEGER;            // priority
+  info[10].eType = JSONB;             // p_data
+  info[11].eType = JSONB;             // d_data
 
   if (!is_plain) {
     info[2].eType = INTERVAL;         // p_setup

@@ -70,6 +70,8 @@ Column                Type                       Default     Description
 **priority**          ``INTEGER``                0           Priority level of the job
 
                                                              - Ranges from ``[0, 100]``
+
+**data**              ``JSONB``                  '{}'        Any metadata information of the job.
 ====================  =========================  =========== ================================================
 
 Where:
@@ -119,6 +121,10 @@ void fetch_jobs(
     : NULL;
 
   job->priority = get_Priority(tuple, tupdesc, info[7], 0);
+
+  job->data = column_found(info[8].colNumber)
+                  ? spi_getText(tuple, tupdesc, info[8])
+                  : strdup("{}");
 }
 
 
@@ -209,7 +215,7 @@ get_vroom_jobs(
     Vroom_job_t **rows,
     size_t *total_rows,
     bool is_plain) {
-  int kColumnCount = 8;
+  int kColumnCount = 9;
   Column_info_t info[kColumnCount];
 
   for (int i = 0; i < kColumnCount; ++i) {
@@ -227,6 +233,7 @@ get_vroom_jobs(
   info[5].name = "pickup";
   info[6].name = "skills";
   info[7].name = "priority";
+  info[8].name = "data";
 
   info[2].eType = INTEGER;            // setup
   info[3].eType = INTEGER;            // service
@@ -234,6 +241,7 @@ get_vroom_jobs(
   info[5].eType = ANY_INTEGER_ARRAY;  // pickup
   info[6].eType = INTEGER_ARRAY;      // skills
   info[7].eType = INTEGER;            // priority
+  info[8].eType = JSONB;              // data
 
   if (!is_plain) {
     info[2].eType = INTERVAL;         // setup
