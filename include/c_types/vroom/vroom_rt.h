@@ -49,22 +49,27 @@ arrival_time | Estimated time of arrival
 travel_time | Cumulated travel time upon arrival
 service_time | Service time at this step
 waiting_time | Waiting time upon arrival at this step
+departure_time | Estimated time of departure
 load | Vehicle load after step completion
 */
 struct Vroom_rt {
-  Idx vehicle_seq; /** Sequence for ordering a single vehicle */
-  Idx vehicle_id; /** The vehicle's identifier */
-  char *vehicle_data; /** The vehicle's metadata information */
-  Idx step_seq; /** Step sequence of the vehicle */
-  StepType step_type; /** Type of the step */
-  Idx task_id; /** The task's identifier */
-  char *task_data; /** The task's metadata information */
-  Duration arrival_time; /** Estimated time of arrival */
-  Duration travel_time; /** Cumulated travel time upon arrival */
-  Duration service_time; /** Service time at this step */
-  Duration waiting_time; /** Waiting time upon arrival at this step */
-  Amount *load; /** Vehicle's load after step completion array */
-  size_t load_size; /** Vehicle's load array size */
+  Idx vehicle_seq;         /** Sequence for ordering a single vehicle */
+  Idx vehicle_id;          /** The vehicle's identifier */
+  char *vehicle_data;      /** The vehicle's metadata information */
+
+  Idx step_seq;            /** Step sequence of the vehicle */
+  StepType step_type;      /** Type of the step */
+  Idx task_id;             /** The task's identifier */
+  char *task_data;         /** The task's metadata information */
+
+  Duration arrival_time;   /** Estimated time of arrival */
+  Duration travel_time;    /** Cumulated travel time upon arrival */
+  Duration service_time;   /** Service time at this step */
+  Duration waiting_time;   /** Waiting time upon arrival at this step */
+  Duration departure_time; /** Estimated time of departure */
+
+  Amount *load;            /** Vehicle's load after step completion array */
+  size_t load_size;        /** Vehicle's load array size */
 };
 
 #endif  // INCLUDE_C_TYPES_VROOM_VROOM_RT_H_

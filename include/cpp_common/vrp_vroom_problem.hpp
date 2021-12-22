@@ -491,6 +491,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
 
         Duration travel_time = step.duration - prev_duration;
         prev_duration = step.duration;
+        Duration departure = step.arrival + step.service + step.waiting_time;
         results.push_back({
             vehicle_seq,        // vehicles_seq
             route.vehicle,      // vehicles_id
@@ -503,6 +504,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
             travel_time,        // travel_time
             step.service,       // service_time
             step.waiting_time,  // waiting_time
+            departure,          // departure
             load,               // load
             load_size           // load size
         });
@@ -519,9 +521,10 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
           task_id,             // task_id = 0 for route summary
           empty_desc,          // task_data
           0,                   // No arrival time
-          route.duration,      // duration
-          route.service,       // service_time
-          route.waiting_time,  // waiting_time
+          route.duration,      // Total travel time
+          route.service,       // Total service time
+          route.waiting_time,  // Total waiting time
+          0,                   // No departure time
           {},                  // load
           0                    // load size
       });
@@ -547,6 +550,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
           0,                // No travel_time
           0,                // No service_time
           0,                // No waiting_time
+          0,                // No departure time
           {},               // load
           0                 // load size
       });
@@ -566,9 +570,10 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
         job_id,                // task_id = 0 for problem summary
         empty_desc,            // task_data
         0,                     // No arrival time
-        summary.duration,      // duration
-        summary.service,       // service_time
-        summary.waiting_time,  // waiting_time
+        summary.duration,      // Total travel time
+        summary.service,       // Total service time
+        summary.waiting_time,  // Total waiting time
+        0,                     // No departure time
         {},                    // load
         0                      // load size
     });
