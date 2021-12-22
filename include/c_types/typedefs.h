@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #ifdef __cplusplus
 #include <cstdint>
 #include <cstddef>
+#include <cstring>
 using TTimestamp = int64_t;
 using TInterval = int64_t;
 using Coordinate = double;
@@ -66,6 +67,7 @@ using Position = size_t;
 #else
 #include <stdint.h>
 #include <stddef.h>
+#include <string.h>
 typedef int64_t TTimestamp;
 typedef int64_t TInterval;
 typedef double Coordinate;

@@ -40,6 +40,7 @@ enum {
     ANY_INTEGER,
     ANY_NUMERICAL,
     TEXT,
+    JSONB,
     CHAR1,
     INTEGER_ARRAY,
     ANY_INTEGER_ARRAY,
