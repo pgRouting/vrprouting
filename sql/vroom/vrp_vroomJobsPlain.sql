@@ -38,7 +38,7 @@ signature start
 
     RETURNS SET OF
     (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
-     task_data, arrival, travel_time, service_time, waiting_time, load)
+     task_data, arrival, travel_time, service_time, waiting_time, departure, load)
 
 signature end
 
@@ -53,7 +53,7 @@ default signature start
 
     RETURNS SET OF
     (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
-     task_data, arrival, travel_time, service_time, waiting_time, load)
+     task_data, arrival, travel_time, service_time, waiting_time, departure, load)
 
 default signature end
 */
@@ -82,6 +82,7 @@ CREATE FUNCTION vrp_vroomJobsPlain(
     OUT travel_time INTEGER,
     OUT service_time INTEGER,
     OUT waiting_time INTEGER,
+    OUT departure INTEGER,
     OUT load BIGINT[])
 RETURNS SETOF RECORD AS
 $BODY$
@@ -105,6 +106,7 @@ BEGIN
       A.travel_time,
       A.service_time,
       A.waiting_time,
+      A.departure,
       A.load
     FROM _vrp_vroom(_pgr_get_statement($1), _pgr_get_statement($2), NULL, NULL,
                     _pgr_get_statement($3), _pgr_get_statement($4),
