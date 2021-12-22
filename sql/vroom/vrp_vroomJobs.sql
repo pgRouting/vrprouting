@@ -37,8 +37,8 @@ signature start
       Matrix SQL [, exploration_level] [, timeout])  -- Experimental on v0.2
 
     RETURNS SET OF
-    (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
-     arrival, travel_time, service_time, waiting_time, load)
+    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
+     task_data, arrival, travel_time, service_time, waiting_time, load)
 
 signature end
 
@@ -52,8 +52,8 @@ default signature start
       Matrix SQL)
 
     RETURNS SET OF
-    (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
-     arrival, travel_time, service_time, waiting_time, load)
+    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
+     task_data, arrival, travel_time, service_time, waiting_time, load)
 
 default signature end
 
@@ -93,9 +93,11 @@ CREATE FUNCTION vrp_vroomJobs(
     OUT seq BIGINT,
     OUT vehicle_seq BIGINT,
     OUT vehicle_id BIGINT,
+    OUT vehicle_data JSONB,
     OUT step_seq BIGINT,
     OUT step_type INTEGER,
     OUT task_id BIGINT,
+    OUT task_data JSONB,
     OUT arrival TIMESTAMP,
     OUT travel_time INTERVAL,
     OUT service_time INTERVAL,
@@ -114,9 +116,11 @@ BEGIN
       A.seq,
       A.vehicle_seq,
       A.vehicle_id,
+      A.vehicle_data::JSONB,
       A.step_seq,
       A.step_type,
       A.task_id,
+      A.task_data::JSONB,
       (to_timestamp(A.arrival) at time zone 'UTC')::TIMESTAMP,
       make_interval(secs => A.travel_time),
       make_interval(secs => A.service_time),

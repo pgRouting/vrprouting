@@ -37,8 +37,8 @@ signature start
       Matrix SQL [, exploration_level] [, timeout])  -- Experimental on v0.2
 
     RETURNS SET OF
-    (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
-     arrival, travel_time, service_time, waiting_time, load)
+    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
+     task_data, arrival, travel_time, service_time, waiting_time, load)
 
 signature end
 
@@ -52,8 +52,8 @@ default signature start
       Matrix SQL)
 
     RETURNS SET OF
-    (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
-     arrival, travel_time, service_time, waiting_time, load)
+    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
+     task_data, arrival, travel_time, service_time, waiting_time, load)
 
 default signature end
 */
@@ -73,9 +73,11 @@ CREATE FUNCTION vrp_vroomJobsPlain(
     OUT seq BIGINT,
     OUT vehicle_seq BIGINT,
     OUT vehicle_id BIGINT,
+    OUT vehicle_data JSONB,
     OUT step_seq BIGINT,
     OUT step_type INTEGER,
     OUT task_id BIGINT,
+    OUT task_data JSONB,
     OUT arrival INTEGER,
     OUT travel_time INTEGER,
     OUT service_time INTEGER,
@@ -90,11 +92,24 @@ BEGIN
     END IF;
 
     RETURN QUERY
-    SELECT *
+    SELECT
+      A.seq,
+      A.vehicle_seq,
+      A.vehicle_id,
+      A.vehicle_data::JSONB,
+      A.step_seq,
+      A.step_type,
+      A.task_id,
+      A.task_data::JSONB,
+      A.arrival,
+      A.travel_time,
+      A.service_time,
+      A.waiting_time,
+      A.load
     FROM _vrp_vroom(_pgr_get_statement($1), _pgr_get_statement($2), NULL, NULL,
                     _pgr_get_statement($3), _pgr_get_statement($4),
                     _pgr_get_statement($5), _pgr_get_statement($6),
-                    exploration_level, timeout, 1::SMALLINT, true);
+                    exploration_level, timeout, 1::SMALLINT, true) A;
 END;
 $BODY$
 LANGUAGE plpgsql VOLATILE;
