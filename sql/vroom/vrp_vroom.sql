@@ -119,14 +119,22 @@ Column              Type              Description
 **vehicle_seq**      ``BIGINT``       Sequential value starting from **1** for current vehicles.
                                       The :math:`n^{th}` vehicle in the solution.
 
+                                      - ``0``: Summary row for the complete problem
+
 **vehicle_id**       ``BIGINT``       Current vehicle identifier.
+
+                                      - ``-1``: Vehicle denoting all the unallocated tasks.
+                                      - ``0``: Summary row for the complete problem
 
 **step_seq**         ``BIGINT``       Sequential value starting from **1** for the stops
                                       made by the current vehicle. The :math:`m^{th}` stop
                                       of the current vehicle.
 
+                                      - ``0``: Summary row
+
 **step_type**        ``INTEGER``      Kind of the step location the vehicle is at:
 
+                                      - ``0``: Summary row
                                       - ``1``: Starting location
                                       - ``2``: Job location
                                       - ``3``: Pickup location
@@ -136,11 +144,14 @@ Column              Type              Description
 
 **task_id**          ``BIGINT``       Identifier of the task performed at this step.
 
+                                      - ``0``: Summary row
                                       - ``-1``: If the step is starting/ending location.
 
 **arrival**          |timestamp|      Estimated time of arrival at this step.
 
-**travel_time**      |interval|       Cumulated travel time upon arrival at this step.
+**travel_time**      |interval|       Travel time from previous ``step_seq`` to current ``step_seq``.
+
+                                      - ``0``: When ``step_type = 1``
 
 **service_time**     |interval|       Service time at this step.
 
@@ -148,6 +159,12 @@ Column              Type              Description
 
 **load**             ``BIGINT``       Vehicle load after step completion (with capacity constraints)
 =================== ================= =================================================
+
+**Note**:
+
+- Unallocated tasks are mentioned at the end with :code:`vehicle_id = -1`.
+- The last step of every vehicle denotes the summary row, where the columns ``travel_time``, ``service_time`` and ``waiting_time`` denote the total time for the corresponding vehicle,
+- The last row denotes the summary for the complete problem, where the columns ``travel_time``, ``service_time`` and ``waiting_time`` denote the total time for the complete problem,
 
 result end
 */
