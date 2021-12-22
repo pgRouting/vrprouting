@@ -71,6 +71,14 @@ check_text_type(Column_info_t info) {
 
 static
 void
+check_jsonb_type(Column_info_t info) {
+  if (!(info.type == JSONBOID)) {
+    elog(ERROR, "Unexpected Column '%s' type. Expected JSONB %ld", info.name, info.type);
+  }
+}
+
+static
+void
 check_integer_type(Column_info_t info) {
   if (!(info.type == INT2OID || info.type == INT4OID)) {
     ereport(ERROR,
@@ -823,9 +831,6 @@ spi_getCoordinate(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Coor
 char*
 spi_getText(HeapTuple *tuple, TupleDesc *tupdesc,  Column_info_t info) {
   char *val = DatumGetCString(SPI_getvalue(*tuple, *tupdesc, info.colNumber));
-  if (!val) {
-    elog(ERROR, "Unexpected Null value in column %s", info.name);
-  }
   return val;
 }
 
@@ -914,6 +919,9 @@ void pgr_fetch_column_info(
           break;
         case TEXT:
           check_text_type(info[i]);
+          break;
+        case JSONB:
+          check_jsonb_type(info[i]);
           break;
         case CHAR1:
           check_char_type(info[i]);
