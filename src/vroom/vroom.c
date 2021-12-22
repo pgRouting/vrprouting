@@ -367,23 +367,7 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
     int16      typlen;
     size_t     call_cntr = funcctx->call_cntr;
 
-    /***********************************************************************
-     *
-     *   OUT seq BIGINT,
-     *   OUT vehicles_seq BIGINT,
-     *   OUT vehicles_id BIGINT,
-     *   OUT step_seq BIGINT,
-     *   OUT step_type INTEGER,
-     *   OUT task_id BIGINT,
-     *   OUT arrival INTEGER,
-     *   OUT duration INTEGER,
-     *   OUT service_time INTEGER,
-     *   OUT waiting_time INTEGER,
-     *   OUT load BIGINT
-     *
-     **********************************************************************/
-
-    size_t num  = 13;
+    size_t num  = 14;
     values = palloc(num * sizeof(Datum));
     nulls = palloc(num * sizeof(bool));
 
@@ -423,7 +407,7 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
         int             attdim
       )
     */
-    TupleDescInitEntry(tuple_desc, (AttrNumber) 13, "load", INT8ARRAYOID, -1, 0);
+    TupleDescInitEntry(tuple_desc, (AttrNumber) 14, "load", INT8ARRAYOID, -1, 0);
 
     values[0] = Int64GetDatum(funcctx->call_cntr + 1);
     values[1] = Int32GetDatum(result_tuples[call_cntr].vehicle_seq);
@@ -437,7 +421,8 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
     values[9] = Int32GetDatum(result_tuples[call_cntr].travel_time);
     values[10] = Int32GetDatum(result_tuples[call_cntr].service_time);
     values[11] = Int32GetDatum(result_tuples[call_cntr].waiting_time);
-    values[12] = PointerGetDatum(arrayType);
+    values[12] = Int32GetDatum(result_tuples[call_cntr].departure_time);
+    values[13] = PointerGetDatum(arrayType);
 
     /**********************************************************************/
 
