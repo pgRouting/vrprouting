@@ -108,6 +108,9 @@ class Base_Matrix {
     /** @brief original id -> idx */
     Idx get_index(Id) const;
 
+    /** @brief original id -> idx */
+    Id get_original_id(Idx) const;
+
  private:
     /** @brief Traverses the matrix information to set the ids of the nodes */
     void set_ids(const std::vector<Matrix_cell_t> &);
