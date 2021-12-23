@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vrpRouting v0.3.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-06 20:38+0000\n"
+"POT-Creation-Date: 2021-12-23 17:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -374,24 +374,26 @@ msgid "``ANY-INTEGER``"
 msgstr ""
 
 #: ../../src/common/vroom/jobs_input.c:14
-msgid "Non-negative unique identifier of the job."
+msgid "Positive unique identifier of the job."
 msgstr ""
 
+#: ../../build/sql/vroom/vrp_vroom.sql:48
 #: ../../src/common/vroom/jobs_input.c:16
 msgid "**location_id**"
 msgstr ""
 
 #: ../../src/common/vroom/jobs_input.c:16
-msgid "Non-negative identifier of the job location."
+msgid "Positive identifier of the job location."
 msgstr ""
 
 #: ../../src/common/vroom/jobs_input.c:18
 msgid "**setup**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:39
-#: ../../build/sql/vroom/vrp_vroom.sql:41
-#: ../../build/sql/vroom/vrp_vroom.sql:43
+#: ../../build/sql/vroom/vrp_vroom.sql:56
+#: ../../build/sql/vroom/vrp_vroom.sql:60
+#: ../../build/sql/vroom/vrp_vroom.sql:62
+#: ../../build/sql/vroom/vrp_vroom.sql:64
 #: ../../src/common/vroom/breaks_input.c:17
 #: ../../src/common/vroom/jobs_input.c:18
 #: ../../src/common/vroom/jobs_input.c:20
@@ -494,7 +496,7 @@ msgstr ""
 msgid "**priority**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:24
+#: ../../build/sql/vroom/vrp_vroom.sql:33
 #: ../../src/common/vroom/jobs_input.c:39
 #: ../../src/common/vroom/matrix_input.c:18
 #: ../../src/common/vroom/shipments_input.c:38
@@ -516,8 +518,36 @@ msgstr ""
 msgid "Ranges from ``[0, 100]``"
 msgstr ""
 
-#: ../../src/common/vroom/jobs_input.c:44
+#: ../../src/common/vroom/breaks_input.c:19
+#: ../../src/common/vroom/jobs_input.c:43
+#: ../../src/common/vroom/vehicles_input.c:43
+msgid "**data**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:25
+#: ../../build/sql/vroom/vrp_vroom.sql:52
+#: ../../src/common/vroom/breaks_input.c:19
+#: ../../src/common/vroom/jobs_input.c:43
+#: ../../src/common/vroom/shipments_input.c:42
 #: ../../src/common/vroom/shipments_input.c:44
+#: ../../src/common/vroom/vehicles_input.c:43
+msgid "``JSONB``"
+msgstr ""
+
+#: ../../src/common/vroom/breaks_input.c:19
+#: ../../src/common/vroom/jobs_input.c:43
+#: ../../src/common/vroom/shipments_input.c:42
+#: ../../src/common/vroom/shipments_input.c:44
+#: ../../src/common/vroom/vehicles_input.c:43
+msgid "'{}'::JSONB"
+msgstr ""
+
+#: ../../src/common/vroom/jobs_input.c:43
+msgid "Any metadata information of the job."
+msgstr ""
+
+#: ../../src/common/vroom/jobs_input.c:46
+#: ../../src/common/vroom/shipments_input.c:47
 msgid "Where:"
 msgstr ""
 
@@ -525,8 +555,8 @@ msgstr ""
 msgid "ANY-INTEGER"
 msgstr ""
 
-#: ../../src/common/vroom/jobs_input.c:46
-#: ../../src/common/vroom/shipments_input.c:46
+#: ../../src/common/vroom/jobs_input.c:48
+#: ../../src/common/vroom/shipments_input.c:49
 msgid "SMALLINT, INTEGER, BIGINT"
 msgstr ""
 
@@ -535,7 +565,7 @@ msgid "Shipments SQL"
 msgstr ""
 
 #: ../../src/common/vroom/shipments_input.c:14
-msgid "Non-negative unique identifier of the shipment."
+msgid "Positive unique identifier of the shipment."
 msgstr ""
 
 #: ../../src/common/vroom/shipments_input.c:16
@@ -543,7 +573,7 @@ msgid "**p_location_id**"
 msgstr ""
 
 #: ../../src/common/vroom/shipments_input.c:16
-msgid "Non-negative identifier of the pickup location."
+msgid "Positive identifier of the pickup location."
 msgstr ""
 
 #: ../../src/common/vroom/shipments_input.c:18
@@ -567,7 +597,7 @@ msgid "**d_location_id**"
 msgstr ""
 
 #: ../../src/common/vroom/shipments_input.c:22
-msgid "Non-negative identifier of the delivery location."
+msgid "Positive identifier of the delivery location."
 msgstr ""
 
 #: ../../src/common/vroom/shipments_input.c:24
@@ -605,13 +635,29 @@ msgstr ""
 msgid "Priority level of the shipment."
 msgstr ""
 
+#: ../../src/common/vroom/shipments_input.c:42
+msgid "**p_data**"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:42
+msgid "Any metadata information of the pickup shipment."
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:44
+msgid "**d_data**"
+msgstr ""
+
+#: ../../src/common/vroom/shipments_input.c:44
+msgid "Any metadata information of the delivery shipment."
+msgstr ""
+
 #: ../../build/doc/vroom-category.rst:128
 msgid "Vehicles SQL"
 msgstr ""
 
 #: ../../src/common/vroom/breaks_input.c:15
 #: ../../src/common/vroom/vehicles_input.c:14
-msgid "Non-negative unique identifier of the vehicle."
+msgid "Positive unique identifier of the vehicle."
 msgstr ""
 
 #: ../../src/common/vroom/matrix_input.c:12
@@ -620,7 +666,7 @@ msgid "**start_id**"
 msgstr ""
 
 #: ../../src/common/vroom/vehicles_input.c:16
-msgid "Non-negative identifier of the vehicle start location."
+msgid "Positive identifier of the vehicle start location."
 msgstr ""
 
 #: ../../src/common/vroom/matrix_input.c:14
@@ -629,7 +675,7 @@ msgid "**end_id**"
 msgstr ""
 
 #: ../../src/common/vroom/vehicles_input.c:18
-msgid "Non-negative identifier of the vehicle end location."
+msgid "Positive identifier of the vehicle end location."
 msgstr ""
 
 #: ../../src/common/vroom/vehicles_input.c:20
@@ -645,7 +691,8 @@ msgstr ""
 msgid "**tw_open**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:37
+#: ../../build/sql/vroom/vrp_vroom.sql:54
+#: ../../build/sql/vroom/vrp_vroom.sql:66
 #: ../../src/common/vroom/time_windows_input.c:22
 #: ../../src/common/vroom/time_windows_input.c:24
 #: ../../src/common/vroom/vehicles_input.c:30
@@ -714,34 +761,39 @@ msgstr ""
 msgid "A job, pickup, or delivery is counted as a single task."
 msgstr ""
 
+#: ../../src/common/vroom/vehicles_input.c:43
+msgid "Any metadata information of the vehicle."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:73
 #: ../../src/common/vroom/time_windows_input.c:27
-#: ../../src/common/vroom/vehicles_input.c:44
+#: ../../src/common/vroom/vehicles_input.c:46
 msgid "**Note**:"
 msgstr ""
 
-#: ../../src/common/vroom/vehicles_input.c:46
+#: ../../src/common/vroom/vehicles_input.c:48
 msgid "At least one of the ``start_id`` or ``end_id`` shall be present."
 msgstr ""
 
-#: ../../src/common/vroom/vehicles_input.c:47
+#: ../../src/common/vroom/vehicles_input.c:49
 msgid ""
 "If ``end_id`` is omitted, the resulting route will stop at the last "
 "visited task, whose choice is determined by the optimization process."
 msgstr ""
 
-#: ../../src/common/vroom/vehicles_input.c:48
+#: ../../src/common/vroom/vehicles_input.c:50
 msgid ""
 "If ``start_id`` is omitted, the resulting route will start at the first "
 "visited task, whose choice is determined by the optimization process."
 msgstr ""
 
-#: ../../src/common/vroom/vehicles_input.c:49
+#: ../../src/common/vroom/vehicles_input.c:51
 msgid ""
 "To request a round trip, specify both ``start_id`` and ``end_id`` as the "
 "same index."
 msgstr ""
 
-#: ../../src/common/vroom/vehicles_input.c:50
+#: ../../src/common/vroom/vehicles_input.c:52
 msgid ""
 "A vehicle is only allowed to serve a set of tasks if the resulting load "
 "at each route step is lower than the matching value in capacity for each "
@@ -749,14 +801,14 @@ msgid ""
 "put the most important/limiting metrics first."
 msgstr ""
 
-#: ../../src/common/vroom/vehicles_input.c:51
+#: ../../src/common/vroom/vehicles_input.c:53
 msgid ""
 "It is assumed that all delivery-related amounts for jobs are loaded at "
 "vehicle start, while all pickup-related amounts for jobs are brought back"
 " at vehicle end."
 msgstr ""
 
-#: ../../src/common/vroom/vehicles_input.c:52
+#: ../../src/common/vroom/vehicles_input.c:54
 msgid ":code:`tw_open ≤ tw_close`"
 msgstr ""
 
@@ -765,12 +817,10 @@ msgid "Breaks SQL"
 msgstr ""
 
 #: ../../src/common/vroom/breaks_input.c:12
-msgid ""
-"Non-negative unique identifier of the break. (unique for the same "
-"vehicle)."
+msgid "Positive unique identifier of the break. (unique for the same vehicle)."
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:18
+#: ../../build/sql/vroom/vrp_vroom.sql:20
 #: ../../src/common/vroom/breaks_input.c:15
 msgid "**vehicle_id**"
 msgstr ""
@@ -779,14 +829,16 @@ msgstr ""
 msgid "The break duration."
 msgstr ""
 
+#: ../../src/common/vroom/breaks_input.c:19
+msgid "Any metadata information of the break."
+msgstr ""
+
 #: ../../build/doc/vroom-category.rst:142
 msgid "Time Windows SQL"
 msgstr ""
 
 #: ../../src/common/vroom/time_windows_input.c:12
-msgid ""
-"Non-negative unique identifier of the job, pickup/delivery shipment, or "
-"break."
+msgid "Positive unique identifier of the job, pickup/delivery shipment, or break."
 msgstr ""
 
 #: ../../src/common/vroom/time_windows_input.c:15
@@ -883,10 +935,11 @@ msgstr ""
 
 #: ../../build/sql/vroom/vrp_vroom.sql:13
 #: ../../build/sql/vroom/vrp_vroom.sql:15
-#: ../../build/sql/vroom/vrp_vroom.sql:18
 #: ../../build/sql/vroom/vrp_vroom.sql:20
-#: ../../build/sql/vroom/vrp_vroom.sql:33
-#: ../../build/sql/vroom/vrp_vroom.sql:45
+#: ../../build/sql/vroom/vrp_vroom.sql:27
+#: ../../build/sql/vroom/vrp_vroom.sql:43
+#: ../../build/sql/vroom/vrp_vroom.sql:48
+#: ../../build/sql/vroom/vrp_vroom.sql:70
 msgid "``BIGINT``"
 msgstr ""
 
@@ -905,101 +958,176 @@ msgid ""
 msgstr ""
 
 #: ../../build/sql/vroom/vrp_vroom.sql:18
+#: ../../build/sql/vroom/vrp_vroom.sql:23
+msgid "``0``: Summary row for the complete problem"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:20
 msgid "Current vehicle identifier."
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:20
+#: ../../build/sql/vroom/vrp_vroom.sql:22
+msgid "``-1``: Vehicle denoting all the unallocated tasks."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:25
+msgid "**vehicle_data**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:25
+msgid "Metadata information of the vehicle"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:27
 msgid "**step_seq**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:20
+#: ../../build/sql/vroom/vrp_vroom.sql:27
 msgid ""
 "Sequential value starting from **1** for the stops made by the current "
 "vehicle. The :math:`m^{th}` stop of the current vehicle."
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:24
+#: ../../build/sql/vroom/vrp_vroom.sql:31
+#: ../../build/sql/vroom/vrp_vroom.sql:35
+#: ../../build/sql/vroom/vrp_vroom.sql:45
+#: ../../build/sql/vroom/vrp_vroom.sql:50
+msgid "``0``: Summary row"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:33
 msgid "**step_type**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:24
+#: ../../build/sql/vroom/vrp_vroom.sql:33
 msgid "Kind of the step location the vehicle is at:"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:26
+#: ../../build/sql/vroom/vrp_vroom.sql:36
 msgid "``1``: Starting location"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:27
+#: ../../build/sql/vroom/vrp_vroom.sql:37
 msgid "``2``: Job location"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:28
+#: ../../build/sql/vroom/vrp_vroom.sql:38
 msgid "``3``: Pickup location"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:29
+#: ../../build/sql/vroom/vrp_vroom.sql:39
 msgid "``4``: Delivery location"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:30
+#: ../../build/sql/vroom/vrp_vroom.sql:40
 msgid "``5``: Break location"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:31
+#: ../../build/sql/vroom/vrp_vroom.sql:41
 msgid "``6``: Ending location"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:33
+#: ../../build/sql/vroom/vrp_vroom.sql:43
 msgid "**task_id**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:33
+#: ../../build/sql/vroom/vrp_vroom.sql:43
 msgid "Identifier of the task performed at this step."
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:35
+#: ../../build/sql/vroom/vrp_vroom.sql:46
 msgid "``-1``: If the step is starting/ending location."
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:37
+#: ../../build/sql/vroom/vrp_vroom.sql:48
+msgid "Identifier of the task location."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:52
+msgid "**task_data**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:52
+msgid "Metadata information of the task"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:54
 msgid "**arrival**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:37
+#: ../../build/sql/vroom/vrp_vroom.sql:54
+#: ../../build/sql/vroom/vrp_vroom.sql:66
 msgid "Estimated time of arrival at this step."
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:39
+#: ../../build/sql/vroom/vrp_vroom.sql:56
 msgid "**travel_time**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:39
-msgid "Cumulated travel time upon arrival at this step."
+#: ../../build/sql/vroom/vrp_vroom.sql:56
+msgid "Travel time from previous ``step_seq`` to current ``step_seq``."
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:41
+#: ../../build/sql/vroom/vrp_vroom.sql:58
+msgid "``0``: When ``step_type = 1``"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:60
+msgid "**setup_time**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:60
+msgid "Setup time at this step."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:62
 msgid "**service_time**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:41
+#: ../../build/sql/vroom/vrp_vroom.sql:62
 msgid "Service time at this step."
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:43
+#: ../../build/sql/vroom/vrp_vroom.sql:64
 msgid "**waiting_time**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:43
+#: ../../build/sql/vroom/vrp_vroom.sql:64
 msgid "Waiting time upon arrival at this step."
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:45
+#: ../../build/sql/vroom/vrp_vroom.sql:66
+msgid "**departure**"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:68
+msgid ":math:`arrival + service\\_time + waiting\\_time`."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:70
 msgid "**load**"
 msgstr ""
 
-#: ../../build/sql/vroom/vrp_vroom.sql:45
+#: ../../build/sql/vroom/vrp_vroom.sql:70
 msgid "Vehicle load after step completion (with capacity constraints)"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:75
+msgid "Unallocated tasks are mentioned at the end with :code:`vehicle_id = -1`."
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:76
+msgid ""
+"The last step of every vehicle denotes the summary row, where the columns"
+" ``travel_time``, ``service_time`` and ``waiting_time`` denote the total "
+"time for the corresponding vehicle,"
+msgstr ""
+
+#: ../../build/sql/vroom/vrp_vroom.sql:77
+msgid ""
+"The last row denotes the summary for the complete problem, where the "
+"columns ``travel_time``, ``service_time`` and ``waiting_time`` denote the"
+" total time for the complete problem,"
 msgstr ""
 
 #: ../../build/doc/vroom-category.rst:169

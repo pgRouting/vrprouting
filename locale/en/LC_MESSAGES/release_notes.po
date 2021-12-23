@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vrpRouting v0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-06 20:38+0000\n"
+"POT-Creation-Date: 2021-12-23 17:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,36 +61,38 @@ msgstr ""
 msgid "Modification of experimental functions"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:32 ../../build/doc/release_notes.rst:61
+#: ../../build/doc/release_notes.rst:32 ../../build/doc/release_notes.rst:69
 msgid "VROOM"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:34 ../../build/doc/release_notes.rst:63
+#: ../../build/doc/release_notes.rst:34 ../../build/doc/release_notes.rst:71
 msgid "vrp_vroom"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:35 ../../build/doc/release_notes.rst:64
+#: ../../build/doc/release_notes.rst:35 ../../build/doc/release_notes.rst:72
 msgid "vrp_vroomJobs"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:36 ../../build/doc/release_notes.rst:65
+#: ../../build/doc/release_notes.rst:36 ../../build/doc/release_notes.rst:73
 msgid "vrp_vroomShipments"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:37 ../../build/doc/release_notes.rst:66
+#: ../../build/doc/release_notes.rst:37 ../../build/doc/release_notes.rst:74
 msgid "vrp_vroomPlain"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:38 ../../build/doc/release_notes.rst:67
+#: ../../build/doc/release_notes.rst:38 ../../build/doc/release_notes.rst:75
 msgid "vrp_vroomJobsPlain"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:39 ../../build/doc/release_notes.rst:68
+#: ../../build/doc/release_notes.rst:39 ../../build/doc/release_notes.rst:76
 msgid "vrp_vroomShipmentsPlain"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:42
-msgid "Added support for VROOM 1.11.0 (#24)"
+msgid ""
+"Added support for VROOM 1.11.0 (`#24 "
+"<https://github.com/pgRouting/vrprouting/issues/24>`_)"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:43
@@ -133,35 +135,67 @@ msgstr ""
 msgid "Honor client cancel requests for vroom-category functions."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:57
-msgid "v0.2.0 Release Notes"
+#: ../../build/doc/release_notes.rst:55
+msgid ""
+"Added more information in the inner query and result columns of VROOM "
+"category functions (`#26 "
+"<https://github.com/pgRouting/vrprouting/issues/26>`_, `#27 "
+"<https://github.com/pgRouting/vrprouting/issues/27>`_):"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:58
+msgid "Summary row in the output, for each vehicle and for the complete problem."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:59
+msgid "Uassigned rows in the output with vehicle_id = -1."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:60
+msgid ""
+"Modified travel_time result column to return travel time between current "
+"and last step."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:61
+msgid ""
+"Added data jsonb field in jobs, shipments, vehicles, breaks as well as in"
+" the result columns."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:62
+msgid "Added departure field and location_id field in the result columns."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:65
+msgid "v0.2.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:68
 msgid "New experimental functions"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:71
+#: ../../build/doc/release_notes.rst:79
 msgid "v0.1.0 Release Notes"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:74
+#: ../../build/doc/release_notes.rst:82
 msgid "Extraction tasks"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:75
+#: ../../build/doc/release_notes.rst:83
 msgid "Porting pgRouting's VRP functionality"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:78
+#: ../../build/doc/release_notes.rst:86
 msgid "New official functions"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:79
+#: ../../build/doc/release_notes.rst:87
 msgid "vrp_version"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:80
+#: ../../build/doc/release_notes.rst:88
 msgid "vrp_full_version"
 msgstr ""
 
