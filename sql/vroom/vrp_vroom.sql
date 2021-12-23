@@ -149,6 +149,10 @@ Column              Type              Description
                                       - ``0``: Summary row
                                       - ``-1``: If the step is starting/ending location.
 
+**location_id**      ``BIGINT``       Identifier of the task location.
+
+                                      - ``0``: Summary row
+
 **task_data**        ``JSONB``        Metadata information of the task
 
 **arrival**          |timestamp|      Estimated time of arrival at this step.
@@ -156,6 +160,8 @@ Column              Type              Description
 **travel_time**      |interval|       Travel time from previous ``step_seq`` to current ``step_seq``.
 
                                       - ``0``: When ``step_type = 1``
+
+**setup_time**       |interval|       Setup time at this step.
 
 **service_time**     |interval|       Service time at this step.
 
@@ -198,9 +204,11 @@ CREATE FUNCTION vrp_vroom(
     OUT step_seq BIGINT,
     OUT step_type INTEGER,
     OUT task_id BIGINT,
+    OUT location_id BIGINT,
     OUT task_data JSONB,
     OUT arrival TIMESTAMP,
     OUT travel_time INTERVAL,
+    OUT setup_time INTERVAL,
     OUT service_time INTERVAL,
     OUT waiting_time INTERVAL,
     OUT departure TIMESTAMP,
@@ -222,9 +230,11 @@ BEGIN
       A.step_seq,
       A.step_type,
       A.task_id,
+      A.location_id,
       A.task_data::JSONB,
       (to_timestamp(A.arrival) at time zone 'UTC')::TIMESTAMP,
       make_interval(secs => A.travel_time),
+      make_interval(secs => A.setup_time),
       make_interval(secs => A.service_time),
       make_interval(secs => A.waiting_time),
       (to_timestamp(A.departure) at time zone 'UTC')::TIMESTAMP,
