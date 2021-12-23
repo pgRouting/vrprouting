@@ -35,8 +35,8 @@ A ``SELECT`` statement that returns the following columns:
 
 ::
 
-    id, p_location_id [, p_service], d_location_id [, d_service]
-    [, amount, skills, priority]
+    id, p_location_id [, p_setup, p_service], d_location_id [, d_setup, d_service]
+    [, amount, skills, priority, p_data, d_data]
 
 
 ======================  =========================  =========== ================================================
@@ -52,7 +52,9 @@ Column                  Type                       Default     Description
 
 **d_location_id**       ``ANY-INTEGER``                         Positive identifier of the delivery location.
 
+**d_setup**             |interval|                 |interval0|  Delivery setup duration.
 
+**d_service**           |interval|                 |interval0|  Delivery service duration.
 
 **amount**              ``ARRAY[ANY-INTEGER]``     Empty Array  Array of non-negative integers describing
                                                                 multidimensional quantities such as number
@@ -68,9 +70,9 @@ Column                  Type                       Default     Description
 
                                                                 - Ranges from ``[0, 100]``
 
-**p_data**              ``JSONB``                  '{}'        Any metadata information of the pickup shipment.
+**p_data**              ``JSONB``                  '{}'::JSONB Any metadata information of the pickup shipment.
 
-**d_data**              ``JSONB``                  '{}'        Any metadata information of the delivery shipment.
+**d_data**              ``JSONB``                  '{}'::JSONB Any metadata information of the delivery shipment.
 ======================  =========================  =========== ================================================
 
 Where:

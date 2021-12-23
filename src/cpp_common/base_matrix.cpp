@@ -177,6 +177,47 @@ Base_Matrix::get_index(Id id) const {
   return static_cast<Idx>(pos - m_ids.begin());
 }
 
+/** Given the internal index, returns the original node identifier
+ *
+ * @param [in] id
+ * @returns the original node identifier
+ *
+ @dot
+ digraph G {
+ graph [ranksep=".05"];
+ node[fontsize=10, nodesep=0.2];
+ start  [shape=Mdiamond];
+ n0  [label="Base_Matrix::get_original_id",shape=rect, color=green];
+ n1  [label="Go to the index in the identifiers vector",shape=rect];
+ n2  [label="Return the original id found",shape=rect];
+ start -> n0 -> n1 -> n2 -> end;
+ end  [shape=Mdiamond];
+ error [shape=Mdiamond,color=red]
+ a [label="assertion",color=red];
+ a -> error [color=red,label="fail",fontcolor=red];
+ }
+ @enddot
+ */
+Id
+Base_Matrix::get_original_id(Idx index) const {
+  /*
+   * Go to the index in the identifiers vector
+   */
+
+  if (index >= m_ids.size()) {
+    std::ostringstream msg;
+    msg << *this << "\nOut of range" << index;
+    pgassertwm(false, msg.str());
+    throw std::make_pair(std::string("(INTERNAL) Base_Matrix: The given index is out of range"), msg.str());
+  }
+  pgassert(index < m_ids.size());
+
+  /*
+   * return the original id found
+   */
+  return static_cast<Id>(m_ids[index]);
+}
+
 /**
  * @param [in] data_costs  The set of costs
  * @param [in] size_matrix The size of the set of costs
