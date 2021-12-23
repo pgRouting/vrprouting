@@ -36,7 +36,7 @@ A ``SELECT`` statement that returns the following columns:
 ::
 
     id, location_id
-    [, setup, service, delivery, pickup, skills, priority]
+    [, setup, service, delivery, pickup, skills, priority, data]
 
 
 ====================  =========================  =========== ================================================
@@ -71,7 +71,7 @@ Column                Type                       Default     Description
 
                                                              - Ranges from ``[0, 100]``
 
-**data**              ``JSONB``                  '{}'        Any metadata information of the job.
+**data**              ``JSONB``                  '{}'::JSONB Any metadata information of the job.
 ====================  =========================  =========== ================================================
 
 Where:

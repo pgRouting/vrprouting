@@ -35,7 +35,7 @@ A ``SELECT`` statement that returns the following columns:
 
 ::
 
-    id, vehicle_id [, service]
+    id, vehicle_id [, service, data]
 
 ====================  =========================  =========== ================================================
 Column                Type                       Default      Description
@@ -47,7 +47,7 @@ Column                Type                       Default      Description
 
 **service**           |interval|                 |interval0|  The break duration.
 
-**data**              ``JSONB``                  '{}'        Any metadata information of the break.
+**data**              ``JSONB``                  '{}'::JSONB  Any metadata information of the break.
 ====================  =========================  =========== ================================================
 
 .. vrp_vroom end

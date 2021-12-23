@@ -367,7 +367,7 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
     int16      typlen;
     size_t     call_cntr = funcctx->call_cntr;
 
-    size_t num  = 14;
+    size_t num  = 16;
     values = palloc(num * sizeof(Datum));
     nulls = palloc(num * sizeof(bool));
 
@@ -407,22 +407,24 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
         int             attdim
       )
     */
-    TupleDescInitEntry(tuple_desc, (AttrNumber) 14, "load", INT8ARRAYOID, -1, 0);
+    TupleDescInitEntry(tuple_desc, (AttrNumber) 16, "load", INT8ARRAYOID, -1, 0);
 
     values[0] = Int64GetDatum(funcctx->call_cntr + 1);
-    values[1] = Int32GetDatum(result_tuples[call_cntr].vehicle_seq);
-    values[2] = Int32GetDatum(result_tuples[call_cntr].vehicle_id);
+    values[1] = Int64GetDatum(result_tuples[call_cntr].vehicle_seq);
+    values[2] = Int64GetDatum(result_tuples[call_cntr].vehicle_id);
     values[3] = CStringGetTextDatum(result_tuples[call_cntr].vehicle_data);
-    values[4] = Int32GetDatum(result_tuples[call_cntr].step_seq);
+    values[4] = Int64GetDatum(result_tuples[call_cntr].step_seq);
     values[5] = Int32GetDatum(result_tuples[call_cntr].step_type);
-    values[6] = Int32GetDatum(result_tuples[call_cntr].task_id);
-    values[7] = CStringGetTextDatum(result_tuples[call_cntr].task_data);
-    values[8] = Int32GetDatum(result_tuples[call_cntr].arrival_time);
-    values[9] = Int32GetDatum(result_tuples[call_cntr].travel_time);
-    values[10] = Int32GetDatum(result_tuples[call_cntr].service_time);
-    values[11] = Int32GetDatum(result_tuples[call_cntr].waiting_time);
-    values[12] = Int32GetDatum(result_tuples[call_cntr].departure_time);
-    values[13] = PointerGetDatum(arrayType);
+    values[6] = Int64GetDatum(result_tuples[call_cntr].task_id);
+    values[7] = Int64GetDatum(result_tuples[call_cntr].location_id);
+    values[8] = CStringGetTextDatum(result_tuples[call_cntr].task_data);
+    values[9] = Int32GetDatum(result_tuples[call_cntr].arrival_time);
+    values[10] = Int32GetDatum(result_tuples[call_cntr].travel_time);
+    values[11] = Int32GetDatum(result_tuples[call_cntr].setup_time);
+    values[12] = Int32GetDatum(result_tuples[call_cntr].service_time);
+    values[13] = Int32GetDatum(result_tuples[call_cntr].waiting_time);
+    values[14] = Int32GetDatum(result_tuples[call_cntr].departure_time);
+    values[15] = PointerGetDatum(arrayType);
 
     /**********************************************************************/
 

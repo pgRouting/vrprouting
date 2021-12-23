@@ -36,7 +36,7 @@ A ``SELECT`` statement that returns the following columns:
 ::
 
     id, start_id, end_id
-    [, capacity, skills, tw_open, tw_close, speed_factor, max_tasks]
+    [, capacity, skills, tw_open, tw_close, speed_factor, max_tasks, data]
 
 
 ======================  ======================== =================== ================================================
@@ -71,7 +71,7 @@ Column                  Type                     Default             Description
 
                                                                      - A job, pickup, or delivery is counted as a single task.
 
-**data**                ``JSONB``                '{}'                Any metadata information of the vehicle.
+**data**                ``JSONB``                '{}'::JSONB         Any metadata information of the vehicle.
 ======================  ======================== =================== ================================================
 
 **Note**:
