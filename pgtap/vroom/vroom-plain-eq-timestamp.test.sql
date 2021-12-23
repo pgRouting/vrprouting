@@ -41,8 +41,8 @@ DECLARE
                    'exploration_level => 5, timeout => $$-00:00:01$$::INTERVAL)';
 
   returnPlain_sql TEXT := 'SELECT * FROM vrp_vroomPlain(';
-  return_sql TEXT := 'SELECT seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id, task_data, ' ||
-                     'EXTRACT (EPOCH FROM arrival) AS arrival, EXTRACT (EPOCH FROM travel_time) AS travel_time, ' ||
+  return_sql TEXT := 'SELECT seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id, location_id, task_data, ' ||
+                     'EXTRACT (EPOCH FROM arrival) AS arrival, EXTRACT (EPOCH FROM travel_time) AS travel_time, EXTRACT (EPOCH FROM setup_time) AS setup_time, ' ||
                      'EXTRACT (EPOCH FROM service_time) AS service_time, EXTRACT (EPOCH FROM waiting_time) AS waiting_time, ' ||
                      'EXTRACT (EPOCH FROM departure) AS departure, load FROM vrp_vroom(';
 

@@ -27,7 +27,7 @@ BEGIN
   SELECT bag_has(
     $$SELECT proargnames from pg_proc where proname = 'vrp_vroomplain'$$,
     $$SELECT '{"","","","","","","","","exploration_level","timeout","seq","vehicle_seq","vehicle_id","vehicle_data","step_seq","step_type",'
-              '"task_id","task_data","arrival","travel_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
+              '"task_id","location_id","task_data","arrival","travel_time","setup_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
   );
 
   -- parameter types
@@ -35,7 +35,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomplain'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,25,25,23,23,20,20,20,3802,20,23,20,3802,23,23,23,23,23,1016}'::OID[])
+      ('{25,25,25,25,25,25,25,25,23,23,20,20,20,3802,20,23,20,20,3802,23,23,23,23,23,23,1016}'::OID[])
     $$
   );
 
@@ -53,7 +53,7 @@ BEGIN
   SELECT bag_has(
     $$SELECT proargnames from pg_proc where proname = 'vrp_vroom'$$,
     $$SELECT '{"","","","","","","","","exploration_level","timeout","seq","vehicle_seq","vehicle_id","vehicle_data","step_seq","step_type",'
-              '"task_id","task_data","arrival","travel_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
+              '"task_id","location_id","task_data","arrival","travel_time","setup_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
   );
 
   -- parameter types
@@ -61,7 +61,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroom'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,25,25,23,1186,20,20,20,3802,20,23,20,3802,1114,1186,1186,1186,1114,1016}'::OID[])
+      ('{25,25,25,25,25,25,25,25,23,1186,20,20,20,3802,20,23,20,20,3802,1114,1186,1186,1186,1186,1114,1016}'::OID[])
     $$
   );
 
@@ -79,7 +79,7 @@ BEGIN
   SELECT bag_has(
     $$SELECT proargnames from pg_proc where proname = 'vrp_vroomjobsplain'$$,
     $$SELECT '{"","","","","","","exploration_level","timeout","seq","vehicle_seq","vehicle_id","vehicle_data","step_seq","step_type",'
-              '"task_id","task_data","arrival","travel_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
+              '"task_id","location_id","task_data","arrival","travel_time","setup_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
   );
 
   -- parameter types
@@ -87,7 +87,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomjobsplain'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,23,23,20,20,20,3802,20,23,20,3802,23,23,23,23,23,1016}'::OID[])
+      ('{25,25,25,25,25,25,23,23,20,20,20,3802,20,23,20,20,3802,23,23,23,23,23,23,1016}'::OID[])
     $$
   );
 
@@ -105,7 +105,7 @@ BEGIN
   SELECT bag_has(
     $$SELECT proargnames from pg_proc where proname = 'vrp_vroomjobs'$$,
     $$SELECT '{"","","","","","","exploration_level","timeout","seq","vehicle_seq","vehicle_id","vehicle_data","step_seq","step_type",'
-              '"task_id","task_data","arrival","travel_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
+              '"task_id","location_id","task_data","arrival","travel_time","setup_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
   );
 
   -- parameter types
@@ -113,7 +113,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomjobs'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,23,1186,20,20,20,3802,20,23,20,3802,1114,1186,1186,1186,1114,1016}'::OID[])
+      ('{25,25,25,25,25,25,23,1186,20,20,20,3802,20,23,20,20,3802,1114,1186,1186,1186,1186,1114,1016}'::OID[])
     $$
   );
 
@@ -131,7 +131,7 @@ BEGIN
   SELECT bag_has(
     $$SELECT proargnames from pg_proc where proname = 'vrp_vroomshipmentsplain'$$,
     $$SELECT '{"","","","","","","exploration_level","timeout","seq","vehicle_seq","vehicle_id","vehicle_data","step_seq","step_type",'
-              '"task_id","task_data","arrival","travel_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
+              '"task_id","location_id","task_data","arrival","travel_time","setup_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
   );
 
   -- parameter types
@@ -139,7 +139,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomshipmentsplain'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,23,23,20,20,20,3802,20,23,20,3802,23,23,23,23,23,1016}'::OID[])
+      ('{25,25,25,25,25,25,23,23,20,20,20,3802,20,23,20,20,3802,23,23,23,23,23,23,1016}'::OID[])
     $$
   );
 
@@ -157,7 +157,7 @@ BEGIN
   SELECT bag_has(
     $$SELECT proargnames from pg_proc where proname = 'vrp_vroomshipments'$$,
     $$SELECT '{"","","","","","","exploration_level","timeout","seq","vehicle_seq","vehicle_id","vehicle_data","step_seq","step_type",'
-              '"task_id","task_data","arrival","travel_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
+              '"task_id","location_id","task_data","arrival","travel_time","setup_time","service_time","waiting_time","departure","load"}'::TEXT[]$$
   );
 
   -- parameter types
@@ -165,7 +165,7 @@ BEGIN
   SELECT set_eq(
     $$SELECT  proallargtypes from pg_proc where proname = 'vrp_vroomshipments'$$,
     $$VALUES
-      ('{25,25,25,25,25,25,23,1186,20,20,20,3802,20,23,20,3802,1114,1186,1186,1186,1114,1016}'::OID[])
+      ('{25,25,25,25,25,25,23,1186,20,20,20,3802,20,23,20,20,3802,1114,1186,1186,1186,1186,1114,1016}'::OID[])
     $$
   );
 END;
