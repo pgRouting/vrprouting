@@ -44,9 +44,11 @@ vehicle_data | The vehicle's metadata information
 step_seq | Step sequence of the vehicle
 step_type | Step sequence of the vehicle
 task_id | The task's identifier
+location_id | Location id of task in matrix
 task_data | The task's metadata information
 arrival_time | Estimated time of arrival
-travel_time | Cumulated travel time upon arrival
+travel_time | Travel time from previous step_seq to current step_seq
+setup_time | Setup time at this step
 service_time | Service time at this step
 waiting_time | Waiting time upon arrival at this step
 departure_time | Estimated time of departure
@@ -60,10 +62,12 @@ struct Vroom_rt {
   Idx step_seq;            /** Step sequence of the vehicle */
   StepType step_type;      /** Type of the step */
   Idx task_id;             /** The task's identifier */
+  MatrixIndex location_id; /** Location id of task in matrix */
   char *task_data;         /** The task's metadata information */
 
   Duration arrival_time;   /** Estimated time of arrival */
-  Duration travel_time;    /** Cumulated travel time upon arrival */
+  Duration travel_time;    /** Travel time from previous step_seq to current step_seq */
+  Duration setup_time;     /** Setup time at this step */
   Duration service_time;   /** Service time at this step */
   Duration waiting_time;   /** Waiting time upon arrival at this step */
   Duration departure_time; /** Estimated time of departure */

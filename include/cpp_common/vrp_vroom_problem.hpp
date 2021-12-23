@@ -477,6 +477,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
       Duration prev_duration = 0;
       for (auto step : route.steps) {
         Idx task_id = step.id;
+        MatrixIndex location_id = m_matrix.get_original_id(step.location.index());
         char *vehicle_data = strdup(route.description.c_str());
         char *task_data = strdup(step.description.c_str());
         StepType step_type = get_step_type(step);
@@ -491,7 +492,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
 
         Duration travel_time = step.duration - prev_duration;
         prev_duration = step.duration;
-        Duration departure = step.arrival + step.service + step.waiting_time;
+        Duration departure = step.arrival + step.setup + step.service + step.waiting_time;
         results.push_back({
             vehicle_seq,        // vehicles_seq
             route.vehicle,      // vehicles_id
@@ -499,9 +500,11 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
             step_seq,           // step_seq
             step_type,          // step_type
             task_id,            // task_id
+            location_id,        // location_id
             task_data,          // task_data
             step.arrival,       // arrival
             travel_time,        // travel_time
+            step.setup,         // setup_time
             step.service,       // service_time
             step.waiting_time,  // waiting_time
             departure,          // departure
@@ -519,9 +522,11 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
           0,                   // step_seq = 0 for route summary
           0,                   // step_type = 0 for route summary
           task_id,             // task_id = 0 for route summary
+          0,                   // location_id = 0 for route summary
           empty_desc,          // task_data
           0,                   // No arrival time
           route.duration,      // Total travel time
+          route.setup,         // Total setup time
           route.service,       // Total service time
           route.waiting_time,  // Total waiting time
           0,                   // No departure time
@@ -537,6 +542,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
       StepType job_step = get_job_step_type(job.type);
       Idx vehicle_id = static_cast<Idx>(-1);
       Idx job_id = job.id;
+      MatrixIndex location_id = m_matrix.get_original_id(job.location.index());
       char *task_data = strdup(job.description.c_str());
       results.push_back({
           vehicle_seq,      // vehicles_seq
@@ -545,9 +551,11 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
           step_seq,         // step_seq
           job_step,         // step_type
           job_id,           // task_id
+          location_id,      // location_id
           task_data,        // task_data
           0,                // No arrival time
           0,                // No travel_time
+          0,                // No setup_time
           0,                // No service_time
           0,                // No waiting_time
           0,                // No departure time
@@ -568,9 +576,11 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
         0,                     // step_seq = 0 for problem summary
         0,                     // step_type = 0 for problem summary
         job_id,                // task_id = 0 for problem summary
+        0,                     // location_id = 0 for problem summary
         empty_desc,            // task_data
         0,                     // No arrival time
         summary.duration,      // Total travel time
+        summary.setup,         // Total setup time
         summary.service,       // Total service time
         summary.waiting_time,  // Total waiting time
         0,                     // No departure time
