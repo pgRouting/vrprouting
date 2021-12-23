@@ -38,7 +38,7 @@ To see all issues & pull requests closed by this release see the `Git closed mil
   - vrp_vroomJobsPlain
   - vrp_vroomShipmentsPlain
 
-.. rubric:: Added support for VROOM 1.11.0 (#24)
+.. rubric:: Added support for VROOM 1.11.0 (`#24 <https://github.com/pgRouting/vrprouting/issues/24>`_)
 
 - Added setup time in jobs and shipments to refine service time modeling.
 - Added support for custom cost matrices, along with the duration matrix.
@@ -52,6 +52,14 @@ To see all issues & pull requests closed by this release see the `Git closed mil
 .. rubric:: Fixes
 
 - Honor client cancel requests for vroom-category functions.
+- Added more information in the inner query and result columns of VROOM category functions
+  (`#26 <https://github.com/pgRouting/vrprouting/issues/26>`_, `#27 <https://github.com/pgRouting/vrprouting/issues/27>`_):
+
+  - Summary row in the output, for each vehicle and for the complete problem.
+  - Uassigned rows in the output with vehicle_id = -1.
+  - Modified travel_time result column to return travel time between current and last step.
+  - Added data jsonb field in jobs, shipments, vehicles, breaks as well as in the result columns.
+  - Added departure field and location_id field in the result columns.
 
 v0.2.0 Release Notes
 *******************************************************************************

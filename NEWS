@@ -2,9 +2,9 @@
 v0.3.0 Release Notes
 *******************************************************************************
 
-To see all issues & pull requests closed by this release see the [Git closed milestone for 0.3.0 ](https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.3.0%22) on Github.
+To see all issues & pull requests closed by this release see the [Git closed milestone for 0.3.0](https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.3.0%22) on Github.
 
-*Modification of experimental functions*
+**Modification of experimental functions**
 
 - VROOM
 
@@ -15,7 +15,7 @@ To see all issues & pull requests closed by this release see the [Git closed mil
   - vrp_vroomJobsPlain
   - vrp_vroomShipmentsPlain
 
-*Added support for VROOM 1.11.0 (#24)*
+**Added support for VROOM 1.11.0 ([#24](https://github.com/pgRouting/vrprouting/issues/24))**
 
 - Added setup time in jobs and shipments to refine service time modeling.
 - Added support for custom cost matrices, along with the duration matrix.
@@ -26,14 +26,22 @@ To see all issues & pull requests closed by this release see the [Git closed mil
 - Added custom scaling logic for speed_factor.
 - Modified parameter names to make the naming consistent.
 
-*Fixes*
+**Fixes**
 
 - Honor client cancel requests for vroom-category functions.
+- Added more information in the inner query and result columns of VROOM category functions
+  ([#26](https://github.com/pgRouting/vrprouting/issues/26), [#27](https://github.com/pgRouting/vrprouting/issues/27)):
+
+  - Summary row in the output, for each vehicle and for the complete problem.
+  - Uassigned rows in the output with vehicle_id = -1.
+  - Modified travel_time result column to return travel time between current and last step.
+  - Added data jsonb field in jobs, shipments, vehicles, breaks as well as in the result columns.
+  - Added departure field and location_id field in the result columns.
 
 v0.2.0 Release Notes
 *******************************************************************************
 
-*New experimental functions*
+**New experimental functions**
 
 - VROOM
 
@@ -47,11 +55,11 @@ v0.2.0 Release Notes
 v0.1.0 Release Notes
 *******************************************************************************
 
-*Extraction tasks*
+**Extraction tasks**
 
 - Porting pgRouting's VRP functionality
 
-*New official functions*
+**New official functions**
 
 * vrp_version
 * vrp_full_version
