@@ -7,6 +7,7 @@ var get__check__data_8c =
     [ "check_integer_type", "get__check__data_8c.html#a6a70dd031e9fd38c199a16af37794d2f", null ],
     [ "check_integerarray_type", "get__check__data_8c.html#acad7f79bd5c2fe042d6519e6e00a353c", null ],
     [ "check_interval_type", "get__check__data_8c.html#a3c3a529a47fcf4568c30f6fd0fc68ab4", null ],
+    [ "check_jsonb_type", "get__check__data_8c.html#ab9c01195277d2a64739cbc451bf92db9", null ],
     [ "check_text_type", "get__check__data_8c.html#a25de1bff690deb503442ab2705657211", null ],
     [ "check_timestamp_type", "get__check__data_8c.html#a016a111ef763b1e76a3aefd55494e2fe", null ],
     [ "column_found", "get__check__data_8c.html#a242b8e2225de6f8c47cf3133c440588e", null ],

@@ -318,85 +318,74 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    int16      typlen;</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keywordtype">size_t</span>     call_cntr = funcctx-&gt;call_cntr;</div>
 <div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="comment">    /***********************************************************************</span></div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="comment">     *   OUT seq BIGINT,</span></div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment">     *   OUT vehicles_seq BIGINT,</span></div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="comment">     *   OUT vehicles_id BIGINT,</span></div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="comment">     *   OUT step_seq BIGINT,</span></div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="comment">     *   OUT step_type INTEGER,</span></div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="comment">     *   OUT task_id BIGINT,</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="comment">     *   OUT arrival INTEGER,</span></div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="comment">     *   OUT duration INTEGER,</span></div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="comment">     *   OUT service_time INTEGER,</span></div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="comment">     *   OUT waiting_time INTEGER,</span></div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="comment">     *   OUT load BIGINT</span></div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="comment">     **********************************************************************/</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    <span class="keywordtype">size_t</span> num  = 16;</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    values = palloc(num * <span class="keyword">sizeof</span>(Datum));</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    nulls = palloc(num * <span class="keyword">sizeof</span>(<span class="keywordtype">bool</span>));</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160; </div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keywordtype">size_t</span> i;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; num; ++i) {</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;      nulls[i] = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    }</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <span class="keywordtype">size_t</span> load_size = (size_t)result_tuples[call_cntr].load_size;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    Datum* load = (Datum*) palloc(<span class="keyword">sizeof</span>(Datum) * (size_t)load_size);</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; load_size; ++i) {</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;      load[i] = Int64GetDatum(result_tuples[call_cntr].load[i]);</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    }</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="keywordtype">size_t</span> num  = 11;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    values = palloc(num * <span class="keyword">sizeof</span>(Datum));</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    nulls = palloc(num * <span class="keyword">sizeof</span>(<span class="keywordtype">bool</span>));</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="keywordtype">size_t</span> i;</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; num; ++i) {</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;      nulls[i] = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    }</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160; </div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keywordtype">size_t</span> load_size = (size_t)result_tuples[call_cntr].load_size;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    Datum* load = (Datum*) palloc(<span class="keyword">sizeof</span>(Datum) * (size_t)load_size);</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; load_size; ++i) {</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;      load[i] = Int64GetDatum(result_tuples[call_cntr].load[i]);</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    }</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160; </div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <span class="keywordtype">bool</span> typbyval;</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="keywordtype">char</span> typalign;</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    get_typlenbyvalalign(INT8OID, &amp;typlen, &amp;typbyval, &amp;typalign);</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    ArrayType* arrayType;</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment">      https://doxygen.postgresql.org/arrayfuncs_8c.html</span></div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment">      ArrayType* construct_array(</span></div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="comment">        Datum*      elems,</span></div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment">        int         nelems,</span></div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment">        Oid         elmtype, int elmlen, bool elmbyval, char elmalign</span></div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="comment">      )</span></div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    arrayType =  construct_array(load, (<span class="keywordtype">int</span>)load_size, INT8OID,  typlen,</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;                                typbyval, typalign);</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment">      void TupleDescInitEntry(</span></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment">        TupleDesc       desc,</span></div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment">        AttrNumber      attributeNumber,</span></div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment">        const char *    attributeName,</span></div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment">        Oid             oidtypeid,</span></div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment">        int32           typmod,</span></div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment">        int             attdim</span></div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment">      )</span></div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    TupleDescInitEntry(tuple_desc, (AttrNumber) 11, <span class="stringliteral">&quot;load&quot;</span>, <a class="code" href="vroom_8c.html#acaf704d7b041882edfbce47b53c1090f">INT8ARRAYOID</a>, -1, 0);</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160; </div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    values[0] = Int64GetDatum(funcctx-&gt;call_cntr + 1);</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    values[1] = Int32GetDatum(result_tuples[call_cntr].vehicle_seq);</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    values[2] = Int32GetDatum(result_tuples[call_cntr].vehicle_id);</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    values[3] = Int32GetDatum(result_tuples[call_cntr].step_seq);</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    values[4] = Int32GetDatum(result_tuples[call_cntr].step_type);</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    values[5] = Int32GetDatum(result_tuples[call_cntr].task_id);</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    values[6] = Int32GetDatum(result_tuples[call_cntr].arrival_time);</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    values[7] = Int32GetDatum(result_tuples[call_cntr].travel_time);</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    values[8] = Int32GetDatum(result_tuples[call_cntr].service_time);</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    values[9] = Int32GetDatum(result_tuples[call_cntr].waiting_time);</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    values[10] = PointerGetDatum(arrayType);</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160; </div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="comment">    /**********************************************************************/</span></div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160; </div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    tuple = heap_form_tuple(tuple_desc, values, nulls);</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    result = HeapTupleGetDatum(tuple);</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    SRF_RETURN_NEXT(funcctx, result);</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    SRF_RETURN_DONE(funcctx);</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;  }</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;}</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="keywordtype">bool</span> typbyval;</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="keywordtype">char</span> typalign;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    get_typlenbyvalalign(INT8OID, &amp;typlen, &amp;typbyval, &amp;typalign);</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    ArrayType* arrayType;</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="comment">      https://doxygen.postgresql.org/arrayfuncs_8c.html</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="comment">      ArrayType* construct_array(</span></div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="comment">        Datum*      elems,</span></div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="comment">        int         nelems,</span></div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="comment">        Oid         elmtype, int elmlen, bool elmbyval, char elmalign</span></div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="comment">      )</span></div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    arrayType =  construct_array(load, (<span class="keywordtype">int</span>)load_size, INT8OID,  typlen,</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;                                typbyval, typalign);</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment">      void TupleDescInitEntry(</span></div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment">        TupleDesc       desc,</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment">        AttrNumber      attributeNumber,</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment">        const char *    attributeName,</span></div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="comment">        Oid             oidtypeid,</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="comment">        int32           typmod,</span></div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment">        int             attdim</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment">      )</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    TupleDescInitEntry(tuple_desc, (AttrNumber) 16, <span class="stringliteral">&quot;load&quot;</span>, <a class="code" href="vroom_8c.html#acaf704d7b041882edfbce47b53c1090f">INT8ARRAYOID</a>, -1, 0);</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    values[0] = Int64GetDatum(funcctx-&gt;call_cntr + 1);</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    values[1] = Int64GetDatum(result_tuples[call_cntr].vehicle_seq);</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    values[2] = Int64GetDatum(result_tuples[call_cntr].vehicle_id);</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    values[3] = CStringGetTextDatum(result_tuples[call_cntr].vehicle_data);</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    values[4] = Int64GetDatum(result_tuples[call_cntr].step_seq);</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    values[5] = Int32GetDatum(result_tuples[call_cntr].step_type);</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    values[6] = Int64GetDatum(result_tuples[call_cntr].task_id);</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    values[7] = Int64GetDatum(result_tuples[call_cntr].location_id);</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    values[8] = CStringGetTextDatum(result_tuples[call_cntr].task_data);</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    values[9] = Int32GetDatum(result_tuples[call_cntr].arrival_time);</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    values[10] = Int32GetDatum(result_tuples[call_cntr].travel_time);</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    values[11] = Int32GetDatum(result_tuples[call_cntr].setup_time);</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    values[12] = Int32GetDatum(result_tuples[call_cntr].service_time);</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    values[13] = Int32GetDatum(result_tuples[call_cntr].waiting_time);</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    values[14] = Int32GetDatum(result_tuples[call_cntr].departure_time);</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    values[15] = PointerGetDatum(arrayType);</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160; </div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment">    /**********************************************************************/</span></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160; </div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    tuple = heap_form_tuple(tuple_desc, values, nulls);</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    result = HeapTupleGetDatum(tuple);</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    SRF_RETURN_NEXT(funcctx, result);</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    SRF_RETURN_DONE(funcctx);</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;  }</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="doxygen_2CMakeLists_8txt_source.html#l00013">if()</a>, <a class="el" href="vroom_8c_source.html#l00043">INT8ARRAYOID</a>, and <a class="el" href="vroom_8c_source.html#l00095">process()</a>.</p>
 
@@ -689,7 +678,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  <a class="code" href="postgres__connection_8c.html#ae36e7862564b5e72c25c9e26ae8e355f">pgr_SPI_finish</a>();</div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="vroom__driver_8cpp_source.html#l00084">do_vrp_vroom()</a>, <a class="el" href="breaks__input_8c_source.html#l00155">get_vroom_breaks()</a>, <a class="el" href="jobs__input_8c_source.html#l00207">get_vroom_jobs()</a>, <a class="el" href="matrix__input_8c_source.html#l00159">get_vroom_matrix()</a>, <a class="el" href="shipments__input_8c_source.html#l00206">get_vroom_shipments()</a>, <a class="el" href="time__windows__input_8c_source.html#l00239">get_vroom_shipments_time_windows()</a>, <a class="el" href="time__windows__input_8c_source.html#l00204">get_vroom_time_windows()</a>, <a class="el" href="vroom_2vehicles__input_8c_source.html#l00231">get_vroom_vehicles()</a>, <a class="el" href="e__report_8c_source.html#l00030">pgr_global_report()</a>, <a class="el" href="postgres__connection_8c_source.html#l00079">pgr_SPI_connect()</a>, <a class="el" href="postgres__connection_8c_source.html#l00071">pgr_SPI_finish()</a>, and <a class="el" href="time__msg_8c_source.html#l00032">time_msg()</a>.</p>
+<p class="reference">References <a class="el" href="vroom__driver_8cpp_source.html#l00084">do_vrp_vroom()</a>, <a class="el" href="breaks__input_8c_source.html#l00160">get_vroom_breaks()</a>, <a class="el" href="jobs__input_8c_source.html#l00213">get_vroom_jobs()</a>, <a class="el" href="matrix__input_8c_source.html#l00159">get_vroom_matrix()</a>, <a class="el" href="shipments__input_8c_source.html#l00216">get_vroom_shipments()</a>, <a class="el" href="time__windows__input_8c_source.html#l00239">get_vroom_shipments_time_windows()</a>, <a class="el" href="time__windows__input_8c_source.html#l00204">get_vroom_time_windows()</a>, <a class="el" href="vroom_2vehicles__input_8c_source.html#l00237">get_vroom_vehicles()</a>, <a class="el" href="e__report_8c_source.html#l00030">pgr_global_report()</a>, <a class="el" href="postgres__connection_8c_source.html#l00079">pgr_SPI_connect()</a>, <a class="el" href="postgres__connection_8c_source.html#l00071">pgr_SPI_finish()</a>, and <a class="el" href="time__msg_8c_source.html#l00032">time_msg()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vroom_8c_source.html#l00255">_vrp_vroom()</a>.</p>
 
@@ -697,25 +686,25 @@ Functions</h2></td></tr>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="avroom_2vehicles__input_8c_html_afc647b13789088a6bd27c2d8b2e87fb9"><div class="ttname"><a href="vroom_2vehicles__input_8c.html#afc647b13789088a6bd27c2d8b2e87fb9">get_vroom_vehicles</a></div><div class="ttdeci">void get_vroom_vehicles(char *sql, Vroom_vehicle_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM vehicles.</div><div class="ttdef"><b>Definition:</b> <a href="vroom_2vehicles__input_8c_source.html#l00231">vroom/vehicles_input.c:231</a></div></div>
+<div class="ttc" id="avroom_2vehicles__input_8c_html_afc647b13789088a6bd27c2d8b2e87fb9"><div class="ttname"><a href="vroom_2vehicles__input_8c.html#afc647b13789088a6bd27c2d8b2e87fb9">get_vroom_vehicles</a></div><div class="ttdeci">void get_vroom_vehicles(char *sql, Vroom_vehicle_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM vehicles.</div><div class="ttdef"><b>Definition:</b> <a href="vroom_2vehicles__input_8c_source.html#l00237">vroom/vehicles_input.c:237</a></div></div>
 <div class="ttc" id="apostgres__connection_8c_html_aef5deb780b1cf78c56b1794ab826ac64"><div class="ttname"><a href="postgres__connection_8c.html#aef5deb780b1cf78c56b1794ab826ac64">pgr_SPI_connect</a></div><div class="ttdeci">void pgr_SPI_connect(void)</div><div class="ttdef"><b>Definition:</b> <a href="postgres__connection_8c_source.html#l00079">postgres_connection.c:79</a></div></div>
 <div class="ttc" id="apostgres__connection_8c_html_ae36e7862564b5e72c25c9e26ae8e355f"><div class="ttname"><a href="postgres__connection_8c.html#ae36e7862564b5e72c25c9e26ae8e355f">pgr_SPI_finish</a></div><div class="ttdeci">void pgr_SPI_finish(void)</div><div class="ttdef"><b>Definition:</b> <a href="postgres__connection_8c_source.html#l00071">postgres_connection.c:71</a></div></div>
 <div class="ttc" id="avroom_8c_html_a87948730d8789034edb3178ba424893a"><div class="ttname"><a href="vroom_8c.html#a87948730d8789034edb3178ba424893a">process</a></div><div class="ttdeci">static void process(char *jobs_sql, char *jobs_tws_sql, char *shipments_sql, char *shipments_tws_sql, char *vehicles_sql, char *breaks_sql, char *breaks_tws_sql, char *matrix_sql, int32_t exploration_level, int32_t timeout, int16_t fn, bool is_plain, Vroom_rt **result_tuples, size_t *result_count)</div><div class="ttdoc">Static function, loads the data from postgres to C types for further processing.</div><div class="ttdef"><b>Definition:</b> <a href="vroom_8c_source.html#l00095">vroom.c:95</a></div></div>
 <div class="ttc" id="astructVroom__time__window__t_html"><div class="ttname"><a href="structVroom__time__window__t.html">Vroom_time_window_t</a></div><div class="ttdoc">Time window's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__time__window__t_8h_source.html#l00046">vroom_time_window_t.h:46</a></div></div>
-<div class="ttc" id="abreaks__input_8c_html_af79cbaef24ac30f614e96b6e76d460e2"><div class="ttname"><a href="breaks__input_8c.html#af79cbaef24ac30f614e96b6e76d460e2">get_vroom_breaks</a></div><div class="ttdeci">void get_vroom_breaks(char *sql, Vroom_break_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM breaks.</div><div class="ttdef"><b>Definition:</b> <a href="breaks__input_8c_source.html#l00155">breaks_input.c:155</a></div></div>
+<div class="ttc" id="abreaks__input_8c_html_af79cbaef24ac30f614e96b6e76d460e2"><div class="ttname"><a href="breaks__input_8c.html#af79cbaef24ac30f614e96b6e76d460e2">get_vroom_breaks</a></div><div class="ttdeci">void get_vroom_breaks(char *sql, Vroom_break_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM breaks.</div><div class="ttdef"><b>Definition:</b> <a href="breaks__input_8c_source.html#l00160">breaks_input.c:160</a></div></div>
 <div class="ttc" id="amatrix__input_8c_html_ae588b6068be89e8991a8049c58f4d4cd"><div class="ttname"><a href="matrix__input_8c.html#ae588b6068be89e8991a8049c58f4d4cd">get_vroom_matrix</a></div><div class="ttdeci">void get_vroom_matrix(char *sql, Vroom_matrix_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM matrix.</div><div class="ttdef"><b>Definition:</b> <a href="matrix__input_8c_source.html#l00159">matrix_input.c:159</a></div></div>
-<div class="ttc" id="ashipments__input_8c_html_a4a15f85e15afa796e13e80d672bb4930"><div class="ttname"><a href="shipments__input_8c.html#a4a15f85e15afa796e13e80d672bb4930">get_vroom_shipments</a></div><div class="ttdeci">void get_vroom_shipments(char *sql, Vroom_shipment_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM shipments.</div><div class="ttdef"><b>Definition:</b> <a href="shipments__input_8c_source.html#l00206">shipments_input.c:206</a></div></div>
+<div class="ttc" id="ashipments__input_8c_html_a4a15f85e15afa796e13e80d672bb4930"><div class="ttname"><a href="shipments__input_8c.html#a4a15f85e15afa796e13e80d672bb4930">get_vroom_shipments</a></div><div class="ttdeci">void get_vroom_shipments(char *sql, Vroom_shipment_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM shipments.</div><div class="ttdef"><b>Definition:</b> <a href="shipments__input_8c_source.html#l00216">shipments_input.c:216</a></div></div>
 <div class="ttc" id="atime__windows__input_8c_html_a8e8fb702e67d62a25aeb52e7b3674996"><div class="ttname"><a href="time__windows__input_8c.html#a8e8fb702e67d62a25aeb52e7b3674996">get_vroom_shipments_time_windows</a></div><div class="ttdeci">void get_vroom_shipments_time_windows(char *sql, Vroom_time_window_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM shipments time windows.</div><div class="ttdef"><b>Definition:</b> <a href="time__windows__input_8c_source.html#l00239">time_windows_input.c:239</a></div></div>
-<div class="ttc" id="astructVroom__shipment__t_html"><div class="ttname"><a href="structVroom__shipment__t.html">Vroom_shipment_t</a></div><div class="ttdoc">Vehicles's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00054">vroom_shipment_t.h:54</a></div></div>
-<div class="ttc" id="astructVroom__break__t_html"><div class="ttname"><a href="structVroom__break__t.html">Vroom_break_t</a></div><div class="ttdoc">Vehicle's break attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__break__t_8h_source.html#l00045">vroom_break_t.h:45</a></div></div>
+<div class="ttc" id="astructVroom__shipment__t_html"><div class="ttname"><a href="structVroom__shipment__t.html">Vroom_shipment_t</a></div><div class="ttdoc">Vehicles's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00056">vroom_shipment_t.h:56</a></div></div>
+<div class="ttc" id="astructVroom__break__t_html"><div class="ttname"><a href="structVroom__break__t.html">Vroom_break_t</a></div><div class="ttdoc">Vehicle's break attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__break__t_8h_source.html#l00046">vroom_break_t.h:46</a></div></div>
 <div class="ttc" id="astructVroom__matrix__t_html"><div class="ttname"><a href="structVroom__matrix__t.html">Vroom_matrix_t</a></div><div class="ttdoc">Matrix's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__matrix__t_8h_source.html#l00046">vroom_matrix_t.h:46</a></div></div>
-<div class="ttc" id="astructVroom__job__t_html"><div class="ttname"><a href="structVroom__job__t.html">Vroom_job_t</a></div><div class="ttdoc">Job's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__job__t_8h_source.html#l00053">vroom_job_t.h:53</a></div></div>
+<div class="ttc" id="astructVroom__job__t_html"><div class="ttname"><a href="structVroom__job__t.html">Vroom_job_t</a></div><div class="ttdoc">Job's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__job__t_8h_source.html#l00054">vroom_job_t.h:54</a></div></div>
 <div class="ttc" id="atime__windows__input_8c_html_a4320adbd0d4437349ae76fdcd9d0ad83"><div class="ttname"><a href="time__windows__input_8c.html#a4320adbd0d4437349ae76fdcd9d0ad83">get_vroom_time_windows</a></div><div class="ttdeci">void get_vroom_time_windows(char *sql, Vroom_time_window_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM time windows.</div><div class="ttdef"><b>Definition:</b> <a href="time__windows__input_8c_source.html#l00204">time_windows_input.c:204</a></div></div>
 <div class="ttc" id="adoxygen_2CMakeLists_8txt_html_afb9df42bb5f600fa99779fbb58b71cad"><div class="ttname"><a href="doxygen_2CMakeLists_8txt.html#afb9df42bb5f600fa99779fbb58b71cad">if</a></div><div class="ttdeci">if(DOXYGEN_FOUND) configure_file($</div><div class="ttdef"><b>Definition:</b> <a href="doxygen_2CMakeLists_8txt_source.html#l00013">doxygen/CMakeLists.txt:13</a></div></div>
 <div class="ttc" id="atime__msg_8c_html_a989d9723eb6d9be4cbf1214136286dbe"><div class="ttname"><a href="time__msg_8c.html#a989d9723eb6d9be4cbf1214136286dbe">time_msg</a></div><div class="ttdeci">void time_msg(char *msg, clock_t start_t, clock_t end_t)</div><div class="ttdef"><b>Definition:</b> <a href="time__msg_8c_source.html#l00032">time_msg.c:32</a></div></div>
-<div class="ttc" id="ajobs__input_8c_html_a0a9ca32de15bb3afc1c8b6d708949a48"><div class="ttname"><a href="jobs__input_8c.html#a0a9ca32de15bb3afc1c8b6d708949a48">get_vroom_jobs</a></div><div class="ttdeci">void get_vroom_jobs(char *sql, Vroom_job_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM jobs.</div><div class="ttdef"><b>Definition:</b> <a href="jobs__input_8c_source.html#l00207">jobs_input.c:207</a></div></div>
-<div class="ttc" id="astructVroom__vehicle__t_html"><div class="ttname"><a href="structVroom__vehicle__t.html">Vroom_vehicle_t</a></div><div class="ttdoc">Vehicles's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00053">vroom_vehicle_t.h:53</a></div></div>
-<div class="ttc" id="astructVroom__rt_html"><div class="ttname"><a href="structVroom__rt.html">Vroom_rt</a></div><div class="ttdoc">Solution's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__rt_8h_source.html#l00052">vroom_rt.h:52</a></div></div>
+<div class="ttc" id="ajobs__input_8c_html_a0a9ca32de15bb3afc1c8b6d708949a48"><div class="ttname"><a href="jobs__input_8c.html#a0a9ca32de15bb3afc1c8b6d708949a48">get_vroom_jobs</a></div><div class="ttdeci">void get_vroom_jobs(char *sql, Vroom_job_t **rows, size_t *total_rows, bool is_plain)</div><div class="ttdoc">Reads the VROOM jobs.</div><div class="ttdef"><b>Definition:</b> <a href="jobs__input_8c_source.html#l00213">jobs_input.c:213</a></div></div>
+<div class="ttc" id="astructVroom__vehicle__t_html"><div class="ttname"><a href="structVroom__vehicle__t.html">Vroom_vehicle_t</a></div><div class="ttdoc">Vehicles's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00054">vroom_vehicle_t.h:54</a></div></div>
+<div class="ttc" id="astructVroom__rt_html"><div class="ttname"><a href="structVroom__rt.html">Vroom_rt</a></div><div class="ttdoc">Solution's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__rt_8h_source.html#l00057">vroom_rt.h:57</a></div></div>
 <div class="ttc" id="avroom_8c_html_acaf704d7b041882edfbce47b53c1090f"><div class="ttname"><a href="vroom_8c.html#acaf704d7b041882edfbce47b53c1090f">INT8ARRAYOID</a></div><div class="ttdeci">#define INT8ARRAYOID</div><div class="ttdef"><b>Definition:</b> <a href="vroom_8c_source.html#l00043">vroom.c:43</a></div></div>
 <div class="ttc" id="avroom__driver_8cpp_html_a5bbde4e66f25c89c136a3068706e54c5"><div class="ttname"><a href="vroom__driver_8cpp.html#a5bbde4e66f25c89c136a3068706e54c5">do_vrp_vroom</a></div><div class="ttdeci">void do_vrp_vroom(Vroom_job_t *jobs, size_t total_jobs, Vroom_time_window_t *jobs_tws, size_t total_jobs_tws, Vroom_shipment_t *shipments, size_t total_shipments, Vroom_time_window_t *shipments_tws, size_t total_shipments_tws, Vroom_vehicle_t *vehicles, size_t total_vehicles, Vroom_break_t *breaks, size_t total_breaks, Vroom_time_window_t *breaks_tws, size_t total_breaks_tws, Vroom_matrix_t *matrix_rows, size_t total_matrix_rows, int32_t exploration_level, int32_t timeout, int32_t loading_time, Vroom_rt **return_tuples, size_t *return_count, char **log_msg, char **notice_msg, char **err_msg)</div><div class="ttdoc">Performs exception handling and converts the results to postgres.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__driver_8cpp_source.html#l00084">vroom_driver.cpp:84</a></div></div>
 <div class="ttc" id="ae__report_8c_html_aa7833fe4baf65aa901e1129575e7deb2"><div class="ttname"><a href="e__report_8c.html#aa7833fe4baf65aa901e1129575e7deb2">pgr_global_report</a></div><div class="ttdeci">void pgr_global_report(char *log, char *notice, char *err)</div><div class="ttdoc">notice &amp; error</div><div class="ttdef"><b>Definition:</b> <a href="e__report_8c_source.html#l00030">e_report.c:30</a></div></div>
@@ -723,7 +712,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_16bc32acb282cdd283ae989ce777997f.html">vroom</a></li><li class="navelem"><a class="el" href="vroom_8c.html">vroom.c</a></li>
-    <li class="footer">Generated on Mon Dec 6 2021 20:38:53 for vrpRouting by
+    <li class="footer">Generated on Thu Dec 23 2021 17:37:49 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

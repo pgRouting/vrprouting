@@ -1,5 +1,6 @@
 var structVroom__job__t =
 [
+    [ "data", "structVroom__job__t.html#af9cb994950e71859b878a639639bae7d", null ],
     [ "delivery", "structVroom__job__t.html#aae1ff96b62d08f0ce99966b0e03d9ce0", null ],
     [ "delivery_size", "structVroom__job__t.html#a921ac2333087ef4f28ce298fb3d5c98b", null ],
     [ "id", "structVroom__job__t.html#a6ff64f23d7947e6587c00679764172e8", null ],
