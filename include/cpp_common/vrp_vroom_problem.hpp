@@ -475,10 +475,10 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
     for (auto route : routes) {
       Idx step_seq = 1;
       Duration prev_duration = 0;
+      char *vehicle_data = strdup(route.description.c_str());
       for (auto step : route.steps) {
         Idx task_id = step.id;
         MatrixIndex location_id = m_matrix.get_original_id(step.location.index());
-        char *vehicle_data = strdup(route.description.c_str());
         char *task_data = strdup(step.description.c_str());
         StepType step_type = get_step_type(step);
         if (step_type == 1 || step_type == 6) {
@@ -518,7 +518,7 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
       results.push_back({
           vehicle_seq,         // vehicles_seq
           route.vehicle,       // vehicles_id
-          empty_desc,          // vehicle_data
+          vehicle_data,        // vehicle_data
           0,                   // step_seq = 0 for route summary
           0,                   // step_type = 0 for route summary
           task_id,             // task_id = 0 for route summary
