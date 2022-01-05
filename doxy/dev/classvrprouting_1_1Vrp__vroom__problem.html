@@ -929,10 +929,10 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> route : routes) {</div>
 <div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;      <a class="code" href="typedefs_8h.html#ab012e5ea1f449a772e8895260286c491">Idx</a> step_seq = 1;</div>
 <div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;      <a class="code" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a> prev_duration = 0;</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> step : route.steps) {</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;        <a class="code" href="typedefs_8h.html#ab012e5ea1f449a772e8895260286c491">Idx</a> task_id = step.id;</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;        <a class="code" href="typedefs_8h.html#a3372021cd9b649c8ec8a18f78a7812e0">MatrixIndex</a> location_id = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">m_matrix</a>.<a class="code" href="classvrprouting_1_1base_1_1Base__Matrix.html#ad263a98005f08fb9bde2430bde851d11">get_original_id</a>(step.location.index());</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;        <span class="keywordtype">char</span> *vehicle_data = strdup(route.description.c_str());</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;      <span class="keywordtype">char</span> *vehicle_data = strdup(route.description.c_str());</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> step : route.steps) {</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;        <a class="code" href="typedefs_8h.html#ab012e5ea1f449a772e8895260286c491">Idx</a> task_id = step.id;</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;        <a class="code" href="typedefs_8h.html#a3372021cd9b649c8ec8a18f78a7812e0">MatrixIndex</a> location_id = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">m_matrix</a>.<a class="code" href="classvrprouting_1_1base_1_1Base__Matrix.html#ad263a98005f08fb9bde2430bde851d11">get_original_id</a>(step.location.index());</div>
 <div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;        <span class="keywordtype">char</span> *task_data = strdup(step.description.c_str());</div>
 <div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;        <a class="code" href="typedefs_8h.html#ab85fff833d3e81d23cb97b4576582cec">StepType</a> step_type = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a9f5696a33e63540452d67622bd313a3e">get_step_type</a>(step);</div>
 <div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;        <span class="keywordflow">if</span> (step_type == 1 || step_type == 6) {</div>
@@ -972,7 +972,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;      results.push_back({</div>
 <div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;          vehicle_seq,         <span class="comment">// vehicles_seq</span></div>
 <div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;          route.vehicle,       <span class="comment">// vehicles_id</span></div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;          empty_desc,          <span class="comment">// vehicle_data</span></div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;          vehicle_data,        <span class="comment">// vehicle_data</span></div>
 <div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;          0,                   <span class="comment">// step_seq = 0 for route summary</span></div>
 <div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;          0,                   <span class="comment">// step_type = 0 for route summary</span></div>
 <div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;          task_id,             <span class="comment">// task_id = 0 for route summary</span></div>
@@ -2412,7 +2412,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacevrprouting.html">vrprouting</a></li><li class="navelem"><a class="el" href="classvrprouting_1_1Vrp__vroom__problem.html">Vrp_vroom_problem</a></li>
-    <li class="footer">Generated on Thu Dec 23 2021 17:37:49 for vrpRouting by
+    <li class="footer">Generated on Wed Jan 5 2022 08:05:12 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
