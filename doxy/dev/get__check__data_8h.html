@@ -713,7 +713,7 @@ opt_value when the column does not exist</dd></dl>
 <div class="fragment"><div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;                                                                                                 {</div>
 <div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="get__check__data_8c.html#a242b8e2225de6f8c47cf3133c440588e">column_found</a>(info.<a class="code" href="structColumn__info__t.html#a64816c9aa1e9203df8ed391fb9c6e849">colNumber</a>)) {</div>
 <div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;    int64_t value = <a class="code" href="get__check__data_8c.html#a01c0f306103f310f74c18ec9c066bda6">spi_getBigInt</a>(tuple, tupdesc, info);</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    <span class="keywordflow">if</span> (value &lt;= 0) elog(ERROR, <span class="stringliteral">&quot;Unexpected Negative value or Zero in column %s&quot;</span>, info.<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a>);</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    <span class="keywordflow">if</span> (value &lt; 0) elog(ERROR, <span class="stringliteral">&quot;Unexpected Negative value in column %s&quot;</span>, info.<a class="code" href="structColumn__info__t.html#ac166599b0a83f7da1a40e75cc1a955b9">name</a>);</div>
 <div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="typedefs_8h.html#a3372021cd9b649c8ec8a18f78a7812e0">MatrixIndex</a>) value;</div>
 <div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;  }</div>
 <div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;  <span class="keywordflow">return</span> opt_value;</div>
@@ -2116,7 +2116,7 @@ opt_value when the column does not exist </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9c50192407c36db226c38a2cd2bf7829.html">c_common</a></li><li class="navelem"><a class="el" href="get__check__data_8h.html">get_check_data.h</a></li>
-    <li class="footer">Generated on Wed Jan 5 2022 08:05:11 for vrpRouting by
+    <li class="footer">Generated on Mon Jan 24 2022 11:47:16 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
