@@ -658,7 +658,7 @@ MatrixIndex
 get_MatrixIndex(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, MatrixIndex opt_value) {
   if (column_found(info.colNumber)) {
     int64_t value = spi_getBigInt(tuple, tupdesc, info);
-    if (value <= 0) elog(ERROR, "Unexpected Negative value or Zero in column %s", info.name);
+    if (value < 0) elog(ERROR, "Unexpected Negative value in column %s", info.name);
     return (MatrixIndex) value;
   }
   return opt_value;
