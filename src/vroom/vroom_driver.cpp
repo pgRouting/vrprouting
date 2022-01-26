@@ -135,7 +135,7 @@ do_vrp_vroom(
 
     for (size_t i = 0; i < total_vehicles; ++i) {
       min_speed_factor = std::min(min_speed_factor, vehicles[i].speed_factor);
-      max_speed_factor = std::max(min_speed_factor, vehicles[i].speed_factor);
+      max_speed_factor = std::max(max_speed_factor, vehicles[i].speed_factor);
       if (vehicles[i].start_id != -1) {
         location_ids += vehicles[i].start_id;
       }
