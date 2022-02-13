@@ -2,6 +2,7 @@ var get__check__data_8h =
 [
     [ "column_found", "get__check__data_8h.html#a242b8e2225de6f8c47cf3133c440588e", null ],
     [ "get_Amount", "get__check__data_8h.html#aeb7900758afbb77504f42d5b94cd9bb2", null ],
+    [ "get_Cost", "get__check__data_8h.html#a03b6f8ccc94cf14a3799ad76a99e683a", null ],
     [ "get_Distance", "get__check__data_8h.html#a9cbb6c21e0fee9e85b3ae69c6a2c67bd", null ],
     [ "get_Duration", "get__check__data_8h.html#aeff29240cd3e77a84e546496f6134343", null ],
     [ "get_Id", "get__check__data_8h.html#ae10162201e887f55711402f48e6c4c0f", null ],
@@ -25,6 +26,7 @@ var get__check__data_8h =
     [ "spi_getChar", "get__check__data_8h.html#aac7e830f2cf7f4c58318b1e2a4de6e47", null ],
     [ "spi_getCoordinate", "get__check__data_8h.html#a5af29dc6f69245dcebf78bd5c41b72f6", null ],
     [ "spi_getFloat8", "get__check__data_8h.html#a8ded83535d338efa6ef9798f95cce38f", null ],
+    [ "spi_getMaxTasks", "get__check__data_8h.html#a145b011a7717c2973afc498e66a07612", null ],
     [ "spi_getPositiveBigIntArr_allowEmpty", "get__check__data_8h.html#a934f9191c7aab663c54d23cd22efaa7a", null ],
     [ "spi_getPositiveIntArr_allowEmpty", "get__check__data_8h.html#a25c286496b8ba7831ae188dbf32f3d10", null ],
     [ "spi_getText", "get__check__data_8h.html#a08c98fcc873a5937a7c651625e73d37d", null ],

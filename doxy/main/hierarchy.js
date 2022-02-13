@@ -28,6 +28,7 @@ var hierarchy =
     [ "Vehicle_t", "structVehicle__t.html", null ],
     [ "Vroom_break_t", "structVroom__break__t.html", null ],
     [ "Vroom_job_t", "structVroom__job__t.html", null ],
+    [ "Vroom_matrix_t", "structVroom__matrix__t.html", null ],
     [ "Vroom_rt", "structVroom__rt.html", null ],
     [ "Vroom_shipment_t", "structVroom__shipment__t.html", null ],
     [ "Vroom_time_window_t", "structVroom__time__window__t.html", null ],

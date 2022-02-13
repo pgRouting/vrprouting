@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['int8arrayoid_1467',['INT8ARRAYOID',['../vroom_8c.html#acaf704d7b041882edfbce47b53c1090f',1,'vroom.c']]]
+  ['entering_1527',['ENTERING',['../pgr__messages_8h.html#a3114170953db87f09f8efac4195fe88d',1,'pgr_messages.h']]],
+  ['exiting_1528',['EXITING',['../pgr__messages_8h.html#aa400aaa81bedfec9803178c14e37a82c',1,'pgr_messages.h']]]
 ];

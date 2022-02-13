@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.2</span>
+   &#160;<span id="projectnumber">0.3</span>
    </div>
   </td>
  </tr>
@@ -98,6 +98,9 @@ $(document).ready(function(){initNavTree('structVroom__break__t.html',''); initR
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:aa0d028c0fcc8c617a2b3bf6e02c0728f"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVroom__break__t.html#aa0d028c0fcc8c617a2b3bf6e02c0728f">data</a></td></tr>
+<tr class="memdesc:aa0d028c0fcc8c617a2b3bf6e02c0728f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duration of break.  <a href="structVroom__break__t.html#aa0d028c0fcc8c617a2b3bf6e02c0728f">More...</a><br /></td></tr>
+<tr class="separator:aa0d028c0fcc8c617a2b3bf6e02c0728f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f372a204283e219c5512c8a8a907006"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#ab012e5ea1f449a772e8895260286c491">Idx</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVroom__break__t.html#a7f372a204283e219c5512c8a8a907006">id</a></td></tr>
 <tr class="separator:a7f372a204283e219c5512c8a8a907006"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a882ead1e621cf4d75e9c154e1d61c5a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#ab9909ec063ebb7ba9b134db52e1cbb01">Duration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVroom__break__t.html#a882ead1e621cf4d75e9c154e1d61c5a1">service</a></td></tr>
@@ -118,11 +121,33 @@ Public Attributes</h2></td></tr>
 <td class="markdownTableBodyLeft">vehicle_id </td><td class="markdownTableBodyLeft">Identifier of vehicle  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">service </td><td class="markdownTableBodyLeft">Duration of break  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">data </td><td class="markdownTableBodyLeft">Metadata information of break  </td></tr>
 </table>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="vroom__break__t_8h_source.html#l00045">45</a> of file <a class="el" href="vroom__break__t_8h_source.html">vroom_break_t.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vroom__break__t_8h_source.html#l00046">46</a> of file <a class="el" href="vroom__break__t_8h_source.html">vroom_break_t.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa0d028c0fcc8c617a2b3bf6e02c0728f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d028c0fcc8c617a2b3bf6e02c0728f">&#9670;&nbsp;</a></span>data</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* Vroom_break_t::data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Duration of break. </p>
+
+<p class="definition">Definition at line <a class="el" href="vroom__break__t_8h_source.html#l00050">50</a> of file <a class="el" href="vroom__break__t_8h_source.html">vroom_break_t.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="breaks__input_8c_source.html#l00057">fetch_breaks()</a>, and <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00307">vrprouting::Vrp_vroom_problem::get_vroom_break()</a>.</p>
+
+</div>
+</div>
 <a id="a7f372a204283e219c5512c8a8a907006"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f372a204283e219c5512c8a8a907006">&#9670;&nbsp;</a></span>id</h2>
 
@@ -135,9 +160,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vroom__break__t_8h_source.html#l00046">46</a> of file <a class="el" href="vroom__break__t_8h_source.html">vroom_break_t.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vroom__break__t_8h_source.html#l00047">47</a> of file <a class="el" href="vroom__break__t_8h_source.html">vroom_break_t.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="breaks__input_8c_source.html#l00057">fetch_breaks()</a>, and <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00305">vrprouting::Vrp_vroom_problem::get_vroom_break()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="breaks__input_8c_source.html#l00057">fetch_breaks()</a>, and <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00307">vrprouting::Vrp_vroom_problem::get_vroom_break()</a>.</p>
 
 </div>
 </div>
@@ -155,9 +180,9 @@ Public Attributes</h2></td></tr>
 
 <p>Identifier of vehicle. </p>
 
-<p class="definition">Definition at line <a class="el" href="vroom__break__t_8h_source.html#l00048">48</a> of file <a class="el" href="vroom__break__t_8h_source.html">vroom_break_t.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vroom__break__t_8h_source.html#l00049">49</a> of file <a class="el" href="vroom__break__t_8h_source.html">vroom_break_t.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="breaks__input_8c_source.html#l00057">fetch_breaks()</a>, and <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00305">vrprouting::Vrp_vroom_problem::get_vroom_break()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="breaks__input_8c_source.html#l00057">fetch_breaks()</a>, and <a class="el" href="vrp__vroom__problem_8hpp_source.html#l00307">vrprouting::Vrp_vroom_problem::get_vroom_break()</a>.</p>
 
 </div>
 </div>
@@ -175,7 +200,7 @@ Public Attributes</h2></td></tr>
 
 <p>Identifier of break. </p>
 
-<p class="definition">Definition at line <a class="el" href="vroom__break__t_8h_source.html#l00047">47</a> of file <a class="el" href="vroom__break__t_8h_source.html">vroom_break_t.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vroom__break__t_8h_source.html#l00048">48</a> of file <a class="el" href="vroom__break__t_8h_source.html">vroom_break_t.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="breaks__input_8c_source.html#l00057">fetch_breaks()</a>.</p>
 
@@ -190,7 +215,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structVroom__break__t.html">Vroom_break_t</a></li>
-    <li class="footer">Generated on Tue Sep 7 2021 16:16:30 for vrpRouting by
+    <li class="footer">Generated on Sun Feb 13 2022 18:03:01 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

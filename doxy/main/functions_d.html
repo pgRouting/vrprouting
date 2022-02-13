@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.2</span>
+   &#160;<span id="projectnumber">0.3</span>
    </div>
   </td>
  </tr>
@@ -86,14 +86,25 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_d"></a>- d -</h3><ul>
-<li>d_location_index
-: <a class="el" href="structVroom__shipment__t.html#aec59fcccf1da54d379a112c9deecdc3b">Vroom_shipment_t</a>
+<li>d_data
+: <a class="el" href="structVroom__shipment__t.html#a8cd25ddd81a91b0f46f38c7cdbbb3a94">Vroom_shipment_t</a>
+</li>
+<li>d_location_id
+: <a class="el" href="structVroom__shipment__t.html#aac449b0a6d10800a5ab9952ab9a4649d">Vroom_shipment_t</a>
 </li>
 <li>d_service
 : <a class="el" href="structVroom__shipment__t.html#a1dc67c09a6d0397aa6004f4d0a8338dd">Vroom_shipment_t</a>
 </li>
+<li>d_setup
+: <a class="el" href="structVroom__shipment__t.html#a182c9d37d5b76f8f707ad648a9a50711">Vroom_shipment_t</a>
+</li>
+<li>data
+: <a class="el" href="structVroom__break__t.html#aa0d028c0fcc8c617a2b3bf6e02c0728f">Vroom_break_t</a>
+, <a class="el" href="structVroom__job__t.html#af9cb994950e71859b878a639639bae7d">Vroom_job_t</a>
+, <a class="el" href="structVroom__vehicle__t.html#a0a3c0b0233a869fba3da38faa77824ae">Vroom_vehicle_t</a>
+</li>
 <li>decrease_truck()
-: <a class="el" href="classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html#a943404d43fcb630c60069b4615f8e065">vrprouting::optimizers::simple::Optimize</a>
+: <a class="el" href="classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html#abbca3ccaf77bc37bb99b43bad6fa6643">vrprouting::optimizers::simple::Optimize</a>
 </li>
 <li>delete_empty_truck()
 : <a class="el" href="classvrprouting_1_1optimizers_1_1simple_1_1Optimize.html#a24c367282893ac6588efa38ae35d6b85">vrprouting::optimizers::simple::Optimize</a>
@@ -132,10 +143,11 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 </li>
 <li>demand
 : <a class="el" href="structPickDeliveryOrders__t.html#a8bda55c4a2862515067052788ae83d18">PickDeliveryOrders_t</a>
-, <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#a6eaae05016b1f13e2848eed18c04b9b9">vrprouting::problem::Tw_node</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Tw__node.html#a7b1999ee1f20467b19bfefa701586cd0">vrprouting::problem::Tw_node</a>
 </li>
-<li>departure_time()
-: <a class="el" href="classvrprouting_1_1problem_1_1Vehicle__node.html#aec2511c1675aa03a4250e4261ca9e4c3">vrprouting::problem::Vehicle_node</a>
+<li>departure_time
+: <a class="el" href="structVroom__rt.html#acebe411d3862c3809680490ef6903d33">Vroom_rt</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Vehicle__node.html#aec2511c1675aa03a4250e4261ca9e4c3">vrprouting::problem::Vehicle_node</a>
 </li>
 <li>departureTime
 : <a class="el" href="structSolution__rt.html#a4a1170cef4f4a3c075d064835b83658c">Solution_rt</a>
@@ -153,8 +165,9 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 <li>drop_position_limits()
 : <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#adfa22bb8abff30b0584a09140b518e2a">vrprouting::problem::Vehicle</a>
 </li>
-<li>duration()
-: <a class="el" href="classvrprouting_1_1problem_1_1Solution.html#a85a82c66b22a9115f6f4109d42fd7b56">vrprouting::problem::Solution</a>
+<li>duration
+: <a class="el" href="structVroom__matrix__t.html#ac114ef9310e6c253b7e0be74830c3cb0">Vroom_matrix_t</a>
+, <a class="el" href="classvrprouting_1_1problem_1_1Solution.html#a85a82c66b22a9115f6f4109d42fd7b56">vrprouting::problem::Solution</a>
 , <a class="el" href="classvrprouting_1_1problem_1_1Vehicle.html#aa2cee9e62b2d88754f7f0efba956705f">vrprouting::problem::Vehicle</a>
 </li>
 </ul>
@@ -163,7 +176,7 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Sep 7 2021 16:16:32 for vrpRouting by
+    <li class="footer">Generated on Sun Feb 13 2022 18:03:02 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

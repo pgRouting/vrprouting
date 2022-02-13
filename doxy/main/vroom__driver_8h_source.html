@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.2</span>
+   &#160;<span id="projectnumber">0.3</span>
    </div>
   </td>
  </tr>
@@ -125,7 +125,7 @@ $(document).ready(function(){initNavTree('vroom__driver_8h_source.html',''); ini
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="vroom__driver_8h.html#a0867db36ff3a3d6415a782f270ec477a">do_vrp_vroom</a>(</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="vroom__driver_8h.html#a9a9b69cc4dc9711d004a0c6ac9ab7569">do_vrp_vroom</a>(</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <a class="code" href="structVroom__job__t.html">Vroom_job_t</a> *jobs, <span class="keywordtype">size_t</span> total_jobs,</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *jobs_tws, <span class="keywordtype">size_t</span> total_jobs_tws,</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <a class="code" href="structVroom__shipment__t.html">Vroom_shipment_t</a> *shipments, <span class="keywordtype">size_t</span> total_shipments,</div>
@@ -133,36 +133,40 @@ $(document).ready(function(){initNavTree('vroom__driver_8h_source.html',''); ini
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <a class="code" href="structVroom__vehicle__t.html">Vroom_vehicle_t</a> *vehicles, <span class="keywordtype">size_t</span> total_vehicles,</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <a class="code" href="structVroom__break__t.html">Vroom_break_t</a> *breaks, <span class="keywordtype">size_t</span> total_breaks,</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <a class="code" href="structVroom__time__window__t.html">Vroom_time_window_t</a> *breaks_tws, <span class="keywordtype">size_t</span> total_breaks_tws,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <a class="code" href="structMatrix__cell__t.html">Matrix_cell_t</a> *matrix_cells_arr, <span class="keywordtype">size_t</span> total_cells,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <a class="code" href="structVroom__matrix__t.html">Vroom_matrix_t</a> *matrix_cells_arr, <span class="keywordtype">size_t</span> total_cells,</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <a class="code" href="structVroom__rt.html">Vroom_rt</a> **return_tuples,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordtype">size_t</span> *return_count,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordtype">char</span> ** log_msg,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordtype">char</span> ** notice_msg,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordtype">char</span> ** err_msg);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      int32_t exploration_level,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      int32_t timeout,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      int32_t loading_time,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <a class="code" href="structVroom__rt.html">Vroom_rt</a> **return_tuples,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordtype">size_t</span> *return_count,</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordtype">char</span> ** log_msg,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordtype">char</span> ** notice_msg,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordtype">char</span> ** err_msg);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif  // INCLUDE_DRIVERS_VROOM_VROOM_DRIVER_H_</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif  // INCLUDE_DRIVERS_VROOM_VROOM_DRIVER_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="avroom__driver_8h_html_a0867db36ff3a3d6415a782f270ec477a"><div class="ttname"><a href="vroom__driver_8h.html#a0867db36ff3a3d6415a782f270ec477a">do_vrp_vroom</a></div><div class="ttdeci">void do_vrp_vroom(Vroom_job_t *jobs, size_t total_jobs, Vroom_time_window_t *jobs_tws, size_t total_jobs_tws, Vroom_shipment_t *shipments, size_t total_shipments, Vroom_time_window_t *shipments_tws, size_t total_shipments_tws, Vroom_vehicle_t *vehicles, size_t total_vehicles, Vroom_break_t *breaks, size_t total_breaks, Vroom_time_window_t *breaks_tws, size_t total_breaks_tws, Matrix_cell_t *matrix_cells_arr, size_t total_cells, Vroom_rt **return_tuples, size_t *return_count, char **log_msg, char **notice_msg, char **err_msg)</div><div class="ttdoc">Performs exception handling and converts the results to postgres.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__driver_8cpp_source.html#l00074">vroom_driver.cpp:74</a></div></div>
 <div class="ttc" id="astructVroom__time__window__t_html"><div class="ttname"><a href="structVroom__time__window__t.html">Vroom_time_window_t</a></div><div class="ttdoc">Time window's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__time__window__t_8h_source.html#l00046">vroom_time_window_t.h:46</a></div></div>
 <div class="ttc" id="atypedefs_8h_html"><div class="ttname"><a href="typedefs_8h.html">typedefs.h</a></div></div>
-<div class="ttc" id="astructVroom__shipment__t_html"><div class="ttname"><a href="structVroom__shipment__t.html">Vroom_shipment_t</a></div><div class="ttdoc">Vehicles's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00052">vroom_shipment_t.h:52</a></div></div>
-<div class="ttc" id="astructVroom__break__t_html"><div class="ttname"><a href="structVroom__break__t.html">Vroom_break_t</a></div><div class="ttdoc">Vehicle's break attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__break__t_8h_source.html#l00045">vroom_break_t.h:45</a></div></div>
-<div class="ttc" id="astructVroom__job__t_html"><div class="ttname"><a href="structVroom__job__t.html">Vroom_job_t</a></div><div class="ttdoc">Job's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__job__t_8h_source.html#l00052">vroom_job_t.h:52</a></div></div>
-<div class="ttc" id="astructMatrix__cell__t_html"><div class="ttname"><a href="structMatrix__cell__t.html">Matrix_cell_t</a></div><div class="ttdoc">traveling costs</div><div class="ttdef"><b>Definition:</b> <a href="matrix__cell__t_8h_source.html#l00041">matrix_cell_t.h:41</a></div></div>
-<div class="ttc" id="astructVroom__vehicle__t_html"><div class="ttname"><a href="structVroom__vehicle__t.html">Vroom_vehicle_t</a></div><div class="ttdoc">Vehicles's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00052">vroom_vehicle_t.h:52</a></div></div>
-<div class="ttc" id="astructVroom__rt_html"><div class="ttname"><a href="structVroom__rt.html">Vroom_rt</a></div><div class="ttdoc">Solution's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__rt_8h_source.html#l00052">vroom_rt.h:52</a></div></div>
+<div class="ttc" id="astructVroom__shipment__t_html"><div class="ttname"><a href="structVroom__shipment__t.html">Vroom_shipment_t</a></div><div class="ttdoc">Vehicles's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00056">vroom_shipment_t.h:56</a></div></div>
+<div class="ttc" id="astructVroom__break__t_html"><div class="ttname"><a href="structVroom__break__t.html">Vroom_break_t</a></div><div class="ttdoc">Vehicle's break attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__break__t_8h_source.html#l00046">vroom_break_t.h:46</a></div></div>
+<div class="ttc" id="astructVroom__matrix__t_html"><div class="ttname"><a href="structVroom__matrix__t.html">Vroom_matrix_t</a></div><div class="ttdoc">Matrix's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__matrix__t_8h_source.html#l00046">vroom_matrix_t.h:46</a></div></div>
+<div class="ttc" id="astructVroom__job__t_html"><div class="ttname"><a href="structVroom__job__t.html">Vroom_job_t</a></div><div class="ttdoc">Job's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__job__t_8h_source.html#l00054">vroom_job_t.h:54</a></div></div>
+<div class="ttc" id="avroom__driver_8h_html_a9a9b69cc4dc9711d004a0c6ac9ab7569"><div class="ttname"><a href="vroom__driver_8h.html#a9a9b69cc4dc9711d004a0c6ac9ab7569">do_vrp_vroom</a></div><div class="ttdeci">void do_vrp_vroom(Vroom_job_t *jobs, size_t total_jobs, Vroom_time_window_t *jobs_tws, size_t total_jobs_tws, Vroom_shipment_t *shipments, size_t total_shipments, Vroom_time_window_t *shipments_tws, size_t total_shipments_tws, Vroom_vehicle_t *vehicles, size_t total_vehicles, Vroom_break_t *breaks, size_t total_breaks, Vroom_time_window_t *breaks_tws, size_t total_breaks_tws, Vroom_matrix_t *matrix_cells_arr, size_t total_cells, int32_t exploration_level, int32_t timeout, int32_t loading_time, Vroom_rt **return_tuples, size_t *return_count, char **log_msg, char **notice_msg, char **err_msg)</div><div class="ttdoc">Performs exception handling and converts the results to postgres.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__driver_8cpp_source.html#l00084">vroom_driver.cpp:84</a></div></div>
+<div class="ttc" id="astructVroom__vehicle__t_html"><div class="ttname"><a href="structVroom__vehicle__t.html">Vroom_vehicle_t</a></div><div class="ttdoc">Vehicles's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00054">vroom_vehicle_t.h:54</a></div></div>
+<div class="ttc" id="astructVroom__rt_html"><div class="ttname"><a href="structVroom__rt.html">Vroom_rt</a></div><div class="ttdoc">Solution's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__rt_8h_source.html#l00057">vroom_rt.h:57</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_4fe5cf12322eb0f9892753dc20f1484c.html">drivers</a></li><li class="navelem"><a class="el" href="dir_3c1eec4c252ff318ee6e1323a180c63d.html">vroom</a></li><li class="navelem"><a class="el" href="vroom__driver_8h.html">vroom_driver.h</a></li>
-    <li class="footer">Generated on Tue Sep 7 2021 16:16:30 for vrpRouting by
+    <li class="footer">Generated on Sun Feb 13 2022 18:03:00 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

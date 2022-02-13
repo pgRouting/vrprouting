@@ -1,5 +1,6 @@
 <map id="vrprouting::base::Base_Matrix" name="vrprouting::base::Base_Matrix">
-<area shape="rect" id="node1" title="N x N matrix." alt="" coords="98,109,266,151"/>
+<area shape="rect" id="node1" title="N x N matrix." alt="" coords="333,71,501,112"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,5,180,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="205,13,338,39"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,71,180,112"/>
+<area shape="rect" id="node4" title=" " alt="" coords="26,137,159,163"/>
 </map>

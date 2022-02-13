@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.2</span>
+   &#160;<span id="projectnumber">0.3</span>
    </div>
   </td>
  </tr>
@@ -83,20 +83,22 @@ $(document).ready(function(){initNavTree('interruption_8h.html',''); initResizab
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">interruption.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;postgres.h&gt;</code><br />
-<code>#include &lt;miscadmin.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;signal.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for interruption.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="interruption_8h__incl.png" border="0" usemap="#interruption_8h" alt=""/></div>
 <map name="interruption_8h" id="interruption_8h">
-<area shape="rect" title=" " alt="" coords="57,5,167,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,96,107"/>
-<area shape="rect" title=" " alt="" coords="120,80,227,107"/>
+<area shape="rect" title=" " alt="" coords="5,5,116,32"/>
+<area shape="rect" title=" " alt="" coords="24,80,97,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -104,19 +106,174 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="interruption_8h__dep__incl.png" border="0" usemap="#interruption_8hdep" alt=""/></div>
 <map name="interruption_8hdep" id="interruption_8hdep">
-<area shape="rect" title=" " alt="" coords="25,5,136,32"/>
+<area shape="rect" title=" " alt="" coords="120,5,231,32"/>
 <area shape="rect" href="optimize__driver_8cpp.html" title=" " alt="" coords="5,80,156,107"/>
+<area shape="rect" href="vrp__vroom__problem_8hpp.html" title=" " alt="" coords="181,80,362,107"/>
 </map>
 </div>
 </div>
 <p><a href="interruption_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a485f4010585446590bd482941f4c8f75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interruption_8h.html#a485f4010585446590bd482941f4c8f75">__PGR_PRETTY_FUNCTION__</a>&#160;&#160;&#160;__PRETTY_FUNCTION__</td></tr>
+<tr class="separator:a485f4010585446590bd482941f4c8f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60107ad1e320e3c1b6cd6fd03ccc23ec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interruption_8h.html#a60107ad1e320e3c1b6cd6fd03ccc23ec">CHECK_FOR_INTERRUPTS</a>()</td></tr>
+<tr class="separator:a60107ad1e320e3c1b6cd6fd03ccc23ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77254a9fcc5de2203ac85a9fef16f351"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interruption_8h.html#a77254a9fcc5de2203ac85a9fef16f351">INTERRUPTS_PENDING_CONDITION</a>()&#160;&#160;&#160;(<a class="el" href="interruption_8h.html#ac6c45889010c1bd68631771b64f18101">unlikely</a>(<a class="el" href="interruption_8h.html#a1990dc2aa317bd9c83390045d61ec525">InterruptPending</a>))</td></tr>
+<tr class="separator:a77254a9fcc5de2203ac85a9fef16f351"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a166c1d950e659804f0e3247aad99a81f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interruption_8h.html#a166c1d950e659804f0e3247aad99a81f">PGDLLIMPORT</a></td></tr>
+<tr class="separator:a166c1d950e659804f0e3247aad99a81f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6c45889010c1bd68631771b64f18101"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interruption_8h.html#ac6c45889010c1bd68631771b64f18101">unlikely</a>(x)&#160;&#160;&#160;((x) != 0)</td></tr>
+<tr class="separator:ac6c45889010c1bd68631771b64f18101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab7af3ee6ad40efb8454c6f2f790d9588"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interruption_8h.html#ab7af3ee6ad40efb8454c6f2f790d9588">ProcessInterrupts</a> (void)</td></tr>
+<tr class="separator:ab7af3ee6ad40efb8454c6f2f790d9588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a1990dc2aa317bd9c83390045d61ec525"><td class="memItemLeft" align="right" valign="top">volatile sig_atomic_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interruption_8h.html#a1990dc2aa317bd9c83390045d61ec525">InterruptPending</a></td></tr>
+<tr class="separator:a1990dc2aa317bd9c83390045d61ec525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a485f4010585446590bd482941f4c8f75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a485f4010585446590bd482941f4c8f75">&#9670;&nbsp;</a></span>__PGR_PRETTY_FUNCTION__</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __PGR_PRETTY_FUNCTION__&#160;&#160;&#160;__PRETTY_FUNCTION__</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="interruption_8h_source.html#l00033">33</a> of file <a class="el" href="interruption_8h_source.html">interruption.h</a>.</p>
+
+</div>
+</div>
+<a id="a60107ad1e320e3c1b6cd6fd03ccc23ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60107ad1e320e3c1b6cd6fd03ccc23ec">&#9670;&nbsp;</a></span>CHECK_FOR_INTERRUPTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CHECK_FOR_INTERRUPTS</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">do</span> {                                                       \</div>
+<div class="line">    if (<a class="code" href="interruption_8h.html#a77254a9fcc5de2203ac85a9fef16f351">INTERRUPTS_PENDING_CONDITION</a>()) <a class="code" href="interruption_8h.html#ab7af3ee6ad40efb8454c6f2f790d9588">ProcessInterrupts</a>(); \</div>
+<div class="line">  } while (0)</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="interruption_8h_source.html#l00079">79</a> of file <a class="el" href="interruption_8h_source.html">interruption.h</a>.</p>
+
+</div>
+</div>
+<a id="a77254a9fcc5de2203ac85a9fef16f351"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77254a9fcc5de2203ac85a9fef16f351">&#9670;&nbsp;</a></span>INTERRUPTS_PENDING_CONDITION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTERRUPTS_PENDING_CONDITION</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td>&#160;&#160;&#160;(<a class="el" href="interruption_8h.html#ac6c45889010c1bd68631771b64f18101">unlikely</a>(<a class="el" href="interruption_8h.html#a1990dc2aa317bd9c83390045d61ec525">InterruptPending</a>))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="interruption_8h_source.html#l00070">70</a> of file <a class="el" href="interruption_8h_source.html">interruption.h</a>.</p>
+
+</div>
+</div>
+<a id="a166c1d950e659804f0e3247aad99a81f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a166c1d950e659804f0e3247aad99a81f">&#9670;&nbsp;</a></span>PGDLLIMPORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PGDLLIMPORT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="interruption_8h_source.html#l00054">54</a> of file <a class="el" href="interruption_8h_source.html">interruption.h</a>.</p>
+
+</div>
+</div>
+<a id="ac6c45889010c1bd68631771b64f18101"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6c45889010c1bd68631771b64f18101">&#9670;&nbsp;</a></span>unlikely</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define unlikely</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;((x) != 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="interruption_8h_source.html#l00065">65</a> of file <a class="el" href="interruption_8h_source.html">interruption.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ab7af3ee6ad40efb8454c6f2f790d9588"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7af3ee6ad40efb8454c6f2f790d9588">&#9670;&nbsp;</a></span>ProcessInterrupts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ProcessInterrupts </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a1990dc2aa317bd9c83390045d61ec525"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1990dc2aa317bd9c83390045d61ec525">&#9670;&nbsp;</a></span>InterruptPending</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile sig_atomic_t InterruptPending</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="ainterruption_8h_html_ab7af3ee6ad40efb8454c6f2f790d9588"><div class="ttname"><a href="interruption_8h.html#ab7af3ee6ad40efb8454c6f2f790d9588">ProcessInterrupts</a></div><div class="ttdeci">void ProcessInterrupts(void)</div></div>
+<div class="ttc" id="ainterruption_8h_html_a77254a9fcc5de2203ac85a9fef16f351"><div class="ttname"><a href="interruption_8h.html#a77254a9fcc5de2203ac85a9fef16f351">INTERRUPTS_PENDING_CONDITION</a></div><div class="ttdeci">#define INTERRUPTS_PENDING_CONDITION()</div><div class="ttdef"><b>Definition:</b> <a href="interruption_8h_source.html#l00070">interruption.h:70</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_f413d2883acb285bdeb0fac3ae939ed0.html">cpp_common</a></li><li class="navelem"><a class="el" href="interruption_8h.html">interruption.h</a></li>
-    <li class="footer">Generated on Tue Sep 7 2021 16:16:30 for vrpRouting by
+    <li class="footer">Generated on Sun Feb 13 2022 18:03:00 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
