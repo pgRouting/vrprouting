@@ -6,7 +6,7 @@ SET
 SELECT vrp_version();
  vrp_version
 -------------
- 0.3.0-dev
+ 0.3.0
 (1 row)
 
 /* -- q2 */
