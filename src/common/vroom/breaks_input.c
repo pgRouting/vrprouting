@@ -35,19 +35,19 @@ A ``SELECT`` statement that returns the following columns:
 
 ::
 
-    id, vehicle_id [, service]
+    id, vehicle_id [, service, data]
 
 ====================  =========================  =========== ================================================
-Column                Type                       Default     Description
+Column                Type                       Default      Description
 ====================  =========================  =========== ================================================
-**id**                ``ANY-INTEGER``                         Non-negative unique identifier of the break.
+**id**                ``ANY-INTEGER``                         Positive unique identifier of the break.
                                                               (unique for the same vehicle).
 
-**vehicle_id**        ``ANY-INTEGER``                         Non-negative unique identifier of the vehicle.
+**vehicle_id**        ``ANY-INTEGER``                         Positive unique identifier of the vehicle.
 
-**service**           ``INTERVAL``               0            The break duration, in seconds.
+**service**           |interval|                 |interval0|  The break duration.
 
-                                                              - ``INTEGER`` for plain VROOM functions.
+**data**              ``JSONB``                  '{}'::JSONB  Any metadata information of the break.
 ====================  =========================  =========== ================================================
 
 .. vrp_vroom end
@@ -68,6 +68,9 @@ void fetch_breaks(
     vroom_break->service =
         (Duration)get_PositiveTInterval(tuple, tupdesc, info[2], 0);
   }
+  vroom_break->data = column_found(info[3].colNumber)
+                          ? spi_getText(tuple, tupdesc, info[3])
+                          : strdup("{}");
 }
 
 
@@ -159,7 +162,7 @@ get_vroom_breaks(
     Vroom_break_t **rows,
     size_t *total_rows,
     bool is_plain) {
-  int kColumnCount = 3;
+  int kColumnCount = 4;
   Column_info_t info[kColumnCount];
 
   for (int i = 0; i < kColumnCount; ++i) {
@@ -172,15 +175,18 @@ get_vroom_breaks(
   info[0].name = "id";
   info[1].name = "vehicle_id";
   info[2].name = "service";
+  info[3].name = "data";
 
   info[2].eType = INTEGER;  // service
+  info[3].eType = JSONB;    // data
 
   if (!is_plain) {
     info[2].eType = INTERVAL;  // service
   }
 
-  /* service is not mandatory */
+  /* service and data are not mandatory */
   info[2].strict = false;
+  info[3].strict = false;
 
   db_get_breaks(sql, rows, total_rows, info, kColumnCount, is_plain);
 }

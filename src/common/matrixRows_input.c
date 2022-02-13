@@ -56,24 +56,6 @@ Column        Type            Description
 
 .. pgr_pickDeliver end
 
-.. vrp_vroom start
-
-A ``SELECT`` statement that returns the following columns:
-
-::
-
-    start_vid, end_vid, agg_cost
-
-=============== ================= ==================================================
-Column          Type              Description
-=============== ================= ==================================================
-**start_vid**   ``ANY-INTEGER``   Identifier of the start node.
-**end_vid**     ``ANY-INTEGER``   Identifier of the end node.
-**agg_cost**    ``INTEGER``       Time to travel from ``start_vid`` to ``end_vid``
-=============== ================= ==================================================
-
-.. vrp_vroom end
-
 */
 
 static
@@ -236,28 +218,5 @@ get_matrixRows_plain(
   info[2].name = "agg_cost";
 
   info[2].eType = ANY_NUMERICAL;
-  get_matrixRows_general(sql, info, 1, rows, total_rows);
-}
-
-/**
- * @param [in] sql SQL query that has the following columns: start_vid, end_vid, agg_cost
- * @param [out] rows C Container that holds all the matrix rows
- * @param [out] total_rows Total rows recieved
- */
-void get_matrixRows_vroom_plain(char *sql, Matrix_cell_t **rows, size_t *total_rows) {
-  Column_info_t info[3];
-
-  int i;
-  for (i = 0; i < 3; ++i) {
-    info[i].colNumber = -1;
-    info[i].type = 0;
-    info[i].strict = true;
-    info[i].eType = ANY_INTEGER;
-  }
-  info[0].name = "start_vid";
-  info[1].name = "end_vid";
-  info[2].name = "agg_cost";
-
-  info[2].eType = INTEGER;
   get_matrixRows_general(sql, info, 1, rows, total_rows);
 }

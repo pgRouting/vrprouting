@@ -40,27 +40,24 @@ A ``SELECT`` statement that returns the following columns:
 ====================  ====================================== =====================================================
 Column                Type                                   Description
 ====================  ====================================== =====================================================
-**id**                ``ANY-INTEGER``                         Non-negative unique identifier of the job,
+**id**                ``ANY-INTEGER``                         Positive unique identifier of the job,
                                                               pickup/delivery shipment, or break.
 
-**kind**              ``CHAR``                                **Only required for shipments**. Value in ['p', 'd']
-                                                              indicating whether the time window is for:
+**kind**              ``CHAR``                                **Only required for shipments time windows**.
+                                                              Value in ['p', 'd'] indicating whether
+                                                              the time window is for:
 
                                                               - Pickup shipment, or
                                                               - Delivery shipment.
 
-**tw_open**           ``TIMESTAMP``                           Time window opening time.
+**tw_open**           |timestamp|                             Time window opening time.
 
-                                                              - ``INTEGER`` for plain VROOM functions.
-
-**tw_close**          ``TIMESTAMP``                           Time window closing time.
-
-                                                              - ``INTEGER`` for plain VROOM functions.
+**tw_close**          |timestamp|                             Time window closing time.
 ====================  ====================================== =====================================================
 
 **Note**:
 
-- All timing are in seconds.
+- All timings are in **seconds** when represented as an ``INTEGER``.
 - Every row must satisfy the condition: :code:`tw_open ≤ tw_close`.
 - It is up to users to decide how to describe time windows:
 
@@ -89,33 +86,33 @@ void fetch_time_windows(
     }
     time_window->kind = kind;
     if (is_plain) {
-      time_window->start_time = get_Duration(tuple, tupdesc, info[2], 0);
-      time_window->end_time = get_Duration(tuple, tupdesc, info[3], 0);
+      time_window->tw_open = get_Duration(tuple, tupdesc, info[2], 0);
+      time_window->tw_close = get_Duration(tuple, tupdesc, info[3], 0);
     } else {
-      time_window->start_time =
+      time_window->tw_open =
           (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[2], 0);
-      time_window->end_time =
+      time_window->tw_close =
           (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[3], 0);
     }
   } else {
     if (is_plain) {
-      time_window->start_time = get_Duration(tuple, tupdesc, info[1], 0);
-      time_window->end_time = get_Duration(tuple, tupdesc, info[2], 0);
+      time_window->tw_open = get_Duration(tuple, tupdesc, info[1], 0);
+      time_window->tw_close = get_Duration(tuple, tupdesc, info[2], 0);
     } else {
-      time_window->start_time =
+      time_window->tw_open =
           (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[1], 0);
-      time_window->end_time =
+      time_window->tw_close =
           (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[2], 0);
     }
   }
 
-  if (time_window->start_time > time_window->end_time) {
+  if (time_window->tw_open > time_window->tw_close) {
     ereport(ERROR,
         (errmsg("Invalid time window (%d, %d)",
-            time_window->start_time, time_window->end_time),
+            time_window->tw_open, time_window->tw_close),
          errhint("Time window start time %d must be "
              "less than or equal to time window end time %d",
-             time_window->start_time, time_window->end_time)));
+             time_window->tw_open, time_window->tw_close)));
   }
 }
 

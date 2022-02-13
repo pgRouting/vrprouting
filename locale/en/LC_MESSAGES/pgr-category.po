@@ -1,0 +1,836 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) vrpRouting Contributors - Version v0.3.0-dev
+# This file is distributed under the same license as the vrpRouting package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: vrpRouting v0.3.0-dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-28 10:43+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../build/doc/pgr-category.rst:12
+msgid ""
+"`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 "
+"<https://vrp.pgrouting.org/v0>`__"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:13
+msgid ""
+"Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/pgr-"
+"category.html>`__ (`v0 <https://vrp.pgrouting.org/v0/en/pgr-"
+"category.html>`__)"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:19
+msgid "Vehicle Routing Functions - Category (Experimental)"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:3
+msgid "Possible server crash"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:5
+msgid "These functions might create a server crash"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:7
+msgid "Experimental functions"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:9
+msgid "They are not officially of the current release."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:10
+msgid "They likely will not be officially be part of the next release:"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:12
+msgid "The functions might not make use of ANY-INTEGER and ANY-NUMERICAL"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:13
+msgid "Name might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:14
+msgid "Signature might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:15
+msgid "Functionality might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:16
+msgid "pgTap tests might be missing."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:17
+msgid "Might need c/c++ coding."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:18
+msgid "May lack documentation."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:19
+msgid "Documentation if any might need to be rewritten."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:20
+msgid "Documentation examples might need to be automatically generated."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:21
+msgid "Might need a lot of feedback from the comunity."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:22
+msgid "Might depend on a proposed function of vrpRouting"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:23
+msgid "Might depend on a deprecated function of vrpRouting"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:26
+msgid "Contents"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:29
+msgid "Functions"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:41
+msgid "Parameters"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:45
+msgid "Pick & deliver"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:47
+msgid "Both implementations use the following same parameters:"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:52 ../../build/doc/pgr-category.rst:73
+#: ../../build/doc/pgr-category.rst:95 ../../build/doc/pgr-category.rst:116
+#: ../../build/doc/pgr-category.rst:130 ../../build/doc/pgr-category.rst:152
+#: ../../build/doc/pgr-category.rst:174 ../../build/doc/pgr-category.rst:187
+#: ../../build/doc/pgr-category.rst:242 ../../build/doc/pgr-category.rst:278
+msgid "Column"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:52 ../../build/doc/pgr-category.rst:73
+#: ../../build/doc/pgr-category.rst:95 ../../build/doc/pgr-category.rst:116
+#: ../../build/doc/pgr-category.rst:130 ../../build/doc/pgr-category.rst:152
+#: ../../build/doc/pgr-category.rst:174 ../../build/doc/pgr-category.rst:187
+#: ../../build/doc/pgr-category.rst:242 ../../build/doc/pgr-category.rst:278
+msgid "Type"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:52 ../../build/doc/pgr-category.rst:95
+#: ../../build/doc/pgr-category.rst:152 ../../build/doc/pgr-category.rst:174
+#: ../../build/doc/pgr-category.rst:187
+msgid "Default"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:52 ../../build/doc/pgr-category.rst:73
+#: ../../build/doc/pgr-category.rst:95 ../../build/doc/pgr-category.rst:116
+#: ../../build/doc/pgr-category.rst:130 ../../build/doc/pgr-category.rst:152
+#: ../../build/doc/pgr-category.rst:174 ../../build/doc/pgr-category.rst:187
+#: ../../build/doc/pgr-category.rst:242 ../../build/doc/pgr-category.rst:278
+msgid "Description"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:54
+msgid "**orders_sql**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:54 ../../build/doc/pgr-category.rst:55
+#: ../../build/doc/pgr-category.rst:75
+msgid "``TEXT``"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:54
+msgid "`Pick & Deliver Orders SQL`_ query containing the orders to be processed."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:55
+msgid "**vehicles_sql**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:55
+msgid "`Pick & Deliver Vehicles SQL`_ query containing the vehicles to be used."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:56
+msgid "**factor**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:56
+msgid "``NUMERIC``"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:56
+msgid "1"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:56
+msgid "(Optional) Travel time multiplier. See :ref:`pd_factor`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:57
+msgid "**max_cycles**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:57 ../../build/doc/pgr-category.rst:58
+msgid "``INTEGER``"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:57
+msgid "10"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:57
+msgid "(Optional) Maximum number of cycles to perform on the optimization."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:58
+msgid "**initial_sol**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:58
+msgid "4"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:58
+msgid "(Optional) Initial solution to be used."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:60
+msgid "``1`` One order per truck"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:61
+msgid "``2`` Push front order."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:62
+msgid "``3`` Push back order."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:63
+msgid "``4`` Optimize insert."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:64
+msgid "``5`` Push back order that allows more orders to be inserted at the back"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:65
+msgid "``6`` Push front order that allows more orders to be inserted at the front"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:70
+msgid "The non euclidean implementation, additionally has:"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:75
+msgid "**matrix_sql**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:75
+msgid ""
+"`Pick & Deliver Matrix SQL`_ query containing the distance or travel "
+"times."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:80
+msgid "Inner Queries"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:82
+msgid "`Pick & Deliver Orders SQL`_"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:83
+msgid "`Pick & Deliver Vehicles SQL`_"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:84
+msgid "`Pick & Deliver Matrix SQL`_"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:88
+msgid "Pick & Deliver Orders SQL"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:90
+msgid ""
+"In general, the columns for the orders SQL is the same in both "
+"implementation of pick and delivery:"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:97 ../../build/doc/pgr-category.rst:154
+msgid "**id**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:97 ../../build/doc/pgr-category.rst:118
+#: ../../build/doc/pgr-category.rst:119 ../../build/doc/pgr-category.rst:154
+#: ../../build/doc/pgr-category.rst:176 ../../build/doc/pgr-category.rst:177
+msgid "|ANY-INTEGER|"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:97 ../../build/doc/pgr-category.rst:154
+msgid "Identifier of the pick-delivery order pair."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:98
+msgid "**demand**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:98 ../../build/doc/pgr-category.rst:99
+#: ../../build/doc/pgr-category.rst:100 ../../build/doc/pgr-category.rst:101
+#: ../../build/doc/pgr-category.rst:102 ../../build/doc/pgr-category.rst:103
+#: ../../build/doc/pgr-category.rst:104 ../../build/doc/pgr-category.rst:132
+#: ../../build/doc/pgr-category.rst:133 ../../build/doc/pgr-category.rst:134
+#: ../../build/doc/pgr-category.rst:135 ../../build/doc/pgr-category.rst:155
+#: ../../build/doc/pgr-category.rst:156 ../../build/doc/pgr-category.rst:158
+#: ../../build/doc/pgr-category.rst:159 ../../build/doc/pgr-category.rst:160
+#: ../../build/doc/pgr-category.rst:162 ../../build/doc/pgr-category.rst:163
+#: ../../build/doc/pgr-category.rst:164 ../../build/doc/pgr-category.rst:189
+#: ../../build/doc/pgr-category.rst:190 ../../build/doc/pgr-category.rst:191
+#: ../../build/doc/pgr-category.rst:192
+msgid "|ANY-NUMERICAL|"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:98 ../../build/doc/pgr-category.rst:155
+msgid "Number of units in the order"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:99
+msgid "**p_open**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:99
+msgid "The time, relative to 0, when the pickup location opens."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:100
+msgid "**p_close**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:100
+msgid "The time, relative to 0, when the pickup location closes."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:101 ../../build/doc/pgr-category.rst:104
+msgid "**d_service**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:101 ../../build/doc/pgr-category.rst:104
+msgid "0"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:101
+msgid "The duration of the loading at the pickup location."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:102
+msgid "**d_open**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:102
+msgid "The time, relative to 0, when the delivery location opens."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:103
+msgid "**d_close**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:103
+msgid "The time, relative to 0, when the delivery location closes."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:104
+msgid "The duration of the loading at the delivery location."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:113 ../../build/doc/pgr-category.rst:171
+msgid ""
+"For the non euclidean implementation, the starting and ending identifiers"
+" are needed:"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:118
+msgid "**p_node_id**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:118
+msgid ""
+"The node identifier of the pickup, must match a node identifier in the "
+"matrix table."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:119
+msgid "**d_node_id**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:119
+msgid ""
+"The node identifier of the delivery, must match a node identifier in the "
+"matrix table."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:127
+msgid ""
+"For the euclidean implementation, pick up and delivery  :math:`(x,y)` "
+"locations are needed:"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:132
+msgid "**p_x**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:132
+msgid ":math:`x` value of the pick up location"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:133
+msgid "**p_y**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:133
+msgid ":math:`y` value of the pick up location"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:134
+msgid "**d_x**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:134
+msgid ":math:`x` value of the delivery location"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:135
+msgid "**d_y**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:135
+msgid ":math:`y` value of the delivery location"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:145
+msgid "Pick & Deliver Vehicles SQL"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:147
+msgid ""
+"In general, the columns for the vehicles_sql is the same in both "
+"implementation of pick and delivery:"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:155
+msgid "**capacity**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:156
+msgid "**speed**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:156
+msgid "`1`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:156
+msgid "Average speed of the vehicle."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:158
+msgid "**start_open**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:158
+msgid "The time, relative to 0, when the starting location opens."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:159
+msgid "**start_close**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:159
+msgid "The time, relative to 0, when the starting location closes."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:160
+msgid "**start_service**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:160
+msgid "`0`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:160
+msgid "The duration of the loading at the starting location."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:162
+msgid "**end_open**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:162
+msgid "`start_open`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:162
+msgid "The time, relative to 0, when the ending location opens."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:163
+msgid "**end_close**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:163
+msgid "`start_close`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:163
+msgid "The time, relative to 0, when the ending location closes."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:164
+msgid "**end_service**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:164
+msgid "`start_service`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:164
+msgid "The duration of the loading at the ending location."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:176
+msgid "**start_node_id**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:176
+msgid ""
+"The node identifier of the starting location, must match a node "
+"identifier in the matrix table."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:177
+msgid "**end_node_id**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:177
+msgid "`start_node_id`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:177
+msgid ""
+"The node identifier of the ending location, must match a node identifier "
+"in the matrix table."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:184
+msgid ""
+"For the euclidean implementation, starting and ending :math:`(x,y)` "
+"locations are needed:"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:189
+msgid "**start_x**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:189
+msgid ":math:`x` value of the coordinate of the starting location."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:190
+msgid "**start_y**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:190
+msgid ":math:`y` value of the coordinate of the starting location."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:191
+msgid "**end_x**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:191
+msgid "`start_x`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:191
+msgid ":math:`x` value of the coordinate of the ending location."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:192
+msgid "**end_y**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:192
+msgid "`start_y`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:192
+msgid ":math:`y` value of the coordinate of the ending location."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:199
+msgid "Pick & Deliver Matrix SQL"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:203
+msgid "TODO"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:209
+msgid "Results"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:228
+msgid "Description of the result (TODO Disussion: Euclidean & Matrix)"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:230
+msgid "Todo"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:230
+msgid "fix when everything below is fixed"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:244 ../../build/doc/pgr-category.rst:280
+msgid "**seq**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:244 ../../build/doc/pgr-category.rst:245
+#: ../../build/doc/pgr-category.rst:247 ../../build/doc/pgr-category.rst:248
+#: ../../build/doc/pgr-category.rst:280 ../../build/doc/pgr-category.rst:281
+#: ../../build/doc/pgr-category.rst:283 ../../build/doc/pgr-category.rst:284
+msgid "INTEGER"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:244
+msgid "Sequential value starting from **1**."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:245 ../../build/doc/pgr-category.rst:281
+msgid "**vehicle_seq**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:245
+msgid ""
+"Sequential value starting from **1** for current vehicles. The "
+":math:`n_{th}` vehicle in the solution."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:246 ../../build/doc/pgr-category.rst:282
+msgid "**vehicle_id**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:246 ../../build/doc/pgr-category.rst:255
+#: ../../build/doc/pgr-category.rst:282 ../../build/doc/pgr-category.rst:285
+msgid "BIGINT"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:246
+msgid "Current vehicle identifier."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:247 ../../build/doc/pgr-category.rst:283
+msgid "**stop_seq**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:247
+msgid ""
+"Sequential value starting from **1** for the stops made by the current "
+"vehicle. The :math:`m_{th}` stop of the current vehicle."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:248 ../../build/doc/pgr-category.rst:284
+msgid "**stop_type**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:248
+msgid "Kind of stop location the vehicle is at:"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:250
+msgid "``1``: Starting location"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:251
+msgid "``2``: Pickup location"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:252
+msgid "``3``: Delivery location"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:253
+msgid "``6``: Ending location"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:255 ../../build/doc/pgr-category.rst:285
+msgid "**order_id**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:255
+msgid "Pickup-Delivery order pair identifier."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:257
+msgid "``-1``: When no order is involved on the current stop location."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:259 ../../build/doc/pgr-category.rst:286
+msgid "**cargo**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:259 ../../build/doc/pgr-category.rst:261
+#: ../../build/doc/pgr-category.rst:265 ../../build/doc/pgr-category.rst:266
+#: ../../build/doc/pgr-category.rst:267 ../../build/doc/pgr-category.rst:268
+#: ../../build/doc/pgr-category.rst:286 ../../build/doc/pgr-category.rst:287
+#: ../../build/doc/pgr-category.rst:288 ../../build/doc/pgr-category.rst:289
+#: ../../build/doc/pgr-category.rst:290 ../../build/doc/pgr-category.rst:291
+msgid "FLOAT"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:259
+msgid "Cargo units of the vehicle when leaving the stop."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:261 ../../build/doc/pgr-category.rst:287
+msgid "**travel_time**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:261
+msgid "Travel time from previous ``stop_seq`` to current ``stop_seq``."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:263
+msgid "``0`` When ``stop_type = 1``"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:265 ../../build/doc/pgr-category.rst:288
+msgid "**arrival_time**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:265
+msgid "Previous ``departure_time`` plus current ``travel_time``."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:266 ../../build/doc/pgr-category.rst:289
+msgid "**wait_time**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:266
+msgid "Time spent waiting for current `location` to open."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:267 ../../build/doc/pgr-category.rst:290
+msgid "**service_time**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:267
+msgid "Service time at current `location`."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:268 ../../build/doc/pgr-category.rst:291
+msgid "**departure_time**"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:268
+msgid ":math:`arrival\\_time + wait\\_time + service\\_time`."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:270
+msgid "When ``stop_type = 6`` has the `total_time` used for the current vehicle."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:274
+msgid "Summary Row"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:275
+msgid "TODO: Review the summary"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:280
+msgid "Continues the Sequential value"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:281
+msgid "``-2`` to indicate is a summary row"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:282
+msgid "`Total Capacity Violations` in the solution."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:283
+msgid "`Total Time Window Violations` in the solution."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:284 ../../build/doc/pgr-category.rst:285
+#: ../../build/doc/pgr-category.rst:286 ../../build/doc/pgr-category.rst:288
+msgid "``-1``"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:287
+msgid "`total_travel_time` The sum of all the `travel_time`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:289
+msgid "`total_waiting_time` The sum of all the `wait_time`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:290
+msgid "`total_service_time` The sum of all the `service_time`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:291
+msgid ""
+"`total_solution_time` = :math:`total\\_travel\\_time + "
+"total\\_wait\\_time + total\\_service\\_time`."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:303
+msgid "See Also"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:304
+msgid "https://en.wikipedia.org/wiki/Vehicle_routing_problem"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:305
+msgid "The queries use the :doc:`sampledata` network."
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:308
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:309
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../build/doc/pgr-category.rst:310
+msgid ":ref:`search`"
+msgstr ""
+

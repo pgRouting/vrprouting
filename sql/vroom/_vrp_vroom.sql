@@ -36,19 +36,28 @@ CREATE FUNCTION _vrp_vroom(
     breaks_sql TEXT,
     breaks_time_windows_sql TEXT,
     matrix_sql TEXT,
+
+    exploration_level INTEGER,
+    timeout INTEGER,
+
     fn SMALLINT,
     is_plain BOOLEAN,
 
     OUT seq BIGINT,
     OUT vehicle_seq BIGINT,
     OUT vehicle_id BIGINT,
+    OUT vehicle_data TEXT,
     OUT step_seq BIGINT,
     OUT step_type INTEGER,
     OUT task_id BIGINT,
+    OUT location_id BIGINT,
+    OUT task_data TEXT,
     OUT arrival INTEGER,
     OUT travel_time INTEGER,
+    OUT setup_time INTEGER,
     OUT service_time INTEGER,
     OUT waiting_time INTEGER,
+    OUT departure INTEGER,
     OUT load BIGINT[])
 RETURNS SETOF RECORD AS
  'MODULE_PATHNAME'
@@ -56,5 +65,5 @@ LANGUAGE C VOLATILE;
 
 -- COMMENTS
 
-COMMENT ON FUNCTION _vrp_vroom(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, SMALLINT, BOOLEAN)
+COMMENT ON FUNCTION _vrp_vroom(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, INTEGER, SMALLINT, BOOLEAN)
 IS 'pgRouting internal function';

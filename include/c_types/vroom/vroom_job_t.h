@@ -39,7 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 name | description
 :----- | :-------
 id | The job's identifier
-location_index | Location index of job in matrix
+location_id | Location index of job in matrix
+setup | Job setup duration
 service | Job service duration
 delivery | Quantities for delivery
 delivery_size | Number of delivery quantities
@@ -48,11 +49,13 @@ pickup_size | Number of pickup quantities
 skills | Mandatory skills
 skills_size | Number of mandatory skills
 priority | Priority level of job
+data | Metadata information of job
 */
 struct Vroom_job_t {
   Idx id; /** The job's identifier */
-  MatrixIndex location_index; /** Location index of job in matrix */
+  MatrixIndex location_id; /** Location index of job in matrix */
 
+  Duration setup; /** Job setup duration */
   Duration service; /** Job service duration */
 
   Amount *delivery; /** Quantities for delivery */
@@ -65,6 +68,8 @@ struct Vroom_job_t {
   size_t skills_size; /** Number of mandatory skills */
 
   Priority priority; /** Priority level of job */
+
+  char *data; /** Metadata information of job */
 };
 
 #endif  // INCLUDE_C_TYPES_VROOM_VROOM_JOB_T_H_

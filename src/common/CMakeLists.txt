@@ -17,4 +17,5 @@ ADD_LIBRARY(common OBJECT
     vroom/jobs_input.c
     vroom/shipments_input.c
     vroom/vehicles_input.c
+    vroom/matrix_input.c
     )

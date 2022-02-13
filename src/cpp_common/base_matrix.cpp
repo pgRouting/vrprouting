@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/identifiers.hpp"
 #include "cpp_common/pgr_assert.h"
 #include "c_types/matrix_cell_t.h"
+#include "c_types/vroom/vroom_matrix_t.h"
 
 
 namespace vrprouting {
@@ -176,6 +177,47 @@ Base_Matrix::get_index(Id id) const {
   return static_cast<Idx>(pos - m_ids.begin());
 }
 
+/** Given the internal index, returns the original node identifier
+ *
+ * @param [in] id
+ * @returns the original node identifier
+ *
+ @dot
+ digraph G {
+ graph [ranksep=".05"];
+ node[fontsize=10, nodesep=0.2];
+ start  [shape=Mdiamond];
+ n0  [label="Base_Matrix::get_original_id",shape=rect, color=green];
+ n1  [label="Go to the index in the identifiers vector",shape=rect];
+ n2  [label="Return the original id found",shape=rect];
+ start -> n0 -> n1 -> n2 -> end;
+ end  [shape=Mdiamond];
+ error [shape=Mdiamond,color=red]
+ a [label="assertion",color=red];
+ a -> error [color=red,label="fail",fontcolor=red];
+ }
+ @enddot
+ */
+Id
+Base_Matrix::get_original_id(Idx index) const {
+  /*
+   * Go to the index in the identifiers vector
+   */
+
+  if (index >= m_ids.size()) {
+    std::ostringstream msg;
+    msg << *this << "\nOut of range" << index;
+    pgassertwm(false, msg.str());
+    throw std::make_pair(std::string("(INTERNAL) Base_Matrix: The given index is out of range"), msg.str());
+  }
+  pgassert(index < m_ids.size());
+
+  /*
+   * return the original id found
+   */
+  return static_cast<Id>(m_ids[index]);
+}
+
 /**
  * @param [in] data_costs  The set of costs
  * @param [in] size_matrix The size of the set of costs
@@ -260,8 +302,8 @@ Base_Matrix::Base_Matrix(
  * @post costs[from_vid, to_vid] = 0 when from_vid = to_vid
  *
  */
-Base_Matrix::Base_Matrix(Matrix_cell_t *data_costs, size_t size_matrix,
-                         const Identifiers<Id> &location_ids) {
+Base_Matrix::Base_Matrix(Vroom_matrix_t *matrix_rows, size_t total_matrix_rows,
+                         const Identifiers<Id> &location_ids, double scaling_factor) {
   /*
    * Sets the selected nodes identifiers
    */
@@ -277,31 +319,41 @@ Base_Matrix::Base_Matrix(Matrix_cell_t *data_costs, size_t size_matrix,
                               * Set initial values to infinity
                               */
                              (std::numeric_limits<TInterval>::max)()));
+  m_cost_matrix.resize(
+      m_ids.size(),
+      std::vector<TravelCost>(m_ids.size(), (std::numeric_limits<TravelCost>::max)()));
 
   Identifiers<Idx> inserted;
   /*
    * Cycle the matrix data
    */
-  for (size_t i = 0; i < size_matrix; ++i) {
-    auto data = data_costs[i];
+  for (size_t i = 0; i < total_matrix_rows; ++i) {
+    auto cell = matrix_rows[i];
     /*
      * skip if row is not from selected nodes
      */
-    if (!(has_id(data.from_vid) && has_id(data.to_vid))) continue;
+    if (!(has_id(cell.start_id) && has_id(cell.end_id))) continue;
 
     /*
-     * Save the information
+     * Save the information. Scale the time matrix according to scaling_factor
      */
-    m_time_matrix[get_index(data.from_vid)][get_index(data.to_vid)] =
-      static_cast<Distance>(data.cost);
+    m_time_matrix[get_index(cell.start_id)][get_index(cell.end_id)] =
+      static_cast<Duration>(std::round(cell.duration / scaling_factor));
+    m_cost_matrix[get_index(cell.start_id)][get_index(cell.end_id)] =
+      static_cast<Duration>(cell.cost);
 
     /*
      * If the opposite direction is infinity insert the same cost
      */
-    if (m_time_matrix[get_index(data.to_vid)][get_index(data.from_vid)] ==
+    if (m_time_matrix[get_index(cell.end_id)][get_index(cell.start_id)] ==
         (std::numeric_limits<TInterval>::max)()) {
-      m_time_matrix[get_index(data.to_vid)][get_index(data.from_vid)] =
-        m_time_matrix[get_index(data.from_vid)][get_index(data.to_vid)];
+      m_time_matrix[get_index(cell.end_id)][get_index(cell.start_id)] =
+        m_time_matrix[get_index(cell.start_id)][get_index(cell.end_id)];
+    }
+    if (m_cost_matrix[get_index(cell.end_id)][get_index(cell.start_id)] ==
+        (std::numeric_limits<TravelCost>::max)()) {
+      m_cost_matrix[get_index(cell.end_id)][get_index(cell.start_id)] =
+          m_cost_matrix[get_index(cell.start_id)][get_index(cell.end_id)];
     }
   }
 
@@ -310,6 +362,7 @@ Base_Matrix::Base_Matrix(Matrix_cell_t *data_costs, size_t size_matrix,
    */
   for (size_t i = 0; i < m_time_matrix.size(); ++i) {
     m_time_matrix[i][i] = 0;
+    m_cost_matrix[i][i] = 0;
   }
 }
 
@@ -343,17 +396,34 @@ Base_Matrix::Base_Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id> &
 }
 
 /**
- * @brief Get VROOM matrix from vrprouting Base Matrix
+ * @brief Get VROOM duration matrix from vrprouting Base Matrix
  *
- * @return vroom::Matrix<vroom::Cost> The vroom cost matrix
+ * @return vroom::Matrix<vroom::Duration> The vroom cost matrix
  */
-vroom::Matrix<vroom::Cost>
-Base_Matrix::get_vroom_matrix() const {
+vroom::Matrix<vroom::Duration>
+Base_Matrix::get_vroom_duration_matrix() const {
   size_t matrix_size = m_ids.size();
   vroom::Matrix<vroom::Cost> vroom_matrix(matrix_size);
   for (size_t i = 0; i < matrix_size; i++) {
     for (size_t j = 0; j < matrix_size; j++) {
-      vroom_matrix[i][j] = static_cast<vroom::Cost>(m_time_matrix[i][j]);
+      vroom_matrix[i][j] = static_cast<vroom::Duration>(m_time_matrix[i][j]);
+    }
+  }
+  return vroom_matrix;
+}
+
+/**
+ * @brief Get VROOM cost matrix from vrprouting Base Matrix
+ *
+ * @return vroom::Matrix<vroom::Cost> The vroom cost matrix
+ */
+vroom::Matrix<vroom::Cost>
+Base_Matrix::get_vroom_cost_matrix() const {
+  size_t matrix_size = m_ids.size();
+  vroom::Matrix<vroom::Cost> vroom_matrix(matrix_size);
+  for (size_t i = 0; i < matrix_size; i++) {
+    for (size_t j = 0; j < matrix_size; j++) {
+      vroom_matrix[i][j] = static_cast<vroom::Cost>(m_cost_matrix[i][j]);
     }
   }
   return vroom_matrix;

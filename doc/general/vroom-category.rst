@@ -91,9 +91,19 @@ Terminologies
 - **Capacity (for vehicle)**: Every vehicle may have some capacity, denoting the multidimensional quantities. A vehicle can serve only those sets of tasks such that the total sum of the quantity does not exceed the vehicle capacity, at any point of the route.
 - **Time Window**: An interval of time during which some activity can be performed, such as working hours of the vehicle, break of the vehicle, or service start time for a task.
 - **Break**: Array of time windows, denoting valid slots for the break start of a vehicle.
+- **Setup time**: Setup times serve as a mean to describe the time it takes to get started for a task at a given location.
+  This models a duration that should not be re-applied for other tasks following at the same place.
+  So the total "action time" for a task is ``setup + service`` upon arriving at a new location or
+  ``service`` only if performing a new task at the previous vehicle location.
 - **Service time**: The additional time to be spent by a vehicle while serving a task.
 - **Travel time**: The total time the vehicle travels during its route.
 - **Waiting time**: The total time the vehicle is idle, i.e. it is neither traveling nor servicing any task. It is generally the time spent by a vehicle waiting for a task service to open.
+
+.. |timestamp| replace:: ``TIMESTAMP`` or ``INTEGER``
+.. |interval| replace:: ``INTERVAL`` or ``INTEGER``
+.. |interval0| replace:: '00:00:00'::INTERVAL or :math:`0`
+.. |tw_open_default| replace:: '1970-01-01 00:00:00'::TIMESTAMP or :math:`0`
+.. |tw_close_default| replace:: '2106-02-07 06:28:15'::TIMESTAMP or :math:`4294967295`
 
 Inner Queries
 -------------------------------------------------------------------------------
@@ -138,7 +148,7 @@ Time Windows SQL
 Time Matrix SQL
 ...............................................................................
 
-.. include:: ../../src/common/matrixRows_input.c
+.. include:: ../../src/common/vroom/matrix_input.c
    :start-after: vrp_vroom start
    :end-before: vrp_vroom end
 

@@ -18,13 +18,17 @@
 vrp_vroomPlain - Experimental
 ===============================================================================
 
-``vrp_vroomPlain`` - Vehicle Routing Problem with VROOM, involving both jobs and shipments.
+``vrp_vroomPlain`` - Vehicle Routing Problem with VROOM, involving both jobs and shipments, with plain integer values instead of TIMESTAMP or INTERVAL.
 
 .. include:: experimental.rst
    :start-after: begin-warn-expr
    :end-before: end-warn-expr
 
 .. rubric:: Availability
+
+Version 0.3.0
+
+* Function **modified** for VROOM 1.11.0
 
 Version 0.2.0
 
@@ -45,9 +49,19 @@ shipments.
 Signature
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/vroom/vrp_vroom.sql
+.. rubric:: Summary
+
+.. include:: ../sql/vroom/vrp_vroomPlain.sql
    :start-after: signature start
    :end-before: signature end
+
+Optional parameters are `named parameters` and have a default value.
+
+.. rubric:: Using defaults
+
+.. include:: ../sql/vroom/vrp_vroomPlain.sql
+   :start-after: default signature start
+   :end-before: default signature end
 
 **Example**: This example is based on the VROOM Data of the :doc:`sampledata` network:
 
@@ -55,12 +69,25 @@ Signature
    :start-after: -- q1
    :end-before: -- q2
 
+.. |timestamp| replace:: ``INTEGER``
+.. |interval| replace:: ``INTEGER``
+.. |interval0| replace:: :math:`0`
+.. |tw_open_default| replace:: :math:`0`
+.. |tw_close_default| replace:: :math:`4294967295`
+
 Parameters
 -------------------------------------------------------------------------------
 
 .. include:: ../sql/vroom/vrp_vroom.sql
    :start-after: parameters start
    :end-before: parameters end
+
+Optional Parameters
+...............................................................................
+
+.. include:: ../sql/vroom/vrp_vroomPlain.sql
+   :start-after: optional parameters start
+   :end-before: optional parameters end
 
 Inner Queries
 -------------------------------------------------------------------------------

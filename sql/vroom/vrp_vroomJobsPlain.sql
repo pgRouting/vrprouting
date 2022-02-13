@@ -26,6 +26,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
+/*
+signature start
+
+.. code-block:: none
+
+    vrp_vroomJobsPlain(
+      Jobs SQL, Jobs Time Windows SQL,
+      Vehicles SQL, Breaks SQL, Breaks Time Windows SQL,
+      Matrix SQL [, exploration_level] [, timeout])  -- Experimental on v0.2
+
+    RETURNS SET OF
+    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
+     task_data, arrival, travel_time, service_time, waiting_time, departure, load)
+
+signature end
+
+default signature start
+
+.. code-block:: none
+
+    vrp_vroomJobsPlain(
+      Jobs SQL, Jobs Time Windows SQL,
+      Vehicles SQL, Breaks SQL, Breaks Time Windows SQL,
+      Matrix SQL)
+
+    RETURNS SET OF
+    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
+     task_data, arrival, travel_time, service_time, waiting_time, departure, load)
+
+default signature end
+*/
+
 -- v0.2
 CREATE FUNCTION vrp_vroomJobsPlain(
     TEXT,  -- jobs_sql (required)
@@ -35,39 +67,72 @@ CREATE FUNCTION vrp_vroomJobsPlain(
     TEXT,  -- breaks_time_windows_sql (required)
     TEXT,  -- matrix_sql (required)
 
+    exploration_level INTEGER DEFAULT 5,
+    timeout INTEGER DEFAULT -1,
+
     OUT seq BIGINT,
     OUT vehicle_seq BIGINT,
     OUT vehicle_id BIGINT,
+    OUT vehicle_data JSONB,
     OUT step_seq BIGINT,
     OUT step_type INTEGER,
     OUT task_id BIGINT,
+    OUT location_id BIGINT,
+    OUT task_data JSONB,
     OUT arrival INTEGER,
     OUT travel_time INTEGER,
+    OUT setup_time INTEGER,
     OUT service_time INTEGER,
     OUT waiting_time INTEGER,
+    OUT departure INTEGER,
     OUT load BIGINT[])
 RETURNS SETOF RECORD AS
 $BODY$
-    SELECT *
+BEGIN
+    IF exploration_level < 0 OR exploration_level > 5 THEN
+        RAISE EXCEPTION 'Invalid value found on ''exploration_level'''
+        USING HINT = format('Value found: %s. It must lie in the range 0 to 5 (inclusive)', exploration_level);
+    END IF;
+
+    RETURN QUERY
+    SELECT
+      A.seq,
+      A.vehicle_seq,
+      A.vehicle_id,
+      A.vehicle_data::JSONB,
+      A.step_seq,
+      A.step_type,
+      A.task_id,
+      A.location_id,
+      A.task_data::JSONB,
+      A.arrival,
+      A.travel_time,
+      A.setup_time,
+      A.service_time,
+      A.waiting_time,
+      A.departure,
+      A.load
     FROM _vrp_vroom(_pgr_get_statement($1), _pgr_get_statement($2), NULL, NULL,
                     _pgr_get_statement($3), _pgr_get_statement($4),
-                    _pgr_get_statement($5), _pgr_get_statement($6), 1::SMALLINT, true);
+                    _pgr_get_statement($5), _pgr_get_statement($6),
+                    exploration_level, timeout, 1::SMALLINT, true) A;
+END;
 $BODY$
-LANGUAGE SQL VOLATILE;
+LANGUAGE plpgsql VOLATILE;
 
 
 -- COMMENTS
 
-COMMENT ON FUNCTION vrp_vroomJobsPlain(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT)
+COMMENT ON FUNCTION vrp_vroomJobsPlain(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, INTEGER)
 IS 'vrp_vroomJobsPlain
  - EXPERIMENTAL
  - Parameters:
    - Jobs SQL with columns:
-       id, location_index [, service, delivery, pickup, skills, priority, time_windows]
+       id, location_id [, service, delivery, pickup, skills, priority, time_windows]
    - Jobs Time Windows SQL with columns:
        id, tw_open, tw_close
    - Vehicles SQL with columns:
-       id, start_index, end_index
+       id, start_id, end_id
        [, service, delivery, pickup, skills, priority, time_window, breaks_sql, steps_sql]
    - Breaks SQL with columns:
        id [, service]
@@ -75,6 +140,9 @@ IS 'vrp_vroomJobsPlain
        id, tw_open, tw_close
    - Matrix SQL with columns:
        start_vid, end_vid, agg_cost
+- Optional parameters
+   - exploration_level := 5
+   - timeout := -1
  - Documentation:
    - ${PROJECT_DOC_LINK}/vrp_vroomJobsPlain.html
 ';

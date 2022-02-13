@@ -26,6 +26,10 @@ vrp_vroom - Experimental
 
 .. rubric:: Availability
 
+Version 0.3.0
+
+* Function **modified** for VROOM 1.11.0
+
 Version 0.2.0
 
 * New **experimental** function
@@ -45,9 +49,19 @@ shipments.
 Signature
 -------------------------------------------------------------------------------
 
+.. rubric:: Summary
+
 .. include:: ../sql/vroom/vrp_vroom.sql
    :start-after: signature start
    :end-before: signature end
+
+Optional parameters are `named parameters` and have a default value.
+
+.. rubric:: Using defaults
+
+.. include:: ../sql/vroom/vrp_vroom.sql
+   :start-after: default signature start
+   :end-before: default signature end
 
 **Example**: This example is based on the modified VROOM Data of the :doc:`sampledata` network.
 The modification in the tables is mentioned at the end of the :doc:`sampledata`.
@@ -56,12 +70,25 @@ The modification in the tables is mentioned at the end of the :doc:`sampledata`.
    :start-after: -- q1
    :end-before: -- q2
 
+.. |timestamp| replace:: ``TIMESTAMP``
+.. |interval| replace:: ``INTERVAL``
+.. |interval0| replace:: '00:00:00'::INTERVAL
+.. |tw_open_default| replace:: '1970-01-01 00:00:00'::TIMESTAMP
+.. |tw_close_default| replace:: '2106-02-07 06:28:15'::TIMESTAMP
+
 Parameters
 -------------------------------------------------------------------------------
 
 .. include:: ../sql/vroom/vrp_vroom.sql
    :start-after: parameters start
    :end-before: parameters end
+
+Optional Parameters
+...............................................................................
+
+.. include:: ../sql/vroom/vrp_vroom.sql
+   :start-after: optional parameters start
+   :end-before: optional parameters end
 
 Inner Queries
 -------------------------------------------------------------------------------

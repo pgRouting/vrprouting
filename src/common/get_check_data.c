@@ -71,6 +71,14 @@ check_text_type(Column_info_t info) {
 
 static
 void
+check_jsonb_type(Column_info_t info) {
+  if (!(info.type == JSONBOID)) {
+    elog(ERROR, "Unexpected Column '%s' type. Expected JSONB %ld", info.name, info.type);
+  }
+}
+
+static
+void
 check_integer_type(Column_info_t info) {
   if (!(info.type == INT2OID || info.type == INT4OID)) {
     ereport(ERROR,
@@ -304,6 +312,22 @@ spi_getChar(
       elog(ERROR, "Unexpected Null value in column %s", info.name);
     }
     value = default_value;
+  }
+  return value;
+}
+
+int32_t
+spi_getMaxTasks(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info) {
+  int32_t value = spi_getInt(tuple, tupdesc, info);
+  if (value < 0) {
+    ereport(
+        ERROR,
+        (errmsg("Invalid max_tasks value %d", value),
+         errhint(
+             "Maximum number of tasks must be greater than or equal to 0")));
   }
   return value;
 }
@@ -550,13 +574,13 @@ get_Id(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Id opt_value) {
  * @returns The value found
  * @returns opt_value when the column does not exist
  *
- * exceptions when the value is negative
- * @pre for non-negative values only
+ * exceptions when the value is not positive
+ * @pre for positive values only
  */
 Idx
 get_Idx(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Idx opt_value) {
   Id value = get_Id(tuple, tupdesc, info, 0);
-  if (value < 0) elog(ERROR, "Unexpected Negative value in column %s", info.name);
+  if (value <= 0) elog(ERROR, "Unexpected Negative value or Zero in column %s", info.name);
   return column_found(info.colNumber)? (Idx) value : opt_value;
 }
 
@@ -627,8 +651,8 @@ get_PositiveAmount(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, PAm
  * @returns The value found
  * @returns opt_value when the column does not exist
  *
- * exceptions when the value is negative
- * @pre for non-negative values only
+ * exceptions when the value is not positive
+ * @pre for positive values only
  */
 MatrixIndex
 get_MatrixIndex(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, MatrixIndex opt_value) {
@@ -662,6 +686,30 @@ get_Duration(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Duration 
   }
   return opt_value;
 }
+
+
+/**
+ * @params [in] tuple
+ * @params [in] tupdesc
+ * @params [in] info about the column been fetched
+ * @params [in] opt_value default value when the column does not exist
+ *
+ * @returns The value found
+ * @returns opt_value when the column does not exist
+ *
+ * exceptions when the value is negative
+ * @pre for non-negative values only
+ */
+TravelCost
+get_Cost(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, TravelCost opt_value) {
+  if (column_found(info.colNumber)) {
+    int32_t value = spi_getInt(tuple, tupdesc, info);
+    if (value < 0) elog(ERROR, "Unexpected Negative value in column %s", info.name);
+    return (TravelCost)value;
+  }
+  return opt_value;
+}
+
 
 /**
  * @params [in] tuple
@@ -783,9 +831,6 @@ spi_getCoordinate(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Coor
 char*
 spi_getText(HeapTuple *tuple, TupleDesc *tupdesc,  Column_info_t info) {
   char *val = DatumGetCString(SPI_getvalue(*tuple, *tupdesc, info.colNumber));
-  if (!val) {
-    elog(ERROR, "Unexpected Null value in column %s", info.name);
-  }
   return val;
 }
 
@@ -874,6 +919,9 @@ void pgr_fetch_column_info(
           break;
         case TEXT:
           check_text_type(info[i]);
+          break;
+        case JSONB:
+          check_jsonb_type(info[i]);
           break;
         case CHAR1:
           check_char_type(info[i]);

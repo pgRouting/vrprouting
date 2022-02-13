@@ -8,27 +8,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vrpRouting v0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 09:17-0600\n"
+"POT-Creation-Date: 2021-09-28 10:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.1\n"
 
 #: ../../build/doc/vrp_pgr_pickDeliverEuclidean.rst:12
 msgid ""
-"`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting 0 "
-"<https://vrp.pgrouting.org/0>`__"
+"`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 "
+"<https://vrp.pgrouting.org/v0>`__"
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliverEuclidean.rst:13
 msgid ""
 "Supported Versions `Latest "
 "<https://vrp.pgrouting.org/latest/en/vrp_pgr_pickDeliverEuclidean.html>`__"
-" (`0.0 "
-"<https://vrp.pgrouting.org/0/en/vrp_pgr_pickDeliverEuclidean.html>`__)"
+" (`v0 "
+"<https://vrp.pgrouting.org/v0/en/vrp_pgr_pickDeliverEuclidean.html>`__)"
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliverEuclidean.rst:18
@@ -235,113 +235,113 @@ msgstr ""
 msgid "Parameters"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:4
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:4
 #: ../../src/common/orders_input.c:13 ../../src/common/vehicles_input.c:12
 msgid "Column"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:4
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:4
 #: ../../src/common/orders_input.c:13 ../../src/common/vehicles_input.c:12
 msgid "Type"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:4
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:4
 #: ../../src/common/orders_input.c:13 ../../src/common/vehicles_input.c:12
 msgid "Default"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:4
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:4
 #: ../../src/common/orders_input.c:13 ../../src/common/vehicles_input.c:12
 msgid "Description"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:6
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:6
 msgid "**Orders SQL**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:6
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:7
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:6
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:7
 msgid "``TEXT``"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:6
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:6
 msgid "`Orders SQL`_ query contianing the orders to be processed."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:7
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:7
 msgid "**Vehicles SQL**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:7
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:7
 msgid "`Vehicles SQL`_ query containing the vehicles to be used."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:8
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:8
 msgid "**factor**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:8
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:8
 msgid "``NUMERIC``"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:8
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:8
 msgid "1"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:8
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:8
 msgid "Travel time multiplier. See :ref:`pd_factor`"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:9
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:9
 msgid "**max_cycles**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:9
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:10
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:9
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:10
 msgid "``INTEGER``"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:9
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:9
 msgid "10"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:9
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:9
 msgid "Maximum number of cycles to perform on the optimization."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:10
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:10
 msgid "**initial_sol**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:10
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:10
 msgid "4"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:10
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:10
 msgid "Initial solution to be used."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:12
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:12
 msgid "``1`` One order per truck"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:13
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:13
 msgid "``2`` Push front order."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:14
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:14
 msgid "``3`` Push back order."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:15
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:15
 msgid "``4`` Optimize insert."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:16
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:16
 msgid "``5`` Push back order that allows more orders to be inserted at the back"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:17
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:17
 msgid "``6`` Push front order that allows more orders to be inserted at the front"
 msgstr ""
 
@@ -361,39 +361,39 @@ msgstr ""
 msgid "**id**"
 msgstr ""
 
-#: ../../src/common/orders_input.c:15 ../../src/common/vehicles_input.c:14
+#: ../../src/common/orders_input.c:15 ../../src/common/orders_input.c:16
+#: ../../src/common/orders_input.c:19 ../../src/common/orders_input.c:20
+#: ../../src/common/orders_input.c:21 ../../src/common/orders_input.c:24
+#: ../../src/common/orders_input.c:25 ../../src/common/orders_input.c:26
+#: ../../src/common/vehicles_input.c:14
 msgid "|ANY-INTEGER|"
 msgstr ""
 
-#: ../../src/common/orders_input.c:15 ../../src/common/vehicles_input.c:14
+#: ../../src/common/orders_input.c:15
 msgid "Identifier of the pick-delivery order pair."
 msgstr ""
 
 #: ../../src/common/orders_input.c:16
-msgid "**demand**"
+msgid "**amount**"
 msgstr ""
 
-#: ../../src/common/orders_input.c:16 ../../src/common/orders_input.c:17
-#: ../../src/common/orders_input.c:18 ../../src/common/orders_input.c:19
-#: ../../src/common/orders_input.c:20 ../../src/common/orders_input.c:21
-#: ../../src/common/orders_input.c:22 ../../src/common/orders_input.c:23
-#: ../../src/common/orders_input.c:24 ../../src/common/orders_input.c:25
-#: ../../src/common/orders_input.c:26 ../../src/common/vehicles_input.c:15
-#: ../../src/common/vehicles_input.c:16 ../../src/common/vehicles_input.c:17
-#: ../../src/common/vehicles_input.c:18 ../../src/common/vehicles_input.c:19
-#: ../../src/common/vehicles_input.c:20 ../../src/common/vehicles_input.c:21
-#: ../../src/common/vehicles_input.c:22 ../../src/common/vehicles_input.c:23
-#: ../../src/common/vehicles_input.c:24 ../../src/common/vehicles_input.c:25
-#: ../../src/common/vehicles_input.c:26
-msgid "|ANY-NUMERICAL|"
-msgstr ""
-
-#: ../../src/common/orders_input.c:16 ../../src/common/vehicles_input.c:15
+#: ../../src/common/orders_input.c:16
 msgid "Number of units in the order"
 msgstr ""
 
 #: ../../src/common/orders_input.c:17
 msgid "**p_x**"
+msgstr ""
+
+#: ../../src/common/orders_input.c:17 ../../src/common/orders_input.c:18
+#: ../../src/common/orders_input.c:22 ../../src/common/orders_input.c:23
+#: ../../src/common/vehicles_input.c:15 ../../src/common/vehicles_input.c:16
+#: ../../src/common/vehicles_input.c:17 ../../src/common/vehicles_input.c:18
+#: ../../src/common/vehicles_input.c:19 ../../src/common/vehicles_input.c:22
+#: ../../src/common/vehicles_input.c:25 ../../src/common/vehicles_input.c:26
+#: ../../src/common/vehicles_input.c:29 ../../src/common/vehicles_input.c:32
+#: ../../src/common/vehicles_input.c:33 ../../src/common/vehicles_input.c:36
+msgid "|ANY-NUMERICAL|"
 msgstr ""
 
 #: ../../src/common/orders_input.c:17
@@ -409,7 +409,7 @@ msgid ":math:`y` value of the pick up location"
 msgstr ""
 
 #: ../../src/common/orders_input.c:19
-msgid "**p_open**"
+msgid "**p_tw_open**"
 msgstr ""
 
 #: ../../src/common/orders_input.c:19
@@ -417,18 +417,18 @@ msgid "The time, relative to 0, when the pickup location opens."
 msgstr ""
 
 #: ../../src/common/orders_input.c:20
-msgid "**p_close**"
+msgid "**p_tw_close**"
 msgstr ""
 
 #: ../../src/common/orders_input.c:20
 msgid "The time, relative to 0, when the pickup location closes."
 msgstr ""
 
-#: ../../src/common/orders_input.c:21 ../../src/common/orders_input.c:24
-msgid "**d_service**"
+#: ../../src/common/orders_input.c:21
+msgid "**p_service**"
 msgstr ""
 
-#: ../../src/common/orders_input.c:21 ../../src/common/orders_input.c:24
+#: ../../src/common/orders_input.c:21 ../../src/common/orders_input.c:26
 msgid "0"
 msgstr ""
 
@@ -437,47 +437,59 @@ msgid "The duration of the loading at the pickup location."
 msgstr ""
 
 #: ../../src/common/orders_input.c:22
-msgid "**d_open**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:22
-msgid "The time, relative to 0, when the delivery location opens."
-msgstr ""
-
-#: ../../src/common/orders_input.c:23
-msgid "**d_close**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:23
-msgid "The time, relative to 0, when the delivery location closes."
-msgstr ""
-
-#: ../../src/common/orders_input.c:24
-msgid "The duration of the loading at the delivery location."
-msgstr ""
-
-#: ../../src/common/orders_input.c:25
 msgid "**d_x**"
 msgstr ""
 
-#: ../../src/common/orders_input.c:25
+#: ../../src/common/orders_input.c:22
 msgid ":math:`x` value of the delivery location"
 msgstr ""
 
-#: ../../src/common/orders_input.c:26
+#: ../../src/common/orders_input.c:23
 msgid "**d_y**"
 msgstr ""
 
-#: ../../src/common/orders_input.c:26
+#: ../../src/common/orders_input.c:23
 msgid ":math:`y` value of the delivery location"
+msgstr ""
+
+#: ../../src/common/orders_input.c:24
+msgid "**d_tw_open**"
+msgstr ""
+
+#: ../../src/common/orders_input.c:24
+msgid "The time, relative to 0, when the delivery location opens."
+msgstr ""
+
+#: ../../src/common/orders_input.c:25
+msgid "**d_tw_close**"
+msgstr ""
+
+#: ../../src/common/orders_input.c:25
+msgid "The time, relative to 0, when the delivery location closes."
+msgstr ""
+
+#: ../../src/common/orders_input.c:26
+msgid "**d_service**"
+msgstr ""
+
+#: ../../src/common/orders_input.c:26
+msgid "The duration of the loading at the delivery location."
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliverEuclidean.rst:110
 msgid "Vehicles SQL"
 msgstr ""
 
+#: ../../src/common/vehicles_input.c:14
+msgid "Identifier of the vehicle"
+msgstr ""
+
 #: ../../src/common/vehicles_input.c:15
 msgid "**capacity**"
+msgstr ""
+
+#: ../../src/common/vehicles_input.c:15
+msgid "Capacity of the vehicle"
 msgstr ""
 
 #: ../../src/common/vehicles_input.c:16
@@ -493,7 +505,7 @@ msgid "Average speed of the vehicle."
 msgstr ""
 
 #: ../../src/common/vehicles_input.c:17
-msgid "**start_x**"
+msgid "**s_x**"
 msgstr ""
 
 #: ../../src/common/vehicles_input.c:17
@@ -501,7 +513,7 @@ msgid ":math:`x` value of the coordinate of the starting location."
 msgstr ""
 
 #: ../../src/common/vehicles_input.c:18
-msgid "**start_y**"
+msgid "**s_y**"
 msgstr ""
 
 #: ../../src/common/vehicles_input.c:18
@@ -509,243 +521,276 @@ msgid ":math:`y` value of the coordinate of the starting location."
 msgstr ""
 
 #: ../../src/common/vehicles_input.c:19
-msgid "**start_open**"
+msgid "**s_tw_open**"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:19
-msgid "The time, relative to 0, when the starting location opens."
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:20
-msgid "**start_close**"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:20
-msgid "The time, relative to 0, when the starting location closes."
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:21
-msgid "**start_service**"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:21
+#: ../../src/common/vehicles_input.c:19 ../../src/common/vehicles_input.c:25
 msgid "`0`"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:21
+#: ../../src/common/vehicles_input.c:19
+msgid ""
+"The time, relative to 0, when the starting location opens. When "
+"`s_tw_open` column exist  then `s_tw_close` column is expected Default "
+"value when (`s_tw_open`, s_tw_close) columns do not exist"
+msgstr ""
+
+#: ../../src/common/vehicles_input.c:22
+msgid "**s_tw_close**"
+msgstr ""
+
+#: ../../src/common/vehicles_input.c:22
+msgid "`INFINITY`"
+msgstr ""
+
+#: ../../src/common/vehicles_input.c:22
+msgid ""
+"The time, relative to 0, when the starting location closes. When "
+"`s_tw_close` column exist  then `e_tw_open` column is expected Default "
+"value when `(s_tw_open, s_tw_close)` columns do not exist"
+msgstr ""
+
+#: ../../src/common/vehicles_input.c:25
+msgid "**s_service**"
+msgstr ""
+
+#: ../../src/common/vehicles_input.c:25
 msgid "The duration of the loading at the starting location."
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:22
-msgid "**end_open**"
+#: ../../src/common/vehicles_input.c:26
+msgid "**e_tw_open**"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:22
-msgid "`start_open`"
+#: ../../src/common/vehicles_input.c:26
+msgid "`s_tw_open`"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:22
-msgid "The time, relative to 0, when the ending location opens."
+#: ../../src/common/vehicles_input.c:26
+msgid ""
+"The time, relative to 0, when the ending location opens. When `e_tw_open`"
+" column exist  then `e__tw_close` column is expected Default value when "
+"(`e_tw_open`, e_tw_close) columns do not exist"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:23
-msgid "**end_close**"
+#: ../../src/common/vehicles_input.c:29
+msgid "**e_tw_close**"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:23
-msgid "`start_close`"
+#: ../../src/common/vehicles_input.c:29
+msgid "`s_tw_close`"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:23
-msgid "The time, relative to 0, when the ending location closes."
+#: ../../src/common/vehicles_input.c:29
+msgid ""
+"The time, relative to 0, when the ending location closes. When "
+"`e_tw_close` column exist  then `e_tw_open` column is expected Default "
+"value when `(e_tw_open`, e_tw_close)` columns do not exist"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:24
-msgid "**end_service**"
+#: ../../src/common/vehicles_input.c:32
+msgid "**e_service**"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:24
-msgid "`start_service`"
+#: ../../src/common/vehicles_input.c:32
+msgid "`s_service`"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:24
+#: ../../src/common/vehicles_input.c:32
 msgid "The duration of the loading at the ending location."
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:25
-msgid "**end_x**"
+#: ../../src/common/vehicles_input.c:33
+msgid "**e_x**"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:25
-msgid "`start_x`"
+#: ../../src/common/vehicles_input.c:33
+msgid "`s_x`"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:25
-msgid ":math:`x` value of the coordinate of the ending location."
+#: ../../src/common/vehicles_input.c:33
+msgid ""
+":math:`x` value of the coordinate of the ending location. Default value "
+"when `(e_x, e_y)` columns do not exist Default value when `e_y` column "
+"does not exist"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:26
-msgid "**end_y**"
+#: ../../src/common/vehicles_input.c:36
+msgid "**e_y**"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:26
-msgid "`start_y`"
+#: ../../src/common/vehicles_input.c:36
+msgid "`s_y`"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:26
-msgid ":math:`y` value of the coordinate of the ending location."
+#: ../../src/common/vehicles_input.c:36
+msgid ""
+":math:`y` value of the coordinate of the ending location. When `e_y` "
+"column exist  then `e_x` column is expected Default value when `(e_x, "
+"e_y)` columns do not exist"
+msgstr ""
+
+#: ../../src/common/vehicles_input.c:41
+msgid ""
+"Throws: * When column `id` is missing * When column `capacity` is missing"
+" * When column `s_x` is missing * When column `s_y` is missing * When "
+"column `s_tw_open` exists but not `s_tw_close` * When column "
+"`s_tw_close`exists but not `s_tw_open` * When column `e_y` exists but not"
+" `e_x` * When column `e_x` exists but not `e_y` * When column `e_tw_open`"
+" exists but not `e_tw_close` * When column `e_tw_close`exists but not "
+"`e_tw_open`"
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliverEuclidean.rst:118
 msgid "Result Columns"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:6
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:6
 msgid "**seq**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:6
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:7
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:9
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:10
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:6
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:7
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:9
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:10
 msgid "INTEGER"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:6
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:6
 msgid "Sequential value starting from **1**."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:7
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:7
 msgid "**vehicle_seq**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:7
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:7
 msgid ""
 "Sequential value starting from **1** for current vehicles. The "
 ":math:`n_{th}` vehicle in the solution."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:8
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:8
 msgid "**vehicle_id**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:8
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:17
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:8
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:17
 msgid "BIGINT"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:8
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:8
 msgid "Current vehicle identifier."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:9
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:9
 msgid "**stop_seq**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:9
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:9
 msgid ""
 "Sequential value starting from **1** for the stops made by the current "
 "vehicle. The :math:`m_{th}` stop of the current vehicle."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:10
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:10
 msgid "**stop_type**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:10
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:10
 msgid "Kind of stop location the vehicle is at:"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:12
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:12
 msgid "``1``: Starting location"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:13
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:13
 msgid "``2``: Pickup location"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:14
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:14
 msgid "``3``: Delivery location"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:15
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:15
 msgid "``6``: Ending location"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:17
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:17
 msgid "**order_id**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:17
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:17
 msgid "Pickup-Delivery order pair identifier."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:19
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:19
 msgid "``-1``: When no order is involved on the current stop location."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:21
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:21
 msgid "**cargo**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:21
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:23
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:27
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:28
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:29
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:30
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:21
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:23
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:27
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:28
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:29
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:30
 msgid "FLOAT"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:21
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:21
 msgid "Cargo units of the vehicle when leaving the stop."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:23
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:23
 msgid "**travel_time**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:23
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:23
 msgid "Travel time from previous ``stop_seq`` to current ``stop_seq``."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:25
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:25
 msgid "``0`` When ``stop_type = 1``"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:27
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:27
 msgid "**arrival_time**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:27
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:27
 msgid "Previous ``departure_time`` plus current ``travel_time``."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:28
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:28
 msgid "**wait_time**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:28
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:28
 msgid "Time spent waiting for current `location` to open."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:29
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:29
 msgid "**service_time**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:29
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:29
 msgid "Service time at current `location`."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:30
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:30
 msgid "**departure_time**"
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:30
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:30
 msgid ":math:`arrival\\_time + wait\\_time + service\\_time`."
 msgstr ""
 
-#: ../../build/sql/pickDeliver/pgr_pickDeliverEuclidean.sql:32
+#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliverEuclidean.sql:32
 msgid "When ``stop_type = 6`` has the `total_time` used for the current vehicle."
 msgstr ""
 
@@ -762,7 +807,7 @@ msgid "See Also"
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliverEuclidean.rst:140
-msgid ":doc:`VRP-category`"
+msgid ":doc:`pgr-category`"
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliverEuclidean.rst:141

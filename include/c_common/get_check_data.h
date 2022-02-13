@@ -92,6 +92,12 @@ spi_getText(
     TupleDesc *tupdesc,
     Column_info_t info);
 
+/** @brief  gets the vehicle max tasks value */
+int32_t
+spi_getMaxTasks(
+    HeapTuple *tuple,
+    TupleDesc *tupdesc,
+    Column_info_t info);
 
 /** @name timestamp related
  * @{ */
@@ -140,6 +146,9 @@ MatrixIndex get_MatrixIndex(HeapTuple*, TupleDesc*, Column_info_t, MatrixIndex);
 
 /** get Duration from data */
 Duration get_Duration(HeapTuple*, TupleDesc*, Column_info_t, Duration);
+
+/** get TravelCost from data */
+TravelCost get_Cost(HeapTuple*, TupleDesc*, Column_info_t, TravelCost);
 
 /** get Kind from data */
 char get_Kind(HeapTuple*, TupleDesc*, Column_info_t, char);

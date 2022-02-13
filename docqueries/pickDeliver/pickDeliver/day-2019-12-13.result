@@ -32,47 +32,45 @@ FROM vrp_pickDeliver(
     execution_date => '2019-12-13 00:00:00'::TIMESTAMP,
     optimize => true, factor => 1::float, stop_on_all_served => true, max_cycles => 1);
 SELECT 367
-                                  Table "example2.withfloats"
-    Column    |  Type   | Collation | Nullable | Default | Storage | Stats target | Description
---------------+---------+-----------+----------+---------+---------+--------------+-------------
- seq          | integer |           |          |         | plain   |              |
- vehicle_seq  | integer |           |          |         | plain   |              |
- vehicle_id   | bigint  |           |          |         | plain   |              |
- stop_seq     | integer |           |          |         | plain   |              |
- stop_type    | integer |           |          |         | plain   |              |
- stop_id      | bigint  |           |          |         | plain   |              |
- order_id     | bigint  |           |          |         | plain   |              |
- cargo        | bigint  |           |          |         | plain   |              |
- travel_fd    | bigint  |           |          |         | plain   |              |
- arrival_ft   | bigint  |           |          |         | plain   |              |
- wait_fd      | bigint  |           |          |         | plain   |              |
- schedule_ft  | bigint  |           |          |         | plain   |              |
- service_fd   | bigint  |           |          |         | plain   |              |
- departure_ft | bigint  |           |          |         | plain   |              |
- cvtot        | integer |           |          |         | plain   |              |
- twvtot       | integer |           |          |         | plain   |              |
-Access method: heap
+               Table "example2.withfloats"
+    Column    |  Type   | Collation | Nullable | Default
+--------------+---------+-----------+----------+---------
+ seq          | integer |           |          |
+ vehicle_seq  | integer |           |          |
+ vehicle_id   | bigint  |           |          |
+ stop_seq     | integer |           |          |
+ stop_type    | integer |           |          |
+ stop_id      | bigint  |           |          |
+ order_id     | bigint  |           |          |
+ cargo        | bigint  |           |          |
+ travel_fd    | bigint  |           |          |
+ arrival_ft   | bigint  |           |          |
+ wait_fd      | bigint  |           |          |
+ schedule_ft  | bigint  |           |          |
+ service_fd   | bigint  |           |          |
+ departure_ft | bigint  |           |          |
+ cvtot        | integer |           |          |
+ twvtot       | integer |           |          |
 
-                                             Table "example2.withtimes"
-    Column    |            Type             | Collation | Nullable | Default | Storage | Stats target | Description
---------------+-----------------------------+-----------+----------+---------+---------+--------------+-------------
- seq          | integer                     |           |          |         | plain   |              |
- vehicle_seq  | integer                     |           |          |         | plain   |              |
- vehicle_id   | bigint                      |           |          |         | plain   |              |
- stop_seq     | integer                     |           |          |         | plain   |              |
- stop_type    | integer                     |           |          |         | plain   |              |
- stop_id      | bigint                      |           |          |         | plain   |              |
- shipment_id  | bigint                      |           |          |         | plain   |              |
- load         | integer                     |           |          |         | plain   |              |
- travel       | interval                    |           |          |         | plain   |              |
- arrival      | timestamp without time zone |           |          |         | plain   |              |
- waiting_time | interval                    |           |          |         | plain   |              |
- schedule     | timestamp without time zone |           |          |         | plain   |              |
- service      | interval                    |           |          |         | plain   |              |
- departure    | timestamp without time zone |           |          |         | plain   |              |
- cvtot        | integer                     |           |          |         | plain   |              |
- twvtot       | integer                     |           |          |         | plain   |              |
-Access method: heap
+                         Table "example2.withtimes"
+    Column    |            Type             | Collation | Nullable | Default
+--------------+-----------------------------+-----------+----------+---------
+ seq          | integer                     |           |          |
+ vehicle_seq  | integer                     |           |          |
+ vehicle_id   | bigint                      |           |          |
+ stop_seq     | integer                     |           |          |
+ stop_type    | integer                     |           |          |
+ stop_id      | bigint                      |           |          |
+ shipment_id  | bigint                      |           |          |
+ load         | integer                     |           |          |
+ travel       | interval                    |           |          |
+ arrival      | timestamp without time zone |           |          |
+ waiting_time | interval                    |           |          |
+ schedule     | timestamp without time zone |           |          |
+ service      | interval                    |           |          |
+ departure    | timestamp without time zone |           |          |
+ cvtot        | integer                     |           |          |
+ twvtot       | integer                     |           |          |
 
 SELECT 'same result number of rows', count(*) = (SELECT count(*) FROM withtimes)
 FROM withfloats;

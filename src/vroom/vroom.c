@@ -51,13 +51,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/vroom/vroom_job_t.h"
 #include "c_types/vroom/vroom_shipment_t.h"
 #include "c_types/vroom/vroom_vehicle_t.h"
+#include "c_types/vroom/vroom_matrix_t.h"
 
 #include "c_common/vroom/jobs_input.h"
 #include "c_common/vroom/breaks_input.h"
 #include "c_common/vroom/time_windows_input.h"
 #include "c_common/vroom/shipments_input.h"
 #include "c_common/vroom/vehicles_input.h"
-#include "c_common/matrixRows_input.h"
+#include "c_common/vroom/matrix_input.h"
 
 #include "drivers/vroom/vroom_driver.h"
 
@@ -80,6 +81,8 @@ PG_FUNCTION_INFO_V1(_vrp_vroom);
  * @param breaks_sql        SQL query describing the driver breaks.
  * @param breaks_tws_sql    SQL query describing the time windows for break start.
  * @param matrix_sql        SQL query describing the cells of the cost matrix
+ * @param exploration_level Exploration level to use while solving.
+ * @param timeout           Timeout value to stop the solving process.
  * @param fn                Value denoting the function used.
  * @param is_plain          Value denoting whether the plain/timestamp function is used.
  * @param result_tuples     the rows in the result
@@ -98,11 +101,15 @@ process(
     char *breaks_sql,
     char *breaks_tws_sql,
     char *matrix_sql,
+
+    int32_t exploration_level,
+    int32_t timeout,
     int16_t fn,
     bool is_plain,
 
     Vroom_rt **result_tuples,
     size_t *result_count) {
+  clock_t start_loading = clock();
   pgr_SPI_connect();
 
   (*result_tuples) = NULL;
@@ -177,11 +184,11 @@ process(
                            is_plain);
   }
 
-  Matrix_cell_t *matrix_cells_arr = NULL;
-  size_t total_cells = 0;
-  get_matrixRows_vroom_plain(matrix_sql, &matrix_cells_arr, &total_cells);
+  Vroom_matrix_t *matrix_rows = NULL;
+  size_t total_matrix_rows = 0;
+  get_vroom_matrix(matrix_sql, &matrix_rows, &total_matrix_rows, is_plain);
 
-  if (total_cells == 0) {
+  if (total_matrix_rows == 0) {
     ereport(WARNING, (errmsg("Insufficient data found on Matrix SQL query."),
                       errhint("%s", matrix_sql)));
     (*result_count) = 0;
@@ -195,6 +202,8 @@ process(
   char *notice_msg = NULL;
   char *err_msg = NULL;
 
+  int32_t loading_time = (int)((clock() - start_loading) / CLOCKS_PER_SEC) * 1000;
+
   do_vrp_vroom(
     jobs, total_jobs,
     jobs_tws, total_jobs_tws,
@@ -203,7 +212,11 @@ process(
     vehicles, total_vehicles,
     breaks, total_breaks,
     breaks_tws, total_breaks_tws,
-    matrix_cells_arr, total_cells,
+    matrix_rows, total_matrix_rows,
+
+    exploration_level,
+    timeout,
+    loading_time,
 
     result_tuples,
     result_count,
@@ -229,7 +242,7 @@ process(
   if (jobs) pfree(jobs);
   if (shipments) pfree(shipments);
   if (vehicles) pfree(vehicles);
-  if (matrix_cells_arr) pfree(matrix_cells_arr);
+  if (matrix_rows) pfree(matrix_rows);
 
   pgr_SPI_finish();
 }
@@ -264,7 +277,10 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
      *     breaks_sql TEXT,
      *     breaks_time_windows_sql TEXT,
      *     matrix_sql TEXT,
-     *     fn SMALLINT
+     *     exploration_level INTEGER default 5,
+     *     timeout INTEGER default -1,
+     *     fn SMALLINT,
+     *     is_plain BOOLEAN
      *   );
      *
      **********************************************************************/
@@ -278,8 +294,10 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
       }
     }
 
-    int16_t fn = PG_GETARG_INT16(8);
-    bool is_plain = PG_GETARG_BOOL(9);
+    int32_t exploration_level = PG_GETARG_INT32(8);
+    int32_t timeout = PG_GETARG_INT32(9);
+    int16_t fn = PG_GETARG_INT16(10);
+    bool is_plain = PG_GETARG_BOOL(11);
 
     // Verify that both jobs_sql and shipments_sql are not NULL
     if (args[0] == NULL && args[2] == NULL) {
@@ -309,6 +327,8 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
         args[5],
         args[6],
         args[7],
+        exploration_level,
+        timeout,
         fn,
         is_plain,
         &result_tuples,
@@ -347,23 +367,7 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
     int16      typlen;
     size_t     call_cntr = funcctx->call_cntr;
 
-    /***********************************************************************
-     *
-     *   OUT seq BIGINT,
-     *   OUT vehicles_seq BIGINT,
-     *   OUT vehicles_id BIGINT,
-     *   OUT step_seq BIGINT,
-     *   OUT step_type INTEGER,
-     *   OUT task_id BIGINT,
-     *   OUT arrival INTEGER,
-     *   OUT duration INTEGER,
-     *   OUT service_time INTEGER,
-     *   OUT waiting_time INTEGER,
-     *   OUT load BIGINT
-     *
-     **********************************************************************/
-
-    size_t num  = 11;
+    size_t num  = 16;
     values = palloc(num * sizeof(Datum));
     nulls = palloc(num * sizeof(bool));
 
@@ -403,19 +407,24 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
         int             attdim
       )
     */
-    TupleDescInitEntry(tuple_desc, (AttrNumber) 11, "load", INT8ARRAYOID, -1, 0);
+    TupleDescInitEntry(tuple_desc, (AttrNumber) 16, "load", INT8ARRAYOID, -1, 0);
 
     values[0] = Int64GetDatum(funcctx->call_cntr + 1);
-    values[1] = Int32GetDatum(result_tuples[call_cntr].vehicle_seq);
-    values[2] = Int32GetDatum(result_tuples[call_cntr].vehicle_id);
-    values[3] = Int32GetDatum(result_tuples[call_cntr].step_seq);
-    values[4] = Int32GetDatum(result_tuples[call_cntr].step_type);
-    values[5] = Int32GetDatum(result_tuples[call_cntr].task_id);
-    values[6] = Int32GetDatum(result_tuples[call_cntr].arrival_time);
-    values[7] = Int32GetDatum(result_tuples[call_cntr].travel_time);
-    values[8] = Int32GetDatum(result_tuples[call_cntr].service_time);
-    values[9] = Int32GetDatum(result_tuples[call_cntr].waiting_time);
-    values[10] = PointerGetDatum(arrayType);
+    values[1] = Int64GetDatum(result_tuples[call_cntr].vehicle_seq);
+    values[2] = Int64GetDatum(result_tuples[call_cntr].vehicle_id);
+    values[3] = CStringGetTextDatum(result_tuples[call_cntr].vehicle_data);
+    values[4] = Int64GetDatum(result_tuples[call_cntr].step_seq);
+    values[5] = Int32GetDatum(result_tuples[call_cntr].step_type);
+    values[6] = Int64GetDatum(result_tuples[call_cntr].task_id);
+    values[7] = Int64GetDatum(result_tuples[call_cntr].location_id);
+    values[8] = CStringGetTextDatum(result_tuples[call_cntr].task_data);
+    values[9] = Int32GetDatum(result_tuples[call_cntr].arrival_time);
+    values[10] = Int32GetDatum(result_tuples[call_cntr].travel_time);
+    values[11] = Int32GetDatum(result_tuples[call_cntr].setup_time);
+    values[12] = Int32GetDatum(result_tuples[call_cntr].service_time);
+    values[13] = Int32GetDatum(result_tuples[call_cntr].waiting_time);
+    values[14] = Int32GetDatum(result_tuples[call_cntr].departure_time);
+    values[15] = PointerGetDatum(arrayType);
 
     /**********************************************************************/
 

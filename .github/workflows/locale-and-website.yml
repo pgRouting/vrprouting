@@ -1,4 +1,4 @@
-name: Publish Users Documentation
+name: Update Locale and Website
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   release:
-    name: Publish Users Documentation
+    name: Update Locale and Website
     runs-on: ubuntu-latest
 
     strategy:
@@ -30,11 +30,11 @@ jobs:
           echo "PGPORT=5432" >> $GITHUB_ENV
           echo "PGIS=3" >> $GITHUB_ENV
           echo "PROJECT_VERSION=${PROJECT_VERSION}" >> $GITHUB_ENV
+          echo "VROOMVER=1.11.0" >> $GITHUB_ENV
 
       - name: Extract branch name and commit hash
         run: |
-          raw=$(git branch -r --contains ${{ github.ref }})
-          branch=${raw##*/}
+          branch=${GITHUB_REF#refs/heads/}
           echo "BRANCH=$branch" >> $GITHUB_ENV
           git_hash=$(git rev-parse --short "$GITHUB_SHA")
           echo "GIT_HASH=$git_hash" >> $GITHUB_ENV
@@ -63,37 +63,50 @@ jobs:
             graphviz \
             doxygen
           python -m pip install --upgrade pip
-          pip install Sphinx
-          pip install sphinx-bootstrap-theme
+          pip install -r requirements.txt
+          pip install sphinx-intl[transifex]
           pip list
 
       - name: Install VROOM dependencies
         run: |
           sudo apt-get install libssl-dev libasio-dev libglpk-dev
 
-      - name: Build VROOM v1.10.0
+      - name: Cache VROOM
+        id: cache-vroom
+        uses: actions/cache@v2
+        env:
+          cache-name: vroom
+        with:
+          path: |
+            ~/vroom-${{ env.VROOMVER }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ env.VROOMVER }}
+
+      - name: Build VROOM
+        if: steps.cache-vroom.outputs.cache-hit != 'true'
         run: |
-          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v1.10.0.tar.gz
-          tar -zvxf v1.10.0.tar.gz
-          cd vroom-1.10.0/src
+          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v${{ env.VROOMVER }}.tar.gz -O /tmp/${{ env.VROOMVER }}.tar.gz
+          tar -zvxf /tmp/${{ env.VROOMVER }}.tar.gz -C ~/
+          cd ~/vroom-${{ env.VROOMVER }}/src
 
           # Create object file with position independent code using -fPIC flag
           sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
 
+          cd ~/vroom-${{ env.VROOMVER }}/src
           make
-          cd ..
-          echo "VROOM_INSTALL_PATH=$(pwd)" >> $GITHUB_ENV
 
       - name: Configure
         run: |
           export PATH=/usr/lib/postgresql/${PGVER}/bin:$PATH
           mkdir build
           cd build
-          cmake -DPOSTGRESQL_VERSION=${PGVER} -DDOC_USE_BOOTSTRAP=ON -DWITH_DOC=ON -DBUILD_DOXY=ON -DCMAKE_BUILD_TYPE=Release -DES=ON -DVROOM_INSTALL_PATH=${VROOM_INSTALL_PATH} ..
+          cmake -DPOSTGRESQL_VERSION=${PGVER} -DDOC_USE_BOOTSTRAP=ON -DWITH_DOC=ON -DBUILD_DOXY=ON -DCMAKE_BUILD_TYPE=Release -DLOCALE=ON -DES=ON -DVROOM_INSTALL_PATH=$HOME/vroom-${{ env.VROOMVER }} ..
 
       - name: Build
         run: |
           cd build
+          if [[ "${{ env.BRANCH }}" == "develop" ]]; then
+            make locale
+          fi
           make doc
           make doxy
 
@@ -101,6 +114,23 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Update locale
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          # List all the files that needs to be committed in build/doc/locale_changes.txt
+          awk '/^Update|^Create/{print $2}' build/doc/locale_changes.txt > tmp && mv tmp build/doc/locale_changes.txt        # .po files
+          cat build/doc/locale_changes.txt | perl -pe 's/(.*)en\/LC_MESSAGES(.*)/$1pot$2t/' >> build/doc/locale_changes.txt  # .pot files
+          cat build/doc/locale_changes.txt
+          # Remove obsolete entries #~ from .po files
+          tools/transifex/remove_obsolete_entries.sh
+          # Add the files, commit and push
+          for line in `cat build/doc/locale_changes.txt`; do git add "$line"; done
+          git diff --staged --quiet || git commit -m "Update locale: commit ${{ env.GIT_HASH }}"
+          git fetch origin
+          git reset --hard  # Remove the unstaged changes before rebasing
+          git rebase origin/develop
+          git push origin develop
 
       - name: Update Users Documentation
         run: |

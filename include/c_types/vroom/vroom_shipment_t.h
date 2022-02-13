@@ -39,25 +39,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 name | description
 :----- | :-------
 id | Shipment identifier
-p_location_index | Pickup location index in matrix
+p_location_id | Pickup location index in matrix
+p_setup | Pickup setup time
 p_service | Pickup service time
-d_location_index | Delivery location index in matrix
+d_location_id | Delivery location index in matrix
+d_setup | Delivery setup time
 d_service | Delivery service time
 amount | Quantities for shipment
 amount_size | Number of quantities
 skills | Mandatory skills
 skills_size | Number of skills
 priority | Priority level of shipment
+p_data | Metadata information of pickup shipment
+d_data | Metadata information of delivery shipment
 */
 struct Vroom_shipment_t {
   Idx id; /** Shipment identifier */
 
   /** pickup shipment */
-  MatrixIndex p_location_index; /** Pickup location index in matrix */
+  MatrixIndex p_location_id; /** Pickup location index in matrix */
+  Duration p_setup; /** Pickup setup time */
   Duration p_service; /** Pickup service time */
 
   /** delivery shipment */
-  MatrixIndex d_location_index; /** Delivery location index in matrix */
+  MatrixIndex d_location_id; /** Delivery location index in matrix */
+  Duration d_setup; /** Delivery setup time */
   Duration d_service; /** Delivery service time */
 
   Amount *amount; /** Quantities for shipment */
@@ -67,6 +73,9 @@ struct Vroom_shipment_t {
   size_t skills_size; /** Number of skills */
 
   Priority priority; /** Priority level of shipment */
+
+  char *p_data; /** Metadata information of pickup shipment */
+  char *d_data; /** Metadata information of delivery shipment */
 };
 
 #endif  // INCLUDE_C_TYPES_VROOM_VROOM_SHIPMENT_T_H_

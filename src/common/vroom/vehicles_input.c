@@ -35,46 +35,51 @@ A ``SELECT`` statement that returns the following columns:
 
 ::
 
-    id, start_index, end_index
-    [, capacity, skills, tw_open, tw_close, speed_factor]
+    id, start_id, end_id
+    [, capacity, skills, tw_open, tw_close, speed_factor, max_tasks, data]
 
 
-======================  ================================= ================================================
-Column                  Type                              Description
-======================  ================================= ================================================
-**id**                  ``ANY-INTEGER``                    Non-negative unique identifier of the job.
+======================  ======================== =================== ================================================
+Column                  Type                     Default             Description
+======================  ======================== =================== ================================================
+**id**                  ``ANY-INTEGER``                              Positive unique identifier of the vehicle.
 
-**start_index**         ``ANY-INTEGER``                    Non-negative identifier of the vehicle start location.
+**start_id**            ``ANY-INTEGER``                              Positive identifier of the vehicle start location.
 
-**end_index**           ``ANY-INTEGER``                    Non-negative identifier of the vehicle end location.
+**end_id**              ``ANY-INTEGER``                              Positive identifier of the vehicle end location.
 
-**capacity**            ``ARRAY[ANY-INTEGER]``             Array of non-negative integers describing
-                                                           multidimensional quantities such as
-                                                           number of items, weight, volume etc.
+**capacity**            ``ARRAY[ANY-INTEGER]``   Empty Array         Array of non-negative integers describing
+                                                                     multidimensional quantities such as
+                                                                     number of items, weight, volume etc.
 
-                                                           - All vehicles must have the same value of
-                                                             :code:`array_length(capacity, 1)`
+                                                                     - All vehicles must have the same value of
+                                                                       :code:`array_length(capacity, 1)`
 
-**skills**              ``ARRAY[INTEGER]``                 Array of non-negative integers defining
-                                                           mandatory skills.
+**skills**              ``ARRAY[INTEGER]``       Empty Array         Array of non-negative integers defining
+                                                                     mandatory skills.
 
-**tw_open**             ``TIMESTAMP``                      Time window opening time.
+**tw_open**             |timestamp|              |tw_open_default|   Time window opening time.
 
-                                                           - ``INTEGER`` for plain VROOM functions.
+**tw_close**            |timestamp|              |tw_close_default|  Time window closing time.
 
-**tw_close**            ``TIMESTAMP``                      Time window closing time.
+**speed_factor**        ``ANY-NUMERICAL``        :math:`1.0`         Vehicle travel time multiplier.
 
-                                                           - ``INTEGER`` for plain VROOM functions.
+                                                                     - Max value of speed factor for a vehicle shall not be
+                                                                       greater than 5 times the speed factor of any other vehicle.
 
-**speed_factor**        ``ANY-NUMERICAL``                  Vehicle travel time multiplier.
-======================  ================================= ================================================
+**max_tasks**           ``INTEGER``              :math:`2147483647`  Maximum number of tasks in a route for the vehicle.
+
+                                                                     - A job, pickup, or delivery is counted as a single task.
+
+**data**                ``JSONB``                '{}'::JSONB         Any metadata information of the vehicle.
+======================  ======================== =================== ================================================
 
 **Note**:
 
-- At least one of the ``start_index`` or ``end_index`` shall be present.
-- If ``end_index`` is omitted, the resulting route will stop at the last visited task, whose choice is determined by the optimization process.
-- If ``start_index`` is omitted, the resulting route will start at the first visited task, whose choice is determined by the optimization process.
-- To request a round trip, specify both ``start_index`` and ``end_index`` as the same index.
+- At least one of the ``start_id`` or ``end_id`` shall be present.
+- If ``end_id`` is omitted, the resulting route will stop at the last visited task, whose choice is determined by the optimization process.
+- If ``start_id`` is omitted, the resulting route will start at the first visited task, whose choice is determined by the optimization process.
+- To request a round trip, specify both ``start_id`` and ``end_id`` as the same index.
 - A vehicle is only allowed to serve a set of tasks if the resulting load at each route step is lower than the matching value in capacity for each metric. When using multiple components for amounts, it is recommended to put the most important/limiting metrics first.
 - It is assumed that all delivery-related amounts for jobs are loaded at vehicle start, while all pickup-related amounts for jobs are brought back at vehicle end.
 - :code:`tw_open ≤ tw_close`
@@ -90,8 +95,8 @@ void fetch_vehicles(
     Vroom_vehicle_t *vehicle,
     bool is_plain) {
   vehicle->id = get_Idx(tuple, tupdesc, info[0], 0);
-  vehicle->start_index = get_MatrixIndex(tuple, tupdesc, info[1], -1);
-  vehicle->end_index = get_MatrixIndex(tuple, tupdesc, info[2], -1);
+  vehicle->start_id = get_MatrixIndex(tuple, tupdesc, info[1], -1);
+  vehicle->end_id = get_MatrixIndex(tuple, tupdesc, info[2], -1);
 
   vehicle->capacity_size = 0;
   vehicle->capacity = column_found(info[3].colNumber) ?
@@ -104,27 +109,40 @@ void fetch_vehicles(
     : NULL;
 
   if (is_plain) {
-    vehicle->time_window_start = get_Duration(tuple, tupdesc, info[5], 0);
-    vehicle->time_window_end = get_Duration(tuple, tupdesc, info[6], UINT_MAX);
+    vehicle->tw_open = get_Duration(tuple, tupdesc, info[5], 0);
+    vehicle->tw_close = get_Duration(tuple, tupdesc, info[6], UINT_MAX);
   } else {
-    vehicle->time_window_start =
+    vehicle->tw_open =
         (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[5], 0);
-    vehicle->time_window_end =
+    vehicle->tw_close =
         (Duration)get_PositiveTTimestamp(tuple, tupdesc, info[6], UINT_MAX);
   }
 
-  if (vehicle->time_window_start > vehicle->time_window_end) {
+  if (vehicle->tw_open > vehicle->tw_close) {
     ereport(ERROR,
         (errmsg("Invalid time window (%d, %d)",
-            vehicle->time_window_start, vehicle->time_window_end),
+            vehicle->tw_open, vehicle->tw_close),
          errhint("Time window start time %d must be "
              "less than or equal to time window end time %d",
-             vehicle->time_window_start, vehicle->time_window_end)));
+             vehicle->tw_open, vehicle->tw_close)));
   }
 
   vehicle->speed_factor = column_found(info[7].colNumber) ?
     spi_getFloat8(tuple, tupdesc, info[7])
     : 1.0;
+
+  if (vehicle->speed_factor <= 0.0) {
+    ereport(ERROR, (errmsg("Invalid speed_factor %lf", vehicle->speed_factor),
+                    errhint("Speed factor must be greater than 0")));
+  }
+
+  vehicle->max_tasks = column_found(info[8].colNumber)
+                           ? spi_getMaxTasks(tuple, tupdesc, info[8])
+                           : INT_MAX;  // 2147483647
+
+  vehicle->data = column_found(info[9].colNumber)
+                      ? spi_getText(tuple, tupdesc, info[9])
+                      : strdup("{}");
 }
 
 
@@ -159,11 +177,11 @@ void db_get_vehicles(
   while (moredata == true) {
     SPI_cursor_fetch(SPIportal, true, tuple_limit);
     if (total_tuples == 0) {
-      /* Atleast one out of start_index or end_index must be present */
-      info[1].colNumber = SPI_fnumber(SPI_tuptable->tupdesc, "start_index");
-      info[2].colNumber = SPI_fnumber(SPI_tuptable->tupdesc, "end_index");
+      /* Atleast one out of start_id or end_id must be present */
+      info[1].colNumber = SPI_fnumber(SPI_tuptable->tupdesc, "start_id");
+      info[2].colNumber = SPI_fnumber(SPI_tuptable->tupdesc, "end_id");
       if (!column_found(info[1].colNumber) && !column_found(info[2].colNumber)) {
-        elog(ERROR, "At least one out of start_index or end_index must be present");
+        elog(ERROR, "At least one out of start_id or end_id must be present");
       }
       pgr_fetch_column_info(info, column_count);
     }
@@ -221,7 +239,7 @@ get_vroom_vehicles(
     Vroom_vehicle_t **rows,
     size_t *total_rows,
     bool is_plain) {
-  int kColumnCount = 8;
+  int kColumnCount = 10;
   Column_info_t info[kColumnCount];
 
   for (int i = 0; i < kColumnCount; ++i) {
@@ -232,19 +250,23 @@ get_vroom_vehicles(
   }
 
   info[0].name = "id";
-  info[1].name = "start_index";
-  info[2].name = "end_index";
+  info[1].name = "start_id";
+  info[2].name = "end_id";
   info[3].name = "capacity";
   info[4].name = "skills";
   info[5].name = "tw_open";
   info[6].name = "tw_close";
   info[7].name = "speed_factor";
+  info[8].name = "max_tasks";
+  info[9].name = "data";
 
   info[3].eType = ANY_INTEGER_ARRAY;  // capacity
   info[4].eType = INTEGER_ARRAY;      // skills
   info[5].eType = INTEGER;            // tw_open
   info[6].eType = INTEGER;            // tw_close
   info[7].eType = ANY_NUMERICAL;      // speed_factor
+  info[8].eType = INTEGER;            // max_tasks
+  info[9].eType = JSONB;              // data
 
   if (!is_plain) {
     info[5].eType = TIMESTAMP;        // tw_open
@@ -253,7 +275,7 @@ get_vroom_vehicles(
 
   /**
    * id is mandatory.
-   * At least one out of start_index or end_index must be present, but that is checked later.
+   * At least one out of start_id or end_id must be present, but that is checked later.
    */
   info[0].strict = true;
 

@@ -25,8 +25,8 @@ FROM vrp_pickDeliver(
     execution_date => '2019-12-13 00:00:00'::TIMESTAMP,
     optimize => true, factor => 1::float, stop_on_all_served => true, max_cycles => 1);
 
-\dS+ withfloats
-\dS+ withtimes
+\dS withfloats
+\dS withtimes
 
 SELECT 'same result number of rows', count(*) = (SELECT count(*) FROM withtimes)
 FROM withfloats;

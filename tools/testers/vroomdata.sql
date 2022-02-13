@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS vroom.matrix;
 -- JOBS TABLE start
 CREATE TABLE vroom.jobs (
   id BIGSERIAL PRIMARY KEY,
-  location_index BIGINT,
+  location_id BIGINT,
   service INTEGER,
   delivery BIGINT[],
   pickup BIGINT[],
@@ -23,7 +23,7 @@ CREATE TABLE vroom.jobs (
 );
 
 INSERT INTO vroom.jobs (
-  id, location_index, service, delivery, pickup, skills, priority)
+  id, location_id, service, delivery, pickup, skills, priority)
   VALUES
 (1, 1, 250, ARRAY[20], ARRAY[20], ARRAY[0], 0),
 (2, 2, 250, ARRAY[30], ARRAY[30], ARRAY[0], 0),
@@ -54,9 +54,9 @@ INSERT INTO vroom.jobs_time_windows (
 -- SHIPMENTS TABLE start
 CREATE TABLE vroom.shipments (
   id BIGSERIAL PRIMARY KEY,
-  p_location_index BIGINT,
+  p_location_id BIGINT,
   p_service INTEGER,
-  d_location_index BIGINT,
+  d_location_id BIGINT,
   d_service INTEGER,
   amount BIGINT[],
   skills INTEGER[],
@@ -64,7 +64,7 @@ CREATE TABLE vroom.shipments (
 );
 
 INSERT INTO vroom.shipments (
-  id, p_location_index, p_service, d_location_index, d_service,
+  id, p_location_id, p_service, d_location_id, d_service,
   amount, skills, priority)
   VALUES
 (1, 3, 2250, 5, 2250, ARRAY[10], ARRAY[0], 0),
@@ -102,23 +102,24 @@ INSERT INTO vroom.shipments_time_windows (
 -- VEHICLES TABLE start
 CREATE TABLE vroom.vehicles (
   id BIGSERIAL PRIMARY KEY,
-  start_index BIGINT,
-  end_index BIGINT,
+  start_id BIGINT,
+  end_id BIGINT,
   capacity BIGINT[],
   skills INTEGER[],
   tw_open INTEGER,
   tw_close INTEGER,
-  speed_factor FLOAT
+  speed_factor FLOAT,
+  max_tasks INTEGER
 );
 
 INSERT INTO vroom.vehicles (
-  id, start_index, end_index, capacity, skills,
-  tw_open, tw_close, speed_factor)
+  id, start_id, end_id, capacity, skills,
+  tw_open, tw_close, speed_factor, max_tasks)
   VALUES
-(1, 1, 1, ARRAY[200], ARRAY[0], 0, 30900, 1.0),
-(2, 1, 3, ARRAY[200], ARRAY[0], 100, 30900, 1.0),
-(3, 1, 1, ARRAY[200], ARRAY[0], 0, 30900, 1.0),
-(4, 3, 3, ARRAY[200], ARRAY[0], 0, 30900, 1.0);
+(1, 1, 1, ARRAY[200], ARRAY[0], 0, 30900, 1.0, 20),
+(2, 1, 3, ARRAY[200], ARRAY[0], 100, 30900, 1.0, 20),
+(3, 1, 1, ARRAY[200], ARRAY[0], 0, 30900, 1.0, 20),
+(4, 3, 3, ARRAY[200], ARRAY[0], 0, 30900, 1.0, 20);
 -- VEHICLES TABLE end
 
 
@@ -158,13 +159,14 @@ INSERT INTO vroom.breaks_time_windows (
 
 -- MATRIX TABLE start
 CREATE TABLE vroom.matrix (
-  start_vid BIGINT,
-  end_vid BIGINT,
-  agg_cost INTEGER
+  start_id BIGINT,
+  end_id BIGINT,
+  duration INTEGER,
+  cost INTEGER
 );
 
 INSERT INTO vroom.matrix (
-  start_vid, end_vid, agg_cost)
+  start_id, end_id, duration)
   VALUES
 (1, 1, 0), (1, 2, 50), (1, 3, 90), (1, 4, 75), (1, 5, 106), (1, 6, 127),
 (2, 1, 50), (2, 2, 0), (2, 3, 125), (2, 4, 90), (2, 5, 145), (2, 6, 127),
@@ -172,4 +174,6 @@ INSERT INTO vroom.matrix (
 (4, 1, 75), (4, 2, 90), (4, 3, 50), (4, 4, 0), (4, 5, 75), (4, 6, 55),
 (5, 1, 106), (5, 2, 145), (5, 3, 25), (5, 4, 75), (5, 5, 0), (5, 6, 111),
 (6, 1, 127), (6, 2, 127), (6, 3, 90), (6, 4, 55), (6, 5, 111), (6, 6, 0);
+
+UPDATE vroom.matrix SET cost = duration;
 -- MATRIX TABLE end

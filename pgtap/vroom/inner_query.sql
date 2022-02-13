@@ -1,18 +1,18 @@
 BEGIN;
 SET search_path TO 'vroom', 'public';
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (1099) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.3.0') THEN plan (3504) ELSE plan(1) END;
 
 /*
 SELECT * FROM vrp_vroomPlain(
-  $$SELECT id, location_index, service, delivery, pickup, skills, priority FROM jobs$$,
+  $$SELECT id, location_id, service, delivery, pickup, skills, priority FROM jobs$$,
   $$SELECT id, tw_open, tw_close FROM jobs_time_windows$$,
-  $$SELECT id, p_location_index, p_service, d_location_index, d_service, amount, skills, priority FROM shipments$$,
+  $$SELECT id, p_location_id, p_service, d_location_id, d_service, amount, skills, priority FROM shipments$$,
   $$SELECT id, kind, tw_open, tw_close FROM shipments_time_windows$$,
-  $$SELECT id, start_index, end_index, capacity, skills, tw_open, tw_close FROM vehicles$$,
+  $$SELECT id, start_id, end_id, capacity, skills, tw_open, tw_close FROM vehicles$$,
   $$SELECT id, vehicle_id, service FROM breaks$$,
   $$SELECT id, tw_open, tw_close FROM breaks_time_windows$$,
-  $$SELECT start_vid, end_vid, agg_cost FROM matrix$$
+  $$SELECT start_id, end_id, duration FROM matrix$$
 );
 */
 
@@ -151,10 +151,10 @@ RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   inner_query_table TEXT := 'jobs';
-  params TEXT[] := ARRAY['id', 'location_index', 'service', 'delivery', 'pickup', 'skills', 'priority'];
+  params TEXT[] := ARRAY['id', 'location_id', 'service', 'delivery', 'pickup', 'skills', 'priority'];
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'location_index');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'location_id');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'delivery');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'pickup');
   RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
@@ -174,11 +174,11 @@ RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   inner_query_table TEXT := 'shipments';
-  params TEXT[] := ARRAY['id', 'p_location_index', 'p_service', 'd_location_index', 'd_service', 'amount', 'skills', 'priority'];
+  params TEXT[] := ARRAY['id', 'p_location_id', 'p_service', 'd_location_id', 'd_service', 'amount', 'skills', 'priority'];
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'p_location_index');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'd_location_index');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'p_location_id');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'd_location_id');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'amount');
   RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
   RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'priority');
@@ -199,11 +199,11 @@ RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   inner_query_table TEXT := 'vehicles';
-  params TEXT[] := ARRAY['id', 'start_index', 'end_index', 'capacity', 'skills', 'tw_open', 'tw_close', 'speed_factor'];
+  params TEXT[] := ARRAY['id', 'start_id', 'end_id', 'capacity', 'skills', 'tw_open', 'tw_close', 'speed_factor', 'max_tasks'];
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_index');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_index');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_id');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_id');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'capacity');
   RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
   RETURN QUERY SELECT test_anyNumerical(fn, inner_query_table, start_sql, rest_sql, params, 'speed_factor');
@@ -214,6 +214,7 @@ BEGIN
     RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
     RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
   END IF;
+  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'max_tasks');
 END;
 $BODY$
 LANGUAGE plpgsql;
@@ -224,11 +225,16 @@ RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   inner_query_table TEXT := 'matrix';
-  params TEXT[] := ARRAY['start_vid', 'end_vid', 'agg_cost'];
+  params TEXT[] := ARRAY['start_id', 'end_id', 'duration', 'cost'];
 BEGIN
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_vid');
-  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_vid');
-  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'agg_cost');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_id');
+  RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_id');
+  IF is_plain = TRUE THEN
+    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'duration');
+  ELSE
+    RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'duration');
+  END IF;
+  RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'cost');
 END;
 $BODY$
 LANGUAGE plpgsql;
@@ -292,7 +298,7 @@ $BODY$
 LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION inner_query(is_plain BOOLEAN)
+CREATE OR REPLACE FUNCTION inner_query(is_plain BOOLEAN, additional TEXT)
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
@@ -302,9 +308,9 @@ DECLARE
   inner_query_table TEXT;
 BEGIN
 
-  IF NOT min_version('0.2.0') THEN
+  IF NOT min_version('0.3.0') THEN
     RETURN QUERY
-    SELECT skip(1, 'Function is new on 0.2.0');
+    SELECT skip(1, 'Function is modified on 0.3.0');
     RETURN;
   END IF;
 
@@ -318,50 +324,50 @@ BEGIN
   start_sql := '';
   rest_sql := ', $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
               '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
-              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   RETURN QUERY SELECT inner_query_jobs(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, ';
   rest_sql := ', $$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
               '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
-              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   inner_query_table := 'jobs_time_windows';
   RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, ';
   rest_sql := ', $$SELECT * FROM shipments_time_windows$$, ' ||
               '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
-              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   RETURN QUERY SELECT inner_query_shipments(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, ';
   rest_sql := ', $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
-              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   inner_query_table := 'shipments_time_windows';
   RETURN QUERY SELECT inner_query_shipments_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, ' ||
                '$$SELECT * FROM shipments_time_windows$$, ';
   rest_sql := ', $$SELECT * FROM breaks$$, ' ||
-              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   RETURN QUERY SELECT inner_query_vehicles(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, ' ||
                '$$SELECT * FROM shipments_time_windows$$, $$SELECT * FROM vehicles$$, ';
-  rest_sql := ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+  rest_sql := ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   RETURN QUERY SELECT inner_query_breaks(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, ' ||
                '$$SELECT * FROM shipments_time_windows$$, $$SELECT * FROM vehicles$$, ' ||
                '$$SELECT * FROM breaks$$, ';
-  rest_sql := ', $$SELECT * FROM matrix$$)';
+  rest_sql := ', $$SELECT * FROM matrix$$' || additional;
   inner_query_table := 'breaks_time_windows';
   RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM shipments$$, ' ||
                '$$SELECT * FROM shipments_time_windows$$, $$SELECT * FROM vehicles$$, ' ||
                '$$SELECT * FROM breaks$$, $$SELECT * FROM breaks_time_windows$$, ';
-  rest_sql := ')';
+  rest_sql := additional;
   RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql, is_plain);
 
 
@@ -374,34 +380,34 @@ BEGIN
   END IF;
   start_sql := '';
   rest_sql := ', $$SELECT * FROM jobs_time_windows$$, $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
-              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   RETURN QUERY SELECT inner_query_jobs(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, ';
   rest_sql := ', $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
-              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   inner_query_table := 'jobs_time_windows';
   RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, ';
   rest_sql := ', $$SELECT * FROM breaks$$, ' ||
-              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   RETURN QUERY SELECT inner_query_vehicles(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, ';
-  rest_sql := ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+  rest_sql := ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   RETURN QUERY SELECT inner_query_breaks(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ';
-  rest_sql := ', $$SELECT * FROM matrix$$)';
+  rest_sql := ', $$SELECT * FROM matrix$$' || additional;
   inner_query_table := 'breaks_time_windows';
   RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM jobs$$, $$SELECT * FROM jobs_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, $$SELECT * FROM breaks_time_windows$$, ';
-  rest_sql := ')';
+  rest_sql :=  additional;
   RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql, is_plain);
 
 
@@ -414,33 +420,33 @@ BEGIN
   END IF;
   start_sql := '';
   rest_sql := ', $$SELECT * FROM shipments_time_windows$$, $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
-              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   RETURN QUERY SELECT inner_query_shipments(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM shipments$$, ';
   rest_sql := ', $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ' ||
-              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+              '$$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   inner_query_table := 'shipments_time_windows';
   RETURN QUERY SELECT inner_query_shipments_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ';
-  rest_sql := ', $$SELECT * FROM breaks$$, $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+  rest_sql := ', $$SELECT * FROM breaks$$, $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   RETURN QUERY SELECT inner_query_vehicles(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, ';
-  rest_sql := ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+  rest_sql := ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$' || additional;
   RETURN QUERY SELECT inner_query_breaks(fn, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, ';
-  rest_sql := ', $$SELECT * FROM matrix$$)';
+  rest_sql := ', $$SELECT * FROM matrix$$' || additional;
   inner_query_table := 'breaks_time_windows';
   RETURN QUERY SELECT inner_query_time_windows(fn, inner_query_table, start_sql, rest_sql, is_plain);
 
   start_sql := '$$SELECT * FROM shipments$$, $$SELECT * FROM shipments_time_windows$$, ' ||
                '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, $$SELECT * FROM breaks_time_windows$$, ';
-  rest_sql := ')';
+  rest_sql := additional;
   RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql, is_plain);
 
 END;
@@ -448,7 +454,9 @@ $BODY$
 LANGUAGE plpgsql;
 
 
-SELECT inner_query(is_plain => TRUE);
+SELECT inner_query(is_plain => TRUE, additional => ', exploration_level => 5)');
+SELECT inner_query(is_plain => TRUE, additional => ', timeout => -1)');
+SELECT inner_query(is_plain => TRUE, additional => ', exploration_level => 5, timeout => -1)');
 
 -- Adjust the column types to the expected types for vroom functions with timestamps/interval
 ALTER TABLE vroom.jobs ALTER COLUMN service TYPE INTERVAL USING make_interval(secs => service);
@@ -463,8 +471,12 @@ ALTER TABLE vroom.shipments_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USI
 ALTER TABLE vroom.shipments_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
 ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_open TYPE TIMESTAMP USING (to_timestamp(tw_open + 1630573200) at time zone 'UTC')::TIMESTAMP;
 ALTER TABLE vroom.breaks_time_windows ALTER COLUMN tw_close TYPE TIMESTAMP USING (to_timestamp(tw_close + 1630573200) at time zone 'UTC')::TIMESTAMP;
+ALTER TABLE vroom.matrix ALTER COLUMN duration TYPE INTERVAL USING make_interval(secs => duration);
 
-SELECT inner_query(is_plain => FALSE);
+SELECT inner_query(is_plain => FALSE, additional => ', exploration_level => 5)');
+SELECT inner_query(is_plain => FALSE, additional => ', timeout => $$-00:00:01$$::INTERVAL)');
+SELECT inner_query(is_plain => FALSE, additional => ', exploration_level => 5, timeout => $$-00:00:01$$::INTERVAL)');
+
 
 SELECT * FROM finish();
 ROLLBACK;

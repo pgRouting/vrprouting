@@ -2,7 +2,7 @@ BEGIN;
 SET search_path TO 'vroom', 'public';
 SET client_min_messages TO ERROR;
 
-SELECT CASE WHEN min_version('0.2.0') THEN plan (22) ELSE plan(1) END;
+SELECT CASE WHEN min_version('0.3.0') THEN plan (22) ELSE plan(1) END;
 
 CREATE or REPLACE FUNCTION vroomShipments_eq_vroom()
 RETURNS SETOF TEXT AS
@@ -13,14 +13,14 @@ DECLARE
   shipments_sql TEXT;
   empty_time_windows TEXT := '$$SELECT * FROM shipments_time_windows WHERE id = -1$$';
   rest_sql TEXT := ', $$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$' ||
-                   ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$)';
+                   ', $$SELECT * FROM breaks_time_windows$$, $$SELECT * FROM matrix$$, exploration_level => 5, timeout => -1)';
   vroom_sql TEXT;
   vroomShipments_sql TEXT;
 data TEXT;
 BEGIN
-  IF NOT min_version('0.2.0') THEN
+  IF NOT min_version('0.3.0') THEN
     RETURN QUERY
-    SELECT skip(1, 'Function is new on 0.2.0');
+    SELECT skip(1, 'Function is modified on 0.3.0');
     RETURN;
   END IF;
 

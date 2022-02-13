@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <algorithm>
 #include <string>
 #include <limits>
+#include <cmath>
 
 #include "c_common/pgr_alloc.hpp"
 #include "cpp_common/pgr_assert.h"
@@ -54,19 +55,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * function `vrp_vroom` which calls the main function defined in the
  * C++ Header file. It also does exception handling.
  *
- * @param jobs_sql          SQL query describing the jobs
- * @param jobs_tw_sql       SQL query describing the time window for jobs
- * @param shipments_sql     SQL query describing the shipments
- * @param shipments_tw_sql  SQL query describing the time windows for shipment
- * @param vehicles_sql      SQL query describing the vehicles
- * @param breaks_sql        SQL query describing the driver breaks.
- * @param breaks_tws_sql    SQL query describing the time windows for break start.
- * @param matrix_sql        SQL query describing the cells of the cost matrix
- * @param result_tuples     the rows in the result
- * @param result_count      the count of rows in the result
- * @param log_msg           stores the log message
- * @param notice_msg        stores the notice message
- * @param err_msg           stores the error message
+ * @param jobs                Pointer to the array of jobs
+ * @param total_jobs          The total number of jobs
+ * @param jobs_tws            Pointer to the array of jobs time windows
+ * @param total_jobs_tws      The total number of jobs time windows
+ * @param shipments           Pointer to the array of shipments
+ * @param total_shipments     The total number of shipments
+ * @param shipments_tws       Pointer to the array of shipments time windows
+ * @param total_shipments_tws The total number of shipments time windows
+ * @param vehicles            Pointer to the array of vehicles
+ * @param total_vehicles      The total number of total vehicles
+ * @param breaks              Pointer to the array of breaks
+ * @param total_breaks        The total number of total breaks
+ * @param matrix_rows         Pointer to the array of matrix rows
+ * @param total_matrix_rows   The total number of matrix rows
+ * @param exploration_level   Exploration level to use while solving.
+ * @param timeout             Timeout value to stop the solving process (seconds).
+ * @param loading_timeout     Additional time spent in loading the data from SQL Query (seconds).
+ * @param result_tuples       The rows in the result
+ * @param result_count        The count of rows in the result
+ * @param log_msg             Stores the log message
+ * @param notice_msg          Stores the notice message
+ * @param err_msg             Stores the error message
  *
  * @returns void
  */
@@ -79,7 +89,11 @@ do_vrp_vroom(
     Vroom_vehicle_t *vehicles, size_t total_vehicles,
     Vroom_break_t *breaks, size_t total_breaks,
     Vroom_time_window_t *breaks_tws, size_t total_breaks_tws,
-    Matrix_cell_t *matrix_cells_arr, size_t total_cells,
+    Vroom_matrix_t *matrix_rows, size_t total_matrix_rows,
+
+    int32_t exploration_level,
+    int32_t timeout,
+    int32_t loading_time,
 
     Vroom_rt **return_tuples,
     size_t *return_count,
@@ -98,37 +112,68 @@ do_vrp_vroom(
     pgassert(!(*return_count));
     pgassert(jobs || shipments);
     pgassert(vehicles);
-    pgassert(matrix_cells_arr);
+    pgassert(matrix_rows);
     pgassert(total_jobs || total_shipments);
     pgassert(total_vehicles);
-    pgassert(total_cells);
+    pgassert(total_matrix_rows);
+
+    auto start_time = std::chrono::high_resolution_clock::now();
 
     Identifiers<Id> location_ids;
 
     for (size_t i = 0; i < total_jobs; ++i) {
-      location_ids += jobs[i].location_index;
+      location_ids += jobs[i].location_id;
     }
 
     for (size_t i = 0; i < total_shipments; ++i) {
-      location_ids += shipments[i].p_location_index;
-      location_ids += shipments[i].d_location_index;
+      location_ids += shipments[i].p_location_id;
+      location_ids += shipments[i].d_location_id;
     }
+
+    double min_speed_factor, max_speed_factor;
+    min_speed_factor = max_speed_factor = vehicles[0].speed_factor;
 
     for (size_t i = 0; i < total_vehicles; ++i) {
-      if (vehicles[i].start_index != -1) {
-        location_ids += vehicles[i].start_index;
+      min_speed_factor = std::min(min_speed_factor, vehicles[i].speed_factor);
+      max_speed_factor = std::max(max_speed_factor, vehicles[i].speed_factor);
+      if (vehicles[i].start_id != -1) {
+        location_ids += vehicles[i].start_id;
       }
-      if (vehicles[i].end_index != -1) {
-        location_ids += vehicles[i].end_index;
+      if (vehicles[i].end_id != -1) {
+        location_ids += vehicles[i].end_id;
       }
     }
 
-    vrprouting::base::Base_Matrix time_matrix(matrix_cells_arr, total_cells, location_ids);
+    /*
+     * Verify that max value of speed factor is not greater
+     * than 5 times the speed factor of any other vehicle.
+     */
+    if (max_speed_factor > 5 * min_speed_factor) {
+      (*return_tuples) = NULL;
+      (*return_count) = 0;
+      err << "The speed_factor " << max_speed_factor << " is more than five times "
+             "the speed factor " << min_speed_factor;
+      *err_msg = pgr_msg(err.str());
+      return;
+    }
+
+    /*
+     * Scale the vehicles speed factors according to the minimum speed factor
+     */
+    for (size_t i = 0; i < total_vehicles; ++i) {
+      vehicles[i].speed_factor = std::round(vehicles[i].speed_factor / min_speed_factor);
+    }
+
+    /*
+     * Create the matrix. Also, scale the time matrix according to min_speed_factor
+     */
+    vrprouting::base::Base_Matrix matrix(matrix_rows, total_matrix_rows,
+                                         location_ids, min_speed_factor);
 
     /*
      * Verify matrix cells preconditions
      */
-    if (!time_matrix.has_no_infinity()) {
+    if (!matrix.has_no_infinity()) {
       (*return_tuples) = NULL;
       (*return_count) = 0;
       err << "An Infinity value was found on the Matrix. Might be missing information of a node";
@@ -139,7 +184,7 @@ do_vrp_vroom(
     /*
      * Verify size of matrix cell lies in the limit
      */
-    if (time_matrix.size() > (std::numeric_limits<vroom::Index>::max)()) {
+    if (matrix.size() > (std::numeric_limits<vroom::Index>::max)()) {
       (*return_tuples) = NULL;
       (*return_count) = 0;
       err << "The size of time matrix exceeds the limit";
@@ -148,7 +193,7 @@ do_vrp_vroom(
     }
 
     vrprouting::Vrp_vroom_problem problem;
-    problem.add_matrix(time_matrix);
+    problem.add_matrix(matrix);
     problem.add_vehicles(vehicles, total_vehicles,
                          breaks, total_breaks,
                          breaks_tws, total_breaks_tws);
@@ -157,7 +202,12 @@ do_vrp_vroom(
     problem.add_shipments(shipments, total_shipments,
                           shipments_tws, total_shipments_tws);
 
-    std::vector < Vroom_rt > results = problem.solve();
+    auto end_time = std::chrono::high_resolution_clock::now();
+    loading_time += static_cast<int32_t>(
+        std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time)
+            .count());
+
+    std::vector < Vroom_rt > results = problem.solve(exploration_level, timeout, loading_time);
 
     auto count = results.size();
     if (count == 0) {

@@ -14,13 +14,13 @@ FROM vrp_vroomShipmentsPlain(
   $shipments$
     SELECT * FROM (
       VALUES (100, 1, 4)
-    ) AS C(id, p_location_index, d_location_index)
+    ) AS C(id, p_location_id, d_location_id)
   $shipments$,
   NULL,
   $vehicles$
     SELECT * FROM (
       VALUES (1, 1, 4)
-    ) AS C(id, start_index, end_index)
+    ) AS C(id, start_id, end_id)
   $vehicles$,
   NULL,
   NULL,
@@ -30,7 +30,7 @@ FROM vrp_vroomShipmentsPlain(
              (2, 1, 2103), (2, 3, 2255), (2, 4, 3152),
              (3, 1, 197), (3, 2, 2256), (3, 4, 1102),
              (4, 1, 1299), (4, 2, 3153), (4, 3, 1102)
-    ) AS C(start_vid, end_vid, agg_cost)
+    ) AS C(start_id, end_id, duration)
   $matrix$
 );
 /* -- q3 */

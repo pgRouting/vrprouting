@@ -31,6 +31,7 @@ jobs:
           echo "PGVER=${PGVER}" >> $GITHUB_ENV
           echo "PGPORT=5432" >> $GITHUB_ENV
           echo "PGIS=3" >> $GITHUB_ENV
+          echo "VROOMVER=1.11.0" >> $GITHUB_ENV
 
       - name: Add PostgreSQL APT repository
         run: |
@@ -56,25 +57,35 @@ jobs:
         run: |
           sudo apt-get install libssl-dev libasio-dev libglpk-dev
 
-      - name: Build VROOM v1.10.0
+      - name: Cache VROOM
+        id: cache-vroom
+        uses: actions/cache@v2
+        env:
+          cache-name: vroom
+        with:
+          path: |
+            ~/vroom-${{ env.VROOMVER }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ env.VROOMVER }}
+
+      - name: Build VROOM
+        if: steps.cache-vroom.outputs.cache-hit != 'true'
         run: |
-          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v1.10.0.tar.gz
-          tar -zvxf v1.10.0.tar.gz
-          cd vroom-1.10.0/src
+          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v${{ env.VROOMVER }}.tar.gz -O /tmp/${{ env.VROOMVER }}.tar.gz
+          tar -zvxf /tmp/${{ env.VROOMVER }}.tar.gz -C ~/
+          cd ~/vroom-${{ env.VROOMVER }}/src
 
           # Create object file with position independent code using -fPIC flag
           sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
 
+          cd ~/vroom-${{ env.VROOMVER }}/src
           make
-          cd ..
-          echo "VROOM_INSTALL_PATH=$(pwd)" >> $GITHUB_ENV
 
       - name: Configure
         run: |
           export PATH=/usr/lib/postgresql/${PGVER}/bin:$PATH
           mkdir build
           cd build
-          cmake -DPOSTGRESQL_VERSION=${PGVER} -DCMAKE_BUILD_TYPE=Debug -DVROOM_INSTALL_PATH=${VROOM_INSTALL_PATH} ..
+          cmake -DPOSTGRESQL_VERSION=${PGVER} -DCMAKE_BUILD_TYPE=Debug -DVROOM_INSTALL_PATH=$HOME/vroom-${{ env.VROOMVER }} ..
 
       - name: Build
         run: |

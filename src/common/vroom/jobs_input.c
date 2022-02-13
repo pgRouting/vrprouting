@@ -35,41 +35,43 @@ A ``SELECT`` statement that returns the following columns:
 
 ::
 
-    id, location_index
-    [, service, delivery, pickup, skills, priority]
+    id, location_id
+    [, setup, service, delivery, pickup, skills, priority, data]
 
 
 ====================  =========================  =========== ================================================
 Column                Type                       Default     Description
 ====================  =========================  =========== ================================================
-**id**                ``ANY-INTEGER``                        Non-negative unique identifier of the job.
+**id**                ``ANY-INTEGER``                        Positive unique identifier of the job.
 
-**location_index**    ``ANY-INTEGER``                        Non-negative identifier of the job location.
+**location_id**       ``ANY-INTEGER``                        Positive identifier of the job location.
 
-**service**           ``INTERVAL``               0           Job service duration, in seconds
+**setup**             |interval|                 |interval0| Job setup duration.
 
-                                                             - ``INTEGER`` for plain VROOM functions.
+**service**           |interval|                 |interval0| Job service duration.
 
-**delivery**          ``ARRAY[ANY-INTEGER]``                 Array of non-negative integers describing
+**delivery**          ``ARRAY[ANY-INTEGER]``     Empty Array Array of non-negative integers describing
                                                              multidimensional quantities for delivery such
                                                              as number of items, weight, volume etc.
 
                                                              - All jobs must have the same value of
                                                                :code:`array_length(delivery, 1)`
 
-**pickup**            ``ARRAY[ANY-INTEGER]``                 Array of non-negative integers describing
+**pickup**            ``ARRAY[ANY-INTEGER]``     Empty Array Array of non-negative integers describing
                                                              multidimensional quantities for pickup such as
                                                              number of items, weight, volume etc.
 
                                                              - All jobs must have the same value of
                                                                :code:`array_length(pickup, 1)`
 
-**skills**            ``ARRAY[INTEGER]``                     Array of non-negative integers defining
+**skills**            ``ARRAY[INTEGER]``         Empty Array Array of non-negative integers defining
                                                              mandatory skills.
 
 **priority**          ``INTEGER``                0           Priority level of the job
 
                                                              - Ranges from ``[0, 100]``
+
+**data**              ``JSONB``                  '{}'::JSONB Any metadata information of the job.
 ====================  =========================  =========== ================================================
 
 Where:
@@ -87,36 +89,42 @@ void fetch_jobs(
     Vroom_job_t *job,
     bool is_plain) {
   job->id = get_Idx(tuple, tupdesc, info[0], 0);
-  job->location_index = get_MatrixIndex(tuple, tupdesc, info[1], 0);
+  job->location_id = get_MatrixIndex(tuple, tupdesc, info[1], 0);
 
   if (is_plain) {
-    job->service = get_Duration(tuple, tupdesc, info[2], 0);
+    job->setup = get_Duration(tuple, tupdesc, info[2], 0);
+    job->service = get_Duration(tuple, tupdesc, info[3], 0);
   } else {
-    job->service = (Duration)get_PositiveTInterval(tuple, tupdesc, info[2], 0);
+    job->setup = (Duration)get_PositiveTInterval(tuple, tupdesc, info[2], 0);
+    job->service = (Duration)get_PositiveTInterval(tuple, tupdesc, info[3], 0);
   }
 
   /*
    * The deliveries
    */
   job->delivery_size = 0;
-  job->delivery = column_found(info[3].colNumber) ?
-    spi_getPositiveBigIntArr_allowEmpty(tuple, tupdesc, info[3], &job->delivery_size)
+  job->delivery = column_found(info[4].colNumber) ?
+    spi_getPositiveBigIntArr_allowEmpty(tuple, tupdesc, info[4], &job->delivery_size)
     : NULL;
 
   /*
    * The pickups
    */
   job->pickup_size = 0;
-  job->pickup = column_found(info[4].colNumber) ?
-    spi_getPositiveBigIntArr_allowEmpty(tuple, tupdesc, info[4], &job->pickup_size)
+  job->pickup = column_found(info[5].colNumber) ?
+    spi_getPositiveBigIntArr_allowEmpty(tuple, tupdesc, info[5], &job->pickup_size)
     : NULL;
 
   job->skills_size = 0;
-  job->skills = column_found(info[5].colNumber) ?
-    spi_getPositiveIntArr_allowEmpty(tuple, tupdesc, info[5], &job->skills_size)
+  job->skills = column_found(info[6].colNumber) ?
+    spi_getPositiveIntArr_allowEmpty(tuple, tupdesc, info[6], &job->skills_size)
     : NULL;
 
-  job->priority = get_Priority(tuple, tupdesc, info[6], 0);
+  job->priority = get_Priority(tuple, tupdesc, info[7], 0);
+
+  job->data = column_found(info[8].colNumber)
+                  ? spi_getText(tuple, tupdesc, info[8])
+                  : strdup("{}");
 }
 
 
@@ -207,7 +215,7 @@ get_vroom_jobs(
     Vroom_job_t **rows,
     size_t *total_rows,
     bool is_plain) {
-  int kColumnCount = 7;
+  int kColumnCount = 9;
   Column_info_t info[kColumnCount];
 
   for (int i = 0; i < kColumnCount; ++i) {
@@ -218,24 +226,29 @@ get_vroom_jobs(
   }
 
   info[0].name = "id";
-  info[1].name = "location_index";
-  info[2].name = "service";
-  info[3].name = "delivery";
-  info[4].name = "pickup";
-  info[5].name = "skills";
-  info[6].name = "priority";
+  info[1].name = "location_id";
+  info[2].name = "setup";
+  info[3].name = "service";
+  info[4].name = "delivery";
+  info[5].name = "pickup";
+  info[6].name = "skills";
+  info[7].name = "priority";
+  info[8].name = "data";
 
-  info[2].eType = INTEGER;            // service
-  info[3].eType = ANY_INTEGER_ARRAY;  // delivery
-  info[4].eType = ANY_INTEGER_ARRAY;  // pickup
-  info[5].eType = INTEGER_ARRAY;      // skills
-  info[6].eType = INTEGER;            // priority
+  info[2].eType = INTEGER;            // setup
+  info[3].eType = INTEGER;            // service
+  info[4].eType = ANY_INTEGER_ARRAY;  // delivery
+  info[5].eType = ANY_INTEGER_ARRAY;  // pickup
+  info[6].eType = INTEGER_ARRAY;      // skills
+  info[7].eType = INTEGER;            // priority
+  info[8].eType = JSONB;              // data
 
   if (!is_plain) {
-    info[2].eType = INTERVAL;         // service
+    info[2].eType = INTERVAL;         // setup
+    info[3].eType = INTERVAL;         // service
   }
 
-  /* Only id and location_index are mandatory */
+  /* Only id and location_id are mandatory */
   info[0].strict = true;
   info[1].strict = true;
 

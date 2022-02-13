@@ -42,10 +42,4 @@ void get_matrixRows_plain(
     Matrix_cell_t **rows,
     size_t *total_rows);
 
-/** @brief Get the travel time matrix of vroom with integer types*/
-void get_matrixRows_vroom_plain(
-    char *sql,
-    Matrix_cell_t **rows,
-    size_t *total_rows);
-
 #endif  // INCLUDE_C_COMMON_MATRIXROWS_INPUT_H_
