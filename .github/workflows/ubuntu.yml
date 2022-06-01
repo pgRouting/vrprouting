@@ -37,7 +37,7 @@ jobs:
           PGP=5433
           if [ "${{ matrix.psql }}" == "${pgver}" ]; then PGP=5432; fi
           echo "PGPORT=${PGP}" >> $GITHUB_ENV
-          echo "VROOMVER=1.11.0" >> $GITHUB_ENV
+          echo "VROOMVER=1.12.0" >> $GITHUB_ENV
 
       - name: Add PostgreSQL APT repository
         run: |

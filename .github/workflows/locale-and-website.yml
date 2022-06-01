@@ -30,7 +30,7 @@ jobs:
           echo "PGPORT=5432" >> $GITHUB_ENV
           echo "PGIS=3" >> $GITHUB_ENV
           echo "PROJECT_VERSION=${PROJECT_VERSION}" >> $GITHUB_ENV
-          echo "VROOMVER=1.11.0" >> $GITHUB_ENV
+          echo "VROOMVER=1.12.0" >> $GITHUB_ENV
 
       - name: Extract branch name and commit hash
         run: |

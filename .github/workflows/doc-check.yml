@@ -38,7 +38,7 @@ jobs:
              PROCESS=${{ true }}
            fi
            echo "PROCESS=${PROCESS}" >> $GITHUB_ENV
-           echo "VROOMVER=1.11.0" >> $GITHUB_ENV
+           echo "VROOMVER=1.12.0" >> $GITHUB_ENV
 
       - name: Get postgres version
         if: env.PROCESS == 'true'
