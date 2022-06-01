@@ -171,14 +171,15 @@ Build VROOM v${VROOM_MINIMUM_VERSION}
 
 .. code-block:: none
 
-    wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v${VROOM_MINIMUM_VERSION}.tar.gz
-    tar -zvxf v${VROOM_MINIMUM_VERSION}.tar.gz
-    cd vroom-${VROOM_MINIMUM_VERSION}/src
+    git clone --depth 1 --branch v${VROOM_MINIMUM_VERSION} https://github.com/VROOM-Project/vroom ~/vroom-${VROOM_MINIMUM_VERSION}
 
-    # Create object file with position independent code using -fPIC flag
-    sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
+    # init the required submodules
+    cd ~/vroom-${VROOM_MINIMUM_VERSION}/
+    git submodule update --init
 
-    make
+    # Using "shared" target for creating Position Independent Code
+    cd ~/vroom-${VROOM_MINIMUM_VERSION}/src
+    make shared
 
 .. rubric:: Optional dependencies
 
