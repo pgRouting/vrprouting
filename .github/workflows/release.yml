@@ -92,15 +92,15 @@ jobs:
       - name: Build VROOM
         if: steps.cache-vroom.outputs.cache-hit != 'true'
         run: |
-          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v${{ env.VROOMVER }}.tar.gz -O /tmp/${{ env.VROOMVER }}.tar.gz
-          tar -zvxf /tmp/${{ env.VROOMVER }}.tar.gz -C ~/
-          cd ~/vroom-${{ env.VROOMVER }}/src
+          git clone --depth 1 --branch v${{ env.VROOMVER }} https://github.com/VROOM-Project/vroom ~/vroom-${{ env.VROOMVER }}
 
-          # Create object file with position independent code using -fPIC flag
-          sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
+          # init the required submodules
+          cd ~/vroom-${{ env.VROOMVER }}/
+          git submodule update --init
 
+          # Using "shared" target for creating Position Independent Code
           cd ~/vroom-${{ env.VROOMVER }}/src
-          make
+          make shared
 
       - name: Configure
         run: |
