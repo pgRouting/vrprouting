@@ -98,9 +98,9 @@ jobs:
           cd ~/vroom-${{ env.VROOMVER }}/
           git submodule update --init
 
-          # Using "shared" target for creating Position Independent Code
+          # Using "shared" target for creating Position Independent Code, disabling use of routing
           cd ~/vroom-${{ env.VROOMVER }}/src
-          make shared
+          USE_ROUTING=false make shared
 
       - name: Configure
         run: |

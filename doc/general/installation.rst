@@ -177,9 +177,9 @@ Build VROOM v${VROOM_MINIMUM_VERSION}
     cd ~/vroom-${VROOM_MINIMUM_VERSION}/
     git submodule update --init
 
-    # Using "shared" target for creating Position Independent Code
+    # Using "shared" target for creating Position Independent Code, disabling use of routing
     cd ~/vroom-${VROOM_MINIMUM_VERSION}/src
-    make shared
+    USE_ROUTING=false make shared
 
 .. rubric:: Optional dependencies
 
