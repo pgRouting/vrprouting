@@ -315,22 +315,9 @@ pdf_style_path = ['.', '_styles']
 linkcheck_ignore = [
     # might not exist yet (we are generating it!)
     r"https://gis.stackexchange.com/",
-    "https://vrp.pgrouting.org/v0/en/pgr-category.html",
-    "https://vrp.pgrouting.org/latest/en/pgr-category.html",
-    "https://vrp.pgrouting.org/v0/en/vroom-category.html",
-    "https://vrp.pgrouting.org/latest/en/vroom-category.html",
-    "https://vrp.pgrouting.org/v0/en/vrp_vroom.html",
-    "https://vrp.pgrouting.org/latest/en/vrp_vroom.html",
-    "https://vrp.pgrouting.org/v0/en/vrp_vroomJobs.html",
-    "https://vrp.pgrouting.org/latest/en/vrp_vroomJobs.html",
-    "https://vrp.pgrouting.org/v0/en/vrp_vroomShipments.html",
-    "https://vrp.pgrouting.org/latest/en/vrp_vroomShipments.html",
-    "https://vrp.pgrouting.org/v0/en/vrp_vroomPlain.html",
-    "https://vrp.pgrouting.org/latest/en/vrp_vroomPlain.html",
-    "https://vrp.pgrouting.org/v0/en/vrp_vroomJobsPlain.html",
-    "https://vrp.pgrouting.org/latest/en/vrp_vroomJobsPlain.html",
-    "https://vrp.pgrouting.org/v0/en/vrp_vroomShipmentsPlain.html",
-    "https://vrp.pgrouting.org/latest/en/vrp_vroomShipmentsPlain.html",
+
+    # FIXME: tmp disable as giving 443 Http Error
+    "https://www.leopark.mx",
 
     # (see: https://github.com/sphinx-doc/sphinx/issues/7388)
     r"https://github.com/pgRouting/vrprouting/",    # limit only vrprouting
