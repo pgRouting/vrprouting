@@ -3,9 +3,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Release Notes &#8212; vrpRouting Manual (0.3)</title>
+    <title>Release Notes &#8212; vrpRouting Manual (0.4-dev)</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -13,6 +13,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -40,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
           vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.3.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>v0.4.0-dev</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -93,6 +94,7 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Release Notes</a><ul>
+<li><a class="reference internal" href="#v0-4-0-release-notes">v0.4.0 Release Notes</a></li>
 <li><a class="reference internal" href="#v0-3-0-release-notes">v0.3.0 Release Notes</a></li>
 <li><a class="reference internal" href="#v0-2-0-release-notes">v0.2.0 Release Notes</a></li>
 <li><a class="reference internal" href="#v0-1-0-release-notes">v0.1.0 Release Notes</a></li>
@@ -145,18 +147,33 @@
 (<a class="reference external" href="https://vrp.pgrouting.org/v0/en/release_notes.html">v0</a>)</p></li>
 </ul>
 <section id="release-notes">
-<h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
+<h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this heading">¶</a></h1>
 <p>To see the full list of changes check the list of <a class="reference external" href="https://github.com/pgRouting/vrprouting/commits">Git commits</a> on Github.</p>
-<div class="contents local topic" id="contents">
+<nav class="contents local" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#v0-3-0-release-notes" id="id4">v0.3.0 Release Notes</a></p></li>
-<li><p><a class="reference internal" href="#v0-2-0-release-notes" id="id5">v0.2.0 Release Notes</a></p></li>
-<li><p><a class="reference internal" href="#v0-1-0-release-notes" id="id6">v0.1.0 Release Notes</a></p></li>
+<li><p><a class="reference internal" href="#v0-4-0-release-notes" id="id5">v0.4.0 Release Notes</a></p></li>
+<li><p><a class="reference internal" href="#v0-3-0-release-notes" id="id6">v0.3.0 Release Notes</a></p></li>
+<li><p><a class="reference internal" href="#v0-2-0-release-notes" id="id7">v0.2.0 Release Notes</a></p></li>
+<li><p><a class="reference internal" href="#v0-1-0-release-notes" id="id8">v0.1.0 Release Notes</a></p></li>
 </ul>
-</div>
+</nav>
+<section id="v0-4-0-release-notes">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">v0.4.0 Release Notes</a><a class="headerlink" href="#v0-4-0-release-notes" title="Permalink to this heading">¶</a></h2>
+<p>To see all issues &amp; pull requests closed by this release see the <a class="reference external" href="https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&amp;q=milestone%3A%22Release%200.4.0%22">Git closed milestone for 0.4.0</a> on Github.</p>
+<p class="rubric">Added support for VROOM 1.12.0 (<a class="reference external" href="https://github.com/pgRouting/vrprouting/issues/34">#34</a>)</p>
+<ul class="simple">
+<li><p>No visible changes on user side with respect to signatures.</p></li>
+<li><p>Adjusted to VROOM v1.12.0 due to internal breaking changes:</p>
+<ul>
+<li><p>Made changes according to new vroom::Input signature.</p></li>
+<li><p>CI changes to compile without routing support, with Position Independent Code.</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="v0-3-0-release-notes">
-<h2><a class="toc-backref" href="#id4">v0.3.0 Release Notes</a><a class="headerlink" href="#v0-3-0-release-notes" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">v0.3.0 Release Notes</a><a class="headerlink" href="#v0-3-0-release-notes" title="Permalink to this heading">¶</a></h2>
 <p>To see all issues &amp; pull requests closed by this release see the <a class="reference external" href="https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&amp;q=milestone%3A%22Release%200.3.0%22">Git closed milestone for 0.3.0</a> on Github.</p>
 <p class="rubric">Modification of experimental functions</p>
 <ul class="simple">
@@ -174,8 +191,11 @@
 <p class="rubric">Added support for VROOM 1.11.0 (<a class="reference external" href="https://github.com/pgRouting/vrprouting/issues/24">#24</a>)</p>
 <ul class="simple">
 <li><p>Added setup time in jobs and shipments to refine service time modeling.</p></li>
-<li><p>Added support for custom cost matrices, along with the duration matrix.
-- Using start_id, end_id, duration, cost as matrix table columns.</p></li>
+<li><p>Added support for custom cost matrices, along with the duration matrix.</p>
+<ul>
+<li><p>Using start_id, end_id, duration, cost as matrix table columns.</p></li>
+</ul>
+</li>
 <li><p>Added timeout and exploration_level parameters to vroom-category functions.</p></li>
 <li><p>Added max_tasks column in vehicles.</p></li>
 <li><p>Added tests for empty skills arrays.</p></li>
@@ -198,7 +218,7 @@
 </ul>
 </section>
 <section id="v0-2-0-release-notes">
-<h2><a class="toc-backref" href="#id5">v0.2.0 Release Notes</a><a class="headerlink" href="#v0-2-0-release-notes" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">v0.2.0 Release Notes</a><a class="headerlink" href="#v0-2-0-release-notes" title="Permalink to this heading">¶</a></h2>
 <p class="rubric">New experimental functions</p>
 <ul class="simple">
 <li><p>VROOM</p>
@@ -214,7 +234,7 @@
 </ul>
 </section>
 <section id="v0-1-0-release-notes">
-<h2><a class="toc-backref" href="#id6">v0.1.0 Release Notes</a><a class="headerlink" href="#v0-1-0-release-notes" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">v0.1.0 Release Notes</a><a class="headerlink" href="#v0-1-0-release-notes" title="Permalink to this heading">¶</a></h2>
 <p class="rubric">Extraction tasks</p>
 <ul class="simple">
 <li><p>Porting pgRouting’s VRP functionality</p></li>
@@ -239,9 +259,9 @@
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.3.0.<br/>
-      Last updated on Feb 13, 2022.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+        &copy; Copyright vrpRouting Contributors - Version v0.4.0-dev.<br/>
+      Last updated on Jun 02, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0.<br/>
     </p>
   </div>
 </footer>

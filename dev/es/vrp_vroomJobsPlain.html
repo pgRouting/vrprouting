@@ -3,9 +3,9 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>vrp_vroomJobsPlain - Experimental &#8212; vrpRouting Manual (0.3)</title>
+    <title>vrp_vroomJobsPlain - Experimental &#8212; vrpRouting Manual (0.4-dev)</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -13,6 +13,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/translations.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -43,7 +44,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
           vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.3.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>v0.4.0-dev</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -166,7 +167,7 @@
 (<a class="reference external" href="https://vrp.pgrouting.org/v0/en/vrp_vroomJobsPlain.html">v0</a>)</p></li>
 </ul>
 <section id="vrp-vroomjobsplain-experimental">
-<h1>vrp_vroomJobsPlain - Experimental<a class="headerlink" href="#vrp-vroomjobsplain-experimental" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1>vrp_vroomJobsPlain - Experimental<a class="headerlink" href="#vrp-vroomjobsplain-experimental" title="Permalink to this heading">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">vrp_vroomJobsPlain</span></code> - Vehicle Routing Problem with VROOM, involving only jobs, with plain integer values instead of TIMESTAMP or INTERVAL.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
@@ -208,13 +209,13 @@
 <li><p>New <strong>experimental</strong> function</p></li>
 </ul>
 <section id="description">
-<h2>Description<a class="headerlink" href="#description" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>VROOM is an open-source optimization engine that aims at providing good solutions
 to various real-life vehicle routing problems (VRP) within a small computing time.
 This function can be used to get the solution to a problem involving only jobs.</p>
 </section>
 <section id="signature">
-<span id="index-0"></span><h2>Signature<a class="headerlink" href="#signature" title="Enlazar permanentemente con este título">¶</a></h2>
+<span id="index-0"></span><h2>Signature<a class="headerlink" href="#signature" title="Permalink to this heading">¶</a></h2>
 <p class="rubric">Summary</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>vrp_vroomJobsPlain(
   Jobs SQL, Jobs Time Windows SQL,
@@ -270,13 +271,8 @@ RETURNS SET OF
 </div>
 </section>
 <section id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 31%" />
-<col style="width: 11%" />
-<col style="width: 58%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
 <th class="head"><p>Type</p></th>
@@ -315,14 +311,8 @@ travel times between the locations.</p></td>
 </tbody>
 </table>
 <section id="optional-parameters">
-<h3>Optional Parameters<a class="headerlink" href="#optional-parameters" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Optional Parameters<a class="headerlink" href="#optional-parameters" title="Permalink to this heading">¶</a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 11%" />
-<col style="width: 26%" />
-<col style="width: 45%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
 <th class="head"><p>Type</p></th>
@@ -358,21 +348,15 @@ required to return back the data.</p></li>
 </section>
 </section>
 <section id="inner-queries">
-<h2>Inner Queries<a class="headerlink" href="#inner-queries" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Inner Queries<a class="headerlink" href="#inner-queries" title="Permalink to this heading">¶</a></h2>
 <section id="jobs-sql">
-<h3>Jobs SQL<a class="headerlink" href="#jobs-sql" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Jobs SQL<a class="headerlink" href="#jobs-sql" title="Permalink to this heading">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">location_id</span>
 <span class="p">[,</span> <span class="n">setup</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">delivery</span><span class="p">,</span> <span class="n">pickup</span><span class="p">,</span> <span class="n">skills</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">data</span><span class="p">]</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 24%" />
-<col style="width: 11%" />
-<col style="width: 46%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Column</p></th>
 <th class="head"><p>Type</p></th>
@@ -449,25 +433,19 @@ mandatory skills.</p></td>
 </table>
 <p>Where:</p>
 <dl class="field-list simple">
-<dt class="field-odd">ANY-INTEGER</dt>
+<dt class="field-odd">ANY-INTEGER<span class="colon">:</span></dt>
 <dd class="field-odd"><p>SMALLINT, INTEGER, BIGINT</p>
 </dd>
 </dl>
 </section>
 <section id="vehicles-sql">
-<h3>Vehicles SQL<a class="headerlink" href="#vehicles-sql" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Vehicles SQL<a class="headerlink" href="#vehicles-sql" title="Permalink to this heading">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">start_id</span><span class="p">,</span> <span class="n">end_id</span>
 <span class="p">[,</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">skills</span><span class="p">,</span> <span class="n">tw_open</span><span class="p">,</span> <span class="n">tw_close</span><span class="p">,</span> <span class="n">speed_factor</span><span class="p">,</span> <span class="n">max_tasks</span><span class="p">,</span> <span class="n">data</span><span class="p">]</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 19%" />
-<col style="width: 15%" />
-<col style="width: 48%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Column</p></th>
 <th class="head"><p>Type</p></th>
@@ -557,18 +535,12 @@ greater than 5 times the speed factor of any other vehicle.</p></li>
 </ul>
 </section>
 <section id="breaks-sql">
-<h3>Breaks SQL<a class="headerlink" href="#breaks-sql" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Breaks SQL<a class="headerlink" href="#breaks-sql" title="Permalink to this heading">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span> <span class="n">vehicle_id</span> <span class="p">[,</span> <span class="n">service</span><span class="p">,</span> <span class="n">data</span><span class="p">]</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 24%" />
-<col style="width: 11%" />
-<col style="width: 46%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Column</p></th>
 <th class="head"><p>Type</p></th>
@@ -602,17 +574,12 @@ greater than 5 times the speed factor of any other vehicle.</p></li>
 </table>
 </section>
 <section id="time-windows-sql">
-<h3>Time Windows SQL<a class="headerlink" href="#time-windows-sql" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Time Windows SQL<a class="headerlink" href="#time-windows-sql" title="Permalink to this heading">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span> <span class="p">[,</span> <span class="n">kind</span><span class="p">],</span> <span class="n">tw_open</span><span class="p">,</span> <span class="n">tw_close</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 18%" />
-<col style="width: 34%" />
-<col style="width: 48%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Column</p></th>
 <th class="head"><p>Type</p></th>
@@ -659,18 +626,12 @@ the time window is for:</p>
 </ul>
 </section>
 <section id="time-matrix-sql">
-<h3>Time Matrix SQL<a class="headerlink" href="#time-matrix-sql" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Time Matrix SQL<a class="headerlink" href="#time-matrix-sql" title="Permalink to this heading">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement that returns the following columns:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">start_id</span><span class="p">,</span> <span class="n">end_id</span><span class="p">,</span> <span class="n">duration</span> <span class="p">[,</span> <span class="n">cost</span><span class="p">]</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 18%" />
-<col style="width: 15%" />
-<col style="width: 52%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Column</p></th>
 <th class="head"><p>Type</p></th>
@@ -704,18 +665,13 @@ the time window is for:</p>
 </section>
 </section>
 <section id="result-columns">
-<h2>Result Columns<a class="headerlink" href="#result-columns" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Result Columns<a class="headerlink" href="#result-columns" title="Permalink to this heading">¶</a></h2>
 <p>Returns set of</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
  task_data, arrival, travel_time, service_time, waiting_time, load)
 </pre></div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 17%" />
-<col style="width: 64%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Column</p></th>
 <th class="head"><p>Type</p></th>
@@ -840,7 +796,7 @@ of the current vehicle.</p>
 </ul>
 </section>
 <section id="additional-example">
-<h2>Additional Example<a class="headerlink" href="#additional-example" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Additional Example<a class="headerlink" href="#additional-example" title="Permalink to this heading">¶</a></h2>
 <p>Problem involving 2 jobs, using a single vehicle, corresponding to the VROOM Documentation
 <a class="reference external" href="https://github.com/VROOM-Project/vroom/blob/master/docs/example_2.json">Example 2</a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SELECT *
@@ -881,7 +837,7 @@ FROM vrp_vroomJobsPlain(
 </div>
 </section>
 <section id="see-also">
-<h2>See Also<a class="headerlink" href="#see-also" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="vroom-category.html"><span class="doc">VROOM - Category (Experimental)</span></a></p></li>
 <li><p>The queries use the <a class="reference internal" href="sampledata.html"><span class="doc">Sample Data</span></a> network.</p></li>
@@ -911,9 +867,9 @@ FROM vrp_vroomJobsPlain(
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.3.0.<br/>
-      Actualizado por última vez en feb. 13, 2022.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+        &copy; Copyright vrpRouting Contributors - Version v0.4.0-dev.<br/>
+      Actualizado por última vez en jun 02, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0.<br/>
     </p>
   </div>
 </footer>
