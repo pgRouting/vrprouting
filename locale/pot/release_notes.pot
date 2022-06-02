@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.3.0-dev
+# Copyright (C) vrpRouting Contributors - Version v0.4.0-dev
 # This file is distributed under the same license as the vrpRouting package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.3.0-dev\n"
+"Project-Id-Version: vrpRouting v0.4.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-23 17:37+0000\n"
+"POT-Creation-Date: 2022-06-02 07:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,144 +37,176 @@ msgid "Contents"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:26
-msgid "v0.3.0 Release Notes"
+msgid "v0.4.0 Release Notes"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:28
-msgid "To see all issues & pull requests closed by this release see the `Git closed milestone for 0.3.0 <https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.3.0%22>`_ on Github."
+msgid "To see all issues & pull requests closed by this release see the `Git closed milestone for 0.4.0 <https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.4.0%22>`_ on Github."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:31
-msgid "Modification of experimental functions"
+msgid "Added support for VROOM 1.12.0 (`#34 <https://github.com/pgRouting/vrprouting/issues/34>`_)"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:32
-#: ../../build/doc/release_notes.rst:69
-msgid "VROOM"
+msgid "No visible changes on user side with respect to signatures."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:34
-#: ../../build/doc/release_notes.rst:71
-msgid "vrp_vroom"
+#: ../../build/doc/release_notes.rst:33
+msgid "Adjusted to VROOM v1.12.0 due to internal breaking changes:"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:35
-#: ../../build/doc/release_notes.rst:72
-msgid "vrp_vroomJobs"
+msgid "Made changes according to new vroom::Input signature."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:36
-#: ../../build/doc/release_notes.rst:73
-msgid "vrp_vroomShipments"
-msgstr ""
-
-#: ../../build/doc/release_notes.rst:37
-#: ../../build/doc/release_notes.rst:74
-msgid "vrp_vroomPlain"
-msgstr ""
-
-#: ../../build/doc/release_notes.rst:38
-#: ../../build/doc/release_notes.rst:75
-msgid "vrp_vroomJobsPlain"
+msgid "CI changes to compile without routing support, with Position Independent Code."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:39
-#: ../../build/doc/release_notes.rst:76
-msgid "vrp_vroomShipmentsPlain"
+msgid "v0.3.0 Release Notes"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:42
-msgid "Added support for VROOM 1.11.0 (`#24 <https://github.com/pgRouting/vrprouting/issues/24>`_)"
-msgstr ""
-
-#: ../../build/doc/release_notes.rst:43
-msgid "Added setup time in jobs and shipments to refine service time modeling."
+#: ../../build/doc/release_notes.rst:41
+msgid "To see all issues & pull requests closed by this release see the `Git closed milestone for 0.3.0 <https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.3.0%22>`_ on Github."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:44
-msgid "Added support for custom cost matrices, along with the duration matrix. - Using start_id, end_id, duration, cost as matrix table columns."
+msgid "Modification of experimental functions"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:46
-msgid "Added timeout and exploration_level parameters to vroom-category functions."
+#: ../../build/doc/release_notes.rst:45
+#: ../../build/doc/release_notes.rst:83
+msgid "VROOM"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:47
-msgid "Added max_tasks column in vehicles."
+#: ../../build/doc/release_notes.rst:85
+msgid "vrp_vroom"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:48
-msgid "Added tests for empty skills arrays."
+#: ../../build/doc/release_notes.rst:86
+msgid "vrp_vroomJobs"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:49
-msgid "Added custom scaling logic for speed_factor."
+#: ../../build/doc/release_notes.rst:87
+msgid "vrp_vroomShipments"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:50
-msgid "Modified parameter names to make the naming consistent."
+#: ../../build/doc/release_notes.rst:88
+msgid "vrp_vroomPlain"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:53
-msgid "Fixes"
+#: ../../build/doc/release_notes.rst:51
+#: ../../build/doc/release_notes.rst:89
+msgid "vrp_vroomJobsPlain"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:54
-msgid "Honor client cancel requests for vroom-category functions."
+#: ../../build/doc/release_notes.rst:52
+#: ../../build/doc/release_notes.rst:90
+msgid "vrp_vroomShipmentsPlain"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:55
-msgid "Added more information in the inner query and result columns of VROOM category functions (`#26 <https://github.com/pgRouting/vrprouting/issues/26>`_, `#27 <https://github.com/pgRouting/vrprouting/issues/27>`_):"
+msgid "Added support for VROOM 1.11.0 (`#24 <https://github.com/pgRouting/vrprouting/issues/24>`_)"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:58
-msgid "Summary row in the output, for each vehicle and for the complete problem."
+#: ../../build/doc/release_notes.rst:56
+msgid "Added setup time in jobs and shipments to refine service time modeling."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:57
+msgid "Added support for custom cost matrices, along with the duration matrix."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:59
-msgid "Uassigned rows in the output with vehicle_id = -1."
+msgid "Using start_id, end_id, duration, cost as matrix table columns."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:60
-msgid "Modified travel_time result column to return travel time between current and last step."
+msgid "Added timeout and exploration_level parameters to vroom-category functions."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:61
-msgid "Added data jsonb field in jobs, shipments, vehicles, breaks as well as in the result columns."
+msgid "Added max_tasks column in vehicles."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:62
-msgid "Added departure field and location_id field in the result columns."
+msgid "Added tests for empty skills arrays."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:65
-msgid "v0.2.0 Release Notes"
+#: ../../build/doc/release_notes.rst:63
+msgid "Added custom scaling logic for speed_factor."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:64
+msgid "Modified parameter names to make the naming consistent."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:67
+msgid "Fixes"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:68
-msgid "New experimental functions"
+msgid "Honor client cancel requests for vroom-category functions."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:69
+msgid "Added more information in the inner query and result columns of VROOM category functions (`#26 <https://github.com/pgRouting/vrprouting/issues/26>`_, `#27 <https://github.com/pgRouting/vrprouting/issues/27>`_):"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:72
+msgid "Summary row in the output, for each vehicle and for the complete problem."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:73
+msgid "Uassigned rows in the output with vehicle_id = -1."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:74
+msgid "Modified travel_time result column to return travel time between current and last step."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:75
+msgid "Added data jsonb field in jobs, shipments, vehicles, breaks as well as in the result columns."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:76
+msgid "Added departure field and location_id field in the result columns."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:79
-msgid "v0.1.0 Release Notes"
+msgid "v0.2.0 Release Notes"
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:82
+msgid "New experimental functions"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:93
+msgid "v0.1.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:96
 msgid "Extraction tasks"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:83
+#: ../../build/doc/release_notes.rst:97
 msgid "Porting pgRouting's VRP functionality"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:86
+#: ../../build/doc/release_notes.rst:100
 msgid "New official functions"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:87
+#: ../../build/doc/release_notes.rst:101
 msgid "vrp_version"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:88
+#: ../../build/doc/release_notes.rst:102
 msgid "vrp_full_version"
 msgstr ""
