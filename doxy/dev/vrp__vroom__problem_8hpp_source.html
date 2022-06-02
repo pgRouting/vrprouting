@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="vrprouting-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">vrpRouting
-   &#160;<span id="projectnumber">0.3</span>
+   &#160;<span id="projectnumber">0.4-dev</span>
    </div>
   </td>
  </tr>
@@ -608,59 +608,60 @@ $(document).ready(function(){initNavTree('vrp__vroom__problem_8hpp_source.html',
 <div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;          <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a92366552871a4f364f58227e01851469">m_vehicles</a>.size()</div>
 <div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;              ? <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a92366552871a4f364f58227e01851469">m_vehicles</a>[0].capacity.size())</div>
 <div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;              : 0;</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;      vroom::Input problem_instance(amount_size);</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160; </div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;vehicle : <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a92366552871a4f364f58227e01851469">m_vehicles</a>) {</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;        problem_instance.add_vehicle(vehicle);</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;      }</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;job : <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a4cb0add2087678349d57dcaead392cb7">m_jobs</a>) {</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;        problem_instance.add_job(job);</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;      }</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;shipment : <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a01668a5255ad877926cedb1f42920ef0">m_shipments</a>) {</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;        problem_instance.add_shipment(shipment.first, shipment.second);</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;      }</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;      vroom::Matrix&lt;vroom::Duration&gt; duration_matrix = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">m_matrix</a>.<a class="code" href="classvrprouting_1_1base_1_1Base__Matrix.html#a6d761a85fdafbcf8a536f92c47e8d262">get_vroom_duration_matrix</a>();</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;      vroom::Matrix&lt;vroom::Cost&gt; cost_matrix = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">m_matrix</a>.<a class="code" href="classvrprouting_1_1base_1_1Base__Matrix.html#a6976819eba079c895ea49b92b4139cc5">get_vroom_cost_matrix</a>();</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;      problem_instance.set_durations_matrix(vroom::DEFAULT_PROFILE, std::move(duration_matrix));</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;      problem_instance.set_costs_matrix(vroom::DEFAULT_PROFILE, std::move(cost_matrix));</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160; </div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;      <span class="keywordtype">unsigned</span> threads = 4;</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;      <span class="keywordflow">if</span> (timeout &lt; 0) {</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;        <span class="keyword">auto</span> solution = problem_instance.solve(</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span><span class="keyword">&gt;</span>(exploration_level), threads);</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        results = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a1c1bc176ab0d58ae8be5a8ded0f7cc49">get_results</a>(solution);</div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;      } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;        <span class="keywordtype">int</span> timeout_ms = (loading_time &lt;= timeout * 1000) ? (timeout * 1000 - loading_time) : 0;</div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;        <span class="keyword">auto</span> solution = problem_instance.solve(</div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span><span class="keyword">&gt;</span>(exploration_level), threads, timeout_ms);</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;        results = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a1c1bc176ab0d58ae8be5a8ded0f7cc49">get_results</a>(solution);</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;      }</div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> vroom::Exception &amp;ex) {</div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;      <span class="keywordflow">throw</span>;</div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception &amp;ex) {</div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;      <span class="keywordflow">throw</span>;</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;    } <span class="keywordflow">catch</span> (...) {</div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;      <span class="keywordflow">throw</span>;</div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;    }</div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;    <span class="keywordflow">return</span> results;</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;  }</div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160; </div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00642"></a><span class="lineno"><a class="line" href="classvrprouting_1_1Vrp__vroom__problem.html#a4cb0add2087678349d57dcaead392cb7">  642</a></span>&#160;  std::vector&lt;vroom::Job&gt; <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a4cb0add2087678349d57dcaead392cb7">m_jobs</a>;</div>
-<div class="line"><a name="l00643"></a><span class="lineno"><a class="line" href="classvrprouting_1_1Vrp__vroom__problem.html#a01668a5255ad877926cedb1f42920ef0">  643</a></span>&#160;  std::vector&lt;std::pair&lt;vroom::Job, vroom::Job&gt;&gt; <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a01668a5255ad877926cedb1f42920ef0">m_shipments</a>;</div>
-<div class="line"><a name="l00644"></a><span class="lineno"><a class="line" href="classvrprouting_1_1Vrp__vroom__problem.html#a92366552871a4f364f58227e01851469">  644</a></span>&#160;  std::vector&lt;vroom::Vehicle&gt; <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a92366552871a4f364f58227e01851469">m_vehicles</a>;</div>
-<div class="line"><a name="l00645"></a><span class="lineno"><a class="line" href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">  645</a></span>&#160;  <a class="code" href="classvrprouting_1_1base_1_1Base__Matrix.html">vrprouting::base::Base_Matrix</a> <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">m_matrix</a>;</div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;};</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160; </div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;}  <span class="comment">// namespace vrprouting</span></div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160; </div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;<span class="preprocessor">#endif  // INCLUDE_CPP_COMMON_VRP_VROOM_PROBLEM_HPP_</span></div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;      vroom::Input problem_instance;</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;      problem_instance.set_amount_size(amount_size);</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160; </div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;vehicle : <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a92366552871a4f364f58227e01851469">m_vehicles</a>) {</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;        problem_instance.add_vehicle(vehicle);</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;      }</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;job : <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a4cb0add2087678349d57dcaead392cb7">m_jobs</a>) {</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;        problem_instance.add_job(job);</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;      }</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;shipment : <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a01668a5255ad877926cedb1f42920ef0">m_shipments</a>) {</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;        problem_instance.add_shipment(shipment.first, shipment.second);</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;      }</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;      vroom::Matrix&lt;vroom::Duration&gt; duration_matrix = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">m_matrix</a>.<a class="code" href="classvrprouting_1_1base_1_1Base__Matrix.html#a6d761a85fdafbcf8a536f92c47e8d262">get_vroom_duration_matrix</a>();</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;      vroom::Matrix&lt;vroom::Cost&gt; cost_matrix = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">m_matrix</a>.<a class="code" href="classvrprouting_1_1base_1_1Base__Matrix.html#a6976819eba079c895ea49b92b4139cc5">get_vroom_cost_matrix</a>();</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;      problem_instance.set_durations_matrix(vroom::DEFAULT_PROFILE, std::move(duration_matrix));</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;      problem_instance.set_costs_matrix(vroom::DEFAULT_PROFILE, std::move(cost_matrix));</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160; </div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;      <span class="keywordtype">unsigned</span> threads = 4;</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;      <span class="keywordflow">if</span> (timeout &lt; 0) {</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;        <span class="keyword">auto</span> solution = problem_instance.solve(</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span><span class="keyword">&gt;</span>(exploration_level), threads);</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;        results = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a1c1bc176ab0d58ae8be5a8ded0f7cc49">get_results</a>(solution);</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;      } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;        <span class="keywordtype">int</span> timeout_ms = (loading_time &lt;= timeout * 1000) ? (timeout * 1000 - loading_time) : 0;</div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;        <span class="keyword">auto</span> solution = problem_instance.solve(</div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span><span class="keyword">&gt;</span>(exploration_level), threads, timeout_ms);</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;        results = <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a1c1bc176ab0d58ae8be5a8ded0f7cc49">get_results</a>(solution);</div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;      }</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> vroom::Exception &amp;ex) {</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;      <span class="keywordflow">throw</span>;</div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception &amp;ex) {</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;      <span class="keywordflow">throw</span>;</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    } <span class="keywordflow">catch</span> (...) {</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;      <span class="keywordflow">throw</span>;</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;    }</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;    <span class="keywordflow">return</span> results;</div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;  }</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160; </div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00643"></a><span class="lineno"><a class="line" href="classvrprouting_1_1Vrp__vroom__problem.html#a4cb0add2087678349d57dcaead392cb7">  643</a></span>&#160;  std::vector&lt;vroom::Job&gt; <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a4cb0add2087678349d57dcaead392cb7">m_jobs</a>;</div>
+<div class="line"><a name="l00644"></a><span class="lineno"><a class="line" href="classvrprouting_1_1Vrp__vroom__problem.html#a01668a5255ad877926cedb1f42920ef0">  644</a></span>&#160;  std::vector&lt;std::pair&lt;vroom::Job, vroom::Job&gt;&gt; <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a01668a5255ad877926cedb1f42920ef0">m_shipments</a>;</div>
+<div class="line"><a name="l00645"></a><span class="lineno"><a class="line" href="classvrprouting_1_1Vrp__vroom__problem.html#a92366552871a4f364f58227e01851469">  645</a></span>&#160;  std::vector&lt;vroom::Vehicle&gt; <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#a92366552871a4f364f58227e01851469">m_vehicles</a>;</div>
+<div class="line"><a name="l00646"></a><span class="lineno"><a class="line" href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">  646</a></span>&#160;  <a class="code" href="classvrprouting_1_1base_1_1Base__Matrix.html">vrprouting::base::Base_Matrix</a> <a class="code" href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">m_matrix</a>;</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;};</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160; </div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;}  <span class="comment">// namespace vrprouting</span></div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160; </div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;<span class="preprocessor">#endif  // INCLUDE_CPP_COMMON_VRP_VROOM_PROBLEM_HPP_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="ainterruption_8h_html"><div class="ttname"><a href="interruption_8h.html">interruption.h</a></div></div>
 <div class="ttc" id="aclassvrprouting_1_1base_1_1Base__Matrix_html_ad263a98005f08fb9bde2430bde851d11"><div class="ttname"><a href="classvrprouting_1_1base_1_1Base__Matrix.html#ad263a98005f08fb9bde2430bde851d11">vrprouting::base::Base_Matrix::get_original_id</a></div><div class="ttdeci">Id get_original_id(Idx) const</div><div class="ttdoc">original id -&gt; idx</div><div class="ttdef"><b>Definition:</b> <a href="base__matrix_8cpp_source.html#l00202">base_matrix.cpp:202</a></div></div>
-<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_abdcecadb3ba3b83312d00e258395dd32"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">vrprouting::Vrp_vroom_problem::m_matrix</a></div><div class="ttdeci">vrprouting::base::Base_Matrix m_matrix</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00645">vrp_vroom_problem.hpp:645</a></div></div>
-<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a92366552871a4f364f58227e01851469"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a92366552871a4f364f58227e01851469">vrprouting::Vrp_vroom_problem::m_vehicles</a></div><div class="ttdeci">std::vector&lt; vroom::Vehicle &gt; m_vehicles</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00644">vrp_vroom_problem.hpp:644</a></div></div>
+<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_abdcecadb3ba3b83312d00e258395dd32"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#abdcecadb3ba3b83312d00e258395dd32">vrprouting::Vrp_vroom_problem::m_matrix</a></div><div class="ttdeci">vrprouting::base::Base_Matrix m_matrix</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00646">vrp_vroom_problem.hpp:646</a></div></div>
+<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a92366552871a4f364f58227e01851469"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a92366552871a4f364f58227e01851469">vrprouting::Vrp_vroom_problem::m_vehicles</a></div><div class="ttdeci">std::vector&lt; vroom::Vehicle &gt; m_vehicles</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00645">vrp_vroom_problem.hpp:645</a></div></div>
 <div class="ttc" id="astructVroom__shipment__t_html_aece8851333f73135339a35880b166be5"><div class="ttname"><a href="structVroom__shipment__t.html#aece8851333f73135339a35880b166be5">Vroom_shipment_t::priority</a></div><div class="ttdeci">Priority priority</div><div class="ttdoc">Number of skills.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00075">vroom_shipment_t.h:75</a></div></div>
 <div class="ttc" id="astructVroom__shipment__t_html_a33ed07033ed7ba75444454b05e2cd5a9"><div class="ttname"><a href="structVroom__shipment__t.html#a33ed07033ed7ba75444454b05e2cd5a9">Vroom_shipment_t::p_service</a></div><div class="ttdeci">Duration p_service</div><div class="ttdoc">Pickup setup time.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00062">vroom_shipment_t.h:62</a></div></div>
 <div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a1c1bc176ab0d58ae8be5a8ded0f7cc49"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a1c1bc176ab0d58ae8be5a8ded0f7cc49">vrprouting::Vrp_vroom_problem::get_results</a></div><div class="ttdeci">std::vector&lt; Vroom_rt &gt; get_results(vroom::Solution solution)</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00470">vrp_vroom_problem.hpp:470</a></div></div>
@@ -747,7 +748,7 @@ $(document).ready(function(){initNavTree('vrp__vroom__problem_8hpp_source.html',
 <div class="ttc" id="astructVroom__vehicle__t_html_ab8444ffa7fc3c9f9f3e4f3ccfffbbdc5"><div class="ttname"><a href="structVroom__vehicle__t.html#ab8444ffa7fc3c9f9f3e4f3ccfffbbdc5">Vroom_vehicle_t::skills_size</a></div><div class="ttdeci">size_t skills_size</div><div class="ttdoc">Vehicle's skills.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00063">vroom_vehicle_t.h:63</a></div></div>
 <div class="ttc" id="aclassvrprouting_1_1base_1_1Base__Matrix_html"><div class="ttname"><a href="classvrprouting_1_1base_1_1Base__Matrix.html">vrprouting::base::Base_Matrix</a></div><div class="ttdoc">N x N matrix.</div><div class="ttdef"><b>Definition:</b> <a href="base__matrix_8h_source.html#l00061">base_matrix.h:61</a></div></div>
 <div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a2304eee0e99bf7fe74f928d0c31fa9b2"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a2304eee0e99bf7fe74f928d0c31fa9b2">vrprouting::Vrp_vroom_problem::get_vroom_time_window</a></div><div class="ttdeci">vroom::TimeWindow get_vroom_time_window(Duration tw_open, Duration tw_close) const</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00080">vrp_vroom_problem.hpp:80</a></div></div>
-<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a01668a5255ad877926cedb1f42920ef0"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a01668a5255ad877926cedb1f42920ef0">vrprouting::Vrp_vroom_problem::m_shipments</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; vroom::Job, vroom::Job &gt; &gt; m_shipments</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00643">vrp_vroom_problem.hpp:643</a></div></div>
+<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a01668a5255ad877926cedb1f42920ef0"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a01668a5255ad877926cedb1f42920ef0">vrprouting::Vrp_vroom_problem::m_shipments</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; vroom::Job, vroom::Job &gt; &gt; m_shipments</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00644">vrp_vroom_problem.hpp:644</a></div></div>
 <div class="ttc" id="astructVroom__vehicle__t_html"><div class="ttname"><a href="structVroom__vehicle__t.html">Vroom_vehicle_t</a></div><div class="ttdoc">Vehicles's attributes.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00054">vroom_vehicle_t.h:54</a></div></div>
 <div class="ttc" id="astructVroom__shipment__t_html_a47d3f8b43937ccd04d29e82a2ceb62aa"><div class="ttname"><a href="structVroom__shipment__t.html#a47d3f8b43937ccd04d29e82a2ceb62aa">Vroom_shipment_t::id</a></div><div class="ttdeci">Idx id</div><div class="ttdef"><b>Definition:</b> <a href="vroom__shipment__t_8h_source.html#l00057">vroom_shipment_t.h:57</a></div></div>
 <div class="ttc" id="astructVroom__vehicle__t_html_a089e53be721489464398bb27c0c64a6f"><div class="ttname"><a href="structVroom__vehicle__t.html#a089e53be721489464398bb27c0c64a6f">Vroom_vehicle_t::start_id</a></div><div class="ttdeci">MatrixIndex start_id</div><div class="ttdoc">The vehicle's identifier.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__vehicle__t_8h_source.html#l00056">vroom_vehicle_t.h:56</a></div></div>
@@ -762,13 +763,13 @@ $(document).ready(function(){initNavTree('vrp__vroom__problem_8hpp_source.html',
 <div class="ttc" id="astructVroom__job__t_html_a52a20e47982cb6780cf498c835e64c79"><div class="ttname"><a href="structVroom__job__t.html#a52a20e47982cb6780cf498c835e64c79">Vroom_job_t::skills_size</a></div><div class="ttdeci">size_t skills_size</div><div class="ttdoc">Mandatory skills.</div><div class="ttdef"><b>Definition:</b> <a href="vroom__job__t_8h_source.html#l00068">vroom_job_t.h:68</a></div></div>
 <div class="ttc" id="amatrix__cell__t_8h_html"><div class="ttname"><a href="matrix__cell__t_8h.html">matrix_cell_t.h</a></div></div>
 <div class="ttc" id="astructVroom__job__t_html_a6ff64f23d7947e6587c00679764172e8"><div class="ttname"><a href="structVroom__job__t.html#a6ff64f23d7947e6587c00679764172e8">Vroom_job_t::id</a></div><div class="ttdeci">Idx id</div><div class="ttdef"><b>Definition:</b> <a href="vroom__job__t_8h_source.html#l00055">vroom_job_t.h:55</a></div></div>
-<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a4cb0add2087678349d57dcaead392cb7"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a4cb0add2087678349d57dcaead392cb7">vrprouting::Vrp_vroom_problem::m_jobs</a></div><div class="ttdeci">std::vector&lt; vroom::Job &gt; m_jobs</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00642">vrp_vroom_problem.hpp:642</a></div></div>
+<div class="ttc" id="aclassvrprouting_1_1Vrp__vroom__problem_html_a4cb0add2087678349d57dcaead392cb7"><div class="ttname"><a href="classvrprouting_1_1Vrp__vroom__problem.html#a4cb0add2087678349d57dcaead392cb7">vrprouting::Vrp_vroom_problem::m_jobs</a></div><div class="ttdeci">std::vector&lt; vroom::Job &gt; m_jobs</div><div class="ttdef"><b>Definition:</b> <a href="vrp__vroom__problem_8hpp_source.html#l00643">vrp_vroom_problem.hpp:643</a></div></div>
 <div class="ttc" id="anamespacevrprouting_html"><div class="ttname"><a href="namespacevrprouting.html">vrprouting</a></div><div class="ttdef"><b>Definition:</b> <a href="base__matrix_8cpp_source.html#l00046">base_matrix.cpp:46</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_f413d2883acb285bdeb0fac3ae939ed0.html">cpp_common</a></li><li class="navelem"><a class="el" href="vrp__vroom__problem_8hpp.html">vrp_vroom_problem.hpp</a></li>
-    <li class="footer">Generated on Sun Feb 13 2022 18:04:38 for vrpRouting by
+    <li class="footer">Generated on Thu Jun 2 2022 07:36:51 for vrpRouting by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
