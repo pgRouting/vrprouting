@@ -59,7 +59,7 @@ function set_cmake {
 
     #CXX=clang++ CC=clang cmake -DPOSTGRESQL_BIN=${PGBIN} -DCMAKE_BUILD_TYPE=Debug ..
 
-    cmake -DPostgreSQL_INCLUDE_DIR=${PGINC} -DCMAKE_BUILD_TYPE=Debug -DWITH_DOC=OFF -DVROOM_INSTALL_PATH=$DIR/vroom-v1.12.0 ..
+    cmake "-DPostgreSQL_INCLUDE_DIR=${PGINC}" -DCMAKE_BUILD_TYPE=Debug -DWITH_DOC=OFF "-DVROOM_INSTALL_PATH=$DIR/vroom-v1.12.0" ..
 }
 
 function tap_test {
