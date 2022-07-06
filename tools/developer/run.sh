@@ -5,7 +5,9 @@ set -e
 DIR=$(git rev-parse --show-toplevel)
 pushd "${DIR}" > /dev/null || exit 1
 
-#pushd tools/testers/ ; tar -xf matrix_new_values.tar.gz; popd
+# The next two lines need to be executed only once
+# pushd tools/testers/ ; tar -xf matrix_new_values.tar.gz; popd
+# sudo apt-get install libssl-dev libasio-dev libglpk-dev
 
 # copy this file into the root of your repository
 # adjust to your needs
