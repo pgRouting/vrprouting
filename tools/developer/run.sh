@@ -2,124 +2,154 @@
 
 set -e
 
+DIR=$(git rev-parse --show-toplevel)
+pushd "${DIR}" > /dev/null || exit 1
+
+# The next two lines need to be executed only once
+# pushd tools/testers/ ; tar -xf matrix_new_values.tar.gz; popd
+# sudo apt-get install libssl-dev libasio-dev libglpk-dev
 
 # copy this file into the root of your repository
 # adjust to your needs
 
-# set up your postgres version and port
-PGVERSION="12"
+# This run.sh is intended for 3.x.x
+VERSION=$(grep -Po '(?<=project\(VRPROUTING VERSION )[^;]+' CMakeLists.txt)
+echo "pgRouting VERSION ${VERSION}"
+
+# set up your postgres version, port and compiler (if more than one)
+PGVERSION="13"
 PGPORT="5432"
 PGBIN="/usr/lib/postgresql/${PGVERSION}/bin"
-
-# Compiler setup
-
+PGINC="/usr/include/postgresql/${PGVERSION}/server"
 # When more than one compiler is installed
-GCC="8"
+GCC=""
 
-ALLDIRS="
-pickDeliver
-vrp_basic
-version
-"
+QUERIES_DIRS=$(ls docqueries -1)
+TAP_DIRS=$(ls pgtap -1)
 
-TESTDIRS=${ALLDIRS}
-TESTDIRS="version"
+QUERIES_DIRS=""
+TAP_DIRS=""
 
+function install_vroom {
+    cd "${DIR}"
+    rm -rf ./vroom-v1.12.0
+    git clone --depth 1 --branch v1.12.0  https://github.com/VROOM-Project/vroom ./vroom-v1.12.0
+    pushd vroom-v1.12.0/
+    git submodule update --init
+    cd src/
+    USE_ROUTING=false make shared
+    popd
+}
 
-function test_compile {
+function set_cmake {
+    # Using all defaults
+    #cmake ..
 
-echo ------------------------------------
-echo ------------------------------------
-echo "Compiling with G++-$1"
-echo ------------------------------------
+    # Options Release RelWithDebInfo MinSizeRel Debug
+    #cmake  -DCMAKE_BUILD_TYPE=Debug ..
 
-if [ -n "$1" ]; then
-    update-alternatives --set gcc "/usr/bin/gcc-$1"
-fi
+    # Additional debug information
+    #cmake -DPgRouting_DEBUG=ON -DCMAKE_BUILD_TYPE=Debug ..
 
+    # with documentation (like the one the website)
+    #cmake  -DDOC_USE_BOOTSTRAP=ON -DWITH_DOC=ON ..
 
-cd build/ || exit 1
+    # with developers documentation
+    #cmake  -DWITH_DOC=ON -DBUILD_DOXY=ON ..
 
-cmake  -DPOSTGRESQL_BIN=${PGBIN} -DDOC_USE_BOOTSTRAP=ON -DWITH_DOC=ON -DBUILD_DOXY=ON  -DBUILD_LATEX=ON  -DCMAKE_BUILD_TYPE=Debug -DPROJECT_DEBUG=ON ..
-#cmake  -DPOSTGRESQL_BIN=${PGBIN} -DDOC_USE_BOOTSTRAP=ON -DWITH_DOC=ON -DBUILD_DOXY=ON  -DBUILD_LATEX=ON  -DES=ON -DLINKCHECK=ON ..
+    #CXX=clang++ CC=clang cmake -DPOSTGRESQL_BIN=${PGBIN} -DCMAKE_BUILD_TYPE=Debug ..
 
-#make doc
-#time make doxy
-make
-sudo make install
-cd ..
+    cmake "-DPostgreSQL_INCLUDE_DIR=${PGINC}" -DCMAKE_BUILD_TYPE=Debug -DWITH_DOC=OFF "-DVROOM_INSTALL_PATH=$DIR/vroom-v1.12.0" ..
+}
 
-echo
-echo --------------------------------------------
-echo  Update signatures
-echo --------------------------------------------
-tools/scripts/get_signatures.sh -p ${PGPORT}
+function tap_test {
+    echo --------------------------------------------
+    echo pgTap test all
+    echo --------------------------------------------
 
-#exit
+    dropdb --if-exists -p $PGPORT ___pgr___test___
+    createdb  -p $PGPORT ___pgr___test___
+    echo $PGPORT
+    tools/testers/pg_prove_tests.sh vicky $PGPORT
+    dropdb  -p $PGPORT ___pgr___test___
+}
 
-echo --------------------------------------------
-echo  Execute documentation queries for a particular directories
-echo --------------------------------------------
+function action_tests {
+    echo --------------------------------------------
+    echo  Update signatures
+    echo --------------------------------------------
 
+    tools/release-scripts/get_signatures.sh -p ${PGPORT}
+    tools/release-scripts/notes2news.pl
+    bash tools/scripts/test_signatures.sh
+    bash tools/scripts/test_shell.sh
+    bash tools/scripts/test_license.sh
+    bash tools/scripts/code_checker.sh
+    tools/testers/doc_queries_generator.pl  -documentation  -pgport $PGPORT
+}
 
-# choose what is going to be tested while developing
-for d in ${TESTDIRS}
-do
-    tools/testers/doc_queries_generator.pl  -alg ${d} -documentation  -pgport ${PGPORT}
-    #tools/testers/doc_queries_generator.pl  -alg ${d} -pgport ${PGPORT}
-    time tools/developer/taptest.sh  ${d} -p ${PGPORT}
-done
+function set_compiler {
+    echo ------------------------------------
+    echo ------------------------------------
+    echo "Compiling with G++-$1"
+    echo ------------------------------------
 
+    if [ -n "$1" ]; then
+        update-alternatives --set gcc "/usr/bin/gcc-$1"
+    fi
+}
 
-#exit
+function build_doc {
+    pushd build > /dev/null || exit 1
+    #rm -rf doc/*
+    make doc
+    #make linkcheck
+    #rm -rf doxygen/*
+    #make doxy
+    popd > /dev/null || exit 1
+}
 
-########################################################
-# pgTap test all
-########################################################
-
-dropdb --if-exists -p $PGPORT ___vrp___test___
-createdb  -p $PGPORT ___vrp___test___
-echo $PGPORT
-tools/testers/pg_prove_tests.sh vicky $PGPORT
-dropdb  -p $PGPORT ___vrp___test___
-
-
-################################
-################################
-## checks all the repository
-#
-#  the rest of the script use PGPORT variable
-################################
-################################
-echo
-echo --------------------------------------------
-echo  Update / Verify NEWS
-echo --------------------------------------------
-tools/scripts/notes2news.pl
-if git status | grep 'NEWS'; then
-    echo "**************************************************"
-    echo "           WARNING"
-    echo "the signatures changed, copying generated files"
-    echo "Plese verify the changes are minimal"
-    echo "**************************************************"
-    git diff NEWS
-fi
-
-########################################################
-#  Execute documentation queries for the whole project
-########################################################
-tools/testers/doc_queries_generator.pl  -documentation  -pgport $PGPORT
-tools/testers/doc_queries_generator.pl -pgport $PGPORT
-
-cd build
-#rm -rf doc/*
-make doc
-#rm -rf doxygen/*
-make doxy
-cd ..
-
-#tools/testers/update-tester.sh
+function build {
+    pushd build > /dev/null || exit 1
+    set_cmake
+    make -j 16
+    #make VERBOSE=1
+    sudo make install
+    popd > /dev/null || exit 1
 
 }
 
-test_compile ${GCC}
+function test_compile {
+
+    set_compiler "${GCC}"
+
+    #install_vroom
+    build
+
+    echo --------------------------------------------
+    echo  Execute documentation queries
+    echo --------------------------------------------
+    for d in ${QUERIES_DIRS}
+    do
+        #tools/testers/doc_queries_generator.pl  -alg "${d}" -documentation  -pgport "${PGPORT}"
+        #tools/testers/doc_queries_generator.pl  -alg "${d}" -debug1  -pgport "${PGPORT}"
+        tools/testers/doc_queries_generator.pl  -alg "${d}" -pgport "${PGPORT}"
+    done
+
+
+    echo --------------------------------------------
+    echo  Execute tap_directories
+    echo --------------------------------------------
+    for d in ${TAP_DIRS}
+    do
+        bash taptest.sh  "${d}" "-p ${PGPORT}"
+    done
+
+    #build_doc
+    #tools/testers/doc_queries_generator.pl -pgport $PGPORT
+    #exit 0
+
+    tap_test
+    action_tests
+}
+test_compile
