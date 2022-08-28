@@ -1,0 +1,53 @@
+BEGIN;
+BEGIN
+SET client_min_messages TO NOTICE;
+SET
+DROP TABLE IF EXISTS bin_packing_query CASCADE;
+NOTICE:  table "bin_packing_query" does not exist, skipping
+DROP TABLE
+CREATE TABLE bin_packing_query(
+  id INTEGER,
+  weight INTEGER);
+CREATE TABLE
+INSERT INTO bin_packing_query (id, weight)
+VALUES
+(1, 48), (2, 30), (3, 19), (4, 36), (5, 36), (6, 27), (7, 42), (8, 42), (9, 36), (10, 24), (11, 30);
+INSERT 0 11
+/* -- example_start */
+SELECT *
+FROM bin_packing_query;
+ id | weight 
+----+--------
+  1 |     48
+  2 |     30
+  3 |     19
+  4 |     36
+  5 |     36
+  6 |     27
+  7 |     42
+  8 |     42
+  9 |     36
+ 10 |     24
+ 11 |     30
+(11 rows)
+
+SELECT * 
+FROM vrp_bin_packing('SELECT id, weight FROM bin_packing_query', 100);
+ bin_number | item_id 
+------------+---------
+          1 |       1
+          1 |       2
+          1 |       3
+          2 |       4
+          2 |       5
+          2 |       6
+          3 |       7
+          3 |       8
+          4 |       9
+          4 |      10
+          4 |      11
+(11 rows)
+
+/* -- example_end */
+ROLLBACK;
+ROLLBACK
