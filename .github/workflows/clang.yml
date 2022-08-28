@@ -1,13 +1,7 @@
 name: Build for Ubuntu with clang
 
 on:
-  push:
-    branches-ignore:
-      - 'translations_*'
-    tags: []
-  pull_request:
-    paths-ignore:
-      - '**.po'
+  workflow_dispatch:
 
 
 jobs:

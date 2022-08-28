@@ -57,7 +57,12 @@ jobs:
             postgresql-${{ matrix.psql }}-postgis-${{ matrix.postgis }} \
             postgresql-${{ matrix.psql }}-postgis-${{ matrix.postgis }}-scripts \
             postgresql-${{ matrix.psql }}-pgrouting \
-            postgresql-server-dev-${{ matrix.psql }}
+            postgresql-server-dev-${{ matrix.psql }} \
+            postgresql-plpython3-${{ matrix.psql }}
+
+      - name: Install Google OR-Tools dependencies 
+        run: |
+          sudo pip install --root=/  ortools
 
       - name: Install VROOM dependencies
         run: |

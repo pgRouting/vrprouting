@@ -1,13 +1,7 @@
 name: Build for macOS
 
 on:
-  push:
-    branches-ignore:
-      - 'translations_*'
-    tags: []
-  pull_request:
-    paths-ignore:
-      - '**.po'
+  workflow_dispatch:
 
 # TODO: Fix the macOS build for compiling and building VROOM with vrprouting.
 jobs:
