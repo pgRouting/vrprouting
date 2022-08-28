@@ -60,6 +60,10 @@ Individuals (in alphabetical order)
 
   - Adding new experimental VROOM category functions: vrp_vroom, vrp_vroomJobs, vrp_vroomShipments.
 
+- Manas Sivakumar
+
+  - Adding Google Or tools functionality to vrprouting
+
 - Virginia Vergara
 
   - Porting the code from pgRouting
@@ -90,6 +94,7 @@ Individuals (in alphabetical order)
 `Ashish Kumar <ashishkr23438@gmail.com>`__
 `Daniel Kastl <daniel@georepublic.de>`__
 `Vicky Vergara <vicky@georepublic.de>`__
+`Manas Sivakumar <manas23601@gmail.com>`__
 
 Corporate Sponsors (in alphabetical order)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
