@@ -8,7 +8,8 @@ name: Check Documentation
 # - build Links
 # - English is always tested
 
-on: [push,pull_request]
+on:
+  workflow_dispatch:
 
 jobs:
   build:

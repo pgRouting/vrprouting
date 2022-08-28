@@ -2,10 +2,6 @@ name: Update Locale and Website
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - develop
 
 jobs:
   release:

@@ -1,9 +1,7 @@
 name: Build for Windows
 
 on:
-  push:
-    branches-ignore:
-        - '**'
+  workflow_dispatch:
 
 jobs:
   build:
