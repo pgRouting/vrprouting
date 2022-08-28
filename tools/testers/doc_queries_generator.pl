@@ -396,7 +396,8 @@ sub createTestDB {
 
     #TODO put as parameter
     my $encoding = "SET client_encoding TO 'UTF8';";
-
+    
+    mysystem("$psql $connopts -c \"$encoding CREATE EXTENSION IF NOT EXISTS plpython3u \" $DBNAME");
     mysystem("$psql $connopts -c \"$encoding CREATE EXTENSION IF NOT EXISTS postgis $postgis_ver \" $DBNAME");
     mysystem("$psql $connopts -c \"$encoding CREATE EXTENSION IF NOT EXISTS pgrouting $pgrouting_ver \" $DBNAME");
     mysystem("$psql $connopts -c \"$encoding DROP EXTENSION IF EXISTS vrprouting CASCADE\"  $DBNAME");
