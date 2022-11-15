@@ -87,7 +87,3 @@ contributed to the development of vrpRouting:
    * - Paragon Corporation
      - United States
      - https://www.paragoncorporation.com
-   * - Leopark
-     - Mexico
-     - https://www.leopark.mx
-
