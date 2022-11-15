@@ -60,6 +60,10 @@ Individuals (in alphabetical order)
 
   - Adding new experimental VROOM category functions: vrp_vroom, vrp_vroomJobs, vrp_vroomShipments.
 
+- Joseph Percival
+
+  - Optimized and added several VRP functions, including: tabu, pickDeliver, pickDeliver_driver, and many others.
+
 - Virginia Vergara
 
   - Porting the code from pgRouting
@@ -74,7 +78,6 @@ Corporate Sponsors (in alphabetical order)
 These are corporate entities that have contributed developer time, hosting, or direct monetary funding to the vrpRouting project:
 
 - `Georepublic <https://georepublic.info/en/>`__
-- `Leopark <https://www.leopark.mx/>`__
 - `Paragon Corporation <https://www.paragoncorporation.com/>`__
 
 Contributors Past & Present:
@@ -89,6 +92,7 @@ Individuals (in alphabetical order)
 
 `Ashish Kumar <ashishkr23438@gmail.com>`__
 `Daniel Kastl <daniel@georepublic.de>`__
+`Joseph Percival <ipercival@gmail.com>`__
 `Vicky Vergara <vicky@georepublic.de>`__
 
 Corporate Sponsors (in alphabetical order)
