@@ -78,7 +78,6 @@ Corporate Sponsors (in alphabetical order)
 These are corporate entities that have contributed developer time, hosting, or direct monetary funding to the vrpRouting project:
 
 - `Georepublic <https://georepublic.info/en/>`__
-- `Leopark <https://www.leopark.mx/>`__
 - `Paragon Corporation <https://www.paragoncorporation.com/>`__
 
 Contributors Past & Present:
