@@ -3,7 +3,7 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Concepts &#8212; vrpRouting Manual (0.3)</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -13,7 +13,9 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/translations.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -174,8 +176,8 @@
 (<a class="reference external" href="https://vrp.pgrouting.org/v0/en/concepts.html">v0</a>)</p></li>
 </ul>
 <section id="concepts">
-<h1><a class="toc-backref" href="#id3">Concepts</a><a class="headerlink" href="#concepts" title="Enlazar permanentemente con este título">¶</a></h1>
-<div class="contents topic" id="contenido">
+<h1><a class="toc-backref" href="#id3" role="doc-backlink">Concepts</a><a class="headerlink" href="#concepts" title="Enlace permanente a este encabezado">¶</a></h1>
+<nav class="contents" id="contenido">
 <p class="topic-title">Contenido</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#concepts" id="id3">Concepts</a></p>
@@ -213,9 +215,9 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="general-documentation">
-<h2><a class="toc-backref" href="#id4">General documentation</a><a class="headerlink" href="#general-documentation" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">General documentation</a><a class="headerlink" href="#general-documentation" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>Vehicle Routing Problems <cite>VRP</cite> are <strong>NP-hard</strong> optimization problem, it generalises the travelling salesman problem (TSP).</p>
 <ul class="simple">
 <li><p>The objective of the VRP is to minimize the total route cost.</p></li>
@@ -224,7 +226,7 @@
 <p><strong>vrpRouting does not try to implement all variants.</strong></p>
 </section>
 <section id="characteristics">
-<h2><a class="toc-backref" href="#id5">Characteristics</a><a class="headerlink" href="#characteristics" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Characteristics</a><a class="headerlink" href="#characteristics" title="Enlace permanente a este encabezado">¶</a></h2>
 <ul class="simple">
 <li><p>Capacitated Vehicle Routing Problem <cite>CVRP</cite> where The vehicles have limited carrying capacity of the goods.</p></li>
 <li><p>Vehicle Routing Problem with Time Windows <cite>VRPTW</cite> where the locations have time windows within which the vehicle’s visits must be made.</p></li>
@@ -238,7 +240,7 @@
 <li><p>Less wait time is better.</p></li>
 </ul>
 <section id="pick-delivery">
-<h3><a class="toc-backref" href="#id6">Pick &amp; Delivery</a><a class="headerlink" href="#pick-delivery" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Pick &amp; Delivery</a><a class="headerlink" href="#pick-delivery" title="Enlace permanente a este encabezado">¶</a></h3>
 <p>Problem: <cite>CVRPPDTW</cite> Capacitated Pick and Delivery Vehicle Routing problem with Time Windows</p>
 <ul class="simple">
 <li><p>Times are relative to <cite>0</cite></p></li>
@@ -268,10 +270,10 @@
 </section>
 </section>
 <section id="getting-started">
-<span id="id1"></span><h2><a class="toc-backref" href="#id7">Getting Started</a><a class="headerlink" href="#getting-started" title="Enlazar permanentemente con este título">¶</a></h2>
+<span id="id1"></span><h2><a class="toc-backref" href="#id7" role="doc-backlink">Getting Started</a><a class="headerlink" href="#getting-started" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>This is a simple guide to walk you through the steps of getting started
 with vrpRouting. In this guide we will cover:</p>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#create-a-routing-database" id="id19">Create a routing Database</a></p>
 <ul>
@@ -289,9 +291,9 @@ with vrpRouting. In this guide we will cover:</p>
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="create-a-routing-database">
-<span id="create-database"></span><h3><a class="toc-backref" href="#id19">Create a routing Database</a><a class="headerlink" href="#create-a-routing-database" title="Enlazar permanentemente con este título">¶</a></h3>
+<span id="create-database"></span><h3><a class="toc-backref" href="#id19" role="doc-backlink">Create a routing Database</a><a class="headerlink" href="#create-a-routing-database" title="Enlace permanente a este encabezado">¶</a></h3>
 <p>The first thing we need to do is create a database and load pgrouting in
 the database. Typically you will create a database for each project. Once
 you have a database to work in, your can load your data and build your
@@ -304,7 +306,7 @@ psql mydatabase -c <span class="s2">&quot;create extension pgrouting&quot;</span
 </pre></div>
 </div>
 <section id="handling-parameters">
-<h4><a class="toc-backref" href="#id20">Handling Parameters</a><a class="headerlink" href="#handling-parameters" title="Enlazar permanentemente con este título">¶</a></h4>
+<h4><a class="toc-backref" href="#id20" role="doc-backlink">Handling Parameters</a><a class="headerlink" href="#handling-parameters" title="Enlace permanente a este encabezado">¶</a></h4>
 <p>To define a problem, several considerations have to be done, to get consistent results.
 This section gives an insight of how parameters are to be considered.</p>
 <ul class="simple">
@@ -316,7 +318,7 @@ This section gives an insight of how parameters are to be considered.</p>
 </section>
 </section>
 <section id="capacity-and-demand-units-handling">
-<h3><a class="toc-backref" href="#id21">Capacity and Demand Units Handling</a><a class="headerlink" href="#capacity-and-demand-units-handling" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Capacity and Demand Units Handling</a><a class="headerlink" href="#capacity-and-demand-units-handling" title="Enlace permanente a este encabezado">¶</a></h3>
 <p>The <cite>capacity</cite> of a vehicle, can be measured in:</p>
 <ul class="simple">
 <li><p>Volume units like <span class="math notranslate nohighlight">\(m^3\)</span>.</p></li>
@@ -334,11 +336,6 @@ If the vehicle’s <cite>capacity</cite> is measured by <cite>kg</cite>, a conve
 - <span class="math notranslate nohighlight">\(f_boxes\)</span>: number of boxes that would be used for <cite>1</cite> kg of feathers.
 - <span class="math notranslate nohighlight">\(a_weight\)</span>: weight of <cite>1</cite> box of apples.</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 26%" />
-<col style="width: 38%" />
-<col style="width: 36%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Capacity Units</p></th>
 <th class="head"><p>apples</p></th>
@@ -357,7 +354,7 @@ If the vehicle’s <cite>capacity</cite> is measured by <cite>kg</cite>, a conve
 </tbody>
 </table>
 <section id="locations">
-<h4><a class="toc-backref" href="#id22">Locations</a><a class="headerlink" href="#locations" title="Enlazar permanentemente con este título">¶</a></h4>
+<h4><a class="toc-backref" href="#id22" role="doc-backlink">Locations</a><a class="headerlink" href="#locations" title="Enlace permanente a este encabezado">¶</a></h4>
 <ul class="simple">
 <li><p>When using the Euclidean signatures:</p>
 <ul>
@@ -376,19 +373,12 @@ If the vehicle’s <cite>capacity</cite> is measured by <cite>kg</cite>, a conve
 </section>
 </section>
 <section id="time-handling">
-<h3><a class="toc-backref" href="#id23">Time Handling</a><a class="headerlink" href="#time-handling" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">Time Handling</a><a class="headerlink" href="#time-handling" title="Enlace permanente a este encabezado">¶</a></h3>
 <p>The times are relative to 0</p>
 <p>Suppose that a vehicle’s driver starts the shift at 9:00 am and ends the shift at 4:30 pm
 and the service time duration is 10 minutes with 30 seconds.</p>
 <p>All time units have to be converted</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 18%" />
-<col style="width: 21%" />
-<col style="width: 22%" />
-<col style="width: 28%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Meaning of 0</p></th>
 <th class="head"><p>time units</p></th>
@@ -425,29 +415,29 @@ and the service time duration is 10 minutes with 30 seconds.</p>
 </tbody>
 </table>
 <section id="factor-handling">
-<span id="pd-factor"></span><h4><a class="toc-backref" href="#id24">Factor Handling</a><a class="headerlink" href="#factor-handling" title="Enlazar permanentemente con este título">¶</a></h4>
+<span id="pd-factor"></span><h4><a class="toc-backref" href="#id24" role="doc-backlink">Factor Handling</a><a class="headerlink" href="#factor-handling" title="Enlace permanente a este encabezado">¶</a></h4>
 <p>TBD</p>
 </section>
 </section>
 </section>
 <section id="group-of-functions">
-<h2><a class="toc-backref" href="#id14">Group of Functions</a><a class="headerlink" href="#group-of-functions" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Group of Functions</a><a class="headerlink" href="#group-of-functions" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>TBD</p>
 </section>
 <section id="inner-queries">
-<h2><a class="toc-backref" href="#id15">Inner Queries</a><a class="headerlink" href="#inner-queries" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Inner Queries</a><a class="headerlink" href="#inner-queries" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>TBD</p>
 </section>
 <section id="return-columns-values">
-<h2><a class="toc-backref" href="#id16">Return columns &amp; values</a><a class="headerlink" href="#return-columns-values" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Return columns &amp; values</a><a class="headerlink" href="#return-columns-values" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>TBD</p>
 </section>
 <section id="performance">
-<h2><a class="toc-backref" href="#id17">Performance</a><a class="headerlink" href="#performance" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">Performance</a><a class="headerlink" href="#performance" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>TBD</p>
 </section>
 <section id="how-to-contribute">
-<h2><a class="toc-backref" href="#id18">How to contribute</a><a class="headerlink" href="#how-to-contribute" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">How to contribute</a><a class="headerlink" href="#how-to-contribute" title="Enlace permanente a este encabezado">¶</a></h2>
 <p class="rubric">Wiki</p>
 <ul class="simple">
 <li><p>Edit an existing  <a class="reference external" href="https://github.com/pgRouting/vrprouting/wiki">vrpRouting Wiki</a> page.</p></li>
@@ -475,8 +465,8 @@ and the service time duration is 10 minutes with 30 seconds.</p>
     </p>
     <p>
         &copy; Copyright vrpRouting Contributors - Version v0.3.0.<br/>
-      Actualizado por última vez en feb. 13, 2022.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Actualizado por última vez en nov 15, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>
