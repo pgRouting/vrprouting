@@ -66,6 +66,15 @@ v0.2.0 Release Notes
   - vrp_vroomJobsPlain
   - vrp_vroomShipmentsPlain
 
+- VRP
+
+  - vrp_compatibleVehicles
+  - vrp_optimize
+  - vrp_pickDeliverAdd
+  - vrp_pickDeliver
+  - vrp_simulation
+  - vrp_viewRoute
+
 v0.1.0 Release Notes
 *******************************************************************************
 
