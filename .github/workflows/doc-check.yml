@@ -8,7 +8,8 @@ name: Check Documentation
 # - build Links
 # - English is always tested
 
-on: [push,pull_request]
+on:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -38,7 +39,7 @@ jobs:
              PROCESS=${{ true }}
            fi
            echo "PROCESS=${PROCESS}" >> $GITHUB_ENV
-           echo "VROOMVER=1.11.0" >> $GITHUB_ENV
+           echo "VROOMVER=1.12.0" >> $GITHUB_ENV
 
       - name: Get postgres version
         if: env.PROCESS == 'true'
@@ -94,15 +95,15 @@ jobs:
       - name: Build VROOM
         if: steps.cache-vroom.outputs.cache-hit != 'true'
         run: |
-          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v${{ env.VROOMVER }}.tar.gz -O /tmp/${{ env.VROOMVER }}.tar.gz
-          tar -zvxf /tmp/${{ env.VROOMVER }}.tar.gz -C ~/
-          cd ~/vroom-${{ env.VROOMVER }}/src
+          git clone --depth 1 --branch v${{ env.VROOMVER }} https://github.com/VROOM-Project/vroom ~/vroom-${{ env.VROOMVER }}
 
-          # Create object file with position independent code using -fPIC flag
-          sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
+          # init the required submodules
+          cd ~/vroom-${{ env.VROOMVER }}/
+          git submodule update --init
 
+          # Using "shared" target for creating Position Independent Code, disabling use of routing
           cd ~/vroom-${{ env.VROOMVER }}/src
-          make
+          USE_ROUTING=false make shared
 
       - name: Configure
         if: env.PROCESS == 'true'

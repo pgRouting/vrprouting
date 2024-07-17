@@ -601,7 +601,8 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
           m_vehicles.size()
               ? static_cast<unsigned int>(m_vehicles[0].capacity.size())
               : 0;
-      vroom::Input problem_instance(amount_size);
+      vroom::Input problem_instance;
+      problem_instance.set_amount_size(amount_size);
 
       for (const auto &vehicle : m_vehicles) {
         problem_instance.add_vehicle(vehicle);

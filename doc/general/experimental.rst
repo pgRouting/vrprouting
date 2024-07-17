@@ -52,6 +52,7 @@ Experimental Functions
 
   pgr-category
   vroom-category
+  or_tools-category
 
 .. rubric:: See Also
 

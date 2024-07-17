@@ -1,9 +1,7 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
+  workflow_dispatch:
 
 
 jobs:
@@ -29,7 +27,7 @@ jobs:
           echo "PGPORT=5432" >> $GITHUB_ENV
           echo "PGIS=3" >> $GITHUB_ENV
           echo "PROJECT_VERSION=${PROJECT_VERSION}" >> $GITHUB_ENV
-          echo "VROOMVER=1.11.0" >> $GITHUB_ENV
+          echo "VROOMVER=1.12.0" >> $GITHUB_ENV
 
       - name: Verify Tag Name
         run: |
@@ -92,15 +90,15 @@ jobs:
       - name: Build VROOM
         if: steps.cache-vroom.outputs.cache-hit != 'true'
         run: |
-          wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v${{ env.VROOMVER }}.tar.gz -O /tmp/${{ env.VROOMVER }}.tar.gz
-          tar -zvxf /tmp/${{ env.VROOMVER }}.tar.gz -C ~/
-          cd ~/vroom-${{ env.VROOMVER }}/src
+          git clone --depth 1 --branch v${{ env.VROOMVER }} https://github.com/VROOM-Project/vroom ~/vroom-${{ env.VROOMVER }}
 
-          # Create object file with position independent code using -fPIC flag
-          sed -i 's/CXXFLAGS = /CXXFLAGS = -fPIC /' makefile
+          # init the required submodules
+          cd ~/vroom-${{ env.VROOMVER }}/
+          git submodule update --init
 
+          # Using "shared" target for creating Position Independent Code, disabling use of routing
           cd ~/vroom-${{ env.VROOMVER }}/src
-          make
+          USE_ROUTING=false make shared
 
       - name: Configure
         run: |

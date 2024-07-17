@@ -22,6 +22,19 @@ To see the full list of changes check the list of `Git commits <https://github.c
 .. contents:: Contents
      :local:
 
+v0.4.0 Release Notes
+*******************************************************************************
+
+To see all issues & pull requests closed by this release see the `Git closed milestone for 0.4.0 <https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.4.0%22>`_ on Github.
+
+.. rubric:: Added support for VROOM 1.12.0 (`#34 <https://github.com/pgRouting/vrprouting/issues/34>`_)
+
+- No visible changes on user side with respect to signatures.
+- Adjusted to VROOM v1.12.0 due to internal breaking changes: 
+
+  - Made changes according to new vroom::Input signature.
+  - CI changes to compile without routing support, with Position Independent Code.
+
 v0.3.0 Release Notes
 *******************************************************************************
 
@@ -42,6 +55,7 @@ To see all issues & pull requests closed by this release see the `Git closed mil
 
 - Added setup time in jobs and shipments to refine service time modeling.
 - Added support for custom cost matrices, along with the duration matrix.
+
   - Using start_id, end_id, duration, cost as matrix table columns.
 - Added timeout and exploration_level parameters to vroom-category functions.
 - Added max_tasks column in vehicles.

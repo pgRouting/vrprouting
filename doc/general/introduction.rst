@@ -60,6 +60,10 @@ Individuals (in alphabetical order)
 
   - Adding new experimental VROOM category functions: vrp_vroom, vrp_vroomJobs, vrp_vroomShipments.
 
+- Manas Sivakumar
+
+  - Adding Google Or tools functionality to vrprouting
+
 - Joseph Percival
 
   - Optimized and added several VRP functions, including: tabu, pickDeliver, pickDeliver_driver, and many others.
@@ -94,6 +98,7 @@ Individuals (in alphabetical order)
 `Daniel Kastl <daniel@georepublic.de>`__
 `Joseph Percival <ipercival@gmail.com>`__
 `Vicky Vergara <vicky@georepublic.de>`__
+`Manas Sivakumar <manas23601@gmail.com>`__
 
 Corporate Sponsors (in alphabetical order)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
