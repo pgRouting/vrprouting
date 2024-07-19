@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # -*- coding: utf-8 -*-
 ###############################################################################
 #
@@ -27,62 +27,62 @@
 #  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 ###############################################################################
-
 set -e
 
 if ! test -d code_linter; then
     # Get our fork of codespell that adds --words-white-list and full filename support for -S option
     mkdir code_linter
-    cd code_linter || exit 1
-    git clone https://github.com/google/styleguide
-    cd styleguide || exit 1
-    git checkout gh-pages
-    cd ../.. || exit 1
+    pushd code_linter || exit 1
+    git clone --branch develop https://github.com/cpplint/cpplint
+    # cd styleguide || exit 1
+    # git checkout gh-pages
+    popd || exit 1
+    ls code_linter
+    ls code_linter/cpplint
     echo code_linter installed
 fi
-
-function test_c_files {
-    if test -n "$1"; then
-        echo "--------------------"
-        echo "------   *.c  ------"
-        echo "--------------------"
-        python2 code_linter/styleguide/cpplint/cpplint.py --extensions=c  --linelength=120 --filter=-readability/casting $1
-    fi
-}
-
-function test_cpp_files {
-    if test -n "$1"; then
-        echo "--------------------"
-        echo "------ *.cpp  ------"
-        echo "--------------------"
-        python2 code_linter/styleguide/cpplint/cpplint.py --linelength=120 $1
-    fi
-}
-
-function test_headers {
-    if test -n "$1"; then
-        echo "--------------------"
-        echo "----- HEADERS  -----"
-        echo "--------------------"
-        python2 code_linter/styleguide/cpplint/cpplint.py --extensions=hpp,h --headers=hpp,h  --linelength=120 --filter=-runtime/references $1
-    fi
-}
 
 DIRECTORY="$1"
 
 if test -z "$DIRECTORY"; then
-    test_c_files "$(git ls-files | grep -w 'c')"
-    test_cpp_files "$(git ls-files | grep -w 'cpp')"
-    test_headers  "$(git ls-files | grep -w 'h') $(git ls-files | grep -w 'hpp')"
+    echo "--------------------"
+    echo "------   *.c  ------"
+    echo "--------------------"
+    code_linter/cpplint/cpplint.py --extensions=c  --linelength=120 --filter=-readability/casting src/*/*.c
+    echo "--------------------"
+    echo "------ *.cpp  ------"
+    echo "--------------------"
+    code_linter/cpplint/cpplint.py --filter=-runtime/references,-whitespace/indent_namespace  --linelength=120 src/*/*.cpp
+    echo "--------------------"
+    echo "------ HEADERS  ------"
+    echo "--------------------"
+    code_linter/cpplint/cpplint.py --extensions=hpp,h --headers=hpp,h  --linelength=120 --filter=-runtime/references \
+        include/*/*.h*
 
 else
     if [ "$DIRECTORY" = "h" ]; then
-    test_headers  "$(git ls-files | grep -w 'h') $(git ls-files | grep -w 'hpp')"
+
+    echo "--------------------"
+    echo "------ IN PLACE HEADERS  ------"
+    echo "--------------------"
+    code_linter/cpplint/cpplint.py --extensions=hpp,h --headers=hpp,h  --linelength=120 --filter=-runtime/references \
+        include/*/*.h*
 
     else
-        test_headers  "$(git ls-files | grep -w 'h' | grep ${DIRECTORY})"
-        test_c_files "$(git ls-files | grep -w 'c' | grep ${DIRECTORY})"
-        test_headers  "$(git ls-files | grep -w 'hpp' | grep ${DIRECTORY})"
-        test_cpp_files "$(git ls-files | grep -w 'cpp' | grep ${DIRECTORY})"
+        echo "--------------------"
+        echo "------   *.c  ------"
+        echo "--------------------"
+        code_linter/cpplint/cpplint.py --extensions=c  --linelength=120 --filter=-readability/casting src/"$DIRECTORY"/*.c
+        echo "--------------------"
+        echo "------ *.cpp  ------"
+        echo "--------------------"
+        code_linter/cpplint/cpplint.py  --linelength=120 --filter=-runtime/references,-whitespace/indent_namespace src/"$DIRECTORY"/*.cpp
+
+        echo "--------------------"
+        echo "------ C++ HEADER  ------"
+        echo "--------------------"
+        code_linter/cpplint/cpplint.py  --extensions=hpp,h --headers=hpp,h  --linelength=120 --filter=-runtime/references \
+            include/"$DIRECTORY"/*.h*
     fi
 fi
+
