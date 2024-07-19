@@ -3,7 +3,7 @@ SET extra_float_digits=-3;
 SELECT * FROM vrp_pgr_pickDeliver(
     'SELECT * FROM orders_1 ORDER BY id',
     'SELECT * from vehicles_1',
-    -- matrix query
+    /*  matrix query */
     'WITH
     A AS (
         SELECT p_id AS id, p_x AS x, p_y AS y FROM orders_1
