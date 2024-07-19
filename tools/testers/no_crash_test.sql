@@ -32,11 +32,11 @@ BEGIN
         IF array_length(error_messages, 1) >= i AND error_messages[i] != '' THEN
           RETURN query SELECT throws_ok(q1, error_messages[i]);
         ELSE
-          RETURN query SELECT * FROM lives_ok(q1);
+          RETURN query SELECT * FROM lives_ok(q1, 'lives_ok:' || q1);
           IF i = ANY(non_empty_args) THEN
-              RETURN query SELECT * FROM isnt_empty(q1);
+              RETURN query SELECT * FROM lives_ok(q1, 'lives_ok: ' || q1);
           ELSE
-              RETURN query SELECT * FROM is_empty(q1);
+              RETURN query SELECT * FROM is_empty(q1, 'is_empty: ' || q1);
           END IF;
         END IF;
 
