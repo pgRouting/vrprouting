@@ -12,6 +12,21 @@ DROP TABLE IF EXISTS public.vehicles_1;
 DROP TABLE IF EXISTS public.orders_1;
 DROP TABLE IF EXISTS public.edges_matrix;
 
+-- activate python
+CREATE OR REPLACE PROCEDURE activate_python_venv(venv text)
+LANGUAGE plpython3u AS
+$BODY$
+    import os
+    import sys
+
+    if sys.platform in ('win32', 'win64', 'cygwin'):
+        activate_this = os.path.join(venv, 'Scripts', 'activate_this.py')
+    else:
+        activate_this = os.path.join(venv, 'bin', 'activate_this.py')
+
+    exec(open(activate_this).read(), dict(__file__=activate_this))
+$BODY$;
+
 --EDGE TABLE CREATE start
 CREATE TABLE public.edge_table (
     id BIGSERIAL,
