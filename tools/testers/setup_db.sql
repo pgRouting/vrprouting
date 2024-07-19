@@ -29,5 +29,7 @@ BEGIN;
     \i general_pgtap_tests.sql
     \i vroomdata.sql
     \i ortoolsdata.sql
+    \i functions.sql
+    \i solomon_100_rc101.data.sql
 
 END;
