@@ -32,14 +32,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 namespace vrprouting {
 namespace problem {
 
-  enum NodeType {
+enum NodeType {
     kStart = 0,    /**< starting site */
     kPickup,       /**< pickup site */
     kDelivery,     /**< delivery site */
     kDump,         /**< dump site, empties truck */
     kLoad,         /**< load site, fills the truck */
     kEnd           /**< ending site */
-  };
+};
 
 }  //  namespace problem
 }  //  namespace vrprouting
