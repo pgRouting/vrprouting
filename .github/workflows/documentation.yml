@@ -1,33 +1,99 @@
-name: Build documentation
+name: Check Documentation
 
+# This action runs:
+# - When this file changes
+# - When changes on documentation (doc)
+# - When changes on translation (locale)
+# - When the way the documentation build changes (CMakeLists.txt, doc/CMakeLists.txt, doc/conf.py.in)
+#
 # documentation is tested only on:
-# - ubuntu
-# - postgres 12
-# - postgis 3
+# - ubuntu-latest
+# - default postgres installed on ubuntu-latest
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/documentation.yml'
+      - 'doc/**'
+      - 'doxygen/**'
+      - 'locale/**'
+      - 'CMakeLists.txt'
+
+    branches-ignore:
+      - 'gh-pages'
+
+    tags: []
+
+
+
+  pull_request:
+    paths:
+      - '.github/workflows/documentation.yml'
+      - 'doc/**'
+      - 'locale/**'
+      - 'CMakeLists.txt'
+
+    branches-ignore:
+      - 'gh-pages'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+    postgis: 3
+    release: Release
+    os: ubuntu-latest
+    vroom: 1.12.0
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-
+  check-documentation:
+    name: documentation
+    runs-on: ${{ matrix.os }}
     strategy:
         fail-fast: false
+        matrix:
+            language: [en]
+            os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: check modified files
+        id: check_files
+        run: |
+          # allways processing english, no matter what the change was
+          if [[ "${{ matrix.language }}" == "en" ]]; then echo "PROCESS=true" >> $GITHUB_ENV; echo "CHK_LINK=true" >> $GITHUB_ENV; exit 0; fi
+
+          if [[ "${{ matrix.language }}" == "zh_Hans" && "${{ github.repository_owner }}" != "pgRouting" ]]; then echo "PROCESS=false" >> $GITHUB_ENV; exit 0; fi
+
+          # when this file changes  all languages are tested
+          if git diff --name-only HEAD^ HEAD | grep -q '.github/workflows/doc-check.yml' ; then  echo "PROCESS=true" >> $GITHUB_ENV; exit 0; fi
+
+          # when there is a change on the way the build is done all languages are tested
+          if git diff --name-only HEAD^ HEAD | grep -q '^CMakeLists.txt' ; then  echo "PROCESS=true" >> $GITHUB_ENV; exit 0; fi
+          if git diff --name-only HEAD^ HEAD | grep -q '^doc/CMakeLists.txt' ; then  echo "PROCESS=true" >> $GITHUB_ENV; exit 0; fi
+          if git diff --name-only HEAD^ HEAD | grep -q '^doc/conf.py.in' ; then  echo "PROCESS=true" >> $GITHUB_ENV; exit 0; fi
+
+          # if there is a change on the translation
+          if git diff --name-only HEAD^ HEAD | grep -q "^locale/${{ matrix.language }}" ; then  echo "PROCESS=true" >> $GITHUB_ENV; echo "CHK_LINK=true" >> $GITHUB_ENV; exit 0; fi
 
       - name: Get postgres version
+        if: env.PROCESS == 'true'
         run: |
           sudo service postgresql start
-          pgver=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d \()')
+          pgver=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d+ \()')
           echo "PGVER=${pgver}" >> $GITHUB_ENV
-          echo "PGIS=3" >> $GITHUB_ENV
-          echo "VROOMVER=1.12.0" >> $GITHUB_ENV
+          echo "PGPORT=5432" >> $GITHUB_ENV
 
       - name: Add PostgreSQL APT repository
+        if: env.PROCESS == 'true'
         run: |
           sudo apt-get install curl ca-certificates gnupg
           curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
@@ -35,61 +101,76 @@ jobs:
             $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 
       - name: Install python
-        uses: actions/setup-python@v2
+        if: env.PROCESS == 'true'
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
       - name: Install dependencies
+        if: env.PROCESS == 'true'
         run: |
           sudo apt-get update
+          # vrpRouting dependencies
           sudo apt-get install -y \
-            libboost-graph-dev \
             postgresql-${PGVER} \
-            postgresql-${PGVER}-postgis-${PGIS} \
-            postgresql-${PGVER}-postgis-${PGIS}-scripts \
-            postgresql-server-dev-${PGVER} \
-            graphviz
+            postgresql-server-dev-${PGVER}
+          # vroom dependencies
+          sudo apt-get install libssl-dev libasio-dev libglpk-dev
+          # documentation dependencies
+          sudo apt-get install -y graphviz doxygen
+          pip install -r requirements.txt
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip list
 
-      - name: Install VROOM dependencies
-        run: |
-          sudo apt-get install libssl-dev libasio-dev libglpk-dev
-
       - name: Cache VROOM
         id: cache-vroom
-        uses: actions/cache@v2
+        if: env.PROCESS == 'true'
+        uses: actions/cache@v4
         env:
           cache-name: vroom
         with:
-          path: |
-            ~/vroom-${{ env.VROOMVER }}
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ env.VROOMVER }}
+          path: vroom-${{ env.vroom }}
+          key: ${{ env.os }}-${{ env.cache-name }}-${{ env.vroom }}
+
+      - name: Checkout VROOM
+        if: env.PROCESS == 'true' && steps.cache-vroom.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
+        with:
+          path: vroom-${{ env.vroom }}
+          repository: VROOM-Project/vroom
+          ref: "v${{ env.vroom }}"
+          submodules: true
 
       - name: Build VROOM
-        if: steps.cache-vroom.outputs.cache-hit != 'true'
+        if: env.PROCESS == 'true' &&  steps.cache-vroom.outputs.cache-hit != 'true'
         run: |
-          git clone --depth 1 --branch v${{ env.VROOMVER }} https://github.com/VROOM-Project/vroom ~/vroom-${{ env.VROOMVER }}
-
-          # init the required submodules
-          cd ~/vroom-${{ env.VROOMVER }}/
-          git submodule update --init
-
-          # Using "shared" target for creating Position Independent Code, disabling use of routing
-          cd ~/vroom-${{ env.VROOMVER }}/src
+          cd vroom-${{ env.vroom }}/src
           USE_ROUTING=false make shared
 
-      - name: Configure link checks
+      - name: Configure
+        if: env.PROCESS == 'true'
         run: |
-          export PATH=/usr/lib/postgresql/${PGVER}/bin:$PATH
           mkdir build
           cd build
-          cmake -DPOSTGRESQL_VERSION=${PGVER} -DCMAKE_BUILD_TYPE=Release \
-                -DWITH_DOC=ON -DES=ON \
-                -DVROOM_INSTALL_PATH=$HOME/vroom-${{ env.VROOMVER }} ..
+          cmake -DCMAKE_BUILD_TYPE=${{ env.release }} -DWITH_DOC=ON -DLINKCHECK=ON -DBUILD_DOXY=ON \
+              -DVROOM_INSTALL_PATH=${GIT_WORKSPACE}/vroom-${{ env.vroom }} ..
 
-      - name: Build Documentation
+      - name: Check Documentation
+        if: env.PROCESS == 'true'
         run: |
           cd build
-          make html
+          make html-${{ matrix.language }}
+
+      - name: Check Developers Documentation
+        if: env.PROCESS == 'true'
+        run: |
+          cd build
+          make doxy
+          [ ! -s build/doxygen/LOG ] || exit 1
+
+      - name: Check Links
+        if: env.CHK_LINK == 'true'
+        run: |
+          cd build
+          make linkcheck-${{ matrix.language }}
