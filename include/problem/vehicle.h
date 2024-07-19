@@ -157,7 +157,6 @@ class Vehicle : public Identifier, protected std::deque<Vehicle_node> {
      friend bool operator<(const Vehicle &lhs, const Vehicle &rhs);
 
      Vehicle() = delete;
-     Vehicle(const Vehicle&) = default;
      Vehicle(Idx idx,
              Id id,
              const Vehicle_node &p_starting_site,

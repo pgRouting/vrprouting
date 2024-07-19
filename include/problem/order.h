@@ -45,9 +45,6 @@ class Order : public Identifier {
     /** @brief Order without data is not permitted */
     Order() = delete;
 
-    /** @brief copy constructor */
-    Order(const Order&) = default;
-
     /** @brief initializing an order with the pick & drop information */
     Order(Idx o_idx, Id o_id,
         const Vehicle_node &p_pickup,

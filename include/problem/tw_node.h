@@ -56,9 +56,6 @@ class Tw_node : public Identifier {
      /** @brief Creating a Tw_node is not permitted */
      Tw_node() = delete;
 
-     /** @brief Copy constructor */
-     Tw_node(const Tw_node &) = default;
-
      /** @brief Creating a Tw_node from a postgreSQL order */
      Tw_node(
              size_t id,

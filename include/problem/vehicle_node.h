@@ -55,9 +55,6 @@ class Vehicle_node: public Tw_node {
      /** @brief Construction without information is not allowed */
      Vehicle_node() = delete;
 
-     /** @brief Copy constructor */
-     Vehicle_node(const Vehicle_node &) = default;
-
      /** @brief Construction of a Vehicle node based on a time windows node */
      explicit Vehicle_node(const Tw_node &node);
 
