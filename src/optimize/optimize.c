@@ -101,7 +101,9 @@ process(
     (*result_tuples) = NULL;
 
     /* freeing memory before return */
-    if (pd_orders_arr) {pfree(pd_orders_arr); pd_orders_arr = NULL;}
+    if (pd_orders_arr) {
+      pfree(pd_orders_arr); pd_orders_arr = NULL;
+    }
 
     pgr_SPI_finish();
     return;
@@ -120,8 +122,12 @@ process(
     (*result_tuples) = NULL;
 
     /* freeing memory before return */
-    if (pd_orders_arr) {pfree(pd_orders_arr); pd_orders_arr = NULL;}
-    if (vehicles_arr) {pfree(vehicles_arr); vehicles_arr = NULL;}
+    if (pd_orders_arr) {
+      pfree(pd_orders_arr); pd_orders_arr = NULL;
+    }
+    if (vehicles_arr) {
+      pfree(vehicles_arr); vehicles_arr = NULL;
+    }
 
     ereport(WARNING,
         (errcode(ERRCODE_INTERNAL_ERROR),
@@ -147,9 +153,15 @@ process(
     (*result_tuples) = NULL;
 
     /* freeing memory before return */
-    if (pd_orders_arr) {pfree(pd_orders_arr); pd_orders_arr = NULL;}
-    if (vehicles_arr) {pfree(vehicles_arr); vehicles_arr = NULL;}
-    if (multipliers_arr) {pfree(multipliers_arr); multipliers_arr = NULL;}
+    if (pd_orders_arr) {
+      pfree(pd_orders_arr); pd_orders_arr = NULL;
+    }
+    if (vehicles_arr) {
+      pfree(vehicles_arr); vehicles_arr = NULL;
+    }
+    if (multipliers_arr) {
+      pfree(multipliers_arr); multipliers_arr = NULL;
+    }
 
     pgr_SPI_finish();
     return;
@@ -168,10 +180,18 @@ process(
     (*result_tuples) = NULL;
 
     /* freeing memory before return */
-    if (pd_orders_arr) {pfree(pd_orders_arr); pd_orders_arr = NULL;}
-    if (vehicles_arr) {pfree(vehicles_arr); vehicles_arr = NULL;}
-    if (multipliers_arr) {pfree(multipliers_arr); multipliers_arr = NULL;}
-    if (matrix_cells_arr) {pfree(matrix_cells_arr); matrix_cells_arr = NULL;}
+    if (pd_orders_arr) {
+      pfree(pd_orders_arr); pd_orders_arr = NULL;
+    }
+    if (vehicles_arr) {
+      pfree(vehicles_arr); vehicles_arr = NULL;
+    }
+    if (multipliers_arr) {
+      pfree(multipliers_arr); multipliers_arr = NULL;
+    }
+    if (matrix_cells_arr) {
+      pfree(matrix_cells_arr); matrix_cells_arr = NULL;
+    }
 
     ereport(WARNING,
         (errcode(ERRCODE_INTERNAL_ERROR),
@@ -221,13 +241,27 @@ process(
   pgr_global_report(log_msg, notice_msg, err_msg);
 
   /* freeing memory before return */
-  if (log_msg) {pfree(log_msg); log_msg = NULL;}
-  if (notice_msg) {pfree(notice_msg); notice_msg = NULL;}
-  if (err_msg) {pfree(err_msg); err_msg = NULL;}
-  if (pd_orders_arr) {pfree(pd_orders_arr); pd_orders_arr = NULL;}
-  if (vehicles_arr) {pfree(vehicles_arr); vehicles_arr = NULL;}
-  if (multipliers_arr) {pfree(multipliers_arr); multipliers_arr = NULL;}
-  if (matrix_cells_arr) {pfree(matrix_cells_arr); matrix_cells_arr = NULL;}
+  if (log_msg) {
+    pfree(log_msg); log_msg = NULL;
+  }
+  if (notice_msg) {
+    pfree(notice_msg); notice_msg = NULL;
+  }
+  if (err_msg) {
+    pfree(err_msg); err_msg = NULL;
+  }
+  if (pd_orders_arr) {
+    pfree(pd_orders_arr); pd_orders_arr = NULL;
+  }
+  if (vehicles_arr) {
+    pfree(vehicles_arr); vehicles_arr = NULL;
+  }
+  if (multipliers_arr) {
+    pfree(multipliers_arr); multipliers_arr = NULL;
+  }
+  if (matrix_cells_arr) {
+    pfree(matrix_cells_arr); matrix_cells_arr = NULL;
+  }
 
   pgr_SPI_finish();
 }
@@ -324,7 +358,9 @@ _vrp_optimize(PG_FUNCTION_ARGS) {
 
     SRF_RETURN_NEXT(funcctx, result);
   } else {
-    if (result_tuples) {pfree(result_tuples); result_tuples = NULL;}
+    if (result_tuples) {
+      pfree(result_tuples); result_tuples = NULL;
+    }
     funcctx->user_fctx = NULL;
     SRF_RETURN_DONE(funcctx);
   }
