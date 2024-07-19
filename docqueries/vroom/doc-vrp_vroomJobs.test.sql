@@ -1,3 +1,6 @@
+SET TIMEZONE TO 'UTC';
+SELECT (to_timestamp(1630573200) at time zone 'UTC')::TIMESTAMP;
+
 /* -- q0 */
 ALTER TABLE vroom.jobs ALTER COLUMN service TYPE INTERVAL USING make_interval(secs => service);
 ALTER TABLE vroom.shipments ALTER COLUMN p_service TYPE INTERVAL USING make_interval(secs => p_service);
