@@ -1,5 +1,7 @@
 SET search_path TO 'example2', 'public';
 
+CALL initial_solution();
+
 DROP TABLE IF EXISTS tmp_vehicles;
 SELECT *
 INTO tmp_vehicles
