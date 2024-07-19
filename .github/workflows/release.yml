@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -62,7 +62,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            libboost-graph-dev \
             postgresql-${PGVER} \
             postgresql-${PGVER}-postgis-${PGIS} \
             postgresql-${PGVER}-postgis-${PGIS}-scripts \
