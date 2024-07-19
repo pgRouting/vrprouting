@@ -1,5 +1,7 @@
 SET search_path TO 'example2', 'public';
 
+CALL initial_solution();
+
 DROP TABLE IF EXISTS tmp_vehicles;
 SELECT *
 INTO tmp_vehicles
@@ -15,7 +17,7 @@ CALL vrp_optimize(
     $$SELECT start_vid, end_vid, travel_time FROM timeMatrix$$,
     $$SELECT * FROM tdm('2019-12-09'::TIMESTAMP)$$,
     'tmp_vehicles',
-    -- optional parameters
+    /* optional parameters */
     execution_date => '2019-12-09 01:00:00',
     factor => 1::FLOAT,
     max_cycles => 1

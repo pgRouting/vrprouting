@@ -1,5 +1,7 @@
 SET search_path TO 'example2', 'public';
 
+CALL initial_solution();
+
 DROP TABLE IF EXISTS tmp_vehicles;
 SELECT *
 INTO tmp_vehicles
@@ -25,4 +27,3 @@ LEFT JOIN tmp_vehicles t
 USING (s_tw_open, id)
 WHERE date_trunc('day', s_tw_open) >= '2019-12-10 00:00:00'
 ORDER BY s_tw_open, id;
-);
