@@ -4,6 +4,8 @@ SET client_min_messages TO NOTICE;
 SET
 SET search_path TO 'example2', 'public';
 SET
+CALL initial_solution();
+CALL
 DROP TABLE IF EXISTS tmp_vehicles;
 NOTICE:  table "tmp_vehicles" does not exist, skipping
 DROP TABLE
@@ -21,7 +23,7 @@ CALL vrp_optimize(
     $$SELECT start_vid, end_vid, travel_time FROM timeMatrix$$,
     $$SELECT * FROM tdm('2019-12-09'::TIMESTAMP)$$,
     'tmp_vehicles',
-
+    /* optional parameters */
     execution_date => '2019-12-09 01:00:00',
     factor => 1::FLOAT,
     max_cycles => 1

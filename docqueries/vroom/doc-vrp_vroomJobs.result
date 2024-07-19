@@ -2,6 +2,14 @@ BEGIN;
 BEGIN
 SET client_min_messages TO NOTICE;
 SET
+SET TIMEZONE TO 'UTC';
+SET
+SELECT (to_timestamp(1630573200) at time zone 'UTC')::TIMESTAMP;
+      timezone
+---------------------
+ 2021-09-02 09:00:00
+(1 row)
+
 /* -- q0 */
 ALTER TABLE vroom.jobs ALTER COLUMN service TYPE INTERVAL USING make_interval(secs => service);
 ALTER TABLE

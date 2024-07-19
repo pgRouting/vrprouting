@@ -11,12 +11,12 @@ CALL vrp_simulation(
     $$SELECT * FROM vehicles$$,
     $$SELECT start_vid, end_vid, travel_time FROM timeMatrix$$,
     $$SELECT * FROM tdm('2019-12-09'::TIMESTAMP, '2019-12-13'::TIMESTAMP)$$,
-    1.0,
-    1,
-    10,
-    '2019-12-02 00:00:00'::TIMESTAMP,
-    print => 1000,
-    optimize => true
+    1.0, /* factor */
+    1, /* max_cycles when adding an order */
+    10, /* max_cycles when response time is big or day changes */
+    '2019-12-02 00:00:00'::TIMESTAMP, /* start simulation from this "booking date" */
+    print => 1000, /* print vehicle stops every 1000 bookings */
+    optimize => true /* turn optimization on */
 );
 NOTICE:   **** 1th: order 3 booking date 2019-12-02 21:55:14.935753 p_tw_open 2019-12-09 09:45:00
 WARNING:  Order 3 Inserted on vehicle 572
