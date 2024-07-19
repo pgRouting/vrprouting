@@ -311,11 +311,11 @@ Optimize::tabu_search() {
 
     bool do_spi = true;
 
-    int could_not_spi = 0;
+    [[maybe_unused]] int could_not_spi = 0;
 
     int stuck_counter = 0;
 
-    int wander_counter = 0;
+    [[maybe_unused]] int wander_counter = 0;
 
     int max_no_improvement = 1000;
 
