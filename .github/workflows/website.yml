@@ -1,0 +1,150 @@
+name: Update Website
+
+on:
+  workflow_dispatch:
+
+env:
+    postgis: 3
+    release: Release
+    os: ubuntu-latest
+    vroom: 1.12.0
+
+permissions:
+  contents: write
+
+jobs:
+  update-website:
+    name: Update Website
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'pgRouting' }}
+    strategy:
+        fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract branch name and commit hash
+        run: |
+          branch=${GITHUB_REF#refs/heads/}
+          echo "BRANCH=$branch" >> $GITHUB_ENV
+          git_hash=$(git rev-parse --short "$GITHUB_SHA")
+          echo "GIT_HASH=$git_hash" >> $GITHUB_ENV
+
+      - name: Get postgres version
+        run: |
+          sudo service postgresql start
+          pgver=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d+ \()')
+          echo "PGVER=${pgver}" >> $GITHUB_ENV
+          echo "PGPORT=5432" >> $GITHUB_ENV
+
+      - name: Add PostgreSQL APT repository
+        run: |
+          sudo apt-get install curl ca-certificates gnupg
+          curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+          sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ \
+            $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+
+      - name: Install python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          # vrpRouting dependencies
+          sudo apt-get install -y \
+            postgresql-${PGVER} \
+            postgresql-server-dev-${PGVER}
+          # vroom dependencies
+          sudo apt-get install libssl-dev libasio-dev libglpk-dev
+          # documentation dependencies
+          sudo apt-get install -y graphviz doxygen
+          pip install -r requirements.txt
+
+      - name: Cache VROOM
+        id: cache-vroom
+        uses: actions/cache@v4
+        env:
+          cache-name: vroom
+        with:
+          path: vroom-${{ env.vroom }}
+          key: ${{ env.os }}-${{ env.cache-name }}-${{ env.vroom }}
+
+      - name: Checkout VROOM
+        if: steps.cache-vroom.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
+        with:
+          path: vroom-${{ env.vroom }}
+          repository: VROOM-Project/vroom
+          ref: "v${{ env.vroom }}"
+          submodules: true
+
+      - name: Build VROOM
+        if: steps.cache-vroom.outputs.cache-hit != 'true'
+        run: |
+          cd vroom-${{ env.vroom }}/src
+          USE_ROUTING=false make shared
+
+      - name: Configure
+        run: |
+          VROOM=$(pwd)/vroom-${{ env.vroom }}
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=${{ env.release }} \
+              -DWITH_DOC=ON -DDOC_USE_BOOTSTRAP=ON -DBUILD_DOXY=ON \
+              -DVROOM_INSTALL_PATH=${VROOM} ..
+
+      - name: Build
+        run: |
+          cd build
+          make doc
+          make doxy
+
+      - name: Initialize mandatory git config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Update Users Documentation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [[ "${{ env.BRANCH }}" == "main" ]]; then
+            FOLDER_NAME="main"
+          elif [[ "${{ env.BRANCH }}" == "develop" ]]; then
+            FOLDER_NAME="dev"
+          fi
+          git checkout origin/gh-pages
+          git checkout -b gh-pages
+          rm -rf ${FOLDER_NAME}
+          cp -r build/doc/html ${FOLDER_NAME}
+          git add ${FOLDER_NAME}
+          git diff-index --quiet HEAD || git commit -m "Update users documentation for ${PROJECT_VERSION} (${{ env.BRANCH }}): commit ${{ env.GIT_HASH }}"
+          git fetch origin
+          git rebase origin/gh-pages
+          git push origin gh-pages
+          git checkout @{-2}
+
+      - name: Update Developers Documentation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [[ "${{ env.BRANCH }}" == "main" ]]; then
+            FOLDER_NAME="main"
+          elif [[ "${{ env.BRANCH }}" == "develop" ]]; then
+            FOLDER_NAME="dev"
+          fi
+          git checkout gh-pages
+          rm -rf doxy/${FOLDER_NAME}
+          cp -r build/doxygen/html doxy/${FOLDER_NAME}
+          git add doxy/${FOLDER_NAME}
+          git diff-index --quiet HEAD || git commit -m "Update developers documentation for ${PROJECT_VERSION} (${{ env.BRANCH }}): commit ${{ env.GIT_HASH }}"
+          git fetch origin
+          git rebase origin/gh-pages
+          git push origin gh-pages
+          git checkout @{-1}
+
+
