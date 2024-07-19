@@ -73,6 +73,7 @@ sub Usage {
     " --postgis version     - postgis version (default: found)\n" .
     " --pgrouting version   - pgrouting version (default: found)\n" .
     " -psql /path/to/psql   - optional path to psql\n" .
+    " -py venv              - python environment\n" .
     " -v                    - verbose messages for small debuging\n" .
     " -dbg                  - use when CMAKE_BUILD_TYPE = DEBUG\n" .
     " -debug                - verbose messages for debuging(enter twice for more)\n" .
@@ -92,6 +93,7 @@ my @testpath = ("docqueries/");
 my @test_directory = ();
 my $clean;
 my $ignore;
+my $venv = '';
 
 
 while (my $a = shift @ARGV) {
@@ -119,8 +121,10 @@ while (my $a = shift @ARGV) {
         die "'$psql' is not executable!\n" unless -x $psql;
     } elsif ($a eq '--help') {
         Usage();
+    } elsif ($a eq '-venv') {
+        $venv = shift @ARGV || Usage();
     } elsif ($a eq '-ignorenotice') {
-        $ignore = 1;;
+        $ignore = 1;
     } elsif ($a =~ /^-debug1$/i) {
         $DEBUG1 = 1;
     } elsif ($a =~ /^-debug$/i) {
@@ -159,6 +163,8 @@ my %stats = (z_pass=>0, z_fail=>0, z_crash=>0);
 my $TMP = "/tmp/pgr-test-runner-$$";
 my $TMP2 = "/tmp/pgr-test-runner-$$-2";
 my $TMP3 = "/tmp/pgr-test-runner-$$-3";
+my $nopyA = "/tmp/pgr-test-runner-$$-4";
+my $nopyE = "/tmp/pgr-test-runner-$$-5";
 
 if (! $psql) {
     $psql = findPsql() || die "ERROR: can not find psql, specify it on the command line.\n";
@@ -246,6 +252,9 @@ sub run_test {
     mysystem("$psql $connopts -A -t -q -f tools/testers/sampledata.sql $DBNAME >> $TMP2 2>\&1 ");
     mysystem("$psql $connopts -A -t -q -f tools/testers/vroomdata.sql $DBNAME >> $TMP2 2>\&1 ");
     mysystem("$psql $connopts -A -t -q -f tools/testers/matrix_new_values.sql $DBNAME >> $TMP2 2>\&1 ");
+    mysystem("$psql $connopts -A -t -q -f tools/testers/functions.sql $DBNAME >> $TMP2 2>\&1 ");
+    mysystem("$psql $connopts -A -t -q -f tools/testers/solomon_100_rc101.data.sql $DBNAME >> $TMP2 2>\&1 ");
+    mysystem("$psql $connopts -A -t -q -f tools/testers/ortools.data.sql $DBNAME >> $TMP2 2>\&1 ");
 
     # process data for the tests (if any)
     for my $data_file (@{$t->{data}}) {
@@ -254,14 +263,14 @@ sub run_test {
 
     if ($DOCUMENTATION) {
         for my $test_file_name (@{$t->{documentation}}) {
-            process_single_test($test_file_name, $dir, \%res);
+            process_single_test($test_file_name, $dir, $t->{activate}, \%res);
             my $cmd = q(perl -pi -e 's/[ \t]+$//');
             $cmd .= " $dir/$test_file_name.result";
             mysystem( $cmd );
         }
     } else {
         for my $test_file_name (@{$t->{tests}}) {
-            process_single_test($test_file_name, $dir, \%res)
+            process_single_test($test_file_name, $dir, $t->{activate}, \%res)
         }
     }
 
@@ -271,6 +280,7 @@ sub run_test {
 sub process_single_test{
     my $test_file_name = shift;
     my $dir = shift;
+    my $activate = shift;
     my $res = shift;
 
     my $test_file = "$dir/$test_file_name.test.sql";
@@ -285,7 +295,7 @@ sub process_single_test{
 
 
     if ($DOCUMENTATION) {
-        open(PSQL, "|$psql $connopts --set='VERBOSITY terse' -e $DBNAME > $result_file 2>\&1 ") || do {
+        open(PSQL, "|$psql $connopts --set='VERBOSITY terse' -e $DBNAME > $TMP 2>\&1 ") || do {
             $res->{"$test_file"} = "FAILED: could not open connection to db : $!";
             $stats{z_fail}++;
             return;
@@ -313,6 +323,10 @@ sub process_single_test{
     # Process the test file
     print PSQL "BEGIN;\n";
     print PSQL "SET client_min_messages TO $level;\n";
+    # this function is on sample data
+    if ($activate) {
+        print PSQL "CALL activate_python_venv('$venv');" if $venv;
+    }
     print PSQL @d;
     print PSQL "\nROLLBACK;";
 
@@ -320,6 +334,14 @@ sub process_single_test{
     close(PSQL);
 
     if ($DOCUMENTATION) {
+        if ($activate) {
+            # removes local information about the python virtual environment
+            mysystem("grep -v activate_python_venv '$TMP'  > $TMP2");
+            mysystem("grep -v CALL '$TMP2'  > $result_file");
+        } else {
+            mysystem("cp $TMP  $result_file");
+        }
+
         print "\trun time: " . tv_interval($t0, [gettimeofday]) . "\n";
         return;
     }
@@ -330,8 +352,10 @@ sub process_single_test{
         return;
     }
 
+
     my $actual_results = $TMP2;
     my $expected_results = $TMP3;
+
     if ($ignore) {
         # ignoring NOTICE
         mysystem("grep -v NOTICE         '$TMP' | grep -v '^CONTEXT:' | grep -v '^PL/pgSQL function' | grep -v '^COPY' > $actual_results");
@@ -345,6 +369,10 @@ sub process_single_test{
         mysystem("grep -v '^COPY' '$result_file' | grep -v 'psql:tools' > $expected_results");
     }
 
+    if ($activate) {
+        mysystem("grep -v activate_python_venv '$actual_results' | grep -v 'CALL' > $nopyA");
+        mysystem("cp $nopyA $actual_results");
+    }
 
     # Use diff -w to ignore white space differences like \r vs \r\n
     my $diff = `diff -w '$expected_results' '$actual_results' `;
@@ -396,12 +424,12 @@ sub createTestDB {
 
     #TODO put as parameter
     my $encoding = "SET client_encoding TO 'UTF8';";
-    
+
+    mysystem("$psql $connopts -c \"$encoding DROP EXTENSION IF EXISTS vrprouting CASCADE\"  $DBNAME");
+    mysystem("$psql $connopts -c \"$encoding CREATE EXTENSION vrprouting CASCADE\"  $DBNAME");
     mysystem("$psql $connopts -c \"$encoding CREATE EXTENSION IF NOT EXISTS plpython3u \" $DBNAME");
     mysystem("$psql $connopts -c \"$encoding CREATE EXTENSION IF NOT EXISTS postgis $postgis_ver \" $DBNAME");
     mysystem("$psql $connopts -c \"$encoding CREATE EXTENSION IF NOT EXISTS pgrouting $pgrouting_ver \" $DBNAME");
-    mysystem("$psql $connopts -c \"$encoding DROP EXTENSION IF EXISTS vrprouting CASCADE\"  $DBNAME");
-    mysystem("$psql $connopts -c \"$encoding CREATE EXTENSION vrprouting\"  $DBNAME");
 
     # print database information
     print `$psql $connopts -c "select version();" postgres `, "\n";
