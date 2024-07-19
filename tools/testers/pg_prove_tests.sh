@@ -58,7 +58,7 @@ fi
 cd ./tools/testers/
 psql "${PGPORT[@]}" "${PGUSER[@]}" -d "${PGDATABASE}" -X -q -v ON_ERROR_STOP=1 --pset pager=off -f setup_db.sql
 
-pg_prove --failures --quiet --recurse "${PGPORT[@]}" "${PGUSER[@]}" -d "${PGDATABASE}" ../../pgtap/
+pg_prove -ext sql --failures --quiet --recurse "${PGPORT[@]}" "${PGUSER[@]}" -d "${PGDATABASE}" ../../pgtap/
 
 # database wont be removed unless script does not fails
 if [ -n "$CLEANDB" ]; then
