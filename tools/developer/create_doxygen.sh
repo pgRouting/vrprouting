@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir build
 cd build || exit
 cmake -DBUILD_DOXY=ON ..
