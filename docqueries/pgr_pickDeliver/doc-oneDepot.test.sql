@@ -1,6 +1,5 @@
-
 SELECT * FROM vrp_oneDepot(
-    'SELECT * FROM solomon_100_RC_101',
-    'SELECT * FROM vrp_vehicles',
-    'SELECT * FROM vrp_distance',
+    'SELECT * FROM onedepot.orders',
+    'SELECT * FROM onedepot.vehicles',
+    'SELECT * FROM onedepot.distances',
     1);
