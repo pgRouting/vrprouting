@@ -21,7 +21,7 @@ KIND=$(echo "${KIND}" | awk -F'"' '{print $2}')
 echo "OLD_VERSION=${OLD_VERSION}"
 echo "KIND=${KIND}"
 
-IFS='\. ' read -r -a a <<< "${OLD_VERSION}"
+IFS=$'. ' read -r -a a <<< "${OLD_VERSION}"
 
 MAYOR="${a[0]}"
 MINOR="${a[1]}"
@@ -100,7 +100,7 @@ fi
 # --------------------------------------------
 # Adding section in release notes & news
 # --------------------------------------------
-perl -pi -e 's/('v"${OLD_VERSION}"' Release Notes)/
+perl -pi -e 's/('"v${OLD_VERSION}"' Release Notes)/
 '"v${NEW_VERSION}"' Release Notes
 -------------------------------------------------------------------------------
 
