@@ -3,25 +3,40 @@ BEGIN
 SET client_min_messages TO NOTICE;
 SET
 SELECT * FROM vrp_oneDepot(
-    'SELECT * FROM solomon_100_RC_101',
-    'SELECT * FROM vrp_vehicles',
-    'SELECT * FROM vrp_distance',
+    'SELECT * FROM onedepot.orders',
+    'SELECT * FROM onedepot.vehicles',
+    'SELECT * FROM onedepot.distances',
     1);
-ERROR:  relation "solomon_100_rc_101" does not exist
-LINE 2:     vrp_orders AS (SELECT * FROM solomon_100_RC_101 ),
-                                         ^
-QUERY:  WITH
-    vrp_orders AS (SELECT * FROM solomon_100_RC_101 ),
-    pickups AS (
-        SELECT id, x AS p_x, y AS p_y, open_time AS p_open, close_time AS p_close, service_time AS p_service
-        FROM vrp_orders
-        WHERE id = 1
-    )
-    SELECT vrp_orders.id AS id, order_unit AS demand, pickups.id AS p_node_id, p_x, p_y, p_open, p_close, p_service,
-    vrp_orders.id AS d_node_id, x AS d_x, y AS d_y, open_time AS d_open, close_time AS d_close, service_time AS d_service
-    FROM vrp_orders, pickups
-    WHERE vrp_orders.id != 1
-CONTEXT:  PL/pgSQL function _vrp_onedepot(text,text,text,integer) line 46 at RETURN QUERY
-SQL function "vrp_onedepot" statement 1
+ seq | vehicle_seq | vehicle_id | stop_seq | stop_type | stop_id | order_id | cargo | travel_time | arrival_time | wait_time | service_time | departure_time
+-----+-------------+------------+----------+-----------+---------+----------+-------+-------------+--------------+-----------+--------------+----------------
+   1 |           1 |          1 |        1 |         1 |       1 |       -1 |     0 |           0 |            0 |         0 |            0 |              0
+   2 |           1 |          1 |        2 |         2 |       1 |        8 |    20 |           0 |            0 |         0 |            0 |              0
+   3 |           1 |          1 |        3 |         2 |       1 |        4 |    30 |           0 |            0 |         0 |            0 |              0
+   4 |           1 |          1 |        4 |         2 |       1 |        2 |    50 |           0 |            0 |         0 |            0 |              0
+   5 |           1 |          1 |        5 |         2 |       1 |        7 |    70 |           0 |            0 |         0 |            0 |              0
+   6 |           1 |          1 |        6 |         2 |       1 |        9 |    80 |           0 |            0 |         0 |            0 |              0
+   7 |           1 |          1 |        7 |         2 |       1 |        5 |   120 |           0 |            0 |         0 |            0 |              0
+   8 |           1 |          1 |        8 |         2 |       1 |        3 |   150 |           0 |            0 |         0 |            0 |              0
+   9 |           1 |          1 |        9 |         3 |       3 |        3 |   120 |          31 |           31 |        19 |           10 |             60
+  10 |           1 |          1 |       10 |         3 |       8 |        8 |   100 |           7 |           67 |        12 |           10 |             89
+  11 |           1 |          1 |       11 |         3 |       9 |        9 |    90 |           5 |           94 |         0 |           10 |            104
+  12 |           1 |          1 |       12 |         3 |       7 |        7 |    70 |           6 |          110 |         0 |           10 |            120
+  13 |           1 |          1 |       13 |         3 |       4 |        4 |    60 |          11 |          131 |         0 |           10 |            141
+  14 |           1 |          1 |       14 |         3 |       5 |        5 |    20 |           5 |          146 |         0 |           10 |            156
+  15 |           1 |          1 |       15 |         3 |       2 |        2 |     0 |           7 |          163 |         0 |           10 |            173
+  16 |           1 |          1 |       16 |         6 |       1 |       -1 |     0 |          38 |          211 |         0 |            0 |            211
+  17 |           2 |          2 |        1 |         1 |       1 |       -1 |     0 |           0 |            0 |         0 |            0 |              0
+  18 |           2 |          2 |        2 |         2 |       1 |       10 |    20 |           0 |            0 |         0 |            0 |              0
+  19 |           2 |          2 |        3 |         2 |       1 |       11 |    50 |           0 |            0 |         0 |            0 |              0
+  20 |           2 |          2 |        4 |         3 |      10 |       10 |    30 |          34 |           34 |        57 |           10 |            101
+  21 |           2 |          2 |        5 |         3 |      11 |       11 |     0 |           5 |          106 |        13 |           10 |            129
+  22 |           2 |          2 |        6 |         6 |       1 |       -1 |     0 |          32 |          161 |         0 |            0 |            161
+  23 |           3 |          3 |        1 |         1 |       1 |       -1 |     0 |           0 |            0 |         0 |            0 |              0
+  24 |           3 |          3 |        2 |         2 |       1 |        6 |    20 |           0 |            0 |         0 |            0 |              0
+  25 |           3 |          3 |        3 |         3 |       6 |        6 |     0 |          40 |           40 |         1 |           10 |             51
+  26 |           3 |          3 |        4 |         6 |       1 |       -1 |     0 |          40 |           91 |         0 |            0 |             91
+  27 |          -2 |          0 |        0 |        -1 |      -1 |       -1 |    -1 |         261 |           -1 |       102 |          100 |            463
+(27 rows)
+
 ROLLBACK;
 ROLLBACK

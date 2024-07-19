@@ -4,6 +4,8 @@ SET client_min_messages TO NOTICE;
 SET
 SET search_path TO 'example2', 'public';
 SET
+CALL initial_solution();
+CALL
 DROP TABLE IF EXISTS tmp_vehicles;
 NOTICE:  table "tmp_vehicles" does not exist, skipping
 DROP TABLE
@@ -181,9 +183,5 @@ ORDER BY s_tw_open, id;
  750 | 2019-12-13 16:10:00 | {}                                                                                        | {}
 (144 rows)
 
-);
-ERROR:  syntax error at or near ")"
-LINE 1: );
-        ^
 ROLLBACK;
 ROLLBACK

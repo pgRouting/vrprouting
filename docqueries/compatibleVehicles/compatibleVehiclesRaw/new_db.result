@@ -4,7 +4,7 @@ SET client_min_messages TO NOTICE;
 SET
 SET search_path TO 'example2', 'public';
 SET
-SELECT test_all_shipments();
+SELECT test_all_shipments_raw();
 NOTICE:  order 1 Compatible vehicles {610,614,618,622,626,630,634,638}
 NOTICE:  order 2 Compatible vehicles {608,612,616,620,628,632,636}
 NOTICE:  order 3 Compatible vehicles {572,580,583,587,592,603}
@@ -681,8 +681,8 @@ NOTICE:  order 673 Compatible vehicles {646,650,654,658,662,666,674}
 NOTICE:  order 674 Compatible vehicles {717,720,725,728,732}
 NOTICE:  order 675 Compatible vehicles {720,728,732,740,748}
 NOTICE:  order 676 Compatible vehicles {729,738,749}
- test_all_shipments
---------------------
+ test_all_shipments_raw
+------------------------
 
 (1 row)
 
