@@ -57,17 +57,19 @@ class Identifiers {
     //! @name constructors
     //@{
     Identifiers<T>() = default;
-    Identifiers<T>(const Identifiers<T>&) = default;
-    explicit Identifiers<T>(const std::set<T>& data) {
+    Identifiers<T>(const std::set<T>& data) {
         m_ids = data;
     }
 
-    /* @brief initializes with {0 ~ number - 1}
+    /* @brief initializes with {1 ~ number}
      *
      * @params [in] number
      */
     explicit Identifiers<T>(const size_t number) {
-      std::generate_n(std::inserter(m_ids, m_ids.end()), number, [&]{ return m_ids.size(); });
+        size_t i(0);
+        std::generate_n(std::inserter(m_ids, m_ids.begin()),
+                number,
+                [&i](){ return i++; });
     }
 
     //@}
@@ -107,7 +109,7 @@ class Identifiers {
      * @param [in] rhs set of identifiers to be compared
      */
     bool operator==(const Identifiers<T> &rhs) const {
-        return m_ids.size() == rhs.m_ids.size() && std::equal(m_ids.begin(), m_ids.end(), rhs.m_ids.begin());
+        return (*this - rhs).empty() && (rhs - *this).empty();
     }
 
     //! @name  set UNION

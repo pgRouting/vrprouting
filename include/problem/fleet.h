@@ -78,9 +78,6 @@ class Fleet: protected std::vector<Vehicle_pickDeliver> {
     /** @brief creating a fleet without information is not allowed */
     Fleet() = delete;
 
-    /** @brief Copy constructor */
-    Fleet(const Fleet &fleet) = default;
-
     /** @brief Get all the unused vehicles */
     std::vector<Vehicle_pickDeliver> get_unused_trucks();
 

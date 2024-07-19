@@ -78,7 +78,6 @@ class Vehicle_pickDeliver : public Vehicle {
 
 
      Vehicle_pickDeliver() = delete;
-     Vehicle_pickDeliver(const Vehicle_pickDeliver &) = default;
      Vehicle_pickDeliver(
              Idx p_idx,
              Id p_id,

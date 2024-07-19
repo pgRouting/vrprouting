@@ -49,7 +49,6 @@ class Orders : public std::vector<Order> {
  public:
     using std::vector<Order>::size;
     Orders() = default;
-    Orders(const Orders&) = default;
 
     // todo remove template its problem::PickDeliver
     template <typename PTR>

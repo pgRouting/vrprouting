@@ -65,7 +65,6 @@ digraph structs {
 class Identifier {
  public:
      Identifier() = default;
-     Identifier(const Identifier &v) = default;
      Identifier(size_t _idx, int64_t _id);
 
      /** @name Inherited functions from Identifier
