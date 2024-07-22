@@ -24,6 +24,10 @@ vrp_knapsack - Experimental
 
 .. rubric:: Availability
 
+Version 0.4.1
+
+* Support for or-tools v9.10.4067
+
 Version 0.4.0
 
 * New **experimental** function
@@ -35,48 +39,89 @@ Version 0.4.0
 Description
 -------------------------------------------------------------------------------
 
-The knapsack problem is a problem in combinatorial optimization: 
-Given a set of items, each with a weight and a value, 
-Determine the number of each item to include in a collection 
-so that the total weight is less than or equal to a given limit and the total value is as large as possible
+The knapsack problem is a problem in combinatorial optimization:
+Given a set of items, each with a weight and a value,
+Determine the number of each item to include in a collection
+so that the total weight is less than or equal to a given limit and the total
+value is as large as possible
 
 Signatures
 -------------------------------------------------------------------------------
 
-.. include:: ../../sql/or_tools/knapsack.sql
-   :start-after: signature start
-   :end-before: signature end
+.. admonition:: \ \
+   :class: signatures
+
+   | vrp_knapsack(`Weight Costs SQL`_, capacity, [``max_rows``])
+   | RETURNS SET OF (item_id)
+   | OR EMPTY SET
 
 Parameters
 -------------------------------------------------------------------------------
 
-.. include:: ../../sql/or_tools/knapsack.sql
-   :start-after: parameters start
-   :end-before: parameters end
+.. list-table::
+   :width: 81
+   :widths: 14 14 44
+   :header-rows: 1
+
+   * - Column
+     - Type
+     - Description
+   * - `Weight Costs SQL`_
+     - ``TEXT``
+     - `Weight Costs SQL`_ as described below.
+   * - capacity
+     - **ANY-INTEGER**
+     - Maximum Capacity of the knapsack.
 
 Optional Parameters
 ...............................................................................
 
-.. include:: ../../sql/or_tools/knapsack.sql
-   :start-after: optional parameters start
-   :end-before: optional parameters end
+.. list-table::
+   :width: 81
+   :widths: auto
+   :header-rows: 1
+
+   * - Column
+     - Type
+     - Default
+     - Description
+   * - ``max_rows``
+     - **ANY-INTEGER**
+     - :math:`100000`
+     - Maximum items(rows) to fetch from knapsack_data table.
+
+Where:
+
+:ANY-INTEGER: ``SMALLINT``, ``INTEGER``, ``BIGINT``
 
 Inner Queries
 -------------------------------------------------------------------------------
 
-Weights_Costs SQL
+Weight Costs SQL
 ...............................................................................
 
-.. include:: ../../sql/or_tools/knapsack.sql
-   :start-after: Weights_Costs start
-   :end-before: Weights_Costs end
+.. include:: or_tools-category.rst
+   :start-after: weight_costs_start
+   :end-before: weight_costs_end
 
 Result Columns
 -------------------------------------------------------------------------------
 
-.. include:: ../../sql/or_tools/knapsack.sql
-   :start-after: result start
-   :end-before: result end
+.. list-table::
+   :width: 81
+   :widths: auto
+   :header-rows: 1
+
+   * - Column
+     - Type
+     - Description
+   * - ``id``
+     - ``INTEGER``
+     - Indentifier of an item in the knapsack.
+
+Where:
+
+:ANY-INTEGER: ``SMALLINT``, ``INTEGER``, ``BIGINT``
 
 Example
 -------------------------------------------------------------------------------
@@ -88,9 +133,7 @@ Example
 See Also
 -------------------------------------------------------------------------------
 
-.. include:: or_tools-category.rst
-   :start-after: see_also_start
-   :end-before: see_also_end
+* `OR-Tools: Google OR-Tools <https://developers.google.com/optimization>`__
 
 .. rubric:: Indices and tables
 

@@ -30,16 +30,16 @@ OR-Tools - Category (Experimental)
 .. toctree::
   :maxdepth: 1
 
-  knapsack
-  multiple_knapsack
-  bin_packing
+  vrp_knapsack
+  vrp_multiple_knapsack
+  vrp_bin_packing
 
 
 Synopsis
 -------------------------------------------------------------------------------
 
 OR-Tools is an open source software suite for optimization, tuned for tackling
-the world's toughest problems in vehicle routing, flows, integer and linear 
+the world's toughest problems in vehicle routing, flows, integer and linear
 programming, and constraint programming.
 
 OR-Tools can solve
@@ -60,19 +60,64 @@ Terminologies
 Inner Queries
 -------------------------------------------------------------------------------
 
-Weights_Costs SQL
+Weight Costs SQL
 ...............................................................................
 
-.. include:: ../../sql/or_tools/multiple_knapsack.sql
-   :start-after: Weights_Costs start
-   :end-before: Weights_Costs end
+A ``SELECT`` statement that returns the following columns:
+
+.. weight_costs_start
+
+.. list-table::
+   :width: 81
+   :widths: 14 14 44
+   :header-rows: 1
+
+   * - Column
+     - Type
+     - Description
+   * - ``id``
+     - **ANY-INTEGER**
+     - Unique identifier of the item.
+   * - ``weight``
+     - **ANY-INTEGER**
+     - Weight of the item.
+   * - ``cost``
+     - **ANY-INTEGER**
+     - Cost of the item.
+
+Where:
+
+:ANY-INTEGER: ``SMALLINT``, ``INTEGER``, ``BIGINT``
+
+.. weight_costs_end
 
 Weights SQL
 ...............................................................................
 
-.. include:: ../../sql/or_tools/bin_packing.sql
-   :start-after: Weights start
-   :end-before: Weights end
+.. weights_start
+
+A ``SELECT`` statement that returns the following columns:
+
+.. list-table::
+   :width: 81
+   :widths: 14 14 44
+   :header-rows: 1
+
+   * - Column
+     - Type
+     - Description
+   * - ``id``
+     - **ANY-INTEGER**
+     - Identifier of the item.
+   * - ``weight``
+     - **ANY-INTEGER**
+     - Weight of the item.
+
+Where:
+
+:ANY-INTEGER: ``SMALLINT``, ``INTEGER``, ``BIGINT``
+
+.. weights_end
 
 See Also
 -------------------------------------------------------------------------------
