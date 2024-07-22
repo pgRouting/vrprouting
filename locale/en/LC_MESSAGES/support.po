@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vrpRouting v0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-22 16:37+0000\n"
+"POT-Creation-Date: 2024-07-22 18:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,7 +102,7 @@ msgstr ""
 
 #: ../../build/doc/support.rst:59
 msgid ""
-"Developer mailing list: https://lists.osgeo.org/mailman/listinfo"
+"Developer mailing list: https://discourse.osgeo.org/c/pgrouting"
 "/pgrouting-dev"
 msgstr ""
 
