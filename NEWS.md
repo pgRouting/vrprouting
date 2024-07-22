@@ -1,11 +1,13 @@
+# vrpRouting 0
 
 
-v0.4.1 Release Notes
--------------------------------------------------------------------------------
+## vrpRouting 0.4
 
-To see all issues & pull requests closed by this release see the `Git closed
-milestone for 0.4.1
-<https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.4.1%22>`_
+
+### vrpRouting 0.4.1 Release Notes
+
+To see all issues & pull requests closed by this release see the
+[Git closed milestone for 0.4.1](https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.4.1%22)
 on Github.
 
 
@@ -13,30 +15,35 @@ on Github.
 
 * OR Tools
 
-* vrp_bin_packing
-* vrp_knapsack
-* vrp_multiple_knapsack
+  * vrp_bin_packing
+  * vrp_knapsack
+  * vrp_multiple_knapsack
 
-    * Support for or-tools v9.10.4067
+  
+  * Support for or-tools v9.10.4067
+  
 
 * vrp_oneDepot
 
-    * Code fix
-    * Result columns changed
+  
+  * Code fix
+  * Result columns changed
+  
 
-** Removal of Boost on the build**
+**Removal of Boost on the build**
 
 * vrp_full_version
 * vrp_version
 
+  
   * Boost removed from the result columns
+  
+  
 
-v0.4.0 Release Notes
-*******************************************************************************
+### vrpRouting 0.4.0 Release Notes
 
-To see all issues & pull requests closed by this release see the `Git closed
-milestone for 0.4.0
-<https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.4.0%22>`_
+To see all issues & pull requests closed by this release see the
+[Git closed milestone for 0.4.0](https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.4.0%22)
 on Github.
 
 **Added support for VROOM 1.12.0 ([#34](https://github.com/pgRouting/vrprouting/issues/34))**
@@ -48,12 +55,10 @@ on Github.
   - CI changes to compile without routing support, with Position Independent Code.
   - Removed support for VROOM 1.11.0
 
-v0.3.0 Release Notes
-*******************************************************************************
+## vrpRouting 0.3
 
-To see all issues & pull requests closed by this release see the `Git closed
-milestone for 0.3.0
-<https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.3.0%22>`_
+To see all issues & pull requests closed by this release see the
+[Git closed milestone for 0.3.0](https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.3.0%22)
 on Github.
 
 **Modification of experimental functions**
@@ -91,8 +96,7 @@ on Github.
   - Added data jsonb field in jobs, shipments, vehicles, breaks as well as in the result columns.
   - Added departure field and location_id field in the result columns.
 
-v0.2.0 Release Notes
-*******************************************************************************
+## vrpRouting 0.2
 
 **New experimental functions**
 
@@ -114,8 +118,7 @@ v0.2.0 Release Notes
   - vrp_simulation
   - vrp_viewRoute
 
-v0.1.0 Release Notes
-*******************************************************************************
+## vrpRouting 0.1
 
 **Extraction tasks**
 
