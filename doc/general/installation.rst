@@ -108,7 +108,6 @@ To be able to compile vrpRouting, make sure that the following dependencies are 
 
 * C and C++ compilers with C++17 standard support
 * Postgresql version >= TBD
-* The Boost Graph Library (BGL) >= 1.65
 * CMake >= 3.12
 * VROOM >= ${VROOM_MINIMUM_VERSION}
 
@@ -156,8 +155,7 @@ This example is for PostgreSQL 13 and PostGIS 3
 
     sudo apt-get install
         cmake \
-        g++ \
-        libboost-graph-dev
+        g++
 
 .. rubric:: Build dependencies (VROOM)
 

@@ -38,9 +38,11 @@ Returns vrpRouting version information.
 Signatures
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/version/version.sql
-   :start-after: signature start
-   :end-before: signature end
+.. admonition:: \ \
+   :class: signatures
+
+   | pgr_version()
+   | RETURNS ``TEXT``
 
 :Example: vrpRouting Version for this documentatoin
 
@@ -51,9 +53,11 @@ Signatures
 Result Columns
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/version/version.sql
-   :start-after: result start
-   :end-before: result end
+=========== ===============================
+ Type       Description
+=========== ===============================
+``TEXT``    vrpRouting version
+=========== ===============================
 
 
 .. rubric:: See Also

@@ -39,7 +39,6 @@ The following licenses can be found in vrpRouting:
 
   * For code in any language.
 
-* Boost extensions are available under `Boost Software License - Version 1.0 <https://www.boost.org/LICENSE_1_0.txt>`__.
 * Creative Commons Attribution-Share Alike 3.0 License `CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0/>`__.
 
   * For user's & developer's documentation
@@ -81,7 +80,6 @@ Corporate Sponsors (in alphabetical order)
 
 These are corporate entities that have contributed developer time, hosting, or direct monetary funding to the vrpRouting project:
 
-- `Georepublic <https://georepublic.info/en/>`__
 - `Paragon Corporation <https://www.paragoncorporation.com/>`__
 
 Contributors Past & Present:
@@ -117,6 +115,4 @@ More Information
 * The latest software, documentation and news items are available at the vrpRouting web site https://vrp.pgrouting.org.
 * PostgreSQL database server at the PostgreSQL main site https://www.postgresql.org.
 * PostGIS extension at the PostGIS project web site https://postgis.net.
-* pgRouting extension at the pgRouting project web site https://pgRouting.org.
-* Boost C++ source libraries at https://www.boost.org.
-
+* vrpRouting extension at the pgRouting project web site https://pgRouting.org.
