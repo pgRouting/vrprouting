@@ -1,0 +1,265 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) vrpRouting Contributors - Version v0.4.1
+# This file is distributed under the same license as the vrpRouting package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: vrpRouting v0.4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-22 16:37+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../build/doc/or_tools-category.rst:12
+msgid ""
+"`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 "
+"<https://vrp.pgrouting.org/v0>`__"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:13
+msgid ""
+"Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/vroom-"
+"category.html>`__ (`v0 <https://vrp.pgrouting.org/v0/en/vroom-"
+"category.html>`__)"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:19
+msgid "OR-Tools - Category (Experimental)"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:3
+msgid "Possible server crash"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:5
+msgid "These functions might create a server crash"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:7
+msgid "Experimental functions"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:9
+msgid "They are not officially of the current release."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:10
+msgid "They likely will not be officially be part of the next release:"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:12
+msgid "The functions might not make use of ANY-INTEGER and ANY-NUMERICAL"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:13
+msgid "Name might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:14
+msgid "Signature might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:15
+msgid "Functionality might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:16
+msgid "pgTap tests might be missing."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:17
+msgid "Might need c/c++ coding."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:18
+msgid "May lack documentation."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:19
+msgid "Documentation if any might need to be rewritten."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:20
+msgid "Documentation examples might need to be automatically generated."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:21
+msgid "Might need a lot of feedback from the comunity."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:22
+msgid "Might depend on a proposed function of vrpRouting"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:23
+msgid "Might depend on a deprecated function of vrpRouting"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:26
+msgid "Contents"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:29
+msgid "Functions"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:39
+msgid "Synopsis"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:41
+msgid ""
+"OR-Tools is an open source software suite for optimization, tuned for "
+"tackling the world's toughest problems in vehicle routing, flows, integer"
+" and linear programming, and constraint programming."
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:45
+msgid "OR-Tools can solve"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:47
+msgid "VR (Vehicle Routing)"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:48
+msgid "Scheduling"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:49
+msgid "Bin Packing"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:51
+msgid ""
+"Currently only Bin Packing problems can be solved with OR-Tools in "
+"vrpRouting."
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:54
+msgid "Terminologies"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:56
+msgid ""
+"**weight**: For each item, a positive integer weight is associated with "
+"it."
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:57
+msgid ""
+"**cost**: For each item, a positive integer cost(value) is associated "
+"with it."
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:58
+msgid "**capacity**: Maximum storage capacity of a knapsack or a bin."
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:61
+msgid "Inner Queries"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:64
+msgid "Weights_Costs SQL"
+msgstr ""
+
+#: ../../sql/or_tools/bin_packing.sql:3
+#: ../../sql/or_tools/multiple_knapsack.sql:3
+msgid "A ``SELECT`` statement that returns the following columns:"
+msgstr ""
+
+#: ../../sql/or_tools/bin_packing.sql:11
+#: ../../sql/or_tools/multiple_knapsack.sql:11
+msgid "Column"
+msgstr ""
+
+#: ../../sql/or_tools/bin_packing.sql:11
+#: ../../sql/or_tools/multiple_knapsack.sql:11
+msgid "Type"
+msgstr ""
+
+#: ../../sql/or_tools/bin_packing.sql:11
+#: ../../sql/or_tools/multiple_knapsack.sql:11
+msgid "Default"
+msgstr ""
+
+#: ../../sql/or_tools/bin_packing.sql:11
+#: ../../sql/or_tools/multiple_knapsack.sql:11
+msgid "Description"
+msgstr ""
+
+#: ../../sql/or_tools/bin_packing.sql:13
+#: ../../sql/or_tools/multiple_knapsack.sql:13
+msgid "**id**"
+msgstr ""
+
+#: ../../sql/or_tools/bin_packing.sql:13 ../../sql/or_tools/bin_packing.sql:15
+#: ../../sql/or_tools/multiple_knapsack.sql:13
+#: ../../sql/or_tools/multiple_knapsack.sql:15
+#: ../../sql/or_tools/multiple_knapsack.sql:17
+msgid "``ANY-INTEGER``"
+msgstr ""
+
+#: ../../sql/or_tools/bin_packing.sql:13
+#: ../../sql/or_tools/multiple_knapsack.sql:13
+msgid "unique identifier of the item."
+msgstr ""
+
+#: ../../sql/or_tools/bin_packing.sql:15
+#: ../../sql/or_tools/multiple_knapsack.sql:15
+msgid "**weight**"
+msgstr ""
+
+#: ../../sql/or_tools/bin_packing.sql:15
+#: ../../sql/or_tools/multiple_knapsack.sql:15
+msgid "weight of the item."
+msgstr ""
+
+#: ../../sql/or_tools/multiple_knapsack.sql:17
+msgid "**cost**"
+msgstr ""
+
+#: ../../sql/or_tools/multiple_knapsack.sql:17
+msgid "cost of the item."
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:71
+msgid "Weights SQL"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:78
+msgid "See Also"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:82
+msgid ""
+"`Wikipedia: Bin Packing problems "
+"<https://en.wikipedia.org/wiki/Bin_packing_problem>`__"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:83
+msgid "`OR-Tools: Google OR-Tools <https://developers.google.com/optimization>`__"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:88
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:89
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:90
+msgid ":ref:`search`"
+msgstr ""
+

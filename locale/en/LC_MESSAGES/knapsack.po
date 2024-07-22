@@ -1,0 +1,285 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) vrpRouting Contributors - Version v0.4.1
+# This file is distributed under the same license as the vrpRouting package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: vrpRouting v0.4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-22 16:37+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../build/doc/knapsack.rst:13
+msgid ""
+"`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 "
+"<https://vrp.pgrouting.org/v0>`__"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:14
+msgid ""
+"Supported Versions `Latest "
+"<https://vrp.pgrouting.org/latest/en/vrp_oneDepot.html>`__ (`v0 "
+"<https://vrp.pgrouting.org/v0/en/vrp_oneDepot.html>`__)"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:19
+msgid "vrp_knapsack - Experimental"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:3
+msgid "Possible server crash"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:5
+msgid "These functions might create a server crash"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:7
+msgid "Experimental functions"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:9
+msgid "They are not officially of the current release."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:10
+msgid "They likely will not be officially be part of the next release:"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:12
+msgid "The functions might not make use of ANY-INTEGER and ANY-NUMERICAL"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:13
+msgid "Name might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:14
+msgid "Signature might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:15
+msgid "Functionality might change."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:16
+msgid "pgTap tests might be missing."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:17
+msgid "Might need c/c++ coding."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:18
+msgid "May lack documentation."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:19
+msgid "Documentation if any might need to be rewritten."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:20
+msgid "Documentation examples might need to be automatically generated."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:21
+msgid "Might need a lot of feedback from the comunity."
+msgstr ""
+
+#: ../../build/doc/experimental.rst:22
+msgid "Might depend on a proposed function of vrpRouting"
+msgstr ""
+
+#: ../../build/doc/experimental.rst:23
+msgid "Might depend on a deprecated function of vrpRouting"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:26
+msgid "Availability"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:27
+msgid "Version 0.4.0"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:29
+msgid "New **experimental** function"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:31
+msgid "vrp_knapsack"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:36 ../../sql/or_tools/knapsack.sql:4
+#: ../../sql/or_tools/knapsack.sql:10 ../../sql/or_tools/knapsack.sql:11
+msgid "Description"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:38
+msgid ""
+"The knapsack problem is a problem in combinatorial optimization: Given a "
+"set of items, each with a weight and a value, Determine the number of "
+"each item to include in a collection so that the total weight is less "
+"than or equal to a given limit and the total value is as large as "
+"possible"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:44
+msgid "Signatures"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:51
+msgid "Parameters"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:4
+msgid "Parameter"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:4 ../../sql/or_tools/knapsack.sql:10
+#: ../../sql/or_tools/knapsack.sql:11
+msgid "Type"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:6
+msgid "**Weights_Costs SQL**"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:6
+msgid "``TEXT``"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:6
+msgid "`Weights_Costs SQL`_ query describing the weights and cost of each item"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:8
+msgid "**Capacity**"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:6 ../../sql/or_tools/knapsack.sql:8
+#: ../../sql/or_tools/knapsack.sql:12 ../../sql/or_tools/knapsack.sql:13
+#: ../../sql/or_tools/knapsack.sql:15 ../../sql/or_tools/knapsack.sql:17
+msgid "``ANY-INTEGER``"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:8
+msgid "Maximum Capacity of the knapsack."
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:58
+msgid "Optional Parameters"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:4 ../../sql/or_tools/knapsack.sql:11
+msgid "Default"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:6
+msgid "**max_rows**"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:6
+msgid ":math:`100000`"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:6
+msgid "Maximum items(rows) to fetch from knapsack_data table"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:65
+msgid "Inner Queries"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:68
+msgid "Weights_Costs SQL"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:3
+msgid "A ``SELECT`` statement that returns the following columns:"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:10 ../../sql/or_tools/knapsack.sql:11
+msgid "Column"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:13
+msgid "**id**"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:13
+msgid "unique identifier of the item."
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:15
+msgid "**weight**"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:15
+msgid "weight of the item."
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:17
+msgid "**cost**"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:17
+msgid "cost of the item."
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:75
+msgid "Result Columns"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:3
+msgid "Returns set of"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:12
+msgid "**item_id**"
+msgstr ""
+
+#: ../../sql/or_tools/knapsack.sql:12
+msgid "Integer to uniquely identify an item in the knapsack"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:82
+msgid "Example"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:89
+msgid "See Also"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:3
+msgid ""
+"`Wikipedia: Bin Packing problems "
+"<https://en.wikipedia.org/wiki/Bin_packing_problem>`__"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:4
+msgid "`OR-Tools: Google OR-Tools <https://developers.google.com/optimization>`__"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:96
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:97
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../build/doc/knapsack.rst:98
+msgid ":ref:`search`"
+msgstr ""
+

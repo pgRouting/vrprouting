@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.3.0-dev\n"
+"Project-Id-Version: vrpRouting v0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 10:43+0000\n"
+"POT-Creation-Date: 2024-07-22 16:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,16 +126,4 @@ msgstr ""
 
 #: ../../build/doc/support.rst:89
 msgid "https://www.paragoncorporation.com"
-msgstr ""
-
-#: ../../build/doc/support.rst:90
-msgid "Leopark"
-msgstr ""
-
-#: ../../build/doc/support.rst:91
-msgid "Mexico"
-msgstr ""
-
-#: ../../build/doc/support.rst:92
-msgid "https://www.leopark.mx"
 msgstr ""
