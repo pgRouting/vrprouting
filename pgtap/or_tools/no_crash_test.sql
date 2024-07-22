@@ -29,7 +29,7 @@ BEGIN
     ''
     ]::TEXT[];
     non_empty_args = ARRAY[0, 1, 2, 3]::INTEGER[];
-    
+
     RETURN QUERY SELECT * FROM no_crash_test('vrp_knapsack', params, subs, error_messages, non_empty_args);
 
     --vrp_multiple_knapsack
@@ -49,7 +49,7 @@ BEGIN
     ''
     ]::TEXT[];
     non_empty_args = ARRAY[0, 1, 2, 3]::INTEGER[];
-    
+
     RETURN QUERY SELECT * FROM no_crash_test('vrp_multiple_knapsack', params, subs, error_messages, non_empty_args);
 
     -- bin_packing
@@ -69,7 +69,7 @@ BEGIN
     ''
     ]::TEXT[];
     non_empty_args = ARRAY[0, 1, 2, 3]::INTEGER[];
-    
+
     RETURN QUERY SELECT * FROM no_crash_test('vrp_bin_packing', params, subs, error_messages, non_empty_args);
 END
 $BODY$
