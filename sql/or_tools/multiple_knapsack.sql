@@ -93,7 +93,7 @@ Column              Type              Description
 =================== ================= =================================================
 **knapsack_number**  ``ANY-INTEGER``  Integer to uniquely identify a knapsack
 
-**item_id**          ``ANY-INTEGER``  Integer to uniquely identify an item in the 
+**item_id**          ``ANY-INTEGER``  Integer to uniquely identify an item in the
                                       bin
 =================== ================= =================================================
 result end
@@ -103,31 +103,6 @@ result end
 - ANY-INTEGER: [SMALLINT, INTEGER, BIGINT]
 */
 
-DROP FUNCTION IF EXISTS vrp_multiple_knapsack CASCADE;
--- DROP TABLE IF EXISTS multiple_knapsack_data CASCADE;
-
--- CREATE TABLE multiple_knapsack_data(
---   id INTEGER,
---   weight INTEGER,
---   cost INTEGER);
-
--- INSERT INTO multiple_knapsack_data (id, weight,  cost)
--- VALUES
--- (1, 48, 10),
--- (2, 30, 30),
--- (3, 42, 25),
--- (4, 36, 50),
--- (5, 36, 35),
--- (6, 48, 30), 
--- (7, 42, 15), 
--- (8, 42, 40),
--- (9, 36, 30),
--- (10, 24, 35), 
--- (11, 30, 45), 
--- (12, 30, 10), 
--- (13, 42, 20), 
--- (14, 36, 30), 
--- (15, 36, 25);
 
 
 CREATE OR REPLACE FUNCTION vrp_multiple_knapsack(
@@ -135,13 +110,13 @@ CREATE OR REPLACE FUNCTION vrp_multiple_knapsack(
   capacities INTEGER[], -- ARRAY of Knapsack Capacities
   max_rows INTEGER = 100000 -- Maximum number of rows to be fetched. Default value is 100000.
 )
-RETURNS TABLE(knapsack_number INTEGER, item_id INTEGER)
+RETURNS TABLE(knapsack INTEGER, id INTEGER)
 AS $$
   try:
     from ortools.linear_solver import pywraplp
   except Exception as err:
     plpy.error(err)
-  
+
   global max_rows
   if inner_query == None:
     raise Exception('Inner Query Cannot be NULL')
@@ -149,7 +124,7 @@ AS $$
     raise Exception('Capacity Cannot be NULL')
   if max_rows == None:
     max_rows = 100000
-  
+
   data = {}
   data['values'] = []
   data['weights'] = []
@@ -164,7 +139,7 @@ AS $$
     coltypes = inner_query_result.coltypes()
   except plpy.SPIError as error_msg:
     plpy.error("Error Processing Inner Query. The given query is not a valid SQL command")
-    
+
   if len(colnames) != 3:
     plpy.error("Expected 3 columns, Got ", len(colnames))
   if ('weight' in colnames) and ('cost' in colnames) and ('cost' in colnames):
@@ -177,20 +152,20 @@ AS $$
     pass
   else:
     raise Exception("Returned columns of different type. Expected Integer, Integer")
-    
+
   for i in range(num_of_rows):
     data['values'].append(inner_query_result[i]["cost"])
     data['weights'].append(inner_query_result[i]["weight"])
     data_ids.append(inner_query_result[i]["id"])
-    
+
 
   data['num_items'] = len(data['weights'])
   data['all_items'] = range(data['num_items'])
-    
+
   data['bin_capacities'] = capacities
   data['num_bins'] = len(data['bin_capacities'])
   data['all_bins'] = range(data['num_bins'])
-  
+
   try:
     solver = pywraplp.Solver.CreateSolver('SCIP')
   except:
@@ -198,7 +173,7 @@ AS $$
 
   if solver is None:
     plpy.error('SCIP solver unavailable.')
-  
+
   x = {}
   for i in data['all_items']:
     for b in data['all_bins']:
