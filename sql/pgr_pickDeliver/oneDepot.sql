@@ -34,24 +34,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 --v0.0
 CREATE FUNCTION vrp_oneDepot(
-	text,  -- order_sql
-	text, -- vehicle_sql
-	text, -- cost_sql
-	integer, -- depot_id
+    text,  -- order_sql
+    text, -- vehicle_sql
+    text, -- cost_sql
+    integer, -- depot_id
 
-	OUT oid integer,
-	OUT opos integer,
-	OUT vid integer,
-	OUT tarrival integer,
-	OUT tdepart integer)
+    OUT seq INTEGER,
+    OUT vehicle_seq INTEGER,
+    OUT vehicle_id BIGINT,
+    OUT stop_seq INTEGER,
+    OUT stop_type INTEGER,
+    OUT stop_id BIGINT,
+    OUT order_id BIGINT,
+    OUT cargo BIGINT,
+    OUT travel_time BIGINT,
+    OUT arrival_time BIGINT,
+    OUT wait_time BIGINT,
+    OUT service_time BIGINT,
+    OUT departure_time BIGINT
+)
 RETURNS SETOF RECORD AS
 $BODY$
-    SELECT order_id::INTEGER, stop_seq::INTEGER, vehicle_id::INTEGER, arrival_time::INTEGER, departure_time::INTEGER
-    FROM _vrp_oneDepot($1, $2,
-       '
-            SELECT src_id AS start_vid, dest_id AS end_vid, traveltime AS agg_cost FROM ('||$3||') AS a
-       ',
-       $4);
+    SELECT
+      seq, vehicle_seq, vehicle_id, stop_seq, stop_type, stop_id, order_id, cargo, travel_time,
+      arrival_time, wait_time, service_time, departure_time
+    FROM _vrp_oneDepot($1, $2, $3, $4);
 $BODY$
 LANGUAGE SQL VOLATILE STRICT
 COST 1000
@@ -65,8 +72,8 @@ COMMENT ON FUNCTION vrp_oneDepot(TEXT, TEXT, TEXT, INTEGER)
 IS 'vrp_OneDepot
 - EXPERIMENTAL
 - Parameters
-  - orders SQL with columns: id, x, y, order_unit, open_time, close_time, service_time
-  - vehicle SQL with columns: vehicle_id, capacity, case_no
+  - orders SQL with columns: id, x, y, demand, open_time, close_time, service_time
+  - vehicle SQL with columns: vehicle_id, capacity
   - cost SQL with columns: src_id, dest_id, cost, distance, traveltime
   - depot id
 - Documentation:

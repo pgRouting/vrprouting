@@ -63,12 +63,12 @@ BEGIN
     orders_sql = $$WITH
     vrp_orders AS ($$ || $1 || $$ ),
     pickups AS (
-        SELECT id, x AS p_x, y AS p_y, open_time AS p_open, close_time AS p_close, service_time AS p_service
+        SELECT id AS p_id, x AS p_x, y AS p_y, open_time AS p_open, close_time AS p_close, service_time AS p_service
         FROM vrp_orders
         WHERE id = $$ || $4 || $$
     )
-    SELECT vrp_orders.id AS id, order_unit AS demand, pickups.id AS p_node_id, p_x, p_y, p_open, p_close, p_service,
-    vrp_orders.id AS d_node_id, x AS d_x, y AS d_y, open_time AS d_open, close_time AS d_close, service_time AS d_service
+    SELECT vrp_orders.id AS id, amount, p_id, p_x, p_y, p_open, p_close, p_service,
+    vrp_orders.id AS d_id, x AS d_x, y AS d_y, open_time AS d_open, close_time AS d_close, service_time AS d_service
     FROM vrp_orders, pickups
     WHERE vrp_orders.id != $$ || $4;
 
@@ -77,7 +77,7 @@ BEGIN
     vrp_orders AS ($$ || $1 || $$ ),
     vrp_vehicles AS ($$ || $2 || $$ ),
     starts AS (
-        SELECT id AS start_node_id, x AS start_x, y AS start_y, open_time AS start_open, close_time AS start_close, service_time AS start_service
+        SELECT id AS s_id, x AS s_x, y AS s_y, open_time AS start_open, close_time AS start_close, service_time AS start_service
         FROM vrp_orders
         WHERE id = $$ || $4 || $$
     )
@@ -90,7 +90,7 @@ BEGIN
             $$' || trucks_sql || '$$,
             $$' || $3 || '$$,
             max_cycles := 3,
-            initial_sol := 7 ); ';
+            initial_sol := 6); ';
 
     RAISE DEBUG '%', orders_sql;
     RAISE DEBUG '%', trucks_sql;
