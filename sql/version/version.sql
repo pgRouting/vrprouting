@@ -24,27 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*
-signature start
-
-::
-
-    vrp_version()
-    RETURNS TEXT
-
-signature end
-
-result start
-
-=========== ===============================
- Type       Description
-=========== ===============================
-``TEXT``    vrpRouting version
-=========== ===============================
-
-result end
-*/
-
 --v0.0
 CREATE FUNCTION vrp_version()
 RETURNS TEXT AS

@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define UNUSED(x) (void)(x)
 PG_MODULE_MAGIC;
 
-PGDLLEXPORT Datum _vrp_boost_version(PG_FUNCTION_ARGS);
 PGDLLEXPORT Datum _vrp_build_type(PG_FUNCTION_ARGS);
 PGDLLEXPORT Datum _vrp_compilation_date(PG_FUNCTION_ARGS);
 PGDLLEXPORT Datum _vrp_compiler_version(PG_FUNCTION_ARGS);
@@ -37,17 +36,6 @@ PGDLLEXPORT Datum _vrp_git_hash(PG_FUNCTION_ARGS);
 PGDLLEXPORT Datum _vrp_lib_version(PG_FUNCTION_ARGS);
 PGDLLEXPORT Datum _vrp_operating_system(PG_FUNCTION_ARGS);
 PGDLLEXPORT Datum _vrp_pgsql_version(PG_FUNCTION_ARGS);
-
-
-
-
-PG_FUNCTION_INFO_V1(_vrp_boost_version);
-PGDLLEXPORT Datum _vrp_boost_version(PG_FUNCTION_ARGS) {
-    UNUSED(fcinfo);
-    char *ver = BOOST_VERSION;
-    text *result = cstring_to_text(ver);
-    PG_RETURN_TEXT_P(result);
-}
 
 PG_FUNCTION_INFO_V1(_vrp_build_type);
 PGDLLEXPORT Datum _vrp_build_type(PG_FUNCTION_ARGS) {
