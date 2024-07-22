@@ -1,5 +1,4 @@
 vrp_bin_packing(text,integer,integer)
-_vrp_boost_version()
 _vrp_build_type()
 vrp_compatiblevehiclesraw(text,text,text,text,bigint,double precision,boolean)
 vrp_compatiblevehicles(text,text,text,text,bigint,double precision,boolean)

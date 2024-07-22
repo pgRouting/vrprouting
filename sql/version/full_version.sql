@@ -24,37 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*
-signature start
-
-::
-
-    vrp_full_version()
-    RETURNS RECORD OF (version, build_type, compile_date, library, system, PostgreSQL, compiler, boost, hash)
-
-signature end
-
-result start
-
-================  =========== ===============================
-Column             Type       Description
-================  =========== ===============================
-**version**       ``TEXT``    vrpRouting version
-**build_type**    ``TEXT``    The Build type
-**compile_date**  ``TEXT``    Compilation date
-**library**       ``TEXT``    Library name and version
-**system**        ``TEXT``    Operative system
-**postgreSQL**    ``TEXT``    pgsql used
-**compiler**      ``TEXT``    Compiler and version
-**boost**         ``TEXT``    Boost version
-**hash**          ``TEXT``    Git hash of vrpRouting build
-================  =========== ===============================
-
-result end
-*/
-
-
---v3.0
+--v0.4
 CREATE FUNCTION vrp_full_version(
     OUT version TEXT,
     OUT build_type TEXT,
@@ -63,7 +33,6 @@ CREATE FUNCTION vrp_full_version(
     OUT system TEXT,
     OUT PostgreSQL TEXT,
     OUT compiler TEXT,
-    OUT boost TEXT,
     OUT hash TEXT
 )
 RETURNS Record AS
@@ -75,7 +44,6 @@ $BODY$
         _vrp_operating_system(),
         _vrp_pgsql_version(),
         _vrp_compiler_version(),
-        _vrp_boost_version(),
         _vrp_git_hash()
 $BODY$
 LANGUAGE sql IMMUTABLE;
