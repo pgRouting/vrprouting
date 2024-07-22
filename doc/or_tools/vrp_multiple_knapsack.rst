@@ -23,6 +23,10 @@ vrp_multiple_knapsack - Experimental
 
 .. rubric:: Availability
 
+Version 0.4.1
+
+* Support for or-tools v9.10.4067
+
 Version 0.4.0
 
 * New **experimental** function
@@ -34,13 +38,20 @@ Version 0.4.0
 Description
 -------------------------------------------------------------------------------
 
-The multiple knapsack problem is a problem in combinatorial optimization: 
+The multiple knapsack problem is a problem in combinatorial optimization:
 it is a more general verison of the classic knapsack problem where instead of a
 single knapsack, you will be given multiple knapsacks and your goal is maximise the total
 value of packed items in all knapsacks.
 
 Signatures
 -------------------------------------------------------------------------------
+
+.. admonition:: \ \
+   :class: signatures
+
+   | vrp_multiple_knapsack(`Weight Costs SQL`_, capacities, [,``max_rows``])
+   | RETURNS SET OF (knapsack, id)
+   | OR EMPTY SET
 
 .. include:: ../../sql/or_tools/multiple_knapsack.sql
    :start-after: signature start
@@ -49,29 +60,65 @@ Signatures
 Parameters
 -------------------------------------------------------------------------------
 
-.. include:: ../../sql/or_tools/multiple_knapsack.sql
-   :start-after: parameters start
-   :end-before: parameters end
+.. list-table::
+   :width: 81
+   :widths: 14 14 44
+   :header-rows: 1
+
+   * - Column
+     - Type
+     - Description
+   * - `Weight Costs SQL`_
+     - ``TEXT``
+     - `Weight Costs SQL`_ as described below
+   * - capacities
+     - ``ARRAY[`` **ANY-INTEGER** ``]``
+     - An array describing the capacity of each knapsack.
 
 Optional Parameters
 ...............................................................................
 
-.. include:: ../../sql/or_tools/multiple_knapsack.sql
-   :start-after: optional parameters start
-   :end-before: optional parameters end
+.. list-table::
+   :width: 81
+   :widths: auto
+   :header-rows: 1
+
+   * - Column
+     - Type
+     - Default
+     - Description
+   * - ``max_rows``
+     - **ANY-INTEGER**
+     - :math:`100000`
+     - Maximum items(rows) to fetch from bin_packing_data table.
 
 Inner Queries
 -------------------------------------------------------------------------------
 
-Weights_Costs SQL
+Weight Costs SQL
 ...............................................................................
 
-.. include:: ../../sql/or_tools/multiple_knapsack.sql
-   :start-after: Weights_Costs start
-   :end-before: Weights_Costs end
+.. include:: or_tools-category.rst
+   :start-after: weight_costs_start
+   :end-before: weight_costs_end
 
 Result Columns
 -------------------------------------------------------------------------------
+
+.. list-table::
+   :width: 81
+   :widths: auto
+   :header-rows: 1
+
+   * - Column
+     - Type
+     - Description
+   * - ``knapsak``
+     - ``INTEGER``
+     - Indentifier of the knapsack.
+   * - ``id``
+     - ``INTEGER``
+     - Indentifier of an item in the ``knapsack``.
 
 .. include:: ../../sql/or_tools/multiple_knapsack.sql
    :start-after: result start
