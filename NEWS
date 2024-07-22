@@ -13,28 +13,23 @@ on Github.
 
 * OR Tools
 
-  * vrp_bin_packing
-  * vrp_knapsack
-  * vrp_multiple_knapsack
+* vrp_bin_packing
+* vrp_knapsack
+* vrp_multiple_knapsack
 
-    .. include:: vrp_bin_packing.rst
-       :start-after: Version 0.4.1
-       :end-before: Version
+    * Support for or-tools v9.10.4067
 
 * vrp_oneDepot
 
-  .. include:: vrp_oneDepot.rst
-     :start-after: Version 0.4.1
-     :end-before: Version
+    * Code fix
+    * Result columns changed
 
-**Removal of Boost on the build**
+** Removal of Boost on the build**
 
 * vrp_full_version
 * vrp_version
 
-  .. include:: vrp_full_version.rst
-     :start-after: Version 0.4.1
-     :end-before: Version
+  * Boost removed from the result columns
 
 v0.4.0 Release Notes
 *******************************************************************************
