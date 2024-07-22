@@ -83,7 +83,7 @@ BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'weight');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'cost');
-  
+
   -- bin_packing
   fn := 'vrp_bin_packing';
   inner_query_table := 'bin_packing_data';
