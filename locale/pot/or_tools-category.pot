@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vrpRouting v0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-22 16:37+0000\n"
+"POT-Creation-Date: 2024-07-22 19:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,94 +153,106 @@ msgid "Inner Queries"
 msgstr ""
 
 #: ../../build/doc/or_tools-category.rst:64
-msgid "Weights_Costs SQL"
+msgid "Weight Costs SQL"
 msgstr ""
 
-#: ../../sql/or_tools/bin_packing.sql:3
-#: ../../sql/or_tools/multiple_knapsack.sql:3
+#: ../../build/doc/or_tools-category.rst:66
+#: ../../build/doc/or_tools-category.rst:99
 msgid "A ``SELECT`` statement that returns the following columns:"
 msgstr ""
 
-#: ../../sql/or_tools/bin_packing.sql:11
-#: ../../sql/or_tools/multiple_knapsack.sql:11
+#: ../../build/doc/or_tools-category.rst:75
+#: ../../build/doc/or_tools-category.rst:106
 msgid "Column"
 msgstr ""
 
-#: ../../sql/or_tools/bin_packing.sql:11
-#: ../../sql/or_tools/multiple_knapsack.sql:11
+#: ../../build/doc/or_tools-category.rst:76
+#: ../../build/doc/or_tools-category.rst:107
 msgid "Type"
 msgstr ""
 
-#: ../../sql/or_tools/bin_packing.sql:11
-#: ../../sql/or_tools/multiple_knapsack.sql:11
-msgid "Default"
-msgstr ""
-
-#: ../../sql/or_tools/bin_packing.sql:11
-#: ../../sql/or_tools/multiple_knapsack.sql:11
+#: ../../build/doc/or_tools-category.rst:77
+#: ../../build/doc/or_tools-category.rst:108
 msgid "Description"
 msgstr ""
 
-#: ../../sql/or_tools/bin_packing.sql:13
-#: ../../sql/or_tools/multiple_knapsack.sql:13
-msgid "**id**"
-msgstr ""
-
-#: ../../sql/or_tools/bin_packing.sql:13
-#: ../../sql/or_tools/bin_packing.sql:15
-#: ../../sql/or_tools/multiple_knapsack.sql:13
-#: ../../sql/or_tools/multiple_knapsack.sql:15
-#: ../../sql/or_tools/multiple_knapsack.sql:17
-msgid "``ANY-INTEGER``"
-msgstr ""
-
-#: ../../sql/or_tools/bin_packing.sql:13
-#: ../../sql/or_tools/multiple_knapsack.sql:13
-msgid "unique identifier of the item."
-msgstr ""
-
-#: ../../sql/or_tools/bin_packing.sql:15
-#: ../../sql/or_tools/multiple_knapsack.sql:15
-msgid "**weight**"
-msgstr ""
-
-#: ../../sql/or_tools/bin_packing.sql:15
-#: ../../sql/or_tools/multiple_knapsack.sql:15
-msgid "weight of the item."
-msgstr ""
-
-#: ../../sql/or_tools/multiple_knapsack.sql:17
-msgid "**cost**"
-msgstr ""
-
-#: ../../sql/or_tools/multiple_knapsack.sql:17
-msgid "cost of the item."
-msgstr ""
-
-#: ../../build/doc/or_tools-category.rst:71
-msgid "Weights SQL"
-msgstr ""
-
 #: ../../build/doc/or_tools-category.rst:78
-msgid "See Also"
+#: ../../build/doc/or_tools-category.rst:109
+msgid "``id``"
 msgstr ""
 
+#: ../../build/doc/or_tools-category.rst:79
 #: ../../build/doc/or_tools-category.rst:82
-msgid "`Wikipedia: Bin Packing problems <https://en.wikipedia.org/wiki/Bin_packing_problem>`__"
+#: ../../build/doc/or_tools-category.rst:85
+#: ../../build/doc/or_tools-category.rst:110
+#: ../../build/doc/or_tools-category.rst:113
+msgid "**ANY-INTEGER**"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:80
+msgid "Unique identifier of the item."
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:81
+#: ../../build/doc/or_tools-category.rst:112
+msgid "``weight``"
 msgstr ""
 
 #: ../../build/doc/or_tools-category.rst:83
-msgid "`OR-Tools: Google OR-Tools <https://developers.google.com/optimization>`__"
+#: ../../build/doc/or_tools-category.rst:114
+msgid "Weight of the item."
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:84
+msgid "``cost``"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:86
+msgid "Cost of the item."
 msgstr ""
 
 #: ../../build/doc/or_tools-category.rst:88
-msgid "Indices and tables"
+#: ../../build/doc/or_tools-category.rst:116
+msgid "Where:"
 msgstr ""
 
-#: ../../build/doc/or_tools-category.rst:89
-msgid ":ref:`genindex`"
+#: ../../build/doc/or_tools-category.rst:0
+msgid "ANY-INTEGER"
 msgstr ""
 
 #: ../../build/doc/or_tools-category.rst:90
+#: ../../build/doc/or_tools-category.rst:118
+msgid "``SMALLINT``, ``INTEGER``, ``BIGINT``"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:95
+msgid "Weights SQL"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:111
+msgid "Identifier of the item."
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:123
+msgid "See Also"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:127
+msgid "`Wikipedia: Bin Packing problems <https://en.wikipedia.org/wiki/Bin_packing_problem>`__"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:128
+msgid "`OR-Tools: Google OR-Tools <https://developers.google.com/optimization>`__"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:133
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:134
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../build/doc/or_tools-category.rst:135
 msgid ":ref:`search`"
 msgstr ""
