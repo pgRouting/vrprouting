@@ -5,19 +5,19 @@ SET
 /* -- example_start */
 SELECT *
 FROM vrp_bin_packing($$SELECT id, weight FROM ortools.bin_packing$$, 100);
- bin_number | item_id
-------------+---------
-          1 |       1
-          1 |       2
-          1 |       3
-          2 |       4
-          2 |       5
-          2 |       6
-          3 |       7
-          3 |       8
-          4 |       9
-          4 |      10
-          4 |      11
+ bin | id
+-----+----
+   1 |  1
+   1 |  2
+   1 |  3
+   2 |  4
+   2 |  5
+   2 |  6
+   3 |  7
+   3 |  8
+   4 |  9
+   4 | 10
+   4 | 11
 (11 rows)
 
 /* -- example_end */
