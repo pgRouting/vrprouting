@@ -1,6 +1,5 @@
 
 SET(LOCAL_FILES
-    boost-inside.jpeg
     Fig1-originalData.png
     Fig2-cost.png
     Fig4-costUndirected.png
