@@ -50,6 +50,7 @@ Building requirements
 * CMake >= 3.12
 * Sphinx > 4.0.0
 * VROOM >= 1.12.0
+* ortools == 9.10.4067
 
 User's requirements
 --------------------

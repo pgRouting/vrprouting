@@ -1,3 +1,4 @@
 Sphinx>4.0.0
 sphinx-bootstrap-theme>=0.8.0
 sphinx-intl==2.2.0
+ortools==9.10.4067
