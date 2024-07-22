@@ -23,6 +23,11 @@ vrp_oneDepot - Experimental
 
 .. rubric:: Availability
 
+Version 0.4.1
+
+* Code fix
+* Result columns changed
+
 Version 0.0.0
 
 * New **experimental** function
