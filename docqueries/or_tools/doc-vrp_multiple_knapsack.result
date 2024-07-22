@@ -5,20 +5,20 @@ SET
 /* -- example_start */
 SELECT *
 FROM vrp_multiple_knapsack($$SELECT id, weight, cost FROM ortools.multiple_knapsack$$, ARRAY[100,100,100,100,100]);
- knapsack_number | item_id
------------------+---------
-               1 |       2
-               1 |       9
-               1 |      11
-               2 |       4
-               2 |       5
-               2 |      10
-               3 |       8
-               3 |      13
-               4 |       3
-               4 |       6
-               5 |      14
-               5 |      15
+ knapsack | id
+----------+----
+        1 |  2
+        1 |  9
+        1 | 11
+        2 |  4
+        2 |  5
+        2 | 10
+        3 |  8
+        3 | 13
+        4 |  3
+        4 |  6
+        5 | 14
+        5 | 15
 (12 rows)
 
 /* -- example_end */

@@ -5,12 +5,12 @@ SET
 /* -- example_start */
 SELECT *
 FROM vrp_knapsack($$SELECT * FROM ortools.knapsack$$, 15);
- item_id
----------
-       2
-       3
-       4
-       5
+ id
+----
+  2
+  3
+  4
+  5
 (4 rows)
 
 /* -- example_end */
