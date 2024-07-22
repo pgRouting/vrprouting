@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.3.0-dev\n"
+"Project-Id-Version: vrpRouting v0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 10:43+0000\n"
+"POT-Creation-Date: 2024-07-22 16:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid "New **Official** function"
 msgstr ""
 
 #: ../../build/doc/vrp_version.rst:31
-#: ../../build/sql/version/version.sql:4
+#: ../../build/doc/vrp_version.rst:57
 msgid "Description"
 msgstr ""
 
@@ -57,46 +57,58 @@ msgstr ""
 msgid "Signatures"
 msgstr ""
 
+#: ../../build/doc/vrp_version.rst:41
+msgid "\\ \\"
+msgstr ""
+
+#: ../../build/doc/vrp_version.rst:0
+msgid "pgr_version()"
+msgstr ""
+
+#: ../../build/doc/vrp_version.rst:0
+msgid "RETURNS ``TEXT``"
+msgstr ""
+
 #: ../../build/doc/vrp_version.rst:0
 msgid "Example"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:45
+#: ../../build/doc/vrp_version.rst:47
 msgid "vrpRouting Version for this documentatoin"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:52
+#: ../../build/doc/vrp_version.rst:54
 msgid "Result Columns"
 msgstr ""
 
-#: ../../build/sql/version/version.sql:4
+#: ../../build/doc/vrp_version.rst:57
 msgid "Type"
 msgstr ""
 
-#: ../../build/sql/version/version.sql:6
+#: ../../build/doc/vrp_version.rst:59
 msgid "``TEXT``"
 msgstr ""
 
-#: ../../build/sql/version/version.sql:6
+#: ../../build/doc/vrp_version.rst:59
 msgid "vrpRouting version"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:60
+#: ../../build/doc/vrp_version.rst:64
 msgid "See Also"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:61
+#: ../../build/doc/vrp_version.rst:65
 msgid ":doc:`vrp_full_version`"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:64
+#: ../../build/doc/vrp_version.rst:68
 msgid "Indices and tables"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:65
+#: ../../build/doc/vrp_version.rst:69
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:66
+#: ../../build/doc/vrp_version.rst:70
 msgid ":ref:`search`"
 msgstr ""
