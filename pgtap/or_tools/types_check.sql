@@ -26,7 +26,7 @@ BEGIN
   RETURN QUERY
   SELECT bag_has(
     $$SELECT proargnames from pg_proc where proname = 'vrp_knapsack'$$,
-    $$SELECT '{"inner_query","capacity","max_rows","item_id"}'::TEXT[]$$
+    $$SELECT '{"inner_query","capacity","max_rows","id"}'::TEXT[]$$
   );
 
   -- parameter types
@@ -50,7 +50,7 @@ BEGIN
   RETURN QUERY
   SELECT bag_has(
     $$SELECT proargnames from pg_proc where proname = 'vrp_multiple_knapsack'$$,
-    $$SELECT '{"inner_query","capacities","max_rows","knapsack_number","item_id"}'::TEXT[]$$
+    $$SELECT '{"inner_query","capacities","max_rows","knapsack","id"}'::TEXT[]$$
   );
 
   -- parameter types
@@ -74,7 +74,7 @@ BEGIN
   RETURN QUERY
   SELECT bag_has(
     $$SELECT proargnames from pg_proc where proname = 'vrp_bin_packing'$$,
-    $$SELECT '{"inner_query","bin_capacity","max_rows","bin_number","item_id"}'::TEXT[]$$
+    $$SELECT '{"inner_query","bin_capacity","max_rows","bin","id"}'::TEXT[]$$
   );
 
   -- parameter types
