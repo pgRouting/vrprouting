@@ -283,7 +283,7 @@ sub process_single_test{
     my $activate = shift;
     my $res = shift;
 
-    my $test_file = "$dir/$test_file_name.test.sql";
+    my $test_file = "$dir/$test_file_name.pg";
     my $result_file = "$dir/$test_file_name.result";
     print "Processing test: $test_file";
     my $t0 = [gettimeofday];
@@ -302,7 +302,7 @@ sub process_single_test{
         };
     } else {
         open(PSQL, "|$psql $connopts  --set='VERBOSITY terse' -e $DBNAME > $TMP 2>\&1 ") || do {
-            $res->{"$dir/$test_file_name.test.sql"} = "FAILED: could not open connection to db : $!";
+            $res->{"$dir/$test_file_name.pg"} = "FAILED: could not open connection to db : $!";
             $stats{z_fail}++;
             return;
         };
