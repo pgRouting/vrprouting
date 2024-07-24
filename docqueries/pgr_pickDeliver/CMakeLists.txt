@@ -1,8 +1,8 @@
 # Do not use extensions
 SET(LOCAL_FILES
-    doc-pgr_pickDeliverEuclidean
-    doc-pgr_pickDeliver
-    doc-oneDepot
+    pgr_pickDeliverEuclidean
+    pgr_pickDeliver
+    oneDepot
     )
 
 foreach (f ${LOCAL_FILES})
