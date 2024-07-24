@@ -41,7 +41,10 @@ vrpRouting 0.4
 vrpRouting 0.4.2 Release Notes
 -------------------------------------------------------------------------------
 
-No changes yet.
+.. rubric:: Documentation queries
+
+* Renamed to extension `.pg`
+* Removed `doc-` and `doc-vrp_` suffixes on file names
 
 vrpRouting 0.4.1 Release Notes
 -------------------------------------------------------------------------------
