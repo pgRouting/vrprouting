@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>vrp_knapsack - Experimental &#8212; vrpRouting Manual (0.4)</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=374eba1c" />
+    <script src="_static/documentation_options.js?v=c5409710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="vrp_multiple_knapsack - Experimental" href="vrp_multiple_knapsack.html" />
+    <link rel="prev" title="OR-Tools - Category (Experimental)" href="or_tools-category.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          vrpRouting</a>
+        <span class="navbar-text navbar-version pull-left"><b>v0.4.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sampledata.html">Sample Data</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vrp_version.html">vrp_version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vrp_full_version.html">vrp_full_version</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="official.html">Oficial functions</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="proposed.html">Proposed Functions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="experimental.html">Experimental Functions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">vrp_knapsack - Experimental</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#signatures">Signatures</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a><ul>
+<li><a class="reference internal" href="#optional-parameters">Optional Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#inner-queries">Inner Queries</a><ul>
+<li><a class="reference internal" href="#weight-costs-sql">Weight Costs SQL</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#result-columns">Result Columns</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="or_tools-category.html" title="Previous Chapter: OR-Tools - Category (Experimental)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; OR-Tools - Ca...</span>
+    </a>
+  </li>
+  <li>
+    <a href="vrp_multiple_knapsack.html" title="Next Chapter: vrp_multiple_knapsack - Experimental"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">vrp_multiple_... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">vrp_knapsack - Experimental</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#signatures">Signatures</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a><ul>
+<li><a class="reference internal" href="#optional-parameters">Optional Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#inner-queries">Inner Queries</a><ul>
+<li><a class="reference internal" href="#weight-costs-sql">Weight Costs SQL</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#result-columns">Result Columns</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="or_tools-category.html" title="Previous Chapter: OR-Tools - Category (Experimental)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; OR-Tools - Ca...</span>
+    </a>
+  </li>
+  <li>
+    <a href="vrp_multiple_knapsack.html" title="Next Chapter: vrp_multiple_knapsack - Experimental"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">vrp_multiple_... &raquo;</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://vrp.pgrouting.org/">Documentation</a> → <a class="reference external" href="https://vrp.pgrouting.org/v0">vrpRouting v0</a></p></li>
+<li><p>Supported Versions
+<a class="reference external" href="https://vrp.pgrouting.org/latest/en/vrp_oneDepot.html">Latest</a>
+(<a class="reference external" href="https://vrp.pgrouting.org/v0/en/vrp_oneDepot.html">v0</a>)</p></li>
+</ul>
+<section id="vrp-knapsack-experimental">
+<h1>vrp_knapsack - Experimental<a class="headerlink" href="#vrp-knapsack-experimental" title="Link to this heading">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Possible server crash</p>
+<ul class="simple">
+<li><p>These functions might create a server crash</p></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Experimental functions</p>
+<ul class="simple">
+<li><p>They are not officially of the current release.</p></li>
+<li><p>They likely will not be officially be part of the next release:</p>
+<ul>
+<li><p>The functions might not make use of ANY-INTEGER and ANY-NUMERICAL</p></li>
+<li><p>Name might change.</p></li>
+<li><p>Signature might change.</p></li>
+<li><p>Functionality might change.</p></li>
+<li><p>pgTap tests might be missing.</p></li>
+<li><p>Might need c/c++ coding.</p></li>
+<li><p>May lack documentation.</p></li>
+<li><p>Documentation if any might need to be rewritten.</p></li>
+<li><p>Documentation examples might need to be automatically generated.</p></li>
+<li><p>Might need a lot of feedback from the comunity.</p></li>
+<li><p>Might depend on a proposed function of vrpRouting</p></li>
+<li><p>Might depend on a deprecated function of vrpRouting</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<p class="rubric">Availability</p>
+<p>Version 0.4.1</p>
+<ul class="simple">
+<li><p>Support for or-tools v9.10.4067</p></li>
+</ul>
+<p>Version 0.4.0</p>
+<ul class="simple">
+<li><p>New <strong>experimental</strong> function</p>
+<ul>
+<li><p>vrp_knapsack</p></li>
+</ul>
+</li>
+</ul>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>The knapsack problem is a problem in combinatorial optimization:
+Given a set of items, each with a weight and a value,
+Determine the number of each item to include in a collection
+so that the total weight is less than or equal to a given limit and the total
+value is as large as possible</p>
+</section>
+<section id="signatures">
+<h2>Signatures<a class="headerlink" href="#signatures" title="Link to this heading">¶</a></h2>
+<div class="signatures admonition">
+<p class="admonition-title"></p>
+<div class="line-block">
+<div class="line">vrp_knapsack(<a class="reference internal" href="#weight-costs-sql">Weight Costs SQL</a>, capacity, [<code class="docutils literal notranslate"><span class="pre">max_rows</span></code>])</div>
+<div class="line">RETURNS SET OF (item_id)</div>
+<div class="line">OR EMPTY SET</div>
+</div>
+</div>
+</section>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default" style="width: 81">
+<colgroup>
+<col style="width: 19.4%" />
+<col style="width: 19.4%" />
+<col style="width: 61.1%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#weight-costs-sql">Weight Costs SQL</a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p><a class="reference internal" href="#weight-costs-sql">Weight Costs SQL</a> as described below.</p></td>
+</tr>
+<tr class="row-odd"><td><p>capacity</p></td>
+<td><p><strong>ANY-INTEGER</strong></p></td>
+<td><p>Maximum Capacity of the knapsack.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="optional-parameters">
+<h3>Optional Parameters<a class="headerlink" href="#optional-parameters" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default" style="width: 81">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_rows</span></code></p></td>
+<td><p><strong>ANY-INTEGER</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(100000\)</span></p></td>
+<td><p>Maximum items(rows) to fetch from knapsack_data table.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Where:</p>
+<dl class="field-list simple">
+<dt class="field-odd">ANY-INTEGER<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">SMALLINT</span></code>, <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>, <code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="inner-queries">
+<h2>Inner Queries<a class="headerlink" href="#inner-queries" title="Link to this heading">¶</a></h2>
+<section id="weight-costs-sql">
+<h3>Weight Costs SQL<a class="headerlink" href="#weight-costs-sql" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default" style="width: 81">
+<colgroup>
+<col style="width: 19.4%" />
+<col style="width: 19.4%" />
+<col style="width: 61.1%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p><strong>ANY-INTEGER</strong></p></td>
+<td><p>Unique identifier of the item.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">weight</span></code></p></td>
+<td><p><strong>ANY-INTEGER</strong></p></td>
+<td><p>Weight of the item.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cost</span></code></p></td>
+<td><p><strong>ANY-INTEGER</strong></p></td>
+<td><p>Cost of the item.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Where:</p>
+<dl class="field-list simple">
+<dt class="field-odd">ANY-INTEGER<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">SMALLINT</span></code>, <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>, <code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="result-columns">
+<h2>Result Columns<a class="headerlink" href="#result-columns" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default" style="width: 81">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Indentifier of an item in the knapsack.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Where:</p>
+<dl class="field-list simple">
+<dt class="field-odd">ANY-INTEGER<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">SMALLINT</span></code>, <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>, <code class="docutils literal notranslate"><span class="pre">BIGINT</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SELECT *
+FROM vrp_knapsack($$SELECT * FROM ortools.knapsack$$, 15);
+ id
+----
+  2
+  3
+  4
+  5
+(4 rows)
+
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developers.google.com/optimization">OR-Tools: Google OR-Tools</a></p></li>
+</ul>
+<p class="rubric">Indices and tables</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Índice</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Página de Búsqueda</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright vrpRouting Contributors - Version v0.4.1.<br/>
+      Actualizado por última vez en jul 24, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

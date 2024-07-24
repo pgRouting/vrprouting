@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="es">
+<html lang="es" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Experimental Functions &#8212; vrpRouting Manual (0.3)</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/translations.js"></script>
-    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <title>Experimental Functions &#8212; vrpRouting Manual (0.4)</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=374eba1c" />
+    <script src="_static/documentation_options.js?v=c5409710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
     <link rel="next" title="Vehicle Routing Functions - Category (Experimental)" href="pgr-category.html" />
@@ -40,9 +40,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
+        <a class="navbar-brand" href="index.html">
           vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.3.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>v0.4.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -134,7 +134,29 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Experimental Functions</a></li>
+</ul>
+
+  <li>
+    <a href="proposed.html" title="Previous Chapter: Proposed Functions"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Proposed Functions</span>
+    </a>
+  </li>
+  <li>
+    <a href="pgr-category.html" title="Next Chapter: Vehicle Routing Functions - Category (Experimental)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Vehicle Routi... &raquo;</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   <div class="line-block">
 <div class="line"><br /></div>
@@ -145,7 +167,7 @@
 (<a class="reference external" href="https://vrp.pgrouting.org/v0/en/experimental.html">v0</a>)</p></li>
 </ul>
 <section id="experimental-functions">
-<h1>Experimental Functions<a class="headerlink" href="#experimental-functions" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1>Experimental Functions<a class="headerlink" href="#experimental-functions" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
 <p>Possible server crash</p>
@@ -200,6 +222,15 @@
 <li class="toctree-l2"><a class="reference internal" href="vroom-category.html#see-also">See Also</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="or_tools-category.html">OR-Tools - Category (Experimental)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vrp_knapsack.html">vrp_knapsack - Experimental</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vrp_multiple_knapsack.html">vrp_multiple_knapsack - Experimental</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vrp_bin_packing.html">vrp_bin_packing - Experimental</a></li>
+<li class="toctree-l2"><a class="reference internal" href="or_tools-category.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="or_tools-category.html#inner-queries">Inner Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="or_tools-category.html#see-also">See Also</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <p class="rubric">See Also</p>
@@ -226,9 +257,9 @@
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.3.0.<br/>
-      Actualizado por última vez en feb. 13, 2022.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+        &copy; Copyright vrpRouting Contributors - Version v0.4.1.<br/>
+      Actualizado por última vez en jul 24, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
     </p>
   </div>
 </footer>

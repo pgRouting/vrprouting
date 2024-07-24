@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 
-<html lang="es">
+<html lang="es" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Installation &#8212; vrpRouting Manual (0.3)</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/translations.js"></script>
-    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <title>Installation &#8212; vrpRouting Manual (0.4)</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=374eba1c" />
+    <script src="_static/documentation_options.js?v=c5409710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
     <link rel="next" title="Support" href="support.html" />
@@ -40,9 +39,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
+        <a class="navbar-brand" href="index.html">
           vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.3.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>v0.4.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -149,11 +148,48 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#get-the-vrprouting-sources">Get the vrpRouting sources</a></li>
+<li><a class="reference internal" href="#short-version">Short Version</a><ul>
+<li><a class="reference internal" href="#enabling-and-upgrading-in-the-database">Enabling and upgrading in the database</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#configuring">Configuring</a><ul>
+<li><a class="reference internal" href="#configurable-variables">Configurable variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building">Building</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="introduction.html" title="Previous Chapter: Introduction"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Introduction</span>
+    </a>
+  </li>
+  <li>
+    <a href="support.html" title="Next Chapter: Support"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Support &raquo;</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   <section id="installation">
-<h1><a class="toc-backref" href="#id1">Installation</a><a class="headerlink" href="#installation" title="Enlazar permanentemente con este título">¶</a></h1>
-<div class="contents topic" id="contenido">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<nav class="contents" id="contenido">
 <p class="topic-title">Contenido</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#installation" id="id1">Installation</a></p>
@@ -176,7 +212,7 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <p>Instructions for downloading and installing binaries for different Operative systems
 instructions and additional notes and corrections not included in this documentation
 can be found in
@@ -184,46 +220,46 @@ can be found in
 <p>To use vrpRouting: PostgreSQL server, pgRouting and postGIS needs to be installed.</p>
 <p>There is no package for vrpRouting</p>
 <section id="get-the-vrprouting-sources">
-<h2><a class="toc-backref" href="#id2">Get the vrpRouting sources</a><a class="headerlink" href="#get-the-vrprouting-sources" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Get the vrpRouting sources</a><a class="headerlink" href="#get-the-vrprouting-sources" title="Link to this heading">¶</a></h2>
 <p>The vrpRouting latest release can be found in <a class="reference external" href="https://github.com/pgRouting/vrprouting/releases/latest">https://github.com/pgRouting/vrprouting/releases/latest</a></p>
 <p>To get this release, download the repository or download the</p>
 <p class="rubric">Download the repository</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git://github.com/pgRouting/vrprouting.git
-<span class="nb">cd</span> vrprouting
-git checkout v0.3.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git://github.com/pgRouting/vrprouting.git
+<span class="nb">cd</span><span class="w"> </span>vrprouting
+git<span class="w"> </span>checkout<span class="w"> </span>v0.4.1
 </pre></div>
 </div>
 <p class="rubric">Download this release</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget -O vrprouting-0.3.0.tar.gz https://github.com/pgRouting/vrprouting/archive/v0.3.0.tar.gz
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-O<span class="w"> </span>vrprouting-0.4.1.tar.gz<span class="w"> </span>https://github.com/pgRouting/vrprouting/archive/v0.4.1.tar.gz
 </pre></div>
 </div>
 </section>
 <section id="short-version">
-<h2><a class="toc-backref" href="#id3">Short Version</a><a class="headerlink" href="#short-version" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Short Version</a><a class="headerlink" href="#short-version" title="Link to this heading">¶</a></h2>
 <p>Extracting the tar ball</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar xvfz vrprouting-0.3.0.tar.gz
-<span class="nb">cd</span> vrprouting-0.3.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>xvfz<span class="w"> </span>vrprouting-0.4.1.tar.gz
+<span class="nb">cd</span><span class="w"> </span>vrprouting-0.4.1
 </pre></div>
 </div>
 <p>To compile assuming you have all the dependencies in your search path:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir build
-<span class="nb">cd</span> build
-cmake ..
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..
 make
-sudo make install
+sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
 <p>Once vrpRouting is installed, it needs to be enabled in each individual database you want to use it in.</p>
 <section id="enabling-and-upgrading-in-the-database">
-<h3><a class="toc-backref" href="#id4">Enabling and upgrading in the database</a><a class="headerlink" href="#enabling-and-upgrading-in-the-database" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Enabling and upgrading in the database</a><a class="headerlink" href="#enabling-and-upgrading-in-the-database" title="Link to this heading">¶</a></h3>
 <p class="rubric">Enabling the database</p>
 <p>vrpRouting is an extension and depends on postGIS. Enabling postGIS before enabling vrpRouting in the database</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">vrprouting</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">vrprouting</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">;</span>
 </pre></div>
 </div>
 <p class="rubric">Upgrading the database</p>
 <p>When the database has an old version of vrpRouting then an upgrade is needed.</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">vrprouting</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="ss">&quot;0.3.0&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">vrprouting</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="ss">&quot;0.4.1&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
 <p class="rubric">See also</p>
@@ -234,15 +270,14 @@ sudo make install
 </section>
 </section>
 <section id="dependencies">
-<h2><a class="toc-backref" href="#id5">Dependencies</a><a class="headerlink" href="#dependencies" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Dependencies</a><a class="headerlink" href="#dependencies" title="Link to this heading">¶</a></h2>
 <p class="rubric">Compilation Dependencies</p>
 <p>To be able to compile vrpRouting, make sure that the following dependencies are met:</p>
 <ul class="simple">
 <li><p>C and C++ compilers with C++17 standard support</p></li>
 <li><p>Postgresql version &gt;= TBD</p></li>
-<li><p>The Boost Graph Library (BGL) &gt;= 1.65</p></li>
 <li><p>CMake &gt;= 3.12</p></li>
-<li><p>VROOM &gt;= 1.11.0</p></li>
+<li><p>VROOM &gt;= 1.12.0</p></li>
 </ul>
 <p class="rubric">optional dependencies</p>
 <p>For user’s documentation</p>
@@ -278,8 +313,7 @@ sudo make install
 <p class="rubric">Build dependencies</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install
     cmake \
-    g++ \
-    libboost-graph-dev
+    g++
 </pre></div>
 </div>
 <p class="rubric">Build dependencies (VROOM)</p>
@@ -287,15 +321,16 @@ sudo make install
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install libssl-dev libasio-dev libglpk-dev
 </pre></div>
 </div>
-<p>Build VROOM v1.11.0</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>wget https://github.com/VROOM-Project/vroom/archive/refs/tags/v1.11.0.tar.gz
-tar -zvxf v1.11.0.tar.gz
-cd vroom-1.11.0/src
+<p>Build VROOM v1.12.0</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone --depth 1 --branch v1.12.0 https://github.com/VROOM-Project/vroom ~/vroom-1.12.0
 
-# Create object file with position independent code using -fPIC flag
-sed -i &#39;s/CXXFLAGS = /CXXFLAGS = -fPIC /&#39; makefile
+# init the required submodules
+cd ~/vroom-1.12.0/
+git submodule update --init
 
-make
+# Using &quot;shared&quot; target for creating Position Independent Code, disabling use of routing
+cd ~/vroom-1.12.0/src
+USE_ROUTING=false make shared
 </pre></div>
 </div>
 <p class="rubric">Optional dependencies</p>
@@ -309,30 +344,25 @@ make
 </div>
 </section>
 <section id="configuring">
-<span id="install-configuring"></span><h2><a class="toc-backref" href="#id6">Configuring</a><a class="headerlink" href="#configuring" title="Enlazar permanentemente con este título">¶</a></h2>
+<span id="install-configuring"></span><h2><a class="toc-backref" href="#id6" role="doc-backlink">Configuring</a><a class="headerlink" href="#configuring" title="Link to this heading">¶</a></h2>
 <p>vrpRouting uses the <cite>cmake</cite> system to do the configuration.</p>
 <p>The build directory is different from the source directory</p>
 <p>Create the build directory</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>build
 </pre></div>
 </div>
 <section id="configurable-variables">
-<h3><a class="toc-backref" href="#id7">Configurable variables</a><a class="headerlink" href="#configurable-variables" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Configurable variables</a><a class="headerlink" href="#configurable-variables" title="Link to this heading">¶</a></h3>
 <p class="rubric">To see the variables that can be configured</p>
 <p>Here, the variable VROOM_INSTALL_PATH corresponds to the location of the root directory of VROOM.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> build
-$ cmake -DVROOM_INSTALL_PATH<span class="o">=</span>/path/to/vroom-dir/ -L ..
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+$<span class="w"> </span>cmake<span class="w"> </span>-DVROOM_INSTALL_PATH<span class="o">=</span>/path/to/vroom-dir/<span class="w"> </span>-L<span class="w"> </span>..
 </pre></div>
 </div>
 <p class="rubric">Configuring The Documentation</p>
 <p>Most of the effort of the documentation has being on the HTML files.
 Some variables for the documentation:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 9%" />
-<col style="width: 72%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Variable</p></th>
 <th class="head"><p>Default</p></th>
@@ -367,7 +397,7 @@ Some variables for the documentation:</p>
 </tbody>
 </table>
 <p>Configuring with documentation</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cmake -DVROOM_INSTALL_PATH<span class="o">=</span>/home/runner/vroom-1.11.0 -DWITH_DOC<span class="o">=</span>ON ..
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-DVROOM_INSTALL_PATH<span class="o">=</span>/home/runner/work/vrprouting/vrprouting/vroom-1.12.0<span class="w"> </span>-DWITH_DOC<span class="o">=</span>ON<span class="w"> </span>..
 </pre></div>
 </div>
 <div class="admonition note">
@@ -377,12 +407,12 @@ Some variables for the documentation:</p>
 </section>
 </section>
 <section id="building">
-<span id="install-build"></span><h2><a class="toc-backref" href="#id8">Building</a><a class="headerlink" href="#building" title="Enlazar permanentemente con este título">¶</a></h2>
+<span id="install-build"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink">Building</a><a class="headerlink" href="#building" title="Link to this heading">¶</a></h2>
 <p>Using <code class="docutils literal notranslate"><span class="pre">make</span></code> to build the code and the documentation</p>
 <p>The following instructions start from <em>path/to/pgrouting/build</em></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ make          <span class="c1"># build the code but not the documentation</span>
-$ make doc      <span class="c1"># build only the documentation</span>
-$ make all doc  <span class="c1"># build both the code and the documentation</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>make<span class="w">          </span><span class="c1"># build the code but not the documentation</span>
+$<span class="w"> </span>make<span class="w"> </span>doc<span class="w">      </span><span class="c1"># build only the documentation</span>
+$<span class="w"> </span>make<span class="w"> </span>all<span class="w"> </span>doc<span class="w">  </span><span class="c1"># build both the code and the documentation</span>
 </pre></div>
 </div>
 <p>We have tested on several platforms, For installing or reinstalling all the steps are needed.</p>
@@ -391,30 +421,30 @@ $ make all doc  <span class="c1"># build both the code and the documentation</sp
 <p>The sql signatures are configured and build in the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> command.</p>
 </div>
 <p class="rubric">MinGW on Windows</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build
-$ <span class="nb">cd</span> build
-$ cmake -G<span class="s2">&quot;MSYS Makefiles&quot;</span> ..
-$ make
-$ make install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>build
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+$<span class="w"> </span>cmake<span class="w"> </span>-G<span class="s2">&quot;MSYS Makefiles&quot;</span><span class="w"> </span>..
+$<span class="w"> </span>make
+$<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
 <p class="rubric">Linux</p>
 <p>The following instructions start from <em>path/to/repository</em></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir build
-<span class="nb">cd</span> build
-cmake  ..
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w">  </span>..
 make
-sudo make install
+sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
 <p>When the configuration changes:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm -rf build
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>-rf<span class="w"> </span>build
 </pre></div>
 </div>
 <p>and start the build process as mentioned above.</p>
 </section>
 <section id="testing">
-<span id="install-testing"></span><h2><a class="toc-backref" href="#id9">Testing</a><a class="headerlink" href="#testing" title="Enlazar permanentemente con este título">¶</a></h2>
+<span id="install-testing"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">Testing</a><a class="headerlink" href="#testing" title="Link to this heading">¶</a></h2>
 <p>Currently there is no <code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> and testing is done as follows</p>
 <p>The following instructions start from <em>path/to/pgrouting/</em></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>tools/testers/doc_queries_generator.pl
@@ -425,7 +455,7 @@ dropdb  -U &lt;user&gt; ___vrp___test___
 </div>
 </section>
 <section id="see-also">
-<h2><a class="toc-backref" href="#id10">See Also</a><a class="headerlink" href="#see-also" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">See Also</a><a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
 <p class="rubric">Indices and tables</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Índice</span></a></p></li>
@@ -446,9 +476,9 @@ dropdb  -U &lt;user&gt; ___vrp___test___
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.3.0.<br/>
-      Actualizado por última vez en feb. 13, 2022.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+        &copy; Copyright vrpRouting Contributors - Version v0.4.1.<br/>
+      Actualizado por última vez en jul 24, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
     </p>
   </div>
 </footer>

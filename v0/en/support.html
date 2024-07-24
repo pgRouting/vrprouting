@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Support &#8212; vrpRouting Manual (0.3)</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <title>Support &#8212; vrpRouting Manual (0.4)</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=374eba1c" />
+    <script src="_static/documentation_options.js?v=ba910837"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Sample Data" href="sampledata.html" />
@@ -39,9 +38,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><span><img src="_static/vrprouting.png"></span>
+        <a class="navbar-brand" href="index.html">
           vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.3.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>v0.4.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -138,17 +137,44 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Support</a><ul>
+<li><a class="reference internal" href="#reporting-problems">Reporting Problems</a></li>
+<li><a class="reference internal" href="#mailing-list-and-gis-stackexchange">Mailing List and GIS StackExchange</a></li>
+<li><a class="reference internal" href="#commercial-support">Commercial Support</a></li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="installation.html" title="Previous Chapter: Installation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Installation</span>
+    </a>
+  </li>
+  <li>
+    <a href="sampledata.html" title="Next Chapter: Sample Data"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Sample Data &raquo;</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   <section id="support">
-<span id="id1"></span><h1>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Support<a class="headerlink" href="#support" title="Link to this heading">¶</a></h1>
 <p>vrpRouting community support is available through the
 <a class="reference external" href="https://pgrouting.org/support.html">pgRouting website</a>,
 <a class="reference external" href="https://vrp.pgrouting.org">documentation</a>, tutorials, mailing lists and others.</p>
 <p>If you’re looking for <a class="reference internal" href="#support-commercial"><span class="std std-ref">commercial support</span></a>, find below
 a list of companies providing vrpRouting development and consulting services.</p>
 <section id="reporting-problems">
-<h2>Reporting Problems<a class="headerlink" href="#reporting-problems" title="Permalink to this headline">¶</a></h2>
+<h2>Reporting Problems<a class="headerlink" href="#reporting-problems" title="Link to this heading">¶</a></h2>
 <p>Bugs are reported and managed in an i
 <a class="reference external" href="https://github.com/pgRouting/vrprouting/issues">issue tracker</a>. Please follow
 these steps:</p>
@@ -167,19 +193,19 @@ and version of vrpRouting, pgRouting, PostGIS and PostgreSQL.</p></li>
 <li><p>It is recommended to use the following wrapper on the problem to pin point the
 step that is causing the problem.</p></li>
 </ol>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SET</span><span class="w"> </span><span class="n">client_min_messages</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">debug</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="o">&lt;</span><span class="n">your</span><span class="w"> </span><span class="n">code</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">SET</span><span class="w"> </span><span class="n">client_min_messages</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">notice</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SET</span><span class="w"> </span><span class="n">client_min_messages</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">debug</span><span class="p">;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">your</span><span class="w"> </span><span class="n">code</span><span class="o">&gt;</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">client_min_messages</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">notice</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
 <section id="mailing-list-and-gis-stackexchange">
-<h2>Mailing List and GIS StackExchange<a class="headerlink" href="#mailing-list-and-gis-stackexchange" title="Permalink to this headline">¶</a></h2>
+<h2>Mailing List and GIS StackExchange<a class="headerlink" href="#mailing-list-and-gis-stackexchange" title="Link to this heading">¶</a></h2>
 <p>There are two mailing lists for vrpRouting hosted on OSGeo mailing list server
 which are of pgRouting:</p>
 <ul class="simple">
 <li><p>User mailing list: <a class="reference external" href="https://lists.osgeo.org/mailman/listinfo/pgrouting-users">https://lists.osgeo.org/mailman/listinfo/pgrouting-users</a></p></li>
-<li><p>Developer mailing list: <a class="reference external" href="https://lists.osgeo.org/mailman/listinfo/pgrouting-dev">https://lists.osgeo.org/mailman/listinfo/pgrouting-dev</a></p></li>
+<li><p>Developer mailing list: <a class="reference external" href="https://discourse.osgeo.org/c/pgrouting/pgrouting-dev">https://discourse.osgeo.org/c/pgrouting/pgrouting-dev</a></p></li>
 </ul>
 <p>For general questions and topics about how to use vrpRouting, please write to the user mailing list.</p>
 <p>You can also ask at <a class="reference external" href="https://gis.stackexchange.com/">GIS StackExchange</a> and tag
@@ -188,15 +214,15 @@ under <a class="reference external" href="https://gis.stackexchange.com/question
 <a class="reference external" href="https://gis.stackexchange.com/feeds/tag?tagnames=vrprouting&amp;sort=newest">vrpRouting questions feed</a>.</p>
 </section>
 <section id="commercial-support">
-<span id="support-commercial"></span><h2>Commercial Support<a class="headerlink" href="#commercial-support" title="Permalink to this headline">¶</a></h2>
+<span id="support-commercial"></span><h2>Commercial Support<a class="headerlink" href="#commercial-support" title="Link to this heading">¶</a></h2>
 <p>For users who require professional support, development and consulting services,
 consider contacting any of the following organizations, which have significantly
 contributed to the development of vrpRouting:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 22%" />
-<col style="width: 35%" />
-<col style="width: 43%" />
+<col style="width: 21.7%" />
+<col style="width: 34.8%" />
+<col style="width: 43.5%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Company</strong></p></td>
@@ -210,10 +236,6 @@ contributed to the development of vrpRouting:</p>
 <tr class="row-odd"><td><p>Paragon Corporation</p></td>
 <td><p>United States</p></td>
 <td><p><a class="reference external" href="https://www.paragoncorporation.com">https://www.paragoncorporation.com</a></p></td>
-</tr>
-<tr class="row-even"><td><p>Leopark</p></td>
-<td><p>Mexico</p></td>
-<td><p><a class="reference external" href="https://www.leopark.mx">https://www.leopark.mx</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -232,9 +254,9 @@ contributed to the development of vrpRouting:</p>
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.3.0.<br/>
-      Last updated on Feb 13, 2022.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+        &copy; Copyright vrpRouting Contributors - Version v0.4.1.<br/>
+      Last updated on Jul 24, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
     </p>
   </div>
 </footer>
