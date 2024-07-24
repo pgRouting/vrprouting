@@ -135,7 +135,7 @@ Example
 
 This example use the following data:
 
-.. literalinclude:: doc-pgr_pickDeliver.queries
+.. literalinclude:: pgr_pickDeliver.queries
    :start-after: --q2
    :end-before: --q3
 

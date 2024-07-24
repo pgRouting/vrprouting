@@ -46,7 +46,7 @@ Signatures
 
 :Example: vrpRouting Version for this documentatoin
 
-.. literalinclude:: doc-version.queries
+.. literalinclude:: version.queries
    :start-after: -- q1
    :end-before: -- q2
 

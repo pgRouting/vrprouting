@@ -130,7 +130,7 @@ Example
 This example use the following data:
 
 
-.. literalinclude:: ./doc-pgr_pickDeliverEuclidean.queries
+.. literalinclude:: ./pgr_pickDeliverEuclidean.queries
    :start-after: --q1
    :end-before: --q2
 

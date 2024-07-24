@@ -126,7 +126,7 @@ Where:
 Example
 -------------------------------------------------------------------------------
 
-.. literalinclude:: doc-vrp_knapsack.queries
+.. literalinclude:: knapsack.queries
    :start-after: -- example_start
    :end-before: -- example_end
 
