@@ -65,7 +65,7 @@ Optional parameters are `named parameters` and have a default value.
 **Example**: This example is based on the modified VROOM Data of the :doc:`sampledata` network.
 The modification in the tables is mentioned at the end of the :doc:`sampledata`.
 
-.. literalinclude:: doc-vrp_vroomJobs.queries
+.. literalinclude:: vroomJobs.queries
    :start-after: -- q1
    :end-before: -- q2
 
@@ -116,7 +116,7 @@ Additional Example
 Problem involving 2 jobs, using a single vehicle, corresponding to the VROOM Documentation
 `Example 2 <https://github.com/VROOM-Project/vroom/blob/master/docs/example_2.json>`__.
 
-.. literalinclude:: doc-vrp_vroomJobs.queries
+.. literalinclude:: vroomJobs.queries
    :start-after: -- q2
    :end-before: -- q3
 

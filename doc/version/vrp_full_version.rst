@@ -50,7 +50,7 @@ Signatures
 
 :Example: Get the version installed for this documentation.
 
-.. literalinclude:: doc-full_version.queries
+.. literalinclude:: full_version.queries
    :start-after: -- q1
    :end-before: -- q2
 

@@ -133,7 +133,7 @@ Where:
 Example
 -------------------------------------------------------------------------------
 
-.. literalinclude:: doc-vrp_bin_packing.queries
+.. literalinclude:: bin_packing.queries
    :start-after: -- example_start
    :end-before: -- example_end
 

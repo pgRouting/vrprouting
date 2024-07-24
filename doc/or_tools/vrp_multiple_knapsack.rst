@@ -127,7 +127,7 @@ Result Columns
 Example
 -------------------------------------------------------------------------------
 
-.. literalinclude:: doc-vrp_multiple_knapsack.queries
+.. literalinclude:: multiple_knapsack.queries
    :start-after: -- example_start
    :end-before: -- example_end
 

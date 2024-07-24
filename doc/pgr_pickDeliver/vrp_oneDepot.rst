@@ -64,7 +64,7 @@ Result Columns
 Example
 -------------------------------------------------------------------------------
 
-.. literalinclude:: doc-oneDepot.queries
+.. literalinclude:: oneDepot.queries
 
 .. rubric:: Data
 
