@@ -17,13 +17,14 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 #---------------------------------------------
 #---------------------------------------------
 
-project(VRPROUTING VERSION 0.4.1
+project(VRPROUTING VERSION 0.4.2
   LANGUAGES C CXX )
 set(PROJECT_VERSION_DEV "")
 string(TOLOWER "${PROJECT_NAME}" PROJECT_NAME_LOWER)
 
 set(MINORS 0.4 0.3 0.2 0.1)
 set(OLD_SIGNATURES
+    0.4.1
     0.4.0
     0.3.0
     0.2.0

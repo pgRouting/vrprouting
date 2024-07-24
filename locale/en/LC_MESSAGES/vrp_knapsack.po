@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.4.1
+# Copyright (C) vrpRouting Contributors - Version v0.4.2
 # This file is distributed under the same license as the vrpRouting package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
 #
