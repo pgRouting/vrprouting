@@ -4,6 +4,10 @@
 ## vrpRouting 0.4
 
 
+### vrpRouting 0.4.2 Release Notes
+
+No changes yet.
+
 ### vrpRouting 0.4.1 Release Notes
 
 To see all issues & pull requests closed by this release see the
