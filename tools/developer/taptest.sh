@@ -25,12 +25,12 @@ echo "-----------  taptest of:  $DIR"
 echo "----------------------------------------------------"
 PGDATABASE="___vrp___taptest___"
 
-dropdb  ${PGFLAGS} --if-exists "${PGDATABASE}"
-createdb ${PGFLAGS} "${PGDATABASE}"
+dropdb  "${PGFLAGS[@]}" --if-exists "${PGDATABASE}"
+createdb "${PGFLAGS[@]}" "${PGDATABASE}"
 
 pushd tools/testers/
-psql "${PGFLAGS}"  -f setup_db.sql -d "${PGDATABASE}"
+psql "${PGFLAGS[@]}"  -f setup_db.sql -d "${PGDATABASE}"
 popd
-pg_prove --recurse ${QUIET} ${PGFLAGS}  -d "${PGDATABASE}" "${DIR}"
-echo pg_prove --recurse ${QUIET} ${PGFLAGS}  -d "${PGDATABASE}" "${DIR}"
-#dropdb --if-exists "${PGFLAGS}" "${PGDATABASE}"
+pg_prove --recurse "${QUIET}" "${PGFLAGS[@]}"  -d "${PGDATABASE}" "${DIR}"
+echo pg_prove --recurse "${QUIET}" "${PGFLAGS[@]}"  -d "${PGDATABASE}" "${DIR}"
+#dropdb --if-exists "${PGFLAGS[@]}" "${PGDATABASE}"
