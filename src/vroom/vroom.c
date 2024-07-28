@@ -60,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/vroom/vehicles_input.h"
 #include "c_common/vroom/matrix_input.h"
 
-#include "drivers/vroom/vroom_driver.h"
+#include "drivers//vroom_driver.h"
 
 PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(_vrp_vroom);
