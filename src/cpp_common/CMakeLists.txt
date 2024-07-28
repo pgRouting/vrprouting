@@ -3,4 +3,5 @@ ADD_LIBRARY(cpp_common OBJECT
   messages.cpp
   identifier.cpp
   assert.cpp
+  alloc.cpp
   )

@@ -10,7 +10,6 @@ ADD_LIBRARY(common OBJECT
 
     time_msg.c
     e_report.c
-    pgr_alloc.cpp
 
     vroom/time_windows_input.c
     vroom/breaks_input.c
