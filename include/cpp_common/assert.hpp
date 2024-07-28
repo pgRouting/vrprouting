@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: pgr_assert
+FILE: assert.hpp
 
 Copyright 2015~ Vicky Vergara <vicky_vergara@hotmail.com>
 Copyright 2014 Stephen Woodbridge <woodbri@imaptools.com>
@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#ifndef  INCLUDE_CPP_COMMON_PGR_ASSERT_H_
-#define  INCLUDE_CPP_COMMON_PGR_ASSERT_H_
+#ifndef  INCLUDE_CPP_COMMON_PGR_ASSERT_HPP_
+#define  INCLUDE_CPP_COMMON_PGR_ASSERT_HPP_
 #pragma once
 
 #include <string>
@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * Example:
  * @code
     #include <iostream>
-    #include "pgr_assert.h"
+    #include "assert.h"
 
     int main() {
 
@@ -147,4 +147,4 @@ class AssertFailedException : public std::exception {
      virtual ~AssertFailedException() throw() {}
 };
 
-#endif  //  INCLUDE_CPP_COMMON_PGR_ASSERT_H_
+#endif  //  INCLUDE_CPP_COMMON_PGR_ASSERT_HPP_

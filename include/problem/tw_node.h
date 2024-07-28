@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <string>
 #include "c_types/typedefs.h"
-#include "cpp_common/identifier.h"
+#include "cpp_common/identifier.hpp"
 #include "problem/node_types.h"
 
 

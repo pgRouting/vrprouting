@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: matrix.h
+FILE: base_matrix.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_CPP_COMMON_BASE_MATRIX_H_
-#define INCLUDE_CPP_COMMON_BASE_MATRIX_H_
+#ifndef INCLUDE_CPP_COMMON_BASE_MATRIX_HPP_
+#define INCLUDE_CPP_COMMON_BASE_MATRIX_HPP_
 #pragma once
 
 #include <iosfwd>
@@ -135,4 +135,4 @@ class Base_Matrix {
 }  // namespace base
 }  // namespace vrprouting
 
-#endif  // INCLUDE_CPP_COMMON_BASE_MATRIX_H_
+#endif  // INCLUDE_CPP_COMMON_BASE_MATRIX_HPP_

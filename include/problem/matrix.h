@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <string>
 #include <vector>
 
-#include "cpp_common/base_matrix.h"
+#include "cpp_common/base_matrix.hpp"
 #include "cpp_common/identifiers.hpp"
 #include "c_types/typedefs.h"
 

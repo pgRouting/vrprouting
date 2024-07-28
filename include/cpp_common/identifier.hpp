@@ -1,5 +1,6 @@
 /*PGR-GNU*****************************************************************
- *
+
+FILE: identifier.hpp
 
 Copyright (c) 2017 Celia Virginia Vergara Castillo
 vicky_vergara@hotmail.com
@@ -26,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 File from pgRouting
 */
 
-#ifndef INCLUDE_CPP_COMMON_IDENTIFIER_H_
-#define INCLUDE_CPP_COMMON_IDENTIFIER_H_
+#ifndef INCLUDE_CPP_COMMON_IDENTIFIER_HPP_
+#define INCLUDE_CPP_COMMON_IDENTIFIER_HPP_
 #pragma once
 
 #if defined(__MINGW32__) || defined(_MSC_VER)
@@ -89,4 +90,4 @@ class Identifier {
 
 }  // namespace vrprouting
 
-#endif  // INCLUDE_CPP_COMMON_IDENTIFIER_H_
+#endif  // INCLUDE_CPP_COMMON_IDENTIFIER_HPP_

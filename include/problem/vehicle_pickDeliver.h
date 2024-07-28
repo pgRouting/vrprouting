@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <limits>
 #include <vector>
 #include "c_types/typedefs.h"
-#include "cpp_common/pgr_assert.h"
-#include "cpp_common/pgr_messages.h"
+#include "cpp_common/assert.hpp"
+#include "cpp_common/messages.hpp"
 #include "cpp_common/identifiers.hpp"
 #include "problem/vehicle.h"
 #include "problem/orders.h"
