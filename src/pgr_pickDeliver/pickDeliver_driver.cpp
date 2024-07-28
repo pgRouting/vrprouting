@@ -40,11 +40,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/pgr_alloc.hpp"
 #include "cpp_common/pgr_assert.h"
 #include "problem/solution.h"
-#include "initialsol/simple.h"
+#include "initialsol/simple.hpp"
 #include "optimizers/simple.h"
 
 #include "problem/pickDeliver.h"
-#include "initialsol/initials_code.h"
+#include "initialsol/initials_code.hpp"
 #include "problem/matrix.h"
 
 namespace  {

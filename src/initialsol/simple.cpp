@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 
 
-#include "initialsol/simple.h"
+#include "initialsol/simple.hpp"
 #include <deque>
 #include <algorithm>
 #include <set>

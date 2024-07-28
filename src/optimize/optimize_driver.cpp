@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/pgr_assert.h"
 #include "cpp_common/pgr_messages.h"
-#include "initialsol/tabu.h"
+#include "initialsol/tabu.hpp"
 #include "optimizers/tabu.h"
 #include "c_common/pgr_alloc.hpp"
 #include "cpp_common/interruption.h"
