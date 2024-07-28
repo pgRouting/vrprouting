@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 /** @file */
 
-#include "cpp_common/base_matrix.h"
+#include "cpp_common/base_matrix.hpp"
 
 #include <string>
 #include <sstream>
@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <utility>
 
 #include "cpp_common/identifiers.hpp"
-#include "cpp_common/pgr_assert.h"
+#include "cpp_common/assert.hpp"
 #include "c_types/matrix_cell_t.h"
 #include "c_types/vroom/vroom_matrix_t.h"
 

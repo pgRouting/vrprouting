@@ -1,5 +1,6 @@
 /*PGR-GNU*****************************************************************
-File: vrp_vroom_problem.hpp
+
+FILE: vrp_vroom_problem.hpp
 
 Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org
@@ -42,9 +43,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/vroom/vroom_shipment_t.h"
 #include "c_types/vroom/vroom_time_window_t.h"
 #include "c_types/vroom/vroom_vehicle_t.h"
-#include "cpp_common/base_matrix.h"
-#include "cpp_common/interruption.h"
-#include "cpp_common/pgr_messages.h"
+#include "cpp_common/base_matrix.hpp"
+#include "cpp_common/interruption.hpp"
+#include "cpp_common/messages.hpp"
 #include "structures/vroom/input/input.h"
 #include "structures/vroom/job.h"
 #include "structures/vroom/vehicle.h"

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <limits>
 #include <string>
 
-#include "cpp_common/pgr_assert.h"
+#include "cpp_common/assert.hpp"
 #include "problem/matrix.h"
 #include "c_types/pickDeliveryOrders_t.h"
 #include "c_types/vehicle_t.h"

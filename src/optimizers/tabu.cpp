@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <string>
 #include <deque>
 
-#include "cpp_common/pgr_assert.h"
-#include "cpp_common/pgr_messages.h"
+#include "cpp_common/assert.hpp"
+#include "cpp_common/messages.hpp"
 
 #include "optimizers/move.h"
 
