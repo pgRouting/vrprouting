@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: initial_solution.h
+FILE: simple.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_INITIALSOL_SIMPLE_H_
-#define INCLUDE_INITIALSOL_SIMPLE_H_
+#ifndef INCLUDE_INITIALSOL_SIMPLE_HPP_
+#define INCLUDE_INITIALSOL_SIMPLE_HPP_
 #pragma once
 
 #include "cpp_common/identifiers.hpp"
 #include "problem/solution.h"
-#include "initialsol/initials_code.h"
+#include "initialsol/initials_code.hpp"
 
 namespace vrprouting {
 namespace problem {
@@ -72,4 +72,4 @@ class Initial_solution : public problem::Solution {
 }  //  namespace initialsol
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_INITIALSOL_SIMPLE_H_
+#endif  // INCLUDE_INITIALSOL_SIMPLE_HPP_

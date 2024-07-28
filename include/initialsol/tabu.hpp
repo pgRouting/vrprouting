@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: initial_solution.h
+FILE: tabu.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /** @file */
 
-#ifndef INCLUDE_INITIALSOL_TABU_H_
-#define INCLUDE_INITIALSOL_TABU_H_
+#ifndef INCLUDE_INITIALSOL_TABU_HPP_
+#define INCLUDE_INITIALSOL_TABU_HPP_
 #pragma once
 
 #include "c_types/typedefs.h"
@@ -76,4 +76,4 @@ class Initial_solution :  public problem::Solution {
 }  //  namespace initialsol
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_INITIALSOL_TABU_H_
+#endif  // INCLUDE_INITIALSOL_TABU_HPP_
