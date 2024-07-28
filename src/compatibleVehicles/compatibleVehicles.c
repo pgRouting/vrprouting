@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/vehicles_input.h"
 #include "c_common/matrixRows_input.h"
 #include "c_common/time_multipliers_input.h"
-#include "c_types/pickDeliveryOrders_t.h"
+#include "cpp_common/orders_t.hpp"
 #include "c_types/compatibleVehicles_rt.h"
 #include "drivers/compatibleVehicles_driver.h"
 

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #pragma once
 
 #include "c_common/postgres_connection.h"
-#include "c_types/column_info_t.h"
+#include "cpp_common/info.hpp"
 #include "c_types/typedefs.h"
 
 /** @brief  Check whether the colNumber represent any specific column or NULL (SPI_ERROR_NOATTRIBUTE). */

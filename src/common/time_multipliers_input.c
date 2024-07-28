@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/time_multipliers_input.h"
 
-#include "c_types/column_info_t.h"
-#include "c_types/time_multipliers_t.h"
+#include "cpp_common/info.hpp"
+#include "cpp_common/time_multipliers_t.hpp"
 #include "c_common/get_check_data.h"
 
 #ifdef PROFILE

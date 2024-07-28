@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <tuple>
 #include <iomanip>
 #include "problem/pickDeliver.hpp"
-#include "c_types/short_vehicle.h"
+#include "cpp_common/short_vehicle.hpp"
 
 typedef struct Solution_rt Solution_rt;
 

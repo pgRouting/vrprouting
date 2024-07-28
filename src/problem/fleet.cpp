@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <utility>
 #include <algorithm>
 
-#include "c_types/vehicle_t.h"
+#include "cpp_common/vehicle_t.hpp"
 
 namespace vrprouting {
 namespace problem {
