@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include "optimizers/tabu_list.h"
+#include "optimizers/tabu_list.hpp"
 
 #include <string>
 #include <iostream>

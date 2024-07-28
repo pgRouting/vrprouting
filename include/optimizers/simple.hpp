@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: optimize.cpp
+FILE: simple.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_OPTIMIZERS_SIMPLE_H_
-#define INCLUDE_OPTIMIZERS_SIMPLE_H_
+#ifndef INCLUDE_OPTIMIZERS_SIMPLE_HPP_
+#define INCLUDE_OPTIMIZERS_SIMPLE_HPP_
 #pragma once
 
 #include "problem/solution.hpp"
@@ -87,4 +87,4 @@ class Optimize : public problem::Solution {
 }  //  namespace optimizers
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_OPTIMIZERS_SIMPLE_H_
+#endif  // INCLUDE_OPTIMIZERS_SIMPLE_HPP_

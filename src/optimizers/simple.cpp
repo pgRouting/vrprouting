@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include "optimizers/simple.h"
+#include "optimizers/simple.hpp"
 
 #include <algorithm>
 #include <limits>

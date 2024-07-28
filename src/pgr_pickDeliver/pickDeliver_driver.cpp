@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/assert.hpp"
 #include "problem/solution.hpp"
 #include "initialsol/simple.hpp"
-#include "optimizers/simple.h"
+#include "optimizers/simple.hpp"
 
 #include "problem/pickDeliver.hpp"
 #include "initialsol/initials_code.hpp"

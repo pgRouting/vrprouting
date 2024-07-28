@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/assert.hpp"
 #include "initialsol/tabu.hpp"
-#include "optimizers/tabu.h"
+#include "optimizers/tabu.hpp"
 #include "c_common/pgr_alloc.hpp"
 
 /**

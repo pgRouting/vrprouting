@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#ifndef INCLUDE_OPTIMIZERS_TABU_LIST_H_
-#define INCLUDE_OPTIMIZERS_TABU_LIST_H_
+#ifndef INCLUDE_OPTIMIZERS_TABU_LIST_HPP_
+#define INCLUDE_OPTIMIZERS_TABU_LIST_HPP_
 #pragma once
 
 #include <iosfwd>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <deque>
 #include <set>
 
-#include "optimizers/move.h"
+#include "optimizers/move.hpp"
 
 namespace vrprouting {
 namespace optimizers {
@@ -122,5 +122,5 @@ class TabuList {
 }  //  namespace optimizers
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_OPTIMIZERS_TABU_LIST_H_
+#endif  // INCLUDE_OPTIMIZERS_TABU_LIST_HPP_
 

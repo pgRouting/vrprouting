@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "problem/matrix.hpp"
 #include "initialsol/simple.hpp"
-#include "optimizers/simple.h"
+#include "optimizers/simple.hpp"
 #include "problem/pickDeliver.hpp"
 
 namespace {
