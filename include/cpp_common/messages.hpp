@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 File from pgRouting
 */
 
-#ifndef INCLUDE_CPP_COMMON_PGR_MESSAGES_HPP_
-#define INCLUDE_CPP_COMMON_PGR_MESSAGES_HPP_
+#ifndef INCLUDE_CPP_COMMON_MESSAGES_HPP_
+#define INCLUDE_CPP_COMMON_MESSAGES_HPP_
 #pragma once
 
 
@@ -109,4 +109,4 @@ class Pgr_messages {
 
 }  // namespace vrprouting
 
-#endif  // INCLUDE_CPP_COMMON_PGR_MESSAGES_HPP_
+#endif  // INCLUDE_CPP_COMMON_MESSAGES_HPP_

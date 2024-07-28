@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: pgr_palloc.hpp
+File: alloc.hpp
 
 Copyright (c) 2015 Celia Virginia Vergara Castillo
 Mail: vicky_vergara@hotmail.com
@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_C_COMMON_PGR_ALLOC_HPP_
-#define INCLUDE_C_COMMON_PGR_ALLOC_HPP_
+#ifndef INCLUDE_CPP_COMMON_ALLOC_HPP_
+#define INCLUDE_CPP_COMMON_ALLOC_HPP_
 #pragma once
 
 
@@ -84,4 +84,4 @@ pgr_free(T* ptr) {
 char *
 pgr_msg(const std::string &msg);
 
-#endif  // INCLUDE_C_COMMON_PGR_ALLOC_HPP_
+#endif  // INCLUDE_CPP_COMMON_ALLOC_HPP_
