@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: tw_node.h
+FILE: tw_node.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,14 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /** @file */
 
-#ifndef INCLUDE_PROBLEM_TW_NODE_H_
-#define INCLUDE_PROBLEM_TW_NODE_H_
+#ifndef INCLUDE_PROBLEM_TW_NODE_HPP_
+#define INCLUDE_PROBLEM_TW_NODE_HPP_
 #pragma once
 
 #include <string>
 #include "c_types/typedefs.h"
 #include "cpp_common/identifier.hpp"
-#include "problem/node_types.h"
+#include "problem/node_types.hpp"
 
 
 namespace vrprouting {
@@ -189,4 +189,4 @@ class Tw_node : public Identifier {
 }  //  namespace problem
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_PROBLEM_TW_NODE_H_
+#endif  // INCLUDE_PROBLEM_TW_NODE_HPP_

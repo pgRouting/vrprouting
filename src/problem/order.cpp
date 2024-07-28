@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /** @file */
 
-#include "problem/order.h"
+#include "problem/order.hpp"
 
 namespace vrprouting {
 namespace problem {

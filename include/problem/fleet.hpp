@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: fleet.h
+FILE: fleet.hpp
 
 Copyright (c) 2017 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /** @file */
 
-#ifndef INCLUDE_PROBLEM_FLEET_H_
-#define INCLUDE_PROBLEM_FLEET_H_
+#ifndef INCLUDE_PROBLEM_FLEET_HPP_
+#define INCLUDE_PROBLEM_FLEET_HPP_
 #pragma once
 
 #include <iostream>
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_types/typedefs.h"
 #include "c_types/short_vehicle.h"
-#include "problem/vehicle_pickDeliver.h"
+#include "problem/vehicle_pickDeliver.hpp"
 
 typedef struct Vehicle_t Vehicle_t;
 
@@ -154,4 +154,4 @@ class Fleet: protected std::vector<Vehicle_pickDeliver> {
 
 }  // namespace problem
 }  // namespace vrprouting
-#endif  // INCLUDE_PROBLEM_FLEET_H_
+#endif  // INCLUDE_PROBLEM_FLEET_HPP_

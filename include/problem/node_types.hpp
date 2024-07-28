@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: tw_node.h
+FILE: node_types.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /** @file */
 
-#ifndef INCLUDE_PROBLEM_NODE_TYPES_H_
-#define INCLUDE_PROBLEM_NODE_TYPES_H_
+#ifndef INCLUDE_PROBLEM_NODE_TYPES_HPP_
+#define INCLUDE_PROBLEM_NODE_TYPES_HPP_
 #pragma once
 
 namespace vrprouting {
@@ -44,4 +44,4 @@ enum NodeType {
 }  //  namespace problem
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_PROBLEM_NODE_TYPES_H_
+#endif  // INCLUDE_PROBLEM_NODE_TYPES_HPP_

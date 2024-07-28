@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_OPTIMIZERS_SIMPLE_H_
 #pragma once
 
-#include "problem/solution.h"
-#include "problem/vehicle_pickDeliver.h"
+#include "problem/solution.hpp"
+#include "problem/vehicle_pickDeliver.hpp"
 #include "initialsol/initials_code.hpp"
 
 namespace vrprouting {

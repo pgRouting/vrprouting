@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 
 /** @file */
-#include "problem/solution.h"
+#include "problem/solution.hpp"
 
 #include <deque>
 #include <vector>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <algorithm>
 #include <tuple>
 #include <iomanip>
-#include "problem/pickDeliver.h"
+#include "problem/pickDeliver.hpp"
 #include "c_types/short_vehicle.h"
 
 typedef struct Solution_rt Solution_rt;
