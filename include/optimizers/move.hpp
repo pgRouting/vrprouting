@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: matrix.h
+FILE: move.hpp
 
 Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#ifndef INCLUDE_OPTIMIZERS_MOVE_H_
-#define INCLUDE_OPTIMIZERS_MOVE_H_
+#ifndef INCLUDE_OPTIMIZERS_MOVE_HPP_
+#define INCLUDE_OPTIMIZERS_MOVE_HPP_
 #pragma once
 
 #include <cstdint>
@@ -110,5 +110,5 @@ class Move {
 }  //  namespace optimizers
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_OPTIMIZERS_MOVE_H_
+#endif  // INCLUDE_OPTIMIZERS_MOVE_HPP_
 

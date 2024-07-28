@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: optimize.h
+FILE: tabu.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,12 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /** @file */
 
-#ifndef INCLUDE_OPTIMIZERS_TABU_H_
-#define INCLUDE_OPTIMIZERS_TABU_H_
+#ifndef INCLUDE_OPTIMIZERS_TABU_HPP_
+#define INCLUDE_OPTIMIZERS_TABU_HPP_
 #pragma once
 
 #include "problem/solution.hpp"
-#include "optimizers/tabu_list.h"
+#include "optimizers/tabu_list.hpp"
 
 namespace vrprouting {
 namespace optimizers {
@@ -109,4 +109,4 @@ class Optimize : public problem::Solution {
 }  //  namespace optimizers
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_OPTIMIZERS_TABU_H_
+#endif  // INCLUDE_OPTIMIZERS_TABU_HPP_

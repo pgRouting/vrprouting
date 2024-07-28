@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include "optimizers/tabu.h"
+#include "optimizers/tabu.hpp"
 
 #include <algorithm>
 #include <string>
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/assert.hpp"
 #include "cpp_common/messages.hpp"
 
-#include "optimizers/move.h"
+#include "optimizers/move.hpp"
 
 /**
  * Anonymus namespace for static functions
