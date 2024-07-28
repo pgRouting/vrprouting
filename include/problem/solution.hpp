@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: solution.h
+FILE: solution.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /** @file */
 
-#ifndef INCLUDE_PROBLEM_SOLUTION_H_
-#define INCLUDE_PROBLEM_SOLUTION_H_
+#ifndef INCLUDE_PROBLEM_SOLUTION_HPP_
+#define INCLUDE_PROBLEM_SOLUTION_HPP_
 #pragma once
 
 #include <deque>
@@ -38,8 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <tuple>
 #include <iomanip>
 
-#include "problem/vehicle_pickDeliver.h"
-#include "problem/fleet.h"
+#include "problem/vehicle_pickDeliver.hpp"
+#include "problem/fleet.hpp"
 #include "c_types/short_vehicle.h"
 
 typedef struct Solution_rt Solution_rt;
@@ -133,4 +133,4 @@ class Solution {
 }  //  namespace problem
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_PROBLEM_SOLUTION_H_
+#endif  // INCLUDE_PROBLEM_SOLUTION_HPP_

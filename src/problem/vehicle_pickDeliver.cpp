@@ -25,15 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#include "problem/vehicle_pickDeliver.h"
+#include "problem/vehicle_pickDeliver.hpp"
 
 #include <limits>
 #include <utility>
 #include <vector>
 
-#include "problem/vehicle.h"
-#include "problem/order.h"
-#include "problem/orders.h"
+#include "problem/vehicle.hpp"
+#include "problem/order.hpp"
+#include "problem/orders.hpp"
 
 namespace vrprouting {
 namespace problem {

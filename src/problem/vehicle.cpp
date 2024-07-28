@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#include "problem/vehicle.h"
+#include "problem/vehicle.hpp"
 #include <deque>
 #include <iostream>
 #include <sstream>
@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/solution_rt.h"
 #include "cpp_common/assert.hpp"
 #include "cpp_common/identifier.hpp"
-#include "problem/vehicle_node.h"
+#include "problem/vehicle_node.hpp"
 
 namespace vrprouting {
 namespace problem {

@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: vehicle.h
+FILE: vehicle.hpp
 
 Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /*! @file */
 
-#ifndef INCLUDE_PROBLEM_VEHICLE_H_
-#define INCLUDE_PROBLEM_VEHICLE_H_
+#ifndef INCLUDE_PROBLEM_VEHICLE_HPP_
+#define INCLUDE_PROBLEM_VEHICLE_HPP_
 #pragma once
 
 #include <utility>
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/solution_rt.h"
 #include "cpp_common/assert.hpp"
 #include "cpp_common/identifier.hpp"
-#include "problem/vehicle_node.h"
+#include "problem/vehicle_node.hpp"
 
 namespace vrprouting {
 namespace problem {
@@ -185,4 +185,4 @@ class Vehicle : public Identifier, protected std::deque<Vehicle_node> {
 }  // namespace problem
 }  // namespace vrprouting
 
-#endif  // INCLUDE_PROBLEM_VEHICLE_H_
+#endif  // INCLUDE_PROBLEM_VEHICLE_HPP_

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/assert.hpp"
 #include "cpp_common/messages.hpp"
-#include "problem/pickDeliver.h"
+#include "problem/pickDeliver.hpp"
 #if 0
 #include "cpp_common/fleet.hpp"
 #endif

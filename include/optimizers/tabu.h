@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_OPTIMIZERS_TABU_H_
 #pragma once
 
-#include "problem/solution.h"
+#include "problem/solution.hpp"
 #include "optimizers/tabu_list.h"
 
 namespace vrprouting {

@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: vehicle_node.h
+FILE: vehicle_node.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -25,14 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /** @file */
 
-#ifndef INCLUDE_PROBLEM_VEHICLE_NODE_H_
-#define INCLUDE_PROBLEM_VEHICLE_NODE_H_
+#ifndef INCLUDE_PROBLEM_VEHICLE_NODE_HPP_
+#define INCLUDE_PROBLEM_VEHICLE_NODE_HPP_
 #pragma once
 
 
 #include <string>
 
-#include "problem/tw_node.h"
+#include "problem/tw_node.hpp"
 
 typedef struct Solution_rt Solution_rt;
 
@@ -181,4 +181,4 @@ class Vehicle_node: public Tw_node {
 }  //  namespace problem
 }  //  namespace vrprouting
 
-#endif  // INCLUDE_PROBLEM_VEHICLE_NODE_H_
+#endif  // INCLUDE_PROBLEM_VEHICLE_NODE_HPP_

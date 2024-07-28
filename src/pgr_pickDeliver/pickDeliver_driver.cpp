@@ -39,13 +39,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/solution_rt.h"
 #include "c_common/pgr_alloc.hpp"
 #include "cpp_common/assert.hpp"
-#include "problem/solution.h"
+#include "problem/solution.hpp"
 #include "initialsol/simple.hpp"
 #include "optimizers/simple.h"
 
-#include "problem/pickDeliver.h"
+#include "problem/pickDeliver.hpp"
 #include "initialsol/initials_code.hpp"
-#include "problem/matrix.h"
+#include "problem/matrix.hpp"
 
 namespace  {
 vrprouting::problem::Solution
