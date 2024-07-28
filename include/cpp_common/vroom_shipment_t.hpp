@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: vroom_shipment_t.h
+File: vroom_shipment_t.hpp
 
 Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org
@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 /*! @file */
 
-#ifndef INCLUDE_C_TYPES_VROOM_VROOM_SHIPMENT_T_H_
-#define INCLUDE_C_TYPES_VROOM_VROOM_SHIPMENT_T_H_
+#ifndef INCLUDE_CPP_COMMON_VROOM_SHIPMENT_T_HPP_
+#define INCLUDE_CPP_COMMON_VROOM_SHIPMENT_T_HPP_
 #pragma once
 
 #include "c_types/typedefs.h"
@@ -78,4 +78,4 @@ struct Vroom_shipment_t {
   char *d_data; /** Metadata information of delivery shipment */
 };
 
-#endif  // INCLUDE_C_TYPES_VROOM_VROOM_SHIPMENT_T_H_
+#endif  // INCLUDE_CPP_COMMON_VROOM_SHIPMENT_T_HPP_

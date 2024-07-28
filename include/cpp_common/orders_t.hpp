@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: pickDeliveryOrders_t.h
+File: orders_t.hpp
 
 Copyright (c) 2015 Celia Virginia Vergara Castillo
 Mail: vicky_vergara@hotmail.com
@@ -23,9 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 /*! @file */
 
-#ifndef INCLUDE_C_TYPES_PICKDELIVERYORDERS_T_H_
-#define INCLUDE_C_TYPES_PICKDELIVERYORDERS_T_H_
-#pragma once
+#ifndef INCLUDE_CPP_COMMON_ORDERS_T_HPP_
+#define INCLUDE_CPP_COMMON_ORDERS_T_HPP_
 
 #include "c_types/typedefs.h"
 
@@ -74,4 +73,4 @@ struct PickDeliveryOrders_t{
   TInterval deliver_service_t; /** Deliver service duration */
 };
 
-#endif  // INCLUDE_C_TYPES_PICKDELIVERYORDERS_T_H_
+#endif  // INCLUDE_CPP_COMMON_ORDERS_T_HPP_

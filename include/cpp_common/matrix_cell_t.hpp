@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: matrix_cell_t.h
+File: matrix_cell_t.hpp
 
 Copyright (c) 2017 Celia Virginia Vergara Castillo
 Mail: vicky_vergara@hotmail.com
@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 /*! @file */
 
-#ifndef INCLUDE_C_TYPES_MATRIX_CELL_T_H_
-#define INCLUDE_C_TYPES_MATRIX_CELL_T_H_
+#ifndef INCLUDE_CPP_COMMON_MATRIX_CELL_T_HPP_
+#define INCLUDE_CPP_COMMON_MATRIX_CELL_T_HPP_
 #pragma once
 
 #include "c_types/typedefs.h"
@@ -44,4 +44,4 @@ struct Matrix_cell_t {
   TInterval cost;      /** Travel Interval from departure to arrival */
 };
 
-#endif  // INCLUDE_C_TYPES_MATRIX_CELL_T_H_
+#endif  // INCLUDE_CPP_COMMON_MATRIX_CELL_T_HPP_

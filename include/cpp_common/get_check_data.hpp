@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: get_check_data.h
+FILE: get_check_data.hpp
 
 Copyright (c) 2015 Celia Virginia Vergara Castillo
 vicky_vergara@hotmail.com
@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#ifndef INCLUDE_C_COMMON_GET_CHECK_DATA_H_
-#define INCLUDE_C_COMMON_GET_CHECK_DATA_H_
+#ifndef INCLUDE_CPP_COMMON_GET_CHECK_DATA_HPP_
+#define INCLUDE_CPP_COMMON_GET_CHECK_DATA_HPP_
 #pragma once
 
 #include "c_common/postgres_connection.h"
@@ -169,4 +169,4 @@ PAmount get_PositiveAmount(HeapTuple*, TupleDesc*, Column_info_t, PAmount);
 Coordinate spi_getCoordinate(HeapTuple*, TupleDesc*, Column_info_t, Coordinate);
 
 
-#endif  // INCLUDE_C_COMMON_GET_CHECK_DATA_H_
+#endif  // INCLUDE_CPP_COMMON_GET_CHECK_DATA_HPP_

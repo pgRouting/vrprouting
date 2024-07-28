@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: pgr_types.h
+File: info.hpp
 
 Copyright (c) 2015 Celia Virginia Vergara Castillo
 Mail: vicky_vergara@hotmail.com
@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 /*! @file */
 
-#ifndef INCLUDE_C_TYPES_COLUMN_INFO_T_H_
-#define INCLUDE_C_TYPES_COLUMN_INFO_T_H_
+#ifndef INCLUDE_CPP_COMMON_INFO_HPP_
+#define INCLUDE_CPP_COMMON_INFO_HPP_
 #pragma once
 
 /* for int64_t */
@@ -59,4 +59,4 @@ struct {
 } Column_info_t;
 
 
-#endif  // INCLUDE_C_TYPES_COLUMN_INFO_T_H_
+#endif  // INCLUDE_CPP_COMMON_INFO_HPP_
