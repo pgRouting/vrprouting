@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <utils/date.h>  // NOLINT [build/include_order]
 #include <utils/datetime.h>  // NOLINT [build/include_order]
 
-#include "c_common/get_check_data.h"
+#include "cpp_common/get_check_data.hpp"
 #include "c_common/arrays_input.h"
 
 #include "catalog/pg_type.h"

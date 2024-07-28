@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/e_report.h"
 #include "c_common/time_msg.h"
 #include "c_common/orders_input.h"
-#include "c_common/get_check_data.h"
+#include "cpp_common/get_check_data.hpp"
 #include "c_common/vehicles_input.h"
 #include "c_common/matrixRows_input.h"
 #include "c_common/time_multipliers_input.h"

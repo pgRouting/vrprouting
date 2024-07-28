@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/info.hpp"
 
 #include "c_common/debug_macro.h"
-#include "c_common/get_check_data.h"
+#include "cpp_common/get_check_data.hpp"
 #ifdef PROFILE
 #include "c_common/time_msg.h"
 #endif
