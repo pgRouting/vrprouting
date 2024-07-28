@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #   include <stddef.h>
 #endif
 
-#include "c_types/vehicle_t.h"
-#include "c_types/matrix_cell_t.h"
+#include "cpp_common/vehicle_t.hpp"
+#include "cpp_common/matrix_cell_t.hpp"
 
 typedef struct PickDeliveryOrders_t PickDeliveryOrders_t;
 typedef struct Solution_rt Solution_rt;

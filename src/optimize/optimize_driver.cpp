@@ -38,9 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <algorithm>
 
 #include "problem/pickDeliver.hpp"
-#include "c_types/pickDeliveryOrders_t.h"
+#include "cpp_common/orders_t.hpp"
 #include "c_types/short_vehicle_rt.h"
-#include "c_types/vehicle_t.h"
+#include "cpp_common/vehicle_t.hpp"
 #include "problem/matrix.hpp"
 
 #include "cpp_common/assert.hpp"

@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/orders_input.h"
 
-#include "c_types/pickDeliveryOrders_t.h"
-#include "c_types/column_info_t.h"
+#include "cpp_common/orders_t.hpp"
+#include "cpp_common/info.hpp"
 
 #include "c_common/debug_macro.h"
 #include "c_common/get_check_data.h"

@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "problem/vehicle_pickDeliver.hpp"
 #include "problem/fleet.hpp"
-#include "c_types/short_vehicle.h"
+#include "cpp_common/short_vehicle.hpp"
 
 typedef struct Solution_rt Solution_rt;
 

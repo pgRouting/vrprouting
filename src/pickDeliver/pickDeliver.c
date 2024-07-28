@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/matrixRows_input.h"
 #include "c_common/time_multipliers_input.h"
 #include "c_types/solution_rt.h"
-#include "c_types/pickDeliveryOrders_t.h"
+#include "cpp_common/orders_t.hpp"
 #include "drivers/pickDeliver_driver.h"
 
 PGDLLEXPORT Datum _vrp_pickdeliver(PG_FUNCTION_ARGS);

@@ -48,10 +48,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/time_msg.h"
 
 #include "c_types/vroom/vroom_rt.h"
-#include "c_types/vroom/vroom_job_t.h"
-#include "c_types/vroom/vroom_shipment_t.h"
-#include "c_types/vroom/vroom_vehicle_t.h"
-#include "c_types/vroom/vroom_matrix_t.h"
+#include "cpp_common/vroom_job_t.hpp"
+#include "cpp_common/vroom_shipment_t.hpp"
+#include "cpp_common/vroom_vehicle_t.hpp"
+#include "cpp_common/vroom_matrix_t.hpp"
 
 #include "c_common/vroom/jobs_input.h"
 #include "c_common/vroom/breaks_input.h"
@@ -60,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/vroom/vehicles_input.h"
 #include "c_common/vroom/matrix_input.h"
 
-#include "drivers//vroom_driver.h"
+#include "drivers/vroom_driver.h"
 
 PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(_vrp_vroom);

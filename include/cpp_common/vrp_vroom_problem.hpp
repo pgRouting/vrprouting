@@ -36,13 +36,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <utility>
 #include <vector>
 
-#include "c_types/matrix_cell_t.h"
-#include "c_types/vroom/vroom_break_t.h"
-#include "c_types/vroom/vroom_job_t.h"
+#include "cpp_common/matrix_cell_t.hpp"
+#include "cpp_common/vroom_break_t.hpp"
+#include "cpp_common/vroom_job_t.hpp"
 #include "c_types/vroom/vroom_rt.h"
-#include "c_types/vroom/vroom_shipment_t.h"
-#include "c_types/vroom/vroom_time_window_t.h"
-#include "c_types/vroom/vroom_vehicle_t.h"
+#include "cpp_common/vroom_shipment_t.hpp"
+#include "cpp_common/vroom_time_window_t.hpp"
+#include "cpp_common/vroom_vehicle_t.hpp"
 #include "cpp_common/base_matrix.hpp"
 #include "cpp_common/interruption.hpp"
 #include "cpp_common/messages.hpp"
