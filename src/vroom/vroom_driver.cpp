@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
-#include "cpp_common/vrp_vroom_problem.hpp"
+#include "vroom/vroom.hpp"
 
 /** @file vroom_driver.cpp
  * @brief Handles actual calling of function in the `vrp_vroom.hpp` file.
