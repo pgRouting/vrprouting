@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#ifndef INCLUDE_CPP_COMMON_VRP_VROOM_PROBLEM_HPP_
-#define INCLUDE_CPP_COMMON_VRP_VROOM_PROBLEM_HPP_
+#ifndef INCLUDE_VROOM_VROOM_HPP_
+#define INCLUDE_VROOM_VROOM_HPP_
 #pragma once
 
 #include <map>
@@ -649,4 +649,4 @@ class Vrp_vroom_problem : public vrprouting::Pgr_messages {
 
 }  // namespace vrprouting
 
-#endif  // INCLUDE_CPP_COMMON_VRP_VROOM_PROBLEM_HPP_
+#endif  // INCLUDE_VROOM_VROOM_HPP_
