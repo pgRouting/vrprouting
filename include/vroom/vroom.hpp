@@ -1,6 +1,5 @@
 /*PGR-GNU*****************************************************************
-
-FILE: vrp_vroom_problem.hpp
+File: vroom.hpp
 
 Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org

@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: tabu_list.h
+FILE: tabu_list.hpp
 
 Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org
