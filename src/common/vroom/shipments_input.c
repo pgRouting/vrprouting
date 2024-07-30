@@ -28,60 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/vroom/shipments_input.h"
 
-/*
-.. vrp_vroom start
-
-A ``SELECT`` statement that returns the following columns:
-
-::
-
-    id, p_location_id [, p_setup, p_service], d_location_id [, d_setup, d_service]
-    [, amount, skills, priority, p_data, d_data]
-
-
-======================  =========================  =========== ================================================
-Column                  Type                       Default     Description
-======================  =========================  =========== ================================================
-**id**                  ``ANY-INTEGER``                         Positive unique identifier of the shipment.
-
-**p_location_id**       ``ANY-INTEGER``                         Positive identifier of the pickup location.
-
-**p_setup**             |interval|                 |interval0|  Pickup setup duration.
-
-**p_service**           |interval|                 |interval0|  Pickup service duration.
-
-**d_location_id**       ``ANY-INTEGER``                         Positive identifier of the delivery location.
-
-**d_setup**             |interval|                 |interval0|  Delivery setup duration.
-
-**d_service**           |interval|                 |interval0|  Delivery service duration.
-
-**amount**              ``ARRAY[ANY-INTEGER]``     Empty Array  Array of non-negative integers describing
-                                                                multidimensional quantities such as number
-                                                                of items, weight, volume etc.
-
-                                                                - All shipments must have the same value of
-                                                                  :code:`array_length(amount, 1)`
-
-**skills**              ``ARRAY[INTEGER]``         Empty Array  Array of non-negative integers defining
-                                                                mandatory skills.
-
-**priority**            ``INTEGER``                0            Priority level of the shipment.
-
-                                                                - Ranges from ``[0, 100]``
-
-**p_data**              ``JSONB``                  '{}'::JSONB Any metadata information of the pickup shipment.
-
-**d_data**              ``JSONB``                  '{}'::JSONB Any metadata information of the delivery shipment.
-======================  =========================  =========== ================================================
-
-Where:
-
-:ANY-INTEGER: SMALLINT, INTEGER, BIGINT
-
-.. vrp_vroom end
-*/
-
 static
 void fetch_shipments(
     HeapTuple *tuple,

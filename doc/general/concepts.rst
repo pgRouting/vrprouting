@@ -300,6 +300,99 @@ Maximum values apply from vroom
 
 .. jobs_end
 
+Shipments SQL
+*******************************************************************************
+
+.. shipments_start
+
+A ``SELECT`` statement that returns the following columns:
+
+| ``id``
+| ``p_location_id, [p_setup, p_service, p_data]``
+| ``d_location_id, [d_setup, d_service, d_data]``
+| ``[amount, skills, priority]``
+
+Maximum values apply from vroom
+
+``p_setup``, ``p_service``, ``d_setup``, ``d_service``
+
+- |intervalmax|
+
+``skills``
+
+- :math:`2147483647`
+
+``priority``
+
+- :math:`100`
+
+
+.. list-table::
+   :width: 81
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Default
+     - Description
+   - - ``id``
+     - |ANY-INTEGER|
+     -
+     - Positive unique identifier of the shipment.
+   - - ``p_location_id``
+     - |ANY-INTEGER|
+     -
+     - Positive unique identifier of the pickup location.
+   - - ``p_setup``
+     - |interval|
+     - |interval0|
+     - The pickup setup duration
+   - - ``p_service``
+     - |interval|
+     - |interval0|
+     - The pickup service duration
+   - - ``p_data``
+     - ``JSONB``
+     - ``'{}'::JSONB``
+     - Any metadata information of the pickup.
+   - - ``d_location_id``
+     - |ANY-INTEGER|
+     -
+     - Positive unique identifier of the pickup location.
+   - - ``d_setup``
+     - |interval|
+     - |interval0|
+     - The pickup setup duration
+   - - ``d_service``
+     - |interval|
+     - |interval0|
+     - The pickup service duration
+   - - ``d_data``
+     - ``JSONB``
+     - ``'{}'::JSONB``
+     - Any metadata information of the delivery.
+   - - ``amount``
+     - ``ARRAY[ANY-INTEGER]``
+     - ``[]``
+     - Array of non-negative integers describing multidimensional quantities
+       such as number of items, weight, volume etc.
+
+       - All shipments must have the same value of :code:`array_length(amount,
+         1)`
+
+   - - ``skills``
+     - ``ARRAY[ANY-INTEGER]``
+     - ``[]``
+     - Array of non-negative integers defining mandatory skills.
+
+       - :math:`values \leq 2147483647`
+   - - ``priority``
+     - ``INTEGER``
+     - :math:`0`
+     - Value range: :math:`[0, 100]`
+
+.. shipments_end
 
 Return columns & values
 --------------------------------------------------------------------------------

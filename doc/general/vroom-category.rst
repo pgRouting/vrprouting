@@ -128,9 +128,9 @@ Jobs SQL
 Shipments SQL
 ...............................................................................
 
-.. include:: ../../src/common/vroom/shipments_input.c
-   :start-after: vrp_vroom start
-   :end-before: vrp_vroom end
+.. include:: concepts.rst
+   :start-after: shipments_start
+   :end-before: shipments_end
 
 .. inner_queries_start
 
