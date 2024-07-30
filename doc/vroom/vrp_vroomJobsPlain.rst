@@ -69,12 +69,6 @@ Optional parameters are `named parameters` and have a default value.
    :start-after: -- q1
    :end-before: -- q2
 
-.. |timestamp| replace:: ``INTEGER``
-.. |interval| replace:: ``INTEGER``
-.. |interval0| replace:: :math:`0`
-.. |tw_open_default| replace:: :math:`0`
-.. |tw_close_default| replace:: :math:`4294967295`
-
 Parameters
 -------------------------------------------------------------------------------
 
@@ -95,9 +89,9 @@ Inner Queries
 Jobs SQL
 ...............................................................................
 
-.. include:: ../../src/common/vroom/jobs_input.c
-   :start-after: vrp_vroom start
-   :end-before: vrp_vroom end
+.. include:: concepts.rst
+   :start-after: jobs_start
+   :end-before: jobs_end
 
 .. include:: vroom-category.rst
    :start-after: inner_queries_start
@@ -134,3 +128,11 @@ See Also
 
 * :ref:`genindex`
 * :ref:`search`
+
+.. |interval| replace:: |ANY-INTEGER|
+.. |interval0| replace:: :math:`0`
+.. |intervalmax| replace:: :math:`4294967295`
+.. |timestamp| replace:: |ANY-INTEGER|
+.. |tw_open_default| replace:: :math:`0`
+.. |tw_close_default| replace:: :math:`4294967295`
+
