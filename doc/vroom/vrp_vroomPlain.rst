@@ -101,6 +101,13 @@ Shipments SQL
    :start-after: shipments_start
    :end-before: shipments_end
 
+Vehicles SQL
+...............................................................................
+
+.. include:: concepts.rst
+   :start-after: vroom_vehicles_start
+   :end-before: vroom_vehicles_end
+
 Breaks SQL
 ...............................................................................
 

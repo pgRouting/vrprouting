@@ -93,6 +93,13 @@ Jobs SQL
    :start-after: jobs_start
    :end-before: jobs_end
 
+Vehicles SQL
+...............................................................................
+
+.. include:: concepts.rst
+   :start-after: vroom_vehicles_start
+   :end-before: vroom_vehicles_end
+
 Breaks SQL
 ...............................................................................
 
