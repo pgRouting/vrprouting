@@ -28,59 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/vroom/jobs_input.h"
 
-/*
-.. vrp_vroom start
-
-A ``SELECT`` statement that returns the following columns:
-
-::
-
-    id, location_id
-    [, setup, service, delivery, pickup, skills, priority, data]
-
-
-====================  =========================  =========== ================================================
-Column                Type                       Default     Description
-====================  =========================  =========== ================================================
-**id**                ``ANY-INTEGER``                        Positive unique identifier of the job.
-
-**location_id**       ``ANY-INTEGER``                        Positive identifier of the job location.
-
-**setup**             |interval|                 |interval0| Job setup duration.
-
-**service**           |interval|                 |interval0| Job service duration.
-
-**delivery**          ``ARRAY[ANY-INTEGER]``     Empty Array Array of non-negative integers describing
-                                                             multidimensional quantities for delivery such
-                                                             as number of items, weight, volume etc.
-
-                                                             - All jobs must have the same value of
-                                                               :code:`array_length(delivery, 1)`
-
-**pickup**            ``ARRAY[ANY-INTEGER]``     Empty Array Array of non-negative integers describing
-                                                             multidimensional quantities for pickup such as
-                                                             number of items, weight, volume etc.
-
-                                                             - All jobs must have the same value of
-                                                               :code:`array_length(pickup, 1)`
-
-**skills**            ``ARRAY[INTEGER]``         Empty Array Array of non-negative integers defining
-                                                             mandatory skills.
-
-**priority**          ``INTEGER``                0           Priority level of the job
-
-                                                             - Ranges from ``[0, 100]``
-
-**data**              ``JSONB``                  '{}'::JSONB Any metadata information of the job.
-====================  =========================  =========== ================================================
-
-Where:
-
-:ANY-INTEGER: SMALLINT, INTEGER, BIGINT
-
-.. vrp_vroom end
-*/
-
 static
 void fetch_jobs(
     HeapTuple *tuple,

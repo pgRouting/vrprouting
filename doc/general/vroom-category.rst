@@ -115,21 +115,15 @@ Terminologies
   traveling nor servicing any task. It is generally the time spent by a vehicle
   waiting for a task service to open.
 
-.. |timestamp| replace:: ``TIMESTAMP`` or ``INTEGER``
-.. |interval| replace:: ``INTERVAL`` or ``INTEGER``
-.. |interval0| replace:: '00:00:00'::INTERVAL or :math:`0`
-.. |tw_open_default| replace:: '1970-01-01 00:00:00'::TIMESTAMP or :math:`0`
-.. |tw_close_default| replace:: '2106-02-07 06:28:15'::TIMESTAMP or :math:`4294967295`
-
 Inner Queries
 -------------------------------------------------------------------------------
 
 Jobs SQL
 ...............................................................................
 
-.. include:: ../../src/common/vroom/jobs_input.c
-   :start-after: vrp_vroom start
-   :end-before: vrp_vroom end
+.. include:: concepts.rst
+   :start-after: jobs_start
+   :end-before: jobs_end
 
 Shipments SQL
 ...............................................................................
@@ -196,3 +190,10 @@ See Also
 
 * :ref:`genindex`
 * :ref:`search`
+
+.. |interval| replace:: :abbr:`ANY-INTERVAL(INTERVAL, SMALLINT, INTEGER, BIGINT)`
+.. |interval0| replace:: :abbr:`INTERVAL 0('make_interval(secs => 0), 0)`
+.. |intervalmax| replace:: **INTERVAL**: ``make_interval(secs => 4294967295)`` and |br| |ANY-INTEGER|: :math:`4294967295`
+.. |timestamp| replace:: :abbr:`ANY-TIMESTAMP(TIMESTAMP, SMALLINT, INTEGER, BIGINT)`
+.. |tw_open_default| replace:: :abbr:`TW-OPEN-DEFAULT(to_timestamp(0), 0)`
+.. |tw_close_default| replace:: :abbr:`TW-CLOSE-DEFAULT(to_timestamp(4294967295), 4294967295)`

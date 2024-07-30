@@ -218,7 +218,87 @@ TBD
 Inner Queries
 -------------------------------------------------------------------------------
 
-TBD
+Vroom Inner Queries
+...............................................................................
+
+Jobs SQL
+*******************************************************************************
+
+.. jobs_start
+
+A ``SELECT`` statement that returns the following columns:
+
+| ``id, location_id``
+| ``[setup, service, delivery, pickup, skills, priority, data]``
+
+Maximum values apply from vroom
+
+``setup`` and ``service``
+
+- |intervalmax|
+
+``skills``
+
+- :math:`2147483647`
+
+``priority``
+
+- :math:`100`
+
+.. list-table::
+   :width: 81
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Default
+     - Description
+   - - ``id``
+     - |ANY-INTEGER|
+     -
+     - Positive unique identifier of the job.
+   - - ``location_id``
+     - |ANY-INTEGER|
+     -
+     - Positive unique identifier of the location of the job.
+   - - ``setup``
+     - |interval|
+     - |interval0|
+     - The Job setup duration.
+
+   - - ``service``
+     - |interval|
+     - |interval0|
+     - The Job service duration. Max value:
+   - - ``pickup``
+     - ``ARRAY[ANY-INTEGER]``
+     - ``[]``
+     - Array of non-negative integers describing multidimensional quantities for
+       pickup such as number of items, weight, volume etc.
+
+       - All jobs must have the same value of :code:`array_length(pickup, 1)`
+   - - ``delivery``
+     - ``ARRAY[ANY-INTEGER]``
+     - ``[]``
+     - Array of non-negative integers describing multidimensional quantities for
+       delivery such as number of items, weight, volume etc.
+
+       - All jobs must have the same value of :code:`array_length(delivery, 1)`
+   - - ``skills``
+     - ``ARRAY[ANY-INTEGER]``
+     - ``[]``
+     - Array of non-negative integers defining mandatory skills.
+   - - ``priority``
+     - ``INTEGER``
+     - :math:`0`
+     - Value range: :math:`[0, 100]`
+   - - ``data``
+     - ``JSONB``
+     - ``'{}'::JSONB``
+     - Any metadata information of the job.
+
+.. jobs_end
 
 
 Return columns & values
@@ -250,3 +330,9 @@ Consult the `developer's documentation <https://vrp.pgrouting.org/doxy/main/inde
 * :ref:`genindex`
 * :ref:`search`
 
+.. |interval| replace:: :abbr:`ANY-INTERVAL(INTERVAL, SMALLINT, INTEGER, BIGINT)`
+.. |interval0| replace:: :abbr:`INTERVAL 0('make_interval(secs => 0), 0)`
+.. |intervalmax| replace:: **INTERVAL**: ``make_interval(secs => 4294967295)`` and |br| |ANY-INTEGER|: :math:`4294967295`
+.. |timestamp| replace:: :abbr:`ANY-TIMESTAMP(TIMESTAMP, SMALLINT, INTEGER, BIGINT)`
+.. |tw_open_default| replace:: :abbr:`TW-OPEN-DEFAULT(to_timestamp(0), 0)`
+.. |tw_close_default| replace:: :abbr:`TW-CLOSE-DEFAULT(to_timestamp(4294967295), 4294967295)`

@@ -69,12 +69,6 @@ The modification in the tables is mentioned at the end of the :doc:`sampledata`.
    :start-after: -- q1
    :end-before: -- q2
 
-.. |timestamp| replace:: ``TIMESTAMP``
-.. |interval| replace:: ``INTERVAL``
-.. |interval0| replace:: '00:00:00'::INTERVAL
-.. |tw_open_default| replace:: '1970-01-01 00:00:00'::TIMESTAMP
-.. |tw_close_default| replace:: '2106-02-07 06:28:15'::TIMESTAMP
-
 Parameters
 -------------------------------------------------------------------------------
 
@@ -95,9 +89,9 @@ Inner Queries
 Jobs SQL
 ...............................................................................
 
-.. include:: ../../src/common/vroom/jobs_input.c
-   :start-after: vrp_vroom start
-   :end-before: vrp_vroom end
+.. include:: concepts.rst
+   :start-after: jobs_start
+   :end-before: jobs_end
 
 .. include:: vroom-category.rst
    :start-after: inner_queries_start
@@ -134,3 +128,10 @@ See Also
 
 * :ref:`genindex`
 * :ref:`search`
+
+.. |interval| replace:: ``INTERVAL``
+.. |interval0| replace:: ``make_interval(secs => 0)``
+.. |intervalmax| replace:: ``make_interval(secs => 4294967295)``
+.. |timestamp| replace:: ``TIMESTAMP``
+.. |tw_open_default| replace:: ``to_timestamp(0)``
+.. |tw_close_default| replace:: ``to_timestamp(4294967295)``
