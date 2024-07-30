@@ -144,9 +144,9 @@ Vehicles SQL
 Breaks SQL
 ...............................................................................
 
-.. include:: ../../src/common/vroom/breaks_input.c
-   :start-after: vrp_vroom start
-   :end-before: vrp_vroom end
+.. include:: concepts.rst
+   :start-after: breaks_start
+   :end-before: breaks_end
 
 Time Windows SQL
 ...............................................................................

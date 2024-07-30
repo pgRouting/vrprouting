@@ -80,10 +80,6 @@ Time Windows
 
 .. note To be defined
 
-
-
-.. _Getting_started:
-
 Getting Started
 -------------------------------------------------------------------------------
 
@@ -220,6 +216,21 @@ Inner Queries
 
 Vroom Inner Queries
 ...............................................................................
+
+Vroom, because of the data types used internally, some maximum values apply.
+
+For ``TIMESTAMP``:
+
+.. literalinclude:: concepts.queries
+   :start-after: q1
+   :end-before: q2
+
+For ``INTERVAL``:
+
+.. literalinclude:: concepts.queries
+   :start-after: q2
+   :end-before: q3
+
 
 Jobs SQL
 *******************************************************************************
@@ -393,6 +404,44 @@ Maximum values apply from vroom
      - Value range: :math:`[0, 100]`
 
 .. shipments_end
+
+Breaks SQL
+*******************************************************************************
+
+.. breaks_start
+
+A ``SELECT`` statement that returns the following columns:
+
+| ``id, vehicle_id``
+| ``[service, data]``
+
+.. list-table::
+   :width: 81
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Default
+     - Description
+   - - ``id``
+     - |ANY-INTEGER|
+     -
+     - Positive unique identifier of the break.  Unique for the same vehicle.
+   - - ``vehicle_id``
+     - |ANY-INTEGER|
+     -
+     - Positive unique identifier of the vehicle.
+   - - ``service``
+     - |interval|
+     - |interval0|
+     - The break duration
+   - - ``data``
+     - ``JSONB``
+     - ``'{}'::JSONB``
+     - Any metadata information of the break.
+
+.. breaks_end
 
 Return columns & values
 --------------------------------------------------------------------------------

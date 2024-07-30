@@ -28,31 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/vroom/breaks_input.h"
 
-/*
-.. vrp_vroom start
-
-A ``SELECT`` statement that returns the following columns:
-
-::
-
-    id, vehicle_id [, service, data]
-
-====================  =========================  =========== ================================================
-Column                Type                       Default      Description
-====================  =========================  =========== ================================================
-**id**                ``ANY-INTEGER``                         Positive unique identifier of the break.
-                                                              (unique for the same vehicle).
-
-**vehicle_id**        ``ANY-INTEGER``                         Positive unique identifier of the vehicle.
-
-**service**           |interval|                 |interval0|  The break duration.
-
-**data**              ``JSONB``                  '{}'::JSONB  Any metadata information of the break.
-====================  =========================  =========== ================================================
-
-.. vrp_vroom end
-*/
-
 static
 void fetch_breaks(
     HeapTuple *tuple,
