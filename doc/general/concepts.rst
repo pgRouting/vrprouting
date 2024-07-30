@@ -337,7 +337,6 @@ Maximum values apply from vroom
 
 - :math:`100`
 
-
 .. list-table::
    :width: 81
    :widths: auto
@@ -404,6 +403,108 @@ Maximum values apply from vroom
      - Value range: :math:`[0, 100]`
 
 .. shipments_end
+
+Vehicles SQL
+*******************************************************************************
+
+.. vroom_vehicles_start
+
+A ``SELECT`` statement that returns the following columns:
+
+| ``id, start_id, end_id``
+| ``[capacity, skills, tw_open, tw_close, speed_factor, max_tasks, data]``
+
+Maximum values apply from vroom
+
+``skills``
+
+- :math:`2147483647`
+
+``priority``
+
+- :math:`100`
+
+.. list-table::
+   :width: 81
+   :widths: 14,20,10,37
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Default
+     - Description
+   - - ``id``
+     - |ANY-INTEGER|
+     -
+     - Positive unique identifier of the vehicle.
+   - - ``start_id``
+     - |ANY-INTEGER|
+     -
+     - Positive unique identifier of the start location.
+   - - ``end_id``
+     - |ANY-INTEGER|
+     -
+     - Positive unique identifier of the end location.
+   - - ``capacity``
+     - ``ARRAY[ANY-INTEGER]``
+     - ``[]``
+     - Array of non-negative integers describing multidimensional quantities
+       such as number of items, weight, volume etc.
+
+       - All vehicles must have the same value of :code:`array_length(capacity,
+         1)`
+   - - ``skills``
+     - ``ARRAY[ANY-INTEGER]``
+     - ``[]``
+     - Array of non-negative integers defining mandatory skills.
+   - - ``tw_open``
+     - |timestamp|
+     - |tw_open_default|
+     - Time window opening time.
+
+       - :code:`tw_open \leq tw_close`
+   - - ``tw_close``
+     - |timestamp|
+     - |tw_close_default|
+     - Time window closing time.
+
+       - :code:`tw_open \leq tw_close`
+   - - ``speed_factor``
+     - |ANY-NUMERICAL|
+     - :math:`1.0`
+     - Vehicle travel time multiplier.
+
+       - Max value of speed factor for a vehicle shall not be greater than 5
+         times the speed factor of any other vehicle.
+   - - ``max_tasks``
+     - ``INTEGER``
+     - :math:`2147483647`
+     - Maximum number of tasks in a route for the vehicle.
+
+       - A job, pickup, or delivery is counted as a single task.
+   - - ``data``
+     - ``JSONB``
+     - ``'{}'::JSONB``
+     - Any metadata information of the vehicle.
+
+**Note**:
+
+- At least one of the ``start_id`` or ``end_id`` shall be present.
+- If ``end_id`` is omitted, the resulting route will stop at the last visited
+  task, whose choice is determined by the optimization process.
+- If ``start_id`` is omitted, the resulting route will start at the first
+  visited task, whose choice is determined by the optimization process.
+- To request a round trip, specify both ``start_id`` and ``end_id`` as the same
+  index.
+- A vehicle is only allowed to serve a set of tasks if the resulting load at
+  each route step is lower than the matching value in capacity for each metric.
+  When using multiple components for amounts, it is recommended to put the most
+  important/limiting metrics first.
+- It is assumed that all delivery-related amounts for jobs are loaded at vehicle
+  start, while all pickup-related amounts for jobs are brought back at vehicle
+  end.
+
+.. vroom_vehicles_end
 
 Breaks SQL
 *******************************************************************************

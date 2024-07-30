@@ -137,9 +137,9 @@ Shipments SQL
 Vehicles SQL
 ...............................................................................
 
-.. include:: ../../src/common/vroom/vehicles_input.c
-   :start-after: vrp_vroom start
-   :end-before: vrp_vroom end
+.. include:: concepts.rst
+   :start-after: vroom_vehicles_start
+   :end-before: vroom_vehicles_end
 
 Breaks SQL
 ...............................................................................
