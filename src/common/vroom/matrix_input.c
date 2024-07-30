@@ -28,31 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/vroom/matrix_input.h"
 
-/*
-.. vrp_vroom start
-
-A ``SELECT`` statement that returns the following columns:
-
-::
-
-    start_id, end_id, duration [, cost]
-
-=============== ================= ============== ==================================================
-Column          Type              Default        Description
-=============== ================= ============== ==================================================
-**start_id**    ``ANY-INTEGER``                  Identifier of the start node.
-
-**end_id**      ``ANY-INTEGER``                  Identifier of the end node.
-
-**duration**    |interval|                       Time to travel from ``start_id`` to ``end_id``
-
-**cost**        ``INTEGER``       *duration*     Cost to travel from ``start_id`` to ``end_id``
-=============== ================= ============== ==================================================
-
-.. vrp_vroom end
-*/
-
-static
 void fetch_matrix(
     HeapTuple *tuple,
     TupleDesc *tupdesc,

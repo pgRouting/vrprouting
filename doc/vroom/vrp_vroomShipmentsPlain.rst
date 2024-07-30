@@ -121,6 +121,13 @@ Breaks Time Windows SQL
    :start-after: general_time_windows_start
    :end-before: general_time_windows_end
 
+Time Matrix SQL
+...............................................................................
+
+.. include:: concepts.rst
+   :start-after: vroom_matrix_start
+   :end-before: vroom_matrix_end
+
 Result Columns
 -------------------------------------------------------------------------------
 

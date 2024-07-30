@@ -158,9 +158,9 @@ Time Windows SQL
 Time Matrix SQL
 ...............................................................................
 
-.. include:: ../../src/common/vroom/matrix_input.c
-   :start-after: vrp_vroom start
-   :end-before: vrp_vroom end
+.. include:: concepts.rst
+   :start-after: vroom_matrix_start
+   :end-before: vroom_matrix_end
 
 .. inner_queries_end
 

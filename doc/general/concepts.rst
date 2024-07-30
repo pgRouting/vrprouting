@@ -503,6 +503,44 @@ Maximum values apply from vroom
 
 .. vroom_vehicles_end
 
+Vroom Matrix SQL
+*******************************************************************************
+
+.. vroom_matrix_start
+
+A ``SELECT`` statement that returns the following columns:
+
+| ``start_id, end_id, duration``
+| ``[ cost]``
+
+.. list-table::
+   :width: 81
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Default
+     - Description
+   - - ``start_id``
+     - |ANY-INTEGER|
+     -
+     - Identifier of the start node.
+   - - ``end_id``
+     - |ANY-INTEGER|
+     -
+     - Identifier of the end node.
+   - - ``duration``
+     - |interval|
+     -
+     - Time to travel from ``start_id`` to ``end_id``
+   - - ``cost``
+     - |interval|
+     - ``duration``
+     - Cost of travel from ``start_id`` to ``end_id``
+
+.. vroom_matrix_end
+
 Breaks SQL
 *******************************************************************************
 
@@ -540,6 +578,106 @@ A ``SELECT`` statement that returns the following columns:
      - Any metadata information of the break.
 
 .. breaks_end
+
+
+Time Windows SQL
+*******************************************************************************
+
+.. rubric:: Shipment Time Windows SQL
+
+.. shipments_time_windows_start
+
+A ``SELECT`` statement that returns the following columns:
+
+| ``id, tw_open, tw_close``
+| ``[kind]``
+
+.. list-table::
+   :width: 81
+   :widths: 14 14 44
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Description
+   - - ``id``
+     - |ANY-INTEGER|
+     - Positive unique identifier of the: job, pickup/delivery shipment, or
+       break.
+   - - ``tw_open``
+     - |timestamp|
+     - Time window opening time.
+   - - ``tw_close``
+     - |timestamp|
+     - Time window closing time.
+   - - ``kind``
+     - ``CHAR``
+     - Value in ['p', 'd'] indicating whether the time window is for:
+
+       - Pickup shipment, or
+       - Delivery shipment.
+
+.. shipments_time_windows_end
+
+.. rubric:: General Time Windows SQL
+
+.. general_time_windows_start
+
+A ``SELECT`` statement that returns the following columns:
+
+``id, tw_open, tw_close``
+
+.. list-table::
+   :width: 81
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Description
+   - - ``id``
+     - |ANY-INTEGER|
+     - Positive unique identifier of the: job, pickup/delivery shipment, or
+       break.
+   - - ``tw_open``
+     - |timestamp|
+     - Time window opening time.
+   - - ``tw_close``
+     - |timestamp|
+     - Time window closing time.
+
+.. general_time_windows_end
+
+.. time_windows_note_start
+
+**Note**:
+
+- All timings are in **seconds** when represented as an ``INTEGER``.
+- Every row must satisfy the condition: :code:`tw_open ≤ tw_close`.
+- Time windows can be interpreted by the users:
+
+  - **Relative values**, e.g.
+
+    - Let the beginning of the planning horizon :math:`0`.
+    - for a 4 hour time window (:math:`4 * 3600 = 14400` seconds) starting from
+      the planning horizon
+
+      - ``tw_open`` = :math:`0`
+      - ``tw_close`` = :math:`14400`
+
+    - Times reported in output relative to the start of the planning horizon.
+
+  - **Absolute values**,
+
+    - Let the beginning of the planning horizon ``2019-07-30 08:00:00``
+    - for a 4 hour time window starting from the planning horizon
+
+      - ``tw_open`` = ``2019-07-30 08:00:00``
+      - ``tw_close`` = ``2019-07-30 12:00:00``
+
+    -  Times reported in output can be interpreted as ``TIMESTAMP``.
+
+.. time_windows_end
 
 Return columns & values
 --------------------------------------------------------------------------------
