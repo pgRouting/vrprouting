@@ -18,7 +18,8 @@
 vrp_vroomShipmentsPlain - Experimental
 ===============================================================================
 
-``vrp_vroomShipmentsPlain`` - Vehicle Routing Problem with VROOM, involving only shipments, with plain integer values instead of TIMESTAMP or INTERVAL.
+``vrp_vroomShipmentsPlain`` - Vehicle Routing Problem with VROOM, involving only
+shipments, with plain integer values instead of TIMESTAMP or INTERVAL.
 
 .. include:: experimental.rst
    :start-after: begin-warn-expr

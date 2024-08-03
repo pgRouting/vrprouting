@@ -22,7 +22,8 @@ Concepts
 General documentation
 -------------------------------------------------------------------------------
 
-Vehicle Routing Problems `VRP` are **NP-hard** optimization problem, it generalises the travelling salesman problem (TSP).
+Vehicle Routing Problems `VRP` are **NP-hard** optimization problem, it
+generalises the travelling salesman problem (TSP).
 
 - The objective of the VRP is to minimize the total route cost.
 - There are several variants of the VRP problem,
@@ -33,9 +34,13 @@ Vehicle Routing Problems `VRP` are **NP-hard** optimization problem, it generali
 Characteristics
 -------------------------------------------------------------------------------
 
-- Capacitated Vehicle Routing Problem `CVRP` where The vehicles have limited carrying capacity of the goods.
-- Vehicle Routing Problem with Time Windows `VRPTW` where the locations have time windows within which the vehicle's visits must be made.
-- Vehicle Routing Problem with Pickup and Delivery `VRPPD` where a number of goods need to be moved from certain pickup locations to other delivery locations.
+- Capacitated Vehicle Routing Problem `CVRP` where The vehicles have limited
+  carrying capacity of the goods.
+- Vehicle Routing Problem with Time Windows `VRPTW` where the locations have
+  time windows within which the vehicle's visits must be made.
+- Vehicle Routing Problem with Pickup and Delivery `VRPPD` where a number of
+  goods need to be moved from certain pickup locations to other delivery
+  locations.
 
 
 .. Rubric:: Limitations
@@ -49,7 +54,8 @@ Characteristics
 Pick & Delivery
 ...............................................................................
 
-Problem: `CVRPPDTW` Capacitated Pick and Delivery Vehicle Routing problem with Time Windows
+Problem: `CVRPPDTW` Capacitated Pick and Delivery Vehicle Routing problem with
+Time Windows
 
 - Times are relative to `0`
 - The vehicles
@@ -63,7 +69,8 @@ Problem: `CVRPPDTW` Capacitated Pick and Delivery Vehicle Routing problem with T
   - Have pick up and delivery locations.
   - Have opening and closing times for the pickup and delivery locations.
   - Have pickup and delivery duration service times.
-  - have a demand request for moving goods from the pickup location to the delivery location.
+  - have a demand request for moving goods from the pickup location to the
+    delivery location.
 
 - Time based calculations:
 
@@ -130,12 +137,16 @@ The `capacity` of a vehicle, can be measured in:
 - Number of boxes that fit in the vehicle.
 - Number of seats in the vehicle
 
-The `demand` request of the pickup-deliver orders must use the same units as the units used in the vehicle's `capacity`.
+The `demand` request of the pickup-deliver orders must use the same units as the
+units used in the vehicle's `capacity`.
 
-To handle problems like:  10 (equal dimension) boxes of apples and 5 kg of feathers that are to be transported (not packed in boxes).
+To handle problems like:  10 (equal dimension) boxes of apples and 5 kg of
+feathers that are to be transported (not packed in boxes).
 
-If the vehicle's `capacity` is measured by `boxes`, a conversion of `kg of feathers` to `equivalent number of boxes` is needed.
-If the vehicle's `capacity` is measured by `kg`, a conversion of `box of apples` to `equivalent number of kg` is needed.
+If the vehicle's `capacity` is measured by `boxes`, a conversion of `kg of
+feathers` to `equivalent number of boxes` is needed.
+If the vehicle's `capacity` is measured by `kg`, a conversion of `box of apples`
+to `equivalent number of kg` is needed.
 
 Showing how the 2 possible conversions can be done
 
