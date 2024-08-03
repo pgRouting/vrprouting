@@ -89,9 +89,6 @@ with vrpRouting. In this guide we will cover:
 .. contents::
     :local:
 
-
-.. _create_database:
-
 Create a routing Database
 ...............................................................................
 

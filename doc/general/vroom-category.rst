@@ -151,9 +151,9 @@ Breaks SQL
 Time Windows SQL
 ...............................................................................
 
-.. include:: ../../src/common/vroom/time_windows_input.c
-   :start-after: vrp_vroom start
-   :end-before: vrp_vroom end
+.. include:: concepts.rst
+   :start-after: time_windows_start
+   :end-before: time_windows_end
 
 Time Matrix SQL
 ...............................................................................

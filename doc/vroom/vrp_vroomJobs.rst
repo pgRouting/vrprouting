@@ -93,6 +93,13 @@ Jobs SQL
    :start-after: jobs_start
    :end-before: jobs_end
 
+Jobs Time Windows SQL
+...............................................................................
+
+.. include:: concepts.rst
+   :start-after: general_time_windows_start
+   :end-before: general_time_windows_end
+
 Vehicles SQL
 ...............................................................................
 
@@ -106,6 +113,13 @@ Breaks SQL
 .. include:: concepts.rst
    :start-after: breaks_start
    :end-before: breaks_end
+
+Breaks Time Windows SQL
+...............................................................................
+
+.. include:: concepts.rst
+   :start-after: general_time_windows_start
+   :end-before: general_time_windows_end
 
 Result Columns
 -------------------------------------------------------------------------------
