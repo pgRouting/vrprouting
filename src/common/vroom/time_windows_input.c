@@ -28,45 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/vroom/time_windows_input.h"
 
-/*
-.. vrp_vroom start
-
-A ``SELECT`` statement that returns the following columns:
-
-::
-
-    id [, kind], tw_open, tw_close
-
-====================  ====================================== =====================================================
-Column                Type                                   Description
-====================  ====================================== =====================================================
-**id**                ``ANY-INTEGER``                         Positive unique identifier of the job,
-                                                              pickup/delivery shipment, or break.
-
-**kind**              ``CHAR``                                **Only required for shipments time windows**.
-                                                              Value in ['p', 'd'] indicating whether
-                                                              the time window is for:
-
-                                                              - Pickup shipment, or
-                                                              - Delivery shipment.
-
-**tw_open**           |timestamp|                             Time window opening time.
-
-**tw_close**          |timestamp|                             Time window closing time.
-====================  ====================================== =====================================================
-
-**Note**:
-
-- All timings are in **seconds** when represented as an ``INTEGER``.
-- Every row must satisfy the condition: :code:`tw_open ≤ tw_close`.
-- It is up to users to decide how to describe time windows:
-
-  - **Relative values**, e.g. [0, 14400] for a 4 hours time window starting at the beginning of the planning horizon. In that case all times reported in output with the arrival column are relative to the start of the planning horizon.
-  - **Absolute values**, "real" timestamps. In that case all times reported in output with the arrival column can be interpreted as timestamps.
-
-.. vrp_vroom end
-*/
-
 static
 void fetch_time_windows(
     HeapTuple *tuple,
