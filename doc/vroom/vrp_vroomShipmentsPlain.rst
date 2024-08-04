@@ -93,9 +93,12 @@ Shipments SQL
    :start-after: shipments_start
    :end-before: shipments_end
 
-.. include:: vroom-category.rst
-   :start-after: inner_queries_start
-   :end-before: inner_queries_end
+Breaks SQL
+...............................................................................
+
+.. include:: concepts.rst
+   :start-after: breaks_start
+   :end-before: breaks_end
 
 Result Columns
 -------------------------------------------------------------------------------
