@@ -114,12 +114,12 @@ Vehicles SQL
     :end-before: pgr_pickDeliver end
 
 
-Time Matrix SQL
+Matrix SQL
 .........................................................................................
 
-.. include:: ../../src/common/matrixRows_input.c
-    :start-after: pgr_pickDeliver start
-    :end-before: pgr_pickDeliver end
+.. include:: concepts.rst
+    :start-after: pgr_matrix_start
+    :end-before: pgr_matrix_end
 
 Result Columns
 -------------------------------------------------------------------------------
