@@ -102,9 +102,9 @@ Inner Queries
 Orders SQL
 ................................................................................
 
-.. include:: ../../src/common/orders_input.c
-    :start-after: pgr_pickDeliverEuclidean start
-    :end-before: pgr_pickDeliverEuclidean end
+.. include:: concepts.rst
+    :start-after: pgr_orders_e_start
+    :end-before: pgr_orders_e_end
 
 Vehicles SQL
 ................................................................................
