@@ -79,9 +79,9 @@ Parameters
 Optional Parameters
 ...............................................................................
 
-.. include:: ../sql/vroom/vrp_vroom.sql
-   :start-after: optional parameters start
-   :end-before: optional parameters end
+.. include:: vrp_vroom.rst
+   :start-after: vroom_optionals_start
+   :end-before: vroom_optionals_end
 
 Inner Queries
 -------------------------------------------------------------------------------
@@ -131,9 +131,9 @@ Time Matrix SQL
 Result Columns
 -------------------------------------------------------------------------------
 
-.. include:: vroom-category.rst
-   :start-after: result_columns_start
-   :end-before: result_columns_end
+.. include:: concepts.rst
+   :start-after: vroom_result_start
+   :end-before: vroom_result_end
 
 Additional Example
 -------------------------------------------------------------------------------

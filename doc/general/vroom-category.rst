@@ -167,13 +167,9 @@ Time Matrix SQL
 Result Columns
 -------------------------------------------------------------------------------
 
-.. result_columns_start
-
-.. include:: ../sql/vroom/vrp_vroom.sql
-   :start-after: result start
-   :end-before: result end
-
-.. result_columns_end
+.. include:: concepts.rst
+   :start-after: vroom_result_start
+   :end-before: vroom_result_end
 
 See Also
 -------------------------------------------------------------------------------

@@ -131,9 +131,9 @@ Time Matrix SQL
 Result Columns
 -------------------------------------------------------------------------------
 
-.. include:: vroom-category.rst
-   :start-after: result_columns_start
-   :end-before: result_columns_end
+.. include:: concepts.rst
+   :start-after: vroom_result_start
+   :end-before: vroom_result_end
 
 Additional Example
 -------------------------------------------------------------------------------

@@ -73,9 +73,9 @@ Optional parameters are `named parameters` and have a default value.
 Parameters
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/vroom/vrp_vroom.sql
-   :start-after: parameters start
-   :end-before: parameters end
+.. include:: vrp_vroom.rst
+   :start-after: vroom_parameters_start
+   :end-before: vroom_parameters_end
 
 Optional Parameters
 ...............................................................................
@@ -145,9 +145,9 @@ Time Matrix SQL
 Result Columns
 -------------------------------------------------------------------------------
 
-.. include:: vroom-category.rst
-   :start-after: result_columns_start
-   :end-before: result_columns_end
+.. include:: concepts.rst
+   :start-after: vroom_result_start
+   :end-before: vroom_result_end
 
 Additional Example
 -------------------------------------------------------------------------------
