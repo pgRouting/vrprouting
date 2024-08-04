@@ -1,0 +1,24 @@
+BEGIN;
+BEGIN
+SET client_min_messages TO NOTICE;
+SET
+/* q1 */
+SELECT to_timestamp(0)::timestamp without time zone as ZERO_TIMESTAMP,
+to_timestamp(4294967295)::timestamp without time zone AS MAX_TIMESTAMP;
+   zero_timestamp    |    max_timestamp
+---------------------+---------------------
+ 1969-12-31 18:00:00 | 2106-02-07 00:28:15
+(1 row)
+
+/* q2 */
+SELECT make_interval(secs => 0) AS ZERO_INTERVAL,
+make_interval(years => 136, months => 1, days => 6, hours=>6, mins => 28, secs => 15) AS MAX_INTERVAL1,
+make_interval(secs => 4294967295) AS MAX_INTERVAL2;
+ zero_interval |          max_interval1          | max_interval2
+---------------+---------------------------------+---------------
+ 00:00:00      | 136 years 1 mon 6 days 06:28:15 | 1193046:28:15
+(1 row)
+
+/* q3 */
+ROLLBACK;
+ROLLBACK

@@ -187,8 +187,6 @@ set(PGR_DOCUMENTATION_SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 message(STATUS "PGR_DOCUMENTATION_BUILD_DIR = ${PGR_DOCUMENTATION_BUILD_DIR}")
 
 
-add_subdirectory(general)
-
 #---------------------------------------------
 # Adding documentation directories
 #---------------------------------------------
