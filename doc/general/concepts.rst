@@ -242,6 +242,152 @@ A ``SELECT`` statement that returns the following columns:
 
 .. pgr_matrix_end
 
+Orders SQL
+*******************************************************************************
+
+.. rubric:: Orders
+
+.. pgr_orders_start
+
+A ``SELECT`` statement that returns the following columns:
+
+| ``id, amount``
+| ``p_id, p_tw_open, p_tw_close, [p_service]``
+| ``d_id, d_tw_open, d_tw_close, [d_service]``
+
+.. list-table::
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Default
+     - Description
+   - - ``id``
+     - |ANY-INTEGER|
+     -
+     - Identifier of the pick-delivery order pair.
+   - - ``amount``
+     - |ANY-NUMERICAL|
+     -
+     - Number of units in the order.
+   - - ``p_id``
+     - |ANY-INTEGER|
+     -
+     - Identifier of the pickup node.
+
+       - Must match a node identifier in the `Matrix SQL`_.
+   - - ``p_tw_open``
+     - |ANY-INTEGER|
+     -
+     - The time, relative to 0, when the pickup location opens.
+   - - ``p_tw_close``
+     - |ANY-INTEGER|
+     -
+     - The time, relative to 0, when the pickup location closes.
+
+       - :math:`p\_tw\_open < p\_tw\_close < 9223372036854775807`
+   - - ``p_service``
+     - |ANY-INTEGER|
+     - 0
+     - The duration of the loading at the pickup location.
+   - - ``d_id``
+     - |ANY-INTEGER|
+     -
+     - Identifier of the delivery node.
+
+       - Must match a node identifier in the `Matrix SQL`_.
+   - - ``d_tw_open``
+     - |ANY-INTEGER|
+     -
+     - The time, relative to 0, when the delivery location opens.
+   - - ``d_tw_close``
+     - |ANY-INTEGER|
+     -
+     - The time, relative to 0, when the delivery location closes.
+
+       - :math:`d\_tw\_open < d\_tw\_close <= 9223372036854775807`
+   - - ``d_service``
+     - |ANY-INTEGER|
+     - 0
+     - The duration of the unloading at the delivery location.
+
+.. pgr_orders_end
+
+.. rubric:: Euclidean Orders
+
+.. pgr_orders_e_start
+
+A ``SELECT`` statement that returns the following columns:
+
+| ``id, amount``
+| ``p_x, p_y, p_tw_open, p_tw_close, [p_service,]``
+| ``d_x, d_y, d_tw_open, d_tw_close, [d_service]``
+
+
+.. list-table::
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Default
+     - Description
+   - - ``id``
+     - |ANY-INTEGER|
+     -
+     - Identifier of the pick-delivery order pair.
+   - - ``amount``
+     - |ANY-NUMERICAL|
+     -
+     - Number of units in the order.
+   - - ``p_x``
+     - |ANY-NUMERICAL|
+     -
+     - :math:`x` value of the pickup location.
+   - - ``p_y``
+     - |ANY-NUMERICAL|
+     -
+     - :math:`y` value of the pickup location.
+   - - ``p_tw_open``
+     - |ANY-INTEGER|
+     -
+     - The time, relative to 0, when the pickup location opens.
+   - - ``p_tw_close``
+     - |ANY-INTEGER|
+     -
+     - The time, relative to 0, when the pickup location closes.
+
+       - :math:`p\_tw\_open < p\_tw\_close < 9223372036854775807`
+   - - ``p_service``
+     - |ANY-INTEGER|
+     - 0
+     - The duration of the loading at the pickup location.
+   - - ``d_x``
+     - |ANY-NUMERICAL|
+     -
+     - :math:`x` value of the delivery location.
+   - - ``d_y``
+     - |ANY-NUMERICAL|
+     -
+     - :math:`y` value of the delivery location.
+   - - ``d_tw_open``
+     - |ANY-INTEGER|
+     -
+     - The time, relative to 0, when the delivery location opens.
+   - - ``d_tw_close``
+     - |ANY-INTEGER|
+     -
+     - The time, relative to 0, when the delivery location closes.
+
+       - :math:`d\_tw\_open < d\_tw\_close <= 9223372036854775807`
+   - - ``d_service``
+     - |ANY-INTEGER|
+     - 0
+     - The duration of the unloading at the delivery location.
+
+.. pgr_orders_e_end
+
 Vroom Inner Queries
 ...............................................................................
 
