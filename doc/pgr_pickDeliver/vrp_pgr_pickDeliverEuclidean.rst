@@ -109,9 +109,9 @@ Orders SQL
 Vehicles SQL
 ................................................................................
 
-.. include:: ../../src/common/vehicles_input.c
-    :start-after: pgr_pickDeliverEuclidean start
-    :end-before: pgr_pickDeliverEuclidean end
+.. include:: concepts.rst
+    :start-after: pgr_vehicles_e_start
+    :end-before: pgr_vehicles_e_end
 
 
 Result Columns
