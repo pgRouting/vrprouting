@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.3.0-dev\n"
+"Project-Id-Version: vrpRouting v0.4.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 10:43+0000\n"
+"POT-Creation-Date: 2024-08-04 15:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -228,600 +228,659 @@ msgstr ""
 msgid "Signature"
 msgstr ""
 
-#: ../../build/doc/vrp_pgr_pickDeliver.rst:91
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:85
+msgid "\\ \\"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:0
+msgid "pgr_pickDeliver("
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:0
+msgid "`Orders SQL`_, `Vehicles SQL`_, `Matrix SQL`_"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:0
+msgid "``[factor, max_cycles, initial_sol]``"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:0
+msgid "RETURNS SET OF"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:0
+msgid "``seq, vehicle_number, vehicle_id, stop, order_id, stop_type, cargo,``"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:0
+#: ../../build/doc/concepts.rst:6
+msgid "``travel_time, arrival_time, wait_time, service_time, departure_time``"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:96
 msgid "Parameters"
 msgstr ""
 
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:4
-#: ../../src/common/orders_input.c:13
-#: ../../src/common/vehicles_input.c:14
-#: ../../src/common/matrixRows_input.c:10
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:4
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:104
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:128
+#: ../../build/doc/concepts.rst:11
+#: ../../build/doc/concepts.rst:12
+#: ../../build/doc/concepts.rst:13
 msgid "Column"
 msgstr ""
 
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:4
-#: ../../src/common/orders_input.c:13
-#: ../../src/common/vehicles_input.c:14
-#: ../../src/common/matrixRows_input.c:10
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:4
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:105
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:129
+#: ../../build/doc/concepts.rst:12
+#: ../../build/doc/concepts.rst:13
+#: ../../build/doc/concepts.rst:14
 msgid "Type"
 msgstr ""
 
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:4
-#: ../../src/common/orders_input.c:13
-#: ../../src/common/vehicles_input.c:14
-msgid "Default"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:4
-#: ../../src/common/orders_input.c:13
-#: ../../src/common/vehicles_input.c:14
-#: ../../src/common/matrixRows_input.c:10
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:4
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:106
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:131
+#: ../../build/doc/concepts.rst:13
+#: ../../build/doc/concepts.rst:14
+#: ../../build/doc/concepts.rst:16
 msgid "Description"
 msgstr ""
 
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:6
-msgid "**Orders SQL**"
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:107
+msgid "`Orders SQL`_"
 msgstr ""
 
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:6
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:7
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:8
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:108
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:111
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:114
 msgid "``TEXT``"
 msgstr ""
 
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:6
-msgid "`Orders SQL`_ query contianing the orders to be processed."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:7
-msgid "**Vehicles SQL**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:7
-msgid "`Vehicles SQL`_ query containing the vehicles to be used."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:8
-msgid "**Matrix SQL**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:8
-msgid "`Time Matrix SQL`_ query containing the distance or travel times."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:9
-msgid "**factor**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:9
-msgid "``NUMERIC``"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:9
-msgid "1"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:9
-msgid "Travel time multiplier. See :ref:`pd_factor`"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:10
-msgid "**max_cycles**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:10
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:11
-msgid "``INTEGER``"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:10
-msgid "10"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:10
-msgid "Maximum number of cycles to perform on the optimization."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:11
-msgid "**initial_sol**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:11
-msgid "4"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:11
-msgid "Initial solution to be used."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:13
-msgid "``1`` One order per truck"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:14
-msgid "``2`` Push front order."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:15
-msgid "``3`` Push back order."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:16
-msgid "``4`` Optimize insert."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:17
-msgid "``5`` Push back order that allows more orders to be inserted at the back"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:18
-msgid "``6`` Push front order that allows more orders to be inserted at the front"
-msgstr ""
-
-#: ../../build/doc/vrp_pgr_pickDeliver.rst:99
-msgid "Inner Queries"
-msgstr ""
-
-#: ../../build/doc/vrp_pgr_pickDeliver.rst:103
-msgid "Orders SQL"
-msgstr ""
-
-#: ../../src/common/orders_input.c:3
-#: ../../src/common/vehicles_input.c:3
-#: ../../src/common/matrixRows_input.c:3
-msgid "A ``SELECT`` statement that returns the following columns:"
-msgstr ""
-
-#: ../../src/common/orders_input.c:15
-#: ../../src/common/vehicles_input.c:16
-msgid "**id**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:15
-#: ../../src/common/orders_input.c:17
-#: ../../src/common/orders_input.c:21
-#: ../../src/common/vehicles_input.c:16
-#: ../../src/common/vehicles_input.c:19
-#: ../../src/common/vehicles_input.c:27
-#: ../../src/common/matrixRows_input.c:12
-msgid "|ANY-INTEGER|"
-msgstr ""
-
-#: ../../src/common/orders_input.c:15
-msgid "Identifier of the pick-delivery order pair."
-msgstr ""
-
-#: ../../src/common/orders_input.c:16
-msgid "**amount**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:16
-#: ../../src/common/orders_input.c:18
-#: ../../src/common/orders_input.c:19
-#: ../../src/common/orders_input.c:20
-#: ../../src/common/orders_input.c:22
-#: ../../src/common/orders_input.c:23
-#: ../../src/common/orders_input.c:24
-#: ../../src/common/vehicles_input.c:17
-#: ../../src/common/vehicles_input.c:18
-#: ../../src/common/vehicles_input.c:20
-#: ../../src/common/vehicles_input.c:23
-#: ../../src/common/vehicles_input.c:26
-#: ../../src/common/vehicles_input.c:28
-#: ../../src/common/vehicles_input.c:31
-#: ../../src/common/vehicles_input.c:34
-#: ../../src/common/matrixRows_input.c:13
-#: ../../src/common/matrixRows_input.c:14
-msgid "|ANY-NUMERICAL|"
-msgstr ""
-
-#: ../../src/common/orders_input.c:16
-msgid "Number of units in the order"
-msgstr ""
-
-#: ../../src/common/orders_input.c:17
-msgid "**p_id**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:17
-msgid "The identifier of the pickup node."
-msgstr ""
-
-#: ../../src/common/orders_input.c:18
-msgid "**p_tw_open**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:18
-msgid "The time, relative to 0, when the pickup location opens."
-msgstr ""
-
-#: ../../src/common/orders_input.c:19
-msgid "**p_tw_close**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:19
-msgid "The time, relative to 0, when the pickup location closes."
-msgstr ""
-
-#: ../../src/common/orders_input.c:20
-msgid "**p_service**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:20
-#: ../../src/common/orders_input.c:24
-msgid "0"
-msgstr ""
-
-#: ../../src/common/orders_input.c:20
-msgid "The duration of the loading at the pickup location."
-msgstr ""
-
-#: ../../src/common/orders_input.c:21
-msgid "**d_id**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:21
-msgid "The identifier of the delivery node."
-msgstr ""
-
-#: ../../src/common/orders_input.c:22
-msgid "**d_tw_open**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:22
-msgid "The time, relative to 0, when the delivery location opens."
-msgstr ""
-
-#: ../../src/common/orders_input.c:23
-msgid "**d_tw_close**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:23
-msgid "The time, relative to 0, when the delivery location closes."
-msgstr ""
-
-#: ../../src/common/orders_input.c:24
-msgid "**d_service**"
-msgstr ""
-
-#: ../../src/common/orders_input.c:24
-msgid "The duration of the unloading at the delivery location."
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:109
+msgid "`Orders SQL`_ as described below."
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliver.rst:110
-msgid "Vehicles SQL"
+msgid "`Vehicles SQL`_"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:16
-msgid "Identifier of the vehicle"
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:112
+msgid "`Vehicles SQL`_ as described below."
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:17
-msgid "**capacity**"
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:113
+msgid "`Matrix SQL`_"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:17
-msgid "Capacity of the vehicle"
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:115
+msgid "`Matrix SQL`_ as described below."
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:18
-msgid "**speed**"
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:120
+msgid "Optional Parameters"
 msgstr ""
 
-#: ../../src/common/vehicles_input.c:18
-msgid "`1`"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:18
-msgid "Average speed of the vehicle."
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:19
-msgid "**s_id**"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:19
-msgid "The node identifier of the starting location, must match a node identifier in the matrix table."
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:20
-msgid "**s_tw_open**"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:20
-#: ../../src/common/vehicles_input.c:26
-msgid "`0`"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:20
-msgid "The time, relative to 0, when the starting location opens. When `s_tw_open` column exist  then `s_tw_close` column is expected Default value when (`s_tw_open`, s_tw_close) columns do not exist"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:23
-msgid "**s_tw_close**"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:23
-msgid "`INFINITY`"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:23
-msgid "The time, relative to 0, when the starting location closes. When `s_tw_close` column exist  then `e_tw_open` column is expected Default value when `(s_tw_open, s_tw_close)` columns do not exist"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:26
-msgid "**s_service**"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:26
-msgid "The duration of the loading at the starting location."
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:27
-msgid "**e_id**"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:27
-msgid "`s_id`"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:27
-msgid "The node identifier of the ending location, must match a node identifier in the matrix table."
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:28
-msgid "**e_tw_open**"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:28
-msgid "`s_tw_open`"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:28
-msgid "The time, relative to 0, when the ending location opens. When `e_tw_open` column exist  then `e__tw_close` column is expected Default value when (`e_tw_open`, e_tw_close) columns do not exist"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:31
-msgid "**e_tw_close**"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:31
-msgid "`s_tw_close`"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:31
-msgid "The time, relative to 0, when the ending location closes. When `e_tw_close` column exist  then `e_tw_open` column is expected Default value when `(e_tw_open`, e_tw_close)` columns do not exist"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:34
-msgid "**e_service**"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:34
-msgid "`s_service`"
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:34
-msgid "The duration of the unloading at the ending location."
-msgstr ""
-
-#: ../../src/common/vehicles_input.c:37
-msgid "Throws: * When column `id` is missing * When column `capacity` is missing * When column `s_id` is missing * When column `s_tw_open` exists but not `s_tw_close` * When column `s_tw_close`exists but not `s_tw_open` * When column `e_tw_open` exists but not `e_tw_close` * When column `e_tw_close`exists but not `e_tw_open`"
-msgstr ""
-
-#: ../../build/doc/vrp_pgr_pickDeliver.rst:118
-msgid "Time Matrix SQL"
-msgstr ""
-
-#: ../../src/common/matrixRows_input.c:12
-msgid "**start_vid**"
-msgstr ""
-
-#: ../../src/common/matrixRows_input.c:12
-msgid "Identifier of a node."
-msgstr ""
-
-#: ../../src/common/matrixRows_input.c:13
-msgid "**end_vid**"
-msgstr ""
-
-#: ../../src/common/matrixRows_input.c:13
-msgid "Identifier of a node"
-msgstr ""
-
-#: ../../src/common/matrixRows_input.c:14
-msgid "**agg_cost**"
-msgstr ""
-
-#: ../../src/common/matrixRows_input.c:14
-msgid "Time to travel from ``start_vid`` to ``end_vid``"
-msgstr ""
-
-#: ../../build/doc/vrp_pgr_pickDeliver.rst:125
-msgid "Result Columns"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:6
-msgid "**seq**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:6
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:7
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:9
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:10
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:17
-msgid "INTEGER"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:6
-msgid "Sequential value starting from **1**."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:7
-msgid "**vehicle_seq**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:7
-msgid "Sequential value starting from **1** for current vehicles. The :math:`n_{th}` vehicle in the solution."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:8
-msgid "**vehicle_id**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:8
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:18
-msgid "BIGINT"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:8
-msgid "Current vehicle identifier."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:9
-msgid "**stop_seq**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:9
-msgid "Sequential value starting from **1** for the stops made by the current vehicle. The :math:`m_{th}` stop of the current vehicle."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:10
-msgid "**stop_type**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:10
-msgid "Kind of stop location the vehicle is at:"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:12
-msgid "``1``: Starting location"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:13
-msgid "``2``: Pickup location"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:14
-msgid "``3``: Delivery location"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:15
-msgid "``6``: Ending location"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:17
-msgid "**stop_id**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:18
-msgid "**order_id**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:18
-msgid "Pickup-Delivery order pair identifier."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:20
-msgid "``-1``: When no order is involved on the current stop location."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:22
-msgid "**cargo**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:22
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:24
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:28
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:29
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:30
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:31
-msgid "FLOAT"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:22
-msgid "Cargo units of the vehicle when leaving the stop."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:24
-msgid "**travel_time**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:24
-msgid "Travel time from previous ``stop_seq`` to current ``stop_seq``."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:26
-msgid "``0`` When ``stop_type = 1``"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:28
-msgid "**arrival_time**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:28
-msgid "Previous ``departure_time`` plus current ``travel_time``."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:29
-msgid "**wait_time**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:29
-msgid "Time spent waiting for current `location` to open."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:30
-msgid "**service_time**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:30
-msgid "Service time at current `location`."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:31
-msgid "**departure_time**"
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:31
-msgid ":math:`arrival\\_time + wait\\_time + service\\_time`."
-msgstr ""
-
-#: ../../build/sql/pgr_pickDeliver/pgr_pickDeliver.sql:33
-msgid "When ``stop_type = 6`` has the `total_time` used for the current vehicle."
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:130
+#: ../../build/doc/concepts.rst:15
+msgid "Default"
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliver.rst:132
-msgid "Example"
+msgid "``factor``"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:133
+msgid "``NUMERIC``"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:134
+#: ../../build/doc/concepts.rst:29
+msgid "1"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:135
+msgid "Travel time multiplier. See :ref:`pd_factor`"
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliver.rst:136
-msgid "This example use the following data:"
+msgid "``max_cycles``"
 msgstr ""
 
-#: ../../build/doc/vrp_pgr_pickDeliver.rst:144
-msgid "See Also"
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:137
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:141
+#: ../../build/doc/concepts.rst:16
+#: ../../build/doc/concepts.rst:19
+#: ../../build/doc/concepts.rst:26
+#: ../../build/doc/concepts.rst:30
+msgid "``INTEGER``"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:138
+msgid "10"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:139
+msgid "Maximum number of cycles to perform on the optimization."
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:140
+msgid "``initial_sol``"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:142
+msgid "4"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:143
+msgid "Initial solution to be used."
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:145
+msgid "``1`` One order per truck"
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliver.rst:146
-msgid ":doc:`pgr-category`"
+msgid "``2`` Push front order."
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliver.rst:147
-msgid "The queries use the :doc:`sampledata` network."
+msgid "``3`` Push back order."
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:148
+msgid "``4`` Optimize insert."
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:149
+msgid "``5`` Push back order that allows more orders to be inserted at the back"
 msgstr ""
 
 #: ../../build/doc/vrp_pgr_pickDeliver.rst:150
+msgid "``6`` Push front order that allows more orders to be inserted at the front"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:155
+msgid "Inner Queries"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:159
+msgid "Orders SQL"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:3
+msgid "A ``SELECT`` statement that returns the following columns:"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:5
+msgid "``id, amount``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:6
+msgid "``p_id, p_tw_open, p_tw_close, [p_service]``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:7
+msgid "``d_id, d_tw_open, d_tw_close, [d_service]``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:17
+msgid "``id``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:15
+#: ../../build/doc/concepts.rst:18
+#: ../../build/doc/concepts.rst:22
+#: ../../build/doc/concepts.rst:26
+#: ../../build/doc/concepts.rst:32
+#: ../../build/doc/concepts.rst:36
+#: ../../build/doc/concepts.rst:38
+#: ../../build/doc/concepts.rst:42
+#: ../../build/doc/concepts.rst:46
+#: ../../build/doc/concepts.rst:48
+#: ../../build/doc/concepts.rst:52
+#: ../../build/doc/concepts.rst:56
+#: ../../build/doc/concepts.rst:58
+#: ../../build/doc/concepts.rst:62
+#: ../../build/doc/concepts.rst:68
+msgid "|ANY-INTEGER|"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:20
+msgid "Identifier of the pick-delivery order pair."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:21
+msgid "``amount``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:21
+#: ../../build/doc/concepts.rst:22
+#: ../../build/doc/concepts.rst:28
+msgid "|ANY-NUMERICAL|"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:24
+msgid "Number of units in the order."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:25
+msgid "``p_id``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:28
+msgid "Identifier of the pickup node."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:30
+#: ../../build/doc/concepts.rst:36
+#: ../../build/doc/concepts.rst:50
+#: ../../build/doc/concepts.rst:56
+msgid "Must match a node identifier in the `Matrix SQL`_."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:31
+msgid "``p_tw_open``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:34
+msgid "The time, relative to 0, when the pickup location opens."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:35
+msgid "``p_tw_close``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:38
+msgid "The time, relative to 0, when the pickup location closes."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:40
+msgid ":math:`p\\_tw\\_open < p\\_tw\\_close < 9223372036854775807`"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:41
+msgid "``p_service``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:39
+#: ../../build/doc/concepts.rst:43
+#: ../../build/doc/concepts.rst:49
+#: ../../build/doc/concepts.rst:63
+msgid "0"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:44
+msgid "The duration of the loading at the pickup location."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:45
+msgid "``d_id``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:48
+msgid "Identifier of the delivery node."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:51
+msgid "``d_tw_open``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:54
+msgid "The time, relative to 0, when the delivery location opens."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:55
+msgid "``d_tw_close``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:58
+msgid "The time, relative to 0, when the delivery location closes."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:60
+msgid ":math:`d\\_tw\\_open < d\\_tw\\_close <= 9223372036854775807`"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:61
+msgid "``d_service``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:64
+msgid "The duration of the unloading at the delivery location."
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:166
+msgid "Vehicles SQL"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:5
+msgid "``id, capacity, [speed,]``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:6
+msgid "``s_id, [s_tw_open, s_tw_close, s_service,]``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:7
+msgid "``[e_id, e_tw_open, e_tw_close, e_service]``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:20
+msgid "Identifier of the vehicle"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:21
+msgid "``capacity``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:24
+msgid "Capacity of the vehicle."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:26
+msgid ":math:`0 < capacity <= 4294967295`."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:27
+msgid "``speed``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:30
+msgid "Speed of the vehicle."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:31
+#: ../../build/doc/concepts.rst:53
+msgid "``s_id``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:34
+msgid "The node identifier of the starting location."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:37
+#: ../../build/doc/concepts.rst:59
+msgid "``s_tw_open``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:40
+msgid "The time, relative to 0, when the starting location opens."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:41
+#: ../../build/doc/concepts.rst:63
+msgid "``s_tw_close``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:43
+msgid "|MAX-BIGINT|"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:44
+msgid "The time, relative to 0, when the starting location closes."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:46
+msgid ":math:`s\\_tw\\_open < s\\_tw\\_close <= 9223372036854775807`"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:47
+#: ../../build/doc/concepts.rst:69
+msgid "``s_service``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:50
+msgid "Duration of any task at the starting location,"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:51
+msgid "``e_id``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:54
+msgid "The node identifier of the ending location."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:57
+msgid "``e_tw_open``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:60
+msgid "The time, relative to 0, when the ending location opens."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:61
+msgid "``e_tw_close``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:64
+msgid "The time, relative to 0, when the ending location closes."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:66
+msgid ":math:`e\\_tw\\_open < e\\_tw\\_close <= 9223372036854775807`"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:67
+msgid "``e_service``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:70
+msgid "The duration of any task at the ending location"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:174
+msgid "Matrix SQL"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:5
+msgid "``start_vid, end_vid, agg_cost``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:14
+msgid "``start_vid``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:16
+#: ../../build/doc/concepts.rst:19
+msgid "Identifier of a node."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:17
+msgid "``end_vid``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:20
+msgid "``agg_cost``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:22
+msgid "Cost to travel from ``start_vid`` to ``end_vid``"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:181
+msgid "Result Columns"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:3
+msgid "Returns set of"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:5
+msgid "``seq, vehicle_number, vehicle_id, stop_seq, stop_type, stop_id, order_id, cargo,``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:15
+msgid "``seq``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:17
+msgid "Sequential value starting from **1**."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:18
+msgid "``vehicle_seq``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:20
+msgid "Sequential value starting from **1** for current vehicles. The :math:`n_{th}` vehicle in the solution."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:22
+msgid "``vehicle_id``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:23
+#: ../../build/doc/concepts.rst:38
+#: ../../build/doc/concepts.rst:41
+#: ../../build/doc/concepts.rst:46
+#: ../../build/doc/concepts.rst:49
+#: ../../build/doc/concepts.rst:54
+#: ../../build/doc/concepts.rst:57
+#: ../../build/doc/concepts.rst:60
+#: ../../build/doc/concepts.rst:63
+msgid "``BIGINT``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:24
+msgid "Current vehicle identifier."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:25
+msgid "``stop_seq``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:27
+msgid "Sequential value starting from **1** for the stops made by the current vehicle. The :math:`m_{th}` stop of the current vehicle."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:29
+msgid "``stop_type``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:31
+msgid "Kind of stop location the vehicle is at:"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:33
+msgid "``1``: Starting location"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:34
+msgid "``2``: Pickup location"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:35
+msgid "``3``: Delivery location"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:36
+msgid "``6``: Ending location"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:37
+msgid "``stop_id``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:39
+msgid "Identifier of the stop."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:40
+msgid "``order_id``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:42
+msgid "Pickup-Delivery order pair identifier."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:44
+msgid "``-1``: When no order is involved on the current stop location."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:45
+msgid "``cargo``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:47
+msgid "Cargo units of the vehicle when leaving the stop."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:48
+msgid "``travel_time``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:50
+msgid "Travel time from previous ``stop_seq`` to current ``stop_seq``."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:52
+msgid "``0`` When ``stop_type = 1``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:53
+msgid "``arrival_time``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:55
+msgid "Previous ``departure_time`` plus current ``travel_time``."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:56
+msgid "``wait_time``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:58
+msgid "Time spent waiting for current `location` to open."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:59
+msgid "``service_time``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:61
+msgid "Service time at current `location`."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:62
+msgid "``departure_time``"
+msgstr ""
+
+#: ../../build/doc/concepts.rst:64
+msgid ":math:`arrival\\_time + wait\\_time + service\\_time`."
+msgstr ""
+
+#: ../../build/doc/concepts.rst:66
+msgid "When ``stop_type = 6`` has the `total_time` used for the current vehicle."
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:188
+msgid "Example"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:192
+msgid "This example use the following data:"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:200
+msgid "See Also"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:202
+msgid ":doc:`pgr-category`"
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:203
+msgid "The queries use the :doc:`sampledata` network."
+msgstr ""
+
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:206
 msgid "Indices and tables"
 msgstr ""
 
-#: ../../build/doc/vrp_pgr_pickDeliver.rst:151
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:207
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../build/doc/vrp_pgr_pickDeliver.rst:152
+#: ../../build/doc/vrp_pgr_pickDeliver.rst:208
 msgid ":ref:`search`"
 msgstr ""
