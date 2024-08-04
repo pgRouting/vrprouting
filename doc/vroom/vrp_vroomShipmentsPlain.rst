@@ -72,9 +72,9 @@ Optional parameters are `named parameters` and have a default value.
 Parameters
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/vroom/vrp_vroomShipments.sql
-   :start-after: parameters start
-   :end-before: parameters end
+.. include:: vrp_vroomShipments.rst
+   :start-after: vship_parameters_start
+   :end-before: vship_parameters_end
 
 Optional Parameters
 ...............................................................................
