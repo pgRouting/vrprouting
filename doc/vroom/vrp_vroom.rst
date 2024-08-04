@@ -49,19 +49,20 @@ shipments.
 Signature
 -------------------------------------------------------------------------------
 
-.. rubric:: Summary
+.. admonition:: \ \
+   :class: signatures
 
-.. include:: ../sql/vroom/vrp_vroom.sql
-   :start-after: signature start
-   :end-before: signature end
+   | vrp_vroom(
+   | `Jobs SQL`_, `Jobs Time Windows SQL`_,
+   | `Shipments SQL`_, `Shipments Time Windows SQL`_,
+   | `Vehicles SQL`_,
+   | `Breaks SQL`_, `Breaks Time Windows SQL`_,
+   | `Time Matrix SQL`_
+   | [, exploration_level] [, timeout])  -- Experimental on v0.2
+   | RETURNS SET OF
+   | (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
+   |  task_data, arrival, travel_time, service_time, waiting_time, departure, load)
 
-Optional parameters are `named parameters` and have a default value.
-
-.. rubric:: Using defaults
-
-.. include:: ../sql/vroom/vrp_vroom.sql
-   :start-after: default signature start
-   :end-before: default signature end
 
 **Example**: This example is based on the modified VROOM Data of the :doc:`sampledata` network.
 The modification in the tables is mentioned at the end of the :doc:`sampledata`.
@@ -73,16 +74,72 @@ The modification in the tables is mentioned at the end of the :doc:`sampledata`.
 Parameters
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/vroom/vrp_vroom.sql
-   :start-after: parameters start
-   :end-before: parameters end
+.. vroom_parameters_start
+
+.. list-table::
+   :widths: auto
+   :header-rows: 1
+
+   - - Parameter
+     - Type
+     - Description
+   - - `Jobs SQL`_
+     - ``TEXT``
+     - Query describing the single-location pickup and/or delivery
+   - - `Jobs Time Windows SQL`_
+     - ``TEXT``
+     - Query describing valid slots for job service start.
+   - - `Shipments SQL`_
+     - ``TEXT``
+     - Query describing pickup and delivery tasks that should happen within same route.
+   - - `Shipments Time Windows SQL`_
+     - ``TEXT``
+     - Query describing valid slots for pickup and delivery service start.
+   - - `Vehicles SQL`_
+     - ``TEXT``
+     - Query describing the available vehicles.
+   - - `Breaks SQL`_
+     - ``TEXT``
+     - Query describing the driver breaks.
+   - - `Breaks Time Windows SQL`_
+     - ``TEXT``
+     - Query describing valid slots for break start.
+   - - `Time Matrix SQL`_
+     - ``TEXT``
+     - Query containing the distance or travel times between the locations.
+
+.. vroom_parameters_end
 
 Optional Parameters
 ...............................................................................
 
-.. include:: ../sql/vroom/vrp_vroom.sql
-   :start-after: optional parameters start
-   :end-before: optional parameters end
+.. vroom_optionals_start
+
+.. list-table::
+   :widths: auto
+   :header-rows: 1
+
+   - - Parameter
+     - Type
+     - Default
+     - Description
+   - - ``exploration_level``
+     - ``INTEGER``
+     - :math:`5`
+     - Exploration level to use while solving.
+
+       - Ranges from ``[0, 5]``
+       - A smaller exploration level gives faster result.
+   - - ``timeout``
+     - ``INTERVAL``
+     - '-00:00:01'::INTERVAL
+     - Timeout value to stop the solving process.
+
+       - Gives the best possible solution within a time limit. Note that some
+         additional seconds may be required to return back the data.
+       - Any negative timeout value is ignored.
+
+.. vroom_optionals_end
 
 Inner Queries
 -------------------------------------------------------------------------------
@@ -146,9 +203,9 @@ Time Matrix SQL
 Result Columns
 -------------------------------------------------------------------------------
 
-.. include:: vroom-category.rst
-   :start-after: result_columns_start
-   :end-before: result_columns_end
+.. include:: concepts.rst
+   :start-after: vroom_result_start
+   :end-before: vroom_result_end
 
 Additional Example
 -------------------------------------------------------------------------------

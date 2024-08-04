@@ -677,12 +677,117 @@ A ``SELECT`` statement that returns the following columns:
 
     -  Times reported in output can be interpreted as ``TIMESTAMP``.
 
-.. time_windows_end
+.. time_windows_note_end
+
 
 Return columns & values
 --------------------------------------------------------------------------------
 
-TBD
+VROOM result columns
+...............................................................................
+
+.. vroom_result_start
+
+Returns set of
+
+.. code-block:: none
+
+    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
+     task_data, arrival, travel_time, service_time, waiting_time, load)
+
+.. list-table::
+   :width: 81
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Description
+   - - ``seq``
+     - ``BIGINT``
+     -  Sequential value starting from **1**.
+   - - ``vehicle_seq``
+     - ``BIGINT``
+     - Sequential value starting from **1** for current vehicles.  The
+       :math:`n^{th}` vehicle in the solution.
+   - - ``vehicle_id``
+     - ``BIGINT``
+     - Current vehicle identifier.
+
+       - ``-1``: Vehicle denoting all the unallocated tasks.
+       - ``0``: Summary row for the complete problem
+   - - ``vehicle_data``
+     - ``JSONB``
+     - Metadata information of the vehicle.
+   - - ``step_seq``
+     - ``BIGINT``
+     - Sequential value starting from **1** for the stops made by the current
+       vehicle. The :math:`m^{th}` stop of the current vehicle.
+
+       - ``0``: Summary row
+   - - ``step_type``
+     - ``BIGINT``
+     - Kind of the step location the vehicle is at:
+
+       - ``0``: Summary row
+       - ``1``: Starting location
+       - ``2``: Job location
+       - ``3``: Pickup location
+       - ``4``: Delivery location
+       - ``5``: Break location
+       - ``6``: Ending location
+
+   - - ``task_id``
+     - ``BIGINT``
+     - Identifier of the task performed at this step.
+
+       - ``0``: Summary row
+       - ``-1``: If the step is starting/ending location.
+   - - ``location_id``
+     - ``BIGINT``
+     - Identifier of the task location.
+
+       - ``0``: Summary row
+   - - ``task_data``
+     - ``JSONB``
+     - Metadata information of the task.
+   - - ``arrival``
+     - |timestamp|
+     - Estimated time of arrival at this step.
+   - - ``travel_time``
+     - |interval|
+     - Travel time from previous ``step_seq`` to current ``step_seq``.
+
+       - ``0``: When ``step_type = 1``
+   - - ``setup_time``
+     - |interval|
+     - Setup time at this step.
+   - - ``service_time``
+     - |interval|
+     - Service time at this step.
+   - - ``waiting_time``
+     - |interval|
+     - Waiting time at this step.
+   - - ``departure``
+     - |timestamp|
+     - Estimated time of departure at this step.
+
+       - :math:`arrival + service\_time + waiting\_time`.
+   - - ``load``
+     - ``BIGINT``
+     - Vehicle load after step completion (with capacity constraints)
+
+**Note**:
+
+- Unallocated tasks are mentioned at the end with :code:`vehicle_id = -1`.
+- The last step of every vehicle denotes the summary row, where the columns
+  ``travel_time``, ``service_time`` and ``waiting_time`` denote the total time
+  for the corresponding vehicle,
+- The last row denotes the summary for the complete problem, where the columns
+  ``travel_time``, ``service_time`` and ``waiting_time`` denote the total time
+  for the complete problem,
+
+.. vroom_result_end
 
 
 Performance
