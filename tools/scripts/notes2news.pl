@@ -161,6 +161,7 @@ sub get_substitutions {
     my $skipping = 1;
     while (my $line = <$fh>) {
         next if $skipping and $line !~ /$mstart/;
+        last if $line =~ /\|br\|/;
         $skipping = 0;
         next if $line =~ /$mstart/;
         last if $line =~ /$mend/;
