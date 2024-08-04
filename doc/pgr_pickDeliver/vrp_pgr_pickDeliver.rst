@@ -82,18 +82,74 @@ Characteristics
 Signature
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pgr_pickDeliver/pgr_pickDeliver.sql
-   :start-after: signature start
-   :end-before: signature end
+.. admonition:: \ \
+   :class: signatures
 
+   | pgr_pickDeliver(
+   | `Orders SQL`_, `Vehicles SQL`_, `Matrix SQL`_
+   | ``[factor, max_cycles, initial_sol]``
+   | RETURNS SET OF
+   | ``seq, vehicle_number, vehicle_id, stop, order_id, stop_type, cargo,``
+   | ``travel_time, arrival_time, wait_time, service_time, departure_time``
 
 Parameters
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pgr_pickDeliver/pgr_pickDeliver.sql
-   :start-after: parameters start
-   :end-before: parameters end
+.. pd_parameters_start
 
+.. list-table::
+   :widths: auto
+   :header-rows: 1
+
+   * - Column
+     - Type
+     - Description
+   * - `Orders SQL`_
+     - ``TEXT``
+     - `Orders SQL`_ as described below.
+   * - `Vehicles SQL`_
+     - ``TEXT``
+     - `Vehicles SQL`_ as described below.
+   * - `Matrix SQL`_
+     - ``TEXT``
+     - `Matrix SQL`_ as described below.
+
+.. pd_parameters_end
+
+Optional Parameters
+-------------------------------------------------------------------------------
+
+.. pd_optionals_start
+
+.. list-table::
+   :widths: auto
+   :header-rows: 1
+
+   * - Column
+     - Type
+     - Default
+     - Description
+   * - ``factor``
+     - ``NUMERIC``
+     - 1
+     - Travel time multiplier. See :ref:`pd_factor`
+   * - ``max_cycles``
+     - ``INTEGER``
+     - 10
+     - Maximum number of cycles to perform on the optimization.
+   * - ``initial_sol``
+     - ``INTEGER``
+     - 4
+     - Initial solution to be used.
+
+       - ``1`` One order per truck
+       - ``2`` Push front order.
+       - ``3`` Push back order.
+       - ``4`` Optimize insert.
+       - ``5`` Push back order that allows more orders to be inserted at the back
+       - ``6`` Push front order that allows more orders to be inserted at the front
+
+.. pd_optionals_end
 
 Inner Queries
 -------------------------------------------------------------------------------
@@ -124,9 +180,9 @@ Matrix SQL
 Result Columns
 -------------------------------------------------------------------------------
 
-.. include:: ../sql/pgr_pickDeliver/pgr_pickDeliver.sql
-   :start-after: result start
-   :end-before: result end
+.. include:: concepts.rst
+   :start-after: pd_result_start
+   :end-before: pd_result_end
 
 Example
 -------------------------------------------------------------------------------
