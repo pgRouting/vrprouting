@@ -109,9 +109,9 @@ Orders SQL
 Vehicles SQL
 ................................................................................
 
-.. include:: ../../src/common/vehicles_input.c
-    :start-after: pgr_pickDeliver start
-    :end-before: pgr_pickDeliver end
+.. include:: concepts.rst
+    :start-after: pgr_vehicles_start
+    :end-before: pgr_vehicles_end
 
 
 Matrix SQL

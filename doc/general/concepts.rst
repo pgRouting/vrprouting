@@ -388,6 +388,161 @@ A ``SELECT`` statement that returns the following columns:
 
 .. pgr_orders_e_end
 
+Vehicles SQL
+*******************************************************************************
+
+.. rubric:: Vehicles
+
+.. pgr_vehicles_start
+
+A ``SELECT`` statement that returns the following columns:
+
+| ``id, capacity, [speed,]``
+| ``s_id, [s_tw_open, s_tw_close, s_service,]``
+| ``[e_id, e_tw_open, e_tw_close, e_service]``
+
+.. list-table::
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Default
+     - Description
+   - - ``id``
+     - |ANY-INTEGER|
+     -
+     - Identifier of the vehicle
+   - - ``capacity``
+     - |ANY-INTEGER|
+     -
+     - Capacity of the vehicle.
+
+       - :math:`0 < capacity <= 4294967295`.
+   - - ``speed``
+     - |ANY-NUMERICAL|
+     - 1
+     - Speed of the vehicle.
+   - - ``s_id``
+     - |ANY-INTEGER|
+     -
+     - The node identifier of the starting location.
+
+       - Must match a node identifier in the `Matrix SQL`_.
+   - - ``s_tw_open``
+     - |ANY-INTEGER|
+     - 0
+     - The time, relative to 0, when the starting location opens.
+   - - ``s_tw_close``
+     - |ANY-INTEGER|
+     - |MAX-BIGINT|
+     - The time, relative to 0, when the starting location closes.
+
+       - :math:`s\_tw\_open < s\_tw\_close <= 9223372036854775807`
+   - - ``s_service``
+     - |ANY-INTEGER|
+     - 0
+     - Duration of any task at the starting location,
+   - - ``e_id``
+     - |ANY-INTEGER|
+     - ``s_id``
+     - The node identifier of the ending location.
+
+       - Must match a node identifier in the `Matrix SQL`_.
+   - - ``e_tw_open``
+     - |ANY-INTEGER|
+     - ``s_tw_open``
+     - The time, relative to 0, when the ending location opens.
+   - - ``e_tw_close``
+     - |ANY-INTEGER|
+     - ``s_tw_close``
+     - The time, relative to 0, when the ending location closes.
+
+       - :math:`e\_tw\_open < e\_tw\_close <= 9223372036854775807`
+   - - ``e_service``
+     - |ANY-INTEGER|
+     - ``s_service``
+     - The duration of any task at the ending location
+
+.. pgr_vehicles_end
+
+.. rubric:: Euclidean Vehicles
+
+.. pgr_vehicles_e_start
+
+A ``SELECT`` statement that returns the following columns:
+
+| ``id, capacity, [speed,]``
+| ``s_x, s_y, [s_tw_open, s_tw_close, s_service]``
+| ``[e_x, e_y, e_tw_open, e_tw_close, e_service]``
+
+.. list-table::
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Default
+     - Description
+   - - ``id``
+     - |ANY-INTEGER|
+     -
+     - Identifier of the vehicle.
+   - - ``capacity``
+     - |ANY-INTEGER|
+     -
+     - Capacity of the vehicle. :math:`0 < capacity <= 4294967295`.
+   - - ``speed``
+     - |ANY-NUMERICAL|
+     - 1
+     - Speed of the vehicle.
+   - - ``s_x``
+     - |ANY-NUMERICAL|
+     -
+     - :math:`x` value of the coordinate of the starting location.
+   - - ``s_y``
+     - |ANY-NUMERICAL|
+     -
+     - :math:`y` value of the coordinate of the starting location.
+   - - ``s_tw_open``
+     - |ANY-INTEGER|
+     - 0
+     - The time, relative to 0, when the starting location opens.
+   - - ``s_tw_close``
+     - |ANY-INTEGER|
+     - |MAX-BIGINT|
+     - The time, relative to 0, when the starting location closes.
+
+       - :math:`s\_tw\_open < s\_tw\_close <= 9223372036854775807`
+   - - ``s_service``
+     - |ANY-INTEGER|
+     - 0
+     - Duration of any task at the ending location,
+   - - ``e_x``
+     - |ANY-NUMERICAL|
+     -
+     - :math:`x` value of the coordinate of the ending location.
+   - - ``e_y``
+     - |ANY-NUMERICAL|
+     -
+     - :math:`y` value of the coordinate of the ending location.
+   - - ``e_tw_open``
+     - |ANY-INTEGER|
+     - ``s_tw_open``
+     - The time, relative to 0, when the ending location opens.
+   - - ``e_tw_close``
+     - |ANY-INTEGER|
+     - ``s_tw_close``
+     - The time, relative to 0, when the ending location closes.
+
+       - :math:`e\_tw\_open < e\_tw\_close <= 9223372036854775807`
+   - - ``e_service``
+     - |ANY-INTEGER|
+     - ``s_service``
+     - The duration of any task at the ending location
+
+.. pgr_vehicles_e_end
+
 Vroom Inner Queries
 ...............................................................................
 

@@ -330,6 +330,7 @@ linkcheck_anchors = False
 rst_epilog="""
 .. |ANY-INTEGER| replace:: :abbr:`ANY-INTEGER(SMALLINT, INTEGER, BIGINT)`
 .. |ANY-NUMERICAL| replace:: :abbr:`ANY-NUMERICAL(SMALLINT, INTEGER, BIGINT, REAL, FLOAT)`
+.. |MAX-BIGINT| replace:: :abbr:`MAX-BIGINT(9223372036854775807)`
 .. |br| raw:: html
 
    </p><li><p>
