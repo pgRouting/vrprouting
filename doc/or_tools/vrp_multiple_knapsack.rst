@@ -53,10 +53,6 @@ Signatures
    | RETURNS SET OF (knapsack, id)
    | OR EMPTY SET
 
-.. include:: ../../sql/or_tools/multiple_knapsack.sql
-   :start-after: signature start
-   :end-before: signature end
-
 Parameters
 -------------------------------------------------------------------------------
 
@@ -119,10 +115,6 @@ Result Columns
    * - ``id``
      - ``INTEGER``
      - Indentifier of an item in the ``knapsack``.
-
-.. include:: ../../sql/or_tools/multiple_knapsack.sql
-   :start-after: result start
-   :end-before: result end
 
 Example
 -------------------------------------------------------------------------------

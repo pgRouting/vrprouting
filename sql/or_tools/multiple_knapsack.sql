@@ -24,87 +24,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
-/*
-signature start
 
-.. code-block:: none
-
-    vrp_multiple_knapsack(
-      Weights_Costs SQL, capacities ARRAY[ANY-INTEGER], [, max_rows])
-
-    RETURNS SET OF
-    (knapsack_number, item_id)
-
-signature end
-
-parameters start
-
-============================== ======================= =========================================================
-Parameter                      Type                    Description
-============================== ======================= =========================================================
-**Weights_Costs SQL**                ``TEXT``                `Weights_Costs SQL`_ query describing the weight of each item
-**Capacities**                 ``ARRAY[ANY-INTEGER]``  An array describing the capacity of each knapsack
-============================== ======================= =========================================================
-
-parameters end
-
-optional parameters start
-
-===================== ================ ============================= =================================================
-Parameter             Type             Default                       Description
-===================== ================ ============================= =================================================
-**max_rows**          ``ANY-INTEGER``  :math:`100000`                Maximum items(rows) to fetch from bin_packing_data
-                                                                     table
-===================== ================ ============================= =================================================
-
-optional parameters end
-
-.. Weights_Costs start
-
-A ``SELECT`` statement that returns the following columns:
-
-::
-
-    id, weight, cost
-
-
-====================  =========================  =========== ================================================
-Column                Type                       Default     Description
-====================  =========================  =========== ================================================
-**id**                ``ANY-INTEGER``                        unique identifier of the item.
-
-**weight**            ``ANY-INTEGER``                        weight of the item.
-
-**cost**              ``ANY-INTEGER``                        cost of the item.
-====================  =========================  =========== ================================================
-
-.. Weights_Costs end
-
-result start
-
-Returns set of
-
-.. code-block:: none
-
-    (knapsack_number, item_id)
-
-=================== ================= =================================================
-Column              Type              Description
-=================== ================= =================================================
-**knapsack_number**  ``ANY-INTEGER``  Integer to uniquely identify a knapsack
-
-**item_id**          ``ANY-INTEGER``  Integer to uniquely identify an item in the
-                                      bin
-=================== ================= =================================================
-result end
-
-**Note**:
-
-- ANY-INTEGER: [SMALLINT, INTEGER, BIGINT]
-*/
-
-
-
+--v4.0
 CREATE OR REPLACE FUNCTION vrp_multiple_knapsack(
   inner_query TEXT, -- weights_cost SQL
   capacities INTEGER[], -- ARRAY of Knapsack Capacities
