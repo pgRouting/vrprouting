@@ -79,9 +79,9 @@ Parameters
 Optional Parameters
 ...............................................................................
 
-.. include:: ../sql/vroom/vrp_vroomPlain.sql
-   :start-after: optional parameters start
-   :end-before: optional parameters end
+.. include:: vrp_vroomPlain.rst
+   :start-after: vroom_plain_optionals_start
+   :end-before: vroom_plain_optionals_end
 
 Inner Queries
 -------------------------------------------------------------------------------
