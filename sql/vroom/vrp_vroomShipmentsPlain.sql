@@ -26,38 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*
-signature start
-
-.. code-block:: none
-
-    vrp_vroomShipmentsPlain(
-      Shipments SQL, Shipments Time Windows SQL,
-      Vehicles SQL, Breaks SQL, Breaks Time Windows SQL,
-      Matrix SQL [, exploration_level] [, timeout])  -- Experimental on v0.2
-
-    RETURNS SET OF
-    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
-     task_data, arrival, travel_time, service_time, waiting_time, departure, load)
-
-signature end
-
-default signature start
-
-.. code-block:: none
-
-    vrp_vroomShipmentsPlain(
-      Shipments SQL, Shipments Time Windows SQL,
-      Vehicles SQL, Breaks SQL, Breaks Time Windows SQL,
-      Matrix SQL)
-
-    RETURNS SET OF
-    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
-     task_data, arrival, travel_time, service_time, waiting_time, departure, load)
-
-default signature end
-*/
-
 -- v0.2
 CREATE FUNCTION vrp_vroomShipmentsPlain(
     TEXT,  -- shipments_sql (required)
