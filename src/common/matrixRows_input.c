@@ -37,27 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/debug_macro.h"
 #endif
 
-/*
-.. pgr_pickDeliver start
-
-A ``SELECT`` statement that returns the following columns:
-
-::
-
-    start_vid, end_vid, agg_cost
-
-============= =============== ================================================
-Column        Type            Description
-============= =============== ================================================
-**start_vid** |ANY-INTEGER|   Identifier of a node.
-**end_vid**   |ANY-NUMERICAL| Identifier of a node
-**agg_cost**  |ANY-NUMERICAL| Time to travel from ``start_vid`` to ``end_vid``
-============= =============== ================================================
-
-.. pgr_pickDeliver end
-
-*/
-
 static
 void fetch_plain(
         HeapTuple *tuple,

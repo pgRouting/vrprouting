@@ -211,6 +211,37 @@ TBD
 Inner Queries
 -------------------------------------------------------------------------------
 
+Pickup-Delivery Inner Queries
+...............................................................................
+
+Matrix SQL
+*******************************************************************************
+
+.. pgr_matrix_start
+
+A ``SELECT`` statement that returns the following columns:
+
+``start_vid, end_vid, agg_cost``
+
+.. list-table::
+   :widths: auto
+   :header-rows: 1
+
+   - - Column
+     - Type
+     - Description
+   - - ``start_vid``
+     - |ANY-INTEGER|
+     - Identifier of a node.
+   - - ``end_vid``
+     - |ANY-INTEGER|
+     - Identifier of a node.
+   - - ``agg_cost``
+     - |ANY-NUMERICAL|
+     - Cost to travel from ``start_vid`` to ``end_vid``
+
+.. pgr_matrix_end
+
 Vroom Inner Queries
 ...............................................................................
 
