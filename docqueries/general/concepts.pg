@@ -1,0 +1,8 @@
+/* q1 */
+SELECT to_timestamp(0)::timestamp without time zone as ZERO_TIMESTAMP,
+to_timestamp(4294967295)::timestamp without time zone AS MAX_TIMESTAMP;
+/* q2 */
+SELECT make_interval(secs => 0) AS ZERO_INTERVAL,
+make_interval(years => 136, months => 1, days => 6, hours=>6, mins => 28, secs => 15) AS MAX_INTERVAL1,
+make_interval(secs => 4294967295) AS MAX_INTERVAL2;
+/* q3 */
