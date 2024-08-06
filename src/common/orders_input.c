@@ -168,9 +168,9 @@ pgr_get_pd_orders_general(
     size_t total_tuples;
 
     void *SPIplan;
-    SPIplan = pgr_SPI_prepare(pd_orders_sql);
+    SPIplan = vrp_SPI_prepare(pd_orders_sql);
     Portal SPIportal;
-    SPIportal = pgr_SPI_cursor_open(SPIplan);
+    SPIportal = vrp_SPI_cursor_open(SPIplan);
 
     bool moredata = true;
     (*total_pd_orders) = total_tuples = 0;

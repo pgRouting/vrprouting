@@ -62,7 +62,7 @@ process(
                  errhint("Value found: %f <= 0", factor)));
     }
 
-    pgr_SPI_connect();
+    vrp_SPI_connect();
 
     PickDeliveryOrders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
@@ -82,7 +82,7 @@ process(
           pfree(pd_orders_arr); pd_orders_arr = NULL;
         }
 
-        pgr_SPI_finish();
+        vrp_SPI_finish();
         return;
     }
 
@@ -106,7 +106,7 @@ process(
           pfree(vehicles_arr); vehicles_arr = NULL;
         }
 
-        pgr_SPI_finish();
+        vrp_SPI_finish();
         return;
     }
 
@@ -133,7 +133,7 @@ process(
           pfree(multipliers_arr); multipliers_arr = NULL;
         }
 
-        pgr_SPI_finish();
+        vrp_SPI_finish();
         return;
     }
 
@@ -163,7 +163,7 @@ process(
           pfree(matrix_cells_arr); matrix_cells_arr = NULL;
         }
 
-        pgr_SPI_finish();
+        vrp_SPI_finish();
         return;
     }
 
@@ -219,7 +219,7 @@ process(
       pfree(matrix_cells_arr); matrix_cells_arr = NULL;
     }
 
-    pgr_SPI_finish();
+    vrp_SPI_finish();
 }
 
 

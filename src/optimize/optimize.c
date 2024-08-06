@@ -86,7 +86,7 @@ process(
          errhint("Value found: %d", max_cycles)));
   }
 
-  pgr_SPI_connect();
+  vrp_SPI_connect();
 
   PickDeliveryOrders_t *pd_orders_arr = NULL;
   size_t total_pd_orders = 0;
@@ -105,7 +105,7 @@ process(
       pfree(pd_orders_arr); pd_orders_arr = NULL;
     }
 
-    pgr_SPI_finish();
+    vrp_SPI_finish();
     return;
   }
 
@@ -133,7 +133,7 @@ process(
         (errcode(ERRCODE_INTERNAL_ERROR),
          errmsg("No vehicles found")));
 
-    pgr_SPI_finish();
+    vrp_SPI_finish();
     return;
   }
 
@@ -163,7 +163,7 @@ process(
       pfree(multipliers_arr); multipliers_arr = NULL;
     }
 
-    pgr_SPI_finish();
+    vrp_SPI_finish();
     return;
   }
 
@@ -196,7 +196,7 @@ process(
     ereport(WARNING,
         (errcode(ERRCODE_INTERNAL_ERROR),
          errmsg("No matrix found")));
-    pgr_SPI_finish();
+    vrp_SPI_finish();
     return;
   }
 
@@ -254,7 +254,7 @@ process(
     pfree(matrix_cells_arr); matrix_cells_arr = NULL;
   }
 
-  pgr_SPI_finish();
+  vrp_SPI_finish();
 }
 
 

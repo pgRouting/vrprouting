@@ -82,10 +82,10 @@ get_matrixRows_general(
   const int column_count = 3;
 
   void *SPIplan;
-  SPIplan = pgr_SPI_prepare(sql);
+  SPIplan = vrp_SPI_prepare(sql);
 
   Portal SPIportal;
-  SPIportal = pgr_SPI_cursor_open(SPIplan);
+  SPIportal = vrp_SPI_cursor_open(SPIplan);
 
 
   bool moredata = true;

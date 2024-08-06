@@ -110,7 +110,7 @@ process(
     Vroom_rt **result_tuples,
     size_t *result_count) {
   clock_t start_loading = clock();
-  pgr_SPI_connect();
+  vrp_SPI_connect();
 
   (*result_tuples) = NULL;
   (*result_count) = 0;
@@ -140,7 +140,7 @@ process(
     }
     (*result_count) = 0;
     (*result_tuples) = NULL;
-    pgr_SPI_finish();
+    vrp_SPI_finish();
     return;
   }
 
@@ -167,7 +167,7 @@ process(
                       errhint("%s", vehicles_sql)));
     (*result_count) = 0;
     (*result_tuples) = NULL;
-    pgr_SPI_finish();
+    vrp_SPI_finish();
     return;
   }
 
@@ -193,7 +193,7 @@ process(
                       errhint("%s", matrix_sql)));
     (*result_count) = 0;
     (*result_tuples) = NULL;
-    pgr_SPI_finish();
+    vrp_SPI_finish();
     return;
   }
 
@@ -240,7 +240,7 @@ process(
   if (vehicles) pfree(vehicles);
   if (matrix_rows) pfree(matrix_rows);
 
-  pgr_SPI_finish();
+  vrp_SPI_finish();
 }
 
 

@@ -79,7 +79,7 @@ process(
         return;
     }
 
-    pgr_SPI_connect();
+    vrp_SPI_connect();
 
     PGR_DBG("Load orders");
     struct PickDeliveryOrders_t *pd_orders_arr = NULL;
@@ -147,7 +147,7 @@ process(
     if (total_pd_orders == 0 || total_vehicles == 0) {
         (*result_count) = 0;
         (*result_tuples) = NULL;
-        pgr_SPI_finish();
+        vrp_SPI_finish();
         return;
     }
     PGR_DBG("Total %ld orders in query:", total_pd_orders);
@@ -184,7 +184,7 @@ process(
     if (pd_orders_arr) pfree(pd_orders_arr);
     if (vehicles_arr) pfree(vehicles_arr);
 
-    pgr_SPI_finish();
+    vrp_SPI_finish();
 }
 /*                                                                            */
 /******************************************************************************/
