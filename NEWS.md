@@ -14,6 +14,7 @@ on Github.
 
 * Renamed files to be compiled as C++ with .hpp & .cpp extensions
 * Moved sphinx doc from .c files .rst files
+* removing prefix `pgr_` & addding `namespace vrprouting`
 
 
 **Documentation queries**
