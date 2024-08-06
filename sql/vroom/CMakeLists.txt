@@ -1,11 +1,11 @@
 SET(LOCAL_FILES
-    _vrp_vroom.sql
-    vrp_vroom.sql
-    vrp_vroomJobs.sql
-    vrp_vroomShipments.sql
-    vrp_vroomPlain.sql
-    vrp_vroomJobsPlain.sql
-    vrp_vroomShipmentsPlain.sql
+    _vroom.sql
+    vroom.sql
+    vroomJobs.sql
+    vroomShipments.sql
+    vroomPlain.sql
+    vroomJobsPlain.sql
+    vroomShipmentsPlain.sql
     )
 
 foreach (f ${LOCAL_FILES})
