@@ -150,9 +150,9 @@ do_compatibleVehicles(
          * Verify matrix cells preconditions
          */
         vrprouting::problem::Matrix cost_matrix(
-            matrix_cells_arr, total_cells,
-            multipliers_arr, total_multipliers,
-            node_ids, static_cast<Multiplier>(factor));
+                matrix_cells_arr, total_cells,
+                multipliers_arr, total_multipliers,
+                node_ids, static_cast<Multiplier>(factor));
 #if 0
         /*
          * Verify matrix triangle inequality

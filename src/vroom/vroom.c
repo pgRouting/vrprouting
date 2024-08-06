@@ -93,154 +93,154 @@ PG_FUNCTION_INFO_V1(_vrp_vroom);
 static
 void
 process(
-    char *jobs_sql,
-    char *jobs_tws_sql,
-    char *shipments_sql,
-    char *shipments_tws_sql,
-    char *vehicles_sql,
-    char *breaks_sql,
-    char *breaks_tws_sql,
-    char *matrix_sql,
+        char *jobs_sql,
+        char *jobs_tws_sql,
+        char *shipments_sql,
+        char *shipments_tws_sql,
+        char *vehicles_sql,
+        char *breaks_sql,
+        char *breaks_tws_sql,
+        char *matrix_sql,
 
-    int32_t exploration_level,
-    int32_t timeout,
-    int16_t fn,
-    bool is_plain,
+        int32_t exploration_level,
+        int32_t timeout,
+        int16_t fn,
+        bool is_plain,
 
-    Vroom_rt **result_tuples,
-    size_t *result_count) {
-  clock_t start_loading = clock();
-  vrp_SPI_connect();
+        Vroom_rt **result_tuples,
+        size_t *result_count) {
+    clock_t start_loading = clock();
+    vrp_SPI_connect();
 
-  (*result_tuples) = NULL;
-  (*result_count) = 0;
+    (*result_tuples) = NULL;
+    (*result_count) = 0;
 
-  Vroom_job_t *jobs = NULL;
-  size_t total_jobs = 0;
-  if (jobs_sql) {
-    get_vroom_jobs(jobs_sql, &jobs, &total_jobs, is_plain);
-  }
-
-  Vroom_shipment_t *shipments = NULL;
-  size_t total_shipments = 0;
-  if (shipments_sql) {
-    get_vroom_shipments(shipments_sql, &shipments, &total_shipments, is_plain);
-  }
-
-  if (total_jobs == 0 && total_shipments == 0) {
-    if (fn == 0) {
-      ereport(WARNING, (errmsg("Insufficient data found on Jobs SQL and Shipments SQL query."),
-                        errhint("%s, %s", jobs_sql, shipments_sql)));
-    } else if (fn == 1) {
-      ereport(WARNING, (errmsg("Insufficient data found on Jobs SQL query."),
-                        errhint("%s", jobs_sql)));
-    } else if (fn == 2) {
-      ereport(WARNING, (errmsg("Insufficient data found on Shipments SQL query."),
-                        errhint("%s", shipments_sql)));
+    Vroom_job_t *jobs = NULL;
+    size_t total_jobs = 0;
+    if (jobs_sql) {
+        get_vroom_jobs(jobs_sql, &jobs, &total_jobs, is_plain);
     }
-    (*result_count) = 0;
-    (*result_tuples) = NULL;
+
+    Vroom_shipment_t *shipments = NULL;
+    size_t total_shipments = 0;
+    if (shipments_sql) {
+        get_vroom_shipments(shipments_sql, &shipments, &total_shipments, is_plain);
+    }
+
+    if (total_jobs == 0 && total_shipments == 0) {
+        if (fn == 0) {
+            ereport(WARNING, (errmsg("Insufficient data found on Jobs SQL and Shipments SQL query."),
+                        errhint("%s, %s", jobs_sql, shipments_sql)));
+        } else if (fn == 1) {
+            ereport(WARNING, (errmsg("Insufficient data found on Jobs SQL query."),
+                        errhint("%s", jobs_sql)));
+        } else if (fn == 2) {
+            ereport(WARNING, (errmsg("Insufficient data found on Shipments SQL query."),
+                        errhint("%s", shipments_sql)));
+        }
+        (*result_count) = 0;
+        (*result_tuples) = NULL;
+        vrp_SPI_finish();
+        return;
+    }
+
+    Vroom_time_window_t *jobs_tws = NULL;
+    size_t total_jobs_tws = 0;
+    if (jobs_tws_sql) {
+        get_vroom_time_windows(jobs_tws_sql, &jobs_tws, &total_jobs_tws,
+                is_plain);
+    }
+
+    Vroom_time_window_t *shipments_tws = NULL;
+    size_t total_shipments_tws = 0;
+    if (shipments_tws_sql) {
+        get_vroom_shipments_time_windows(shipments_tws_sql, &shipments_tws,
+                &total_shipments_tws, is_plain);
+    }
+
+    Vroom_vehicle_t *vehicles = NULL;
+    size_t total_vehicles = 0;
+    get_vroom_vehicles(vehicles_sql, &vehicles, &total_vehicles, is_plain);
+
+    if (total_vehicles == 0) {
+        ereport(WARNING, (errmsg("Insufficient data found on Vehicles SQL query."),
+                    errhint("%s", vehicles_sql)));
+        (*result_count) = 0;
+        (*result_tuples) = NULL;
+        vrp_SPI_finish();
+        return;
+    }
+
+    Vroom_break_t *breaks = NULL;
+    size_t total_breaks = 0;
+    if (breaks_sql) {
+        get_vroom_breaks(breaks_sql, &breaks, &total_breaks, is_plain);
+    }
+
+    Vroom_time_window_t *breaks_tws = NULL;
+    size_t total_breaks_tws = 0;
+    if (breaks_tws_sql) {
+        get_vroom_time_windows(breaks_tws_sql, &breaks_tws, &total_breaks_tws,
+                is_plain);
+    }
+
+    Vroom_matrix_t *matrix_rows = NULL;
+    size_t total_matrix_rows = 0;
+    get_vroom_matrix(matrix_sql, &matrix_rows, &total_matrix_rows, is_plain);
+
+    if (total_matrix_rows == 0) {
+        ereport(WARNING, (errmsg("Insufficient data found on Matrix SQL query."),
+                    errhint("%s", matrix_sql)));
+        (*result_count) = 0;
+        (*result_tuples) = NULL;
+        vrp_SPI_finish();
+        return;
+    }
+
+    clock_t start_t = clock();
+    char *log_msg = NULL;
+    char *notice_msg = NULL;
+    char *err_msg = NULL;
+
+    int32_t loading_time = (int)((clock() - start_loading) / CLOCKS_PER_SEC) * 1000;
+
+    do_vrp_vroom(
+            jobs, total_jobs,
+            jobs_tws, total_jobs_tws,
+            shipments, total_shipments,
+            shipments_tws, total_shipments_tws,
+            vehicles, total_vehicles,
+            breaks, total_breaks,
+            breaks_tws, total_breaks_tws,
+            matrix_rows, total_matrix_rows,
+
+            exploration_level,
+            timeout,
+            loading_time,
+
+            result_tuples,
+            result_count,
+
+            &log_msg,
+            &notice_msg,
+            &err_msg);
+
+    time_msg("processing vrp_vroom", start_t, clock());
+
+    if (err_msg && (*result_tuples)) {
+        pfree(*result_tuples);
+        (*result_tuples) = NULL;
+        (*result_count) = 0;
+    }
+
+    vrp_global_report(&log_msg, &notice_msg, &err_msg);
+
+    if (jobs) pfree(jobs);
+    if (shipments) pfree(shipments);
+    if (vehicles) pfree(vehicles);
+    if (matrix_rows) pfree(matrix_rows);
+
     vrp_SPI_finish();
-    return;
-  }
-
-  Vroom_time_window_t *jobs_tws = NULL;
-  size_t total_jobs_tws = 0;
-  if (jobs_tws_sql) {
-    get_vroom_time_windows(jobs_tws_sql, &jobs_tws, &total_jobs_tws,
-                           is_plain);
-  }
-
-  Vroom_time_window_t *shipments_tws = NULL;
-  size_t total_shipments_tws = 0;
-  if (shipments_tws_sql) {
-    get_vroom_shipments_time_windows(shipments_tws_sql, &shipments_tws,
-                                     &total_shipments_tws, is_plain);
-  }
-
-  Vroom_vehicle_t *vehicles = NULL;
-  size_t total_vehicles = 0;
-  get_vroom_vehicles(vehicles_sql, &vehicles, &total_vehicles, is_plain);
-
-  if (total_vehicles == 0) {
-    ereport(WARNING, (errmsg("Insufficient data found on Vehicles SQL query."),
-                      errhint("%s", vehicles_sql)));
-    (*result_count) = 0;
-    (*result_tuples) = NULL;
-    vrp_SPI_finish();
-    return;
-  }
-
-  Vroom_break_t *breaks = NULL;
-  size_t total_breaks = 0;
-  if (breaks_sql) {
-    get_vroom_breaks(breaks_sql, &breaks, &total_breaks, is_plain);
-  }
-
-  Vroom_time_window_t *breaks_tws = NULL;
-  size_t total_breaks_tws = 0;
-  if (breaks_tws_sql) {
-    get_vroom_time_windows(breaks_tws_sql, &breaks_tws, &total_breaks_tws,
-                           is_plain);
-  }
-
-  Vroom_matrix_t *matrix_rows = NULL;
-  size_t total_matrix_rows = 0;
-  get_vroom_matrix(matrix_sql, &matrix_rows, &total_matrix_rows, is_plain);
-
-  if (total_matrix_rows == 0) {
-    ereport(WARNING, (errmsg("Insufficient data found on Matrix SQL query."),
-                      errhint("%s", matrix_sql)));
-    (*result_count) = 0;
-    (*result_tuples) = NULL;
-    vrp_SPI_finish();
-    return;
-  }
-
-  clock_t start_t = clock();
-  char *log_msg = NULL;
-  char *notice_msg = NULL;
-  char *err_msg = NULL;
-
-  int32_t loading_time = (int)((clock() - start_loading) / CLOCKS_PER_SEC) * 1000;
-
-  do_vrp_vroom(
-    jobs, total_jobs,
-    jobs_tws, total_jobs_tws,
-    shipments, total_shipments,
-    shipments_tws, total_shipments_tws,
-    vehicles, total_vehicles,
-    breaks, total_breaks,
-    breaks_tws, total_breaks_tws,
-    matrix_rows, total_matrix_rows,
-
-    exploration_level,
-    timeout,
-    loading_time,
-
-    result_tuples,
-    result_count,
-
-    &log_msg,
-    &notice_msg,
-    &err_msg);
-
-  time_msg("processing vrp_vroom", start_t, clock());
-
-  if (err_msg && (*result_tuples)) {
-    pfree(*result_tuples);
-    (*result_tuples) = NULL;
-    (*result_count) = 0;
-  }
-
-  vrp_global_report(&log_msg, &notice_msg, &err_msg);
-
-  if (jobs) pfree(jobs);
-  if (shipments) pfree(shipments);
-  if (vehicles) pfree(vehicles);
-  if (matrix_rows) pfree(matrix_rows);
-
-  vrp_SPI_finish();
 }
 
 
