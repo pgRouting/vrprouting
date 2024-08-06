@@ -273,10 +273,8 @@ _vrp_pickdeliver(PG_FUNCTION_ARGS) {
   FuncCallContext     *funcctx;
   TupleDesc            tuple_desc;
 
-  /**************************************************************************/
   Solution_rt *result_tuples = 0;
   size_t result_count = 0;
-  /**************************************************************************/
 
   if (SRF_IS_FIRSTCALL()) {
     MemoryContext   oldcontext;
@@ -299,8 +297,6 @@ _vrp_pickdeliver(PG_FUNCTION_ARGS) {
         &result_tuples,
         &result_count);
 
-    /*********************************************************************/
-
     funcctx->max_calls = result_count;
     funcctx->user_fctx = result_tuples;
     if (get_call_result_type(fcinfo, NULL, &tuple_desc)
@@ -353,8 +349,6 @@ _vrp_pickdeliver(PG_FUNCTION_ARGS) {
     values[14] = Int32GetDatum(result_tuples[call_cntr].cvTot);
     values[15] = Int32GetDatum(result_tuples[call_cntr].twvTot);
 
-    /*********************************************************************/
-
     tuple = heap_form_tuple(tuple_desc, values, nulls);
     result = HeapTupleGetDatum(tuple);
 
@@ -370,7 +364,6 @@ _vrp_pickdeliver(PG_FUNCTION_ARGS) {
     SRF_RETURN_DONE(funcctx);
   }
 }
-/******************************************************************************/
 
 
 /**
@@ -381,10 +374,8 @@ _vrp_pickdeliverraw(PG_FUNCTION_ARGS) {
   FuncCallContext     *funcctx;
   TupleDesc            tuple_desc;
 
-  /**************************************************************************/
   Solution_rt *result_tuples = 0;
   size_t result_count = 0;
-  /**************************************************************************/
 
   if (SRF_IS_FIRSTCALL()) {
     MemoryContext   oldcontext;
@@ -407,8 +398,6 @@ _vrp_pickdeliverraw(PG_FUNCTION_ARGS) {
         &result_tuples,
         &result_count);
 
-    /*********************************************************************/
-
     funcctx->max_calls = result_count;
     funcctx->user_fctx = result_tuples;
     if (get_call_result_type(fcinfo, NULL, &tuple_desc)
@@ -460,8 +449,6 @@ _vrp_pickdeliverraw(PG_FUNCTION_ARGS) {
     values[13] = Int64GetDatum(result_tuples[call_cntr].departureTime);
     values[14] = Int32GetDatum(result_tuples[call_cntr].cvTot);
     values[15] = Int32GetDatum(result_tuples[call_cntr].twvTot);
-
-    /*********************************************************************/
 
     tuple = heap_form_tuple(tuple_desc, values, nulls);
     result = HeapTupleGetDatum(tuple);

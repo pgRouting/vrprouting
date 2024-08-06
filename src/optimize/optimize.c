@@ -258,19 +258,13 @@ process(
 }
 
 
-
-/******************************************************************************/
-
-
 PGDLLEXPORT Datum
 _vrp_optimize(PG_FUNCTION_ARGS) {
   FuncCallContext     *funcctx;
   TupleDesc            tuple_desc;
 
-  /**************************************************************************/
   Short_vehicle_rt *result_tuples = 0;
   size_t result_count = 0;
-  /**************************************************************************/
 
   if (SRF_IS_FIRSTCALL()) {
     MemoryContext   oldcontext;
@@ -293,8 +287,6 @@ _vrp_optimize(PG_FUNCTION_ARGS) {
 
         &result_tuples,
         &result_count);
-
-    /*********************************************************************/
 
 #if PGSQL_VERSION > 95
     funcctx->max_calls = result_count;
@@ -338,8 +330,6 @@ _vrp_optimize(PG_FUNCTION_ARGS) {
     values[0] = Int32GetDatum(funcctx->call_cntr + 1);
     values[1] = Int64GetDatum(result_tuples[call_cntr].vehicle_id);
     values[2] = Int64GetDatum(result_tuples[call_cntr].order_id);
-
-    /*********************************************************************/
 
     tuple = heap_form_tuple(tuple_desc, values, nulls);
     result = HeapTupleGetDatum(tuple);

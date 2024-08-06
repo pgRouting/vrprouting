@@ -274,24 +274,13 @@ _vrp_pgr_pickdeliver(PG_FUNCTION_ARGS) {
     FuncCallContext     *funcctx;
     TupleDesc            tuple_desc;
 
-    /**************************************************************************/
     Solution_rt *result_tuples = 0;
     size_t result_count = 0;
-    /**************************************************************************/
 
     if (SRF_IS_FIRSTCALL()) {
         MemoryContext   oldcontext;
         funcctx = SRF_FIRSTCALL_INIT();
         oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
-
-        /**********************************************************************
-           orders_sql TEXT,
-           vehicles_sql TEXT,
-           matrix_cell_sql TEXT,
-           factor FLOAT DEFAULT 1,
-           max_cycles  INTEGER DEFAULT 10,
-           initial_sol INTEGER DEFAULT 4,
-         **********************************************************************/
 
         process(
                 text_to_cstring(PG_GETARG_TEXT_P(0)),
@@ -302,8 +291,6 @@ _vrp_pgr_pickdeliver(PG_FUNCTION_ARGS) {
                 PG_GETARG_INT32(5),
                 &result_tuples,
                 &result_count);
-
-        /*********************************************************************/
 
         funcctx->max_calls = result_count;
         funcctx->user_fctx = result_tuples;
@@ -329,24 +316,6 @@ _vrp_pgr_pickdeliver(PG_FUNCTION_ARGS) {
         Datum       *values;
         bool*       nulls;
         size_t      call_cntr = funcctx->call_cntr;
-
-        /*********************************************************************
-
-          OUT seq INTEGER,
-          OUT vehicle_number INTEGER,
-          OUT vehicle_id BIGINT,
-          OUT vehicle_seq INTEGER,
-          OUT order_id BIGINT,
-          OUT stop_type INT,
-          OUT cargo FLOAT,
-          OUT travel_time FLOAT,
-          OUT arrival_time FLOAT,
-          OUT wait_time FLOAT,
-          OUT service_time FLOAT,
-          OUT departure_time FLOAT
-
-         *********************************************************************/
-
 
         size_t numb = 13;
         values = palloc(numb * sizeof(Datum));

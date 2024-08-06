@@ -186,35 +186,19 @@ process(
 
     vrp_SPI_finish();
 }
-/*                                                                            */
-/******************************************************************************/
 
 PGDLLEXPORT Datum
 _vrp_pgr_pickdelivereuclidean(PG_FUNCTION_ARGS) {
     FuncCallContext     *funcctx;
     TupleDesc            tuple_desc;
 
-    /**************************************************************************/
-    /*                          MODIFY AS NEEDED                              */
-    /*                                                                        */
     Solution_rt *result_tuples = 0;
     size_t result_count = 0;
-    /*                                                                        */
-    /**************************************************************************/
 
     if (SRF_IS_FIRSTCALL()) {
         MemoryContext   oldcontext;
         funcctx = SRF_FIRSTCALL_INIT();
         oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
-
-        /**********************************************************************/
-        /*                          MODIFY AS NEEDED                          */
-        /*
-           orders_sql TEXT,
-           vehicles_sql INTEGER,
-           max_cycles INTEGER,
-           initial_id INTEGER,
-         **********************************************************************/
 
         PGR_DBG("Calling process");
         process(
@@ -225,9 +209,6 @@ _vrp_pgr_pickdelivereuclidean(PG_FUNCTION_ARGS) {
                 PG_GETARG_INT32(4),
                 &result_tuples,
                 &result_count);
-
-        /*                                                                   */
-        /*********************************************************************/
 
         funcctx->max_calls = result_count;
         funcctx->user_fctx = result_tuples;
@@ -253,19 +234,6 @@ _vrp_pgr_pickdelivereuclidean(PG_FUNCTION_ARGS) {
         Datum       *values;
         bool*       nulls;
         size_t      call_cntr = funcctx->call_cntr;
-
-        /*********************************************************************/
-        /*                          MODIFY!!!!!                              */
-        /* This has to match you output otherwise the server crashes          */
-        /*
-           OUT seq INTEGER,
-           OUT vehicle_id INTEGER,
-           OUT vehicle_seq INTEGER,
-           OUT order_id BIGINT,
-           OUT cost FLOAT,
-           OUT agg_cost FLOAT
-         *********************************************************************/
-
 
         size_t numb = 12;
         values = palloc(numb * sizeof(Datum));

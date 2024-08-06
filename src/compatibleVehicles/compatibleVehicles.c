@@ -224,30 +224,18 @@ process(
 
 
 
-/******************************************************************************/
-
-
 PGDLLEXPORT Datum
 _vrp_compatiblevehicles(PG_FUNCTION_ARGS) {
     FuncCallContext     *funcctx;
     TupleDesc            tuple_desc;
 
-    /**************************************************************************/
     CompatibleVehicles_rt *result_tuples = 0;
     size_t result_count = 0;
-    /**************************************************************************/
 
     if (SRF_IS_FIRSTCALL()) {
         MemoryContext   oldcontext;
         funcctx = SRF_FIRSTCALL_INIT();
         oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
-
-        /**********************************************************************
-           orders_sql TEXT,
-           vehicles_sql TEXT,
-           matrix_cell_sql TEXT,
-           factor FLOAT DEFAULT 1,
-         **********************************************************************/
 
         process(
                 text_to_cstring(PG_GETARG_TEXT_P(0)),
@@ -258,8 +246,6 @@ _vrp_compatiblevehicles(PG_FUNCTION_ARGS) {
                 PG_GETARG_BOOL(5),
                 &result_tuples,
                 &result_count);
-
-        /*********************************************************************/
 
         funcctx->max_calls = result_count;
         funcctx->user_fctx = result_tuples;
