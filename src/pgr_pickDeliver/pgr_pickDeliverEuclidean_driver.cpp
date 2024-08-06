@@ -135,6 +135,9 @@ do_pgr_pickDeliverEuclidean(
         char **log_msg,
         char **notice_msg,
         char **err_msg) {
+    using vrprouting::alloc;
+    using vrprouting::to_pg_msg;
+
     std::ostringstream log;
     std::ostringstream notice;
     std::ostringstream err;
@@ -144,8 +147,8 @@ do_pgr_pickDeliverEuclidean(
         std::string err_string;
         std::string hint_string;
         if (!are_shipments_ok(customers_arr, total_customers, &err_string, &hint_string)) {
-            *err_msg = pgr_msg(err_string.c_str());
-            *log_msg = pgr_msg(hint_string.c_str());
+            *err_msg = to_pg_msg(err_string.c_str());
+            *log_msg = to_pg_msg(hint_string.c_str());
             return;
         }
 
@@ -211,8 +214,8 @@ do_pgr_pickDeliverEuclidean(
             log.clear();
             log << pd_problem.msg.get_error();
             log << pd_problem.msg.get_log();
-            *log_msg = pgr_msg(log.str().c_str());
-            *err_msg = pgr_msg(err.str().c_str());
+            *log_msg = to_pg_msg(log.str().c_str());
+            *err_msg = to_pg_msg(err.str().c_str());
             return;
         }
         log << pd_problem.msg.get_log();
@@ -243,7 +246,7 @@ do_pgr_pickDeliverEuclidean(
 
 
         if (!solution.empty()) {
-            (*return_tuples) = pgr_alloc(solution.size(), (*return_tuples));
+            (*return_tuples) = alloc(solution.size(), (*return_tuples));
             int seq = 0;
             for (const auto &row : solution) {
                 (*return_tuples)[seq] = row;
@@ -257,35 +260,35 @@ do_pgr_pickDeliverEuclidean(
         pgassert(*err_msg == NULL);
         *log_msg = log.str().empty()?
             nullptr :
-            pgr_msg(log.str().c_str());
+            to_pg_msg(log.str().c_str());
         *notice_msg = notice.str().empty()?
             nullptr :
-            pgr_msg(notice.str().c_str());
+            to_pg_msg(notice.str().c_str());
     } catch (AssertFailedException &except) {
         if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
         err << except.what();
-        *err_msg = pgr_msg(err.str().c_str());
-        *log_msg = pgr_msg(log.str().c_str());
+        *err_msg = to_pg_msg(err.str().c_str());
+        *log_msg = to_pg_msg(log.str().c_str());
     } catch (std::exception& except) {
         if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
         err << except.what();
-        *err_msg = pgr_msg(err.str().c_str());
-        *log_msg = pgr_msg(log.str().c_str());
+        *err_msg = to_pg_msg(err.str().c_str());
+        *log_msg = to_pg_msg(log.str().c_str());
     } catch (const std::pair<std::string, std::string>& ex) {
         (*return_count) = 0;
         err << ex.first;
         log.str("");
         log.clear();
         log << ex.second;
-        *err_msg = pgr_msg(err.str().c_str());
-        *log_msg = pgr_msg(log.str().c_str());
+        *err_msg = to_pg_msg(err.str().c_str());
+        *log_msg = to_pg_msg(log.str().c_str());
     } catch(...) {
         if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
         err << "Caught unknown exception!";
-        *err_msg = pgr_msg(err.str().c_str());
-        *log_msg = pgr_msg(log.str().c_str());
+        *err_msg = to_pg_msg(err.str().c_str());
+        *log_msg = to_pg_msg(log.str().c_str());
     }
 }
