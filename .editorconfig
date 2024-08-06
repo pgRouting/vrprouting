@@ -12,15 +12,15 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-# C++ files want tab indentation
+# SQL files want space indentation
 [*.sql]
 indent_style = space
 indent_size = 2
 
-# C++ files want tab indentation
+# C++ files want space indentation
 [*.{c,h,cpp,hpp,inl}]
 indent_style = space
-indent_size = 2
+indent_size = 4
 
 # Makefiles want tab indentation
 [Makefile]
