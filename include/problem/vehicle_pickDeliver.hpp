@@ -146,7 +146,7 @@ class Vehicle_pickDeliver : public Vehicle {
 
      const Orders& orders() const {pgassert(m_orders.size() != 0); return m_orders;}
 
-     Pgr_messages& msg() {return m_msg;}
+     Messages& msg() {return m_msg;}
 
  protected:
      using Vehicle::begin;
@@ -164,7 +164,7 @@ class Vehicle_pickDeliver : public Vehicle {
 
      Orders m_orders;
 
-     Pgr_messages m_msg;
+     Messages m_msg;
 
  private:
      /**

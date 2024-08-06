@@ -116,7 +116,7 @@ class Solution {
 
     bool operator<(const Solution&) const;
 
-    Pgr_messages& msg() {return m_msg;}
+    Messages& msg() {return m_msg;}
     const Orders& orders() const {return m_orders;}
     Fleet& vehicles() {return m_trucks;}
 
@@ -127,7 +127,7 @@ class Solution {
     /** the problem info */
     Orders m_orders;
     Fleet  m_trucks;
-    Pgr_messages m_msg;
+    Messages m_msg;
 };
 
 }  //  namespace problem

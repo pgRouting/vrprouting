@@ -96,7 +96,7 @@ class PickDeliver {
     const Fleet& vehicles() {return m_trucks;}
 
     /** message controller for all classes */
-    Pgr_messages msg;
+    Messages msg;
 
     /** the cost matrix */
     const Matrix& m_cost_matrix;
