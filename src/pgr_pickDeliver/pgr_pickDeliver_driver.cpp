@@ -92,6 +92,9 @@ do_pgr_pickDeliver(
         char **log_msg,
         char **notice_msg,
         char **err_msg) {
+    using vrprouting::alloc;
+    using vrprouting::to_pg_msg;
+
     std::ostringstream log;
     std::ostringstream notice;
     std::ostringstream err;
@@ -152,7 +155,7 @@ do_pgr_pickDeliver(
             for (const auto &v : vehicles) {
                 if (v.start_node_id != depot_node && v.end_node_id != depot_node) {
                     err << "All vehicles must depart & arrive to same node";
-                    *err_msg = pgr_msg(err.str().c_str());
+                    *err_msg = to_pg_msg(err.str().c_str());
                     return;
                 }
             }
@@ -163,7 +166,7 @@ do_pgr_pickDeliver(
             for (size_t i = 0; i < total_customers; ++i) {
                 if (customers_arr[i].pick_node_id != depot_node) {
                     err << "All orders must be picked at depot";
-                    *err_msg = pgr_msg(err.str().c_str());
+                    *err_msg = to_pg_msg(err.str().c_str());
                     return;
                 }
             }
@@ -172,7 +175,7 @@ do_pgr_pickDeliver(
 
         if (!time_matrix.has_no_infinity()) {
             err << "An Infinity value was found on the Matrix. Might be missing information of a node";
-            *err_msg = pgr_msg(err.str().c_str());
+            *err_msg = to_pg_msg(err.str().c_str());
             return;
         }
 
@@ -187,8 +190,8 @@ do_pgr_pickDeliver(
         err << pd_problem.msg.get_error();
         if (!err.str().empty()) {
             log << pd_problem.msg.get_log();
-            *log_msg = pgr_msg(log.str().c_str());
-            *err_msg = pgr_msg(err.str().c_str());
+            *log_msg = to_pg_msg(log.str().c_str());
+            *err_msg = to_pg_msg(err.str().c_str());
             return;
         }
         log << pd_problem.msg.get_log();
@@ -224,7 +227,7 @@ do_pgr_pickDeliver(
 
 
         if (!solution.empty()) {
-            (*return_tuples) = pgr_alloc(solution.size(), (*return_tuples));
+            (*return_tuples) = alloc(solution.size(), (*return_tuples));
             int seq = 0;
             for (const auto &row : solution) {
                 (*return_tuples)[seq] = row;
@@ -236,39 +239,39 @@ do_pgr_pickDeliver(
         pgassert(*err_msg == NULL);
         *log_msg = log.str().empty()?
             nullptr :
-            pgr_msg(log.str().c_str());
+            to_pg_msg(log.str().c_str());
         *notice_msg = notice.str().empty()?
             nullptr :
-            pgr_msg(notice.str().c_str());
+            to_pg_msg(notice.str().c_str());
     } catch (AssertFailedException &except) {
         if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
         err << except.what();
-        *err_msg = pgr_msg(err.str().c_str());
-        *log_msg = pgr_msg(log.str().c_str());
+        *err_msg = to_pg_msg(err.str().c_str());
+        *log_msg = to_pg_msg(log.str().c_str());
     } catch (std::exception& except) {
         if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
         err << except.what();
-        *err_msg = pgr_msg(err.str().c_str());
-        *log_msg = pgr_msg(log.str().c_str());
+        *err_msg = to_pg_msg(err.str().c_str());
+        *log_msg = to_pg_msg(log.str().c_str());
     } catch (const std::pair<std::string, std::string>& ex) {
         (*return_count) = 0;
         err << ex.first;
         log << ex.second;
-        *err_msg = pgr_msg(err.str().c_str());
-        *log_msg = pgr_msg(log.str().c_str());
+        *err_msg = to_pg_msg(err.str().c_str());
+        *log_msg = to_pg_msg(log.str().c_str());
     } catch (const std::pair<std::string, int64_t>& ex) {
         (*return_count) = 0;
         err << ex.first;
         log << "FOOOO missing on matrix: id =  " << ex.second;
-        *err_msg = pgr_msg(err.str().c_str());
-        *log_msg = pgr_msg(log.str().c_str());
+        *err_msg = to_pg_msg(err.str().c_str());
+        *log_msg = to_pg_msg(log.str().c_str());
     } catch(...) {
         if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
         err << "Caught unknown exception!";
-        *err_msg = pgr_msg(err.str().c_str());
-        *log_msg = pgr_msg(log.str().c_str());
+        *err_msg = to_pg_msg(err.str().c_str());
+        *log_msg = to_pg_msg(log.str().c_str());
     }
 }

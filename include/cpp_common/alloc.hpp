@@ -45,7 +45,9 @@ SPI_pfree(void *pointer);
 }
 
 
-/*! \fn pgr_alloc(std::size_t size, T *ptr)
+namespace vrprouting {
+
+/*! \fn alloc(std::size_t size, T *ptr)
 
 \brief allocates memory
 
@@ -63,7 +65,7 @@ SPI_pfree(void *pointer);
 
 template <typename T>
 T*
-pgr_alloc(std::size_t size, T* ptr) {
+alloc(std::size_t size, T* ptr) {
     if (!ptr) {
         ptr = static_cast<T*>(SPI_palloc(size * sizeof(T)));
     } else {
@@ -74,14 +76,15 @@ pgr_alloc(std::size_t size, T* ptr) {
 
 template <typename T>
 T*
-pgr_free(T* ptr) {
+free(T* ptr) {
     if (ptr) {
         SPI_pfree(ptr);
     }
     return nullptr;
 }
 
-char *
-pgr_msg(const std::string &msg);
+char* to_pg_msg(const std::string &);
+
+}  // namespace vrprouting
 
 #endif  // INCLUDE_CPP_COMMON_ALLOC_HPP_
