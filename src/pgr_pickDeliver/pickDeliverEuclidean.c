@@ -82,7 +82,7 @@ process(
     vrp_SPI_connect();
 
     PGR_DBG("Load orders");
-    struct PickDeliveryOrders_t *pd_orders_arr = NULL;
+    struct Orders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
     get_shipments_euclidean(pd_orders_sql,
            &pd_orders_arr, &total_pd_orders);

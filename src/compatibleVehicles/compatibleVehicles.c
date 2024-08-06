@@ -64,7 +64,7 @@ process(
 
     vrp_SPI_connect();
 
-    PickDeliveryOrders_t *pd_orders_arr = NULL;
+    Orders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
 
     if (use_timestamps) {

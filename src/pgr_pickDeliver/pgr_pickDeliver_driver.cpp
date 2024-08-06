@@ -73,7 +73,7 @@ vrprouting::problem::Solution
 
 void
 do_pgr_pickDeliver(
-        struct PickDeliveryOrders_t customers_arr[],
+        struct Orders_t customers_arr[],
         size_t total_customers,
 
         Vehicle_t *vehicles_arr,

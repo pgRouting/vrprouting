@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/vehicle_t.hpp"
 #include "cpp_common/matrix_cell_t.hpp"
 
-typedef struct PickDeliveryOrders_t PickDeliveryOrders_t;
+typedef struct Orders_t Orders_t;
 typedef struct Solution_rt Solution_rt;
 
 #ifdef __cplusplus
@@ -56,7 +56,7 @@ extern "C" {
     max_cycles INTEGER,
    ********************************************************/
   void do_pgr_pickDeliver(
-      PickDeliveryOrders_t *pd_orders_arr, size_t total_pd_orders,
+      Orders_t *pd_orders_arr, size_t total_pd_orders,
       Vehicle_t *vehicles_arr, size_t total_vehicles,
       Matrix_cell_t *matrix_cells_arr, size_t total_cells,
 

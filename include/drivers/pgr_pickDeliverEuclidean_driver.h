@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #   include <stddef.h>
 #endif
 
-typedef struct PickDeliveryOrders_t PickDeliveryOrders_t;
+typedef struct Orders_t Orders_t;
 typedef struct Solution_rt Solution_rt;
 typedef struct Vehicle_t Vehicle_t;
 
@@ -54,7 +54,7 @@ extern "C" {
     max_cycles INTEGER,
    ********************************************************/
   void do_pgr_pickDeliverEuclidean(
-      PickDeliveryOrders_t *pd_orders_arr, size_t total_pd_orders,
+      Orders_t *pd_orders_arr, size_t total_pd_orders,
       Vehicle_t *vehicles_arr, size_t total_vehicles,
 
       double factor,

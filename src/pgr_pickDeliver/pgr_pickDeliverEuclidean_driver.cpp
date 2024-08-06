@@ -70,7 +70,7 @@ get_initial_solution(vrprouting::problem::PickDeliver* problem_ptr, int m_initia
 
 bool
 are_shipments_ok(
-        PickDeliveryOrders_t *customers_arr,
+        Orders_t *customers_arr,
         size_t total_customers,
         std::string *err_string,
         std::string *hint_string) {
@@ -119,7 +119,7 @@ are_shipments_ok(
 
 void
 do_pgr_pickDeliverEuclidean(
-        PickDeliveryOrders_t *customers_arr,
+        Orders_t *customers_arr,
         size_t total_customers,
 
         Vehicle_t *vehicles_arr,
@@ -152,7 +152,7 @@ do_pgr_pickDeliverEuclidean(
         /*
          * transform to C++ containers
          */
-        std::vector<PickDeliveryOrders_t> orders(
+        std::vector<Orders_t> orders(
                 customers_arr, customers_arr + total_customers);
         std::vector<Vehicle_t> vehicles(
                 vehicles_arr, vehicles_arr + total_vehicles);
