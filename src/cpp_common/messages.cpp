@@ -33,30 +33,30 @@ namespace vrprouting {
 
 
 std::string
-Pgr_messages::get_log() const {
+Messages::get_log() const {
     auto str = log.str();
     return str;
 }
 
 std::string
-Pgr_messages::get_notice() const {
+Messages::get_notice() const {
     auto str = notice.str();
     return str;
 }
 
 bool
-Pgr_messages::has_error() const {
+Messages::has_error() const {
     return  !error.str().empty();
 }
 
 std::string
-Pgr_messages::get_error() const {
+Messages::get_error() const {
     auto str = error.str();
     return str;
 }
 
 void
-Pgr_messages::clear() {
+Messages::clear() {
     log.str("");
     log.clear();
 

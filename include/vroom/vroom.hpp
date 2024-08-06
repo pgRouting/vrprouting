@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 namespace vrprouting {
 
-class Vrp_vroom_problem : public vrprouting::Pgr_messages {
+class Vrp_vroom_problem : public vrprouting::Messages {
  public:
   std::vector<vroom::Job> jobs() const { return m_jobs; }
   std::vector<std::pair<vroom::Job, vroom::Job>> shipments() const { return m_shipments; }

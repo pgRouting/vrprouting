@@ -49,11 +49,11 @@ namespace vrprouting {
  * notice
  * error
  */
-class Pgr_messages {
+class Messages {
  public:
-    Pgr_messages() = default;
-    Pgr_messages(const Pgr_messages&) {}
-    Pgr_messages& operator=(const Pgr_messages&) {return *this;}
+    Messages() = default;
+    Messages(const Messages&) {}
+    Messages& operator=(const Messages&) {return *this;}
 
     /*! @brief gets the contents of @b log message
      *
