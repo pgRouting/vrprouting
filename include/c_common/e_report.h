@@ -27,48 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_C_COMMON_E_REPORT_H_
 #pragma once
 
-/*! @name Postgres ereport
- *  Send notice or error to postgreSQL (cleans the char *)
- *
- *  From the C++ err_msg, log_msg, notice_msg are returned as a (char *),
- *
- *  Before exiting the C code the pointers need to be freed:
- *   - This task can be done when there is no error,
- *   - Call to ERROR, gives the control back to postgreSQL
- *     - leaves a leak
- *
- * on C++ side, the message to be returned;
- * ~~~~{.c}
- * std::ostringstream log;
- * log << "the message";
- * *log_msg = pgr_msg(log.str().c_str());
- * ~~~~
- *
- *
- *
- *  when there is ERROR then postgreSQL takes over control
- *    The char* messages are cleared automaticalyy with pfree.
- *
- *  @warning When error: Free all data not created with palloc before calling
- *
- */
 
-/*! @brief notice & error
- *
- *  ~~~~{.c}
- *  pgr_notice(&log_msg, &notice_msg, &error_msg);
- *
- *  precondition: before calling ereport
- *      assert(!*log_msg);
- *      assert(!*notice_msg);
- *      assert(!*error_msg);
- *  ~~~~
- */
+/** @brief print log notice and error */
 void
-pgr_global_report(
-        char* log_msg,
-        char* notice_msg,
-        char* error_msg);
-
+vrp_global_report(
+        char** log_msg,
+        char** notice_msg,
+        char** error_msg);
 
 #endif  // INCLUDE_C_COMMON_E_REPORT_H_

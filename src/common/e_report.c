@@ -26,35 +26,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_common/postgres_connection.h"
 #include "c_common/e_report.h"
 
+/**
+ * On C++ side, the message to be returned;
+ * ~~~~{.c}
+ * std::ostringstream log;
+ * log << "the message";
+ * *log_msg = to_pg_msg(log.str().c_str());
+ * ~~~~
+ *
+ * Then on the C side
+ *  ~~~~{.c}
+ *  vrp_global_report(&log_msg, &notice_msg, &error_msg);
+ *  ~~~~
+ *
+ * - When there is ERROR then postgreSQL takes over control
+ *   - The char* messages are cleared automaticalyy with pfree.
+ * - When there is no error this will free the log & notice
+ */
 void
-pgr_global_report(
-        char* log,
-        char* notice,
-        char* err) {
-    if (!notice && log) {
+vrp_global_report(
+        char** log,
+        char** notice,
+        char** err) {
+    if (!(*notice) && (*log)) {
         ereport(DEBUG1,
-                (errmsg_internal("%s", log)));
+                (errmsg_internal("%s", *log)));
     }
 
-    if (notice) {
+    if (*notice) {
         if (log) {
             ereport(NOTICE,
-                    (errmsg_internal("%s", notice),
-                     errhint("%s", log)));
+                    (errmsg_internal("%s", *notice),
+                     errhint("%s", *log)));
         } else {
             ereport(NOTICE,
-                    (errmsg_internal("%s", notice)));
+                    (errmsg_internal("%s", *notice)));
         }
     }
 
-    if (err) {
-        if (log) {
+    if (*err) {
+        if (*log) {
             ereport(ERROR,
-                    (errmsg_internal("%s", err),
-                     errhint("%s", log)));
+                    (errmsg_internal("%s", *err),
+                     errhint("%s", *log)));
         } else {
             ereport(ERROR,
-                    (errmsg_internal("%s", err)));
+                    (errmsg_internal("%s", *err)));
+        }
+    } else {
+        if (*log) {
+            pfree(*log);
+            *log = NULL;
+        }
+        if (*notice) {
+            pfree(*notice);
+            *notice = NULL;
         }
     }
 }
