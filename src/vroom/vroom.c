@@ -65,31 +65,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(_vrp_vroom);
 
-/** @brief Static function, loads the data from postgres to C types for further processing.
- *
- * It first connects the C function to the SPI manager. Then converts
- * the postgres array to C array and loads the edges belonging to the graph
- * in C types. Then it calls the function `do_vrp_vroom` defined
- * in the `vroom_driver.h` file for further processing.
- * Finally, it frees the memory and disconnects the C function to the SPI manager.
- *
- * @param jobs_sql          SQL query describing the jobs
- * @param jobs_tw_sql       SQL query describing the time window for jobs
- * @param shipments_sql     SQL query describing the shipments
- * @param shipments_tw_sql  SQL query describing the time windows for shipment
- * @param vehicles_sql      SQL query describing the vehicles
- * @param breaks_sql        SQL query describing the driver breaks.
- * @param breaks_tws_sql    SQL query describing the time windows for break start.
- * @param matrix_sql        SQL query describing the cells of the cost matrix
- * @param exploration_level Exploration level to use while solving.
- * @param timeout           Timeout value to stop the solving process.
- * @param fn                Value denoting the function used.
- * @param is_plain          Value denoting whether the plain/timestamp function is used.
- * @param result_tuples     the rows in the result
- * @param result_count      the count of rows in the result
- *
- * @returns void
- */
 static
 void
 process(
@@ -252,34 +227,13 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
   FuncCallContext   *funcctx;
   TupleDesc       tuple_desc;
 
-  /**********************************************************************/
   Vroom_rt *result_tuples = NULL;
   size_t result_count = 0;
-  /**********************************************************************/
 
   if (SRF_IS_FIRSTCALL()) {
     MemoryContext   oldcontext;
     funcctx = SRF_FIRSTCALL_INIT();
     oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
-
-    /***********************************************************************
-     *
-     *   _vrp_vroom(
-     *     jobs_sql TEXT,
-     *     jobs_time_windows_sql TEXT,
-     *     shipments_sql TEXT,
-     *     shipments_time_windows_sql TEXT,
-     *     vehicles_sql TEXT,
-     *     breaks_sql TEXT,
-     *     breaks_time_windows_sql TEXT,
-     *     matrix_sql TEXT,
-     *     exploration_level INTEGER default 5,
-     *     timeout INTEGER default -1,
-     *     fn SMALLINT,
-     *     is_plain BOOLEAN
-     *   );
-     *
-     **********************************************************************/
 
     char *args[8];
     for (int i = 0; i < 8; i++) {
@@ -329,9 +283,6 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
         is_plain,
         &result_tuples,
         &result_count);
-
-    /**********************************************************************/
-
 
 #if PGSQL_VERSION > 95
     funcctx->max_calls = result_count;
@@ -421,8 +372,6 @@ PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
     values[13] = Int32GetDatum(result_tuples[call_cntr].waiting_time);
     values[14] = Int32GetDatum(result_tuples[call_cntr].departure_time);
     values[15] = PointerGetDatum(arrayType);
-
-    /**********************************************************************/
 
     tuple = heap_form_tuple(tuple_desc, values, nulls);
     result = HeapTupleGetDatum(tuple);
