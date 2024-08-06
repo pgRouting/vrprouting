@@ -67,9 +67,9 @@ void db_get_matrix(
   size_t total_tuples;
 
   void *SPIplan;
-  SPIplan = pgr_SPI_prepare(matrix_sql);
+  SPIplan = vrp_SPI_prepare(matrix_sql);
   Portal SPIportal;
-  SPIportal = pgr_SPI_cursor_open(SPIplan);
+  SPIportal = vrp_SPI_cursor_open(SPIplan);
 
   bool moredata = true;
   (*total_matrix_rows) = total_tuples = 0;

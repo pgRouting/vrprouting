@@ -94,9 +94,9 @@ void db_get_jobs(
   size_t total_tuples;
 
   void *SPIplan;
-  SPIplan = pgr_SPI_prepare(jobs_sql);
+  SPIplan = vrp_SPI_prepare(jobs_sql);
   Portal SPIportal;
-  SPIportal = pgr_SPI_cursor_open(SPIplan);
+  SPIportal = vrp_SPI_cursor_open(SPIplan);
 
   bool moredata = true;
   (*total_jobs) = total_tuples = 0;

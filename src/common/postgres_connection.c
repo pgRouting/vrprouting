@@ -32,43 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/debug_macro.h"
 
-void
-pgr_send_error(int errcode) {
-    switch (errcode) {
-        case 1:
-            elog(ERROR, "Unexpected point(s) with same pid but different"
-                   " edge/fraction/side combination found.");
-            break;
-        case 2:
-            elog(ERROR, "Internal: Unexpected mismatch "
-                   "count and sequence number on results");
-            break;
-        default:
-            elog(ERROR, "Unknown exception");
-    }
-}
-
-
-char*
-pgr_cstring2char(const char *inStr) {
-    if (!inStr) return NULL;
-
-    char *outStr;
-    outStr = palloc(strlen(inStr));
-    if (!outStr) return NULL;
-
-    memcpy(outStr, inStr, strlen(inStr));
-
-    outStr[strlen(inStr)] = '\0';
-
-    return outStr;
-}
-
 
 
 // http://www.postgresql.org/docs/9.4/static/spi-spi-finish.html
 void
-pgr_SPI_finish(void) {
+vrp_SPI_finish(void) {
     int code = SPI_finish();
     if (code != SPI_OK_FINISH) {  // SPI_ERROR_UNCONNECTED
         elog(ERROR, "There was no connection to SPI");
@@ -76,7 +44,7 @@ pgr_SPI_finish(void) {
 }
 
 void
-pgr_SPI_connect(void) {
+vrp_SPI_connect(void) {
     int SPIcode;
     SPIcode = SPI_connect();
     if (SPIcode  != SPI_OK_CONNECT) {
@@ -85,7 +53,7 @@ pgr_SPI_connect(void) {
 }
 
 SPIPlanPtr
-pgr_SPI_prepare(char* sql) {
+vrp_SPI_prepare(const char* sql) {
     SPIPlanPtr SPIplan;
     SPIplan = SPI_prepare(sql, 0, NULL);
     if (SPIplan  == NULL) {
@@ -95,7 +63,7 @@ pgr_SPI_prepare(char* sql) {
 }
 
 Portal
-pgr_SPI_cursor_open(SPIPlanPtr SPIplan) {
+vrp_SPI_cursor_open(SPIPlanPtr SPIplan) {
     Portal SPIportal;
     SPIportal = SPI_cursor_open(NULL, SPIplan, NULL, NULL, true);
     if (SPIportal == NULL) {

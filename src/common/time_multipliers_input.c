@@ -78,10 +78,10 @@ void get_timeMultipliersGeneral(
   const int column_count = 2;
 
   void *SPIplan;
-  SPIplan = pgr_SPI_prepare(sql);
+  SPIplan = vrp_SPI_prepare(sql);
 
   Portal SPIportal;
-  SPIportal = pgr_SPI_cursor_open(SPIplan);
+  SPIportal = vrp_SPI_cursor_open(SPIplan);
 
 
   bool moredata = true;

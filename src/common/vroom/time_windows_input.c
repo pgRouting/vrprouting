@@ -98,9 +98,9 @@ void db_get_time_windows(
   size_t total_tuples;
 
   void *SPIplan;
-  SPIplan = pgr_SPI_prepare(time_windows_sql);
+  SPIplan = vrp_SPI_prepare(time_windows_sql);
   Portal SPIportal;
-  SPIportal = pgr_SPI_cursor_open(SPIplan);
+  SPIportal = vrp_SPI_cursor_open(SPIplan);
 
   bool moredata = true;
   (*total_time_windows) = total_tuples = 0;

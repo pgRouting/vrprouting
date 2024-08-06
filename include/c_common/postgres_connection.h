@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_C_COMMON_POSTGRES_CONNECTION_H_
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <postgres.h>
 #include <executor/spi.h>
@@ -34,11 +37,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <fmgr.h>
 
 
-void pgr_send_error(int errcode);
-void pgr_SPI_finish(void);
-void pgr_SPI_connect(void);
-SPIPlanPtr pgr_SPI_prepare(char* sql);
-Portal pgr_SPI_cursor_open(SPIPlanPtr SPIplan);
-char* pgr_cstring2char(const char *inStr);
+void vrp_SPI_finish(void);
+void vrp_SPI_connect(void);
+SPIPlanPtr vrp_SPI_prepare(const char*);
+Portal vrp_SPI_cursor_open(SPIPlanPtr);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // INCLUDE_C_COMMON_POSTGRES_CONNECTION_H_
