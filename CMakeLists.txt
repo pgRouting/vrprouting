@@ -40,8 +40,6 @@ add_definitions(-DPROJECT_VERSION="v${PROJECT_VERSION}${PROJECT_VERSION_DEV}")
 set(PROJECT_LIB_NAME "${PROJECT_NAME_LOWER}-${PROJECT_LIB_VERSION}")
 
 
-
-
 #=============================================
 # Set the working directories
 #=============================================
@@ -297,7 +295,7 @@ endif()
 
 message(STATUS "VROOM_INSTALL_PATH ${VROOM_INSTALL_PATH}")
 
-include_directories(${VROOM_INSTALL_PATH}/src)
+include_directories(SYSTEM ${VROOM_INSTALL_PATH}/src)
 link_libraries(${VROOM_INSTALL_PATH}/lib/libvroom.a)
 link_libraries(glpk)
 
