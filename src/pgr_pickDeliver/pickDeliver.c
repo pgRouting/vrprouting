@@ -85,7 +85,7 @@ process(
 
     vrp_SPI_connect();
 
-    PickDeliveryOrders_t *pd_orders_arr = NULL;
+    Orders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
     get_shipments_raw(pd_orders_sql,
            &pd_orders_arr, &total_pd_orders);

@@ -52,7 +52,7 @@ deliver_service_t | Deliver service duration
 /*
  * its with either (foo_x, foo_y) pairs (for euclidean or with foo_node_id (for matrix)
  */
-struct PickDeliveryOrders_t{
+struct Orders_t{
   Id      id;     /** Order's identifier */
   PAmount  demand; /** Number of demand */
 

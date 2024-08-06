@@ -106,7 +106,7 @@ digraph G {
  */
 void
 do_pickDeliver(
-        PickDeliveryOrders_t *customers_arr, size_t total_customers,
+        Orders_t *customers_arr, size_t total_customers,
         Vehicle_t *vehicles_arr, size_t total_vehicles,
         Matrix_cell_t *matrix_cells_arr, size_t total_cells,
         Time_multipliers_t *multipliers_arr, size_t total_multipliers,

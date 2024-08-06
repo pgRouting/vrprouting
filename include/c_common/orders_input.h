@@ -27,27 +27,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #pragma once
 
 #include <stddef.h>
-typedef struct PickDeliveryOrders_t PickDeliveryOrders_t;
+typedef struct Orders_t Orders_t;
 
 /** @brief Reads the pick-Deliver shipments for timestams and intervals*/
 void
 get_shipments(
     char *,
-    PickDeliveryOrders_t **,
+    Orders_t **,
     size_t *);
 
 /** @brief Reads the pick-Deliver shipments for raw data*/
 void
 get_shipments_raw(
     char *,
-    PickDeliveryOrders_t **,
+    Orders_t **,
     size_t *);
 
 /** @brief Reads the pick-Deliver shipments for euclidean information*/
 void
 get_shipments_euclidean(
     char *,
-    PickDeliveryOrders_t **,
+    Orders_t **,
     size_t *);
 
 #endif  // INCLUDE_C_COMMON_ORDERS_INPUT_H_

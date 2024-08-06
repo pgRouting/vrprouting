@@ -59,7 +59,7 @@ class Tw_node : public Identifier {
      /** @brief Creating a Tw_node from a postgreSQL order */
      Tw_node(
              size_t id,
-             const PickDeliveryOrders_t &data,
+             const Orders_t &data,
              const NodeType &type);
 
      /** @brief Creating a Tw_node from a postgreSQL vehicle */

@@ -42,7 +42,7 @@ void fetch_euclidean(
     HeapTuple *tuple,
     TupleDesc *tupdesc,
     Column_info_t *info,
-    PickDeliveryOrders_t *pd_order) {
+    Orders_t *pd_order) {
   pd_order->id = get_Id(tuple, tupdesc, info[0], -1);
   pd_order->demand = get_PositiveAmount(tuple, tupdesc, info[1], 0);
 
@@ -78,7 +78,7 @@ void fetch_raw(
     HeapTuple *tuple,
     TupleDesc *tupdesc,
     Column_info_t *info,
-    PickDeliveryOrders_t *pd_order) {
+    Orders_t *pd_order) {
   pd_order->id = get_Id(tuple, tupdesc, info[0], -1);
   pd_order->demand = get_PositiveAmount(tuple, tupdesc, info[1], 0);
 
@@ -113,7 +113,7 @@ void fetch_timestamps(
         HeapTuple *tuple,
         TupleDesc *tupdesc,
         Column_info_t *info,
-        PickDeliveryOrders_t *pd_order) {
+        Orders_t *pd_order) {
     pd_order->id = get_Id(tuple, tupdesc, info[0], -1);
     pd_order->demand = get_PositiveAmount(tuple, tupdesc, info[1], 0);
 
@@ -150,7 +150,7 @@ static
 void
 pgr_get_pd_orders_general(
         char *pd_orders_sql,
-        PickDeliveryOrders_t **pd_orders,
+        Orders_t **pd_orders,
         size_t *total_pd_orders,
 
         Column_info_t *info,
@@ -186,12 +186,12 @@ pgr_get_pd_orders_general(
         total_tuples += ntuples;
         if (ntuples > 0) {
             if ((*pd_orders) == NULL)
-                (*pd_orders) = (PickDeliveryOrders_t *)palloc0(
-                        total_tuples * sizeof(PickDeliveryOrders_t));
+                (*pd_orders) = (Orders_t *)palloc0(
+                        total_tuples * sizeof(Orders_t));
             else
-                (*pd_orders) = (PickDeliveryOrders_t *)repalloc(
+                (*pd_orders) = (Orders_t *)repalloc(
                         (*pd_orders),
-                        total_tuples * sizeof(PickDeliveryOrders_t));
+                        total_tuples * sizeof(Orders_t));
 
             if ((*pd_orders) == NULL) {
                 elog(ERROR, "Out of memory");
@@ -241,7 +241,7 @@ pgr_get_pd_orders_general(
 void
 get_shipments(
     char *sql,
-    PickDeliveryOrders_t **rows,
+    Orders_t **rows,
     size_t *total_rows) {
   const int column_count = 10;
   Column_info_t info[10];
@@ -286,7 +286,7 @@ get_shipments(
 void
 get_shipments_raw(
     char *sql,
-    PickDeliveryOrders_t **rows,
+    Orders_t **rows,
     size_t *total_rows) {
   const int column_count = 10;
   Column_info_t info[10];
@@ -324,7 +324,7 @@ get_shipments_raw(
 void
 get_shipments_euclidean(
     char *sql,
-    PickDeliveryOrders_t **rows,
+    Orders_t **rows,
     size_t *total_rows) {
   const int column_count = 12;
   Column_info_t info[12];

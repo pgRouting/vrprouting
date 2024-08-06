@@ -96,7 +96,7 @@ digraph G {
  */
 void
 do_compatibleVehicles(
-        PickDeliveryOrders_t customers_arr[],
+        Orders_t customers_arr[],
         size_t total_customers,
 
         Vehicle_t *vehicles_arr,

@@ -312,7 +312,7 @@ bool Tw_node::is_valid() const {
   */
 Tw_node::Tw_node(
     size_t id,
-    const PickDeliveryOrders_t &data,
+    const Orders_t &data,
     const NodeType &type) :
   Identifier(id, data.pick_node_id),
   m_order(data.id),

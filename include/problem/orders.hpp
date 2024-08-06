@@ -52,7 +52,7 @@ class Orders : public std::vector<Order> {
 
     // todo remove template its problem::PickDeliver
     template <typename PTR>
-      Orders(PickDeliveryOrders_t* p_orders, size_t p_size_orders, const PTR problem_ptr) {
+      Orders(Orders_t* p_orders, size_t p_size_orders, const PTR problem_ptr) {
         Tw_node::m_time_matrix_ptr = &problem_ptr->time_matrix();
         build_orders(p_orders, p_size_orders, problem_ptr);
       }
@@ -81,10 +81,10 @@ class Orders : public std::vector<Order> {
 
  private:
     template <typename PTR>
-      void build_orders(PickDeliveryOrders_t *, size_t, const PTR problem_ptr);
+      void build_orders(Orders_t *, size_t, const PTR problem_ptr);
 
     /** @brief add in an order */
-    void add_order(const PickDeliveryOrders_t &order,
+    void add_order(const Orders_t &order,
         const Vehicle_node &pick,
         const Vehicle_node &drop) {
       push_back(Order(size(), order.id, pick, drop));
@@ -98,12 +98,12 @@ class Orders : public std::vector<Order> {
   */
 template <typename PTR>
 void
-Orders::build_orders(PickDeliveryOrders_t *orders, size_t size_orders, const PTR problem_ptr) {
+Orders::build_orders(Orders_t *orders, size_t size_orders, const PTR problem_ptr) {
   /**
    * - Sort orders: ASC pick_open_t, deliver_close_t, id
    */
   std::sort(orders, orders + size_orders,
-      [] (const PickDeliveryOrders_t &lhs, const PickDeliveryOrders_t &rhs) {
+      [] (const Orders_t &lhs, const Orders_t &rhs) {
         if (lhs.pick_open_t == rhs.pick_open_t) {
           if (lhs.deliver_close_t == rhs.deliver_close_t) {
             return lhs.id < rhs.id;
