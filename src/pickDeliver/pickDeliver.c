@@ -65,202 +65,202 @@ process(
 
         Solution_rt **result_tuples,
         size_t *result_count) {
-  /*
-   * Adjusting timestamp data to timezone UTC
-   */
-  if (use_timestamps) {
-    execution_date = timestamp_without_timezone(execution_date);
-  }
-
-  PGR_DBG("execution_date: %ld ", execution_date);
-
-  //! [Factor must be postive]
-  if (factor <= 0) {
-    ereport(ERROR,
-        (errcode(ERRCODE_INTERNAL_ERROR),
-         errmsg("Illegal value in parameter: factor"),
-         errhint("Value found: %f <= 0", factor)));
-  }
-  //! [Factor must be postive]
-
-  if (max_cycles < 0) {
-    ereport(ERROR,
-        (errcode(ERRCODE_INTERNAL_ERROR),
-         errmsg("Illegal value in parameter: max_cycles"),
-         errhint("Value found: %d <= 0", max_cycles)));
-  }
-
-  vrp_SPI_connect();
-
-  PickDeliveryOrders_t *pd_orders_arr = NULL;
-  size_t total_pd_orders = 0;
-  if (use_timestamps) {
-    get_shipments(pd_orders_sql, &pd_orders_arr, &total_pd_orders);
-  } else {
-    get_shipments_raw(pd_orders_sql, &pd_orders_arr, &total_pd_orders);
-  }
-
-  if (total_pd_orders == 0) {
-    (*result_count) = 0;
-    (*result_tuples) = NULL;
-
-    /* freeing memory before return */
-    if (pd_orders_arr) {
-      pfree(pd_orders_arr); pd_orders_arr = NULL;
+    /*
+     * Adjusting timestamp data to timezone UTC
+     */
+    if (use_timestamps) {
+        execution_date = timestamp_without_timezone(execution_date);
     }
 
-    vrp_SPI_finish();
-    return;
-  }
+    PGR_DBG("execution_date: %ld ", execution_date);
 
-  Vehicle_t *vehicles_arr = NULL;
-  size_t total_vehicles = 0;
-  if (use_timestamps) {
-    get_vehicles(vehicles_sql, &vehicles_arr, &total_vehicles, true);
-  } else {
-    get_vehicles_raw(vehicles_sql, &vehicles_arr, &total_vehicles, true);
-  }
+    //! [Factor must be postive]
+    if (factor <= 0) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("Illegal value in parameter: factor"),
+                 errhint("Value found: %f <= 0", factor)));
+    }
+    //! [Factor must be postive]
 
-  if (total_vehicles == 0) {
-    (*result_count) = 0;
-    (*result_tuples) = NULL;
+    if (max_cycles < 0) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("Illegal value in parameter: max_cycles"),
+                 errhint("Value found: %d <= 0", max_cycles)));
+    }
+
+    vrp_SPI_connect();
+
+    PickDeliveryOrders_t *pd_orders_arr = NULL;
+    size_t total_pd_orders = 0;
+    if (use_timestamps) {
+        get_shipments(pd_orders_sql, &pd_orders_arr, &total_pd_orders);
+    } else {
+        get_shipments_raw(pd_orders_sql, &pd_orders_arr, &total_pd_orders);
+    }
+
+    if (total_pd_orders == 0) {
+        (*result_count) = 0;
+        (*result_tuples) = NULL;
+
+        /* freeing memory before return */
+        if (pd_orders_arr) {
+            pfree(pd_orders_arr); pd_orders_arr = NULL;
+        }
+
+        vrp_SPI_finish();
+        return;
+    }
+
+    Vehicle_t *vehicles_arr = NULL;
+    size_t total_vehicles = 0;
+    if (use_timestamps) {
+        get_vehicles(vehicles_sql, &vehicles_arr, &total_vehicles, true);
+    } else {
+        get_vehicles_raw(vehicles_sql, &vehicles_arr, &total_vehicles, true);
+    }
+
+    if (total_vehicles == 0) {
+        (*result_count) = 0;
+        (*result_tuples) = NULL;
+
+        /* freeing memory before return */
+        if (pd_orders_arr) {
+            pfree(pd_orders_arr); pd_orders_arr = NULL;
+        }
+        if (vehicles_arr) {
+            pfree(vehicles_arr); vehicles_arr = NULL;
+        }
+
+        ereport(WARNING,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("No vehicles found")));
+
+        vrp_SPI_finish();
+        return;
+    }
+
+    Time_multipliers_t *multipliers_arr = NULL;
+    size_t total_multipliers_arr = 0;
+    if (use_timestamps) {
+        PGR_DBG("get_timeMultipliers");
+        get_timeMultipliers(multipliers_sql, &multipliers_arr, &total_multipliers_arr);
+    } else {
+        PGR_DBG("get_timeMultipliers_raw");
+        get_timeMultipliers_raw(multipliers_sql, &multipliers_arr, &total_multipliers_arr);
+    }
+
+    if (total_multipliers_arr == 0) {
+        ereport(WARNING,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("No matrix found")));
+        (*result_count) = 0;
+        (*result_tuples) = NULL;
+
+        /* freeing memory before return */
+        if (pd_orders_arr) {
+            pfree(pd_orders_arr); pd_orders_arr = NULL;
+        }
+        if (vehicles_arr) {
+            pfree(vehicles_arr); vehicles_arr = NULL;
+        }
+        if (multipliers_arr) {
+            pfree(multipliers_arr); multipliers_arr = NULL;
+        }
+
+        vrp_SPI_finish();
+        return;
+    }
+
+    Matrix_cell_t *matrix_cells_arr = NULL;
+    size_t total_cells = 0;
+    if (use_timestamps) {
+        get_matrixRows(matrix_sql, &matrix_cells_arr, &total_cells);
+    } else {
+        get_matrixRows_plain(matrix_sql, &matrix_cells_arr, &total_cells);
+    }
+
+    if (total_cells == 0) {
+        (*result_count) = 0;
+        (*result_tuples) = NULL;
+
+        /* freeing memory before return */
+        if (pd_orders_arr) {
+            pfree(pd_orders_arr); pd_orders_arr = NULL;
+        }
+        if (vehicles_arr) {
+            pfree(vehicles_arr); vehicles_arr = NULL;
+        }
+        if (multipliers_arr) {
+            pfree(multipliers_arr); multipliers_arr = NULL;
+        }
+        if (matrix_cells_arr) {
+            pfree(matrix_cells_arr); matrix_cells_arr = NULL;
+        }
+
+        ereport(WARNING,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("No matrix found")));
+        vrp_SPI_finish();
+        return;
+    }
+
+    PGR_DBG("Total %ld orders in query:", total_pd_orders);
+    PGR_DBG("Total %ld vehicles in query:", total_vehicles);
+    PGR_DBG("Total %ld matrix cells in query:", total_cells);
+    PGR_DBG("Total %ld time dependant multipliers:", total_multipliers_arr);
+
+    clock_t start_t = clock();
+    char *log_msg = NULL;
+    char *notice_msg = NULL;
+    char *err_msg = NULL;
+
+    do_pickDeliver(
+            pd_orders_arr,    total_pd_orders,
+            vehicles_arr,     total_vehicles,
+            matrix_cells_arr, total_cells,
+            multipliers_arr,      total_multipliers_arr,
+
+            optimize,
+            factor,
+            max_cycles,
+            stop_on_all_served,
+
+            execution_date,
+
+            result_tuples,
+            result_count,
+
+            &log_msg,
+            &notice_msg,
+            &err_msg);
+
+    time_msg("pgr_pickDeliver", start_t, clock());
+
+    if (err_msg && (*result_tuples)) {
+        pfree(*result_tuples);
+        (*result_count) = 0;
+        (*result_tuples) = NULL;
+    }
+
+    vrp_global_report(&log_msg, &notice_msg, &err_msg);
 
     /* freeing memory before return */
     if (pd_orders_arr) {
-      pfree(pd_orders_arr); pd_orders_arr = NULL;
+        pfree(pd_orders_arr); pd_orders_arr = NULL;
     }
     if (vehicles_arr) {
-      pfree(vehicles_arr); vehicles_arr = NULL;
-    }
-
-    ereport(WARNING,
-        (errcode(ERRCODE_INTERNAL_ERROR),
-         errmsg("No vehicles found")));
-
-    vrp_SPI_finish();
-    return;
-  }
-
-  Time_multipliers_t *multipliers_arr = NULL;
-  size_t total_multipliers_arr = 0;
-  if (use_timestamps) {
-    PGR_DBG("get_timeMultipliers");
-    get_timeMultipliers(multipliers_sql, &multipliers_arr, &total_multipliers_arr);
-  } else {
-    PGR_DBG("get_timeMultipliers_raw");
-    get_timeMultipliers_raw(multipliers_sql, &multipliers_arr, &total_multipliers_arr);
-  }
-
-  if (total_multipliers_arr == 0) {
-    ereport(WARNING,
-        (errcode(ERRCODE_INTERNAL_ERROR),
-         errmsg("No matrix found")));
-    (*result_count) = 0;
-    (*result_tuples) = NULL;
-
-    /* freeing memory before return */
-    if (pd_orders_arr) {
-      pfree(pd_orders_arr); pd_orders_arr = NULL;
-    }
-    if (vehicles_arr) {
-      pfree(vehicles_arr); vehicles_arr = NULL;
+        pfree(vehicles_arr); vehicles_arr = NULL;
     }
     if (multipliers_arr) {
-      pfree(multipliers_arr); multipliers_arr = NULL;
-    }
-
-    vrp_SPI_finish();
-    return;
-  }
-
-  Matrix_cell_t *matrix_cells_arr = NULL;
-  size_t total_cells = 0;
-  if (use_timestamps) {
-    get_matrixRows(matrix_sql, &matrix_cells_arr, &total_cells);
-  } else {
-    get_matrixRows_plain(matrix_sql, &matrix_cells_arr, &total_cells);
-  }
-
-  if (total_cells == 0) {
-    (*result_count) = 0;
-    (*result_tuples) = NULL;
-
-    /* freeing memory before return */
-    if (pd_orders_arr) {
-      pfree(pd_orders_arr); pd_orders_arr = NULL;
-    }
-    if (vehicles_arr) {
-      pfree(vehicles_arr); vehicles_arr = NULL;
-    }
-    if (multipliers_arr) {
-      pfree(multipliers_arr); multipliers_arr = NULL;
+        pfree(multipliers_arr); multipliers_arr = NULL;
     }
     if (matrix_cells_arr) {
-      pfree(matrix_cells_arr); matrix_cells_arr = NULL;
+        pfree(matrix_cells_arr); matrix_cells_arr = NULL;
     }
 
-    ereport(WARNING,
-        (errcode(ERRCODE_INTERNAL_ERROR),
-         errmsg("No matrix found")));
     vrp_SPI_finish();
-    return;
-  }
-
-  PGR_DBG("Total %ld orders in query:", total_pd_orders);
-  PGR_DBG("Total %ld vehicles in query:", total_vehicles);
-  PGR_DBG("Total %ld matrix cells in query:", total_cells);
-  PGR_DBG("Total %ld time dependant multipliers:", total_multipliers_arr);
-
-  clock_t start_t = clock();
-  char *log_msg = NULL;
-  char *notice_msg = NULL;
-  char *err_msg = NULL;
-
-  do_pickDeliver(
-      pd_orders_arr,    total_pd_orders,
-      vehicles_arr,     total_vehicles,
-      matrix_cells_arr, total_cells,
-      multipliers_arr,      total_multipliers_arr,
-
-      optimize,
-      factor,
-      max_cycles,
-      stop_on_all_served,
-
-      execution_date,
-
-      result_tuples,
-      result_count,
-
-      &log_msg,
-      &notice_msg,
-      &err_msg);
-
-  time_msg("pgr_pickDeliver", start_t, clock());
-
-  if (err_msg && (*result_tuples)) {
-    pfree(*result_tuples);
-    (*result_count) = 0;
-    (*result_tuples) = NULL;
-  }
-
-  vrp_global_report(&log_msg, &notice_msg, &err_msg);
-
-  /* freeing memory before return */
-  if (pd_orders_arr) {
-    pfree(pd_orders_arr); pd_orders_arr = NULL;
-  }
-  if (vehicles_arr) {
-    pfree(vehicles_arr); vehicles_arr = NULL;
-  }
-  if (multipliers_arr) {
-    pfree(multipliers_arr); multipliers_arr = NULL;
-  }
-  if (matrix_cells_arr) {
-    pfree(matrix_cells_arr); matrix_cells_arr = NULL;
-  }
-
-  vrp_SPI_finish();
 }
 
 

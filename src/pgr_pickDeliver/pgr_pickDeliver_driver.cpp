@@ -49,26 +49,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 namespace  {
 vrprouting::problem::Solution
-get_initial_solution(vrprouting::problem::PickDeliver* problem_ptr, int m_initial_id) {
-    using Solution = vrprouting::problem::Solution;
-    using Initial_solution = vrprouting::initialsol::simple::Initial_solution;
-    using Initials_code = vrprouting::initialsol::simple::Initials_code;
-    Solution m_solutions(problem_ptr);
-    if (m_initial_id == 0) {
-        for (int i = 1; i < 7; ++i) {
-            if (i == 1) {
-                m_solutions = Initial_solution((Initials_code)i, problem_ptr);
-            } else {
-                auto new_sol = Initial_solution((Initials_code)i, problem_ptr);
-                m_solutions = (new_sol < m_solutions)? new_sol : m_solutions;
+    get_initial_solution(vrprouting::problem::PickDeliver* problem_ptr, int m_initial_id) {
+        using Solution = vrprouting::problem::Solution;
+        using Initial_solution = vrprouting::initialsol::simple::Initial_solution;
+        using Initials_code = vrprouting::initialsol::simple::Initials_code;
+        Solution m_solutions(problem_ptr);
+        if (m_initial_id == 0) {
+            for (int i = 1; i < 7; ++i) {
+                if (i == 1) {
+                    m_solutions = Initial_solution((Initials_code)i, problem_ptr);
+                } else {
+                    auto new_sol = Initial_solution((Initials_code)i, problem_ptr);
+                    m_solutions = (new_sol < m_solutions)? new_sol : m_solutions;
+                }
             }
+        } else {
+            m_solutions = Initial_solution((Initials_code)m_initial_id, problem_ptr);
         }
-    } else {
-        m_solutions = Initial_solution((Initials_code)m_initial_id, problem_ptr);
-    }
 
-    return m_solutions;
-}
+        return m_solutions;
+    }
 }  // namespace
 
 void
@@ -198,7 +198,7 @@ do_pgr_pickDeliver(
 #if 0
         try {
 #endif
-        using Initials_code = vrprouting::initialsol::simple::Initials_code;
+            using Initials_code = vrprouting::initialsol::simple::Initials_code;
             auto sol = get_initial_solution(&pd_problem, initial_solution_id);
             using Optimize = vrprouting::optimizers::simple::Optimize;
             sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);
