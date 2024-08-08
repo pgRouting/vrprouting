@@ -35,19 +35,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <utility>
 #include <vector>
 
-#include "cpp_common/matrix_cell_t.hpp"
-#include "cpp_common/vroom_break_t.hpp"
-#include "cpp_common/vroom_job_t.hpp"
-#include "c_types/vroom_rt.h"
-#include "cpp_common/vroom_shipment_t.hpp"
-#include "cpp_common/vroom_time_window_t.hpp"
-#include "cpp_common/vroom_vehicle_t.hpp"
+#include <structures/vroom/input/input.h>
+#include <structures/vroom/job.h>
+#include <structures/vroom/vehicle.h>
+
+#include "c_types/typedefs.h"
+
 #include "cpp_common/base_matrix.hpp"
-#include "cpp_common/interruption.hpp"
 #include "cpp_common/messages.hpp"
-#include "structures/vroom/input/input.h"
-#include "structures/vroom/job.h"
-#include "structures/vroom/vehicle.h"
 
 namespace vrprouting {
 namespace problem {
