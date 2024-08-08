@@ -53,6 +53,7 @@ class Vroom : public vrprouting::Messages {
      * @name vroom time window wrapper
      */
     /** @{ */
+ private:
     std::vector<vroom::TimeWindow> get_vroom_time_windows(const std::vector<Vroom_time_window_t>&) const;
     /** @} */
 
@@ -76,6 +77,7 @@ class Vroom : public vrprouting::Messages {
      */
     /** @{ */
     vroom::Job get_vroom_job(const Vroom_job_t&, const std::vector<Vroom_time_window_t>&) const;
+ public:
     void add_jobs(const std::vector<Vroom_job_t>&, const std::vector<Vroom_time_window_t>&);
     void add_jobs(const Vroom_job_t*, size_t, const Vroom_time_window_t*, size_t);
     /** @} */
@@ -85,10 +87,12 @@ class Vroom : public vrprouting::Messages {
      * @name vroom shipments wrapper
      */
     /** @{ */
+ private:
     std::pair<vroom::Job, vroom::Job> get_vroom_shipment(
             const Vroom_shipment_t&,
             const std::vector<Vroom_time_window_t>&,
             const std::vector<Vroom_time_window_t>&) const;
+ public:
     void add_shipments(
             const std::vector<Vroom_shipment_t>&,
             const std::vector<Vroom_time_window_t>&);
@@ -96,6 +100,7 @@ class Vroom : public vrprouting::Messages {
     /** @} */
 
 
+ private:
     /**
      * @name vroom breaks wrapper
      */
@@ -114,7 +119,7 @@ class Vroom : public vrprouting::Messages {
             const std::vector<Vroom_break_t>&,
             const std::vector<Vroom_time_window_t>&) const;
 
-
+ public:
     void add_vehicles(const std::vector<Vroom_vehicle_t>&,
             const std::vector<Vroom_break_t>&,
             const std::vector<Vroom_time_window_t>&);
@@ -124,6 +129,7 @@ class Vroom : public vrprouting::Messages {
 
     void add_matrix(vrprouting::base::Base_Matrix);
 
+ private:
     void get_amount(vroom::Amount, Amount**);
 
     StepType get_job_step_type(vroom::JOB_TYPE);
@@ -131,6 +137,8 @@ class Vroom : public vrprouting::Messages {
     StepType get_step_type(vroom::Step);
 
     std::vector<Vroom_rt> get_results(vroom::Solution);
+
+ public:
     std::vector<Vroom_rt> solve(int32_t, int32_t, int32_t);
 
  private:
