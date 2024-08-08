@@ -29,15 +29,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_VROOM_VROOM_HPP_
 #pragma once
 
+#include <structures/vroom/input/input.h>
+#include <structures/vroom/job.h>
+#include <structures/vroom/vehicle.h>
+
 #include <map>
 #include <string>
 #include <unordered_set>
 #include <utility>
 #include <vector>
-
-#include <structures/vroom/input/input.h>
-#include <structures/vroom/job.h>
-#include <structures/vroom/vehicle.h>
 
 #include "c_types/typedefs.h"
 
@@ -85,7 +85,7 @@ class Vroom : public vrprouting::Messages {
     vroom::Job get_vroom_job(const Vroom_job_t&, const std::vector<Vroom_time_window_t>&) const;
     void add_job(const Vroom_job_t&, const std::vector<Vroom_time_window_t>&);
     void add_jobs(const std::vector<Vroom_job_t>&, const std::vector<Vroom_time_window_t>&);
-    void add_jobs(const Vroom_job_t*, size_t, const Vroom_time_window_t*, size_t );
+    void add_jobs(const Vroom_job_t*, size_t, const Vroom_time_window_t*, size_t);
     /** @} */
 
 

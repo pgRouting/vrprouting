@@ -34,9 +34,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <limits>
 #include <cmath>
 
+#include "vroom/vroom.hpp"
+
+#include "c_types/vroom_rt.h"
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
-#include "vroom/vroom.hpp"
+#include "cpp_common/identifiers.hpp"
+#include "cpp_common/base_matrix.hpp"
+#include "cpp_common/vroom_vehicle_t.hpp"
+#include "cpp_common/vroom_shipment_t.hpp"
+#include "cpp_common/vroom_job_t.hpp"
 
 /** @file vroom_driver.cpp
  * @brief Handles actual calling of function in the `vrp_vroom.hpp` file.
@@ -196,7 +203,7 @@ do_vrp_vroom(
             return;
         }
 
-        vrprouting::Vrp_vroom_problem problem;
+        vrprouting::problem::Vroom problem;
         problem.add_matrix(matrix);
         problem.add_vehicles(vehicles, total_vehicles,
                 breaks, total_breaks,
