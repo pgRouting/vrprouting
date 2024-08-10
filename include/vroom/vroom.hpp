@@ -51,7 +51,9 @@ namespace problem {
 class Vroom : public vrprouting::Messages {
  public:
     /** @brief sets m_jobs by adding the Vroom_job_t */
-    void add_jobs(const std::vector<Vroom_job_t>&, const std::vector<Vroom_time_window_t>&);
+    void add_jobs(
+            const std::vector<Vroom_job_t>&,
+            const std::vector<Vroom_time_window_t>&);
     void add_jobs(const Vroom_job_t*, size_t, const Vroom_time_window_t*, size_t);
 
     /** @brief sets m_shipments by adding the Vroom_shipment_t */
@@ -61,7 +63,8 @@ class Vroom : public vrprouting::Messages {
     void add_shipments(const Vroom_shipment_t*, size_t, const Vroom_time_window_t*, size_t);
 
     /** @brief sets m_vehicles by adding the Vroom_vehicle_t */
-    void add_vehicles(const std::vector<Vroom_vehicle_t>&,
+    void add_vehicles(
+            const std::vector<Vroom_vehicle_t>&,
             const std::vector<Vroom_break_t>&,
             const std::vector<Vroom_time_window_t>&);
     void add_vehicles(const Vroom_vehicle_t*, size_t, const Vroom_break_t*, size_t, const Vroom_time_window_t*, size_t);
@@ -77,7 +80,9 @@ class Vroom : public vrprouting::Messages {
     vroom::Amount get_vroom_amounts(const std::vector<Amount>&) const;
     vroom::Amount get_vroom_amounts(const Amount *amounts, size_t count) const;
     vroom::Skills get_vroom_skills(const Skill*, size_t) const;
-    vroom::Job get_vroom_job(const Vroom_job_t&, const std::vector<Vroom_time_window_t>&) const;
+    vroom::Job    get_vroom_job(
+            const Vroom_job_t&,
+            const std::vector<Vroom_time_window_t>&) const;
     std::pair<vroom::Job, vroom::Job> get_vroom_shipment(
             const Vroom_shipment_t&,
             const std::vector<Vroom_time_window_t>&,
