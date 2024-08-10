@@ -14,7 +14,8 @@ on Github.
 
 * Renamed files to be compiled as C++ with .hpp & .cpp extensions
 * Moved sphinx doc from .c files .rst files
-* removing prefix `pgr_` & addding `namespace vrprouting`
+* Removing prefix `pgr_` & addding `namespace vrprouting`
+* Separating implementation from header vroom.hpp
 
 
 **Documentation queries**
