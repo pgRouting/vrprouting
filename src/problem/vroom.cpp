@@ -53,15 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 namespace vrprouting {
 namespace problem {
 
-
-/**
- * @brief      Gets the vroom time window from the C-style struct
- *
- * @param[in]  time_window  The C-style time window struct
- *
- * @return     The vroom time window.
- */
-
 std::vector<vroom::TimeWindow>
 Vroom::get_vroom_time_windows(const std::vector<Vroom_time_window_t> &time_windows) const {
     std::vector<vroom::TimeWindow> tws;
@@ -73,13 +64,6 @@ Vroom::get_vroom_time_windows(const std::vector<Vroom_time_window_t> &time_windo
         : std::vector<vroom::TimeWindow>(1, vroom::TimeWindow());
 }
 
-/**
- * @brief      Gets the vroom amounts from C-style array
- *
- * @param[in]  amounts  The amounts array (pickup or delivery)
- *
- * @return     The vroom amounts.
- */
 vroom::Amount
 Vroom::get_vroom_amounts(const std::vector<Amount> &amounts) const {
     vroom::Amount amt;
@@ -98,50 +82,35 @@ Vroom::get_vroom_amounts(const std::vector<Amount> &amounts) const {
 
 vroom::Amount
 Vroom::get_vroom_amounts(const Amount *amounts, size_t count) const {
-    return get_vroom_amounts(std::vector <Amount>(amounts, amounts + count));
+    return get_vroom_amounts(std::vector<Amount>(amounts, amounts + count));
 }
 
-
-
-/**
- * @brief      Gets the vroom skills.
- *
- * @param[in]  skills  The skills array
- * @param[in]  count   The size of skills array
- *
- * @return     The vroom skills.
- */
 vroom::Skills
 Vroom::get_vroom_skills(const Skill *skills, size_t count) const {
     return std::unordered_set <Skill>(skills, skills + count);
 }
 
-
-
-
-/**
- * @brief      Gets the vroom jobs.
- *
- * @param[in]  job      The job C-style struct
- * @param[in]  job_tws  The job time windows
- *
- * @return     The vroom job.
- */
 vroom::Job
 Vroom::get_vroom_job(
         const Vroom_job_t &job,
         const std::vector<Vroom_time_window_t> &job_tws) const {
-    vroom::Amount delivery = get_vroom_amounts(job.delivery, job.delivery_size);
-    vroom::Amount pickup = get_vroom_amounts(job.pickup, job.pickup_size);
-    vroom::Skills skills = get_vroom_skills(job.skills, job.skills_size);
-    std::vector<vroom::TimeWindow> time_windows = get_vroom_time_windows(job_tws);
-    vroom::Index location_id = static_cast<vroom::Index>(m_matrix.get_index(job.location_id));
-    return vroom::Job(job.id, location_id, job.setup, job.service, delivery, pickup,
-            skills, job.priority, time_windows, job.data);
+    auto delivery = get_vroom_amounts(job.delivery, job.delivery_size);
+    auto pickup = get_vroom_amounts(job.pickup, job.pickup_size);
+    auto skills = get_vroom_skills(job.skills, job.skills_size);
+    auto time_windows = get_vroom_time_windows(job_tws);
+    auto location_id = static_cast<vroom::Index>(m_matrix.get_index(job.location_id));
+    return vroom::Job(
+            job.id, location_id, job.setup, job.service,
+            delivery, pickup, skills, job.priority,
+            time_windows, job.data);
 }
 
-
-void Vroom::add_jobs(
+/*
+ * param[in] jobs The vector container of Vroom_job_t
+ * param[in] jobs_tws The vector container of Vroom_time_window_t
+ */
+void
+Vroom::add_jobs(
         const std::vector<Vroom_job_t> &jobs,
         const std::vector<Vroom_time_window_t> &jobs_tws) {
     std::map<Idx, std::vector<Vroom_time_window_t>> job_tws_map;
@@ -157,34 +126,25 @@ void Vroom::add_jobs(
     }
 }
 
-void Vroom::add_jobs(const Vroom_job_t *jobs, size_t count,
+void
+Vroom::add_jobs(const Vroom_job_t *jobs, size_t count,
         const Vroom_time_window_t *jobs_tws, size_t total_jobs_tws) {
     add_jobs(
             std::vector<Vroom_job_t>(jobs, jobs + count),
             std::vector<Vroom_time_window_t>(jobs_tws, jobs_tws + total_jobs_tws));
 }
 
-
-/**
- * @brief      Gets the vroom shipments.
- *
- * @param[in]  shipment       The shipment C-style struct
- * @param[in]  pickup_tws     The pickup time windows
- * @param[in]  delivery_tws   The delivery time windows
- *
- * @return     The vroom shipment.
- */
 std::pair<vroom::Job, vroom::Job>
 Vroom::get_vroom_shipment(
         const Vroom_shipment_t &shipment,
         const std::vector<Vroom_time_window_t> &pickup_tws,
         const std::vector<Vroom_time_window_t> &delivery_tws) const {
-    vroom::Amount amount = get_vroom_amounts(shipment.amount, shipment.amount_size);
-    vroom::Skills skills = get_vroom_skills(shipment.skills, shipment.skills_size);
-    std::vector<vroom::TimeWindow> p_time_windows = get_vroom_time_windows(pickup_tws);
-    std::vector<vroom::TimeWindow> d_time_windows = get_vroom_time_windows(delivery_tws);
-    vroom::Index p_location_id = static_cast<vroom::Index>(m_matrix.get_index(shipment.p_location_id));
-    vroom::Index d_location_id = static_cast<vroom::Index>(m_matrix.get_index(shipment.d_location_id));
+    auto amount = get_vroom_amounts(shipment.amount, shipment.amount_size);
+    auto skills = get_vroom_skills(shipment.skills, shipment.skills_size);
+    auto p_time_windows = get_vroom_time_windows(pickup_tws);
+    auto d_time_windows = get_vroom_time_windows(delivery_tws);
+    auto p_location_id = static_cast<vroom::Index>(m_matrix.get_index(shipment.p_location_id));
+    auto d_location_id = static_cast<vroom::Index>(m_matrix.get_index(shipment.d_location_id));
     vroom::Job pickup = vroom::Job(
             shipment.id, vroom::JOB_TYPE::PICKUP, p_location_id,
             shipment.p_setup, shipment.p_service, amount,
@@ -196,10 +156,14 @@ Vroom::get_vroom_shipment(
     return std::make_pair(pickup, delivery);
 }
 
-
-void Vroom::add_shipments(
-        const std::vector <Vroom_shipment_t> &shipments,
-        const std::vector <Vroom_time_window_t> &shipments_tws) {
+/*
+ * param[in] shipments The vector container of Vroom_shipment_t
+ * param[in] shipments_tws Shipments time windows. The vector container of Vroom_time_window_t
+ */
+void
+Vroom::add_shipments(
+        const std::vector<Vroom_shipment_t> &shipments,
+        const std::vector<Vroom_time_window_t> &shipments_tws) {
     std::map<Idx, std::vector<Vroom_time_window_t>> pickup_tws_map;
     std::map<Idx, std::vector<Vroom_time_window_t>> delivery_tws_map;
     for (auto shipment_tw : shipments_tws) {
@@ -221,36 +185,29 @@ void Vroom::add_shipments(
     }
 }
 
-void Vroom::add_shipments(const Vroom_shipment_t *shipments, size_t count,
+void
+Vroom::add_shipments(
+        const Vroom_shipment_t *shipments, size_t count,
         const Vroom_time_window_t *shipment_tws, size_t total_shipment_tws) {
     add_shipments(
             std::vector<Vroom_shipment_t>(shipments, shipments + count),
             std::vector<Vroom_time_window_t>(shipment_tws, shipment_tws + total_shipment_tws));
 }
 
-
-/**
- * @brief      Gets the vehicle breaks from C-style breaks struct
- *
- * @param[in]  v_break  The vehicle break struct
- *
- * @return     The vroom vehicle break.
- */
-
 std::vector<vroom::Break>
 Vroom::get_vroom_breaks(
         const std::vector<Vroom_break_t> &breaks,
         const std::vector<Vroom_time_window_t> &breaks_tws) const {
     std::map<Idx, std::vector<Vroom_time_window_t>> breaks_tws_map;
-    for (auto break_tw : breaks_tws) {
+    for (const auto &break_tw : breaks_tws) {
         Idx id = break_tw.id;
         if (breaks_tws_map.find(id) == breaks_tws_map.end()) {
             breaks_tws_map[id] = std::vector<Vroom_time_window_t>();
         }
         breaks_tws_map[id].push_back(break_tw);
     }
-    std::vector < vroom::Break > v_breaks;
-    for (auto v_break : breaks) {
+    std::vector<vroom::Break> v_breaks;
+    for (const auto &v_break : breaks) {
         v_breaks.push_back(
                 vroom::Break(
                     v_break.id, get_vroom_time_windows(breaks_tws_map[v_break.id]), v_break.service, v_break.data));
@@ -258,24 +215,15 @@ Vroom::get_vroom_breaks(
     return v_breaks;
 }
 
-
-/**
- * @brief      Gets the vroom vehicles.
- *
- * @param[in]  vehicle        The vehicle C-style struct
- * @param[in]  breaks_tws     The breaks time windows
- *
- * @return     The vroom vehicle.
- */
 vroom::Vehicle
 Vroom::get_vroom_vehicle(
         const Vroom_vehicle_t &vehicle,
         const std::vector<Vroom_break_t> &breaks,
         const std::vector<Vroom_time_window_t> &breaks_tws) const {
-    vroom::Amount capacity = get_vroom_amounts(vehicle.capacity, vehicle.capacity_size);
-    vroom::Skills skills = get_vroom_skills(vehicle.skills, vehicle.skills_size);
+    auto capacity = get_vroom_amounts(vehicle.capacity, vehicle.capacity_size);
+    auto skills = get_vroom_skills(vehicle.skills, vehicle.skills_size);
     auto time_window = vroom::TimeWindow(vehicle.tw_open, vehicle.tw_close);
-    std::vector<vroom::Break> v_breaks = get_vroom_breaks(breaks, breaks_tws);
+    auto v_breaks = get_vroom_breaks(breaks, breaks_tws);
 
     std::optional<vroom::Location> start_id;
     std::optional<vroom::Location> end_id;
@@ -292,8 +240,13 @@ Vroom::get_vroom_vehicle(
             static_cast<size_t>(vehicle.max_tasks));
 }
 
-
-void Vroom::add_vehicles(
+/*
+ * param[in] vehicles The vector container of Vroom_vehicle_t
+ * param[in] breaks Vehicle breaks. The vector container of Vroom_break_t
+ * param[in] breaks_tws_map Vehicle breaks time windows. The vector container of Vroom_time_window_t
+ */
+void
+Vroom::add_vehicles(
         const std::vector<Vroom_vehicle_t> &vehicles,
         const std::vector<Vroom_break_t> &breaks,
         const std::vector<Vroom_time_window_t> &breaks_tws) {
@@ -326,7 +279,8 @@ void Vroom::add_vehicles(
     }
 }
 
-void Vroom::add_vehicles(const Vroom_vehicle_t *vehicles, size_t count,
+void
+Vroom::add_vehicles(const Vroom_vehicle_t *vehicles, size_t count,
         const Vroom_break_t *breaks, size_t total_breaks,
         const Vroom_time_window_t *breaks_tws, size_t total_breaks_tws) {
     add_vehicles(std::vector<Vroom_vehicle_t>(vehicles, vehicles + count),
@@ -334,19 +288,24 @@ void Vroom::add_vehicles(const Vroom_vehicle_t *vehicles, size_t count,
             std::vector<Vroom_time_window_t>(breaks_tws, breaks_tws + total_breaks_tws));
 }
 
-
-void Vroom::add_matrix(vrprouting::base::Base_Matrix matrix) {
+/*
+ * param[in] matrix The matrix
+ */
+void
+Vroom::add_matrix(const vrprouting::base::Base_Matrix &matrix) {
     m_matrix = matrix;
 }
 
-void Vroom::get_amount(vroom::Amount vroom_amount, Amount **amount) {
+void
+Vroom::get_amount(vroom::Amount vroom_amount, Amount **amount) {
     size_t amount_size = vroom_amount.size();
     for (size_t i = 0; i < amount_size; i++) {
         *((*amount) + i) = vroom_amount[i];
     }
 }
 
-StepType Vroom::get_job_step_type(vroom::JOB_TYPE vroom_job_type) {
+StepType
+Vroom::get_job_step_type(vroom::JOB_TYPE vroom_job_type) {
     StepType step_type;
     switch (vroom_job_type) {
         case vroom::JOB_TYPE::SINGLE:
@@ -362,7 +321,8 @@ StepType Vroom::get_job_step_type(vroom::JOB_TYPE vroom_job_type) {
     return step_type;
 }
 
-StepType Vroom::get_step_type(vroom::Step step) {
+StepType
+Vroom::get_step_type(vroom::Step step) {
     StepType step_type = 0;
     switch (step.step_type) {
         case vroom::STEP_TYPE::START:
@@ -381,8 +341,9 @@ StepType Vroom::get_step_type(vroom::Step step) {
     return step_type;
 }
 
-std::vector<Vroom_rt> Vroom::get_results(vroom::Solution solution) {
-    std::vector < Vroom_rt > results;
+std::vector<Vroom_rt>
+Vroom::get_results(vroom::Solution solution) {
+    std::vector<Vroom_rt> results;
     std::vector<vroom::Route> routes = solution.routes;
     Idx vehicle_seq = 1;
     char *empty_desc = strdup("{}");
@@ -456,7 +417,7 @@ std::vector<Vroom_rt> Vroom::get_results(vroom::Solution solution) {
         StepType job_step = get_job_step_type(job.type);
         Idx vehicle_id = static_cast<Idx>(-1);
         Idx job_id = job.id;
-        MatrixIndex location_id = m_matrix.get_original_id(job.location.index());
+        auto location_id = m_matrix.get_original_id(job.location.index());
         char *task_data = strdup(job.description.c_str());
         results.push_back({
                 vehicle_seq,      // vehicles_seq
@@ -504,11 +465,19 @@ std::vector<Vroom_rt> Vroom::get_results(vroom::Solution solution) {
     return results;
 }
 
-std::vector<Vroom_rt> Vroom::solve(
+/*
+ * param[in] exploration_level
+ * param[in] timeout
+ * param[in] loading_timex
+ *
+ * @returns The vroom results. A vector of Vroom_rt
+ */
+std::vector<Vroom_rt>
+Vroom::solve(
         int32_t exploration_level,
         int32_t timeout,
         int32_t loading_time) {
-    std::vector <Vroom_rt> results;
+    std::vector<Vroom_rt> results;
 
     /* abort in case an interruption occurs (e.g. the query is being cancelled) */
     CHECK_FOR_INTERRUPTS();
