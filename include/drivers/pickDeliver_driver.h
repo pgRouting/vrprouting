@@ -38,25 +38,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 extern "C" {
 #endif
 
-  /** @brief Driver for processing a pickupDeliver problem */
-  void do_pickDeliver(
-      Orders_t customers_arr[], size_t total_customers,
-      Vehicle_t *vehicles_arr, size_t total_vehicles,
-      Matrix_cell_t *matrix_cells_arr, size_t total_cells,
-      Time_multipliers_t *multipliers_arr, size_t total_multipliers,
+void vrp_do_pickDeliver(
+        Orders_t customers_arr[], size_t total_customers,
+        Vehicle_t *vehicles_arr, size_t total_vehicles,
+        Matrix_cell_t *matrix_cells_arr, size_t total_cells,
+        Time_multipliers_t *multipliers_arr, size_t total_multipliers,
+        bool, double, int, bool, int64_t,
 
-      bool,
-      double factor,
-      int max_cycles,
-      bool stop_on_all_served,
-      int64_t execution_date,
-
-      Solution_rt **return_tuples,
-      size_t *return_count,
-
-      char **log_msg,
-      char **notice_msg,
-      char **err_msg);
+        Solution_rt**, size_t*,
+        char**, char**, char**);
 
 
 #ifdef __cplusplus

@@ -95,7 +95,7 @@ digraph G {
  *
  */
 void
-do_compatibleVehicles(
+vrp_do_compatibleVehicles(
         Orders_t customers_arr[],
         size_t total_customers,
 

@@ -179,7 +179,7 @@ process(
 
     int32_t loading_time = (int)((clock() - start_loading) / CLOCKS_PER_SEC) * 1000;
 
-    do_vrp_vroom(
+    vrp_do_vroom(
             jobs, total_jobs,
             jobs_tws, total_jobs_tws,
             shipments, total_shipments,

@@ -62,33 +62,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * function `vrp_vroom` which calls the main function defined in the
  * C++ Header file. It also does exception handling.
  *
- * @param jobs                Pointer to the array of jobs
- * @param total_jobs          The total number of jobs
- * @param jobs_tws            Pointer to the array of jobs time windows
- * @param total_jobs_tws      The total number of jobs time windows
- * @param shipments           Pointer to the array of shipments
- * @param total_shipments     The total number of shipments
- * @param shipments_tws       Pointer to the array of shipments time windows
- * @param total_shipments_tws The total number of shipments time windows
- * @param vehicles            Pointer to the array of vehicles
- * @param total_vehicles      The total number of total vehicles
- * @param breaks              Pointer to the array of breaks
- * @param total_breaks        The total number of total breaks
- * @param matrix_rows         Pointer to the array of matrix rows
- * @param total_matrix_rows   The total number of matrix rows
- * @param exploration_level   Exploration level to use while solving.
- * @param timeout             Timeout value to stop the solving process (seconds).
- * @param loading_timeout     Additional time spent in loading the data from SQL Query (seconds).
- * @param result_tuples       The rows in the result
- * @param result_count        The count of rows in the result
- * @param log_msg             Stores the log message
- * @param notice_msg          Stores the notice message
- * @param err_msg             Stores the error message
- *
- * @returns void
+ * @param[in] jobs                Pointer to the array of jobs
+ * @param[in] total_jobs          The total number of jobs
+ * @param[in] jobs_tws            Pointer to the array of jobs time windows
+ * @param[in] total_jobs_tws      The total number of jobs time windows
+ * @param[in] shipments           Pointer to the array of shipments
+ * @param[in] total_shipments     The total number of shipments
+ * @param[in] shipments_tws       Pointer to the array of shipments time windows
+ * @param[in] total_shipments_tws The total number of shipments time windows
+ * @param[in] vehicles            Pointer to the array of vehicles
+ * @param[in] total_vehicles      The total number of total vehicles
+ * @param[in] breaks              Pointer to the array of breaks
+ * @param[in] total_breaks        The total number of total breaks
+ * @param[in] breaks_tws          Pointer to the array of break timewindows
+ * @param[in] total_breaks_tws    The total number of total breaks timewindows
+ * @param[in] matrix_rows         Pointer to the array of matrix rows
+ * @param[in] total_matrix_rows   The total number of matrix rows
+ * @param[in] exploration_level   Exploration level to use while solving.
+ * @param[in] timeout             Timeout value to stop the solving process (seconds).
+ * @param[in] loading_time        Additional time spent in loading the data from SQL Query (seconds).
+ * @param[out] return_tuples      The rows in the result
+ * @param[out] return_count       The count of rows in the result
+ * @param[out] log_msg            Stores the log message
+ * @param[out] notice_msg         Stores the notice message
+ * @param[out] err_msg            Stores the error message
  */
 void
-do_vrp_vroom(
+vrp_do_vroom(
         Vroom_job_t *jobs, size_t total_jobs,
         Vroom_time_window_t *jobs_tws, size_t total_jobs_tws,
         Vroom_shipment_t *shipments, size_t total_shipments,

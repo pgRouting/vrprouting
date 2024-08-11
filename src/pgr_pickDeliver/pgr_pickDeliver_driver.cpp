@@ -72,7 +72,7 @@ vrprouting::problem::Solution
 }  // namespace
 
 void
-do_pgr_pickDeliver(
+vrp_do_pgr_pickDeliver(
         struct Orders_t customers_arr[],
         size_t total_customers,
 

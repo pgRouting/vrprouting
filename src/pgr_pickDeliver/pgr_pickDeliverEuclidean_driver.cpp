@@ -118,7 +118,7 @@ are_shipments_ok(
 }  // namespace
 
 void
-do_pgr_pickDeliverEuclidean(
+vrp_do_pgr_pickDeliverEuclidean(
         Orders_t *customers_arr,
         size_t total_customers,
 

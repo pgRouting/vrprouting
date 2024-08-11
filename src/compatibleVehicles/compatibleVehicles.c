@@ -179,7 +179,7 @@ process(
     char *notice_msg = NULL;
     char *err_msg = NULL;
 
-    do_compatibleVehicles(
+    vrp_do_compatibleVehicles(
             pd_orders_arr, total_pd_orders,
             vehicles_arr, total_vehicles,
             matrix_cells_arr, total_cells,
