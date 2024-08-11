@@ -156,11 +156,6 @@ void db_get_time_windows(
 }
 
 
-/**
- * @param[in] sql SQL query to execute
- * @param[out] rows C Container that holds the data
- * @param[out] total_rows Total rows recieved
- */
 void
 get_vroom_time_windows(
     char *sql,
@@ -191,11 +186,6 @@ get_vroom_time_windows(
   db_get_time_windows(sql, rows, total_rows, info, kColumnCount, 0, is_plain);
 }
 
-/**
- * @param[in] sql SQL query to execute
- * @param[out] rows C Container that holds the data
- * @param[out] total_rows Total rows recieved
- */
 void
 get_vroom_shipments_time_windows(
     char *sql,

@@ -124,12 +124,6 @@ void db_get_matrix(
 }
 
 
-/**
- * @param [in] sql SQL query that has the following columns: start_id, end_id, duration, cost
- * @param[in] is_plain Whether the plain or timestamp function is used
- * @param [out] rows C Container that holds all the matrix rows
- * @param [out] total_rows Total rows recieved
- */
 void
 get_vroom_matrix(
     char *sql,
