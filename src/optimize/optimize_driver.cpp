@@ -296,10 +296,11 @@ subdivide_processing(
  *  @param[in] total_cells size of the matrix_cells_arr
  *  @param[in] multipliers_arr A C Array of the multipliers
  *  @param[in] total_multipliers size of the multipliers_arr
- *  @param[in] optimize flag to control optimization
  *  @param[in] factor A global multiplier for the (time) matrix cells
  *  @param[in] max_cycles number of cycles to perform during the optimization phase
- *  @param[in] stop_on_all_served Indicator to stop optimization when all shipments are served
+ *  @param[in] check_triangle_inequality When true tirangle inequality will be checked
+ *  @param[in] subdivide        @todo
+ *  @param[in] subdivide_by_vehicle @todo
  *  @param[in] execution_date Value used for not moving shipments that are before this date
  *  @param[out] return_tuples C array of contents to be returned to postgres
  *  @param[out] return_count number of tuples returned
@@ -344,10 +345,8 @@ subdivide_processing(
 
  *
  */
-
-
 void
-do_optimize(
+vrp_do_optimize(
         Orders_t *shipments_arr, size_t total_shipments,
         Vehicle_t *vehicles_arr, size_t total_vehicles,
         Matrix_cell_t *matrix_cells_arr, size_t total_cells,

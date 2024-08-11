@@ -157,7 +157,7 @@ process(
     char *log_msg = NULL;
     char *notice_msg = NULL;
     char *err_msg = NULL;
-    do_pgr_pickDeliverEuclidean(
+    vrp_do_pgr_pickDeliverEuclidean(
             pd_orders_arr, total_pd_orders,
             vehicles_arr, total_vehicles,
 

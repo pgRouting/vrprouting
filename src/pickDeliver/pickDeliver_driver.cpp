@@ -105,7 +105,7 @@ digraph G {
  *
  */
 void
-do_pickDeliver(
+vrp_do_pickDeliver(
         Orders_t *customers_arr, size_t total_customers,
         Vehicle_t *vehicles_arr, size_t total_vehicles,
         Matrix_cell_t *matrix_cells_arr, size_t total_cells,
