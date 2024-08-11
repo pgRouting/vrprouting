@@ -188,6 +188,7 @@ Fleet::is_order_ok(const Order &order) const {
 
 /**
 @param [in] vehicle
+@param [in] new_stops
 @param [in] p_orders
 @param [in,out] p_nodes
 @param [in,out] node_id
@@ -355,7 +356,8 @@ Fleet::set_compatibles(const Orders &orders) {
   builds a fleet from a vector of Vehicle_t
 
   @param[in] vehicles  the list of vehicles
-  @param[in] size_vehicles  size of vehicles
+  @param[in] size_vehicles
+  @param [in] new_stops overides vehicles stops
   @param[in] p_orders
   @param[in,out] p_nodes
   @param[in,out] node_id

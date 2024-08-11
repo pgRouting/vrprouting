@@ -179,7 +179,7 @@ Base_Matrix::get_index(Id id) const {
 
 /** Given the internal index, returns the original node identifier
  *
- * @param [in] id
+ * @param [in] index
  * @returns the original node identifier
  *
  @dot
@@ -290,9 +290,10 @@ Base_Matrix::Base_Matrix(
 /**
  * @brief Constructor for VROOM matrix input
  *
- * @param [in] data_costs  The set of costs
- * @param [in] size_matrix The size of the set of costs
+ * @param [in] matrix_rows  The set of costs
+ * @param [in] total_matrix_rows The size of the set of costs
  * @param [in] location_ids The location identifiers
+ * @param [in] scaling_factor Multiplier
  *
  * @pre data_costs is not empty
  * @post ids has all the ids of node_ids

@@ -99,8 +99,6 @@ spi_getMaxTasks(
     TupleDesc *tupdesc,
     Column_info_t info);
 
-/** @name timestamp related
- * @{ */
 /** @brief  Converts timestamp to timestamp without timezone */
 TTimestamp timestamp_without_timezone(TTimestamp timestamp);
 
@@ -115,10 +113,7 @@ TTimestamp get_TTimestamp_plain(HeapTuple*, TupleDesc*, Column_info_t, TTimestam
 
 /** @brief gets a timestamp value from ANY-INTEGER > 0 */
 TTimestamp get_PositiveTTimestamp_plain(HeapTuple*, TupleDesc*, Column_info_t, TTimestamp);
-/* @} */
 
-/** @name interval related
- * @{ */
 /** @brief gets an interval value from postgres type INTERVAL */
 TInterval get_TInterval(HeapTuple*, TupleDesc*, Column_info_t, TInterval);
 
@@ -130,7 +125,6 @@ TInterval get_TInterval_plain(HeapTuple*, TupleDesc*, Column_info_t, TInterval);
 
 /** @brief gets an interval value from ANY-INTEGER > 0 */
 TInterval get_PositiveTInterval_plain(HeapTuple*, TupleDesc*, Column_info_t, TInterval);
-/* @} */
 
 /** get Id from data */
 Id get_Id(HeapTuple*, TupleDesc*, Column_info_t, Id);

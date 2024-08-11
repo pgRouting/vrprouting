@@ -410,10 +410,10 @@ spi_getPositiveIntArr_allowEmpty(
 
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -426,10 +426,10 @@ get_TTimestamp_plain(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, T
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -445,10 +445,10 @@ get_PositiveTTimestamp_plain(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -461,10 +461,10 @@ get_TTimestamp(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, TTimest
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -480,10 +480,10 @@ get_PositiveTTimestamp(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info,
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -496,10 +496,10 @@ get_TInterval(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, TInterva
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -515,10 +515,10 @@ get_PositiveTInterval(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, 
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -531,10 +531,10 @@ get_TInterval_plain(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, TI
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -550,10 +550,10 @@ get_PositiveTInterval_plain(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t 
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -566,10 +566,10 @@ get_Id(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Id opt_value) {
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -585,10 +585,10 @@ get_Idx(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Idx opt_value)
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -607,10 +607,10 @@ StepType get_StepType(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info,
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -623,10 +623,10 @@ get_Amount(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Amount opt_
 }
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -643,10 +643,10 @@ get_PositiveAmount(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, PAm
 
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -666,10 +666,10 @@ get_MatrixIndex(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Matrix
 
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -689,10 +689,10 @@ get_Duration(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Duration 
 
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -712,10 +712,10 @@ get_Cost(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, TravelCost op
 
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -732,10 +732,10 @@ get_Kind(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, char opt_valu
 
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist
@@ -756,10 +756,10 @@ get_Priority(HeapTuple *tuple, TupleDesc *tupdesc, Column_info_t info, Priority 
 
 
 /**
- * @params [in] tuple
- * @params [in] tupdesc
- * @params [in] info about the column been fetched
- * @params [in] opt_value default value when the column does not exist
+ * @param[in] tuple
+ * @param[in] tupdesc
+ * @param[in] info about the column been fetched
+ * @param[in] opt_value default value when the column does not exist
  *
  * @returns The value found
  * @returns opt_value when the column does not exist

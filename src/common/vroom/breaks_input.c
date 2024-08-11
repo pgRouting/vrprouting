@@ -125,12 +125,6 @@ void db_get_breaks(
 }
 
 
-
-/**
- * @param[in] sql SQL query to execute
- * @param[out] rows C Container that holds the data
- * @param[out] total_rows Total rows recieved
- */
 void
 get_vroom_breaks(
     char *sql,
