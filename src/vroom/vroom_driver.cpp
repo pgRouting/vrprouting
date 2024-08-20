@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
 #include "cpp_common/identifiers.hpp"
-#include "cpp_common/base_matrix.hpp"
+#include "cpp_common/vroom_matrix.hpp"
 #include "cpp_common/vroom_vehicle_t.hpp"
 #include "cpp_common/vroom_shipment_t.hpp"
 #include "cpp_common/vroom_job_t.hpp"
@@ -128,6 +128,8 @@ vrp_do_vroom(
         pgassert(total_vehicles);
         pgassert(total_matrix_rows);
 
+        using Matrix = vrprouting::vroom::Matrix;
+
         auto start_time = std::chrono::high_resolution_clock::now();
 
         Identifiers<Id> location_ids;
@@ -182,17 +184,6 @@ vrp_do_vroom(
                 location_ids, min_speed_factor);
 
         /*
-         * Verify matrix cells preconditions
-         */
-        if (!matrix.has_no_infinity()) {
-            (*return_tuples) = NULL;
-            (*return_count) = 0;
-            err << "An Infinity value was found on the Matrix. Might be missing information of a node";
-            *err_msg = to_pg_msg(err.str());
-            return;
-        }
-
-        /*
          * Verify size of matrix cell lies in the limit
          */
         if (matrix.size() > (std::numeric_limits<vroom::Index>::max)()) {
@@ -218,7 +209,7 @@ vrp_do_vroom(
                 std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time)
                 .count());
 
-        std::vector < Vroom_rt > results = problem.solve(exploration_level, timeout, loading_time);
+        std::vector<Vroom_rt> results = problem.solve(exploration_level, timeout, loading_time);
 
         auto count = results.size();
         if (count == 0) {
@@ -256,6 +247,11 @@ vrp_do_vroom(
         (*return_count) = 0;
         err << except.message;
         *err_msg = to_pg_msg(err.str().c_str());
+        *log_msg = to_pg_msg(log.str().c_str());
+    } catch (std::string &except) {
+        (*return_tuples) = free(*return_tuples);
+        (*return_count) = 0;
+        *err_msg = to_pg_msg(except.c_str());
         *log_msg = to_pg_msg(log.str().c_str());
     } catch (std::exception &except) {
         (*return_tuples) = free(*return_tuples);
