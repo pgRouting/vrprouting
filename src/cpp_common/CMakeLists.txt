@@ -5,4 +5,5 @@ ADD_LIBRARY(cpp_common OBJECT
   assert.cpp
   alloc.cpp
   get_check_data.c
+  vroom_matrix.cpp
   )
