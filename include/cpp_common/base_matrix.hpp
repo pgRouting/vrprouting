@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*! @file */
-
 #ifndef INCLUDE_CPP_COMMON_BASE_MATRIX_HPP_
 #define INCLUDE_CPP_COMMON_BASE_MATRIX_HPP_
 #pragma once
@@ -32,13 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <iosfwd>
 #include <vector>
 #include <map>
-#include <utility>
-#include <cstdint>
 
 #include "c_types/typedefs.h"
 #include "cpp_common/identifiers.hpp"
-
-#include "structures/generic/matrix.h"
 
 typedef struct Matrix_cell_t Matrix_cell_t;
 
@@ -63,18 +57,15 @@ class Base_Matrix {
     /** @brief Constructs an emtpy matrix */
     Base_Matrix() = default;
     /** @brief Constructs a matrix for only specific identifiers */
-    Base_Matrix(Matrix_cell_t *, size_t, const Identifiers<Id>&, Multiplier);
-    Base_Matrix(Vroom_matrix_t *, size_t, const Identifiers<Id> &, double);
-    explicit Base_Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id> &, Multiplier);
+    Base_Matrix(Matrix_cell_t*, size_t, const Identifiers<Id>&, Multiplier);
+    /** @brief Constructs a matrix for the euclidean */
+    Base_Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id>&, Multiplier);
 
     /** @name status of the matrix
      * @{
      */
     /** @brief does the matrix values not given by the user? */
     bool has_no_infinity() const;
-
-    vroom::Matrix<vroom::Duration> get_vroom_duration_matrix() const;
-    vroom::Matrix<vroom::Cost> get_vroom_cost_matrix() const;
 
     /** @brief does the matrix obeys the triangle inequality? */
     bool obeys_triangle_inequality() const;
@@ -89,8 +80,6 @@ class Base_Matrix {
      */
     size_t size() const {return m_ids.size();}
 
-    /** @brief is the matrix symetric? */
-    bool is_symmetric() const;
 
     /** @}*/
 
@@ -108,11 +97,11 @@ class Base_Matrix {
     /** @brief original id -> idx */
     Idx get_index(Id) const;
 
-    /** @brief original id -> idx */
+    /** @brief idx -> original id */
     Id get_original_id(Idx) const;
 
  private:
-    /** @brief Traverses the matrix information to set the ids of the nodes */
+    /** @brief set the ids of the nodes */
     void set_ids(const std::vector<Matrix_cell_t> &);
 
     /** DATA **/
@@ -124,12 +113,6 @@ class Base_Matrix {
      * m_time_matrix[i][j] i and j are index from the ids
      */
     std::vector<std::vector<TInterval>> m_time_matrix;
-
-    /** @brief the cost matrix for vroom
-     *
-     * m_cost_matrix[i][j] i and j are index from the ids
-     */
-    std::vector<std::vector<TravelCost>> m_cost_matrix;
 };
 
 }  // namespace base
