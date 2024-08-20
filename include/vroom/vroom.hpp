@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <vector>
 
 #include "c_types/typedefs.h"
-#include "cpp_common/base_matrix.hpp"
+#include "cpp_common/vroom_matrix.hpp"
 #include "cpp_common/messages.hpp"
 
 using Vroom_rt = struct Vroom_rt;
@@ -70,40 +70,40 @@ class Vroom : public vrprouting::Messages {
     void add_vehicles(const Vroom_vehicle_t*, size_t, const Vroom_break_t*, size_t, const Vroom_time_window_t*, size_t);
 
     /** @brief sets m_matrix */
-    void add_matrix(const vrprouting::base::Base_Matrix&);
+    void add_matrix(const vrprouting::vroom::Matrix&);
 
     /** @brief solves the vroom problem */
     std::vector<Vroom_rt> solve(int32_t, int32_t, int32_t);
 
  private:
-    std::vector<vroom::TimeWindow> get_vroom_time_windows(const std::vector<Vroom_time_window_t>&) const;
-    vroom::Amount get_vroom_amounts(const std::vector<Amount>&) const;
-    vroom::Amount get_vroom_amounts(const Amount *amounts, size_t count) const;
-    vroom::Skills get_vroom_skills(const Skill*, size_t) const;
-    vroom::Job    get_vroom_job(
+    std::vector<::vroom::TimeWindow> get_vroom_time_windows(const std::vector<Vroom_time_window_t>&) const;
+    ::vroom::Amount get_vroom_amounts(const std::vector<::Amount>&) const;
+    ::vroom::Amount get_vroom_amounts(const Amount *amounts, size_t count) const;
+    ::vroom::Skills get_vroom_skills(const Skill*, size_t) const;
+    ::vroom::Job    get_vroom_job(
             const Vroom_job_t&,
             const std::vector<Vroom_time_window_t>&) const;
-    std::pair<vroom::Job, vroom::Job> get_vroom_shipment(
+    std::pair<::vroom::Job, ::vroom::Job> get_vroom_shipment(
             const Vroom_shipment_t&,
             const std::vector<Vroom_time_window_t>&,
             const std::vector<Vroom_time_window_t>&) const;
-    std::vector<vroom::Break> get_vroom_breaks(
+    std::vector<::vroom::Break> get_vroom_breaks(
             const std::vector<Vroom_break_t>&,
             const std::vector<Vroom_time_window_t>&) const;
-    vroom::Vehicle get_vroom_vehicle(
+    ::vroom::Vehicle get_vroom_vehicle(
             const Vroom_vehicle_t&,
             const std::vector<Vroom_break_t>&,
             const std::vector<Vroom_time_window_t>&) const;
-    void get_amount(vroom::Amount, Amount**);
-    StepType get_job_step_type(vroom::JOB_TYPE);
-    StepType get_step_type(vroom::Step);
-    std::vector<Vroom_rt> get_results(vroom::Solution);
+    void get_amount(::vroom::Amount, Amount**);
+    StepType get_job_step_type(::vroom::JOB_TYPE);
+    StepType get_step_type(::vroom::Step);
+    std::vector<Vroom_rt> get_results(::vroom::Solution);
 
  private:
-    std::vector<vroom::Job> m_jobs;
-    std::vector<std::pair<vroom::Job, vroom::Job>> m_shipments;
-    std::vector<vroom::Vehicle> m_vehicles;
-    vrprouting::base::Base_Matrix m_matrix;
+    std::vector<::vroom::Job> m_jobs;
+    std::vector<std::pair<::vroom::Job, ::vroom::Job>> m_shipments;
+    std::vector<::vroom::Vehicle> m_vehicles;
+    vrprouting::vroom::Matrix m_matrix;
 };
 
 }  // namespace problem
