@@ -180,8 +180,7 @@ vrp_do_vroom(
         /*
          * Create the matrix. Also, scale the time matrix according to min_speed_factor
          */
-        vrprouting::base::Base_Matrix matrix(matrix_rows, total_matrix_rows,
-                location_ids, min_speed_factor);
+        Matrix matrix(matrix_rows, total_matrix_rows, location_ids, min_speed_factor);
 
         /*
          * Verify size of matrix cell lies in the limit
