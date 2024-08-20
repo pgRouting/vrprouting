@@ -77,7 +77,7 @@ class Vroom : public vrprouting::Messages {
 
  private:
     std::vector<::vroom::TimeWindow> get_vroom_time_windows(const std::vector<Vroom_time_window_t>&) const;
-    ::vroom::Amount get_vroom_amounts(const std::vector<::Amount>&) const;
+    ::vroom::Amount get_vroom_amounts(const std::vector<Amount>&) const;
     ::vroom::Amount get_vroom_amounts(const Amount *amounts, size_t count) const;
     ::vroom::Skills get_vroom_skills(const Skill*, size_t) const;
     ::vroom::Job    get_vroom_job(

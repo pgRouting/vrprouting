@@ -187,8 +187,6 @@ Matrix::get_vroom_cost_matrix() const {
 
 /**
  * @brief sets the VROOM duration matrix from vrprouting Base Matrix
- *
- * @return ::vroom::Matrix<::vroom::Duration> The vroom cost matrix
  */
 void
 Matrix::set_vroom_duration_matrix(const VMatrix &m_matrix) {
@@ -203,8 +201,6 @@ Matrix::set_vroom_duration_matrix(const VMatrix &m_matrix) {
 
 /**
  * @brief sets the VROOM cost matrix from vrprouting Base Matrix
- *
- * @return ::vroom::Matrix<vroom::Cost> The vroom cost matrix
  */
 void
 Matrix::set_vroom_cost_matrix(const VMatrix &m_matrix) {
