@@ -30,21 +30,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "drivers/pickDeliver_driver.h"
 
-#include <cstring>
+#include <utility>
 #include <sstream>
 #include <string>
-#include <deque>
 
-#include "problem/pickDeliver.hpp"
-#include "cpp_common/orders_t.hpp"
 #include "c_types/solution_rt.h"
-#include "cpp_common/vehicle_t.hpp"
-#include "problem/matrix.hpp"
 
+#include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
+
+#include "cpp_common/orders_t.hpp"
+#include "cpp_common/vehicle_t.hpp"
 #include "initialsol/tabu.hpp"
 #include "optimizers/tabu.hpp"
-#include "cpp_common/alloc.hpp"
+#include "problem/matrix.hpp"
+#include "problem/pickDeliver.hpp"
+
 
 /**
  *

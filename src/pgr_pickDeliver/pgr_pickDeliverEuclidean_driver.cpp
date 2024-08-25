@@ -25,24 +25,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-
 #include "drivers/pgr_pickDeliverEuclidean_driver.h"
 
+#include <map>
 #include <sstream>
-#include <utility>
 #include <string>
-#include <deque>
+#include <utility>
 #include <vector>
 #include <map>
 
-#include "cpp_common/orders_t.hpp"
 #include "c_types/solution_rt.h"
+
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
 
-#include "problem/matrix.hpp"
+#include "cpp_common/orders_t.hpp"
+#include "cpp_common/vehicle_t.hpp"
 #include "initialsol/simple.hpp"
 #include "optimizers/simple.hpp"
+#include "problem/matrix.hpp"
 #include "problem/pickDeliver.hpp"
 
 namespace {

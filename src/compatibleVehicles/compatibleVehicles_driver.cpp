@@ -24,24 +24,23 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
-/** @file */
-
 
 #include "drivers/compatibleVehicles_driver.h"
 
-#include <cstring>
+#include <deque>
 #include <sstream>
 #include <string>
-#include <deque>
 
-#include "problem/pickDeliver.hpp"
-#include "problem/matrix.hpp"
-#include "cpp_common/orders_t.hpp"
 #include "c_types/compatibleVehicles_rt.h"
-#include "cpp_common/vehicle_t.hpp"
 
 #include "cpp_common/assert.hpp"
 #include "cpp_common/alloc.hpp"
+
+#include "cpp_common/orders_t.hpp"
+#include "cpp_common/vehicle_t.hpp"
+#include "problem/pickDeliver.hpp"
+#include "problem/matrix.hpp"
+
 
 /**
  *
