@@ -52,7 +52,7 @@ Initial_solution::Initial_solution(
     unassigned(m_orders.size()),
     assigned() {
         invariant();
-        pgassert(kind >= 0 && kind <= OneDepot);
+        pgassert(kind >= OneTruck && kind <= OneDepot);
 
         switch (kind) {
             case OneTruck:
@@ -74,9 +74,10 @@ Initial_solution::Initial_solution(
 }
 
 void
-Initial_solution::do_while_foo(int kind) {
+Initial_solution::do_while_foo(Initials_code kind) {
     invariant();
-    pgassert(kind > 0 && kind <= OneDepot);
+    pgassert(kind != OneTruck);
+    pgassert(kind > OneTruck && kind <= OneDepot);
 
     Identifiers<size_t> notused;
 
