@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
-#include "cpp_common/timeconversion.hpp"
 
 #include "cpp_common/orders_t.hpp"
 #include "cpp_common/vehicle_t.hpp"
