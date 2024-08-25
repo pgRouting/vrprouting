@@ -35,17 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #ifdef __cplusplus
 #include <cstddef>
 #include <cstdint>
-using Orders_t = struct Orders_t;
-using Vehicle_t = struct Vehicle_t;
-using Matrix_cell_t = struct Matrix_cell_t;
 using Solution_rt = struct Solution_rt;
 #else
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
-typedef struct Orders_t Orders_t;
-typedef struct Vehicle_t Vehicle_t;
-typedef struct Matrix_cell_t Matrix_cell_t;
 typedef struct Solution_rt Solution_rt;
 #endif
 
@@ -54,9 +48,7 @@ extern "C" {
 #endif
 
 void vrp_do_pgr_pickDeliver(
-        Orders_t *pd_orders_arr, size_t total_pd_orders,
-        Vehicle_t *vehicles_arr, size_t total_vehicles,
-        Matrix_cell_t *matrix_cells_arr, size_t total_cells,
+        char*, char*, char*,
         double, int, int,
 
         Solution_rt**, size_t*,
