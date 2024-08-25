@@ -143,6 +143,7 @@ Orders::set_compatibles(Speed speed) {
 
 /**
   @param [in] orders set of orders
+  @param [in] sizer_orders
   @param [in] problem_ptr pointer to problem to get some needed information
   */
 void
