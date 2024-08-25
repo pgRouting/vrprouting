@@ -186,9 +186,9 @@ Vehicle_pickDeliver::set_initial_solution(
   if (m_stops.empty()) return;
   std::vector<size_t> stops;
 #if 1
-  msg().log << "\n******\n" << this->id() << "\t stops(o_id) -> ";
+  log << "\n******\n" << this->id() << "\t stops(o_id) -> ";
   for (const auto &s : m_stops) {
-    msg().log << s << ", ";
+    log << s << ", ";
   }
 #endif
 
@@ -236,9 +236,9 @@ Vehicle_pickDeliver::set_initial_solution(
   set_unmovable(execution_date);
 
 #if 1
-  msg().log << "\n" << this->id() << "\t (idx,id) -> ";
+  log << "\n" << this->id() << "\t (idx,id) -> ";
   for (const auto &s : stops) {
-    msg().log << "(" << s << ", " << orders[s].id() << ")";
+    log << "(" << s << ", " << orders[s].id() << ")";
   }
 #endif
 
@@ -246,13 +246,13 @@ Vehicle_pickDeliver::set_initial_solution(
    * Can not ignore user error when giving an initial solution
    */
   if (!is_feasible()) {
-    msg().log << "\n**********************************Vehicle is not feasible with initial orders";
-    msg().log << "twvTot " << this->twvTot() << "\tm_user_twv" << this->m_user_twv << "\n";
-    msg().log << "cvTot " << this->cvTot() << "\tm_user_cv" << this->m_user_cv << "\n";
-    msg().log << "\nVehicle: " << this->id() << "Orders: ";
-    for (const auto &s : m_stops) msg().log << s << ",";
-    msg().log << "\n";
-    msg().log << "\n" << *this;
+    log << "\n**********************************Vehicle is not feasible with initial orders";
+    log << "twvTot " << this->twvTot() << "\tm_user_twv" << this->m_user_twv << "\n";
+    log << "cvTot " << this->cvTot() << "\tm_user_cv" << this->m_user_cv << "\n";
+    log << "\nVehicle: " << this->id() << "Orders: ";
+    for (const auto &s : m_stops) log << s << ",";
+    log << "\n";
+    log << "\n" << *this;
 
 
 
@@ -277,7 +277,7 @@ Vehicle_pickDeliver::set_initial_solution(
    * check post conditions
    */
   pgassert(is_feasible());
-  msg().log << "\n" << this->tau();
+  log << "\n" << this->tau();
 }
 
 /**
@@ -291,7 +291,7 @@ Vehicle_pickDeliver::set_initial_solution(
 void
 Vehicle_pickDeliver::set_unmovable(TTimestamp execution_date) {
   Identifiers<size_t> unmovable;
-  msg().log << "\nVehicle: " << this->id() << "unmovable: {";
+  log << "\nVehicle: " << this->id() << "unmovable: {";
   for (const auto &o : m_orders_in_vehicle) {
     for (const auto &s : *this) {
       auto order = this->orders()[o];
@@ -299,13 +299,13 @@ Vehicle_pickDeliver::set_unmovable(TTimestamp execution_date) {
       if (s.order() == order.id() && s.is_pickup()) {
         if (s.opens() < execution_date) {
           unmovable += o;
-          msg().log << order.id() << ",";
+          log << order.id() << ",";
         }
       }
     }
   }
 
-  msg().log << "}";
+  log << "}";
 
   /**
    * For the optimizer is like the order does not exist
