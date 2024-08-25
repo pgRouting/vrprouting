@@ -102,7 +102,7 @@ Optimize::Optimize(
         m_max_cycles(max_cycles),
         m_stop_on_all_served(stop_on_all_served),
         m_optimize(optimize) {
-    ENTERING(msg());
+    ENTERING(msg().log);
 
     /*
      * this function does the actual work
@@ -120,7 +120,7 @@ Optimize::Optimize(
     this->m_fleet = best_solution.fleet();
 
     msg().log << tau("Best solution found");
-    EXITING(msg());
+    EXITING(msg().log);
 }
 
 /**
@@ -132,7 +132,7 @@ Optimize::Optimize(
  */
 bool
 Optimize::move_2_real() {
-    ENTERING(msg());
+    ENTERING(msg().log);
     /*
      * nothing to do:
      * - No orders pending on phony vehicle
@@ -227,7 +227,7 @@ Optimize::move_2_real() {
             }
         }  // orders
     }  // from phony
-    EXITING(msg());
+    EXITING(msg().log);
     if (moves_were_done) tabu_list.clear();
     return moves_were_done;
 }
@@ -272,7 +272,7 @@ Optimize::set_tabu_list_length() {
  */
 void
 Optimize::tabu_search() {
-    ENTERING(msg());
+    ENTERING(msg().log);
 
     sort_by_size(true);
 
@@ -394,7 +394,7 @@ Optimize::tabu_search() {
         }
         iter++;
     }
-    EXITING(msg());
+    EXITING(msg().log);
 }
 
 
