@@ -25,30 +25,29 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
-/** @file */
-
 
 #include "drivers/optimize_driver.h"
 
-#include <cstring>
+#include <algorithm>
 #include <sstream>
 #include <string>
-#include <vector>
 #include <utility>
-#include <algorithm>
+#include <vector>
 
-#include "problem/pickDeliver.hpp"
-#include "cpp_common/orders_t.hpp"
 #include "c_types/short_vehicle_rt.h"
-#include "cpp_common/vehicle_t.hpp"
-#include "problem/matrix.hpp"
 
+#include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
+#include "cpp_common/interruption.hpp"
 #include "cpp_common/messages.hpp"
+
+#include "cpp_common/orders_t.hpp"
+#include "cpp_common/vehicle_t.hpp"
+
 #include "initialsol/tabu.hpp"
 #include "optimizers/tabu.hpp"
-#include "cpp_common/alloc.hpp"
-#include "cpp_common/interruption.hpp"
+#include "problem/matrix.hpp"
+#include "problem/pickDeliver.hpp"
 
 namespace {
 
