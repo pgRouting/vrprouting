@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
-
+#include "cpp_common/pgdata_getters.hpp"
 #include "cpp_common/orders_t.hpp"
 #include "cpp_common/vehicle_t.hpp"
 #include "initialsol/simple.hpp"
@@ -70,58 +70,12 @@ get_initial_solution(vrprouting::problem::PickDeliver &problem_ptr, int m_initia
     return m_solutions;
 }
 
-bool
-are_shipments_ok(
-        const std::vector<Orders_t> &orders,
-        std::string *err_string,
-        std::string *hint_string) {
-    /**
-     * - demand > 0 (the type is unsigned so no need to check for negative values, only for it to be non 0
-     * - pick_service_t >=0
-     * - drop_service_t >=0
-     * - p_open <= p_close
-     * - d_open <= d_close
-     */
-    for (const auto &o : orders) {
-        if (o.demand == 0) {
-            *err_string = "Unexpected zero value found on column 'demand' of shipments";
-            *hint_string = "Check shipment id #:" + std::to_string(o.id);
-            return false;
-        }
-
-        if (o.pick_service_t < 0) {
-            *err_string = "Unexpected negative value found on column 'p_service_t' of shipments";
-            *hint_string = "Check shipment id #:" + std::to_string(o.id);
-            return false;
-        }
-
-        if (o.deliver_service_t < 0) {
-            *err_string = "Unexpected negative value found on column 'd_service_t' of shipments";
-            *hint_string = "Check shipment id #:" + std::to_string(o.id);
-            return false;
-        }
-
-        if (o.pick_open_t > o.pick_close_t) {
-            *err_string = "Unexpected pickup time windows found on shipments";
-            *hint_string = "Check shipment id #:" + std::to_string(o.id);
-            return false;
-        }
-
-        if (o.deliver_open_t > o.deliver_close_t) {
-            *err_string = "Unexpected delivery time windows found on shipments";
-            *hint_string = "Check shipment id #:" + std::to_string(o.id);
-            return false;
-        }
-    }
-    return true;
-}
-
 }  // namespace
 
 void
 vrp_do_pgr_pickDeliverEuclidean(
-        Orders_t *orders_arr, size_t total_orders,
-        Vehicle_t *vehicles_arr, size_t total_vehicles,
+        char *orders_sql,
+        char *vehicles_sql,
 
         double factor,
         int max_cycles,
@@ -146,6 +100,8 @@ vrp_do_pgr_pickDeliverEuclidean(
         using Matrix = vrprouting::problem::Matrix;
         using Optimize = vrprouting::optimizers::simple::Optimize;
         using Initials_code = vrprouting::initialsol::simple::Initials_code;
+        using vrprouting::pgget::pickdeliver::get_orders;
+        using vrprouting::pgget::pickdeliver::get_vehicles;
 
         /*
          * verify preconditions
@@ -156,24 +112,47 @@ vrp_do_pgr_pickDeliverEuclidean(
         pgassert(*return_count == 0);
         pgassert(!(*return_tuples));
 
-        std::string err_string;
-        std::string hint_string;
+        if (initial_solution_id < 0 || initial_solution_id > 7) {
+            *err_msg = to_pg_msg("Illegal value in parameter: initial_sol");
+            *log_msg = to_pg_msg("Expected value: 0 <= initial_sol <= 7");
+            return;
+        }
+
+        if (max_cycles < 0) {
+            *err_msg = to_pg_msg("Illegal value in parameter: max_cycles");
+            *log_msg = to_pg_msg("Expected value: max_cycles >= 0");
+            return;
+        }
+
+        if (factor <= 0) {
+            *err_msg = to_pg_msg("Illegal value in parameter: factor");
+            *log_msg = to_pg_msg("Expected value: factor > 0");
+            return;
+        }
 
         /*
 	 * Data input starts
          */
+        bool use_timestamps = false;
+        bool is_euclidean = true;
+        bool with_stops = false;
 
-        /*
-         * transform to C++ containers
-         */
-        std::vector<Orders_t> orders(orders_arr, orders_arr + total_orders);
-        std::vector<Vehicle_t> vehicles(vehicles_arr, vehicles_arr + total_vehicles);
-
-        if (!are_shipments_ok(orders, &err_string, &hint_string)) {
-            *err_msg = to_pg_msg(err_string);
-            *log_msg = to_pg_msg(hint_string);
+        hint = orders_sql;
+        auto orders = get_orders(std::string(orders_sql), is_euclidean, use_timestamps);
+        if (orders.size() == 0) {
+            *notice_msg = to_pg_msg("Insufficient data found on 'orders' inner query");
+            *log_msg = hint? to_pg_msg(hint) : nullptr;
             return;
         }
+
+        hint = vehicles_sql;
+        auto vehicles = get_vehicles(std::string(vehicles_sql), is_euclidean, use_timestamps, with_stops);
+        if (vehicles.size() == 0) {
+            *notice_msg = to_pg_msg("Insufficient data found on 'vehicles' inner query");
+            *log_msg = hint? to_pg_msg(hint) : nullptr;
+            return;
+        }
+        hint = nullptr;
 
         /* Data input ends */
 

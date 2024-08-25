@@ -26,14 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  ********************************************************************PGR-GNU*/
 
 #include "c_common/postgres_connection.h"
-#include "utils/array.h"
 
-#include "c_common/debug_macro.h"
 #include "c_common/e_report.h"
 #include "c_common/time_msg.h"
-#include "c_common/orders_input.h"
-#include "c_common/vehicles_input.h"
-#include "cpp_common/orders_t.hpp"
 #include "c_types/solution_rt.h"
 
 #include "drivers/pgr_pickDeliverEuclidean_driver.h"
@@ -58,109 +53,10 @@ process(
 
     vrp_SPI_connect();
 
-    if (factor <= 0) {
-        ereport(ERROR,
-                (errcode(ERRCODE_INTERNAL_ERROR),
-                 errmsg("Illegal value in parameter: factor"),
-                 errhint("Value found: %f <= 0", factor)));
-        (*result_count) = 0;
-        (*result_tuples) = NULL;
-        return;
-    }
-
-    if (max_cycles < 0) {
-        ereport(ERROR,
-                (errcode(ERRCODE_INTERNAL_ERROR),
-                 errmsg("Illegal value in parameter: max_cycles"),
-                 errhint("Negative value found: max_cycles: %d ", max_cycles)));
-        (*result_count) = 0;
-        (*result_tuples) = NULL;
-        return;
-    }
-
-    if (initial_solution_id <= 0 || initial_solution_id > 6) {
-        elog(ERROR, "Illegal value in parameter: initial_sol");
-        (*result_count) = 0;
-        (*result_tuples) = NULL;
-        return;
-    }
-
-    PGR_DBG("Load orders");
-    struct Orders_t *pd_orders_arr = NULL;
-    size_t total_pd_orders = 0;
-    get_shipments_euclidean(pd_orders_sql,
-           &pd_orders_arr, &total_pd_orders);
-
-    PGR_DBG("Load vehicles");
-    Vehicle_t *vehicles_arr = NULL;
-    size_t total_vehicles = 0;
-    get_vehicles_euclidean(vehicles_sql,
-           &vehicles_arr, &total_vehicles,
-           false);
-    PGR_DBG("total vehicles %ld", total_vehicles);
-
-#if 0
-    for (size_t i = 0; i < total_pd_orders; i++) {
-        PGR_DBG("%ld %f pick %f %f %ld - "
-                "%ld %ld %ld deliver %f %f %ld - %ld %ld %ld ",
-                pd_orders_arr[i].id,
-                pd_orders_arr[i].demand,
-
-                pd_orders_arr[i].pick_x,
-                pd_orders_arr[i].pick_y,
-                pd_orders_arr[i].pick_node_id,
-
-                pd_orders_arr[i].pick_open_t,
-                pd_orders_arr[i].pick_close_t,
-                pd_orders_arr[i].pick_service_t,
-
-                pd_orders_arr[i].deliver_x,
-                pd_orders_arr[i].deliver_y,
-                pd_orders_arr[i].deliver_node_id,
-
-                pd_orders_arr[i].deliver_open_t,
-                pd_orders_arr[i].deliver_close_t,
-                pd_orders_arr[i].deliver_service_t);
-    }
-
-
-
-    for (size_t i = 0; i < total_vehicles; i++) {
-        PGR_DBG("%ld %f %f , start %f %f %ld %ld %ld "
-                "end %f %f %ld %ld %ld number %ld ",
-               vehicles_arr[i].id,
-               vehicles_arr[i].capacity,
-               vehicles_arr[i].speed,
-
-               vehicles_arr[i].start_x,
-               vehicles_arr[i].start_y,
-               vehicles_arr[i].start_open_t,
-               vehicles_arr[i].start_close_t,
-               vehicles_arr[i].start_service_t,
-
-               vehicles_arr[i].end_x,
-               vehicles_arr[i].end_y,
-               vehicles_arr[i].end_open_t,
-               vehicles_arr[i].end_close_t,
-               vehicles_arr[i].end_service_t,
-
-               vehicles_arr[i].cant_v);
-    }
-#endif
-
-    if (total_pd_orders == 0 || total_vehicles == 0) {
-        (*result_count) = 0;
-        (*result_tuples) = NULL;
-        vrp_SPI_finish();
-        return;
-    }
-    PGR_DBG("Total %ld orders in query:", total_pd_orders);
-
-    PGR_DBG("Starting processing");
     clock_t start_t = clock();
     vrp_do_pgr_pickDeliverEuclidean(
-            pd_orders_arr, total_pd_orders,
-            vehicles_arr, total_vehicles,
+            pd_orders_sql,
+            vehicles_sql,
 
             factor,
             max_cycles,
@@ -181,9 +77,6 @@ process(
     }
 
     vrp_global_report(&log_msg, &notice_msg, &err_msg);
-
-    if (pd_orders_arr) pfree(pd_orders_arr);
-    if (vehicles_arr) pfree(vehicles_arr);
 
     vrp_SPI_finish();
 }
