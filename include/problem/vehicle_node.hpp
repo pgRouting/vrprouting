@@ -49,8 +49,7 @@ namespace problem {
 class Vehicle_node: public Tw_node {
  public:
      /** @brief Print the contents of a Vehicle_node object. */
-     friend std::ostream& operator<<(
-             std::ostream &log, const Vehicle_node &v);
+     friend std::ostream& operator<<(std::ostream &log, const Vehicle_node &v);
 
      /** @brief Construction without information is not allowed */
      Vehicle_node() = delete;
