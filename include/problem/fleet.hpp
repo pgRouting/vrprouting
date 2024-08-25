@@ -33,22 +33,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <vector>
 #include <numeric>
 
-#include "c_types/typedefs.h"
-#include "cpp_common/short_vehicle.hpp"
 #include "problem/vehicle_pickDeliver.hpp"
-
-typedef struct Vehicle_t Vehicle_t;
 
 namespace vrprouting {
 class Messages;
+class Short_vehicle;
 
 namespace problem {
 class Orders;
 class Vehicle_node;
 
-/*
- * PVR = pnode
- */
 class Fleet: protected std::vector<Vehicle_pickDeliver> {
  public:
     using std::vector<Vehicle_pickDeliver>::begin;
@@ -59,21 +53,17 @@ class Fleet: protected std::vector<Vehicle_pickDeliver> {
 
     /** @brief Create a fleet based on the Vehicles of the problem */
     Fleet(
-        Vehicle_t* vehicles , size_t size_vehicles,
-        const Orders& p_orders, std::vector<Vehicle_node>& p_nodes, size_t& node_id)
-      : m_used(),
-      m_unused() {
-        build_fleet(vehicles, size_vehicles, {}, p_orders, p_nodes, node_id);
-      }
+        Vehicle_t* , size_t,
+        const Orders&,
+        std::vector<Vehicle_node>&, size_t&);
 
     /** @brief Create a fleet based on the Vehicles of the problem */
-    Fleet(Vehicle_t* vehicles , size_t size_vehicles,
-        const std::vector<Short_vehicle> &new_stops,
-        const Orders& p_orders, std::vector<Vehicle_node>& p_nodes, size_t& node_id)
-      : m_used(),
-      m_unused() {
-        build_fleet(vehicles, size_vehicles, new_stops, p_orders, p_nodes, node_id);
-      }
+    Fleet(
+        Vehicle_t*, size_t,
+        const std::vector<Short_vehicle>&,
+        const Orders&,
+        std::vector<Vehicle_node>&,
+        size_t&);
 
     /** @brief creating a fleet without information is not allowed */
     Fleet() = delete;
@@ -131,9 +121,10 @@ class Fleet: protected std::vector<Vehicle_pickDeliver> {
 
     /** @brief build the fleet */
     void build_fleet(
-        Vehicle_t*, size_t, const std::vector<Short_vehicle>&,
+        Vehicle_t*, size_t,
+        const std::vector<Short_vehicle>&,
         const Orders&,
-        std::vector<Vehicle_node>& p_nodes, size_t& node_id);
+        std::vector<Vehicle_node>&, size_t&);
 
     void invariant() const;
 
