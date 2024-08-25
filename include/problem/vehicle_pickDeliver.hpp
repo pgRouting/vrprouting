@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <limits>
 #include <vector>
-#include "c_types/typedefs.h"
+
 #include "cpp_common/assert.hpp"
 #include "cpp_common/messages.hpp"
 #include "cpp_common/identifiers.hpp"
@@ -40,8 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 namespace vrprouting {
 namespace problem {
+
 class Order;
-class Orders;
 
 class Vehicle_pickDeliver : public Vehicle {
  public:
@@ -56,26 +56,8 @@ class Vehicle_pickDeliver : public Vehicle {
      using Vehicle::at;
      using Vehicle::empty;
 
-     /**
-      * @returns The vehicle's information on the log
-      * @param [in,out] log place to store the vehicle's information
-      * @param [in] v the vehicle to work with
-      */
-     friend std::ostream& operator<< (std::ostream &log, const Vehicle_pickDeliver &v) {
-         int i(0);
-         log << "\n\n****************** " << v.idx() << "th VEHICLE*************\n";
-         log << "id = " << v.id()
-             << "\tcapacity = " << v.capacity() << "\n";
-
-         for (const auto &path_stop : v) {
-             log << "Path_stop" << ++i << "\n";
-             log << path_stop << "\n";
-         }
-
-         log << v.feasible_orders() << "\n";
-         return log;
-     }
-
+     /** @returns The vehicle's information on the log */
+     friend std::ostream& operator<< (std::ostream &log, const Vehicle_pickDeliver &v);
 
      Vehicle_pickDeliver() = delete;
      Vehicle_pickDeliver(
@@ -86,14 +68,7 @@ class Vehicle_pickDeliver : public Vehicle {
              const std::vector<int64_t>& p_stops,
              PAmount p_capacity,
              Speed p_speed,
-             const Orders& p_orders) :
-         Vehicle(p_idx, p_id, p_starting_site, p_ending_site, p_capacity, p_speed),
-         m_cost((std::numeric_limits<double>::max)()),
-         m_orders_in_vehicle(),
-         m_feasible_orders(),
-         m_orders(p_orders),
-         m_stops(p_stops) {}
-
+             const Orders& p_orders);
 
      /** @brief returns the set of feasible orders for modification*/
      Identifiers<size_t>& feasible_orders() {return m_feasible_orders;}
@@ -126,11 +101,7 @@ class Vehicle_pickDeliver : public Vehicle {
      size_t pop_back();
      size_t pop_front();
 
-     // TODO(pending): move code to cpp file
-     Order get_first_order() const {
-         pgassert(!empty());
-         return orders()[at(1).idx()];
-     }
+     Order get_first_order() const;
 
      /** @brief Get the value of the objective function */
      double objective() const;
@@ -144,7 +115,7 @@ class Vehicle_pickDeliver : public Vehicle {
 
      bool is_order_feasible(const Order &order) const;
 
-     const Orders& orders() const {pgassert(m_orders.size() != 0); return m_orders;}
+     const Orders& orders() const;
 
  protected:
      using Vehicle::begin;
