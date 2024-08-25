@@ -32,18 +32,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_DRIVERS_COMPATIBLEVEHICLES_DRIVER_H_
 #pragma once
 
-/* for size-t */
 #ifdef __cplusplus
-#   include <cstddef>
+#include <cstddef>
+#include <cstdint>
+using CompatibleVehicles_rt = struct CompatibleVehicles_rt;
 #else
-#   include <stddef.h>
-#endif
-
-typedef struct Orders_t Orders_t;
-typedef struct Time_multipliers_t Time_multipliers_t;
-typedef struct Vehicle_t Vehicle_t;
-typedef struct Matrix_cell_t Matrix_cell_t;
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
 typedef struct CompatibleVehicles_rt CompatibleVehicles_rt;
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,12 +49,8 @@ extern "C" {
 
 /** @brief Driver for processing a "compatible vehicles" problem */
 void vrp_do_compatibleVehicles(
-        Orders_t customers_arr[], size_t total_customers,
-        Vehicle_t *vehicles_arr,              size_t total_vehicles,
-        Matrix_cell_t *matrix_cells_arr,      size_t total_cells,
-        Time_multipliers_t *multipliers_arr,               size_t total_multipliers,
-
-        double,
+        char*, char*, char*, char*,
+        double, bool, bool, bool,
 
         CompatibleVehicles_rt **, size_t*,
         char**, char**, char**);
