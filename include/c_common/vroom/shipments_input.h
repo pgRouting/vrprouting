@@ -30,16 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_C_COMMON_VROOM_SHIPMENTS_INPUT_H_
 #pragma once
 
+#include <stdbool.h>
 #include <stddef.h>
 
-#include "cpp_common/get_check_data.hpp"
-#include "cpp_common/info.hpp"
-#include "cpp_common/vroom_shipment_t.hpp"
-
-#ifdef PROFILE
-#include "c_common/debug_macro.h"
-#include "c_common/time_msg.h"
-#endif
+typedef struct Vroom_shipment_t Vroom_shipment_t;
 
 /** @brief Reads the VROOM shipments */
 void
