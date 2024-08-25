@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <vector>
 #include "c_types/typedefs.h"
 
+namespace vrprouting {
+
 /** @brief short_vehicle
 
 @note C/C++/postgreSQL connecting structure for input
@@ -38,10 +40,12 @@ name | description
 id | Vehicle's identifier
 stops | Vehicle's stops
 */
-struct Short_vehicle{
-  Id id; /** Vehicle's identifier */
-  std::vector<Id> stops; /** Stops */
+class Short_vehicle{
+ public:
+     Id id; /** Vehicle's identifier */
+     std::vector<Id> stops; /** Stops */
 };
 
+}  //  namespace vrprouting
 
 #endif  // INCLUDE_CPP_COMMON_SHORT_VEHICLE_HPP_
