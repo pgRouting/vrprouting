@@ -297,7 +297,7 @@ Vroom::add_matrix(const vrprouting::vroom::Matrix &matrix) {
 }
 
 void
-Vroom::get_amount(::vroom::Amount vroom_amount, Amount **amount) {
+Vroom::get_amount(const ::vroom::Amount &vroom_amount, Amount **amount) {
     size_t amount_size = vroom_amount.size();
     for (size_t i = 0; i < amount_size; i++) {
         *((*amount) + i) = vroom_amount[i];
@@ -305,7 +305,7 @@ Vroom::get_amount(::vroom::Amount vroom_amount, Amount **amount) {
 }
 
 StepType
-Vroom::get_job_step_type(::vroom::JOB_TYPE vroom_job_type) {
+Vroom::get_job_step_type(const ::vroom::JOB_TYPE &vroom_job_type) {
     StepType step_type;
     switch (vroom_job_type) {
         case ::vroom::JOB_TYPE::SINGLE:
@@ -322,7 +322,7 @@ Vroom::get_job_step_type(::vroom::JOB_TYPE vroom_job_type) {
 }
 
 StepType
-Vroom::get_step_type(::vroom::Step step) {
+Vroom::get_step_type(const ::vroom::Step &step) {
     StepType step_type = 0;
     switch (step.step_type) {
         case ::vroom::STEP_TYPE::START:
@@ -342,7 +342,7 @@ Vroom::get_step_type(::vroom::Step step) {
 }
 
 std::vector<Vroom_rt>
-Vroom::get_results(::vroom::Solution solution) {
+Vroom::get_results(const ::vroom::Solution &solution) {
     std::vector<Vroom_rt> results;
     auto routes = solution.routes;
     Idx vehicle_seq = 1;
@@ -508,7 +508,7 @@ Vroom::solve(
                     static_cast<unsigned>(exploration_level), threads);
             results = get_results(solution);
         } else {
-            int timeout_ms = (loading_time <= timeout * 1000) ? (timeout * 1000 - loading_time) : 0;
+            auto timeout_ms = (loading_time <= timeout * 1000) ? (timeout * 1000 - loading_time) : 0;
             auto solution = problem_instance.solve(
                     static_cast<unsigned>(exploration_level), threads, timeout_ms);
             results = get_results(solution);
