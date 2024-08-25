@@ -37,9 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
-
-#include "cpp_common/matrix_cell_t.hpp"
-#include "cpp_common/time_multipliers_t.hpp"
+#include "cpp_common/pgdata_getters.hpp"
 #include "cpp_common/orders_t.hpp"
 #include "cpp_common/vehicle_t.hpp"
 #include "problem/pickDeliver.hpp"
@@ -47,12 +45,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 void
 vrp_do_compatibleVehicles(
-        Orders_t orders_arr[], size_t total_orders,
-        Vehicle_t *vehicles_arr, size_t total_vehicles,
-        Matrix_cell_t *matrix_cells_arr, size_t total_cells,
-        Time_multipliers_t *multipliers_arr, size_t total_multipliers,
+        char *orders_sql,
+        char *vehicles_sql,
+        char *matrix_sql,
+        char *multipliers_sql,
 
         double factor,
+
+        bool use_timestamps,
+        bool is_euclidean,
+        bool with_stops,
 
         CompatibleVehicles_rt **return_tuples,
         size_t *return_count,
@@ -71,6 +73,10 @@ vrp_do_compatibleVehicles(
     std::ostringstream err;
     try {
         using Matrix = vrprouting::problem::Matrix;
+        using vrprouting::pgget::pickdeliver::get_matrix;
+        using vrprouting::pgget::pickdeliver::get_orders;
+        using vrprouting::pgget::pickdeliver::get_vehicles;
+        using vrprouting::pgget::pickdeliver::get_timeMultipliers;
 
         /*
          * verify preconditions
@@ -78,21 +84,46 @@ vrp_do_compatibleVehicles(
         pgassert(!(*log_msg));
         pgassert(!(*notice_msg));
         pgassert(!(*err_msg));
-        pgassert(total_orders);
-        pgassert(total_vehicles);
-        pgassert(total_cells);
         pgassert(*return_count == 0);
         pgassert(!(*return_tuples));
 
-        /* Data input starts */
+        if (factor <= 0) {
+            *err_msg = to_pg_msg("Illegal value in parameter: factor");
+            *log_msg = to_pg_msg("Expected value: factor > 0");
+            return;
+        }
 
         /*
-         * transform to C++ containers
+	 * Data input starts
          */
-        std::vector<Vehicle_t> vehicles(vehicles_arr, vehicles_arr + total_vehicles);
-        std::vector<Orders_t> orders(orders_arr, orders_arr + total_orders);
-        std::vector<Matrix_cell_t> costs(matrix_cells_arr, matrix_cells_arr + total_cells);
-        std::vector<Time_multipliers_t> multipliers(multipliers_arr, multipliers_arr + total_multipliers);
+        hint = orders_sql;
+        auto orders = get_orders(std::string(orders_sql), is_euclidean, use_timestamps);
+        if (orders.size() == 0) {
+            *notice_msg = to_pg_msg("Insufficient data found on 'orders' inner query");
+            *log_msg = hint? to_pg_msg(hint) : nullptr;
+            return;
+        }
+
+        hint = vehicles_sql;
+        auto vehicles = get_vehicles(std::string(vehicles_sql), is_euclidean, use_timestamps, with_stops);
+        if (vehicles.size() == 0) {
+            *notice_msg = to_pg_msg("Insufficient data found on 'vehicles' inner query");
+            *log_msg = hint? to_pg_msg(hint) : nullptr;
+            return;
+        }
+
+        hint = matrix_sql;
+        auto costs = get_matrix(std::string(matrix_sql), use_timestamps);
+
+        if (costs.size() == 0) {
+            *notice_msg = to_pg_msg("Insufficient data found on 'matrix' inner query");
+            *log_msg = hint? to_pg_msg(hint) : nullptr;
+            return;
+        }
+
+        hint = multipliers_sql;
+        auto multipliers = get_timeMultipliers(std::string(multipliers_sql), use_timestamps);
+        hint = nullptr;
 
         /* Data input ends */
 
