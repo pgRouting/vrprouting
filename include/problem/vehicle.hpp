@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-/*! @file */
-
 #ifndef INCLUDE_PROBLEM_VEHICLE_HPP_
 #define INCLUDE_PROBLEM_VEHICLE_HPP_
 #pragma once
@@ -35,8 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <vector>
 
 #include "c_types/solution_rt.h"
+
 #include "cpp_common/assert.hpp"
 #include "cpp_common/identifier.hpp"
+#include "cpp_common/messages.hpp"
 #include "problem/vehicle_node.hpp"
 
 namespace vrprouting {
@@ -58,7 +58,7 @@ namespace problem {
  * has:
  * @b capacity
  */
-class Vehicle : public Identifier, protected std::deque<Vehicle_node> {
+class Vehicle : public Messages, public Identifier, protected std::deque<Vehicle_node> {
  public:
      /** @brief the speed of the vehicle
       */
