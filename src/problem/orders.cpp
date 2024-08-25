@@ -27,15 +27,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "problem/orders.hpp"
 
+#include <algorithm>
 #include <vector>
-#include <utility>
 
 #include "cpp_common/assert.hpp"
 #include "cpp_common/identifiers.hpp"
+#include "problem/pickDeliver.hpp"
 
 
 namespace vrprouting {
 namespace problem {
+
+Orders::Orders(
+        Orders_t *p_orders, size_t p_size_orders,
+        PickDeliver &problem_ptr) {
+    Tw_node::m_time_matrix_ptr = &(problem_ptr.time_matrix());
+    build_orders(p_orders, p_size_orders, problem_ptr);
+}
 
 /**
 @returns the index of the order within_this_set that has more possibilities of placing orders after it
@@ -130,6 +138,42 @@ Orders::set_compatibles(Speed speed) {
         for (const auto& J : *this) {
             I.set_compatibles(J, speed);
         }
+    }
+}
+
+/**
+  @param [in] orders set of orders
+  @param [in] problem_ptr pointer to problem to get some needed information
+  */
+void
+Orders::build_orders(
+        Orders_t *orders, size_t size_orders,
+        PickDeliver& problem_ptr) {
+    /**
+     * - Sort orders: ASC pick_open_t, deliver_close_t, id
+     */
+    std::sort(orders, orders + size_orders,
+         [] (const Orders_t &lhs, const Orders_t &rhs) {
+             if (lhs.pick_open_t == rhs.pick_open_t) {
+                 if (lhs.deliver_close_t == rhs.deliver_close_t) {
+                     return lhs.id < rhs.id;
+                 } else {
+                    return lhs.deliver_close_t < rhs.deliver_close_t;
+                 }
+             } else {
+                return lhs.pick_open_t < rhs.pick_open_t;
+             }
+      });
+
+    for (size_t i = 0; i < size_orders; ++i) {
+        auto o = orders[i];
+        Vehicle_node pick({problem_ptr.node_id()++, o, NodeType::kPickup});
+        Vehicle_node drop({problem_ptr.node_id()++, o, NodeType::kDelivery});
+
+        problem_ptr.add_node(pick);
+        problem_ptr.add_node(drop);
+
+        this->emplace_back(Order{size(), o.id, pick, drop});
     }
 }
 

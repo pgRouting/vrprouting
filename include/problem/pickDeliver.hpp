@@ -55,7 +55,7 @@ class PickDeliver {
         Vehicle_t* p_vehicles, size_t p_vehicles_size,
         const Matrix &p_cost_matrix) :
       m_cost_matrix(p_cost_matrix),
-      m_orders(p_orders, p_orders_size, this),
+      m_orders(p_orders, p_orders_size, *this),
       m_trucks(p_vehicles, p_vehicles_size, m_orders, m_nodes, m_node_id) {
     if (!msg.get_error().empty()) return;
     m_trucks.clean();
@@ -70,7 +70,7 @@ class PickDeliver {
         std::vector<Short_vehicle> new_stops,
         const Matrix &p_cost_matrix) :
       m_cost_matrix(p_cost_matrix),
-      m_orders(p_orders, p_orders_size, this),
+      m_orders(p_orders, p_orders_size, *this),
       m_trucks(p_vehicles, p_vehicles_size, new_stops, m_orders, m_nodes, m_node_id) {
     if (!msg.get_error().empty()) return;
     m_trucks.clean();
