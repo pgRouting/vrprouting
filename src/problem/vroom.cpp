@@ -476,7 +476,7 @@ std::vector<Vroom_rt>
 Vroom::solve(
         int32_t exploration_level,
         int32_t timeout,
-        int32_t loading_time) {
+        int64_t loading_time) {
     std::vector<Vroom_rt> results;
 
     /* abort in case an interruption occurs (e.g. the query is being cancelled) */

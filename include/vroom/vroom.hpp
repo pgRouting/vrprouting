@@ -43,6 +43,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/vroom_matrix.hpp"
 #include "cpp_common/messages.hpp"
 
+using Vroom_break_t = struct Vroom_break_t;
+using Vroom_job_t = struct Vroom_job_t;
+using Vroom_shipment_t = struct Vroom_shipment_t;
+using Vroom_time_window_t = struct Vroom_time_window_t;
+using Vroom_vehicle_t = struct Vroom_vehicle_t;
 using Vroom_rt = struct Vroom_rt;
 
 namespace vrprouting {
@@ -75,7 +80,7 @@ class Vroom : public vrprouting::Messages {
     void add_matrix(const vrprouting::vroom::Matrix&);
 
     /** @brief solves the vroom problem */
-    std::vector<Vroom_rt> solve(int32_t, int32_t, int32_t);
+    std::vector<Vroom_rt> solve(int32_t, int32_t, int64_t);
 
  private:
     std::vector<::vroom::TimeWindow> get_vroom_time_windows(const std::vector<Vroom_time_window_t>&) const;
