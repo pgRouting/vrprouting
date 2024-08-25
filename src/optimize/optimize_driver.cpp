@@ -39,11 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
 
+#include "cpp_common/pgdata_getters.hpp"
 #include "cpp_common/interruption.hpp"
 #include "cpp_common/messages.hpp"
-
-#include "cpp_common/matrix_cell_t.hpp"
-#include "cpp_common/time_multipliers_t.hpp"
 #include "cpp_common/orders_t.hpp"
 #include "cpp_common/short_vehicle.hpp"
 #include "cpp_common/vehicle_t.hpp"
@@ -55,8 +53,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 namespace {
 
-using Vehicle_t = struct Vehicle_t;
-using Orders_t = struct Orders_t;
+using Vehicle_t = vrprouting::Vehicle_t;
+using Orders_t = vrprouting::Orders_t;
 using Short_vehicle = vrprouting::Short_vehicle;
 
 /** @brief Executes an optimization with the input data
@@ -160,11 +158,7 @@ std::vector<Short_vehicle>
 get_initial_stops(const std::vector<Vehicle_t> &vehicles) {
     std::vector<Short_vehicle> the_stops;
     for (const auto &v : vehicles) {
-        std::vector<Id> stops;
-        for (size_t j = 0; j < v.stops_size; ++j) {
-            stops.push_back(v.stops[j]);
-        }
-        the_stops.push_back({v.id, stops});
+        the_stops.push_back({v.id, v.stops});
     }
     return the_stops;
 }
@@ -290,19 +284,21 @@ subdivide_processing(
 
 void
 vrp_do_optimize(
-        Orders_t *orders_arr, size_t total_orders,
-        Vehicle_t *vehicles_arr, size_t total_vehicles,
-        Matrix_cell_t *matrix_cells_arr, size_t total_cells,
-        Time_multipliers_t *multipliers_arr, size_t total_multipliers,
-
+        char *orders_sql,
+        char *vehicles_sql,
+        char *matrix_sql,
+        char *multipliers_sql,
 
         double factor,
         int max_cycles,
         int64_t execution_date,
 
         bool check_triangle_inequality,
-        bool subdivide,
-        bool subdivide_by_vehicle,
+        int subdivision_kind,
+
+        bool use_timestamps,
+        bool is_euclidean,
+        bool with_stops,
 
         Short_vehicle_rt **return_tuples,
         size_t *return_count,
@@ -320,7 +316,13 @@ vrp_do_optimize(
     std::ostringstream notice;
     std::ostringstream err;
     try {
+        using Vehicle_t = vrprouting::Vehicle_t;
+        using Orders_t = vrprouting::Orders_t;
         using Matrix = vrprouting::problem::Matrix;
+        using vrprouting::pgget::pickdeliver::get_matrix;
+        using vrprouting::pgget::pickdeliver::get_orders;
+        using vrprouting::pgget::pickdeliver::get_vehicles;
+        using vrprouting::pgget::pickdeliver::get_timeMultipliers;
 
         /*
          * verify preconditions
@@ -328,25 +330,65 @@ vrp_do_optimize(
         pgassert(!(*log_msg));
         pgassert(!(*notice_msg));
         pgassert(!(*err_msg));
-        pgassert(total_orders);
-        pgassert(total_vehicles);
-        pgassert(total_cells);
         pgassert(*return_count == 0);
         pgassert(!(*return_tuples));
 
-        /* Data input starts */
+        if (subdivision_kind < 0 || subdivision_kind > 2) {
+            *notice_msg = to_pg_msg("Illegal value in parameter: subdivision_kind");
+            *log_msg = to_pg_msg("Expected value: 0 <= subdivision_kind < 2");
+            return;
+        }
+
+        if (max_cycles < 0) {
+            *err_msg = to_pg_msg("Illegal value in parameter: max_cycles");
+            *log_msg = to_pg_msg("Expected value: max_cycles >= 0");
+            return;
+        }
+
+        if (factor <= 0) {
+            *err_msg = to_pg_msg("Illegal value in parameter: factor");
+            *log_msg = to_pg_msg("Expected value: factor > 0");
+            return;
+        }
 
         /*
-         * transform to C++ containers
+	 * Data input starts
          */
-        std::vector<Vehicle_t> vehicles(vehicles_arr, vehicles_arr + total_vehicles);
-        std::vector<Orders_t> orders(orders_arr, orders_arr + total_orders);
-        std::vector<Matrix_cell_t> costs(matrix_cells_arr, matrix_cells_arr + total_cells);
-        std::vector<Time_multipliers_t> multipliers(multipliers_arr, multipliers_arr + total_multipliers);
+        hint = orders_sql;
+        auto orders = get_orders(std::string(orders_sql), is_euclidean, use_timestamps);
+        if (orders.size() == 0) {
+            *notice_msg = to_pg_msg("Insufficient data found on 'orders' inner query");
+            *log_msg = hint? to_pg_msg(hint) : nullptr;
+            return;
+        }
+
+        hint = vehicles_sql;
+        auto vehicles = get_vehicles(std::string(vehicles_sql), is_euclidean, use_timestamps, with_stops);
+        if (vehicles.size() == 0) {
+            *notice_msg = to_pg_msg("Insufficient data found on 'vehicles' inner query");
+            *log_msg = hint? to_pg_msg(hint) : nullptr;
+            return;
+        }
+
+        hint = matrix_sql;
+        auto costs = get_matrix(std::string(matrix_sql), use_timestamps);
+
+        if (costs.size() == 0) {
+            *notice_msg = to_pg_msg("Insufficient data found on 'matrix' inner query");
+            *log_msg = hint? to_pg_msg(hint) : nullptr;
+            return;
+        }
+
+        hint = multipliers_sql;
+        auto multipliers = get_timeMultipliers(std::string(multipliers_sql), use_timestamps);
+        hint = nullptr;
 
         /* Data input ends */
 
         /* Processing starts */
+
+        bool subdivide = (subdivision_kind != 0);
+        bool subdivide_by_vehicle = (subdivision_kind == 1);
 
         Identifiers<Id> node_ids;
         Identifiers<Id> order_ids;
@@ -378,8 +420,8 @@ vrp_do_optimize(
         for (const auto &v : vehicles) {
             node_ids += v.start_node_id;
             node_ids += v.end_node_id;
-            for (size_t j = 0; j < v.stops_size; ++j) {
-                order_ids += v.stops[j];
+            for (const auto &s : v.stops) {
+                order_ids += s;
             }
         }
 
