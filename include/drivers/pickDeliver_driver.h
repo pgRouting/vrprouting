@@ -35,19 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #ifdef __cplusplus
 #include <cstddef>
 #include <cstdint>
-using Orders_t = struct Orders_t;
-using Vehicle_t = struct Vehicle_t;
-using Matrix_cell_t = struct Matrix_cell_t;
-using Time_multipliers_t = struct Time_multipliers_t;
 using Solution_rt = struct Solution_rt;
 #else
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
-typedef struct Orders_t Orders_t;
-typedef struct Vehicle_t Vehicle_t;
-typedef struct Matrix_cell_t Matrix_cell_t;
-typedef struct Time_multipliers_t Time_multipliers_t;
 typedef struct Solution_rt Solution_rt;
 #endif
 
@@ -55,12 +47,10 @@ typedef struct Solution_rt Solution_rt;
 extern "C" {
 #endif
 
+  /** @brief Driver for processing a pickupDeliver problem */
 void vrp_do_pickDeliver(
-        Orders_t customers_arr[], size_t total_customers,
-        Vehicle_t *vehicles_arr, size_t total_vehicles,
-        Matrix_cell_t *matrix_cells_arr, size_t total_cells,
-        Time_multipliers_t *multipliers_arr, size_t total_multipliers,
-        bool, double, int, bool, int64_t,
+        char*, char*, char*, char*,
+        double, int, int64_t, bool, bool, bool, bool, bool,
 
         Solution_rt**, size_t*,
         char**, char**, char**);
