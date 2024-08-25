@@ -222,7 +222,7 @@ vrp_do_vroom(
             notice << "No results found";
             *notice_msg = notice.str().empty()?
                 *notice_msg :
-                to_pg_msg(notice.str().c_str());
+                to_pg_msg(notice.str());
             return;
         }
 
