@@ -172,15 +172,6 @@ Matrix::Matrix(
     Base_Matrix(matrix, size_matrix, node_ids, multiplier),
     m_multipliers(set_tdm(multipliers, size_multipliers)) { }
 
-/*
- * constructor for euclidean with time dependant multipliers
- */
-Matrix::Matrix(
-        const std::map<std::pair<Coordinate, Coordinate>, Id> &euclidean_data,
-        Time_multipliers_t *multipliers, size_t size_multipliers,
-        Multiplier multiplier) :
-    Base_Matrix(euclidean_data, multiplier),
-    m_multipliers(set_tdm(multipliers, size_multipliers)) { }
 
 /*
  * constructor for euclidean default multipliers

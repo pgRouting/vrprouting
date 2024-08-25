@@ -30,15 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #pragma once
 
 #include <map>
-#include <utility>
-#include <tuple>
 #include <string>
 #include <vector>
 
 #include "cpp_common/base_matrix.hpp"
 #include "cpp_common/identifiers.hpp"
-#include "c_types/typedefs.h"
 
+using Time_multipliers_t = struct Time_multipliers_t;
 
 namespace vrprouting {
 namespace problem {
@@ -49,9 +47,6 @@ class Matrix : public base::Base_Matrix {
 
     /** brief constructor for matrix version with time dependant multipliers */
     Matrix(Matrix_cell_t *, size_t, Time_multipliers_t*, size_t, const Identifiers<Id>&, Multiplier = 1.0);
-
-    /** brief constructor for euclidean version with time dependant multipliers */
-    Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id>&, Time_multipliers_t*, size_t, Multiplier = 1.0);
 
     /** brief constructor for matrix version default multipliers */
     Matrix(Matrix_cell_t *, size_t, const Identifiers<Id>&, Multiplier = 1.0);
