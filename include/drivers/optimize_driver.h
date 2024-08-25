@@ -32,7 +32,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_DRIVERS_OPTIMIZE_DRIVER_H_
 #pragma once
 
-#include "c_types/typedefs.h"
+#ifdef __cplusplus
+#include <cstddef>
+#include <cstdint>
+using Orders_t = struct Orders_t;
+using Vehicle_t = struct Vehicle_t;
+using Matrix_cell_t = struct Matrix_cell_t;
+using Time_multipliers_t = struct Time_multipliers_t;
+using Short_vehicle_rt = struct Short_vehicle_rt;
+#else
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+typedef struct Orders_t Orders_t;
+typedef struct Vehicle_t Vehicle_t;
+typedef struct Matrix_cell_t Matrix_cell_t;
+typedef struct Time_multipliers_t Time_multipliers_t;
+typedef struct Short_vehicle_rt Short_vehicle_rt;
+#endif
 
 #ifdef __cplusplus
 extern "C" {

@@ -30,7 +30,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_DRIVERS_VROOM_DRIVER_H_
 #pragma once
 
-#include "c_types/typedefs.h"
+#ifdef __cplusplus
+#include <cstddef>
+#include <cstdint>
+using Vroom_job_t = struct Vroom_job_t;
+using Vroom_time_window_t = struct Vroom_time_window_t;
+using Vroom_shipment_t = struct Vroom_shipment_t;
+using Vroom_vehicle_t = struct Vroom_vehicle_t;
+using Vroom_break_t = struct Vroom_break_t;
+using Vroom_matrix_t = struct Vroom_matrix_t;
+using Vroom_rt = struct Vroom_rt;
+#else
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+typedef struct Vroom_job_t Vroom_job_t;
+typedef struct Vroom_time_window_t Vroom_time_window_t;
+typedef struct Vroom_shipment_t Vroom_shipment_t;
+typedef struct Vroom_vehicle_t Vroom_vehicle_t;
+typedef struct Vroom_break_t Vroom_break_t;
+typedef struct Vroom_matrix_t Vroom_matrix_t;
+typedef struct Vroom_rt Vroom_rt;
+#endif
 
 #ifdef __cplusplus
 extern "C" {
