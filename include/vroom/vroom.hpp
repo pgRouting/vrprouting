@@ -49,24 +49,26 @@ namespace vrprouting {
 namespace problem {
 
 class Vroom : public vrprouting::Messages {
+    using MapTW = std::vector<Vroom_time_window_t>;
+
  public:
     /** @brief sets m_jobs by adding the Vroom_job_t */
     void add_jobs(
             const std::vector<Vroom_job_t>&,
-            const std::vector<Vroom_time_window_t>&);
+            const MapTW&);
     void add_jobs(const Vroom_job_t*, size_t, const Vroom_time_window_t*, size_t);
 
     /** @brief sets m_shipments by adding the Vroom_shipment_t */
     void add_shipments(
             const std::vector<Vroom_shipment_t>&,
-            const std::vector<Vroom_time_window_t>&);
+            const MapTW&);
     void add_shipments(const Vroom_shipment_t*, size_t, const Vroom_time_window_t*, size_t);
 
     /** @brief sets m_vehicles by adding the Vroom_vehicle_t */
     void add_vehicles(
             const std::vector<Vroom_vehicle_t>&,
             const std::vector<Vroom_break_t>&,
-            const std::vector<Vroom_time_window_t>&);
+            const MapTW&);
     void add_vehicles(const Vroom_vehicle_t*, size_t, const Vroom_break_t*, size_t, const Vroom_time_window_t*, size_t);
 
     /** @brief sets m_matrix */
@@ -94,10 +96,10 @@ class Vroom : public vrprouting::Messages {
             const Vroom_vehicle_t&,
             const std::vector<Vroom_break_t>&,
             const std::vector<Vroom_time_window_t>&) const;
-    void get_amount(::vroom::Amount, Amount**);
-    StepType get_job_step_type(::vroom::JOB_TYPE);
-    StepType get_step_type(::vroom::Step);
-    std::vector<Vroom_rt> get_results(::vroom::Solution);
+    void get_amount(const ::vroom::Amount&, Amount**);
+    StepType get_job_step_type(const ::vroom::JOB_TYPE&);
+    StepType get_step_type(const ::vroom::Step&);
+    std::vector<Vroom_rt> get_results(const ::vroom::Solution&);
 
  private:
     std::vector<::vroom::Job> m_jobs;
