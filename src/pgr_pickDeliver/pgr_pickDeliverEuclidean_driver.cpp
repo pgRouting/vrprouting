@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "problem/pickDeliver.hpp"
 
 namespace {
+
 vrprouting::problem::Solution
 get_initial_solution(vrprouting::problem::PickDeliver* problem_ptr, int m_initial_id) {
     using Solution = vrprouting::problem::Solution;

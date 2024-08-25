@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
+
 #include "cpp_common/interruption.hpp"
 #include "cpp_common/messages.hpp"
 
@@ -52,12 +53,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 namespace {
 
+using Short_vehicle = vrprouting::Short_vehicle;
+
 /** @brief Executes an optimization with the input data
  *
  *  @param[in] shipments_arr A C Array of pickup and dropoff shipments
  *  @param[in] total_shipments size of the shipments_arr
  *  @param[in] vehicles_arr A C Array of vehicles
  *  @param[in] total_vehicles size of the vehicles_arr
+ *
  *  @param[in] new_stops stops that override the original stops.
  *  @param[in] time_matrix The unique time matrix
  *  @param[in] max_cycles number of cycles to perform during the optimization phase
@@ -292,26 +296,24 @@ subdivide_processing(
  *  @param[in] total_cells size of the matrix_cells_arr
  *  @param[in] multipliers_arr A C Array of the multipliers
  *  @param[in] total_multipliers size of the multipliers_arr
+ *
  *  @param[in] factor A global multiplier for the (time) matrix cells
  *  @param[in] max_cycles number of cycles to perform during the optimization phase
  *  @param[in] check_triangle_inequality When true tirangle inequality will be checked
  *  @param[in] subdivide        @todo
  *  @param[in] subdivide_by_vehicle @todo
  *  @param[in] execution_date Value used for not moving shipments that are before this date
+ *
  *  @param[out] return_tuples C array of contents to be returned to postgres
  *  @param[out] return_count number of tuples returned
  *  @param[out] log_msg special log message pointer
  *  @param[out] notice_msg special message pointer to be returned as NOTICE
  *  @param[out] err_msg special message pointer to be returned as ERROR
- *  @return void
- *
  *
  * @pre The messages: log_msg, notice_msg, err_msg must be empty (=nullptr)
- * @pre The C arrays: shipments_arr, vehicles_arr, matrix_cells_arr must not be empty
  * @pre The C array: return_tuples must be empty
  * @pre Only matrix cells (i, i) can be missing and are considered as 0 (time units)
  *
- * @post The C arrays:  shipments_arr, vehicles_arr, matrix_cells_arr Do not change
  * @post The C array: return_tuples contains the result for the problem given
  * @post The return_tuples array size is return_count
  * @post err_msg is empty if no throw from the process is catched
@@ -338,8 +340,6 @@ subdivide_processing(
 
  }
  @enddot
-
- *
  */
 void
 vrp_do_optimize(
