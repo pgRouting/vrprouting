@@ -35,19 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #ifdef __cplusplus
 #include <cstddef>
 #include <cstdint>
-using Orders_t = struct Orders_t;
-using Vehicle_t = struct Vehicle_t;
-using Matrix_cell_t = struct Matrix_cell_t;
-using Time_multipliers_t = struct Time_multipliers_t;
 using Short_vehicle_rt = struct Short_vehicle_rt;
 #else
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
-typedef struct Orders_t Orders_t;
-typedef struct Vehicle_t Vehicle_t;
-typedef struct Matrix_cell_t Matrix_cell_t;
-typedef struct Time_multipliers_t Time_multipliers_t;
 typedef struct Short_vehicle_rt Short_vehicle_rt;
 #endif
 
@@ -56,11 +48,8 @@ extern "C" {
 #endif
 
 void vrp_do_optimize(
-        Orders_t customers_arr[], size_t,
-        Vehicle_t *vehicles_arr, size_t,
-        Matrix_cell_t *, size_t,
-        Time_multipliers_t *, size_t,
-        double, int, int64_t, bool, bool, bool,
+        char*, char*, char*, char*,
+        double, int, int64_t, bool, int, bool, bool, bool,
 
         Short_vehicle_rt**, size_t*,
         char**, char**, char**);
