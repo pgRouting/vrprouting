@@ -30,16 +30,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_DRIVERS_PGR_PICKDELIVEREUCLIDEAN_DRIVER_H_
 #pragma once
 
-/* for size-t */
 #ifdef __cplusplus
-#   include <cstddef>
+#include <cstddef>
+#include <cstdint>
+using Orders_t = struct Orders_t;
+using Vehicle_t = struct Vehicle_t;
+using Solution_rt = struct Solution_rt;
 #else
-#   include <stddef.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+typedef struct Orders_t Orders_t;
+typedef struct Vehicle_t Vehicle_t;
+typedef struct Solution_rt Solution_rt;
 #endif
 
-typedef struct Orders_t Orders_t;
-typedef struct Solution_rt Solution_rt;
-typedef struct Vehicle_t Vehicle_t;
 
 #ifdef __cplusplus
 extern "C" {
