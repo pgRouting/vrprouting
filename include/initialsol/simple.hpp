@@ -55,7 +55,7 @@ class Initial_solution : public problem::Solution {
      */
     void one_truck_all_orders();
 
-    void do_while_foo(int kind);
+    void do_while_foo(Initials_code);
 
     void do_while_feasible(
         problem::Vehicle_pickDeliver& truck,
