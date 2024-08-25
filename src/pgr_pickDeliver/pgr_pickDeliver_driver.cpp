@@ -145,7 +145,7 @@ vrp_do_pgr_pickDeliver(
                 node_ids,
                 static_cast<Multiplier>(factor));
 
-#if 0
+#ifdef TODO
         auto depot_node = vehicles[0].start_node_id;
 
         /*
@@ -201,23 +201,10 @@ vrp_do_pgr_pickDeliver(
         log << "Finish Reading data\n";
         pd_problem.msg.clear();
 
-#if 0
-        try {
-#endif
-            using Initials_code = vrprouting::initialsol::simple::Initials_code;
-            auto sol = get_initial_solution(&pd_problem, initial_solution_id);
-            using Optimize = vrprouting::optimizers::simple::Optimize;
-            sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);
-#if 0
-        } catch (AssertFailedException &except) {
-            log << pd_problem.msg.get_log();
-            pd_problem.msg.clear();
-            throw;
-        } catch(...) {
-            log << "Caught unknown exception!";
-            throw;
-        }
-#endif
+        using Initials_code = vrprouting::initialsol::simple::Initials_code;
+        auto sol = get_initial_solution(&pd_problem, initial_solution_id);
+        using Optimize = vrprouting::optimizers::simple::Optimize;
+        sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);
 
         log << pd_problem.msg.get_log();
         log << "Finish solve\n";

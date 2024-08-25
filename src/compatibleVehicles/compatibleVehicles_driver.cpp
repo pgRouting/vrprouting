@@ -159,7 +159,8 @@ vrp_do_compatibleVehicles(
                 matrix_cells_arr, total_cells,
                 multipliers_arr, total_multipliers,
                 node_ids, static_cast<Multiplier>(factor));
-#if 0
+
+#ifdef TODO
         /*
          * Verify matrix triangle inequality
          */
@@ -172,6 +173,7 @@ vrp_do_compatibleVehicles(
             }
         }
 #endif
+
         if (!cost_matrix.has_no_infinity()) {
             err << "An Infinity value was found on the Matrix";
             *err_msg = to_pg_msg(err.str());
