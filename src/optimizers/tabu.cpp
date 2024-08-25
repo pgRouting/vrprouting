@@ -311,11 +311,7 @@ Optimize::tabu_search() {
 
     bool do_spi = true;
 
-    [[maybe_unused]] int could_not_spi = 0;
-
     int stuck_counter = 0;
-
-    [[maybe_unused]] int wander_counter = 0;
 
     int max_no_improvement = 1000;
 
@@ -357,9 +353,6 @@ Optimize::tabu_search() {
 
         if (!moved) {
             no_moves += 1;
-            if (neighborhood == "spi") {
-                could_not_spi += 1;
-            }
             if (neighborhood == "sbr") {
                 intensify();
             }
@@ -376,7 +369,6 @@ Optimize::tabu_search() {
          */
         if (curr_best == best_solution.objective()) {
             stuck_counter += 1;
-            wander_counter += 1;
             if (stuck_counter % wander_length == 0) {
                 intensification = !intensification;
                 diversification = !diversification;
