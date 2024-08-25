@@ -57,14 +57,14 @@ class PickDeliver {
     PickDeliver(
         Orders_t* p_orders, size_t p_orders_size,
         Vehicle_t* p_vehicles, size_t p_vehicles_size,
-        const Matrix &p_cost_matrix);
+        const Matrix &);
 
     /** @brief Override stops constructor */
     PickDeliver(
         Orders_t* p_orders, size_t p_orders_size,
         Vehicle_t* p_vehicles, size_t p_vehicles_size,
-        std::vector<Short_vehicle> new_stops,
-        const Matrix &p_cost_matrix);
+        std::vector<Short_vehicle>,
+        const Matrix &);
 
     virtual ~PickDeliver() = default;
 

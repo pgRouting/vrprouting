@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * ~~~~{.c}
  * std::ostringstream log;
  * log << "the message";
- * *log_msg = to_pg_msg(log.str().c_str());
+ * *log_msg = to_pg_msg(log.str());
  * ~~~~
  *
  * Then on the C side
