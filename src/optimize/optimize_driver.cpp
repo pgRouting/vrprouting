@@ -124,10 +124,11 @@ processing_times_by_shipment(
         ) {
     Identifiers<TTimestamp> processing_times;
     for (size_t i = 0; i < total_shipments; ++i) {
-        processing_times += shipments_arr[i].pick_open_t;
-        processing_times += shipments_arr[i].pick_close_t;
-        processing_times += shipments_arr[i].deliver_open_t;
-        processing_times += shipments_arr[i].deliver_close_t;
+        auto o = shipments_arr[i];
+        processing_times += o.pick_open_t;
+        processing_times += o.pick_close_t;
+        processing_times += o.deliver_open_t;
+        processing_times += o.deliver_close_t;
     }
     return processing_times;
 }
@@ -145,10 +146,11 @@ processing_times_by_vehicle(
         ) {
     Identifiers<TTimestamp> processing_times;
     for (size_t i = 0; i < total_vehicles; ++i) {
-        processing_times += vehicles_arr[i].start_open_t;
-        processing_times += vehicles_arr[i].start_close_t;
-        processing_times += vehicles_arr[i].end_open_t;
-        processing_times += vehicles_arr[i].end_close_t;
+        auto v =  vehicles_arr[i];
+        processing_times += v.start_open_t;
+        processing_times += v.start_close_t;
+        processing_times += v.end_open_t;
+        processing_times += v.end_close_t;
     }
     return processing_times;
 }

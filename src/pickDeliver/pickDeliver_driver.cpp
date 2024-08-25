@@ -162,14 +162,15 @@ vrp_do_pickDeliver(
 
         bool missing = false;
         for (size_t i = 0; i < total_vehicles; ++i) {
-            auto vehicle = vehicles_arr[i];
-            node_ids += vehicle.start_node_id;
-            node_ids += vehicle.end_node_id;
-            for (size_t j = 0; j < vehicle.stops_size; ++j) {
-                if (!order_ids.has(vehicle.stops[j])) {
+            auto v = vehicles_arr[i];
+            node_ids += v.start_node_id;
+            node_ids += v.end_node_id;
+            for (size_t j = 0; j < v.stops_size; ++j) {
+                auto s = v.stops[j];
+                if (!order_ids.has(s)) {
                     if (!missing) err << "Order in 'stops' information missing";
                     missing = true;
-                    err << "Missing information of order " << vehicle.stops[j] << "\n";
+                    err << "Missing information of order " << s << "\n";
                 }
             }
             if (missing) {

@@ -142,21 +142,23 @@ vrp_do_vroom(
         }
 
         for (size_t i = 0; i < total_shipments; ++i) {
-            location_ids += shipments[i].p_location_id;
-            location_ids += shipments[i].d_location_id;
+            auto s = shipments[i];
+            location_ids += s.p_location_id;
+            location_ids += s.d_location_id;
         }
 
         double min_speed_factor, max_speed_factor;
         min_speed_factor = max_speed_factor = vehicles[0].speed_factor;
 
         for (size_t i = 0; i < total_vehicles; ++i) {
-            min_speed_factor = std::min(min_speed_factor, vehicles[i].speed_factor);
-            max_speed_factor = std::max(max_speed_factor, vehicles[i].speed_factor);
-            if (vehicles[i].start_id != -1) {
-                location_ids += vehicles[i].start_id;
+            auto v = vehicles[i];
+            min_speed_factor = std::min(min_speed_factor, v.speed_factor);
+            max_speed_factor = std::max(max_speed_factor, v.speed_factor);
+            if (v.start_id != -1) {
+                location_ids += v.start_id;
             }
-            if (vehicles[i].end_id != -1) {
-                location_ids += vehicles[i].end_id;
+            if (v.end_id != -1) {
+                location_ids += v.end_id;
             }
         }
 

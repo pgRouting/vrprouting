@@ -120,15 +120,16 @@ vrp_do_pgr_pickDeliver(
         Identifiers<Id> order_ids;
 
         for (size_t i = 0; i < total_customers; ++i) {
-            node_ids += customers_arr[i].pick_node_id;
-            node_ids += customers_arr[i].deliver_node_id;
-            order_ids += customers_arr[i].id;
+            auto o = customers_arr[i];
+            node_ids += o.pick_node_id;
+            node_ids += o.deliver_node_id;
+            order_ids += o.id;
         }
 
         for (size_t i = 0; i < total_vehicles; ++i) {
-            auto vehicle = vehicles_arr[i];
-            node_ids += vehicle.start_node_id;
-            node_ids += vehicle.end_node_id;
+            auto v = vehicles_arr[i];
+            node_ids += v.start_node_id;
+            node_ids += v.end_node_id;
         }
 
         log << node_ids;
