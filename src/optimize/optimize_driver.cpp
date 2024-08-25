@@ -119,9 +119,7 @@ one_processing(
  *  @returns processing times
  */
 Identifiers<TTimestamp>
-processing_times_by_shipment(
-        Orders_t *shipments_arr, size_t total_shipments
-        ) {
+processing_times_by_shipment(Orders_t *shipments_arr, size_t total_shipments) {
     Identifiers<TTimestamp> processing_times;
     for (size_t i = 0; i < total_shipments; ++i) {
         auto o = shipments_arr[i];
@@ -141,9 +139,7 @@ processing_times_by_shipment(
  *  @returns processing times
  */
 Identifiers<TTimestamp>
-processing_times_by_vehicle(
-        Vehicle_t *vehicles_arr, size_t total_vehicles
-        ) {
+processing_times_by_vehicle(Vehicle_t *vehicles_arr, size_t total_vehicles) {
     Identifiers<TTimestamp> processing_times;
     for (size_t i = 0; i < total_vehicles; ++i) {
         auto v =  vehicles_arr[i];
@@ -163,9 +159,7 @@ processing_times_by_vehicle(
  *  @returns (vehicle id, stops vector) pair which hold the stops structure
  */
 std::vector<Short_vehicle>
-get_initial_stops(
-        Vehicle_t *vehicles_arr, size_t total_vehicles
-        ) {
+get_initial_stops(Vehicle_t *vehicles_arr, size_t total_vehicles) {
     std::vector<Short_vehicle> the_stops;
     for (size_t i = 0; i < total_vehicles; ++i) {
         std::vector<Id> stops;

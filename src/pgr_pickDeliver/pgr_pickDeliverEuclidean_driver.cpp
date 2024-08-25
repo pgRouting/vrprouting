@@ -120,11 +120,8 @@ are_shipments_ok(
 
 void
 vrp_do_pgr_pickDeliverEuclidean(
-        Orders_t *customers_arr,
-        size_t total_customers,
-
-        Vehicle_t *vehicles_arr,
-        size_t total_vehicles,
+        Orders_t *customers_arr, size_t total_customers,
+        Vehicle_t *vehicles_arr, size_t total_vehicles,
 
         double factor,
         int max_cycles,
