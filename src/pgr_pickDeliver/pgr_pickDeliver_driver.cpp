@@ -135,7 +135,7 @@ vrp_do_pgr_pickDeliver(
         std::vector<Vehicle_t> vehicles(
                 vehicles_arr, vehicles_arr + total_vehicles);
 
-        vrprouting::problem::Matrix matrix(matrix_cells_arr, total_cells, node_ids, static_cast<Multiplier>(factor));
+        vrprouting::problem::Matrix time_matrix(matrix_cells_arr, total_cells, node_ids, static_cast<Multiplier>(factor));
 
 #ifdef TODO
         auto depot_node = vehicles[0].start_node_id;
