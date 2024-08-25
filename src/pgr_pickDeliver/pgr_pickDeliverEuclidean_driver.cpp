@@ -224,22 +224,10 @@ vrp_do_pgr_pickDeliverEuclidean(
         log << pd_problem.msg.get_log();
         log << "Finish Reading data\n";
 
-#if 0
-        try {
-#endif
-            auto sol = get_initial_solution(&pd_problem, initial_solution_id);
-            using Optimize = vrprouting::optimizers::simple::Optimize;
-            using Initials_code = vrprouting::initialsol::simple::Initials_code;
-            sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);
-#if 0
-        } catch (AssertFailedException &except) {
-            log << pd_problem.msg.get_log();
-            throw;
-        } catch(...) {
-            log << "Caught unknown exception!";
-            throw;
-        }
-#endif
+        auto sol = get_initial_solution(&pd_problem, initial_solution_id);
+        using Optimize = vrprouting::optimizers::simple::Optimize;
+        using Initials_code = vrprouting::initialsol::simple::Initials_code;
+        sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);
         log << pd_problem.msg.get_log();
         log << "Finish solve\n";
 

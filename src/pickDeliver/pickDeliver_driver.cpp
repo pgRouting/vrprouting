@@ -182,7 +182,7 @@ vrp_do_pickDeliver(
                 matrix_cells_arr, total_cells,
                 multipliers_arr, total_multipliers,
                 node_ids, static_cast<Multiplier>(factor));
-#if 1
+
         /*
          * Verify matrix triangle inequality
          */
@@ -194,7 +194,7 @@ vrp_do_pickDeliver(
                 log << "[pickDeliver] Matrix Still does not obey triangle inequality ";
             }
         }
-#endif
+
         /*
          * Verify matrix cells preconditions
          */
@@ -229,29 +229,19 @@ vrp_do_pickDeliver(
 
         log << "Finish Initialize problem\n";
 
-#if 0
-        try {
-#endif
-            /*
-             * get initial solutions
-             */
-            using Initial_solution = vrprouting::initialsol::tabu::Initial_solution;
-            using Solution = vrprouting::problem::Solution;
-            auto sol = static_cast<Solution>(Initial_solution(execution_date, optimize, &pd_problem));
-            /*
-             * Solve (optimize)
-             */
-            using Optimize = vrprouting::optimizers::tabu::Optimize;
-            sol = Optimize(sol, static_cast<size_t>(max_cycles), stop_on_all_served, optimize);
-#if 0
-        } catch (AssertFailedException &except) {
-            log << pd_problem.msg.get_log();
-            throw;
-        } catch(...) {
-            log << "Caught unknown exception!";
-            throw;
-        }
-#endif
+        /*
+         * get initial solutions
+         */
+        using Initial_solution = vrprouting::initialsol::tabu::Initial_solution;
+        using Solution = vrprouting::problem::Solution;
+        auto sol = static_cast<Solution>(Initial_solution(execution_date, optimize, &pd_problem));
+
+        /*
+         * Solve (optimize)
+         */
+        using Optimize = vrprouting::optimizers::tabu::Optimize;
+        sol = Optimize(sol, static_cast<size_t>(max_cycles), stop_on_all_served, optimize);
+
 
         log << pd_problem.msg.get_log();
         pd_problem.msg.clear();
