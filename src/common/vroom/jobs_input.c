@@ -28,6 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_common/vroom/jobs_input.h"
 
+#include "cpp_common/vroom_job_t.hpp"
+#include "cpp_common/info.hpp"
+
+#include "c_common/debug_macro.h"
+#include "cpp_common/get_check_data.hpp"
+
 static
 void fetch_jobs(
     HeapTuple *tuple,
