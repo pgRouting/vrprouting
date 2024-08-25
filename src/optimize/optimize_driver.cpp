@@ -370,6 +370,8 @@ vrp_do_optimize(
     using vrprouting::alloc;
     using vrprouting::to_pg_msg;
 
+    char* hint = nullptr;
+
     std::ostringstream log;
     std::ostringstream notice;
     std::ostringstream err;
@@ -522,27 +524,39 @@ vrp_do_optimize(
         (*return_count) = total_shipments * 2;
 
         pgassert(*err_msg == nullptr);
-        *log_msg = log.str().empty()?
-            nullptr :
-            to_pg_msg(log.str());
-        *notice_msg = notice.str().empty()?
-            nullptr :
-            to_pg_msg(notice.str());
+        *log_msg = log.str().empty()? nullptr : to_pg_msg(log.str());
+        *notice_msg = notice.str().empty()? nullptr : to_pg_msg(notice.str());
     } catch (AssertFailedException &except) {
-        err << except.what() << log.str();
-        *err_msg = to_pg_msg(err.str());
+        if (*return_tuples) free(*return_tuples);
+        (*return_count) = 0;
+        *err_msg = to_pg_msg(except.what());
+        *log_msg = to_pg_msg(log.str());
     } catch (std::exception& except) {
-        err << except.what() << log.str();
-        *err_msg = to_pg_msg(err.str());
+        if (*return_tuples) free(*return_tuples);
+        (*return_count) = 0;
+        *err_msg = to_pg_msg(except.what());
+        *log_msg = to_pg_msg(log.str());
+    } catch (const std::string &except) {
+        if (*return_tuples) free(*return_tuples);
+        (*return_count) = 0;
+        *err_msg = to_pg_msg(except);
+        *log_msg = hint? to_pg_msg(hint) : to_pg_msg(log.str());
     } catch (const std::pair<std::string, std::string>& ex) {
-        err << ex.first;
-        log.str("");
-        log.clear();
-        log << ex.second;
-        *err_msg = to_pg_msg(err.str().c_str());
-        *log_msg = to_pg_msg(log.str().c_str());
+        if (*return_tuples) free(*return_tuples);
+        (*return_count) = 0;
+        *err_msg = to_pg_msg(ex.first);
+        *log_msg = to_pg_msg(ex.second);
+    } catch (const std::pair<std::string, int64_t>& except) {
+        if (*return_tuples) free(*return_tuples);
+        (*return_count) = 0;
+        log << "id = " << except.second;
+        *err_msg = to_pg_msg(except.first);
+        *log_msg = to_pg_msg(log.str());
     } catch(...) {
-        err << "Caught unknown exception!" << log.str();
+        if (*return_tuples) free(*return_tuples);
+        (*return_count) = 0;
+        err << "Caught unknown exception!";
         *err_msg = to_pg_msg(err.str());
+        *log_msg = to_pg_msg(log.str());
     }
 }

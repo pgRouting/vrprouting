@@ -112,6 +112,8 @@ vrp_do_vroom(
     using vrprouting::to_pg_msg;
     using vrprouting::free;
 
+    char* hint = nullptr;
+
     std::ostringstream log;
     std::ostringstream err;
     std::ostringstream notice;
@@ -228,41 +230,40 @@ vrp_do_vroom(
 
         (*return_count) = count;
 
-        pgassert(*err_msg == NULL);
-        *log_msg = log.str().empty()?
-            *log_msg :
-            to_pg_msg(log.str().c_str());
-        *notice_msg = notice.str().empty()?
-            *notice_msg :
-            to_pg_msg(notice.str().c_str());
+        pgassert(*err_msg == nullptr);
+        *log_msg = log.str().empty()? nullptr : to_pg_msg(log.str());
+        *notice_msg = notice.str().empty()? nullptr : to_pg_msg(notice.str());
     } catch (AssertFailedException &except) {
-        (*return_tuples) = free(*return_tuples);
+        if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
-        err << except.what();
-        *err_msg = to_pg_msg(err.str().c_str());
-        *log_msg = to_pg_msg(log.str().c_str());
-    } catch (const vroom::Exception &except) {
-        (*return_tuples) = free(*return_tuples);
+        *err_msg = to_pg_msg(except.what());
+        *log_msg = to_pg_msg(log.str());
+    } catch (std::exception& except) {
+        if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
-        err << except.message;
-        *err_msg = to_pg_msg(err.str().c_str());
-        *log_msg = to_pg_msg(log.str().c_str());
-    } catch (std::string &except) {
-        (*return_tuples) = free(*return_tuples);
+        *err_msg = to_pg_msg(except.what());
+        *log_msg = to_pg_msg(log.str());
+    } catch (const std::string &except) {
+        if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
-        *err_msg = to_pg_msg(except.c_str());
-        *log_msg = to_pg_msg(log.str().c_str());
-    } catch (std::exception &except) {
-        (*return_tuples) = free(*return_tuples);
+        *err_msg = to_pg_msg(except);
+        *log_msg = hint? to_pg_msg(hint) : to_pg_msg(log.str());
+    } catch (const std::pair<std::string, std::string>& ex) {
+        if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
-        err << except.what();
-        *err_msg = to_pg_msg(err.str().c_str());
-        *log_msg = to_pg_msg(log.str().c_str());
+        *err_msg = to_pg_msg(ex.first);
+        *log_msg = to_pg_msg(ex.second);
+    } catch (const std::pair<std::string, int64_t>& except) {
+        if (*return_tuples) free(*return_tuples);
+        (*return_count) = 0;
+        log << "id = " << except.second;
+        *err_msg = to_pg_msg(except.first);
+        *log_msg = to_pg_msg(log.str());
     } catch(...) {
-        (*return_tuples) = free(*return_tuples);
+        if (*return_tuples) free(*return_tuples);
         (*return_count) = 0;
         err << "Caught unknown exception!";
-        *err_msg = to_pg_msg(err.str().c_str());
-        *log_msg = to_pg_msg(log.str().c_str());
+        *err_msg = to_pg_msg(err.str());
+        *log_msg = to_pg_msg(log.str());
     }
 }
