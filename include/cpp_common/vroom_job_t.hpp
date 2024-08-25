@@ -31,7 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_CPP_COMMON_VROOM_JOB_T_HPP_
 #pragma once
 
+#include <structures/vroom/job.h>
+
+#include <string>
+#include <vector>
 #include "c_types/typedefs.h"
+
+namespace vrprouting {
 
 /** @brief Job's attributes
 
@@ -43,33 +49,29 @@ location_id | Location index of job in matrix
 setup | Job setup duration
 service | Job service duration
 delivery | Quantities for delivery
-delivery_size | Number of delivery quantities
 pickup | Quantities for pickup
-pickup_size | Number of pickup quantities
 skills | Mandatory skills
-skills_size | Number of mandatory skills
 priority | Priority level of job
 data | Metadata information of job
 */
-struct Vroom_job_t {
-  Idx id; /** The job's identifier */
-  MatrixIndex location_id; /** Location index of job in matrix */
+class Vroom_job_t {
+ public:
+     Idx id; /** The job's identifier */
+     MatrixIndex location_id;    /** Location index of job in matrix */
 
-  Duration setup; /** Job setup duration */
-  Duration service; /** Job service duration */
+     ::vroom::Duration setup;   /** Job setup duration */
+     ::vroom::Duration service; /** Job service duration */
 
-  Amount *delivery; /** Quantities for delivery */
-  size_t delivery_size; /** Number of delivery quantities */
+     ::vroom::Amount pickup;    /** Quantities for pickup */
+     ::vroom::Amount delivery;  /** Quantities for delivery */
 
-  Amount *pickup; /** Quantities for pickup */
-  size_t pickup_size; /** Number of pickup quantities */
+     ::vroom::Skills skills;    /** Mandatory skills */
 
-  Skill *skills; /** Mandatory skills */
-  size_t skills_size; /** Number of mandatory skills */
+     Priority priority;         /** Priority level of job */
 
-  Priority priority; /** Priority level of job */
-
-  char *data; /** Metadata information of job */
+     std::string data;          /** Metadata information of job */
 };
+
+}  // namespace vrprouting
 
 #endif  // INCLUDE_CPP_COMMON_VROOM_JOB_T_HPP_

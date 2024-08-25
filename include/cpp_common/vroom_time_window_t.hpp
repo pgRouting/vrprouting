@@ -31,7 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_CPP_COMMON_VROOM_TIME_WINDOW_T_HPP_
 #pragma once
 
+#include <structures/vroom/input/input.h>
+
 #include "c_types/typedefs.h"
+
+namespace vrprouting {
 
 /** @brief Time window's attributes
 
@@ -40,14 +44,15 @@ name | description
 :----- | :-------
 id | Identifier of the job/shipment/break
 kind | Whether the shipment is a pickup ('p') or a delivery ('d')
-tw_open | Time window opening time
-tw_close | Time window closing time
+tw | The time windows
 */
-struct Vroom_time_window_t {
-  Idx id;
-  char kind;
-  Duration tw_open;
-  Duration tw_close;
+class Vroom_time_window_t {
+ public:
+     Idx id;
+     char kind;
+     ::vroom::TimeWindow tw;
 };
+
+}  // namespace vrprouting
 
 #endif  // INCLUDE_CPP_COMMON_VROOM_TIME_WINDOW_T_HPP_
