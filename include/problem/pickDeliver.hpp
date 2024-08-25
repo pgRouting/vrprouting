@@ -29,22 +29,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_PROBLEM_PICKDELIVER_HPP_
 #pragma once
 
-
-
 #include <vector>
 #include <utility>
-#include "c_types/compatibleVehicles_rt.h"
-#include "c_types/solution_rt.h"
-#include "cpp_common/orders_t.hpp"
-#include "cpp_common/vehicle_t.hpp"
+
 #include "cpp_common/messages.hpp"
-#include "problem/vehicle_node.hpp"
 #include "problem/orders.hpp"
 #include "problem/fleet.hpp"
-#include "problem/matrix.hpp"
+
+using CompatibleVehicles_rt = struct CompatibleVehicles_rt;
+using Orders_t = struct Orders_t;
+using Vehicle_t = struct Vehicle_t;
 
 namespace vrprouting {
+
+class Short_vehicle;
+
 namespace problem {
+
+class Matrix;
+class Vehicle_node;
+
 
 /** @brief the pick deliver problem */
 class PickDeliver {
@@ -53,44 +57,19 @@ class PickDeliver {
     PickDeliver(
         Orders_t* p_orders, size_t p_orders_size,
         Vehicle_t* p_vehicles, size_t p_vehicles_size,
-        const Matrix &p_cost_matrix) :
-      m_cost_matrix(p_cost_matrix),
-      m_orders(p_orders, p_orders_size, *this),
-      m_trucks(p_vehicles, p_vehicles_size, m_orders, m_nodes, m_node_id) {
-    if (!msg.get_error().empty()) return;
-    m_trucks.clean();
-    m_orders.set_compatibles();
-    m_trucks.set_compatibles(m_orders);
-  }
+        const Matrix &p_cost_matrix);
 
     /** @brief Override stops constructor */
     PickDeliver(
         Orders_t* p_orders, size_t p_orders_size,
         Vehicle_t* p_vehicles, size_t p_vehicles_size,
         std::vector<Short_vehicle> new_stops,
-        const Matrix &p_cost_matrix) :
-      m_cost_matrix(p_cost_matrix),
-      m_orders(p_orders, p_orders_size, *this),
-      m_trucks(p_vehicles, p_vehicles_size, new_stops, m_orders, m_nodes, m_node_id) {
-    if (!msg.get_error().empty()) return;
-    m_trucks.clean();
-    m_orders.set_compatibles();
-    m_trucks.set_compatibles(m_orders);
-  }
+        const Matrix &p_cost_matrix);
 
     virtual ~PickDeliver() = default;
 
     /** @brief get the vehicles compatibility results as C++ container */
-    std::vector<CompatibleVehicles_rt> get_pg_compatibleVehicles() const {
-      std::vector<CompatibleVehicles_rt> result;
-      for (const auto& v : m_trucks) {
-        if (v.is_phony()) continue;
-        for (const auto o : v.feasible_orders()) {
-          result.push_back({m_orders[o].id(), v.id()});
-        }
-      }
-      return result;
-    }
+    std::vector<CompatibleVehicles_rt> get_pg_compatibleVehicles() const;
 
     const Orders& orders() {return m_orders;}
     const Fleet& vehicles() {return m_trucks;}
@@ -100,7 +79,7 @@ class PickDeliver {
 
     /** the cost matrix */
     const Matrix& m_cost_matrix;
-    const Matrix& time_matrix() {return m_cost_matrix;}
+    const Matrix& time_matrix() const {return m_cost_matrix;}
     size_t& node_id() {return m_node_id;}
 
 
