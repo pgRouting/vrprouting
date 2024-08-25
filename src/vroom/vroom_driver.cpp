@@ -109,8 +109,8 @@ vrp_do_vroom(
         char ** notice_msg,
         char ** err_msg) {
     using vrprouting::alloc;
-    using vrprouting::to_pg_msg;
     using vrprouting::free;
+    using vrprouting::to_pg_msg;
 
     char* hint = nullptr;
 

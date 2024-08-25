@@ -117,6 +117,7 @@ vrp_do_compatibleVehicles(
         char **notice_msg,
         char **err_msg) {
     using vrprouting::alloc;
+    using vrprouting::free;
     using vrprouting::to_pg_msg;
 
     char* hint = nullptr;

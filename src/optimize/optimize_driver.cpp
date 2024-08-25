@@ -368,6 +368,7 @@ vrp_do_optimize(
         char **notice_msg,
         char **err_msg) {
     using vrprouting::alloc;
+    using vrprouting::free;
     using vrprouting::to_pg_msg;
 
     char* hint = nullptr;
