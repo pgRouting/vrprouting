@@ -46,29 +46,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "problem/pickDeliver.hpp"
 #include "problem/solution.hpp"
 
+namespace {
 
-namespace  {
 vrprouting::problem::Solution
-    get_initial_solution(vrprouting::problem::PickDeliver* problem_ptr, int m_initial_id) {
-        using Solution = vrprouting::problem::Solution;
-        using Initial_solution = vrprouting::initialsol::simple::Initial_solution;
-        using Initials_code = vrprouting::initialsol::simple::Initials_code;
-        Solution m_solutions(problem_ptr);
-        if (m_initial_id == 0) {
-            for (int i = 1; i < 7; ++i) {
-                if (i == 1) {
-                    m_solutions = Initial_solution((Initials_code)i, problem_ptr);
-                } else {
-                    auto new_sol = Initial_solution((Initials_code)i, problem_ptr);
-                    m_solutions = (new_sol < m_solutions)? new_sol : m_solutions;
-                }
+get_initial_solution(vrprouting::problem::PickDeliver* problem_ptr, int m_initial_id) {
+    using Solution = vrprouting::problem::Solution;
+    using Initial_solution = vrprouting::initialsol::simple::Initial_solution;
+    using Initials_code = vrprouting::initialsol::simple::Initials_code;
+    Solution m_solutions(problem_ptr);
+    if (m_initial_id == 0) {
+        for (int i = 1; i < 7; ++i) {
+            if (i == 1) {
+                m_solutions = Initial_solution((Initials_code)i, problem_ptr);
+            } else {
+                auto new_sol = Initial_solution((Initials_code)i, problem_ptr);
+                m_solutions = (new_sol < m_solutions)? new_sol : m_solutions;
             }
-        } else {
-            m_solutions = Initial_solution((Initials_code)m_initial_id, problem_ptr);
         }
-
-        return m_solutions;
+    } else {
+        m_solutions = Initial_solution((Initials_code)m_initial_id, problem_ptr);
     }
+
+    return m_solutions;
+}
+
 }  // namespace
 
 void
@@ -105,8 +106,6 @@ vrp_do_pgr_pickDeliver(
         pgassert(total_vehicles);
         pgassert(*return_count == 0);
         pgassert(!(*return_tuples));
-        log << "do_pgr_pickDeliver\n";
-
 
         *return_tuples = nullptr;
         *return_count = 0;
@@ -150,7 +149,7 @@ vrp_do_pgr_pickDeliver(
             for (const auto &v : vehicles) {
                 if (v.start_node_id != depot_node && v.end_node_id != depot_node) {
                     err << "All vehicles must depart & arrive to same node";
-                    *err_msg = to_pg_msg(err.str().c_str());
+                    *err_msg = to_pg_msg(err.str());
                     return;
                 }
             }
@@ -161,7 +160,7 @@ vrp_do_pgr_pickDeliver(
             for (size_t i = 0; i < total_customers; ++i) {
                 if (customers_arr[i].pick_node_id != depot_node) {
                     err << "All orders must be picked at depot";
-                    *err_msg = to_pg_msg(err.str().c_str());
+                    *err_msg = to_pg_msg(err.str());
                     return;
                 }
             }
@@ -170,7 +169,7 @@ vrp_do_pgr_pickDeliver(
 
         if (!time_matrix.has_no_infinity()) {
             err << "An Infinity value was found on the Matrix. Might be missing information of a node";
-            *err_msg = to_pg_msg(err.str().c_str());
+            *err_msg = to_pg_msg(err.str());
             return;
         }
 
@@ -184,9 +183,8 @@ vrp_do_pgr_pickDeliver(
 
         err << pd_problem.msg.get_error();
         if (!err.str().empty()) {
-            log << pd_problem.msg.get_log();
-            *log_msg = to_pg_msg(log.str().c_str());
-            *err_msg = to_pg_msg(err.str().c_str());
+            *err_msg = to_pg_msg(pd_problem.msg.get_error());
+            *log_msg = to_pg_msg(pd_problem.msg.get_log());
             return;
         }
         log << pd_problem.msg.get_log();

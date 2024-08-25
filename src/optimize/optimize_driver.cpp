@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/messages.hpp"
 
 #include "cpp_common/orders_t.hpp"
+#include "cpp_common/short_vehicle.hpp"
 #include "cpp_common/vehicle_t.hpp"
 
 #include "initialsol/tabu.hpp"

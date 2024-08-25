@@ -147,9 +147,10 @@ vrp_do_pgr_pickDeliverEuclidean(
         *return_count = 0;
         std::string err_string;
         std::string hint_string;
+
         if (!are_shipments_ok(customers_arr, total_customers, &err_string, &hint_string)) {
-            *err_msg = to_pg_msg(err_string.c_str());
-            *log_msg = to_pg_msg(hint_string.c_str());
+            *err_msg = to_pg_msg(err_string);
+            *log_msg = to_pg_msg(hint_string);
             return;
         }
 
@@ -210,12 +211,8 @@ vrp_do_pgr_pickDeliverEuclidean(
 
         err << pd_problem.msg.get_error();
         if (!err.str().empty()) {
-            log.str("");
-            log.clear();
-            log << pd_problem.msg.get_error();
-            log << pd_problem.msg.get_log();
-            *log_msg = to_pg_msg(log.str().c_str());
-            *err_msg = to_pg_msg(err.str().c_str());
+            *err_msg = to_pg_msg(pd_problem.msg.get_error());
+            *log_msg = to_pg_msg(pd_problem.msg.get_log());
             return;
         }
         log << pd_problem.msg.get_log();
