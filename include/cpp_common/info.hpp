@@ -27,15 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_CPP_COMMON_INFO_HPP_
 #pragma once
 
-/* for int64_t */
-#ifndef __cplusplus
-#   include <stdbool.h>
-#   include <stdint.h>
-#endif
+#include <cstdint>
+#include <string>
 
-// used for getting the data
-typedef
-enum {
+namespace vrprouting {
+
+enum expectType {
     INTEGER,
     ANY_INTEGER,
     ANY_NUMERICAL,
@@ -45,18 +42,38 @@ enum {
     INTEGER_ARRAY,
     ANY_INTEGER_ARRAY,
     TIMESTAMP,
-    INTERVAL
-} expectType;
+    INTERVAL,
+
+    POSITIVE_INTEGER,
+    ANY_POSITIVE_INTEGER,
+    ANY_UINT,
+    ANY_POSITIVE_ARRAY,
+    UINT_ARRAY,
+    ANY_UINT_ARRAY,
+    /* similar types */
+    STEP_TYPE  = INTEGER,
+    AMOUNT     = ANY_INTEGER,
+    ID         = ANY_INTEGER,
+    TTIMESTAMP = ANY_INTEGER,
+    COORDINATE = ANY_NUMERICAL,
+    SPEED      = ANY_NUMERICAL,
+    MULTIPLIER = ANY_NUMERICAL,
+    TINTERVAL    = ANY_POSITIVE_INTEGER,
+    MATRIX_INDEX = ANY_POSITIVE_INTEGER,
+    IDX     = ANY_UINT,
+    PAMOUNT = ANY_UINT
+};
 
 
-typedef
-struct {
-    int colNumber;
-    uint64_t type;
-    bool strict;
-    char *name;
-    expectType eType;
-} Column_info_t;
+class Info {
+ public:
+     int colNumber;
+     uint64_t type;
+     bool strict;
+     std::string name;
+     expectType eType;
+};
 
+}  // namespace vrprouting
 
 #endif  // INCLUDE_CPP_COMMON_INFO_HPP_

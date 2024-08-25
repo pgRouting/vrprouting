@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_types/typedefs.h"
 
+namespace vrprouting {
+
 /** @brief order's attributes
 
 @note C/C++/postgreSQL connecting structure for input
@@ -44,33 +46,28 @@ deliver_open_t | Deliver open time
 deliver_close_t | Deliver close time
 deliver_service_t | Deliver service duration
 */
+class Orders_t{
+ public:
+     Id      id;     /** Order's identifier */
+     PAmount  demand; /** Number of demand */
 
+     Coordinate pick_x; /** Pick x coordinate */
+     Coordinate pick_y; /** Pick y coordinate */
+     Id  pick_node_id;  /** Pickup node identifier */
 
-/**************************************************************************
- * pickDelivery types
- * ***********************************************************************/
-/*
- * its with either (foo_x, foo_y) pairs (for euclidean or with foo_node_id (for matrix)
- */
-struct Orders_t{
-  Id      id;     /** Order's identifier */
-  PAmount  demand; /** Number of demand */
+     TTimestamp pick_open_t;     /** Pickup open time*/
+     TTimestamp pick_close_t;    /** Pickup close time*/
+     TInterval  pick_service_t;  /** Pickup service duration */
 
-  Coordinate pick_x; /** Pick x coordinate: used in stand alone program for benchmarks */
-  Coordinate pick_y; /** Pick y coordinate: used in stand alone program for benchmarks */
-  Id  pick_node_id;  /** Pickup node identifier */
+     Coordinate deliver_x;  /** Deliver x coordinate */
+     Coordinate deliver_y;  /** Deliver y coordinate */
+     Id deliver_node_id;    /** Deliver node identifier */
 
-  TTimestamp pick_open_t;     /** Pickup open time*/
-  TTimestamp pick_close_t;    /** Pickup close time*/
-  TInterval  pick_service_t;  /** Pickup service duration */
-
-  Coordinate deliver_x;  /** Deliver x coordinate: used in stand alone program for benchmarks */
-  Coordinate deliver_y;  /** Deliver y coordinate: used in stand alone program for benchmarks */
-  Id deliver_node_id;    /** Deliver node identifier */
-
-  TTimestamp deliver_open_t;   /** Deliver open time */
-  TTimestamp deliver_close_t;  /** Deliver close time */
-  TInterval deliver_service_t; /** Deliver service duration */
+     TTimestamp deliver_open_t;   /** Deliver open time */
+     TTimestamp deliver_close_t;  /** Deliver close time */
+     TInterval deliver_service_t; /** Deliver service duration */
 };
+
+}  // namespace vrprouting
 
 #endif  // INCLUDE_CPP_COMMON_ORDERS_T_HPP_

@@ -27,7 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_CPP_COMMON_VEHICLE_T_HPP_
 #pragma once
 
+#include <vector>
 #include "c_types/typedefs.h"
+
+namespace vrprouting {
 
 /** @brief vehicles's attributes
 
@@ -45,30 +48,30 @@ end_open_t | End open time
 end_close_t | End close time
 end_service_t | End service time
 stops | Vehicle's stops
-stops_size | Stops size
 */
-struct Vehicle_t {
-  Id id; /** Vehicle's identifier */
-  PAmount capacity; /** Vehicle's capacity */
-  Speed speed;
-  PAmount cant_v;   /** Number of vehicles with same description **/
-  Id *stops; /** Stops */
-  size_t stops_size; /** Stops size */
+class Vehicle_t {
+ public:
+     Id id; /** Vehicle's identifier */
+     PAmount capacity; /** Vehicle's capacity */
+     Speed speed;
+     PAmount cant_v;   /** Number of vehicles with same description **/
+     std::vector<Id> stops; /** Stops */
 
-  Id start_node_id; /** Start node's identifier */
-  TTimestamp start_open_t; /** Start open time */
-  TTimestamp start_close_t; /** Start close time */
-  TInterval  start_service_t; /** Start service duration */
-  Coordinate start_x;
-  Coordinate start_y;
+     Id start_node_id; /** Start node's identifier */
+     TTimestamp start_open_t; /** Start open time */
+     TTimestamp start_close_t; /** Start close time */
+     TInterval  start_service_t; /** Start service duration */
+     Coordinate start_x;
+     Coordinate start_y;
 
-  Id end_node_id; /** End node's identifier */
-  TTimestamp end_open_t; /** End open time */
-  TTimestamp end_close_t; /** End close time */
-  TInterval  end_service_t; /** End service time */
-  Coordinate end_x;
-  Coordinate end_y;
+     Id end_node_id; /** End node's identifier */
+     TTimestamp end_open_t; /** End open time */
+     TTimestamp end_close_t; /** End close time */
+     TInterval  end_service_t; /** End service time */
+     Coordinate end_x;
+     Coordinate end_y;
 };
 
+}  // namespace vrprouting
 
 #endif  // INCLUDE_CPP_COMMON_VEHICLE_T_HPP_

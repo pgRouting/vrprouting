@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_types/typedefs.h"
 
+namespace vrprouting {
+
 /** @brief Matrix's attributes
 
 @note C/C++/postgreSQL connecting structure for input
@@ -43,12 +45,16 @@ end_id | End node identifier
 duration | Duration to travel from start to end
 cost | Cost to travel from start to end
 */
-struct Vroom_matrix_t {
-  MatrixIndex start_id;  /** Start node identifier */
-  MatrixIndex end_id;    /** End node identifier */
+class Vroom_matrix_t {
+ public:
+     MatrixIndex start_id;  /** Start node identifier */
+     MatrixIndex end_id;    /** End node identifier */
 
-  Duration duration;     /** Duration to travel from start to end */
-  TravelCost cost;       /** Cost to travel from start to end */
+     Duration duration;     /** Duration to travel from start to end */
+     TravelCost cost;       /** Cost to travel from start to end */
 };
 
+}  // namespace vrprouting
+
 #endif  // INCLUDE_CPP_COMMON_VROOM_MATRIX_T_HPP_
+

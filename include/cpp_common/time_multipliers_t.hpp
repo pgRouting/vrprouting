@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_types/typedefs.h"
 
+namespace vrprouting {
+
 /** @brief Time Dependant Multipliers
 
 @note C/C++/postgreSQL connecting structure for input
@@ -43,11 +45,14 @@ multiplier | takes effect starting from the @b start_time
 - Evrything between after the largest start time will have the multiplier of the largest start_time
 
 */
-struct Time_multipliers_t {
-    /** Time of day where the multiplier starts to be valid */
-    TTimestamp start_time;
-    /** multiplier at hour */
-    Multiplier multiplier;
+class Time_multipliers_t {
+ public:
+     /** Time of day where the multiplier starts to be valid */
+     TTimestamp start_time;
+     /** multiplier at hour */
+     Multiplier multiplier;
 };
+
+}  // namespace vrprouting
 
 #endif  // INCLUDE_CPP_COMMON_TIME_MULTIPLIERS_T_HPP_

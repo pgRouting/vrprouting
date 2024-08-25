@@ -31,46 +31,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define INCLUDE_CPP_COMMON_VROOM_VEHICLE_T_HPP_
 #pragma once
 
+#include <structures/vroom/vehicle.h>
+
+#include <string>
+
 #include "c_types/typedefs.h"
 
-/** @brief Vehicles's attributes
+namespace vrprouting {
 
-@note C/C++/postgreSQL connecting structure for input
+/** @brief Vroom's Vehicles's attributes
+
+  @note C/C++/postgreSQL connecting structure for input
 name | description
 :----- | :-------
 id | The vehicle's identifier
 start_id | Start location index in matrix
 end_id | End location index in matrix
 capacity | Vehicle's capacity array
-capacity_size | Vehicle's capacity array size
 skills | Vehicle's skills
-skills_size | Number of vehicle's skills
-tw_open | Time window start time
-tw_close | Time window end time
+tw | The time windows
 speed_factor | Vehicle travel time multiplier
 max_tasks | Max number of tasks in a route for the vehicle
 data | Metadata information of vehicle
 */
-struct Vroom_vehicle_t {
-  Idx id; /** The vehicle's identifier */
-  MatrixIndex start_id; /** Start location index in matrix */
-  MatrixIndex end_id; /** End location index in matrix */
+class Vroom_vehicle_t {
+ public:
+     Idx id; /** The vehicle's identifier */
+     MatrixIndex start_id; /** Start location index in matrix */
+     MatrixIndex end_id; /** End location index in matrix */
 
-  Amount *capacity; /** Vehicle's capacity array */
-  size_t capacity_size; /** Vehicle's capacity array size */
+     ::vroom::Amount capacity; /** Vehicle's capacity array */
+     ::vroom::Skills skills; /** Mandatory skills */
 
-  Skill *skills; /** Vehicle's skills */
-  size_t skills_size; /** Number of vehicle's skills */
+     ::vroom::TimeWindow tw; /** The Vroom time windows */
 
-  Duration tw_open; /** Time window start time */
-  Duration tw_close; /** Time window end time */
-
-  double speed_factor; /** Vehicle travel time multiplier */
-
-  int32_t max_tasks; /** Max number of tasks in a route for the vehicle */
-
-  char *data; /** Metadata information of vehicle */
+     Multiplier speed_factor; /** Vehicle travel time multiplier */
+     int32_t max_tasks; /** Max number of tasks in a route for the vehicle */
+     std::string data; /** Metadata information of vehicle */
 };
 
+}  // namespace vrprouting
 
 #endif  // INCLUDE_CPP_COMMON_VROOM_VEHICLE_T_HPP_
