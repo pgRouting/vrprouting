@@ -148,9 +148,6 @@ vrp_do_pickDeliver(
         pgassert(!(*return_tuples));
         log << "do_pickDeliver\n";
 
-        *return_tuples = nullptr;
-        *return_count = 0;
-
         Identifiers<Id> node_ids;
         Identifiers<Id> order_ids;
 
