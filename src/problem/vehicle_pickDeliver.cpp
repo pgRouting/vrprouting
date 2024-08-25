@@ -39,6 +39,22 @@ namespace vrprouting {
 namespace problem {
 
 
+Vehicle_pickDeliver::Vehicle_pickDeliver(
+        Idx p_idx,
+        Id p_id,
+        const Vehicle_node & p_starting_site,
+        const Vehicle_node & p_ending_site,
+        const std::vector<int64_t>& p_stops,
+        PAmount p_capacity,
+        Speed p_speed,
+        const Orders& p_orders) :
+    Vehicle(p_idx, p_id, p_starting_site, p_ending_site, p_capacity, p_speed),
+    m_cost((std::numeric_limits<double>::max)()),
+    m_orders_in_vehicle(),
+    m_feasible_orders(),
+    m_orders(p_orders),
+    m_stops(p_stops) {}
+
 /**
  *
  * @param [in] order order to be pushed back
@@ -313,11 +329,15 @@ Vehicle_pickDeliver::set_unmovable(TTimestamp execution_date) {
   m_orders_in_vehicle -= unmovable;
 }
 
+Order Vehicle_pickDeliver::get_first_order() const {
+    pgassert(!empty());
+    return orders()[at(1).idx()];
+}
+
 /**
  * @returns 0 when the Vehicle is phony
  * @returns the value of the objective function
  */
-
 double Vehicle_pickDeliver::objective() const {
   return is_phony()?
     0 :
@@ -329,7 +349,6 @@ double Vehicle_pickDeliver::objective() const {
  * @param [in] order to be tested
  * @pre vehicle is empty
  */
-
 bool
 Vehicle_pickDeliver::is_order_feasible(const Order &order) const {
   auto test_truck =  *this;
@@ -540,6 +559,30 @@ Vehicle_pickDeliver::hillClimb(const Order &order) {
   return true;
 }
 
+const Orders& Vehicle_pickDeliver::orders() const {
+     pgassert(m_orders.size() != 0);
+     return m_orders;
+}
+
+/**
+ * @returns The vehicle's information on the log
+ * @param [in,out] log place to store the vehicle's information
+ * @param [in] v the vehicle to work with
+ */
+std::ostream& operator<< (std::ostream &log, const Vehicle_pickDeliver &v) {
+    int i(0);
+    log << "\n\n****************** " << v.idx() << "th VEHICLE*************\n";
+    log << "id = " << v.id()
+        << "\tcapacity = " << v.capacity() << "\n";
+
+    for (const auto &path_stop : v) {
+        log << "Path_stop" << ++i << "\n";
+        log << path_stop << "\n";
+    }
+
+    log << v.feasible_orders() << "\n";
+    return log;
+}
 
 }  //  namespace problem
 }  //  namespace vrprouting
