@@ -82,33 +82,34 @@ are_shipments_ok(
      * - d_open <= d_close
      */
     for (size_t i = 0; i < total_customers; ++i) {
-        if (customers_arr[i].demand == 0) {
+        auto o = customers_arr[i];
+        if (o.demand == 0) {
             *err_string = "Unexpected zero value found on column 'demand' of shipments";
-            *hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+            *hint_string = "Check shipment id #:" + std::to_string(o.id);
             return false;
         }
 
-        if (customers_arr[i].pick_service_t < 0) {
+        if (o.pick_service_t < 0) {
             *err_string = "Unexpected negative value found on column 'p_service_t' of shipments";
-            *hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+            *hint_string = "Check shipment id #:" + std::to_string(o.id);
             return false;
         }
 
-        if (customers_arr[i].deliver_service_t < 0) {
+        if (o.deliver_service_t < 0) {
             *err_string = "Unexpected negative value found on column 'd_service_t' of shipments";
-            *hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+            *hint_string = "Check shipment id #:" + std::to_string(o.id);
             return false;
         }
 
-        if (customers_arr[i].pick_open_t > customers_arr[i].pick_close_t) {
+        if (o.pick_open_t > o.pick_close_t) {
             *err_string = "Unexpected pickup time windows found on shipments";
-            *hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+            *hint_string = "Check shipment id #:" + std::to_string(o.id);
             return false;
         }
 
-        if (customers_arr[i].deliver_open_t > customers_arr[i].deliver_close_t) {
+        if (o.deliver_open_t > o.deliver_close_t) {
             *err_string = "Unexpected delivery time windows found on shipments";
-            *hint_string = "Check shipment id #:" + std::to_string(customers_arr[i].id);
+            *hint_string = "Check shipment id #:" + std::to_string(o.id);
             return false;
         }
     }
@@ -192,12 +193,11 @@ vrp_do_pgr_pickDeliverEuclidean(
         }
 
         for (size_t i = 0; i < total_customers; ++i) {
-            customers_arr[i].pick_node_id =
-                matrix_data[std::pair<Coordinate, Coordinate>(customers_arr[i].pick_x, customers_arr[i].pick_y)];
-
-            customers_arr[i].deliver_node_id =
-                matrix_data[std::pair<Coordinate, Coordinate>(customers_arr[i].deliver_x, customers_arr[i].deliver_y)];
+            auto &o = customers_arr[i];
+            o.pick_node_id    = matrix_data[std::pair<Coordinate, Coordinate>(o.pick_x, o.pick_y)];
+            o.deliver_node_id = matrix_data[std::pair<Coordinate, Coordinate>(o.deliver_x, o.deliver_y)];
         }
+
         for (auto &v : vehicles) {
             v.start_node_id = matrix_data[std::pair<Coordinate, Coordinate>(v.start_x, v.start_y)];
             v.end_node_id = matrix_data[std::pair<Coordinate, Coordinate>(v.end_x, v.end_y)];

@@ -143,13 +143,15 @@ vrp_do_compatibleVehicles(
         Identifiers<Id> node_ids;
 
         for (size_t i = 0; i < total_customers; ++i) {
-            node_ids += customers_arr[i].pick_node_id;
-            node_ids += customers_arr[i].deliver_node_id;
+            auto o = customers_arr[i];
+            node_ids += o.pick_node_id;
+            node_ids += o.deliver_node_id;
         }
 
         for (size_t i = 0; i < total_vehicles; ++i) {
-            node_ids += vehicles_arr[i].start_node_id;
-            node_ids += vehicles_arr[i].end_node_id;
+            auto v = vehicles_arr[i];
+            node_ids += v.start_node_id;
+            node_ids += v.end_node_id;
         }
 
         /*
