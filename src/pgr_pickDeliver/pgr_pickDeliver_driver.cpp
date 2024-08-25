@@ -73,14 +73,9 @@ vrprouting::problem::Solution
 
 void
 vrp_do_pgr_pickDeliver(
-        struct Orders_t customers_arr[],
-        size_t total_customers,
-
-        Vehicle_t *vehicles_arr,
-        size_t total_vehicles,
-
-        Matrix_cell_t *matrix_cells_arr,
-        size_t total_cells,
+        struct Orders_t customers_arr[], size_t total_customers,
+        Vehicle_t *vehicles_arr, size_t total_vehicles,
+        Matrix_cell_t *matrix_cells_arr, size_t total_cells,
 
         double factor,
         int max_cycles,
@@ -140,11 +135,7 @@ vrp_do_pgr_pickDeliver(
         std::vector<Vehicle_t> vehicles(
                 vehicles_arr, vehicles_arr + total_vehicles);
 
-        vrprouting::problem::Matrix time_matrix(
-                matrix_cells_arr,
-                total_cells,
-                node_ids,
-                static_cast<Multiplier>(factor));
+        vrprouting::problem::Matrix matrix(matrix_cells_arr, total_cells, node_ids, static_cast<Multiplier>(factor));
 
 #ifdef TODO
         auto depot_node = vehicles[0].start_node_id;
