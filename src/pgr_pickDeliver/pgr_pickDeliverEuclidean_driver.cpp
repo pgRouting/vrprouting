@@ -143,8 +143,12 @@ vrp_do_pgr_pickDeliverEuclidean(
     std::ostringstream notice;
     std::ostringstream err;
     try {
-        *return_tuples = nullptr;
-        *return_count = 0;
+        pgassert(!(*log_msg));
+        pgassert(!(*notice_msg));
+        pgassert(!(*err_msg));
+        pgassert(*return_count == 0);
+        pgassert(!(*return_tuples));
+
         std::string err_string;
         std::string hint_string;
 
@@ -201,13 +205,13 @@ vrp_do_pgr_pickDeliverEuclidean(
             v.end_node_id = matrix_data[std::pair<Coordinate, Coordinate>(v.end_x, v.end_y)];
         }
 
-        vrprouting::problem::Matrix cost_matrix(matrix_data, static_cast<Multiplier>(factor));
+        vrprouting::problem::Matrix matrix(matrix_data, static_cast<Multiplier>(factor));
 
         log << "Initialize problem\n";
         vrprouting::problem::PickDeliver pd_problem(
                 customers_arr, total_customers,
                 vehicles_arr, total_vehicles,
-                cost_matrix);
+                matrix);
 
         err << pd_problem.msg.get_error();
         if (!err.str().empty()) {

@@ -385,9 +385,6 @@ vrp_do_optimize(
         pgassert(*return_count == 0);
         pgassert(!(*return_tuples));
 
-        *return_tuples = nullptr;
-        *return_count = 0;
-
         Identifiers<Id> node_ids;
         Identifiers<Id> shipments_in_stops;
 

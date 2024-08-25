@@ -107,8 +107,6 @@ vrp_do_pgr_pickDeliver(
         pgassert(*return_count == 0);
         pgassert(!(*return_tuples));
 
-        *return_tuples = nullptr;
-        *return_count = 0;
 
         Identifiers<Id> node_ids;
         Identifiers<Id> order_ids;
@@ -134,7 +132,7 @@ vrp_do_pgr_pickDeliver(
         std::vector<Vehicle_t> vehicles(
                 vehicles_arr, vehicles_arr + total_vehicles);
 
-        vrprouting::problem::Matrix time_matrix(matrix_cells_arr, total_cells, node_ids, static_cast<Multiplier>(factor));
+        vrprouting::problem::Matrix matrix(matrix_cells_arr, total_cells, node_ids, static_cast<Multiplier>(factor));
 
 #ifdef TODO
         auto depot_node = vehicles[0].start_node_id;
@@ -167,19 +165,17 @@ vrp_do_pgr_pickDeliver(
         }
 #endif
 
-        if (!time_matrix.has_no_infinity()) {
+        if (!matrix.has_no_infinity()) {
             err << "An Infinity value was found on the Matrix. Might be missing information of a node";
             *err_msg = to_pg_msg(err.str());
             return;
         }
 
-        // TODO(vicky) wrap with a try and make a throw???
-        // tried it is already wrapped
         log << "Initialize problem\n";
         vrprouting::problem::PickDeliver pd_problem(
                 customers_arr, total_customers,
                 vehicles_arr, total_vehicles,
-                time_matrix);
+                matrix);
 
         err << pd_problem.msg.get_error();
         if (!err.str().empty()) {
