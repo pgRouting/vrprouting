@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 namespace {
 
 vrprouting::problem::Solution
-get_initial_solution(vrprouting::problem::PickDeliver* problem_ptr, int m_initial_id) {
+get_initial_solution(vrprouting::problem::PickDeliver &problem_ptr, int m_initial_id) {
     using Solution = vrprouting::problem::Solution;
     using Initial_solution = vrprouting::initialsol::simple::Initial_solution;
     using Initials_code = vrprouting::initialsol::simple::Initials_code;
@@ -223,7 +223,7 @@ vrp_do_pgr_pickDeliverEuclidean(
         log << pd_problem.msg.get_log();
         log << "Finish Reading data\n";
 
-        auto sol = get_initial_solution(&pd_problem, initial_solution_id);
+        auto sol = get_initial_solution(pd_problem, initial_solution_id);
         using Optimize = vrprouting::optimizers::simple::Optimize;
         using Initials_code = vrprouting::initialsol::simple::Initials_code;
         sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);

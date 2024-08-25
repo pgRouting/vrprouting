@@ -99,7 +99,7 @@ one_processing(
          */
         using Initial_solution = vrprouting::initialsol::tabu::Initial_solution;
         using Solution = vrprouting::problem::Solution;
-        auto sol = static_cast<Solution>(Initial_solution(execution_date, true, &pd_problem));
+        auto sol = static_cast<Solution>(Initial_solution(execution_date, true, pd_problem));
 
         /*
          * Optimize the initial solution:

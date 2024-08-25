@@ -60,7 +60,7 @@ Initial_solution::invariant() const {
 Initial_solution::Initial_solution(
         TTimestamp execution_date,
         bool optimize,
-        problem::PickDeliver* problem_ptr) :
+        problem::PickDeliver &problem_ptr) :
     Solution(problem_ptr),
     m_all_orders(),
     m_unassigned(),
@@ -182,7 +182,7 @@ Initial_solution::process_unassigned() {
             phony_v.push_back(orders()[o]);
             m_unassigned -= o;
             m_all_orders -= o;
-            msg().error << "\n**Illegal Order** pick.opens() + tt > drop.closes() can not be inserted on any vehicle";
+            error << "\n**Illegal Order** pick.opens() + tt > drop.closes() can not be inserted on any vehicle";
             continue;
         }
 

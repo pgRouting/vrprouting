@@ -48,7 +48,7 @@ class Initial_solution :  public problem::Solution {
     Initial_solution() = delete;
 
     /** @brief Creating a complete initial solution */
-    Initial_solution(TTimestamp, bool, problem::PickDeliver*);
+    Initial_solution(TTimestamp, bool, problem::PickDeliver&);
 
  private:
     using Solution::vehicles;
