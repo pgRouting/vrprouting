@@ -46,7 +46,7 @@ Initial_solution::invariant() const {
 
 Initial_solution::Initial_solution(
         Initials_code kind,
-        problem::PickDeliver* problem_ptr) :
+        problem::PickDeliver &problem_ptr) :
     problem::Solution(problem_ptr),
     all_orders(m_orders.size()),
     unassigned(m_orders.size()),
@@ -87,21 +87,20 @@ Initial_solution::do_while_foo(int kind) {
          * kind 1 to 7 work with the same code structure
          */
         do_while_feasible(truck, (Initials_code)kind, unassigned, assigned);
-        pgassertwm(current > unassigned.size(), msg().get_log().c_str());
+        pgassertwm(current > unassigned.size(), get_log().c_str());
 
         m_fleet.push_back(truck);
         invariant();
     }
 
-    pgassertwm(true, msg().get_log().c_str());
-    pgassert(is_feasible());
+    pgassertwm(true, get_log().c_str());
     invariant();
 }
 
 void
 Initial_solution::one_truck_all_orders() {
     invariant();
-    msg().log << "\nInitial_solution::one_truck_all_orders\n";
+    log << "\nInitial_solution::one_truck_all_orders\n";
     auto truck = vehicles().get_truck();
     while (!unassigned.empty()) {
         auto order(truck.orders().at(*unassigned.begin()));

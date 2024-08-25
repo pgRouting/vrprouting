@@ -45,7 +45,7 @@ namespace simple {
 class Initial_solution : public problem::Solution {
  public:
     Initial_solution() = delete;
-    Initial_solution(Initials_code, problem::PickDeliver*);
+    Initial_solution(Initials_code, problem::PickDeliver&);
 
     void invariant() const;
 
