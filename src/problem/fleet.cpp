@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <algorithm>
 
 #include "cpp_common/vehicle_t.hpp"
+#include "cpp_common/short_vehicle.hpp"
 
 namespace vrprouting {
 namespace problem {
@@ -391,6 +392,7 @@ Fleet::build_fleet(
     for (size_t i = 0; i < size_vehicles; ++i) {
         add_vehicle(vehicles[i], new_stops, p_orders, p_nodes, node_id);
     }
+
     /**
      *  creating a phony vehicle with max capacity and max window
      *  with the start & end points of the first vehicle given
@@ -438,6 +440,26 @@ Fleet::build_fleet(
     pgassert(m_unused.size() == size());
     invariant();
 }
+
+/* Constructors */
+Fleet::Fleet(
+        Vehicle_t* vehicles , size_t size_vehicles,
+        const Orders& p_orders,
+        std::vector<Vehicle_node>& p_nodes,
+        size_t& node_id)
+    : m_used(), m_unused() {
+        build_fleet(vehicles, size_vehicles, {}, p_orders, p_nodes, node_id);
+    }
+
+Fleet::Fleet(
+        Vehicle_t* vehicles , size_t size_vehicles,
+        const std::vector<Short_vehicle> &new_stops,
+        const Orders& p_orders,
+        std::vector<Vehicle_node>& p_nodes,
+        size_t& node_id)
+    : m_used(), m_unused() {
+        build_fleet(vehicles, size_vehicles, new_stops, p_orders, p_nodes, node_id);
+    }
 
 }  // namespace problem
 }  // namespace vrprouting
