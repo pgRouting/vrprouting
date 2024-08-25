@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
+#include "cpp_common/timeconversion.hpp"
 
 #include "cpp_common/orders_t.hpp"
 #include "cpp_common/vehicle_t.hpp"
@@ -67,8 +68,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *  @param[out] log_msg special log message pointer
  *  @param[out] notice_msg special message pointer to be returned as NOTICE
  *  @param[out] err_msg special message pointer to be returned as ERROR
- *  @return void
- *
  *
  * @pre The messages: log_msg, notice_msg, err_msg must be empty (=nullptr)
  * @pre The C arrays: customers_arr, vehicles_arr, matrix_cells_arr must not be empty
@@ -81,7 +80,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * @post err_msg is empty if no throw from the process is catched
  * @post log_msg contains some logging
  * @post notice_msg is empty
- *
  *
  @dot
 digraph G {
@@ -102,8 +100,6 @@ digraph G {
 
 }
 @enddot
-
- *
  */
 void
 vrp_do_pickDeliver(
@@ -152,9 +148,10 @@ vrp_do_pickDeliver(
         Identifiers<Id> order_ids;
 
         for (size_t i = 0; i < total_customers; ++i) {
-            node_ids += customers_arr[i].pick_node_id;
-            node_ids += customers_arr[i].deliver_node_id;
-            order_ids += customers_arr[i].id;
+            auto o = customers_arr[i];
+            node_ids += o.pick_node_id;
+            node_ids += o.deliver_node_id;
+            order_ids += o.id;
         }
 
         bool missing = false;
@@ -239,7 +236,6 @@ vrp_do_pickDeliver(
          */
         using Optimize = vrprouting::optimizers::tabu::Optimize;
         sol = Optimize(sol, static_cast<size_t>(max_cycles), stop_on_all_served, optimize);
-
 
         log << pd_problem.msg.get_log();
         pd_problem.msg.clear();

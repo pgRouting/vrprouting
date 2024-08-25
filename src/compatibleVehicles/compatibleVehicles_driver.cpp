@@ -34,14 +34,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "c_types/compatibleVehicles_rt.h"
 
-#include "cpp_common/assert.hpp"
 #include "cpp_common/alloc.hpp"
+#include "cpp_common/assert.hpp"
 
 #include "cpp_common/orders_t.hpp"
 #include "cpp_common/vehicle_t.hpp"
 #include "problem/pickDeliver.hpp"
 #include "problem/matrix.hpp"
-
 
 /**
  *
@@ -54,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *  @param[in] multipliers_arr A C Array of the multipliers
  *  @param[in] total_multipliers size of the multipliers_arr
  *  @param[in] factor A global multiplier for the (time) matrix cells
+ *
  *  @param[out] return_tuples C array of contents to be returned to postgres
  *  @param[out] return_count number of tuples returned
  *  @param[out] log_msg special log message pointer
@@ -65,14 +65,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * @pre The C array: return_tuples must be empty
  * @pre Only matrix cells (i, i) can be missing and are considered as 0 (time units)
  *
- * @post The C arrays:  customers_arr, vehicles_arr, matrix_cells_arr Do not change
  * @post The C array: return_tuples contains the result for the problem given
- * @post The return_tuples array size is return_count
  * @post The return_tuples array size is return_count
  * @post err_msg is empty if no throw from the process is catched
  * @post log_msg contains some logging
  * @post notice_msg is empty
- *
  *
  @dot
 digraph G {
@@ -80,15 +77,14 @@ digraph G {
 
   start  [shape=Mdiamond];
   n1  [label="Verify preconditions",shape=rect];
-  n3  [label="Verify matrix cells preconditions",shape=rect];
+  n3  [label="Verify matrix preconditions",shape=rect];
   n4  [label="Construct problem",shape=cds,color=blue];
   n7  [label="Prepare results",shape=rect];
   end  [shape=Mdiamond];
   error [shape=Mdiamond,color=red]
   start -> n1 -> n3 -> n4 -> n7 -> end;
-  n1 -> error [ label="Caller error",color=red];
-  n3 -> error [ label="User error",color=red];
-
+  n1 -> error [ label="throw",color=red];
+  n3 -> error [ label="throw",color=red];
 }
 @enddot
 
@@ -96,17 +92,10 @@ digraph G {
  */
 void
 vrp_do_compatibleVehicles(
-        Orders_t customers_arr[],
-        size_t total_customers,
-
-        Vehicle_t *vehicles_arr,
-        size_t total_vehicles,
-
-        Matrix_cell_t *matrix_cells_arr,
-        size_t total_cells,
-
-        Time_multipliers_t *multipliers_arr,
-        size_t total_multipliers,
+        Orders_t customers_arr[], size_t total_customers,
+        Vehicle_t *vehicles_arr, size_t total_vehicles,
+        Matrix_cell_t *matrix_cells_arr, size_t total_cells,
+        Time_multipliers_t *multipliers_arr, size_t total_multipliers,
 
         double factor,
 
@@ -193,9 +182,8 @@ vrp_do_compatibleVehicles(
 
         err << pd_problem.msg.get_error();
         if (!err.str().empty()) {
-            log << pd_problem.msg.get_log();
-            *log_msg = to_pg_msg(log.str());
-            *err_msg = to_pg_msg(err.str());
+            *log_msg = to_pg_msg(pd_problem.msg.get_log());
+            *err_msg = to_pg_msg(pd_problem.msg.get_error());
             return;
         }
         log << pd_problem.msg.get_log();

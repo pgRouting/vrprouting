@@ -48,7 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /** @file vroom_driver.cpp
  * @brief Handles actual calling of function in the `vrp_vroom.hpp` file.
- *
  */
 
 /** @brief Performs exception handling and converts the results to postgres.
@@ -79,9 +78,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * @param[in] total_breaks_tws    The total number of total breaks timewindows
  * @param[in] matrix_rows         Pointer to the array of matrix rows
  * @param[in] total_matrix_rows   The total number of matrix rows
+ *
  * @param[in] exploration_level   Exploration level to use while solving.
  * @param[in] timeout             Timeout value to stop the solving process (seconds).
  * @param[in] loading_time        Additional time spent in loading the data from SQL Query (seconds).
+ *
  * @param[out] return_tuples      The rows in the result
  * @param[out] return_count       The count of rows in the result
  * @param[out] log_msg            Stores the log message
@@ -106,9 +107,9 @@ vrp_do_vroom(
         Vroom_rt **return_tuples,
         size_t *return_count,
 
-        char ** log_msg,
-        char ** notice_msg,
-        char ** err_msg) {
+        char **log_msg,
+        char **notice_msg,
+        char **err_msg) {
     using vrprouting::alloc;
     using vrprouting::free;
     using vrprouting::to_pg_msg;
@@ -200,13 +201,9 @@ vrp_do_vroom(
 
         vrprouting::problem::Vroom problem;
         problem.add_matrix(matrix);
-        problem.add_vehicles(vehicles, total_vehicles,
-                breaks, total_breaks,
-                breaks_tws, total_breaks_tws);
-        problem.add_jobs(jobs, total_jobs,
-                jobs_tws, total_jobs_tws);
-        problem.add_shipments(shipments, total_shipments,
-                shipments_tws, total_shipments_tws);
+        problem.add_vehicles(vehicles, total_vehicles, breaks, total_breaks, breaks_tws, total_breaks_tws);
+        problem.add_jobs(jobs, total_jobs, jobs_tws, total_jobs_tws);
+        problem.add_shipments(shipments, total_shipments, shipments_tws, total_shipments_tws);
 
         auto end_time = std::chrono::high_resolution_clock::now();
         loading_time += static_cast<int32_t>(
