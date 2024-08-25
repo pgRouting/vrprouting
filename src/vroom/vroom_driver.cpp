@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
+#include "cpp_common/pgdata_getters.hpp"
 
 #include "cpp_common/identifiers.hpp"
 #include "cpp_common/vroom_job_t.hpp"
@@ -51,18 +52,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 void
 vrp_do_vroom(
-        Vroom_job_t *jobs_arr, size_t total_jobs,
-        Vroom_time_window_t *jobs_tws_arr, size_t total_jobs_tws,
-        Vroom_shipment_t *shipments_arr, size_t total_shipments,
-        Vroom_time_window_t *shipments_tws_arr, size_t total_shipments_tws,
-        Vroom_vehicle_t *vehicles_arr, size_t total_vehicles,
-        Vroom_break_t *breaks_arr, size_t total_breaks,
-        Vroom_time_window_t *breaks_tws_arr, size_t total_breaks_tws,
-        Vroom_matrix_t *matrix_arr, size_t total_matrix,
+        char *jobs_sql,
+        char *jobs_tws_sql,
+        char *shipments_sql,
+        char *shipments_tws_sql,
+        char *vehicles_sql,
+        char *breaks_sql,
+        char *breaks_tws_sql,
+        char *matrix_sql,
 
         int32_t exploration_level,
         int32_t timeout,
-        int32_t loading_time,
+
+        int16_t fn_used,
+        bool use_timestamps,
 
         Vroom_rt **return_tuples,
         size_t *return_count,
@@ -81,6 +84,12 @@ vrp_do_vroom(
     std::ostringstream notice;
     try {
         using Matrix = vrprouting::vroom::Matrix;
+        using vrprouting::pgget::vroom::get_matrix;
+        using vrprouting::pgget::vroom::get_breaks;
+        using vrprouting::pgget::vroom::get_timewindows;
+        using vrprouting::pgget::vroom::get_jobs;
+        using vrprouting::pgget::vroom::get_shipments;
+        using vrprouting::pgget::vroom::get_vehicles;
 
         /*
          * verify preconditions
@@ -90,33 +99,113 @@ vrp_do_vroom(
         pgassert(!(*err_msg));
         pgassert(!(*return_tuples));
         pgassert(!(*return_count));
-        pgassert(jobs_arr || shipments_arr);
-        pgassert(vehicles_arr);
-        pgassert(matrix_arr);
-        pgassert(total_jobs || total_shipments);
-        pgassert(total_vehicles);
-        pgassert(total_matrix);
 
+        /*
+         * Verify that both jobs_sql and shipments_sql are not NULL
+         */
+        if (!jobs_sql && !shipments_sql) {
+            if (fn_used == 0) {
+                *err_msg = to_pg_msg("Both Jobs SQL and Shipments NULL must not be NULL");
+                return;
+            } else if (fn_used == 1) {
+                *err_msg = to_pg_msg("Jobs SQL must not be NULL");
+                return;
+            } else if (fn_used == 2) {
+                *err_msg = to_pg_msg("Shipments SQL must not be NULL");
+                return;
+            }
+        }
+
+        if (!vehicles_sql) {
+            *err_msg = to_pg_msg("Vehicles SQL must not be NULL");
+            return;
+        }
+
+        if (!matrix_sql) {
+            *err_msg = to_pg_msg("Matrix SQL must not be NULL");
+            return;
+        }
 
         auto start_time = std::chrono::high_resolution_clock::now();
 
         /* Data input starts */
 
-        /*
-         * transform to C++ containers
-         */
-        std::vector<Vroom_job_t> jobs(jobs_arr, jobs_arr + total_jobs);
-        std::vector<Vroom_time_window_t> jobs_tw(jobs_tws_arr, jobs_tws_arr + total_jobs_tws);
-        std::vector<Vroom_shipment_t> shipments(shipments_arr, shipments_arr + total_shipments);
-        std::vector<Vroom_time_window_t> shipments_tw(shipments_tws_arr, shipments_tws_arr + total_shipments_tws);
-        std::vector<Vroom_vehicle_t> vehicles(vehicles_arr, vehicles_arr + total_vehicles);
-        std::vector<Vroom_break_t> breaks(breaks_arr, breaks_arr + total_breaks);
-        std::vector<Vroom_time_window_t> breaks_tw(breaks_tws_arr, breaks_tws_arr + total_breaks_tws);
-        std::vector<Vroom_matrix_t> costs(matrix_arr, matrix_arr + total_matrix);
+        hint = jobs_sql;
+        auto jobs  = get_jobs(
+                jobs_sql? std::string(jobs_sql) : std::string(),
+                use_timestamps);
 
-        /* Data input ends */
+        hint = shipments_sql;
+        auto shipments  = get_shipments(
+                shipments_sql? std::string(shipments_sql) : std::string(),
+                use_timestamps);
 
-        /* Processing starts */
+        if (jobs.empty() && shipments.empty()) {
+            if (fn_used == 0) {
+                if (!shipments_sql || !jobs_sql) {
+                    *notice_msg = to_pg_msg("Jobs SQL and/or Shipments SQL query are NULL");
+                    return;
+                }
+                *notice_msg = to_pg_msg("Insufficient data found on Jobs SQL and/or Shipments SQL query.");
+                auto s1 = shipments_sql? std::string(shipments_sql) : "";
+                auto s2 = jobs_sql? std::string(jobs_sql) : "";
+                s1 = s1 + " " + s2;
+                *log_msg = to_pg_msg(s1);
+            } else if (fn_used == 1) {
+                *notice_msg = jobs_sql?
+                    to_pg_msg("Insufficient data found on Jobs SQL query.")
+                    : to_pg_msg("Jobs SQL query not found");
+                *log_msg = jobs_sql? to_pg_msg(std::string(jobs_sql)) : nullptr;
+            } else if (fn_used == 2) {
+                *notice_msg = shipments_sql?
+                    to_pg_msg("Insufficient data found on Shipments SQL query.")
+                    : to_pg_msg("Jobs SQL query not found");
+                *log_msg = shipments_sql? to_pg_msg(std::string(shipments_sql)) : nullptr;
+            }
+            return;
+        }
+
+        hint = jobs_tws_sql;
+        auto jobs_tw  = get_timewindows(
+                jobs_tws_sql? std::string(jobs_tws_sql) : std::string(),
+                use_timestamps, false);
+
+        hint = shipments_tws_sql;
+        auto shipments_tw  = get_timewindows(
+                shipments_tws_sql? std::string(shipments_tws_sql) : std::string(),
+                use_timestamps, true);
+
+        hint = vehicles_sql;
+        auto vehicles = get_vehicles(vehicles_sql, use_timestamps);
+
+        if (vehicles.size() == 0) {
+            *notice_msg = vehicles_sql?
+                to_pg_msg("Insufficient data found on Vehicles SQL query.")
+                : to_pg_msg("Vehicles SQL query not found");
+            *log_msg = vehicles_sql? to_pg_msg(std::string(vehicles_sql)) : nullptr;
+            return;
+        }
+
+        hint = breaks_sql;
+        auto breaks = get_breaks(
+                breaks_sql? std::string(breaks_sql) : std::string(),
+                use_timestamps);
+
+        hint = breaks_tws_sql;
+        auto breaks_tw = get_timewindows(
+                breaks_tws_sql? std::string(breaks_tws_sql) : std::string(),
+                use_timestamps, false);
+
+        hint = matrix_sql;
+        auto costs = get_matrix(matrix_sql, use_timestamps);
+
+        if (costs.size() == 0) {
+            *notice_msg = matrix_sql?  to_pg_msg("Insufficient data found on Matrix SQL query.")
+                : to_pg_msg("Matrix SQL query not found");
+            *log_msg = matrix_sql? to_pg_msg(std::string(matrix_sql)) : nullptr;
+            return;
+        }
+
         Identifiers<Id> location_ids;
 
         for (const auto &j : jobs) {
@@ -185,9 +274,7 @@ vrp_do_vroom(
         problem.add_shipments(shipments, shipments_tw);
 
         auto end_time = std::chrono::high_resolution_clock::now();
-        loading_time += static_cast<int32_t>(
-                std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time)
-                .count());
+        auto loading_time = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
 
         std::vector<Vroom_rt> results = problem.solve(exploration_level, timeout, loading_time);
 
