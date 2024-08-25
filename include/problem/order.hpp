@@ -46,13 +46,7 @@ class Order : public Identifier {
     Order() = delete;
 
     /** @brief initializing an order with the pick & drop information */
-    Order(Idx o_idx, Id o_id,
-        const Vehicle_node &p_pickup,
-        const Vehicle_node &p_delivery) :
-      Identifier(o_idx, o_id),
-      m_pickup(p_pickup),
-      m_delivery(p_delivery) {
-      }
+    Order(Idx, Id, const Vehicle_node&, const Vehicle_node&);
 
     /** @name Accessors
      * @{

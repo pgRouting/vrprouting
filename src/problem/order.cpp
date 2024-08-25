@@ -179,6 +179,15 @@ Order::isCompatibleIJ(const Order &I, Speed speed) const {
   return all_cases &&  (case1 ||  case2 ||  case3);
 }
 
+/** Constructor */
+Order::Order(Idx o_idx, Id o_id,
+        const Vehicle_node &p_pickup,
+        const Vehicle_node &p_delivery) :
+    Identifier(o_idx, o_id),
+    m_pickup(p_pickup),
+    m_delivery(p_delivery) {
+}
+
 }  //  namespace problem
 }  //  namespace vrprouting
 
