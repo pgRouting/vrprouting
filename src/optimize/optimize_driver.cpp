@@ -253,7 +253,7 @@ subdivide_processing(
             /*
              * Nothing to do:
              * - no shipments to process
-             * - last optimization had exavtly the same shipments
+             * - last optimization had exactly the same shipments
              */
             if ((shipments_in_stops.size() == 0)
                     || (prev_shipments_in_stops == shipments_in_stops)) continue;
