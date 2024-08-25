@@ -41,7 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/identifiers.hpp"
 
 
-typedef struct Matrix_cell_t Matrix_cell_t;
+using Vroom_matrix_t = struct Vroom_matrix_t;
+using Matrix_cell_t = struct Matrix_cell_t;
 
 namespace vrprouting {
 namespace vroom {
