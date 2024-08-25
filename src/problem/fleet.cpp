@@ -78,7 +78,7 @@ Fleet::get_used_trucks() {
 */
 std::vector<Vehicle_pickDeliver>
 Fleet::get_unused_trucks() {
-  ENTERING(m_msg);
+  ENTERING(m_msg.log);
   invariant();
   std::vector<Vehicle_pickDeliver> trucks;
   m_msg.log << "fleet size" << size();
@@ -142,7 +142,7 @@ Fleet::get_truck(size_t order_idx) {
 
 bool
 Fleet::is_fleet_ok() const {
-    ENTERING(m_msg);
+    ENTERING(m_msg.log);
     if (!m_msg.get_error().empty()) return false;
     for (auto truck : *this) {
         if (!truck.is_ok()) {
@@ -166,7 +166,7 @@ Fleet::is_fleet_ok() const {
             return false;
         }
     }
-    EXITING(m_msg);
+    EXITING(m_msg.log);
     return true;
 }
 

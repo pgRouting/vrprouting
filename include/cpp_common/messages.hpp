@@ -101,8 +101,8 @@ class Messages {
 #define ENTERING(x)
 #define EXITING(x)
 #else
-#define ENTERING(x) x.log << "\n--> " << __PRETTY_FUNCTION__ << "\n"
-#define EXITING(x) x.log << "\n<-- " << __PRETTY_FUNCTION__ << "\n"
+#define ENTERING(x) x << "\n--> " << __PRETTY_FUNCTION__ << "\n"
+#define EXITING(x) x << "\n<-- " << __PRETTY_FUNCTION__ << "\n"
 #endif
 
 
