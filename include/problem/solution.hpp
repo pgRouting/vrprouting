@@ -38,27 +38,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <tuple>
 #include <iomanip>
 
+#include "cpp_common/messages.hpp"
 #include "problem/vehicle_pickDeliver.hpp"
+#include "problem/orders.hpp"
 #include "problem/fleet.hpp"
-#include "cpp_common/short_vehicle.hpp"
 
-typedef struct Solution_rt Solution_rt;
+using Solution_rt = struct Solution_rt;
 
 namespace vrprouting {
+
+class Messages;
+class Short_vehicle;
+
 namespace problem {
 
-class Solution {
+class Orders;
+class Fleet;
+class Vehicle_pickDeliver;
+
+class Solution : public Messages {
  public:
     /** @brief constructor */
     Solution() = delete;
 
     /** @brief constructor */
-    template <typename P>
-      explicit Solution(P* p_problem) :
-        m_orders(p_problem->orders()),
-        m_trucks(p_problem->vehicles()),
-        m_msg(p_problem->msg) { }
-
+    explicit Solution(PickDeliver &p_problem);
 
     /** @brief copy constructor */
     Solution(const Solution &sol) = default;
@@ -73,11 +77,7 @@ class Solution {
     std::vector<Solution_rt> get_postgres_result() const;
 
     /** @brief printing function */
-    friend std::ostream& operator<< (std::ostream &log, const Solution &solution) {
-      for (const auto& vehicle : solution.m_fleet) log << vehicle;
-      log << "\n SOLUTION:\n\n " << solution.tau();
-      return log;
-    }
+    friend std::ostream& operator<< (std::ostream &log, const Solution &solution);
 
     /** @brief writing the solution in compact form into a string */
     std::string tau(const std::string &title = "Tau") const;
@@ -107,7 +107,7 @@ class Solution {
     const std::deque<Vehicle_pickDeliver>& fleet() const {return m_fleet;}
 
     /** @brief Get the value of the objective function */
-    double objective() const {return static_cast<double>(total_travel_time());}
+    double objective() const;
 
     /** @brief Get all statistics in one cycle */
     std::tuple<int, int, size_t, TInterval, TInterval, TInterval> cost() const;
@@ -116,7 +116,6 @@ class Solution {
 
     bool operator<(const Solution&) const;
 
-    Messages& msg() {return m_msg;}
     const Orders& orders() const {return m_orders;}
     Fleet& vehicles() {return m_trucks;}
 

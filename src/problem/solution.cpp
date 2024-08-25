@@ -36,8 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <iomanip>
 #include "problem/pickDeliver.hpp"
 #include "cpp_common/short_vehicle.hpp"
-
-typedef struct Solution_rt Solution_rt;
+#include "c_types/solution_rt.h"
 
 namespace vrprouting {
 namespace problem {
@@ -310,6 +309,22 @@ Solution::operator<(const Solution &s_rhs) const {
 
   return false;
 }
+
+std::ostream& operator<< (std::ostream &log, const Solution &solution) {
+    for (const auto& vehicle : solution.m_fleet) log << vehicle;
+    log << "\n SOLUTION:\n\n " << solution.tau();
+    return log;
+}
+
+double
+Solution::objective() const {
+    return static_cast<double>(total_travel_time());
+}
+
+Solution::Solution(PickDeliver &p_problem) :
+    m_orders(p_problem.orders()),
+    m_trucks(p_problem.vehicles()),
+    m_msg(p_problem.msg) { }
 
 }  //  namespace problem
 }  //  namespace vrprouting
