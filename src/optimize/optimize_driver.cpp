@@ -53,8 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 namespace {
 
-using Short_vehicle = vrprouting::Short_vehicle;
-
 /** @brief Executes an optimization with the input data
  *
  *  @param[in] shipments_arr A C Array of pickup and dropoff shipments
