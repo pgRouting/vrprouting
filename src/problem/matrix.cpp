@@ -49,22 +49,21 @@ namespace {
 
 /**
  * @param [in] p_multipliers time dependant multiplier data
- * @param [in] size_multipliers number of rows in the data
  * @returns time dependant multiplier container
  */
 std::vector<std::tuple<TTimestamp, Multiplier>>
-set_tdm(Time_multipliers_t *p_multipliers, size_t size_multipliers) {
-    pgassert(size_multipliers > 1);
+set_tdm(std::vector<Time_multipliers_t> p_multipliers) {
+    pgassert(!p_multipliers.empty());
     std::vector<std::tuple<TTimestamp, Multiplier>> tdm;
     /*
      * Sort the multipliers info
      */
-    std::sort(p_multipliers, p_multipliers + size_multipliers,
+    std::sort(p_multipliers.begin(), p_multipliers.end(),
             [] (const Time_multipliers_t &lhs, const Time_multipliers_t &rhs) {
                 return lhs.start_time < rhs.start_time;
             });
-    for (size_t i = 0; i < size_multipliers; ++i) {
-        tdm.emplace_back(p_multipliers[i].start_time, p_multipliers[i].multiplier);
+    for (const auto &m : p_multipliers) {
+        tdm.emplace_back(m.start_time, m.multiplier);
     }
     return tdm;
 }
@@ -165,22 +164,22 @@ time_change(const std::vector<std::tuple<TTimestamp, Multiplier>> &tdm, TTimesta
 }  // namespace
 
 Matrix::Matrix(
-        Matrix_cell_t *matrix, size_t size_matrix,
-        Time_multipliers_t *multipliers, size_t size_multipliers,
+        const std::vector<Matrix_cell_t> &matrix,
+        const std::vector<Time_multipliers_t> &multipliers,
         const Identifiers<Id>& node_ids,
         Multiplier multiplier) :
-    Base_Matrix(matrix, size_matrix, node_ids, multiplier),
-    m_multipliers(set_tdm(multipliers, size_multipliers)) { }
+    Base_Matrix(matrix, node_ids, multiplier),
+    m_multipliers(set_tdm(multipliers)) { }
 
 
 /*
  * constructor for euclidean default multipliers
  */
 Matrix::Matrix(
-        Matrix_cell_t *matrix, size_t size_matrix,
+        const std::vector<Matrix_cell_t> &matrix,
         const Identifiers<Id>& node_ids,
         Multiplier multiplier) :
-    Base_Matrix(matrix, size_matrix, node_ids, multiplier),
+    Base_Matrix(matrix, node_ids, multiplier),
     m_multipliers{{0, 1}} { }
 
 /*
