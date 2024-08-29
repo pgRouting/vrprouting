@@ -42,12 +42,12 @@ namespace vrprouting {
 namespace problem {
 
 PickDeliver::PickDeliver(
-        Orders_t* p_orders, size_t p_orders_size,
-        Vehicle_t* p_vehicles, size_t p_vehicles_size,
+        const std::vector<Orders_t> &p_orders,
+        const std::vector<Vehicle_t> &p_vehicles,
         const Matrix &p_cost_matrix) :
     m_cost_matrix(p_cost_matrix),
-    m_orders(p_orders, p_orders_size, *this),
-    m_trucks(p_vehicles, p_vehicles_size, m_orders, m_nodes, m_node_id) {
+    m_orders(p_orders, *this),
+    m_trucks(p_vehicles, m_orders, m_nodes, m_node_id) {
         if (!msg.get_error().empty()) return;
         m_trucks.clean();
         m_orders.set_compatibles();
@@ -56,13 +56,13 @@ PickDeliver::PickDeliver(
 
 /** @brief Override stops constructor */
 PickDeliver::PickDeliver(
-        Orders_t* p_orders, size_t p_orders_size,
-        Vehicle_t* p_vehicles, size_t p_vehicles_size,
+        const std::vector<Orders_t> &p_orders,
+        const std::vector<Vehicle_t> &p_vehicles,
         std::vector<Short_vehicle> new_stops,
         const Matrix &p_cost_matrix) :
     m_cost_matrix(p_cost_matrix),
-    m_orders(p_orders, p_orders_size, *this),
-    m_trucks(p_vehicles, p_vehicles_size, new_stops, m_orders, m_nodes, m_node_id) {
+    m_orders(p_orders, *this),
+    m_trucks(p_vehicles, new_stops, m_orders, m_nodes, m_node_id) {
         if (!msg.get_error().empty()) return;
         m_trucks.clean();
         m_orders.set_compatibles();
