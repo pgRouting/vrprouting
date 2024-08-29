@@ -41,21 +41,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/identifiers.hpp"
 #include "cpp_common/vroom_job_t.hpp"
-#include "cpp_common/vroom_matrix.hpp"
+#include "cpp_common/vroom_matrix_t.hpp"
 #include "cpp_common/vroom_vehicle_t.hpp"
 #include "cpp_common/vroom_shipment_t.hpp"
+#include "cpp_common/vroom_break_t.hpp"
+#include "cpp_common/vroom_time_window_t.hpp"
+
 #include "vroom/vroom.hpp"
 
 void
 vrp_do_vroom(
-        Vroom_job_t *jobs, size_t total_jobs,
-        Vroom_time_window_t *jobs_tws, size_t total_jobs_tws,
-        Vroom_shipment_t *shipments, size_t total_shipments,
-        Vroom_time_window_t *shipments_tws, size_t total_shipments_tws,
-        Vroom_vehicle_t *vehicles, size_t total_vehicles,
-        Vroom_break_t *breaks, size_t total_breaks,
-        Vroom_time_window_t *breaks_tws, size_t total_breaks_tws,
-        Vroom_matrix_t *matrix_rows, size_t total_matrix_rows,
+        Vroom_job_t *jobs_arr, size_t total_jobs,
+        Vroom_time_window_t *jobs_tws_arr, size_t total_jobs_tws,
+        Vroom_shipment_t *shipments_arr, size_t total_shipments,
+        Vroom_time_window_t *shipments_tws_arr, size_t total_shipments_tws,
+        Vroom_vehicle_t *vehicles_arr, size_t total_vehicles,
+        Vroom_break_t *breaks_arr, size_t total_breaks,
+        Vroom_time_window_t *breaks_tws_arr, size_t total_breaks_tws,
+        Vroom_matrix_t *matrix_arr, size_t total_matrix,
 
         int32_t exploration_level,
         int32_t timeout,
@@ -77,6 +80,8 @@ vrp_do_vroom(
     std::ostringstream err;
     std::ostringstream notice;
     try {
+        using Matrix = vrprouting::vroom::Matrix;
+
         /*
          * verify preconditions
          */
@@ -85,25 +90,40 @@ vrp_do_vroom(
         pgassert(!(*err_msg));
         pgassert(!(*return_tuples));
         pgassert(!(*return_count));
-        pgassert(jobs || shipments);
-        pgassert(vehicles);
-        pgassert(matrix_rows);
+        pgassert(jobs_arr || shipments_arr);
+        pgassert(vehicles_arr);
+        pgassert(matrix_arr);
         pgassert(total_jobs || total_shipments);
         pgassert(total_vehicles);
-        pgassert(total_matrix_rows);
+        pgassert(total_matrix);
 
-        using Matrix = vrprouting::vroom::Matrix;
 
         auto start_time = std::chrono::high_resolution_clock::now();
 
+        /* Data input starts */
+
+        /*
+         * transform to C++ containers
+         */
+        std::vector<Vroom_job_t> jobs(jobs_arr, jobs_arr + total_jobs);
+        std::vector<Vroom_time_window_t> jobs_tw(jobs_tws_arr, jobs_tws_arr + total_jobs_tws);
+        std::vector<Vroom_shipment_t> shipments(shipments_arr, shipments_arr + total_shipments);
+        std::vector<Vroom_time_window_t> shipments_tw(shipments_tws_arr, shipments_tws_arr + total_shipments_tws);
+        std::vector<Vroom_vehicle_t> vehicles(vehicles_arr, vehicles_arr + total_vehicles);
+        std::vector<Vroom_break_t> breaks(breaks_arr, breaks_arr + total_breaks);
+        std::vector<Vroom_time_window_t> breaks_tw(breaks_tws_arr, breaks_tws_arr + total_breaks_tws);
+        std::vector<Vroom_matrix_t> costs(matrix_arr, matrix_arr + total_matrix);
+
+        /* Data input ends */
+
+        /* Processing starts */
         Identifiers<Id> location_ids;
 
-        for (size_t i = 0; i < total_jobs; ++i) {
-            location_ids += jobs[i].location_id;
+        for (const auto &j : jobs) {
+            location_ids += j.location_id;
         }
 
-        for (size_t i = 0; i < total_shipments; ++i) {
-            auto s = shipments[i];
+        for (const auto &s : shipments) {
             location_ids += s.p_location_id;
             location_ids += s.d_location_id;
         }
@@ -111,8 +131,7 @@ vrp_do_vroom(
         double min_speed_factor, max_speed_factor;
         min_speed_factor = max_speed_factor = vehicles[0].speed_factor;
 
-        for (size_t i = 0; i < total_vehicles; ++i) {
-            auto v = vehicles[i];
+        for (const auto &v : vehicles) {
             min_speed_factor = std::min(min_speed_factor, v.speed_factor);
             max_speed_factor = std::max(max_speed_factor, v.speed_factor);
             if (v.start_id != -1) {
@@ -139,19 +158,19 @@ vrp_do_vroom(
         /*
          * Scale the vehicles speed factors according to the minimum speed factor
          */
-        for (size_t i = 0; i < total_vehicles; ++i) {
-            vehicles[i].speed_factor = std::round(vehicles[i].speed_factor / min_speed_factor);
+        for (auto &v : vehicles) {
+            v.speed_factor = std::round(v.speed_factor / min_speed_factor);
         }
 
         /*
          * Create the matrix. Also, scale the time matrix according to min_speed_factor
          */
-        Matrix matrix(matrix_rows, total_matrix_rows, location_ids, min_speed_factor);
+        Matrix matrix(costs, location_ids, min_speed_factor);
 
         /*
          * Verify size of matrix cell lies in the limit
          */
-        if (matrix.size() > (std::numeric_limits<vroom::Index>::max)()) {
+        if (matrix.size() > (std::numeric_limits<::vroom::Index>::max)()) {
             (*return_tuples) = NULL;
             (*return_count) = 0;
             err << "The size of time matrix exceeds the limit";
@@ -161,9 +180,9 @@ vrp_do_vroom(
 
         vrprouting::problem::Vroom problem;
         problem.add_matrix(matrix);
-        problem.add_vehicles(vehicles, total_vehicles, breaks, total_breaks, breaks_tws, total_breaks_tws);
-        problem.add_jobs(jobs, total_jobs, jobs_tws, total_jobs_tws);
-        problem.add_shipments(shipments, total_shipments, shipments_tws, total_shipments_tws);
+        problem.add_vehicles(vehicles, breaks, breaks_tw);
+        problem.add_jobs(jobs, jobs_tw);
+        problem.add_shipments(shipments, shipments_tw);
 
         auto end_time = std::chrono::high_resolution_clock::now();
         loading_time += static_cast<int32_t>(
