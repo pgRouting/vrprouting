@@ -244,8 +244,6 @@ _vrp_pgr_pickdelivereuclidean(PG_FUNCTION_ARGS) {
             nulls[i] = false;
         }
 
-
-        // postgres starts counting from 1
         values[0] = Int32GetDatum(funcctx->call_cntr + 1);
         values[1] = Int32GetDatum(result_tuples[call_cntr].vehicle_seq);
         values[2] = Int64GetDatum(result_tuples[call_cntr].vehicle_id);
@@ -258,8 +256,6 @@ _vrp_pgr_pickdelivereuclidean(PG_FUNCTION_ARGS) {
         values[9] = Int64GetDatum(result_tuples[call_cntr].waitDuration);
         values[10] = Int64GetDatum(result_tuples[call_cntr].serviceDuration);
         values[11] = Int64GetDatum(result_tuples[call_cntr].departureTime);
-
-        /*********************************************************************/
 
         tuple = heap_form_tuple(tuple_desc, values, nulls);
         result = HeapTupleGetDatum(tuple);

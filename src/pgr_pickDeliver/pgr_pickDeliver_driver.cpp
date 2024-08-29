@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: pickDeliver_driver.cpp
+File: pgr_pickDeliver_driver.cpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -99,6 +99,9 @@ vrp_do_pgr_pickDeliver(
     std::ostringstream notice;
     std::ostringstream err;
     try {
+        /*
+         * verify preconditions
+         */
         pgassert(!(*log_msg));
         pgassert(!(*notice_msg));
         pgassert(!(*err_msg));
@@ -133,39 +136,14 @@ vrp_do_pgr_pickDeliver(
         std::vector<Vehicle_t> vehicles(
                 vehicles_arr, vehicles_arr + total_vehicles);
 
+        /*
+         * Prepare matrix
+         */
         vrprouting::problem::Matrix matrix(matrix_cells_arr, total_cells, node_ids, static_cast<Multiplier>(factor));
 
-#ifdef TODO
-        auto depot_node = vehicles[0].start_node_id;
-
         /*
-         * This applies to the one depot problem
+         * Verify matrix cells preconditions
          */
-        if ((Initials_code)(initial_solution_id) == Initials_code::OneDepot) {
-            /*
-             * All Vehicles must depart from same location
-             */
-            for (const auto &v : vehicles) {
-                if (v.start_node_id != depot_node && v.end_node_id != depot_node) {
-                    err << "All vehicles must depart & arrive to same node";
-                    *err_msg = to_pg_msg(err.str());
-                    return;
-                }
-            }
-
-            /*
-             * All Orders must depart from depot
-             */
-            for (size_t i = 0; i < total_customers; ++i) {
-                if (customers_arr[i].pick_node_id != depot_node) {
-                    err << "All orders must be picked at depot";
-                    *err_msg = to_pg_msg(err.str());
-                    return;
-                }
-            }
-        }
-#endif
-
         if (!matrix.has_no_infinity()) {
             err << "An Infinity value was found on the Matrix. Might be missing information of a node";
             *err_msg = to_pg_msg(err.str());
@@ -173,6 +151,9 @@ vrp_do_pgr_pickDeliver(
         }
 
         log << "Initialize problem\n";
+        /*
+         * Construct problem
+         */
         vrprouting::problem::PickDeliver pd_problem(
                 customers_arr, total_customers,
                 vehicles_arr, total_vehicles,
@@ -188,8 +169,15 @@ vrp_do_pgr_pickDeliver(
         log << "Finish Reading data\n";
         pd_problem.msg.clear();
 
+        /*
+         * get initial solutions
+         */
         using Initials_code = vrprouting::initialsol::simple::Initials_code;
         auto sol = get_initial_solution(pd_problem, initial_solution_id);
+
+        /*
+         * Solve (optimize)
+         */
         using Optimize = vrprouting::optimizers::simple::Optimize;
         sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);
 
@@ -197,12 +185,17 @@ vrp_do_pgr_pickDeliver(
         log << "Finish solve\n";
         pd_problem.msg.clear();
 
+        /*
+         * get the solution
+         */
         auto solution = sol.get_postgres_result();
         log << pd_problem.msg.get_log();
         pd_problem.msg.clear();
         log << "solution size: " << solution.size() << "\n";
 
-
+        /*
+         * Prepare results
+         */
         if (!solution.empty()) {
             (*return_tuples) = alloc(solution.size(), (*return_tuples));
             int seq = 0;

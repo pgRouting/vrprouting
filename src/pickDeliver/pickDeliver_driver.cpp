@@ -46,60 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "problem/matrix.hpp"
 #include "problem/pickDeliver.hpp"
 
-
-/**
- *
- *  @param[in] customers_arr A C Array of pickup and dropoff orders
- *  @param[in] total_customers size of the customers_arr
- *  @param[in] vehicles_arr A C Array of vehicles
- *  @param[in] total_vehicles size of the vehicles_arr
- *  @param[in] matrix_cells_arr A C Array of the (time) matrix cells
- *  @param[in] total_cells size of the matrix_cells_arr
- *  @param[in] multipliers_arr A C Array of the multipliers
- *  @param[in] total_multipliers size of the multipliers_arr
- *  @param[in] optimize flag to control optimization
- *  @param[in] factor A global multiplier for the (time) matrix cells
- *  @param[in] max_cycles number of cycles to perform during the optimization phase
- *  @param[in] stop_on_all_served Indicator to stop optimization when all orders are served
- *  @param[in] execution_date Value used for not moving orders that are before this date
- *  @param[out] return_tuples C array of contents to be returned to postgres
- *  @param[out] return_count number of tuples returned
- *  @param[out] log_msg special log message pointer
- *  @param[out] notice_msg special message pointer to be returned as NOTICE
- *  @param[out] err_msg special message pointer to be returned as ERROR
- *
- * @pre The messages: log_msg, notice_msg, err_msg must be empty (=nullptr)
- * @pre The C arrays: customers_arr, vehicles_arr, matrix_cells_arr must not be empty
- * @pre The C array: return_tuples must be empty
- * @pre Only matrix cells (i, i) can be missing and are considered as 0 (time units)
- *
- * @post The C arrays:  customers_arr, vehicles_arr, matrix_cells_arr Do not change
- * @post The C array: return_tuples contains the result for the problem given
- * @post The return_tuples array size is return_count
- * @post err_msg is empty if no throw from the process is catched
- * @post log_msg contains some logging
- * @post notice_msg is empty
- *
- @dot
-digraph G {
-  node[fontsize=11, nodesep=0.75,ranksep=0.75];
-
-  start  [shape=Mdiamond];
-  n1  [label="Verify preconditions",shape=rect];
-  n3  [label="Verify matrix cells preconditions",shape=rect];
-  n4  [label="Construct problem",shape=cds,color=blue];
-  n5  [label="get initial solutions",shape=cds,color=blue];
-  n6  [label="solve (optimize)",shape=cds,color=blue];
-  n7  [label="Prepare results",shape=rect];
-  end  [shape=Mdiamond];
-  error [shape=Mdiamond,color=red]
-  start -> n1 -> n3 -> n4 -> n5 -> n6 -> n7 -> end;
-  n1 -> error [ label="Caller error",color=red];
-  n3 -> error [ label="User error",color=red];
-
-}
-@enddot
- */
 void
 vrp_do_pickDeliver(
         Orders_t *customers_arr, size_t total_customers,
@@ -146,6 +92,9 @@ vrp_do_pickDeliver(
         Identifiers<Id> node_ids;
         Identifiers<Id> order_ids;
 
+        /*
+         * nodes involved & orders involved
+         */
         for (size_t i = 0; i < total_customers; ++i) {
             auto o = customers_arr[i];
             node_ids += o.pick_node_id;
@@ -172,6 +121,9 @@ vrp_do_pickDeliver(
             }
         }
 
+        /*
+         * Prepare matrix
+         */
         vrprouting::problem::Matrix cost_matrix(
                 matrix_cells_arr, total_cells,
                 multipliers_arr, total_multipliers,
@@ -241,14 +193,16 @@ vrp_do_pickDeliver(
         log << "Finish solve\n";
 
         /*
-         * Prepare results
+         * get the solution
          */
         auto solution = sol.get_postgres_result();
         log << pd_problem.msg.get_log();
         pd_problem.msg.clear();
         log << "solution size: " << solution.size() << "\n";
 
-
+        /*
+         * Prepare results
+         */
         if (!solution.empty()) {
             (*return_tuples) = alloc(solution.size(), (*return_tuples));
             int seq = 0;

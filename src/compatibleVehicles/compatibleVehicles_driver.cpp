@@ -42,54 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "problem/pickDeliver.hpp"
 #include "problem/matrix.hpp"
 
-/**
- *
- *  @param[in] customers_arr A C Array of pickup and dropoff orders
- *  @param[in] total_customers size of the customers_arr
- *  @param[in] vehicles_arr A C Array of vehicles
- *  @param[in] total_vehicles size of the vehicles_arr
- *  @param[in] matrix_cells_arr A C Array of the (time) matrix cells
- *  @param[in] total_cells size of the matrix_cells_arr
- *  @param[in] multipliers_arr A C Array of the multipliers
- *  @param[in] total_multipliers size of the multipliers_arr
- *  @param[in] factor A global multiplier for the (time) matrix cells
- *
- *  @param[out] return_tuples C array of contents to be returned to postgres
- *  @param[out] return_count number of tuples returned
- *  @param[out] log_msg special log message pointer
- *  @param[out] notice_msg special message pointer to be returned as NOTICE
- *  @param[out] err_msg special message pointer to be returned as ERROR
- *
- * @pre The messages: log_msg, notice_msg, err_msg must be empty (=nullptr)
- * @pre The C arrays: customers_arr, vehicles_arr, matrix_cells_arr must not be empty
- * @pre The C array: return_tuples must be empty
- * @pre Only matrix cells (i, i) can be missing and are considered as 0 (time units)
- *
- * @post The C array: return_tuples contains the result for the problem given
- * @post The return_tuples array size is return_count
- * @post err_msg is empty if no throw from the process is catched
- * @post log_msg contains some logging
- * @post notice_msg is empty
- *
- @dot
-digraph G {
-  node[fontsize=11, nodesep=0.75,ranksep=0.75];
-
-  start  [shape=Mdiamond];
-  n1  [label="Verify preconditions",shape=rect];
-  n3  [label="Verify matrix preconditions",shape=rect];
-  n4  [label="Construct problem",shape=cds,color=blue];
-  n7  [label="Prepare results",shape=rect];
-  end  [shape=Mdiamond];
-  error [shape=Mdiamond,color=red]
-  start -> n1 -> n3 -> n4 -> n7 -> end;
-  n1 -> error [ label="throw",color=red];
-  n3 -> error [ label="throw",color=red];
-}
-@enddot
-
- *
- */
 void
 vrp_do_compatibleVehicles(
         Orders_t customers_arr[], size_t total_customers,
@@ -144,14 +96,13 @@ vrp_do_compatibleVehicles(
         }
 
         /*
-         * Verify matrix cells preconditions
+         * Prepare matrix
          */
         vrprouting::problem::Matrix cost_matrix(
                 matrix_cells_arr, total_cells,
                 multipliers_arr, total_multipliers,
                 node_ids, static_cast<Multiplier>(factor));
 
-#ifdef TODO
         /*
          * Verify matrix triangle inequality
          */
@@ -163,8 +114,10 @@ vrp_do_compatibleVehicles(
                 log << "[Compatible Vehicles] Matrix Still does not obey triangle inequality";
             }
         }
-#endif
 
+        /*
+         * Verify matrix cells preconditions
+         */
         if (!cost_matrix.has_no_infinity()) {
             err << "An Infinity value was found on the Matrix";
             *err_msg = to_pg_msg(err.str());
@@ -191,12 +144,15 @@ vrp_do_compatibleVehicles(
         pd_problem.msg.clear();
 
         /*
-         * Prepare results
+         * get the solution
          */
         auto solution = pd_problem.get_pg_compatibleVehicles();
         log << "solution size: " << solution.size() << "\n";
         log << "solution empty: " << solution.empty() << "\n";
 
+        /*
+         * Prepare results
+         */
         if (!solution.empty()) {
             log << "solution empty " << "\n";
             (*return_tuples) = alloc(solution.size(), (*return_tuples));

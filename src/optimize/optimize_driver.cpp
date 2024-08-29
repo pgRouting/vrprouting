@@ -286,61 +286,6 @@ subdivide_processing(
 
 }  // namespace
 
-/**
- *
- *  @param[in] shipments_arr A C Array of pickup and dropoff shipments
- *  @param[in] total_shipments size of the shipments_arr
- *  @param[in] vehicles_arr A C Array of vehicles
- *  @param[in] total_vehicles size of the vehicles_arr
- *  @param[in] matrix_cells_arr A C Array of the (time) matrix cells
- *  @param[in] total_cells size of the matrix_cells_arr
- *  @param[in] multipliers_arr A C Array of the multipliers
- *  @param[in] total_multipliers size of the multipliers_arr
- *
- *  @param[in] factor A global multiplier for the (time) matrix cells
- *  @param[in] max_cycles number of cycles to perform during the optimization phase
- *  @param[in] check_triangle_inequality When true tirangle inequality will be checked
- *  @param[in] subdivide        @todo
- *  @param[in] subdivide_by_vehicle @todo
- *  @param[in] execution_date Value used for not moving shipments that are before this date
- *
- *  @param[out] return_tuples C array of contents to be returned to postgres
- *  @param[out] return_count number of tuples returned
- *  @param[out] log_msg special log message pointer
- *  @param[out] notice_msg special message pointer to be returned as NOTICE
- *  @param[out] err_msg special message pointer to be returned as ERROR
- *
- * @pre The messages: log_msg, notice_msg, err_msg must be empty (=nullptr)
- * @pre The C array: return_tuples must be empty
- * @pre Only matrix cells (i, i) can be missing and are considered as 0 (time units)
- *
- * @post The C array: return_tuples contains the result for the problem given
- * @post The return_tuples array size is return_count
- * @post err_msg is empty if no throw from the process is catched
- * @post log_msg contains some logging
- * @post notice_msg is empty
- *
- *
- @dot
- digraph G {
- node[fontsize=11, nodesep=0.75,ranksep=0.75];
-
- start  [shape=Mdiamond];
- n1  [label="Verify preconditions",shape=rect];
- n3  [label="Verify matrix cells preconditions",shape=rect];
- n4  [label="Construct problem",shape=cds,color=blue];
- n5  [label="get initial solutions",shape=cds,color=blue];
- n6  [label="solve (optimize)",shape=cds,color=blue];
- n7  [label="Prepare results",shape=rect];
- end  [shape=Mdiamond];
- error [shape=Mdiamond,color=red]
- start -> n1 -> n3 -> n4 -> n5 -> n6 -> n7 -> end;
- n1 -> error [ label="Caller error",color=red];
- n3 -> error [ label="User error",color=red];
-
- }
- @enddot
- */
 void
 vrp_do_optimize(
         Orders_t *shipments_arr, size_t total_shipments,
@@ -407,11 +352,7 @@ vrp_do_optimize(
                         [&](const Vehicle_t& v){return v.end_close_t < execution_date;})));
 
         /*
-         * Remove shipments not involved in optimization
-         * 1. get the shipments on the stops of the vehicles
-         *   - getting the node_ids in the same cycle
-         * 2. Remove duplicates
-         * 2. Remove shipments not on the stops
+         * nodes involved & orders involved
          */
         for (size_t i = 0; i < total_vehicles; ++i) {
             node_ids += vehicles_arr[i].start_node_id;
@@ -421,6 +362,13 @@ vrp_do_optimize(
             }
         }
 
+        /*
+         * Remove shipments not involved in optimization
+         * 1. get the shipments on the stops of the vehicles
+         *   - getting the node_ids in the same cycle
+         * 2. Remove duplicates
+         * 2. Remove shipments not on the stops
+         */
         std::sort(shipments_arr, shipments_arr + total_shipments,
                 [](const Orders_t& lhs, const Orders_t& rhs){return lhs.id < rhs.id;});
 
@@ -448,7 +396,7 @@ vrp_do_optimize(
         }
 
         /*
-         * Finish getting the node ids involved on the process
+         * nodes involved
          */
         for (size_t i = 0; i < total_shipments; ++i) {
             node_ids += shipments_arr[i].pick_node_id;
@@ -456,16 +404,16 @@ vrp_do_optimize(
         }
 
         /*
-         * Dealing with time matrix:
-         * - Create the unique time matrix to be used for all optimizations
-         * - Verify matrix triangle inequality
-         * - Verify matrix cells preconditions
+         * Prepare matrix
          */
         vrprouting::problem::Matrix time_matrix(
                 matrix_cells_arr, total_cells,
                 multipliers_arr, total_multipliers,
                 node_ids, static_cast<Multiplier>(factor));
 
+        /*
+         * Verify matrix triangle inequality
+         */
         if (check_triangle_inequality && !time_matrix.obeys_triangle_inequality()) {
             log << "\nFixing Matrix that does not obey triangle inequality "
                 << time_matrix.fix_triangle_inequality() << " cycles used";
@@ -475,6 +423,9 @@ vrp_do_optimize(
             }
         }
 
+        /*
+         * Verify matrix cells preconditions
+         */
         if (!time_matrix.has_no_infinity()) {
             err << "\nAn Infinity value was found on the Matrix";
             *err_msg = to_pg_msg(err.str());

@@ -144,6 +144,9 @@ vrp_do_pgr_pickDeliverEuclidean(
     std::ostringstream notice;
     std::ostringstream err;
     try {
+        /*
+         * verify preconditions
+         */
         pgassert(!(*log_msg));
         pgassert(!(*notice_msg));
         pgassert(!(*err_msg));
@@ -167,6 +170,9 @@ vrp_do_pgr_pickDeliverEuclidean(
         std::vector<Vehicle_t> vehicles(
                 vehicles_arr, vehicles_arr + total_vehicles);
 
+        /*
+         * Prepare identifiers
+         */
         std::map<std::pair<Coordinate, Coordinate>, Id> matrix_data;
 
         for (const auto &o : orders) {
@@ -206,8 +212,14 @@ vrp_do_pgr_pickDeliverEuclidean(
             v.end_node_id = matrix_data[std::pair<Coordinate, Coordinate>(v.end_x, v.end_y)];
         }
 
+        /*
+         * Prepare matrix
+         */
         vrprouting::problem::Matrix matrix(matrix_data, static_cast<Multiplier>(factor));
 
+        /*
+         * Construct problem
+         */
         log << "Initialize problem\n";
         vrprouting::problem::PickDeliver pd_problem(
                 customers_arr, total_customers,
@@ -223,18 +235,30 @@ vrp_do_pgr_pickDeliverEuclidean(
         log << pd_problem.msg.get_log();
         log << "Finish Reading data\n";
 
+        /*
+         * get initial solutions
+         */
         auto sol = get_initial_solution(pd_problem, initial_solution_id);
+
+        /*
+         * Solve (optimize)
+         */
         using Optimize = vrprouting::optimizers::simple::Optimize;
         using Initials_code = vrprouting::initialsol::simple::Initials_code;
         sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);
         log << pd_problem.msg.get_log();
         log << "Finish solve\n";
 
+        /*
+         * get the solution
+         */
         auto solution = sol.get_postgres_result();
         log << pd_problem.msg.get_log();
         log << "solution size: " << solution.size() << "\n";
 
-
+        /*
+         * Prepare results
+         */
         if (!solution.empty()) {
             (*return_tuples) = alloc(solution.size(), (*return_tuples));
             int seq = 0;

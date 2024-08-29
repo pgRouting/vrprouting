@@ -264,11 +264,6 @@ process(
     vrp_SPI_finish();
 }
 
-
-
-/******************************************************************************/
-
-
 PGDLLEXPORT Datum
 _vrp_pgr_pickdeliver(PG_FUNCTION_ARGS) {
     FuncCallContext     *funcctx;
@@ -340,8 +335,6 @@ _vrp_pgr_pickdeliver(PG_FUNCTION_ARGS) {
         values[10] = Int64GetDatum(result_tuples[call_cntr].waitDuration);
         values[11] = Int64GetDatum(result_tuples[call_cntr].serviceDuration);
         values[12] = Int64GetDatum(result_tuples[call_cntr].departureTime);
-
-        /*********************************************************************/
 
         tuple = heap_form_tuple(tuple_desc, values, nulls);
         result = HeapTupleGetDatum(tuple);

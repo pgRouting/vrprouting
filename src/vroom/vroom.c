@@ -219,10 +219,6 @@ process(
 }
 
 
-/** @brief Helps in converting postgres variables to C variables, and returns the result.
- *
- */
-
 PGDLLEXPORT Datum _vrp_vroom(PG_FUNCTION_ARGS) {
   FuncCallContext   *funcctx;
   TupleDesc       tuple_desc;
