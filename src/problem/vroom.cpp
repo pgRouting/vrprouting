@@ -126,14 +126,6 @@ Vroom::add_jobs(
     }
 }
 
-void
-Vroom::add_jobs(const Vroom_job_t *jobs, size_t count,
-        const Vroom_time_window_t *jobs_tws, size_t total_jobs_tws) {
-    add_jobs(
-            std::vector<Vroom_job_t>(jobs, jobs + count),
-            std::vector<Vroom_time_window_t>(jobs_tws, jobs_tws + total_jobs_tws));
-}
-
 std::pair<::vroom::Job, ::vroom::Job>
 Vroom::get_vroom_shipment(
         const Vroom_shipment_t &shipment,
@@ -183,15 +175,6 @@ Vroom::add_shipments(
     for (auto shipment : shipments) {
         m_shipments.push_back(get_vroom_shipment(shipment, pickup_tws_map[shipment.id], delivery_tws_map[shipment.id]));
     }
-}
-
-void
-Vroom::add_shipments(
-        const Vroom_shipment_t *shipments, size_t count,
-        const Vroom_time_window_t *shipment_tws, size_t total_shipment_tws) {
-    add_shipments(
-            std::vector<Vroom_shipment_t>(shipments, shipments + count),
-            std::vector<Vroom_time_window_t>(shipment_tws, shipment_tws + total_shipment_tws));
 }
 
 std::vector<::vroom::Break>
@@ -277,15 +260,6 @@ Vroom::add_vehicles(
         }
         m_vehicles.push_back(get_vroom_vehicle(vehicle, v_breaks, v_breaks_tws));
     }
-}
-
-void
-Vroom::add_vehicles(const Vroom_vehicle_t *vehicles, size_t count,
-        const Vroom_break_t *breaks, size_t total_breaks,
-        const Vroom_time_window_t *breaks_tws, size_t total_breaks_tws) {
-    add_vehicles(std::vector<Vroom_vehicle_t>(vehicles, vehicles + count),
-            std::vector<Vroom_break_t>(breaks, breaks + total_breaks),
-            std::vector<Vroom_time_window_t>(breaks_tws, breaks_tws + total_breaks_tws));
 }
 
 /*
