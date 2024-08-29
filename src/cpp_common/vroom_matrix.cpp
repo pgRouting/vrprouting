@@ -95,8 +95,7 @@ Matrix::get_original_id(Idx index) const {
 /**
  * @brief Constructor for VROOM matrix input
  *
- * @param [in] matrix_rows  The set of costs
- * @param [in] total_matrix_rows The size of the set of costs
+ * @param [in] matrix  The set of costs
  * @param [in] location_ids The location identifiers
  * @param [in] scaling_factor Multiplier
  *
@@ -108,7 +107,7 @@ Matrix::get_original_id(Idx index) const {
  *
  */
 Matrix::Matrix(
-        Vroom_matrix_t *matrix_rows, size_t total_matrix_rows,
+        const std::vector<Vroom_matrix_t> &matrix,
         const Identifiers<Id> &location_ids, double scaling_factor) {
     /*
      * Sets the selected nodes identifiers
@@ -131,8 +130,7 @@ Matrix::Matrix(
     /*
      * Cycle the matrix data
      */
-    for (size_t i = 0; i < total_matrix_rows; ++i) {
-        auto cell = matrix_rows[i];
+    for (const auto &cell : matrix) {
         /*
          * skip if row is not from selected nodes
          */
