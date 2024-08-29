@@ -29,9 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/base_matrix.hpp"
 
+#include <algorithm>
 #include <limits>
 #include <cmath>
 #include <utility>
+#include <sstream>
 #include <string>
 #include <map>
 #include <vector>
@@ -215,7 +217,6 @@ Base_Matrix::get_original_id(Idx index) const {
 
 /**
  * @param [in] data_costs  The set of costs
- * @param [in] size_matrix The size of the set of costs
  * @param [in] node_ids The selected node identifiers to be added
  * @param [in] multiplier All times are multiplied by this value
  *
@@ -228,7 +229,7 @@ Base_Matrix::get_original_id(Idx index) const {
  *
  */
 Base_Matrix::Base_Matrix(
-    Matrix_cell_t *data_costs, size_t size_matrix,
+    const std::vector<Matrix_cell_t> &data_costs,
     const Identifiers<Id>& node_ids,
     Multiplier multiplier) {
   /*
@@ -252,8 +253,7 @@ Base_Matrix::Base_Matrix(
   /*
    * Cycle the matrix data
    */
-  for (size_t i = 0; i < size_matrix; ++i) {
-    auto data = data_costs[i];
+  for (const auto &data : data_costs) {
     /*
      * skip if row is not from selected nodes
      */
