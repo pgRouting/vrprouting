@@ -128,8 +128,6 @@ vrp_do_pgr_pickDeliver(
             node_ids += v.end_node_id;
         }
 
-        log << node_ids;
-
         /*
          * transform to C++ containers
          */
@@ -145,12 +143,11 @@ vrp_do_pgr_pickDeliver(
          * Verify matrix cells preconditions
          */
         if (!matrix.has_no_infinity()) {
-            err << "An Infinity value was found on the Matrix. Might be missing information of a node";
-            *err_msg = to_pg_msg(err.str());
+            *err_msg = to_pg_msg("An Infinity value was found on the Matrix");
+            *log_msg = to_pg_msg(log.str());
             return;
         }
 
-        log << "Initialize problem\n";
         /*
          * Construct problem
          */
@@ -159,14 +156,14 @@ vrp_do_pgr_pickDeliver(
                 vehicles_arr, total_vehicles,
                 matrix);
 
-        err << pd_problem.msg.get_error();
-        if (!err.str().empty()) {
+        if (pd_problem.msg.has_error()) {
+            *log_msg = to_pg_msg(pd_problem.msg.get_log());
             *err_msg = to_pg_msg(pd_problem.msg.get_error());
             *log_msg = to_pg_msg(pd_problem.msg.get_log());
             return;
         }
         log << pd_problem.msg.get_log();
-        log << "Finish Reading data\n";
+        log << "Finish constructing problem\n";
         pd_problem.msg.clear();
 
         /*
@@ -181,16 +178,11 @@ vrp_do_pgr_pickDeliver(
         using Optimize = vrprouting::optimizers::simple::Optimize;
         sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);
 
-        log << pd_problem.msg.get_log();
-        log << "Finish solve\n";
-        pd_problem.msg.clear();
-
         /*
          * get the solution
          */
         auto solution = sol.get_postgres_result();
-        log << pd_problem.msg.get_log();
-        pd_problem.msg.clear();
+        log << sol.get_log();
         log << "solution size: " << solution.size() << "\n";
 
         /*

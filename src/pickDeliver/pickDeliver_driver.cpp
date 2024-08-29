@@ -112,11 +112,12 @@ vrp_do_pickDeliver(
                 if (!order_ids.has(s)) {
                     if (!missing) err << "Order in 'stops' information missing";
                     missing = true;
-                    err << "Missing information of order " << s << "\n";
+                    log << "Missing information of order " << s << "\n";
                 }
             }
             if (missing) {
                 *err_msg = to_pg_msg(err.str());
+                *log_msg = to_pg_msg(log.str());
                 return;
             }
         }
@@ -124,7 +125,7 @@ vrp_do_pickDeliver(
         /*
          * Prepare matrix
          */
-        vrprouting::problem::Matrix cost_matrix(
+        vrprouting::problem::Matrix matrix(
                 matrix_cells_arr, total_cells,
                 multipliers_arr, total_multipliers,
                 node_ids, static_cast<Multiplier>(factor));
@@ -132,48 +133,40 @@ vrp_do_pickDeliver(
         /*
          * Verify matrix triangle inequality
          */
-        if (!cost_matrix.obeys_triangle_inequality()) {
-            log << "[PickDeliver] Fixing Matrix that does not obey triangle inequality ";
-            log << cost_matrix.fix_triangle_inequality() << " cycles used";
+        if (!matrix.obeys_triangle_inequality()) {
+            log << "\nFixing Matrix that does not obey triangle inequality.\t"
+                << matrix.fix_triangle_inequality() << " cycles used";
 
-            if (!cost_matrix.obeys_triangle_inequality()) {
-                log << "[pickDeliver] Matrix Still does not obey triangle inequality ";
+            if (!matrix.obeys_triangle_inequality()) {
+                log << "\nMatrix Still does not obey triangle inequality.";
             }
         }
 
         /*
          * Verify matrix cells preconditions
          */
-        if (!cost_matrix.has_no_infinity()) {
+        if (!matrix.has_no_infinity()) {
             err << "An Infinity value was found on the Matrix";
             *err_msg = to_pg_msg(err.str());
             return;
         }
 
-
-        log << "stop_on_all_served" << stop_on_all_served << "\n";
-        log << "execution_date" << execution_date << "\n";
-        log << "Initialize problem\n";
         /*
          * Construct problem
          */
         vrprouting::problem::PickDeliver pd_problem(
                 customers_arr, total_customers,
                 vehicles_arr, total_vehicles,
-                cost_matrix);
+                matrix);
 
-        err << pd_problem.msg.get_error();
-        if (!err.str().empty()) {
-            log << pd_problem.msg.get_error();
-            log << pd_problem.msg.get_log();
-            *log_msg = to_pg_msg(log.str());
-            *err_msg = to_pg_msg(err.str());
+        if (pd_problem.msg.has_error()) {
+            *log_msg = to_pg_msg(pd_problem.msg.get_log());
+            *err_msg = to_pg_msg(pd_problem.msg.get_error());
             return;
         }
         log << pd_problem.msg.get_log();
+        log << "Finish constructing problem\n";
         pd_problem.msg.clear();
-
-        log << "Finish Initialize problem\n";
 
         /*
          * get initial solutions
@@ -188,16 +181,11 @@ vrp_do_pickDeliver(
         using Optimize = vrprouting::optimizers::tabu::Optimize;
         sol = Optimize(sol, static_cast<size_t>(max_cycles), stop_on_all_served, optimize);
 
-        log << pd_problem.msg.get_log();
-        pd_problem.msg.clear();
-        log << "Finish solve\n";
-
         /*
          * get the solution
          */
         auto solution = sol.get_postgres_result();
-        log << pd_problem.msg.get_log();
-        pd_problem.msg.clear();
+        log << sol.get_log();
         log << "solution size: " << solution.size() << "\n";
 
         /*

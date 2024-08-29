@@ -78,7 +78,6 @@ vrp_do_compatibleVehicles(
         pgassert(total_vehicles);
         pgassert(*return_count == 0);
         pgassert(!(*return_tuples));
-        log << "do_compatibleVehicles\n";
 
 
         Identifiers<Id> node_ids;
@@ -98,7 +97,7 @@ vrp_do_compatibleVehicles(
         /*
          * Prepare matrix
          */
-        vrprouting::problem::Matrix cost_matrix(
+        vrprouting::problem::Matrix matrix(
                 matrix_cells_arr, total_cells,
                 multipliers_arr, total_multipliers,
                 node_ids, static_cast<Multiplier>(factor));
@@ -106,21 +105,21 @@ vrp_do_compatibleVehicles(
         /*
          * Verify matrix triangle inequality
          */
-        if (!cost_matrix.obeys_triangle_inequality()) {
-            log << "[Compatible Vehicles] Fixing Matrix that does not obey triangle inequality ";
-            log << cost_matrix.fix_triangle_inequality() << " cycles used";
+        if (!matrix.obeys_triangle_inequality()) {
+            log << "\nFixing Matrix that does not obey triangle inequality.\t"
+                << matrix.fix_triangle_inequality() << " cycles used";
 
-            if (!cost_matrix.obeys_triangle_inequality()) {
-                log << "[Compatible Vehicles] Matrix Still does not obey triangle inequality";
+            if (!matrix.obeys_triangle_inequality()) {
+                log << "\nMatrix Still does not obey triangle inequality.";
             }
         }
 
         /*
          * Verify matrix cells preconditions
          */
-        if (!cost_matrix.has_no_infinity()) {
-            err << "An Infinity value was found on the Matrix";
-            *err_msg = to_pg_msg(err.str());
+        if (!matrix.has_no_infinity()) {
+            *err_msg = to_pg_msg("An Infinity value was found on the Matrix");
+            *log_msg = to_pg_msg(log.str());
             return;
         }
 
@@ -131,30 +130,28 @@ vrp_do_compatibleVehicles(
         vrprouting::problem::PickDeliver pd_problem(
                 customers_arr, total_customers,
                 vehicles_arr, total_vehicles,
-                cost_matrix);
+                matrix);
 
-        err << pd_problem.msg.get_error();
-        if (!err.str().empty()) {
+        if (pd_problem.msg.has_error()) {
             *log_msg = to_pg_msg(pd_problem.msg.get_log());
             *err_msg = to_pg_msg(pd_problem.msg.get_error());
             return;
         }
         log << pd_problem.msg.get_log();
-        log << "Finish Reading data\n";
+        log << "Finish constructing problem\n";
         pd_problem.msg.clear();
 
         /*
          * get the solution
          */
         auto solution = pd_problem.get_pg_compatibleVehicles();
+        log << pd_problem.msg.get_log();
         log << "solution size: " << solution.size() << "\n";
-        log << "solution empty: " << solution.empty() << "\n";
 
         /*
          * Prepare results
          */
         if (!solution.empty()) {
-            log << "solution empty " << "\n";
             (*return_tuples) = alloc(solution.size(), (*return_tuples));
             int seq = 0;
             for (const auto &row : solution) {
