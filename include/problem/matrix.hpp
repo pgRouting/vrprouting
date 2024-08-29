@@ -46,10 +46,13 @@ class Matrix : public base::Base_Matrix {
     Matrix() = default;
 
     /** brief constructor for matrix version with time dependant multipliers */
-    Matrix(Matrix_cell_t *, size_t, Time_multipliers_t*, size_t, const Identifiers<Id>&, Multiplier = 1.0);
+    Matrix(
+            const std::vector<Matrix_cell_t>&,
+            const std::vector<Time_multipliers_t>&,
+            const Identifiers<Id>&, Multiplier = 1.0);
 
     /** brief constructor for matrix version default multipliers */
-    Matrix(Matrix_cell_t *, size_t, const Identifiers<Id>&, Multiplier = 1.0);
+    Matrix(const std::vector<Matrix_cell_t>&, const Identifiers<Id>&, Multiplier = 1.0);
 
     /** brief constructor for euclidean version default multipliers */
     explicit Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id>&, Multiplier = 1.0);
