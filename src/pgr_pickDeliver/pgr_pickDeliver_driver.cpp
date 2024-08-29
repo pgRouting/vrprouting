@@ -75,7 +75,7 @@ get_initial_solution(vrprouting::problem::PickDeliver &problem_ptr, int m_initia
 
 void
 vrp_do_pgr_pickDeliver(
-        struct Orders_t customers_arr[], size_t total_customers,
+        struct Orders_t orders_arr[], size_t total_orders,
         Vehicle_t *vehicles_arr, size_t total_vehicles,
         Matrix_cell_t *matrix_cells_arr, size_t total_cells,
 
@@ -105,7 +105,7 @@ vrp_do_pgr_pickDeliver(
         pgassert(!(*log_msg));
         pgassert(!(*notice_msg));
         pgassert(!(*err_msg));
-        pgassert(total_customers);
+        pgassert(total_orders);
         pgassert(total_vehicles);
         pgassert(total_vehicles);
         pgassert(*return_count == 0);
@@ -115,8 +115,8 @@ vrp_do_pgr_pickDeliver(
         Identifiers<Id> node_ids;
         Identifiers<Id> order_ids;
 
-        for (size_t i = 0; i < total_customers; ++i) {
-            auto o = customers_arr[i];
+        for (size_t i = 0; i < total_orders; ++i) {
+            auto o = orders_arr[i];
             node_ids += o.pick_node_id;
             node_ids += o.deliver_node_id;
             order_ids += o.id;
@@ -152,7 +152,7 @@ vrp_do_pgr_pickDeliver(
          * Construct problem
          */
         vrprouting::problem::PickDeliver pd_problem(
-                customers_arr, total_customers,
+                orders_arr, total_orders,
                 vehicles_arr, total_vehicles,
                 matrix);
 
