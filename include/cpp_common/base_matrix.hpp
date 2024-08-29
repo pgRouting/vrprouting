@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/typedefs.h"
 #include "cpp_common/identifiers.hpp"
 
-typedef struct Matrix_cell_t Matrix_cell_t;
+using Matrix_cell_t = struct Matrix_cell_t;
 
 namespace vrprouting {
 namespace base {
@@ -57,7 +57,7 @@ class Base_Matrix {
     /** @brief Constructs an emtpy matrix */
     Base_Matrix() = default;
     /** @brief Constructs a matrix for only specific identifiers */
-    Base_Matrix(Matrix_cell_t*, size_t, const Identifiers<Id>&, Multiplier);
+    Base_Matrix(const std::vector<Matrix_cell_t>&, const Identifiers<Id>&, Multiplier);
     /** @brief Constructs a matrix for the euclidean */
     Base_Matrix(const std::map<std::pair<Coordinate, Coordinate>, Id>&, Multiplier);
 
