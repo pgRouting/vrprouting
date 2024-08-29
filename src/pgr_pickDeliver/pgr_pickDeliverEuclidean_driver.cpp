@@ -71,8 +71,8 @@ get_initial_solution(vrprouting::problem::PickDeliver &problem_ptr, int m_initia
 
 bool
 are_shipments_ok(
-        Orders_t *customers_arr,
-        size_t total_customers,
+        Orders_t *orders_arr,
+        size_t total_orders,
         std::string *err_string,
         std::string *hint_string) {
     /**
@@ -82,8 +82,8 @@ are_shipments_ok(
      * - p_open <= p_close
      * - d_open <= d_close
      */
-    for (size_t i = 0; i < total_customers; ++i) {
-        auto o = customers_arr[i];
+    for (size_t i = 0; i < total_orders; ++i) {
+        auto o = orders_arr[i];
         if (o.demand == 0) {
             *err_string = "Unexpected zero value found on column 'demand' of shipments";
             *hint_string = "Check shipment id #:" + std::to_string(o.id);
@@ -121,7 +121,7 @@ are_shipments_ok(
 
 void
 vrp_do_pgr_pickDeliverEuclidean(
-        Orders_t *customers_arr, size_t total_customers,
+        Orders_t *orders_arr, size_t total_orders,
         Vehicle_t *vehicles_arr, size_t total_vehicles,
 
         double factor,
@@ -156,7 +156,7 @@ vrp_do_pgr_pickDeliverEuclidean(
         std::string err_string;
         std::string hint_string;
 
-        if (!are_shipments_ok(customers_arr, total_customers, &err_string, &hint_string)) {
+        if (!are_shipments_ok(orders_arr, total_orders, &err_string, &hint_string)) {
             *err_msg = to_pg_msg(err_string);
             *log_msg = to_pg_msg(hint_string);
             return;
@@ -166,7 +166,7 @@ vrp_do_pgr_pickDeliverEuclidean(
          * transform to C++ containers
          */
         std::vector<Orders_t> orders(
-                customers_arr, customers_arr + total_customers);
+                orders_arr, orders_arr + total_orders);
         std::vector<Vehicle_t> vehicles(
                 vehicles_arr, vehicles_arr + total_vehicles);
 
@@ -201,8 +201,8 @@ vrp_do_pgr_pickDeliverEuclidean(
             log << e.second << "(" << e.first.first << "," << e.first.second << ")\n";
         }
 
-        for (size_t i = 0; i < total_customers; ++i) {
-            auto &o = customers_arr[i];
+        for (size_t i = 0; i < total_orders; ++i) {
+            auto &o = orders_arr[i];
             o.pick_node_id    = matrix_data[std::pair<Coordinate, Coordinate>(o.pick_x, o.pick_y)];
             o.deliver_node_id = matrix_data[std::pair<Coordinate, Coordinate>(o.deliver_x, o.deliver_y)];
         }
@@ -221,7 +221,7 @@ vrp_do_pgr_pickDeliverEuclidean(
          * Construct problem
          */
         vrprouting::problem::PickDeliver pd_problem(
-                customers_arr, total_customers,
+                orders_arr, total_orders,
                 vehicles_arr, total_vehicles,
                 matrix);
 

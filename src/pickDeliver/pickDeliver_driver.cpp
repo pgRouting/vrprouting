@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 void
 vrp_do_pickDeliver(
-        Orders_t *customers_arr, size_t total_customers,
+        Orders_t *orders_arr, size_t total_orders,
         Vehicle_t *vehicles_arr, size_t total_vehicles,
         Matrix_cell_t *matrix_cells_arr, size_t total_cells,
         Time_multipliers_t *multipliers_arr, size_t total_multipliers,
@@ -82,7 +82,7 @@ vrp_do_pickDeliver(
         pgassert(!(*log_msg));
         pgassert(!(*notice_msg));
         pgassert(!(*err_msg));
-        pgassert(total_customers);
+        pgassert(total_orders);
         pgassert(total_vehicles);
         pgassert(total_cells);
         pgassert(*return_count == 0);
@@ -95,8 +95,8 @@ vrp_do_pickDeliver(
         /*
          * nodes involved & orders involved
          */
-        for (size_t i = 0; i < total_customers; ++i) {
-            auto o = customers_arr[i];
+        for (size_t i = 0; i < total_orders; ++i) {
+            auto o = orders_arr[i];
             node_ids += o.pick_node_id;
             node_ids += o.deliver_node_id;
             order_ids += o.id;
@@ -155,7 +155,7 @@ vrp_do_pickDeliver(
          * Construct problem
          */
         vrprouting::problem::PickDeliver pd_problem(
-                customers_arr, total_customers,
+                orders_arr, total_orders,
                 vehicles_arr, total_vehicles,
                 matrix);
 
