@@ -33,12 +33,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <utility>
 #include <sstream>
 #include <string>
+#include <vector>
 
 #include "c_types/solution_rt.h"
 
 #include "cpp_common/alloc.hpp"
 #include "cpp_common/assert.hpp"
 
+#include "cpp_common/matrix_cell_t.hpp"
+#include "cpp_common/time_multipliers_t.hpp"
 #include "cpp_common/orders_t.hpp"
 #include "cpp_common/vehicle_t.hpp"
 #include "initialsol/tabu.hpp"
@@ -76,6 +79,8 @@ vrp_do_pickDeliver(
     std::ostringstream notice;
     std::ostringstream err;
     try {
+        using Matrix = vrprouting::problem::Matrix;
+
         /*
          * verify preconditions
          */
@@ -87,7 +92,20 @@ vrp_do_pickDeliver(
         pgassert(total_cells);
         pgassert(*return_count == 0);
         pgassert(!(*return_tuples));
-        log << "do_pickDeliver\n";
+
+        /* Data input starts */
+
+        /*
+         * transform to C++ containers
+         */
+        std::vector<Vehicle_t> vehicles(vehicles_arr, vehicles_arr + total_vehicles);
+        std::vector<Orders_t> orders(orders_arr, orders_arr + total_orders);
+        std::vector<Matrix_cell_t> costs(matrix_cells_arr, matrix_cells_arr + total_cells);
+        std::vector<Time_multipliers_t> multipliers(multipliers_arr, multipliers_arr + total_multipliers);
+
+        /* Data input ends */
+
+        /* Processing starts */
 
         Identifiers<Id> node_ids;
         Identifiers<Id> order_ids;
@@ -95,16 +113,14 @@ vrp_do_pickDeliver(
         /*
          * nodes involved & orders involved
          */
-        for (size_t i = 0; i < total_orders; ++i) {
-            auto o = orders_arr[i];
+        for (const auto &o : orders) {
             node_ids += o.pick_node_id;
             node_ids += o.deliver_node_id;
             order_ids += o.id;
         }
 
         bool missing = false;
-        for (size_t i = 0; i < total_vehicles; ++i) {
-            auto v = vehicles_arr[i];
+        for (const auto &v : vehicles) {
             node_ids += v.start_node_id;
             node_ids += v.end_node_id;
             for (size_t j = 0; j < v.stops_size; ++j) {
@@ -125,10 +141,7 @@ vrp_do_pickDeliver(
         /*
          * Prepare matrix
          */
-        vrprouting::problem::Matrix matrix(
-                matrix_cells_arr, total_cells,
-                multipliers_arr, total_multipliers,
-                node_ids, static_cast<Multiplier>(factor));
+        Matrix matrix(costs, multipliers, node_ids, static_cast<Multiplier>(factor));
 
         /*
          * Verify matrix triangle inequality
@@ -146,18 +159,15 @@ vrp_do_pickDeliver(
          * Verify matrix cells preconditions
          */
         if (!matrix.has_no_infinity()) {
-            err << "An Infinity value was found on the Matrix";
-            *err_msg = to_pg_msg(err.str());
+            *err_msg = to_pg_msg("An Infinity value was found on the Matrix");
+            *log_msg = to_pg_msg(log.str());
             return;
         }
 
         /*
          * Construct problem
          */
-        vrprouting::problem::PickDeliver pd_problem(
-                orders_arr, total_orders,
-                vehicles_arr, total_vehicles,
-                matrix);
+        vrprouting::problem::PickDeliver pd_problem(orders, vehicles, matrix);
 
         if (pd_problem.msg.has_error()) {
             *log_msg = to_pg_msg(pd_problem.msg.get_log());
@@ -193,7 +203,7 @@ vrp_do_pickDeliver(
          */
         if (!solution.empty()) {
             (*return_tuples) = alloc(solution.size(), (*return_tuples));
-            int seq = 0;
+            size_t seq = 0;
             for (const auto &row : solution) {
                 (*return_tuples)[seq] = row;
                 ++seq;

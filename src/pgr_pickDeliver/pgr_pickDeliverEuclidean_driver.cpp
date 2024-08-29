@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: pickDeliver_driver.cpp
+File: pgr_pickDeliver_driver.cpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "optimizers/simple.hpp"
 #include "problem/matrix.hpp"
 #include "problem/pickDeliver.hpp"
+#include "problem/solution.hpp"
 
 namespace {
 
@@ -71,8 +72,7 @@ get_initial_solution(vrprouting::problem::PickDeliver &problem_ptr, int m_initia
 
 bool
 are_shipments_ok(
-        Orders_t *orders_arr,
-        size_t total_orders,
+        const std::vector<Orders_t> &orders,
         std::string *err_string,
         std::string *hint_string) {
     /**
@@ -82,8 +82,7 @@ are_shipments_ok(
      * - p_open <= p_close
      * - d_open <= d_close
      */
-    for (size_t i = 0; i < total_orders; ++i) {
-        auto o = orders_arr[i];
+    for (const auto &o : orders) {
         if (o.demand == 0) {
             *err_string = "Unexpected zero value found on column 'demand' of shipments";
             *hint_string = "Check shipment id #:" + std::to_string(o.id);
@@ -144,6 +143,10 @@ vrp_do_pgr_pickDeliverEuclidean(
     std::ostringstream notice;
     std::ostringstream err;
     try {
+        using Matrix = vrprouting::problem::Matrix;
+        using Optimize = vrprouting::optimizers::simple::Optimize;
+        using Initials_code = vrprouting::initialsol::simple::Initials_code;
+
         /*
          * verify preconditions
          */
@@ -156,19 +159,26 @@ vrp_do_pgr_pickDeliverEuclidean(
         std::string err_string;
         std::string hint_string;
 
-        if (!are_shipments_ok(orders_arr, total_orders, &err_string, &hint_string)) {
+        /*
+	 * Data input starts
+         */
+
+        /*
+         * transform to C++ containers
+         */
+        std::vector<Orders_t> orders(orders_arr, orders_arr + total_orders);
+        std::vector<Vehicle_t> vehicles(vehicles_arr, vehicles_arr + total_vehicles);
+
+        if (!are_shipments_ok(orders, &err_string, &hint_string)) {
             *err_msg = to_pg_msg(err_string);
             *log_msg = to_pg_msg(hint_string);
             return;
         }
 
-        /*
-         * transform to C++ containers
-         */
-        std::vector<Orders_t> orders(
-                orders_arr, orders_arr + total_orders);
-        std::vector<Vehicle_t> vehicles(
-                vehicles_arr, vehicles_arr + total_vehicles);
+        /* Data input ends */
+
+        Identifiers<Id> node_ids;
+        Identifiers<int64_t> unique_ids;
 
         /*
          * Prepare identifiers
@@ -176,8 +186,6 @@ vrp_do_pgr_pickDeliverEuclidean(
         std::map<std::pair<Coordinate, Coordinate>, Id> matrix_data;
 
         for (const auto &o : orders) {
-            pgassert(o.pick_node_id == 0);
-            pgassert(o.deliver_node_id == 0);
             matrix_data[std::pair<Coordinate, Coordinate>(o.pick_x, o.pick_y)] = 0;
             matrix_data[std::pair<Coordinate, Coordinate>(o.deliver_x, o.deliver_y)] = 0;
         }
@@ -187,22 +195,17 @@ vrp_do_pgr_pickDeliverEuclidean(
             matrix_data[std::pair<Coordinate, Coordinate>(v.end_x, v.end_y)] = 0;
         }
 
-        Identifiers<int64_t> unique_ids;
         /*
-         * Data does not have ids for the locations'
+         * Data does not have ids for the locations
          */
         Id id(0);
         for (auto &e : matrix_data) {
             e.second = id++;
-        }
-
-        for (const auto &e : matrix_data) {
             unique_ids += e.second;
-            log << e.second << "(" << e.first.first << "," << e.first.second << ")\n";
         }
 
-        for (size_t i = 0; i < total_orders; ++i) {
-            auto &o = orders_arr[i];
+
+        for (auto &o : orders) {
             o.pick_node_id    = matrix_data[std::pair<Coordinate, Coordinate>(o.pick_x, o.pick_y)];
             o.deliver_node_id = matrix_data[std::pair<Coordinate, Coordinate>(o.deliver_x, o.deliver_y)];
         }
@@ -215,15 +218,12 @@ vrp_do_pgr_pickDeliverEuclidean(
         /*
          * Prepare matrix
          */
-        vrprouting::problem::Matrix matrix(matrix_data, static_cast<Multiplier>(factor));
+        Matrix matrix(matrix_data, static_cast<Multiplier>(factor));
 
         /*
          * Construct problem
          */
-        vrprouting::problem::PickDeliver pd_problem(
-                orders_arr, total_orders,
-                vehicles_arr, total_vehicles,
-                matrix);
+        vrprouting::problem::PickDeliver pd_problem(orders, vehicles, matrix);
 
         if (pd_problem.msg.has_error()) {
             *log_msg = to_pg_msg(pd_problem.msg.get_log());
@@ -242,8 +242,6 @@ vrp_do_pgr_pickDeliverEuclidean(
         /*
          * Solve (optimize)
          */
-        using Optimize = vrprouting::optimizers::simple::Optimize;
-        using Initials_code = vrprouting::initialsol::simple::Initials_code;
         sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);
 
         /*
@@ -258,7 +256,7 @@ vrp_do_pgr_pickDeliverEuclidean(
          */
         if (!solution.empty()) {
             (*return_tuples) = alloc(solution.size(), (*return_tuples));
-            int seq = 0;
+            size_t seq = 0;
             for (const auto &row : solution) {
                 (*return_tuples)[seq] = row;
                 ++seq;
