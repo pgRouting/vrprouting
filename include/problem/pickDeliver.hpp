@@ -55,16 +55,16 @@ class PickDeliver {
  public:
     /** @brief General Constructor */
     PickDeliver(
-        Orders_t* p_orders, size_t p_orders_size,
-        Vehicle_t* p_vehicles, size_t p_vehicles_size,
+        const std::vector<Orders_t>&,
+        const std::vector<Vehicle_t>&,
         const Matrix &);
 
     /** @brief Override stops constructor */
     PickDeliver(
-        Orders_t* p_orders, size_t p_orders_size,
-        Vehicle_t* p_vehicles, size_t p_vehicles_size,
+        const std::vector<Orders_t>&,
+        const std::vector<Vehicle_t>&,
         std::vector<Short_vehicle>,
-        const Matrix &);
+        const Matrix&);
 
     virtual ~PickDeliver() = default;
 
