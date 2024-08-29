@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpp_common/assert.hpp"
 #include "cpp_common/identifiers.hpp"
+#include "cpp_common/orders_t.hpp"
 #include "problem/pickDeliver.hpp"
 
 
@@ -39,10 +40,10 @@ namespace vrprouting {
 namespace problem {
 
 Orders::Orders(
-        Orders_t *p_orders, size_t p_size_orders,
+        const std::vector<Orders_t> &p_orders,
         PickDeliver &problem_ptr) {
     Tw_node::m_time_matrix_ptr = &(problem_ptr.time_matrix());
-    build_orders(p_orders, p_size_orders, problem_ptr);
+    build_orders(p_orders, problem_ptr);
 }
 
 /**
@@ -143,17 +144,16 @@ Orders::set_compatibles(Speed speed) {
 
 /**
   @param [in] orders set of orders
-  @param [in] sizer_orders
   @param [in] problem_ptr pointer to problem to get some needed information
   */
 void
 Orders::build_orders(
-        Orders_t *orders, size_t size_orders,
+        std::vector<Orders_t> orders,
         PickDeliver& problem_ptr) {
     /**
      * - Sort orders: ASC pick_open_t, deliver_close_t, id
      */
-    std::sort(orders, orders + size_orders,
+    std::sort(orders.begin(), orders.end(),
          [] (const Orders_t &lhs, const Orders_t &rhs) {
              if (lhs.pick_open_t == rhs.pick_open_t) {
                  if (lhs.deliver_close_t == rhs.deliver_close_t) {
@@ -166,8 +166,7 @@ Orders::build_orders(
              }
       });
 
-    for (size_t i = 0; i < size_orders; ++i) {
-        auto o = orders[i];
+    for (const auto &o : orders) {
         Vehicle_node pick({problem_ptr.node_id()++, o, NodeType::kPickup});
         Vehicle_node drop({problem_ptr.node_id()++, o, NodeType::kDelivery});
 
@@ -176,6 +175,21 @@ Orders::build_orders(
 
         this->emplace_back(Order{size(), o.id, pick, drop});
     }
+}
+
+void
+Orders::add_order(const Orders_t &order,
+        const Vehicle_node &pick,
+        const Vehicle_node &drop) {
+    push_back(Order(size(), order.id, pick, drop));
+}
+
+std::ostream&
+operator<<(std::ostream &log, const Orders &p_orders) {
+    log << "Orders\n";
+    for (const auto &o : p_orders) log << o << "\n";
+    log << "end Orders\n";
+    return log;
 }
 
 }  //  namespace problem

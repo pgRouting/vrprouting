@@ -33,18 +33,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <algorithm>
 
 #include "problem/order.hpp"
-#include "cpp_common/orders_t.hpp"
-#include "cpp_common/assert.hpp"
 #include "cpp_common/identifiers.hpp"
-#include "problem/tw_node.hpp"
 #include "problem/vehicle_node.hpp"
-#include "problem/node_types.hpp"
 
 
+using Orders_t = struct Orders_t;
 
 namespace vrprouting {
 namespace problem {
 
+class Vehicle_node;
 class PickDeliver;
 
 class Orders : public std::vector<Order> {
@@ -52,7 +50,7 @@ class Orders : public std::vector<Order> {
     using std::vector<Order>::size;
     Orders() = default;
 
-    Orders(Orders_t* , size_t, PickDeliver&);
+    Orders(const std::vector<Orders_t>&, PickDeliver&);
 
     /** @brief find the best order -> @b this */
     size_t find_best_I(const Identifiers<size_t> &within_this_set) const;
@@ -69,22 +67,13 @@ class Orders : public std::vector<Order> {
     /** @brief is the order valid? */
     bool is_valid(Speed = 1.0) const;
 
-    friend std::ostream& operator<<(std::ostream &log, const Orders &p_orders) {
-      log << "Orders\n";
-      for (const auto &o : p_orders) log << o << "\n";
-      log << "end Orders\n";
-      return log;
-    }
+    friend std::ostream& operator<<(std::ostream &log, const Orders &p_orders);
 
  private:
-    void build_orders(Orders_t *, size_t, PickDeliver&);
+    void build_orders(std::vector<Orders_t>, PickDeliver&);
 
     /** @brief add in an order */
-    void add_order(const Orders_t &order,
-        const Vehicle_node &pick,
-        const Vehicle_node &drop) {
-      push_back(Order(size(), order.id, pick, drop));
-    }
+    void add_order(const Orders_t&, const Vehicle_node&, const Vehicle_node&);
 };
 
 }  //  namespace problem
