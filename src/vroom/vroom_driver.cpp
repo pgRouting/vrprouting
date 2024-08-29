@@ -46,49 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/vroom_shipment_t.hpp"
 #include "vroom/vroom.hpp"
 
-/** @file vroom_driver.cpp
- * @brief Handles actual calling of function in the `vrp_vroom.hpp` file.
- */
-
-/** @brief Performs exception handling and converts the results to postgres.
- *
- * @pre log_msg is empty
- * @pre notice_msg is empty
- * @pre err_msg is empty
- * @pre return_tuples is empty
- * @pre return_count is 0
- *
- * It converts the C types to the C++ types, and passes these variables to the
- * function `vrp_vroom` which calls the main function defined in the
- * C++ Header file. It also does exception handling.
- *
- * @param[in] jobs                Pointer to the array of jobs
- * @param[in] total_jobs          The total number of jobs
- * @param[in] jobs_tws            Pointer to the array of jobs time windows
- * @param[in] total_jobs_tws      The total number of jobs time windows
- * @param[in] shipments           Pointer to the array of shipments
- * @param[in] total_shipments     The total number of shipments
- * @param[in] shipments_tws       Pointer to the array of shipments time windows
- * @param[in] total_shipments_tws The total number of shipments time windows
- * @param[in] vehicles            Pointer to the array of vehicles
- * @param[in] total_vehicles      The total number of total vehicles
- * @param[in] breaks              Pointer to the array of breaks
- * @param[in] total_breaks        The total number of total breaks
- * @param[in] breaks_tws          Pointer to the array of break timewindows
- * @param[in] total_breaks_tws    The total number of total breaks timewindows
- * @param[in] matrix_rows         Pointer to the array of matrix rows
- * @param[in] total_matrix_rows   The total number of matrix rows
- *
- * @param[in] exploration_level   Exploration level to use while solving.
- * @param[in] timeout             Timeout value to stop the solving process (seconds).
- * @param[in] loading_time        Additional time spent in loading the data from SQL Query (seconds).
- *
- * @param[out] return_tuples      The rows in the result
- * @param[out] return_count       The count of rows in the result
- * @param[out] log_msg            Stores the log message
- * @param[out] notice_msg         Stores the notice message
- * @param[out] err_msg            Stores the error message
- */
 void
 vrp_do_vroom(
         Vroom_job_t *jobs, size_t total_jobs,
@@ -120,6 +77,9 @@ vrp_do_vroom(
     std::ostringstream err;
     std::ostringstream notice;
     try {
+        /*
+         * verify preconditions
+         */
         pgassert(!(*log_msg));
         pgassert(!(*notice_msg));
         pgassert(!(*err_msg));
