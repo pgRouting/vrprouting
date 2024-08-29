@@ -220,20 +220,19 @@ vrp_do_pgr_pickDeliverEuclidean(
         /*
          * Construct problem
          */
-        log << "Initialize problem\n";
         vrprouting::problem::PickDeliver pd_problem(
                 customers_arr, total_customers,
                 vehicles_arr, total_vehicles,
                 matrix);
 
-        err << pd_problem.msg.get_error();
-        if (!err.str().empty()) {
-            *err_msg = to_pg_msg(pd_problem.msg.get_error());
+        if (pd_problem.msg.has_error()) {
             *log_msg = to_pg_msg(pd_problem.msg.get_log());
+            *err_msg = to_pg_msg(pd_problem.msg.get_error());
             return;
         }
         log << pd_problem.msg.get_log();
-        log << "Finish Reading data\n";
+        log << "Finish constructing problem\n";
+        pd_problem.msg.clear();
 
         /*
          * get initial solutions
@@ -246,14 +245,12 @@ vrp_do_pgr_pickDeliverEuclidean(
         using Optimize = vrprouting::optimizers::simple::Optimize;
         using Initials_code = vrprouting::initialsol::simple::Initials_code;
         sol = Optimize(sol, static_cast<size_t>(max_cycles), (Initials_code)initial_solution_id);
-        log << pd_problem.msg.get_log();
-        log << "Finish solve\n";
 
         /*
          * get the solution
          */
         auto solution = sol.get_postgres_result();
-        log << pd_problem.msg.get_log();
+        log << sol.get_log();
         log << "solution size: " << solution.size() << "\n";
 
         /*

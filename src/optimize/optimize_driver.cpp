@@ -63,7 +63,7 @@ using Short_vehicle = vrprouting::Short_vehicle;
  *  @param[in] total_vehicles size of the vehicles_arr
  *
  *  @param[in] new_stops stops that override the original stops.
- *  @param[in] time_matrix The unique time matrix
+ *  @param[in] matrix The unique time matrix
  *  @param[in] max_cycles number of cycles to perform during the optimization phase
  *  @param[in] execution_date Value used for not moving shipments that are before this date
  *
@@ -74,7 +74,7 @@ one_processing(
         Orders_t *shipments_arr, size_t total_shipments,
         Vehicle_t *vehicles_arr, size_t total_vehicles,
         std::vector<Short_vehicle> new_stops,
-        const vrprouting::problem::Matrix &time_matrix,
+        const vrprouting::problem::Matrix &matrix,
         int max_cycles,
         int64_t execution_date) {
     try {
@@ -85,7 +85,7 @@ one_processing(
                 shipments_arr, total_shipments,
                 vehicles_arr, total_vehicles,
                 new_stops,
-                time_matrix);
+                matrix);
 
         /*
          * Unknown problem when createing the pick Deliver problem
@@ -203,7 +203,7 @@ update_stops(std::vector<Short_vehicle>& the_stops,  // NOLINT [runtime/referenc
  *  @param[in] vehicles_arr A C Array of vehicles
  *  @param[in] total_vehicles size of the vehicles_arr
  *  @param[in] new_stops stops that override the original stops.
- *  @param[in] time_matrix The unique time matrix
+ *  @param[in] matrix The unique time matrix
  *  @param[in] max_cycles number of cycles to perform during the optimization phase
  *  @param[in] execution_date Value used for not moving shipments that are before this date
  *
@@ -213,7 +213,7 @@ std::vector<Short_vehicle>
 subdivide_processing(
         Orders_t *shipments_arr, size_t total_shipments,
         Vehicle_t *vehicles_arr, size_t total_vehicles,
-        const vrprouting::problem::Matrix &time_matrix,
+        const vrprouting::problem::Matrix &matrix,
         int max_cycles,
         int64_t execution_date,
         bool subdivide_by_vehicle,
@@ -271,7 +271,7 @@ subdivide_processing(
             auto new_stops = one_processing(
                     shipments_arr, shipments_to_process,
                     vehicles_arr, vehicles_to_process, the_stops,
-                    time_matrix,
+                    matrix,
                     max_cycles, execution_date);
 
             update_stops(the_stops, new_stops);
@@ -387,10 +387,9 @@ vrp_do_optimize(
             for (size_t i = 0; i < total_shipments; ++i) {
                 shipments_in_stops -= shipments_arr[i].id;
             }
-            std::ostringstream hint;
-            err << "Missing shipments for processing ";
-            hint << "Shipments missing: " << shipments_in_stops << log.str();
-            *log_msg = to_pg_msg(hint.str());
+            err << "Missing orders for processing ";
+            log << "Shipments missing: " << shipments_in_stops << log.str();
+            *log_msg = to_pg_msg(log.str());
             *err_msg = to_pg_msg(err.str());
             return;
         }
@@ -406,7 +405,7 @@ vrp_do_optimize(
         /*
          * Prepare matrix
          */
-        vrprouting::problem::Matrix time_matrix(
+        vrprouting::problem::Matrix matrix(
                 matrix_cells_arr, total_cells,
                 multipliers_arr, total_multipliers,
                 node_ids, static_cast<Multiplier>(factor));
@@ -414,21 +413,20 @@ vrp_do_optimize(
         /*
          * Verify matrix triangle inequality
          */
-        if (check_triangle_inequality && !time_matrix.obeys_triangle_inequality()) {
-            log << "\nFixing Matrix that does not obey triangle inequality "
-                << time_matrix.fix_triangle_inequality() << " cycles used";
+        if (check_triangle_inequality && !matrix.obeys_triangle_inequality()) {
+            log << "\nFixing Matrix that does not obey triangle inequality.\t"
+                << matrix.fix_triangle_inequality() << " cycles used";
 
-            if (!time_matrix.obeys_triangle_inequality()) {
-                log << "\nMatrix Still does not obey triangle inequality ";
+            if (!matrix.obeys_triangle_inequality()) {
+                log << "\nMatrix Still does not obey triangle inequality.";
             }
         }
 
         /*
          * Verify matrix cells preconditions
          */
-        if (!time_matrix.has_no_infinity()) {
-            err << "\nAn Infinity value was found on the Matrix";
-            *err_msg = to_pg_msg(err.str());
+        if (!matrix.has_no_infinity()) {
+            *err_msg = to_pg_msg("An Infinity value was found on the Matrix");
             *log_msg = to_pg_msg(log.str());
             return;
         }
@@ -440,14 +438,14 @@ vrp_do_optimize(
             subdivide_processing(
                     shipments_arr, total_shipments,
                     vehicles_arr, total_vehicles,
-                    time_matrix,
+                    matrix,
                     max_cycles, execution_date,
                     subdivide_by_vehicle,
                     log) :
             one_processing(
                     shipments_arr, total_shipments,
                     vehicles_arr, total_vehicles, {},
-                    time_matrix,
+                    matrix,
                     max_cycles, execution_date);
 
         /*
