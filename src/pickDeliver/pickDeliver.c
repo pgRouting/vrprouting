@@ -65,6 +65,12 @@ process(
 
         Solution_rt **result_tuples,
         size_t *result_count) {
+    char *log_msg = NULL;
+    char *notice_msg = NULL;
+    char *err_msg = NULL;
+
+    vrp_SPI_connect();
+
     /*
      * Adjusting timestamp data to timezone UTC
      */
@@ -89,8 +95,6 @@ process(
                  errmsg("Illegal value in parameter: max_cycles"),
                  errhint("Value found: %d <= 0", max_cycles)));
     }
-
-    vrp_SPI_connect();
 
     Orders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
@@ -212,10 +216,6 @@ process(
     PGR_DBG("Total %ld time dependant multipliers:", total_multipliers_arr);
 
     clock_t start_t = clock();
-    char *log_msg = NULL;
-    char *notice_msg = NULL;
-    char *err_msg = NULL;
-
     vrp_do_pickDeliver(
             pd_orders_arr,    total_pd_orders,
             vehicles_arr,     total_vehicles,
@@ -235,8 +235,7 @@ process(
             &log_msg,
             &notice_msg,
             &err_msg);
-
-    time_msg("pgr_pickDeliver", start_t, clock());
+    time_msg("vrp_pickDeliver", start_t, clock());
 
     if (err_msg && (*result_tuples)) {
         pfree(*result_tuples);
@@ -273,7 +272,7 @@ _vrp_pickdeliver(PG_FUNCTION_ARGS) {
   FuncCallContext     *funcctx;
   TupleDesc            tuple_desc;
 
-  Solution_rt *result_tuples = 0;
+  Solution_rt *result_tuples = NULL;
   size_t result_count = 0;
 
   if (SRF_IS_FIRSTCALL()) {
@@ -351,16 +350,8 @@ _vrp_pickdeliver(PG_FUNCTION_ARGS) {
 
     tuple = heap_form_tuple(tuple_desc, values, nulls);
     result = HeapTupleGetDatum(tuple);
-
-    pfree(values); values = NULL;
-    pfree(nulls); nulls = NULL;
-
     SRF_RETURN_NEXT(funcctx, result);
   } else {
-    if (result_tuples) {
-      pfree(result_tuples); result_tuples = NULL;
-    }
-    funcctx->user_fctx = NULL;
     SRF_RETURN_DONE(funcctx);
   }
 }
@@ -452,16 +443,8 @@ _vrp_pickdeliverraw(PG_FUNCTION_ARGS) {
 
     tuple = heap_form_tuple(tuple_desc, values, nulls);
     result = HeapTupleGetDatum(tuple);
-
-    pfree(values); values = NULL;
-    pfree(nulls); nulls = NULL;
-
     SRF_RETURN_NEXT(funcctx, result);
   } else {
-    if (result_tuples) {
-      pfree(result_tuples); result_tuples = NULL;
-    }
-    funcctx->user_fctx = NULL;
     SRF_RETURN_DONE(funcctx);
   }
 }

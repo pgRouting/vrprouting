@@ -52,6 +52,12 @@ process(
         int initial_solution_id,
         Solution_rt **result_tuples,
         size_t *result_count) {
+    char *log_msg = NULL;
+    char *notice_msg = NULL;
+    char *err_msg = NULL;
+
+    vrp_SPI_connect();
+
     if (factor <= 0) {
         ereport(ERROR,
                 (errcode(ERRCODE_INTERNAL_ERROR),
@@ -78,8 +84,6 @@ process(
         (*result_tuples) = NULL;
         return;
     }
-
-    vrp_SPI_connect();
 
     PGR_DBG("Load orders");
     struct Orders_t *pd_orders_arr = NULL;
@@ -154,9 +158,6 @@ process(
 
     PGR_DBG("Starting processing");
     clock_t start_t = clock();
-    char *log_msg = NULL;
-    char *notice_msg = NULL;
-    char *err_msg = NULL;
     vrp_do_pgr_pickDeliverEuclidean(
             pd_orders_arr, total_pd_orders,
             vehicles_arr, total_vehicles,
@@ -171,7 +172,7 @@ process(
             &log_msg,
             &notice_msg,
             &err_msg);
-    time_msg("_pgr_pickDeliverEuclidean", start_t, clock());
+    time_msg("vrp_pgr_pickDeliverEuclidean", start_t, clock());
 
     if (err_msg && (*result_tuples)) {
         pfree(*result_tuples);
@@ -200,7 +201,6 @@ _vrp_pgr_pickdelivereuclidean(PG_FUNCTION_ARGS) {
         funcctx = SRF_FIRSTCALL_INIT();
         oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
 
-        PGR_DBG("Calling process");
         process(
                 text_to_cstring(PG_GETARG_TEXT_P(0)),
                 text_to_cstring(PG_GETARG_TEXT_P(1)),
