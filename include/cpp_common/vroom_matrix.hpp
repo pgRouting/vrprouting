@@ -56,7 +56,7 @@ class Matrix {
  public:
     /** @brief Constructs an emtpy matrix */
     Matrix() = default;
-    Matrix(Vroom_matrix_t *, size_t, const Identifiers<Id> &, double);
+    Matrix(const std::vector<Vroom_matrix_t>&, const Identifiers<Id>&, double);
 
     ::vroom::Matrix<::vroom::Duration> get_vroom_duration_matrix() const;
     ::vroom::Matrix<::vroom::Cost> get_vroom_cost_matrix() const;
