@@ -55,14 +55,18 @@ process(
 
         CompatibleVehicles_rt **result_tuples,
         size_t *result_count) {
+    char *log_msg = NULL;
+    char *notice_msg = NULL;
+    char *err_msg = NULL;
+
+    vrp_SPI_connect();
+
     if (factor <= 0) {
         ereport(ERROR,
                 (errcode(ERRCODE_INTERNAL_ERROR),
                  errmsg("Illegal value in parameter: factor"),
                  errhint("Value found: %f <= 0", factor)));
     }
-
-    vrp_SPI_connect();
 
     Orders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
@@ -172,13 +176,7 @@ process(
     PGR_DBG("Total %ld matrix cells in query:", total_cells);
     PGR_DBG("Total %ld multipliers in query:", total_cells);
 
-#ifdef PROFILE
     clock_t start_t = clock();
-#endif
-    char *log_msg = NULL;
-    char *notice_msg = NULL;
-    char *err_msg = NULL;
-
     vrp_do_compatibleVehicles(
             pd_orders_arr, total_pd_orders,
             vehicles_arr, total_vehicles,
@@ -193,10 +191,8 @@ process(
             &log_msg,
             &notice_msg,
             &err_msg);
-
-#ifdef PROFILE
     time_msg("vrp_compatibleVehicles", start_t, clock());
-#endif
+
     if (err_msg && (*result_tuples)) {
         pfree(*result_tuples);
         (*result_count) = 0;
@@ -286,20 +282,8 @@ _vrp_compatiblevehicles(PG_FUNCTION_ARGS) {
 
         tuple = heap_form_tuple(tuple_desc, values, nulls);
         result = HeapTupleGetDatum(tuple);
-
-        tuple = heap_form_tuple(tuple_desc, values, nulls);
-        result = HeapTupleGetDatum(tuple);
-
-
-        pfree(values); values = NULL;
-        pfree(nulls); nulls = NULL;
-
         SRF_RETURN_NEXT(funcctx, result);
     } else {
-        if (result_tuples) {
-          pfree(result_tuples); result_tuples = NULL;
-        }
-        funcctx->user_fctx = NULL;
         SRF_RETURN_DONE(funcctx);
     }
 }

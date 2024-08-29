@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include <stdbool.h>
 #include "c_common/postgres_connection.h"
 #include "c_common/debug_macro.h"
 #include "c_common/e_report.h"
@@ -62,6 +61,12 @@ process(
 
         Short_vehicle_rt **result_tuples,
         size_t *result_count) {
+    char *log_msg = NULL;
+    char *notice_msg = NULL;
+    char *err_msg = NULL;
+
+    vrp_SPI_connect();
+
     //! [Factor must be postive]
     if (factor <= 0) {
         ereport(ERROR,
@@ -85,8 +90,6 @@ process(
                  errmsg("Illegal value in parameter: subdivision_kind"),
                  errhint("Value found: %d", max_cycles)));
     }
-
-    vrp_SPI_connect();
 
     Orders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
@@ -206,10 +209,6 @@ process(
     PGR_DBG("Total %ld time dependant multipliers:", total_multipliers_arr);
 
     clock_t start_t = clock();
-    char *log_msg = NULL;
-    char *notice_msg = NULL;
-    char *err_msg = NULL;
-
     vrp_do_optimize(
             pd_orders_arr,    total_pd_orders,
             vehicles_arr,     total_vehicles,
@@ -230,8 +229,7 @@ process(
             &log_msg,
             &notice_msg,
             &err_msg);
-
-    time_msg("pgr_pickDeliver", start_t, clock());
+    time_msg("vrp_optimize", start_t, clock());
 
     if (err_msg && (*result_tuples)) {
         pfree(*result_tuples);
@@ -330,15 +328,8 @@ _vrp_optimize(PG_FUNCTION_ARGS) {
     tuple = heap_form_tuple(tuple_desc, values, nulls);
     result = HeapTupleGetDatum(tuple);
 
-    pfree(values); values = NULL;
-    pfree(nulls); nulls = NULL;
-
     SRF_RETURN_NEXT(funcctx, result);
   } else {
-    if (result_tuples) {
-      pfree(result_tuples); result_tuples = NULL;
-    }
-    funcctx->user_fctx = NULL;
     SRF_RETURN_DONE(funcctx);
   }
 }

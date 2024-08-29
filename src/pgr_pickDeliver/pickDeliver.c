@@ -53,6 +53,12 @@ process(
 
         Solution_rt **result_tuples,
         size_t *result_count) {
+    char *log_msg = NULL;
+    char *notice_msg = NULL;
+    char *err_msg = NULL;
+
+    vrp_SPI_connect();
+
     if (factor <= 0) {
         ereport(ERROR,
                 (errcode(ERRCODE_INTERNAL_ERROR),
@@ -83,7 +89,6 @@ process(
         return;
     }
 
-    vrp_SPI_connect();
 
     Orders_t *pd_orders_arr = NULL;
     size_t total_pd_orders = 0;
@@ -221,10 +226,6 @@ process(
 
     PGR_DBG("Starting processing");
     clock_t start_t = clock();
-    char *log_msg = NULL;
-    char *notice_msg = NULL;
-    char *err_msg = NULL;
-
     vrp_do_pgr_pickDeliver(
             pd_orders_arr, total_pd_orders,
             vehicles_arr, total_vehicles,
@@ -240,8 +241,7 @@ process(
             &log_msg,
             &notice_msg,
             &err_msg);
-
-    time_msg("pgr_pickDeliver", start_t, clock());
+    time_msg("vrp_pgr_pickDeliver", start_t, clock());
 
     if (err_msg && (*result_tuples)) {
         pfree(*result_tuples);
