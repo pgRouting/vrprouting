@@ -53,13 +53,13 @@ class Fleet: protected std::vector<Vehicle_pickDeliver> {
 
     /** @brief Create a fleet based on the Vehicles of the problem */
     Fleet(
-        Vehicle_t* , size_t,
+        const std::vector<Vehicle_t>&,
         const Orders&,
         std::vector<Vehicle_node>&, size_t&);
 
     /** @brief Create a fleet based on the Vehicles of the problem */
     Fleet(
-        Vehicle_t*, size_t,
+        const std::vector<Vehicle_t>&,
         const std::vector<Short_vehicle>&,
         const Orders&,
         std::vector<Vehicle_node>&,
@@ -121,7 +121,7 @@ class Fleet: protected std::vector<Vehicle_pickDeliver> {
 
     /** @brief build the fleet */
     void build_fleet(
-        Vehicle_t*, size_t,
+        std::vector<Vehicle_t>,
         const std::vector<Short_vehicle>&,
         const Orders&,
         std::vector<Vehicle_node>&, size_t&);

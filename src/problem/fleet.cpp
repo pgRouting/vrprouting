@@ -357,15 +357,13 @@ Fleet::set_compatibles(const Orders &orders) {
   builds a fleet from a vector of Vehicle_t
 
   @param[in] vehicles  the list of vehicles
-  @param[in] size_vehicles
   @param [in] new_stops overides vehicles stops
   @param[in] p_orders
   @param[in,out] p_nodes
   @param[in,out] node_id
   */
-void
-Fleet::build_fleet(
-    Vehicle_t *vehicles, size_t size_vehicles,
+void Fleet::build_fleet(
+    std::vector<Vehicle_t> vehicles,
     const std::vector<Short_vehicle>& new_stops,
     const Orders& p_orders,
     std::vector<Vehicle_node>& p_nodes,
@@ -373,7 +371,7 @@ Fleet::build_fleet(
     /**
      * Sort vehicles: ASC start_open_t, end_close_t, id
      */
-    std::sort(vehicles, vehicles + size_vehicles,
+    std::sort(vehicles.begin(), vehicles.end(),
             [] (const Vehicle_t &lhs, const Vehicle_t &rhs) {
                 if (lhs.start_open_t == rhs.start_open_t) {
                     if (lhs.end_close_t == rhs.end_close_t) {
@@ -389,8 +387,8 @@ Fleet::build_fleet(
     /**
      * Add the vehicles
      */
-    for (size_t i = 0; i < size_vehicles; ++i) {
-        add_vehicle(vehicles[i], new_stops, p_orders, p_nodes, node_id);
+    for (const auto &v : vehicles) {
+        add_vehicle(v, new_stops, p_orders, p_nodes, node_id);
     }
 
     /**
@@ -443,22 +441,22 @@ Fleet::build_fleet(
 
 /* Constructors */
 Fleet::Fleet(
-        Vehicle_t* vehicles , size_t size_vehicles,
+        const std::vector<Vehicle_t> &vehicles,
         const Orders& p_orders,
         std::vector<Vehicle_node>& p_nodes,
         size_t& node_id)
     : m_used(), m_unused() {
-        build_fleet(vehicles, size_vehicles, {}, p_orders, p_nodes, node_id);
+        build_fleet(vehicles, {}, p_orders, p_nodes, node_id);
     }
 
 Fleet::Fleet(
-        Vehicle_t* vehicles , size_t size_vehicles,
+        const std::vector<Vehicle_t> &vehicles,
         const std::vector<Short_vehicle> &new_stops,
         const Orders& p_orders,
         std::vector<Vehicle_node>& p_nodes,
         size_t& node_id)
     : m_used(), m_unused() {
-        build_fleet(vehicles, size_vehicles, new_stops, p_orders, p_nodes, node_id);
+        build_fleet(vehicles, new_stops, p_orders, p_nodes, node_id);
     }
 
 }  // namespace problem
