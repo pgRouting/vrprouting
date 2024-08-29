@@ -61,20 +61,17 @@ class Vroom : public vrprouting::Messages {
     void add_jobs(
             const std::vector<Vroom_job_t>&,
             const MapTW&);
-    void add_jobs(const Vroom_job_t*, size_t, const Vroom_time_window_t*, size_t);
 
     /** @brief sets m_shipments by adding the Vroom_shipment_t */
     void add_shipments(
             const std::vector<Vroom_shipment_t>&,
             const MapTW&);
-    void add_shipments(const Vroom_shipment_t*, size_t, const Vroom_time_window_t*, size_t);
 
     /** @brief sets m_vehicles by adding the Vroom_vehicle_t */
     void add_vehicles(
             const std::vector<Vroom_vehicle_t>&,
             const std::vector<Vroom_break_t>&,
             const MapTW&);
-    void add_vehicles(const Vroom_vehicle_t*, size_t, const Vroom_break_t*, size_t, const Vroom_time_window_t*, size_t);
 
     /** @brief sets m_matrix */
     void add_matrix(const vrprouting::vroom::Matrix&);
