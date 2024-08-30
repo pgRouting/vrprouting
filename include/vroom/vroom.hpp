@@ -43,18 +43,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/vroom_matrix.hpp"
 #include "cpp_common/messages.hpp"
 
-using Vroom_break_t = struct Vroom_break_t;
-using Vroom_job_t = struct Vroom_job_t;
-using Vroom_shipment_t = struct Vroom_shipment_t;
-using Vroom_time_window_t = struct Vroom_time_window_t;
-using Vroom_vehicle_t = struct Vroom_vehicle_t;
 using Vroom_rt = struct Vroom_rt;
 
 namespace vrprouting {
+
+class Vroom_shipment_t;
+class Vroom_break_t;
+class Vroom_vehicle_t;
+class Vroom_time_window_t;
+class Vroom_job_t;
+
 namespace problem {
 
 class Vroom : public vrprouting::Messages {
-    using MapTW = std::vector<Vroom_time_window_t>;
+    using MapTW = std::map<std::pair<Idx, char>, std::vector<::vroom::TimeWindow>>;
 
  public:
     /** @brief sets m_jobs by adding the Vroom_job_t */
@@ -80,24 +82,6 @@ class Vroom : public vrprouting::Messages {
     std::vector<Vroom_rt> solve(int32_t, int32_t, int64_t);
 
  private:
-    std::vector<::vroom::TimeWindow> get_vroom_time_windows(const std::vector<Vroom_time_window_t>&) const;
-    ::vroom::Amount get_vroom_amounts(const std::vector<Amount>&) const;
-    ::vroom::Amount get_vroom_amounts(const Amount *amounts, size_t count) const;
-    ::vroom::Skills get_vroom_skills(const Skill*, size_t) const;
-    ::vroom::Job    get_vroom_job(
-            const Vroom_job_t&,
-            const std::vector<Vroom_time_window_t>&) const;
-    std::pair<::vroom::Job, ::vroom::Job> get_vroom_shipment(
-            const Vroom_shipment_t&,
-            const std::vector<Vroom_time_window_t>&,
-            const std::vector<Vroom_time_window_t>&) const;
-    std::vector<::vroom::Break> get_vroom_breaks(
-            const std::vector<Vroom_break_t>&,
-            const std::vector<Vroom_time_window_t>&) const;
-    ::vroom::Vehicle get_vroom_vehicle(
-            const Vroom_vehicle_t&,
-            const std::vector<Vroom_break_t>&,
-            const std::vector<Vroom_time_window_t>&) const;
     void get_amount(const ::vroom::Amount&, Amount**);
     StepType get_job_step_type(const ::vroom::JOB_TYPE&);
     StepType get_step_type(const ::vroom::Step&);
