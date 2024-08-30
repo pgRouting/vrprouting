@@ -172,7 +172,7 @@ BEGIN
   SELECT throws_ok(
     'jobs_neg_priority',
     'XX000',
-    'Unexpected Negative value in column priority',
+    $$Unexpected negative value in column 'priority'$$,
     'Problem with negative priority jobs'
   );
 
@@ -194,7 +194,7 @@ BEGIN
   SELECT throws_ok(
     'jobs_101_priority',
     'XX000',
-    'Priority exceeds the max priority 100',
+    $$Invalid value in column 'priority'. Maximum value allowed 100$$,
     'Problem with > 100 priority jobs'
   );
 
@@ -254,7 +254,7 @@ BEGIN
   SELECT throws_ok(
     'shipments_neg_priority',
     'XX000',
-    'Unexpected Negative value in column priority',
+    $$Unexpected negative value in column 'priority'$$,
     'Problem with negative priority shipments'
   );
 
@@ -277,7 +277,7 @@ BEGIN
   SELECT throws_ok(
     'shipments_101_priority',
     'XX000',
-    'Priority exceeds the max priority 100',
+    $$Invalid value in column 'priority'. Maximum value allowed 100$$,
     'Problem with > 100 priority shipments'
   );
 
@@ -417,7 +417,7 @@ BEGIN
   SELECT throws_ok(
     'jobs_invalid_tw_problem',
     'XX000',
-    'Invalid time window (3001, 3000)',
+    $$Invalid time window found: 'tw_close' < 'tw_open'$$,
     'Problem with jobs having invalid time windows'
   );
 
@@ -462,7 +462,7 @@ BEGIN
   SELECT throws_ok(
     'shipments_invalid_tw_problem',
     'XX000',
-    'Invalid time window (3001, 3000)',
+    $$Invalid time window found: 'tw_close' < 'tw_open'$$,
     'Problem with shipments having invalid time windows'
   );
 
@@ -507,7 +507,7 @@ BEGIN
   SELECT throws_ok(
     'breaks_invalid_tw_problem',
     'XX000',
-    'Invalid time window (3001, 3000)',
+    $$Invalid time window found: 'tw_close' < 'tw_open'$$,
     'Problem with breaks having invalid time windows'
   );
 
@@ -554,7 +554,7 @@ BEGIN
   SELECT throws_ok(
     'vehicles_invalid_tw_problem',
     'XX000',
-    'Invalid time window (3001, 3000)',
+    $$Invalid time window found: 'tw_close' < 'tw_open'$$,
     'Problem with vehicles having invalid time windows'
   );
 
@@ -652,7 +652,7 @@ BEGIN
   SELECT throws_ok(
     'vehicles_no_index_problem',
     'XX000',
-    'At least one out of start_id or end_id must be present',
+    $$Missing column(s): 'start_id' and/or 'end_id' must exist$$,
     'Problem with vehicles having neither start_id nor end_id'
   );
 
@@ -1169,7 +1169,7 @@ BEGIN
   SELECT throws_ok(
     'problem_negative_tasks',
     'XX000',
-    'Invalid max_tasks value -1',
+    $$Unexpected negative value in column 'max_tasks'$$,
     'Problem with max_tasks as -1'
   );
 
@@ -1319,7 +1319,7 @@ BEGIN
   SELECT throws_ok(
     'problem_negative_speed_factor',
     'XX000',
-    'Invalid speed_factor -1.000000',
+    $$Invalid negative or zero value in column 'speed_factor'$$,
     'Problem with speed_factor as -1'
   );
 
@@ -1341,9 +1341,9 @@ BEGIN
   SELECT throws_ok(
     'problem_negative_speed_factor',
     'XX000',
-    'Invalid speed_factor -1.000000',
+    $$Invalid negative or zero value in column 'speed_factor'$$,
     'Problem with speed_factor as 0'
-  );
+);
 
   UPDATE vehicles SET speed_factor = 5.01 WHERE id = 4;
   PREPARE problem_more_than_5times_speed_factor AS

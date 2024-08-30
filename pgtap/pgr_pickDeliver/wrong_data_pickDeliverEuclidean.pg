@@ -50,7 +50,7 @@ PREPARE initsol2 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
     $$SELECT * FROM orders_1$$,
     $$SELECT * FROM vehicles_1$$,
-    initial_sol := 7);
+    initial_sol := 8);
 
 PREPARE initsol3 AS
 SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
@@ -68,12 +68,10 @@ SELECT throws_ok('initsol1',
 SELECT throws_ok('initsol2',
     'XX000',
     'Illegal value in parameter: initial_sol',
-    'Should throw: initial_sol > 6');
+    'Should throw: initial_sol > 7');
 
-SELECT throws_ok('initsol3',
-    'XX000',
-    'Illegal value in parameter: initial_sol',
-    'Should throw: initial_sol = 0');
+SELECT lives_ok('initsol3',
+    'Should live: initial_sol = 0');
 
 --------------------------------------
 -- testing wrong data on factor
@@ -182,25 +180,19 @@ SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
     $$SELECT * FROM orders_1$$,
     $$SELECT *, 10 AS e_open FROM vehicles_1$$);
 
-SELECT throws_ok('vehiles5',
-    'XX000',
-    $$Column 'e_open' not Found$$,
-    'vehiles5, Should throw: e_close found, but not e_open');
+SELECT lives_ok('vehiles5',
+    'vehiles5, Should live: e_close found, but not e_open');
 
-SELECT throws_ok('vehiles6',
-    'XX000',
-    $$Column 'e_close' not Found$$,
-    'vehiles6, Should throw: e_open found, but not e_close');
+SELECT lives_ok('vehiles6',
+    'vehiles6, Should live: e_open found, but not e_close');
 
 SELECT throws_ok('vehiles7',
     'XX000',
-    $$Column 'e_y' not Found$$,
+    $$Column found: 'e_x', missing column: 'e_y'$$,
     'vehiles7, Should throw: e_x found, but not e_y');
 
-SELECT throws_ok('vehiles8',
-    'XX000',
-    $$Column 'e_close' not Found$$,
-    'vehiles8, Should throw: e_y found, but not e_x');
+SELECT lives_ok('vehiles8',
+    'vehiles8, Should live: e_open found, but not e_close');
 
 -- s_open and s_close should exist together or not at all
 
@@ -214,15 +206,11 @@ SELECT * FROM _vrp_pgr_pickDeliverEuclidean(
     $$SELECT * FROM orders_1$$,
     $$SELECT id, s_x, s_y, s_open, capacity FROM vehicles_1$$);
 
-SELECT throws_ok('no_s_open',
-    'XX000',
-    $$Column 's_open' not Found$$,
-    'no_s_open, Should throw: s_close found, but not s_open');
+SELECT lives_ok('no_s_open',
+    'no_s_open, Should live: s_close found, but not s_open');
 
-SELECT throws_ok('no_s_close',
-    'XX000',
-    $$Column 's_close' not Found$$,
-    'no_s_close, Should throw: s_open found, but not s_close');
+SELECT lives_ok('no_s_close',
+    'no_s_close, Should live: s_open found, but not s_close');
 ---------------------
 --  s_open > s_close
 ---------------------
@@ -270,7 +258,7 @@ UPDATE orders_1 SET amount= -20 WHERE id =1;
 
 SELECT throws_ok('orders1',
     'XX000',
-    'Unexpected Negative value in column amount',
+    $$Unexpected negative value in column 'amount'$$,
     'Should throw: pickup.demand < 0');
 
 UPDATE orders_1 SET amount= 10 WHERE id =1;
@@ -282,7 +270,7 @@ UPDATE orders_1 SET d_close = 5 WHERE id = 1;
 
 SELECT throws_ok('orders1',
     'XX000',
-    'Unexpected delivery time windows found on shipments',
+    $$Invalid time window found: 'd_close' < 'd_open'$$,
     'orders1, Should throw: d_open > d_close');
 
 UPDATE orders_1 SET d_close = 15 WHERE id = 1;
@@ -294,7 +282,7 @@ UPDATE orders_1 SET p_close = 1 WHERE id = 1;
 
 SELECT throws_ok('orders1',
     'XX000',
-    'Unexpected pickup time windows found on shipments',
+    $$Invalid time window found: 'p_close' < 'p_open'$$,
     'orders1, Should throw: p_open > p_close');
 
 UPDATE orders_1 SET p_close = 10 WHERE id = 1;

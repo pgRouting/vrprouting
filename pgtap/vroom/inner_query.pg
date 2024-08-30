@@ -16,7 +16,8 @@ SELECT * FROM vrp_vroomPlain(
 );
 */
 
-CREATE OR REPLACE FUNCTION test_value(fn TEXT, inner_query_table TEXT, start_sql TEXT, rest_sql TEXT, params TEXT[], parameter TEXT, accept TEXT[], reject TEXT[])
+CREATE OR REPLACE FUNCTION test_value(fn TEXT, inner_query_table TEXT, start_sql TEXT, rest_sql TEXT, params TEXT[],
+    parameter TEXT, accept TEXT[], reject TEXT[], expected TEXT DEFAULT 'ANY-INTEGER')
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
@@ -24,6 +25,9 @@ DECLARE
   query TEXT;
   p TEXT;
   type_name TEXT;
+  msg1 TEXT;
+  msg2 TEXT;
+  msg3 TEXT;
 BEGIN
   start_sql = 'SELECT * FROM ' || fn || '(' || start_sql || '$$ SELECT ';
   FOREACH p IN ARRAY params
@@ -37,13 +41,25 @@ BEGIN
   FOREACH type_name IN ARRAY accept
   LOOP
     query := start_sql || parameter || '::' || type_name || end_sql;
-    RETURN query SELECT lives_ok(query);
+    RETURN query SELECT lives_ok(query, 'Lives: ' || type_name || ',' || parameter);
   END LOOP;
 
+  IF (accept[1] = ('TIMESTAMP')) THEN msg1 = lower(accept[1]) || ' without time zone'; END IF;
   FOREACH type_name IN ARRAY reject
   LOOP
     query := start_sql || parameter || '::' || type_name || end_sql;
-    RETURN query SELECT throws_ok(query);
+    msg2 = lower(type_name);
+    IF (type_name = ('TIMESTAMP')) THEN msg2 = lower(type_name) || ' without time zone'; END IF;
+    msg3 = 'Throws: ' ||  accept[1] || ' to ' || type_name || ', ' || parameter;
+    IF (accept[1] IN ('INTERVAL') AND type_name NOT IN ('TIME')) THEN
+      RETURN query SELECT throws_ok(query, '42846', $$cannot cast type $$ || msg1 || $$ to $$ || msg2, msg3);
+
+    ELSIF (accept[1] IN ('TIMESTAMP') AND type_name IN ('INTERVAL', 'INTEGER')) THEN
+      RETURN query SELECT throws_ok(query, '42846', $$cannot cast type $$ || msg1 || $$ to $$ || msg2, msg3);
+
+    ELSE
+      RETURN query SELECT throws_ok(query, 'XX000', $$Unexpected type in column '$$ || parameter || $$'. Expected $$ || expected, msg3);
+    END IF;
   END LOOP;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -68,7 +84,7 @@ DECLARE
   accept TEXT[] := ARRAY['SMALLINT', 'INTEGER'];
   reject TEXT[] := ARRAY['BIGINT', 'REAL', 'FLOAT8', 'NUMERIC'];
 BEGIN
-  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject);
+  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject, 'SMALLINT or INTEGER');
 END;
 $BODY$ LANGUAGE plpgsql;
 
@@ -80,19 +96,19 @@ DECLARE
   accept TEXT[] := ARRAY['SMALLINT[]', 'INTEGER[]', 'BIGINT[]'];
   reject TEXT[] := ARRAY['REAL[]', 'FLOAT8[]', 'NUMERIC[]'];
 BEGIN
-  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject);
+  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject, 'ANY-INTEGER-ARRAY');
 END;
 $BODY$ LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION test_arrayInteger(fn TEXT, inner_query_table TEXT, start_sql TEXT, rest_sql TEXT, params TEXT[], parameter TEXT)
+CREATE OR REPLACE FUNCTION test_integerArray(fn TEXT, inner_query_table TEXT, start_sql TEXT, rest_sql TEXT, params TEXT[], parameter TEXT)
 RETURNS SETOF TEXT AS
 $BODY$
 DECLARE
   accept TEXT[] := ARRAY['SMALLINT[]', 'INTEGER[]'];
   reject TEXT[] := ARRAY['BIGINT[]', 'REAL[]', 'FLOAT8[]', 'NUMERIC[]'];
 BEGIN
-  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject);
+  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject, 'INTEGER-ARRAY');
 END;
 $BODY$ LANGUAGE plpgsql;
 
@@ -116,7 +132,7 @@ DECLARE
   accept TEXT[] := ARRAY['CHAR'];
   reject TEXT[] := ARRAY['VARCHAR', 'TEXT'];
 BEGIN
-  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject);
+  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject, 'TEXT');
 END;
 $BODY$ LANGUAGE plpgsql;
 
@@ -128,7 +144,7 @@ DECLARE
   accept TEXT[] := ARRAY['INTERVAL'];
   reject TEXT[] := ARRAY['TIMESTAMP', 'DATE', 'TIME', 'INTEGER'];
 BEGIN
-  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject);
+  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject, 'INTERVAL');
 END;
 $BODY$ LANGUAGE plpgsql;
 
@@ -140,7 +156,7 @@ DECLARE
   accept TEXT[] := ARRAY['TIMESTAMP'];
   reject TEXT[] := ARRAY['INTERVAL', 'DATE', 'TIME', 'INTEGER'];
 BEGIN
-  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject);
+  RETURN query SELECT test_value(fn, inner_query_table, start_sql, rest_sql, params, parameter, accept, reject, 'TIMESTAMP');
 END;
 $BODY$ LANGUAGE plpgsql;
 
@@ -157,10 +173,10 @@ BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'location_id');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'delivery');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'pickup');
-  RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
+  RETURN QUERY SELECT test_integerArray(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
   RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'priority');
   IF is_plain = TRUE THEN
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'service');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'service');
   ELSE
     RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'service');
   END IF;
@@ -180,11 +196,11 @@ BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'p_location_id');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'd_location_id');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'amount');
-  RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
+  RETURN QUERY SELECT test_integerArray(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
   RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'priority');
   IF is_plain = TRUE THEN
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'p_service');
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'd_service');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'p_service');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'd_service');
   ELSE
     RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'p_service');
     RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'd_service');
@@ -205,11 +221,11 @@ BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_id');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_id');
   RETURN QUERY SELECT test_anyArrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'capacity');
-  RETURN QUERY SELECT test_arrayInteger(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
+  RETURN QUERY SELECT test_integerArray(fn, inner_query_table, start_sql, rest_sql, params, 'skills');
   RETURN QUERY SELECT test_anyNumerical(fn, inner_query_table, start_sql, rest_sql, params, 'speed_factor');
   IF is_plain = TRUE THEN
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
   ELSE
     RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
     RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
@@ -230,7 +246,7 @@ BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'start_id');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'end_id');
   IF is_plain = TRUE THEN
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'duration');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'duration');
   ELSE
     RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'duration');
   END IF;
@@ -250,7 +266,7 @@ BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'vehicle_id');
   IF is_plain = TRUE THEN
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'service');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'service');
   ELSE
     RETURN QUERY SELECT test_Interval(fn, inner_query_table, start_sql, rest_sql, params, 'service');
   END IF;
@@ -267,8 +283,8 @@ DECLARE
 BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
   IF is_plain = TRUE THEN
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
   ELSE
     RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
     RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
@@ -287,8 +303,8 @@ BEGIN
   RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'id');
   RETURN QUERY SELECT test_Char(fn, inner_query_table, start_sql, rest_sql, params, 'kind');
   IF is_plain = TRUE THEN
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
-    RETURN QUERY SELECT test_Integer(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
+    RETURN QUERY SELECT test_anyInteger(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
   ELSE
     RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_open');
     RETURN QUERY SELECT test_Timestamp(fn, inner_query_table, start_sql, rest_sql, params, 'tw_close');
@@ -448,7 +464,6 @@ BEGIN
                '$$SELECT * FROM vehicles$$, $$SELECT * FROM breaks$$, $$SELECT * FROM breaks_time_windows$$, ';
   rest_sql := additional;
   RETURN QUERY SELECT inner_query_matrix(fn, start_sql, rest_sql, is_plain);
-
 END;
 $BODY$
 LANGUAGE plpgsql;
@@ -476,7 +491,6 @@ ALTER TABLE vroom.matrix ALTER COLUMN duration TYPE INTERVAL USING make_interval
 SELECT inner_query(is_plain => FALSE, additional => ', exploration_level => 5)');
 SELECT inner_query(is_plain => FALSE, additional => ', timeout => $$-00:00:01$$::INTERVAL)');
 SELECT inner_query(is_plain => FALSE, additional => ', exploration_level => 5, timeout => $$-00:00:01$$::INTERVAL)');
-
 
 SELECT * FROM finish();
 ROLLBACK;
