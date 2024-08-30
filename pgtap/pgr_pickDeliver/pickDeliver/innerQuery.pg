@@ -54,13 +54,13 @@ BEGIN
     RETURN query SELECT lives_ok(query,'BIGINT on ' ||parameter||' is OK');
 
     query := start_sql || parameter || '::REAL ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception REAL with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'. Expected ANY-INTEGER$$,'Expected Exception REAL with '||parameter);
 
     query := start_sql || parameter || '::FLOAT8 ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception FLOAT with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'. Expected ANY-INTEGER$$,'Expected Exception FLOAT with '||parameter);
 
     query := start_sql || parameter || '::NUMERIC ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception NUMERIC with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'. Expected ANY-INTEGER$$,'Expected Exception NUMERIC with '||parameter);
 
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -135,13 +135,13 @@ BEGIN
     RETURN query SELECT lives_ok(query,'BIGINT on ' ||parameter||' is OK');
 
     query := start_sql || parameter || '::REAL ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected Column '$$||parameter||$$' type. Expected ANY-INTEGER$$,'Expected Exception REAL with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'. Expected ANY-INTEGER$$,'Expected Exception REAL with '||parameter);
 
     query := start_sql || parameter || '::FLOAT8 ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected Column '$$||parameter||$$' type. Expected ANY-INTEGER$$,'Expected Exception FLOAT8 with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'. Expected ANY-INTEGER$$,'Expected Exception FLOAT8 with '||parameter);
 
     query := start_sql || parameter || '::NUMERIC ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected Column '$$||parameter||$$' type. Expected ANY-INTEGER$$,'Expected Exception NUMERIC with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'. Expected ANY-INTEGER$$,'Expected Exception NUMERIC with '||parameter);
 
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -217,13 +217,13 @@ BEGIN
     RETURN query SELECT lives_ok(query,'matrix BIGINT on ' ||parameter||' is OK');
 
     query := start_sql || parameter || '::REAL ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception REAL with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'. Expected ANY-INTEGER$$,'Expected Exception REAL with '||parameter);
 
     query := start_sql || parameter || '::FLOAT8 ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception FLOAT8 with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'. Expected ANY-INTEGER$$,'Expected Exception FLOAT8 with '||parameter);
 
     query := start_sql || parameter || '::NUMERIC ' || end_sql;
-    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'.$$,'Expected Exception NUMERIC with '||parameter);
+    RETURN query SELECT throws_ok(query,'XX000',$$Unexpected type in column '$$||parameter||$$'. Expected ANY-INTEGER$$,'Expected Exception NUMERIC with '||parameter);
 
 END;
 $BODY$ LANGUAGE plpgsql;
