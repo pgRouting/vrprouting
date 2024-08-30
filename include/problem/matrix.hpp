@@ -36,9 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/base_matrix.hpp"
 #include "cpp_common/identifiers.hpp"
 
-using Time_multipliers_t = struct Time_multipliers_t;
-
 namespace vrprouting {
+
+class Time_multipliers_t;
+
 namespace problem {
 
 class Matrix : public base::Base_Matrix {
