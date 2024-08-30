@@ -69,6 +69,14 @@ FROM vrp_viewRouteRaw(
     $$SELECT start_vid, end_vid, agg_cost FROM timeMatrix$$,
     $$SELECT * FROM tdm_raw('2019-12-09'::TIMESTAMP, '2019-12-13'::TIMESTAMP)$$,
     699::BIGINT, factor => 1.0::float);
+NOTICE:  Insufficient data found on 'orders' inner query
+HINT:
+          WITH
+            __shipments AS (SELECT * FROM shipments),
+            __vehicles AS (SELECT * FROM vehicles)
+          SELECT * FROM __shipments
+          WHERE id IN (SELECT distinct(unnest(stops)) FROM  __vehicles v WHERE id = 699)
+
  seq | vehicle_seq | vehicle_id | stop_seq | stop_type | stop_id | order_id | cargo | travel_fd | arrival_ft | wait_fd | schedule_ft | service_fd | departure_ft | cvtot | twvtot | location
 -----+-------------+------------+----------+-----------+---------+----------+-------+-----------+------------+---------+-------------+------------+--------------+-------+--------+----------
 (0 rows)
