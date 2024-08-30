@@ -34,9 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/typedefs.h"
 #include "cpp_common/identifiers.hpp"
 
-using Matrix_cell_t = struct Matrix_cell_t;
-
 namespace vrprouting {
+
+class Matrix_cell_t;
+
 namespace base {
 
 

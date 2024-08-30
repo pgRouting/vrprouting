@@ -36,10 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "cpp_common/identifiers.hpp"
 #include "problem/vehicle_node.hpp"
 
-
-using Orders_t = struct Orders_t;
-
 namespace vrprouting {
+
+class Orders_t;
+
 namespace problem {
 
 class Vehicle_node;

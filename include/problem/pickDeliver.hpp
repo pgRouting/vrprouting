@@ -37,11 +37,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "problem/fleet.hpp"
 
 using CompatibleVehicles_rt = struct CompatibleVehicles_rt;
-using Orders_t = struct Orders_t;
-using Vehicle_t = struct Vehicle_t;
 
 namespace vrprouting {
 
+class Orders_t;
+class Vehicle_t;
 class Short_vehicle;
 
 namespace problem {

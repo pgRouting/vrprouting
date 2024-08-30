@@ -268,7 +268,7 @@ Fleet::add_vehicle(
              * stops can only be assigned when there is only one vehicle
              */
             vehicle.cant_v == 1 ?
-              std::vector<int64_t>(vehicle.stops, vehicle.stops + vehicle.stops_size) :
+              std::vector<int64_t>(vehicle.stops.begin(), vehicle.stops.end()) :
               std::vector<int64_t>(),
 
             vehicle.capacity,
@@ -403,8 +403,7 @@ void Fleet::build_fleet(
             (std::numeric_limits<PAmount>::max)(),
             vehicles[0].speed,
             1,
-            nullptr,
-            0,
+            std::vector<Id>(),
 
             /*
              * Start values
