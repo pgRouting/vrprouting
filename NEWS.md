@@ -16,7 +16,7 @@ on Github.
 * Moved sphinx doc from .c files .rst files
 * Removing prefix `pgr_` & addding `namespace vrprouting`
 * Separating implementation from header vroom.hpp
-
+* Queries are read on the cpp code.
 
 **Documentation queries**
 
