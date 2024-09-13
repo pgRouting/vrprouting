@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vrpRouting v0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-10 18:38+0000\n"
+"POT-Creation-Date: 2024-09-13 16:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,6 +91,10 @@ msgstr ""
 
 #: ../../build/doc/release_notes.rst:53
 msgid "Separating implementation from header vroom.hpp"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:54
+msgid "Queries are read on the cpp code."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:57
