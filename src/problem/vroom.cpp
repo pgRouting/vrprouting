@@ -60,7 +60,7 @@ namespace problem {
 void
 Vroom::add_jobs(
         const std::vector<Vroom_job_t> &jobs,
-        const std::map<std::pair<Idx, char>, std::vector<::vroom::TimeWindow>> &job_tws) {
+        const MapTW& job_tws) {
     std::vector<::vroom::TimeWindow> default_tw(1, ::vroom::TimeWindow());
     auto default_amount = ::vroom::Amount(m_vehicles.size() ? m_vehicles[0].capacity.size() : 0);
 
@@ -89,7 +89,7 @@ Vroom::add_jobs(
 void
 Vroom::add_shipments(
         const std::vector<Vroom_shipment_t> &shipments,
-        const std::map<std::pair<Idx, char>, std::vector<::vroom::TimeWindow>> &shipments_tws) {
+        const MapTW& shipments_tws) {
     std::vector<::vroom::TimeWindow> default_tw(1, ::vroom::TimeWindow());
     for (auto shipment : shipments) {
         auto pick_tw = shipments_tws.find(std::make_pair(shipment.id, 'p')) == shipments_tws.end() ?
@@ -123,7 +123,7 @@ void
 Vroom::add_vehicles(
         const std::vector<Vroom_vehicle_t> &vehicles,
         const std::vector<Vroom_break_t> &breaks,
-        const std::map<std::pair<Idx, char>, std::vector<::vroom::TimeWindow>> &breaks_tws) {
+        const MapTW& breaks_tws) {
     std::vector<::vroom::TimeWindow> default_tw(1, ::vroom::TimeWindow());
 
     std::map<Idx, std::vector<Vroom_break_t>> v_breaks_map;
