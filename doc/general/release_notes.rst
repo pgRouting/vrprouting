@@ -9,11 +9,6 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
-* Supported Versions
-  `Latest <https://vrp.pgrouting.org/latest/en/release_notes.html>`__
-  (`v0 <https://vrp.pgrouting.org/v0/en/release_notes.html>`__)
-
 Release Notes
 ===============================================================================
 
@@ -32,14 +27,14 @@ vrpRouting 0
    :depth: 1
 
 vrpRouting 0.4
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------
 
 .. contents:: Contents
    :local:
    :depth: 1
 
 vrpRouting 0.4.2 Release Notes
--------------------------------------------------------------------------------
+...............................................................................
 
 To see all issues & pull requests closed by this release see the
 `Git closed milestone for 0.4.2 <https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.4.2%22>`_
@@ -59,7 +54,7 @@ on Github.
 * Removed `doc-` and `doc-vrp_` suffixes on file names
 
 vrpRouting 0.4.1 Release Notes
--------------------------------------------------------------------------------
+...............................................................................
 
 To see all issues & pull requests closed by this release see the
 `Git closed milestone for 0.4.1 <https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.4.1%22>`_
@@ -74,15 +69,7 @@ on Github.
   * vrp_knapsack
   * vrp_multiple_knapsack
 
-    .. include:: vrp_bin_packing.rst
-       :start-after: Version 0.4.1
-       :end-before: Version
-
 * vrp_oneDepot
-
-  .. include:: vrp_oneDepot.rst
-     :start-after: Version 0.4.1
-     :end-before: Version
 
 .. rubric:: Removal of Boost on the build
 
@@ -94,7 +81,7 @@ on Github.
      :end-before: Version
 
 vrpRouting 0.4.0 Release Notes
--------------------------------------------------------------------------------
+...............................................................................
 
 To see all issues & pull requests closed by this release see the
 `Git closed milestone for 0.4.0 <https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.4.0%22>`_
@@ -110,7 +97,14 @@ on Github.
   - Removed support for VROOM 1.11.0
 
 vrpRouting 0.3
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------
+
+.. contents:: Contents
+   :local:
+   :depth: 1
+
+vrpRouting 0.3.0 Release Notes
+...............................................................................
 
 To see all issues & pull requests closed by this release see the
 `Git closed milestone for 0.3.0 <https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.3.0%22>`_
@@ -152,7 +146,14 @@ on Github.
   - Added departure field and location_id field in the result columns.
 
 vrpRouting 0.2
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------
+
+.. contents:: Contents
+   :local:
+   :depth: 1
+
+vrpRouting 0.2.0 Release Notes
+...............................................................................
 
 .. rubric:: New experimental functions
 
@@ -175,7 +176,14 @@ vrpRouting 0.2
   - vrp_viewRoute
 
 vrpRouting 0.1
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------
+
+.. contents:: Contents
+   :local:
+   :depth: 1
+
+vrpRouting 0.1.0 Release Notes
+...............................................................................
 
 .. rubric:: Extraction tasks
 

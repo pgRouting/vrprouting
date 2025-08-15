@@ -9,17 +9,11 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
-* Supported Versions
-  `Latest <https://vrp.pgrouting.org/latest/en/vrp_oneDepot.html>`__
-  (`v0 <https://vrp.pgrouting.org/v0/en/vrp_oneDepot.html>`__)
+.. index::
+   single: oneDepot
 
 vrp_oneDepot - Experimental
 ===============================================================================
-
-.. include:: experimental.rst
-   :start-after: begin-warn-expr
-   :end-before: end-warn-expr
 
 .. rubric:: Availability
 

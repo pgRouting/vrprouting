@@ -9,20 +9,14 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
-* Supported Versions
-  `Latest <https://vrp.pgrouting.org/latest/en/vrp_pgr_pickDeliver.html>`__
-  (`v0 <https://vrp.pgrouting.org/v0/en/vrp_pgr_pickDeliver.html>`__)
-
+.. index::
+   single: migrated ; vrp_pgr_pickDeliver
+   single: pgr_pickDeliver
 
 vrp_pgr_pickDeliver - Experimental
 ===============================================================================
 
 ``vrp_pgr_pickDeliver`` - Pickup and delivery Vehicle Routing Problem
-
-.. include:: experimental.rst
-   :start-after: begin-warn-expr
-   :end-before: end-warn-expr
 
 .. rubric:: Availability
 
@@ -199,7 +193,6 @@ This example use the following data:
 See Also
 -------------------------------------------------------------------------------
 
-* :doc:`pgr-category`
 * The queries use the :doc:`sampledata` network.
 
 .. rubric:: Indices and tables
