@@ -20,12 +20,7 @@ on:
       - 'locale/**'
       - 'CMakeLists.txt'
 
-    branches-ignore:
-      - 'gh-pages'
-
     tags: []
-
-
 
   pull_request:
     paths:
@@ -33,9 +28,6 @@ on:
       - 'doc/**'
       - 'locale/**'
       - 'CMakeLists.txt'
-
-    branches-ignore:
-      - 'gh-pages'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -48,7 +40,6 @@ env:
     postgis: 3
     release: Release
     os: ubuntu-latest
-    vroom: 1.12.0
 
 jobs:
   check-documentation:
@@ -74,7 +65,7 @@ jobs:
           if [[ "${{ matrix.language }}" == "zh_Hans" && "${{ github.repository_owner }}" != "pgRouting" ]]; then echo "PROCESS=false" >> $GITHUB_ENV; exit 0; fi
 
           # when this file changes  all languages are tested
-          if git diff --name-only HEAD^ HEAD | grep -q '.github/workflows/doc-check.yml' ; then  echo "PROCESS=true" >> $GITHUB_ENV; exit 0; fi
+          if git diff --name-only HEAD^ HEAD | grep -q '.github/workflows/documentation.yml' ; then  echo "PROCESS=true" >> $GITHUB_ENV; exit 0; fi
 
           # when there is a change on the way the build is done all languages are tested
           if git diff --name-only HEAD^ HEAD | grep -q '^CMakeLists.txt' ; then  echo "PROCESS=true" >> $GITHUB_ENV; exit 0; fi
@@ -88,23 +79,9 @@ jobs:
         if: env.PROCESS == 'true'
         run: |
           sudo service postgresql start
-          pgver=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d+ \()')
-          echo "PGVER=${pgver}" >> $GITHUB_ENV
+          PGVER=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d+ \()')
+          echo "PGVER=${PGVER}" >> $GITHUB_ENV
           echo "PGPORT=5432" >> $GITHUB_ENV
-
-      - name: Add PostgreSQL APT repository
-        if: env.PROCESS == 'true'
-        run: |
-          sudo apt-get install curl ca-certificates gnupg
-          curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-          sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ \
-            $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-
-      - name: Install python
-        if: env.PROCESS == 'true'
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
 
       - name: Install dependencies
         if: env.PROCESS == 'true'
@@ -114,49 +91,23 @@ jobs:
           sudo apt-get install -y \
             postgresql-${PGVER} \
             postgresql-server-dev-${PGVER}
-          # vroom dependencies
-          sudo apt-get install libssl-dev libasio-dev libglpk-dev
+
           # documentation dependencies
-          sudo apt-get install -y graphviz doxygen
-          pip install -r requirements.txt
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip list
-
-      - name: Cache VROOM
-        id: cache-vroom
-        if: env.PROCESS == 'true'
-        uses: actions/cache@v4
-        env:
-          cache-name: vroom
-        with:
-          path: vroom-${{ env.vroom }}
-          key: ${{ env.os }}-${{ env.cache-name }}-${{ env.vroom }}
-
-      - name: Checkout VROOM
-        if: env.PROCESS == 'true' && steps.cache-vroom.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
-        with:
-          path: vroom-${{ env.vroom }}
-          repository: VROOM-Project/vroom
-          ref: "v${{ env.vroom }}"
-          submodules: true
-
-      - name: Build VROOM
-        if: env.PROCESS == 'true' &&  steps.cache-vroom.outputs.cache-hit != 'true'
-        run: |
-          cd vroom-${{ env.vroom }}/src
-          USE_ROUTING=false make shared
+          sudo apt-get install -y \
+            doxygen \
+            graphviz \
+            python3-sphinx \
+            python3-sphinx-bootstrap-theme \
+            sphinx-intl
 
       - name: Configure
         if: env.PROCESS == 'true'
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=${{ env.release }} -DWITH_DOC=ON -DLINKCHECK=ON -DBUILD_DOXY=ON \
-              -DVROOM_INSTALL_PATH=${GIT_WORKSPACE}/vroom-${{ env.vroom }} ..
+          cmake -DCMAKE_BUILD_TYPE=${{ env.release }} -DSPHINX_LINKCHECK=ON -DBUILD_DOXY=ON ..
 
-      - name: Check Documentation
+      - name: Build Documentation
         if: env.PROCESS == 'true'
         run: |
           cd build

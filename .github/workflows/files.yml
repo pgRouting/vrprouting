@@ -5,7 +5,7 @@ name: Check files
 # Verifies:
 # - the signatures are up-to-date
 # - the release_notes and NEWS are consitent
-# - the C/C++ files have a license
+# - the files have a license
 # - the shell scripts are ok
 # - the code style is ok
 # Does not makes a compilation
@@ -15,6 +15,15 @@ on: [push, pull_request]
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash
+    working-directory: tools/scripts
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   Signature_check:
     runs-on: ubuntu-latest
@@ -22,8 +31,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Signatures are not removed
-        run: |
-          tools/scripts/test_signatures.sh
+        run: ./test_signatures.sh
 
   News_check:
     runs-on: ubuntu-latest
@@ -31,6 +39,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: News file up to date
+        working-directory: ./
         run: |
           tools/scripts/notes2news.pl
           if git status | grep 'NEWS.md'; then echo "NEWS.md is not up to date"; exit 1; fi
@@ -42,10 +51,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install Requirements
-        run: |
-          sudo apt install -y licensecheck
+        run:  sudo apt install -y licensecheck
       - name: Run License Check
-        run: ./tools/scripts/test_license.sh
+        run: ./test_license.sh
 
   Shell_check:
     runs-on: ubuntu-latest
@@ -53,10 +61,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install Requirements
-        run: |
-          sudo apt install -y shellcheck
+        run:  sudo apt-get install -y shellcheck
       - name: Run Shell Check
-        run: ./tools/scripts/test_shell.sh
+        run: ./test_shell.sh
 
   style-check:
     runs-on: ubuntu-latest
@@ -70,5 +77,5 @@ jobs:
           ref: "develop"
           path: "code_linter/cpplint"
       - name: Run linter
-        run: |
-          bash ./tools/scripts/code_checker.sh
+        working-directory: ./
+        run: ./tools/scripts/code_checker.sh
