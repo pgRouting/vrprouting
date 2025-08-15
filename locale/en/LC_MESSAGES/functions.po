@@ -1,68 +1,113 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.4.2
+# Copyright (C) vrpRouting Contributors - Version 0.5
 # This file is distributed under the same license as the vrpRouting package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.0.0\n"
+"Project-Id-Version: vrpRouting 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 10:43+0000\n"
+"POT-Creation-Date: 2025-08-15 13:42-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.17.0\n"
 
-#: ../../build/doc/official.rst:12
-msgid ""
-"`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 "
-"<https://vrp.pgrouting.org/v0>`__"
+#: ../../build/doc/functions.rst:14
+msgid "Functions"
 msgstr ""
 
-#: ../../build/doc/official.rst:13
-msgid ""
-"Supported Versions `Latest "
-"<https://vrp.pgrouting.org/latest/en/official.html>`__ (`0 "
-"<https://vrp.pgrouting.org/v0/en/official.html>`__)"
+#: ../../build/doc/functions.rst:19
+msgid "Utilities"
 msgstr ""
 
-#: ../../build/doc/official.rst:18
-msgid "Oficial functions"
+#: ../../build/doc/functions.rst:21
+msgid ":doc:`vrp_version`"
 msgstr ""
 
-#: ../../build/doc/official.rst:21
-msgid "Function Families"
+#: ../../build/doc/functions.rst:22
+msgid ":doc:`vrp_full_version`"
 msgstr ""
 
-#: ../../build/doc/official.rst:26 ../../build/doc/official.rst:40
-msgid "Version"
+#: ../../build/doc/functions.rst:25
+msgid "VRP functions"
 msgstr ""
 
-#: ../../build/doc/official.rst:37
-msgid "Functions by categories"
+#: ../../build/doc/functions.rst:27
+msgid "vrp_compatiblevehicles"
 msgstr ""
 
-#: ../../build/doc/official.rst:42
-msgid ":doc:`vrp_version` - Get vrpRouting's version information."
+#: ../../build/doc/functions.rst:28
+msgid "vrp_compatiblevehiclesraw"
 msgstr ""
 
-#: ../../build/doc/official.rst:43
-msgid ":doc:`vrp_full_version` - Get vrpRouting's details of version."
+#: ../../build/doc/functions.rst:29
+msgid ":doc:`vrp_oneDepot`"
 msgstr ""
 
-#: ../../build/doc/official.rst:47
+#: ../../build/doc/functions.rst:30
+msgid "vrp_optimize"
+msgstr ""
+
+#: ../../build/doc/functions.rst:31
+msgid "vrp_optimizeraw"
+msgstr ""
+
+#: ../../build/doc/functions.rst:32
+msgid "vrp_optimizeupdateraw"
+msgstr ""
+
+#: ../../build/doc/functions.rst:33
+msgid ":doc:`vrp_pgr_pickDeliver`"
+msgstr ""
+
+#: ../../build/doc/functions.rst:34
+msgid ":doc:`vrp_pgr_pickDeliverEuclidean`"
+msgstr ""
+
+#: ../../build/doc/functions.rst:35
+msgid "vrp_pickdeliver"
+msgstr ""
+
+#: ../../build/doc/functions.rst:36
+msgid "vrp_pickdeliveradd"
+msgstr ""
+
+#: ../../build/doc/functions.rst:37
+msgid "vrp_pickdeliveraddraw"
+msgstr ""
+
+#: ../../build/doc/functions.rst:38
+msgid "vrp_pickdeliverraw"
+msgstr ""
+
+#: ../../build/doc/functions.rst:39
+msgid "vrp_simulation"
+msgstr ""
+
+#: ../../build/doc/functions.rst:40
+msgid "vrp_viewroute"
+msgstr ""
+
+#: ../../build/doc/functions.rst:41
+msgid "vrp_viewrouteraw"
+msgstr ""
+
+#: ../../build/doc/functions.rst:59
 msgid "Indices and tables"
 msgstr ""
 
-#: ../../build/doc/official.rst:48
+#: ../../build/doc/functions.rst:60
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../build/doc/official.rst:49
+#: ../../build/doc/functions.rst:61
 msgid ":ref:`search`"
 msgstr ""
 
