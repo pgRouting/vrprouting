@@ -9,19 +9,14 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
-* Supported Versions
-  `Latest <https://vrp.pgrouting.org/latest/en/vrp_pgr_pickDeliverEuclidean.html>`__
-  (`v0 <https://vrp.pgrouting.org/v0/en/vrp_pgr_pickDeliverEuclidean.html>`__)
+.. index::
+   single: migrated ; vrp_pgr_pickDeliverEuclidean
+   single: pgr_pickDeliverEuclidean
 
 vrp_pgr_pickDeliverEuclidean - Experimental
 ===============================================================================
 
 ``vrp_pgr_pickDeliverEuclidean`` - Pickup and delivery Vehicle Routing Problem
-
-.. include:: experimental.rst
-   :start-after: begin-warn-expr
-   :end-before: end-warn-expr
 
 .. rubric:: Availability
 
@@ -194,11 +189,9 @@ This example use the following data:
 
 .. rubric:: See Also
 
-* :doc:`pgr-category`
 * The queries use the :doc:`sampledata` network.
 
 .. rubric:: Indices and tables
 
 * :ref:`genindex`
 * :ref:`search`
-

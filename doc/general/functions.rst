@@ -9,39 +9,51 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
-* Supported Versions
-  `Latest <https://vrp.pgrouting.org/latest/en/official.html>`__
-  (`0 <https://vrp.pgrouting.org/v0/en/official.html>`__)
 
-Oficial functions
-*******************************************************************************
-
-Function Families
+Functions
 ===============================================================================
 
+.. functions_start
 
-
-Version
+Utilities
 -------------------------------------------------------------------------------
 
+- :doc:`vrp_version`
+- :doc:`vrp_full_version`
+
+VRP functions
+===============================================================================
+
+- vrp_compatiblevehicles
+- vrp_compatiblevehiclesraw
+- :doc:`vrp_oneDepot`
+- vrp_optimize
+- vrp_optimizeraw
+- vrp_optimizeupdateraw
+- :doc:`vrp_pgr_pickDeliver`
+- :doc:`vrp_pgr_pickDeliverEuclidean`
+- vrp_pickdeliver
+- vrp_pickdeliveradd
+- vrp_pickdeliveraddraw
+- vrp_pickdeliverraw
+- vrp_simulation
+- vrp_viewroute
+- vrp_viewrouteraw
+
+.. functions_end
+
 .. toctree::
-   :maxdepth: 1
+   :hidden:
 
    vrp_version
    vrp_full_version
 
+.. toctree::
+   :hidden:
 
-
-Functions by categories
-===============================================================================
-
-Version
--------------------------------------------------------------------------------
-
-* :doc:`vrp_version` - Get vrpRouting's version information.
-* :doc:`vrp_full_version` - Get vrpRouting's details of version.
-
+   vrp_oneDepot
+   vrp_pgr_pickDeliver
+   vrp_pgr_pickDeliverEuclidean
 
 .. rubric:: Indices and tables
 

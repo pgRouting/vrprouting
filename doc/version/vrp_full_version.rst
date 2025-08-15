@@ -9,10 +9,9 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
-* Supported Versions:
-  `Latest <https://vrp.pgrouting.org/latest/en/vrp_full_version.html>`__
-  (`v0 <https://vrp.pgrouting.org/v0/en/vrp_full_version.html>`__)
+.. index::
+   single: utilities ; vrp_full_version
+   single: full_version
 
 vrp_full_version
 ===============================================================================

@@ -9,10 +9,6 @@
 
 |
 
-* Supported Versions
-  `Latest <https://vrp.pgrouting.org/latest/en/index.html>`__
-  (`v0 <https://vrp.pgrouting.org/v0/en/index.html>`__)
-
 .. _index:
 
 *******************************************************************************
@@ -52,59 +48,30 @@ General
 
    sampledata
 
-Pgrouting Concepts
+:doc:`functions`
 ===============================================================================
 
-.. toctree::
-   :maxdepth: 2
-
-   concepts
-
-
-.. rubric:: Reference
-
-* :doc:`vrp_version` - Get vrpRouting's version information.
-* :doc:`vrp_full_version` - Get vrpRouting's details of version.
+.. include:: functions.rst
+   :start-after: functions_start
+   :end-before: functions_end
 
 .. toctree::
    :hidden:
 
-   vrp_version
-   vrp_full_version
+   functions
 
-
-Official functions
+:doc:`release_notes`
 ===============================================================================
 
-.. toctree::
-   :maxdepth: 3
-
-   official
-
-
-
-
-Available functions but not official vrpRouting functions
-===============================================================================
+.. include:: release_notes.rst
+   :start-after: current
 
 .. toctree::
-   :maxdepth: 3
+   :hidden:
 
-   proposed
-   experimental
-
-
-
-Release Notes
-===============================================================================
-
-.. toctree::
-
-    release_notes
-
+   release_notes
 
 .. rubric:: Indices and tables
 
 * :ref:`genindex`
 * :ref:`search`
-
