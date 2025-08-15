@@ -15,13 +15,6 @@ pushd "${DIR}" > /dev/null || exit 1
 VERSION=$(grep -Po '(?<=project\(VRPROUTING VERSION )[^;]+' CMakeLists.txt)
 echo "vrpRouting VERSION ${VERSION}"
 
-# VROOM
-#VROOMVER="1.14"
-#VROOMVER="1.13"
-VROOMVER="1.12"
-#VROOMVER="1.11"
-VENV="/home/vicky/pgrouting/vrprouting/env-vrp"
-
 # set up your postgres version, port and compiler (if more than one)
 PGVERSION="15"
 PGPORT="5432"
@@ -39,17 +32,6 @@ QUERIES_DIRS="
 
 TAP_DIRS="
 "
-
-function install_vroom {
-    cd "${DIR}"
-    rm -rf ./vroom-v${VROOMVER}.0
-    git clone --depth 1 --branch "v${VROOMVER}.0" https://github.com/VROOM-Project/vroom "./vroom-v${VROOMVER}.0"
-    pushd "./vroom-v${VROOMVER}.0"
-    git submodule update --init
-    cd src/
-    USE_ROUTING=false make shared
-    popd
-}
 
 function install_data {
     cd "${DIR}"
@@ -74,16 +56,16 @@ function set_cmake {
     # with developers documentation
     #cmake  -DWITH_DOC=ON -DBUILD_DOXY=ON ..
 
-    #CXX=clang++ CC=clang cmake -DPOSTGRESQL_BIN=${PGBIN} -DCMAKE_BUILD_TYPE=Debug -DVROOM_INSTALL_PATH="${DIR}/vroom-${VROOMVER}" ..
+    #CXX=clang++ CC=clang cmake -DPOSTGRESQL_BIN=${PGBIN} -DCMAKE_BUILD_TYPE=Debug..
     #CXX=clang++ CC=clang cmake "-DPOSTGRESQL_BIN=${PGBIN}" "-DPostgreSQL_INCLUDE_DIR=${PGINC}" \
         #-DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release \
-        #-DWITH_DOC=ON -DBUILD_DOXY=ON -DVROOM_INSTALL_PATH="${DIR}/vroom-${VROOMVER}" ..
+        #-DWITH_DOC=ON -DBUILD_DOXY=ON ..
     cmake "-DPOSTGRESQL_BIN=${PGBIN}" "-DPostgreSQL_INCLUDE_DIR=${PGINC}" \
         -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release \
-        -DWITH_DOC=ON -DBUILD_DOXY=ON \
-        -DVROOM_INSTALL_PATH="${DIR}/vroom-v${VROOMVER}.0" ..
+        -DWITH_DOC=ON -DBUILD_DOXY=ON ..
 
-    #cmake "-DPostgreSQL_INCLUDE_DIR=${PGINC}" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DPOSTGRESQL_BIN=${PGBIN} -DCMAKE_BUILD_TYPE=Debug -DWITH_DOC=ON -DVROOM_INSTALL_PATH="${DIR}/vroom-${VROOMVER}" ..
+    #cmake "-DPostgreSQL_INCLUDE_DIR=${PGINC}" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DPOSTGRESQL_BIN=${PGBIN} \
+    #       -DCMAKE_BUILD_TYPE=Debug -DWITH_DOC=ON ..
 }
 
 function tap_test {
@@ -151,7 +133,6 @@ function test_compile {
 
     set_compiler "${GCC}"
 
-    #install_vroom
     install_data
     build
 
@@ -175,7 +156,6 @@ function test_compile {
     done
 
     tap_test
-    exit 0
     tools/testers/doc_queries_generator.pl -pgport "${PGPORT}" -venv "${VENV}"
     build_doc
     tap_test
