@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.4.2
+# Copyright (C) vrpRouting Contributors - Version 0.5
 # This file is distributed under the same license as the vrpRouting package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.4.1\n"
+"Project-Id-Version: vrpRouting 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-22 16:37+0000\n"
+"POT-Creation-Date: 2025-08-15 13:42-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,48 +16,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../build/doc/vrp_version.rst:12
-msgid "`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__"
-msgstr ""
-
-#: ../../build/doc/vrp_version.rst:13
-msgid "Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/vrp_version.html>`__ (`v0 <https://vrp.pgrouting.org/v0/en/vrp_version.html>`__)"
-msgstr ""
-
-#: ../../build/doc/vrp_version.rst:18
+#: ../../build/doc/vrp_version.rst:17
 msgid "vrp_version"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:20
+#: ../../build/doc/vrp_version.rst:19
 msgid "``vrp_version`` — Get the only the version"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:23
+#: ../../build/doc/vrp_version.rst:22
 msgid "Availability"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:24
+#: ../../build/doc/vrp_version.rst:23
 msgid "Version 0.0.0"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:26
+#: ../../build/doc/vrp_version.rst:25
 msgid "New **Official** function"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:31
-#: ../../build/doc/vrp_version.rst:57
+#: ../../build/doc/vrp_version.rst:30
+#: ../../build/doc/vrp_version.rst:56
 msgid "Description"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:33
+#: ../../build/doc/vrp_version.rst:32
 msgid "Returns vrpRouting version information."
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:39
+#: ../../build/doc/vrp_version.rst:38
 msgid "Signatures"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:41
+#: ../../build/doc/vrp_version.rst:40
 msgid "\\ \\"
 msgstr ""
 
@@ -73,42 +65,42 @@ msgstr ""
 msgid "Example"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:47
+#: ../../build/doc/vrp_version.rst:46
 msgid "vrpRouting Version for this documentatoin"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:54
+#: ../../build/doc/vrp_version.rst:53
 msgid "Result Columns"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:57
+#: ../../build/doc/vrp_version.rst:56
 msgid "Type"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:59
+#: ../../build/doc/vrp_version.rst:58
 msgid "``TEXT``"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:59
+#: ../../build/doc/vrp_version.rst:58
 msgid "vrpRouting version"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:64
+#: ../../build/doc/vrp_version.rst:63
 msgid "See Also"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:65
+#: ../../build/doc/vrp_version.rst:64
 msgid ":doc:`vrp_full_version`"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:68
+#: ../../build/doc/vrp_version.rst:67
 msgid "Indices and tables"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:69
+#: ../../build/doc/vrp_version.rst:68
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../build/doc/vrp_version.rst:70
+#: ../../build/doc/vrp_version.rst:69
 msgid ":ref:`search`"
 msgstr ""

@@ -1,21 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.4.2
+# Copyright (C) vrpRouting Contributors - Version 0.5
 # This file is distributed under the same license as the vrpRouting package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.0.0\n"
+"Project-Id-Version: vrpRouting 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-22 16:37+0000\n"
+"POT-Creation-Date: 2025-08-15 13:42-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.15.0\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../build/doc/installation.rst:11
 msgid "Installation"
@@ -147,7 +149,7 @@ msgid "CMake >= 3.12"
 msgstr ""
 
 #: ../../build/doc/installation.rst:112
-msgid "VROOM >= 1.12.0"
+msgid "VROOM >="
 msgstr ""
 
 #: ../../build/doc/installation.rst:115
@@ -223,7 +225,7 @@ msgid "Install VROOM dependencies"
 msgstr ""
 
 #: ../../build/doc/installation.rst:168
-msgid "Build VROOM v1.12.0"
+msgid "Build VROOM v"
 msgstr ""
 
 #: ../../build/doc/installation.rst:183

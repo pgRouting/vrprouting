@@ -1,21 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.4.2
+# Copyright (C) vrpRouting Contributors - Version 0.5
 # This file is distributed under the same license as the vrpRouting package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.0.0\n"
+"Project-Id-Version: vrpRouting 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 10:43+0000\n"
+"POT-Creation-Date: 2025-08-15 13:42-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../build/doc/sampledata.rst:11
 msgid "Sample Data"
@@ -41,96 +43,22 @@ msgid "Populate"
 msgstr ""
 
 #: ../../build/doc/sampledata.rst:35
-msgid "Update geometry"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:42
 msgid "Add Topology"
 msgstr ""
 
-#: ../../build/doc/sampledata.rst:48
+#: ../../build/doc/sampledata.rst:41
 msgid "`pgr_PickDeliver` data"
 msgstr ""
 
-#: ../../build/doc/sampledata.rst:51
+#: ../../build/doc/sampledata.rst:44
 msgid "Vehicles table"
 msgstr ""
 
-#: ../../build/doc/sampledata.rst:58
+#: ../../build/doc/sampledata.rst:51
 msgid "Orders table"
 msgstr ""
 
-#: ../../build/doc/sampledata.rst:66
+#: ../../build/doc/sampledata.rst:59
 msgid "`vrp_oneDepot` data"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:71
-msgid "VROOM Data"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:74
-msgid "Jobs"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:81
-msgid "Jobs Time Windows"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:88
-msgid "Shipments"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:95
-msgid "Shipments Time Windows"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:102
-msgid "Vehicles"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:109
-msgid "Breaks"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:116
-msgid "Breaks Time Windows"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:123
-msgid "Matrix"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:130
-msgid "Modified VROOM Data"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:132
-msgid ""
-"The tables created using the above VROOM Data are modified for the VROOM "
-"functions with timestamps/interval, as:"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:140
-msgid "Images"
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:142
-msgid "Red arrows correspond when ``cost`` > 0 in the edge table."
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:143
-msgid "Blue arrows correspond when ``reverse_cost`` > 0 in the edge table."
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:144
-msgid "Points are outside the graph."
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:145
-msgid "Click on the graph to enlarge."
-msgstr ""
-
-#: ../../build/doc/sampledata.rst:149
-msgid "Currently VRP functions work on an undirected graph"
 msgstr ""
 
