@@ -50,7 +50,7 @@ while (my $line = <$ifh>) {
     next if $skipping and $line !~ /^vrpRouting/;
     $skipping = 0;
 
-    next if $line =~ /contents|:local:|:depth:|\*\*\*\*\*\*\*|\=\=\=\=\=\=\=|\-\-\-\-\-\-\-|\+\+\+\+\+\+\+\+/;
+    next if $line =~ /contents|:local:|:depth:|\.\.\.\.|\*\*\*\*\*\*\*|\=\=\=\=\=\=\=|\-\-\-\-\-\-\-|\+\+\+\+\+\+\+\+/;
 
     $line =~ s/[\|]+//g;
     $line =~ s/($check)/$conversions{$1}/go;
