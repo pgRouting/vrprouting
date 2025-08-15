@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.4.2
+# Copyright (C) vrpRouting Contributors - Version 0.5
 # This file is distributed under the same license as the vrpRouting package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.4.1\n"
+"Project-Id-Version: vrpRouting 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-22 16:37+0000\n"
+"POT-Creation-Date: 2025-08-15 13:42-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,135 +16,155 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../build/doc/introduction.rst:12
-msgid "`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__"
-msgstr ""
-
 #: ../../build/doc/introduction.rst:13
-msgid "Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/introduction.html>`__ (`v0 <https://vrp.pgrouting.org/v0/en/introduction.html>`__)"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:18
 msgid "Introduction"
 msgstr ""
 
-#: ../../build/doc/introduction.rst:20
+#: ../../build/doc/introduction.rst:15
 msgid "vrpRouting is a `PostgreSQL <https://www.postgresql.org>`__ extension that extends of `pgRouting <https://pgrouting.org>`__ extension, by adding solutions to several Vehicle Routing Problems."
 msgstr ""
 
-#: ../../build/doc/introduction.rst:24
-msgid "The project is supported and manatianed by `Georepublic <https://georepublic.info>`__, `Paragon Corporation <https://www.paragoncorporation.com/>`__ and a broad user community."
+#: ../../build/doc/introduction.rst:19
+msgid "The project is supported and maintained by"
 msgstr ""
 
-#: ../../build/doc/introduction.rst:27
-msgid "vrpRouting is a subproduct of `pgRouting <https://pgrouting.org>`__  organization which is an `OSGeo Community Project <https://wiki.osgeo.org/wiki/OSGeo_Community_Projects>`__."
-msgstr ""
-
-#: ../../build/doc/introduction.rst:34
-msgid "Licensing"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:36
-msgid "The following licenses can be found in vrpRouting:"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:38
-msgid "GNU General Public License 2 or latar, `GPL-2.0-or-later <https://spdx.org/licenses/GPL-2.0-or-later.html>`__."
-msgstr ""
-
-#: ../../build/doc/introduction.rst:40
-msgid "For code in any language."
-msgstr ""
-
-#: ../../build/doc/introduction.rst:42
-msgid "Creative Commons Attribution-Share Alike 3.0 License `CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0/>`__."
-msgstr ""
-
-#: ../../build/doc/introduction.rst:44
-msgid "For user's & developer's documentation"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:46
-msgid "In general license information should be included in the header of each source file."
-msgstr ""
-
-#: ../../build/doc/introduction.rst:50
-msgid "Contributors"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:53
-msgid "This Release Contributors"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:56
+#: ../../build/doc/introduction.rst:21
 #: ../../build/doc/introduction.rst:89
-msgid "Individuals (in alphabetical order)"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:58
-msgid "Ashish Kumar"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:60
-msgid "Adding new experimental VROOM category functions: vrp_vroom, vrp_vroomJobs, vrp_vroomShipments."
-msgstr ""
-
-#: ../../build/doc/introduction.rst:62
-msgid "Manas Sivakumar"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:64
-msgid "Adding Google Or tools functionality to vrprouting"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:66
-msgid "Joseph Percival"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:68
-msgid "Optimized and added several VRP functions, including: tabu, pickDeliver, pickDeliver_driver, and many others."
-msgstr ""
-
-#: ../../build/doc/introduction.rst:70
-msgid "Virginia Vergara"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:72
-msgid "Porting the code from pgRouting"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:75
-msgid "And all the people that give us a little of their time making comments, finding issues, making pull requests etc."
-msgstr ""
-
-#: ../../build/doc/introduction.rst:79
-#: ../../build/doc/introduction.rst:102
-msgid "Corporate Sponsors (in alphabetical order)"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:81
-#: ../../build/doc/introduction.rst:104
-msgid "These are corporate entities that have contributed developer time, hosting, or direct monetary funding to the vrpRouting project:"
-msgstr ""
-
-#: ../../build/doc/introduction.rst:83
 msgid "`Paragon Corporation <https://www.paragoncorporation.com/>`__"
 msgstr ""
 
-#: ../../build/doc/introduction.rst:86
+#: ../../build/doc/introduction.rst:22
+msgid "`erosion <https://www.erosion.dev/>`__"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:24
+msgid "and a broad user community."
+msgstr ""
+
+#: ../../build/doc/introduction.rst:26
+msgid "vrpRouting is a sub product of `pgRouting organization <https://pgrouting.org>`__ organization."
+msgstr ""
+
+#: ../../build/doc/introduction.rst:32
+msgid "License"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:34
+msgid "The following licenses can be found in vrpRouting:"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:39
+msgid "**License**"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:41
+msgid "GNU General Public License v2.0 or later"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:42
+msgid "Most features of pgvroom are available under GNU General Public License v2.0 or later `GPL-2.0-or-later <https://spdx.org/licenses/GPL-2.0-or-later.html>`__."
+msgstr ""
+
+#: ../../build/doc/introduction.rst:45
+msgid "BSD 2-Clause \"Simplified\" License"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:46
+msgid "VROOM is under `BSD 2-Clause \"Simplified\" License <https://github.com/VROOM-Project/vroom/blob/master/LICENSE>`__"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:48
+msgid "Creative Commons Attribution-Share Alike 3.0 License"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:49
+msgid "The pgvroom Manual and examples is licensed under a `Creative Commons Attribution-Share Alike 3.0 License <https://creativecommons.org/licenses/by-sa/3.0/>`_."
+msgstr ""
+
+#: ../../build/doc/introduction.rst:54
+msgid "In general license information is included in the header of each source file."
+msgstr ""
+
+#: ../../build/doc/introduction.rst:58
+msgid "Contributors"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:61
+msgid "This Release Contributors"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:64
+msgid "Individuals (in alphabetical order)"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:66
+#: ../../build/doc/introduction.rst:97
+msgid "Ashish Kumar"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:68
+msgid "Handling the CI"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:70
+#: ../../build/doc/introduction.rst:99
+msgid "Joseph Percival"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:72
+msgid "Optimized and added several VRP functions, including: tabu, pickDeliver, pickDeliver_driver, and many others."
+msgstr ""
+
+#: ../../build/doc/introduction.rst:74
+msgid "Virginia Vergara"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:76
+msgid "Porting the code from pgRouting"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:79
+msgid "And all the people that give us a little of their time making comments, finding issues, making pull requests etc."
+msgstr ""
+
+#: ../../build/doc/introduction.rst:83
+msgid "Corporate Sponsors (in alphabetical order)"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:85
+msgid "These are corporate entities that have contributed developer time, hosting, or direct monetary funding to the pgvroom project:"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:88
+msgid "`Erosion developers <https://www.erosion.dev/>`__"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:92
 msgid "Contributors Past & Present:"
 msgstr ""
 
 #: ../../build/doc/introduction.rst:95
-msgid "`Ashish Kumar <ashishkr23438@gmail.com>`__ `Daniel Kastl <daniel@georepublic.de>`__ `Joseph Percival <ipercival@gmail.com>`__ `Vicky Vergara <vicky@georepublic.de>`__ `Manas Sivakumar <manas23601@gmail.com>`__"
+msgid "Individuals past & present (in alphabetical order)"
 msgstr ""
 
-#: ../../build/doc/introduction.rst:107
-msgid "Georepublic"
+#: ../../build/doc/introduction.rst:98
+msgid "Vicky Vergara"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:100
+msgid "Regina Robe"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:103
+msgid "Corporate Sponsors past & present (in alphabetical order)"
+msgstr ""
+
+#: ../../build/doc/introduction.rst:105
+msgid "These are corporate entities that have contributed developer time, hosting, or direct monetary funding to the vrpRouting project:"
 msgstr ""
 
 #: ../../build/doc/introduction.rst:108
-msgid "Leopark"
+msgid "Erosion developers"
 msgstr ""
 
 #: ../../build/doc/introduction.rst:109

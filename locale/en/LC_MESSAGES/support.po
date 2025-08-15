@@ -1,21 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.4.2
+# Copyright (C) vrpRouting Contributors - Version 0.5
 # This file is distributed under the same license as the vrpRouting package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.0.0\n"
+"Project-Id-Version: vrpRouting 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-22 18:55+0000\n"
+"POT-Creation-Date: 2025-08-15 20:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.15.0\n"
+"Generated-By: Babel 2.10.3\n"
 
 #: ../../build/doc/support.rst:13
 msgid "Support"
@@ -96,7 +98,7 @@ msgstr ""
 
 #: ../../build/doc/support.rst:58
 msgid ""
-"User mailing list: https://lists.osgeo.org/mailman/listinfo/pgrouting-"
+"User's mailing list: https://discourse.osgeo.org/c/pgrouting/pgrouting-"
 "users"
 msgstr ""
 
@@ -146,15 +148,15 @@ msgid "**Website**"
 msgstr ""
 
 #: ../../build/doc/support.rst:84
-msgid "Georepublic"
+msgid "erosion developers"
 msgstr ""
 
 #: ../../build/doc/support.rst:85
-msgid "Germany, Japan"
+msgid "Mexico"
 msgstr ""
 
 #: ../../build/doc/support.rst:86
-msgid "https://georepublic.info"
+msgid "https://erosion.dev"
 msgstr ""
 
 #: ../../build/doc/support.rst:87

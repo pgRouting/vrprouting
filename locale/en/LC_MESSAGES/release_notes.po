@@ -1,70 +1,126 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.4.2
+# Copyright (C) vrpRouting Contributors - Version 0.5
 # This file is distributed under the same license as the vrpRouting package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.0.0\n"
+"Project-Id-Version: vrpRouting 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-13 16:19+0000\n"
+"POT-Creation-Date: 2025-08-15 20:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.16.0\n"
-
-#: ../../build/doc/release_notes.rst:12
-msgid ""
-"`Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 "
-"<https://vrp.pgrouting.org/v0>`__"
-msgstr ""
+"Generated-By: Babel 2.10.3\n"
 
 #: ../../build/doc/release_notes.rst:13
-msgid ""
-"Supported Versions `Latest "
-"<https://vrp.pgrouting.org/latest/en/release_notes.html>`__ (`v0 "
-"<https://vrp.pgrouting.org/v0/en/release_notes.html>`__)"
-msgstr ""
-
-#: ../../build/doc/release_notes.rst:18
 msgid "Release Notes"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:20
+#: ../../build/doc/release_notes.rst:15
 msgid ""
 "To see the full list of changes check the list of `Git commits "
 "<https://github.com/pgRouting/vrprouting/commits>`_ on Github."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:25
+#: ../../build/doc/release_notes.rst:20
 msgid "Mayors"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:28
+#: ../../build/doc/release_notes.rst:23
 msgid "vrpRouting 0"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:32
+#: ../../build/doc/release_notes.rst:27
 msgid "Minors 0.x"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:35
-msgid "vrpRouting 0.4"
+#: ../../build/doc/release_notes.rst:30
+msgid "vrpRouting 0.5"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:39
+#: ../../build/doc/release_notes.rst:34 ../../build/doc/release_notes.rst:64
+#: ../../build/doc/release_notes.rst:134 ../../build/doc/release_notes.rst:183
+#: ../../build/doc/release_notes.rst:213
 msgid "Contents"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:42
-msgid "vrpRouting 0.4.2 Release Notes"
+#: ../../build/doc/release_notes.rst:37
+msgid "vrpRouting 0.5.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:39
+#, python-format
+msgid ""
+"To see all issues & pull requests closed by this release see the `Git "
+"closed milestone for 0.5.0 "
+"<https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.5.0%22>`_"
+" on Github."
 msgstr ""
 
 #: ../../build/doc/release_notes.rst:44
+msgid "Removing vroom"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:45
+msgid "vrp_vroomjobsplain(text,text,text,text,text,text,integer,integer)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:46
+msgid "vrp_vroomjobs(text,text,text,text,text,text,integer,interval)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:47
+msgid "vrp_vroomplain(text,text,text,text,text,text,text,text,integer,integer)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:48
+msgid "vrp_vroomshipmentsplain(text,text,text,text,text,text,integer,integer)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:49
+msgid "vrp_vroomshipments(text,text,text,text,text,text,integer,interval)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:50
+msgid "_vrp_vroom(text,text,text,text,text,text,text,text,integer,integer,smallint,boolean)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:51
+msgid "vrp_vroom(text,text,text,text,text,text,text,text,integer,interval)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:54
+msgid "Removing or-tools"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:55
+msgid "vrp_bin_packing(text,integer,integer)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:56
+msgid "vrp_knapsack(text,integer,integer)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:57
+msgid "vrp_multiple_knapsack(text,integer[],integer)"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:60
+msgid "vrpRouting 0.4"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:67
+msgid "vrpRouting 0.4.2 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:69
 #, python-format
 msgid ""
 "To see all issues & pull requests closed by this release see the `Git "
@@ -73,47 +129,47 @@ msgid ""
 " on Github."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:49
+#: ../../build/doc/release_notes.rst:74
 msgid "Code reorganization"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:50
+#: ../../build/doc/release_notes.rst:75
 msgid "Renamed files to be compiled as C++ with .hpp & .cpp extensions"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:51
+#: ../../build/doc/release_notes.rst:76
 msgid "Moved sphinx doc from .c files .rst files"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:52
+#: ../../build/doc/release_notes.rst:77
 msgid "Removing prefix `pgr_` & addding `namespace vrprouting`"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:53
+#: ../../build/doc/release_notes.rst:78
 msgid "Separating implementation from header vroom.hpp"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:54
+#: ../../build/doc/release_notes.rst:79
 msgid "Queries are read on the cpp code."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:57
+#: ../../build/doc/release_notes.rst:82
 msgid "Documentation queries"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:58
+#: ../../build/doc/release_notes.rst:83
 msgid "Renamed to extension `.pg`"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:59
+#: ../../build/doc/release_notes.rst:84
 msgid "Removed `doc-` and `doc-vrp_` suffixes on file names"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:62
+#: ../../build/doc/release_notes.rst:87
 msgid "vrpRouting 0.4.1 Release Notes"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:64
+#: ../../build/doc/release_notes.rst:89
 #, python-format
 msgid ""
 "To see all issues & pull requests closed by this release see the `Git "
@@ -122,51 +178,39 @@ msgid ""
 " on Github."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:70
+#: ../../build/doc/release_notes.rst:95
 msgid "Modification on experimental functions"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:71
+#: ../../build/doc/release_notes.rst:96
 msgid "OR Tools"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:73
+#: ../../build/doc/release_notes.rst:98
 msgid "vrp_bin_packing"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:74
+#: ../../build/doc/release_notes.rst:99
 msgid "vrp_knapsack"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:75
+#: ../../build/doc/release_notes.rst:100
 msgid "vrp_multiple_knapsack"
 msgstr ""
 
-#: ../../build/doc/vrp_bin_packing.rst:3
-msgid "Support for or-tools v9.10.4067"
-msgstr ""
-
-#: ../../build/doc/release_notes.rst:81
+#: ../../build/doc/release_notes.rst:102
 msgid "vrp_oneDepot"
 msgstr ""
 
-#: ../../build/doc/vrp_oneDepot.rst:3
-msgid "Code fix"
-msgstr ""
-
-#: ../../build/doc/vrp_oneDepot.rst:4
-msgid "Result columns changed"
-msgstr ""
-
-#: ../../build/doc/release_notes.rst:88
+#: ../../build/doc/release_notes.rst:105
 msgid "Removal of Boost on the build"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:89 ../../build/doc/release_notes.rst:187
+#: ../../build/doc/release_notes.rst:106 ../../build/doc/release_notes.rst:225
 msgid "vrp_full_version"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:90 ../../build/doc/release_notes.rst:186
+#: ../../build/doc/release_notes.rst:107 ../../build/doc/release_notes.rst:224
 msgid "vrp_version"
 msgstr ""
 
@@ -174,11 +218,11 @@ msgstr ""
 msgid "Boost removed from the result columns"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:97
+#: ../../build/doc/release_notes.rst:114
 msgid "vrpRouting 0.4.0 Release Notes"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:99
+#: ../../build/doc/release_notes.rst:116
 #, python-format
 msgid ""
 "To see all issues & pull requests closed by this release see the `Git "
@@ -187,39 +231,43 @@ msgid ""
 " on Github."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:104
+#: ../../build/doc/release_notes.rst:121
 msgid ""
 "Added support for VROOM 1.12.0 (`#34 "
 "<https://github.com/pgRouting/vrprouting/issues/34>`_)"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:105
+#: ../../build/doc/release_notes.rst:122
 msgid "No visible changes on user side with respect to signatures."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:106
+#: ../../build/doc/release_notes.rst:123
 msgid "Adjusted to VROOM v1.12.0 due to internal breaking changes:"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:108
+#: ../../build/doc/release_notes.rst:125
 msgid "Made changes according to new vroom::Input signature."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:109
+#: ../../build/doc/release_notes.rst:126
 msgid ""
 "CI changes to compile without routing support, with Position Independent "
 "Code."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:110
+#: ../../build/doc/release_notes.rst:127
 msgid "Removed support for VROOM 1.11.0"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:113
+#: ../../build/doc/release_notes.rst:130
 msgid "vrpRouting 0.3"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:115
+#: ../../build/doc/release_notes.rst:137
+msgid "vrpRouting 0.3.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:139
 #, python-format
 msgid ""
 "To see all issues & pull requests closed by this release see the `Git "
@@ -228,87 +276,87 @@ msgid ""
 " on Github."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:120
+#: ../../build/doc/release_notes.rst:144
 msgid "Modification of experimental functions"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:121 ../../build/doc/release_notes.rst:159
+#: ../../build/doc/release_notes.rst:145 ../../build/doc/release_notes.rst:190
 msgid "VROOM"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:123 ../../build/doc/release_notes.rst:161
+#: ../../build/doc/release_notes.rst:147 ../../build/doc/release_notes.rst:192
 msgid "vrp_vroom"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:124 ../../build/doc/release_notes.rst:162
+#: ../../build/doc/release_notes.rst:148 ../../build/doc/release_notes.rst:193
 msgid "vrp_vroomJobs"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:125 ../../build/doc/release_notes.rst:163
+#: ../../build/doc/release_notes.rst:149 ../../build/doc/release_notes.rst:194
 msgid "vrp_vroomShipments"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:126 ../../build/doc/release_notes.rst:164
+#: ../../build/doc/release_notes.rst:150 ../../build/doc/release_notes.rst:195
 msgid "vrp_vroomPlain"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:127 ../../build/doc/release_notes.rst:165
+#: ../../build/doc/release_notes.rst:151 ../../build/doc/release_notes.rst:196
 msgid "vrp_vroomJobsPlain"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:128 ../../build/doc/release_notes.rst:166
+#: ../../build/doc/release_notes.rst:152 ../../build/doc/release_notes.rst:197
 msgid "vrp_vroomShipmentsPlain"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:131
+#: ../../build/doc/release_notes.rst:155
 msgid ""
 "Added support for VROOM 1.11.0 (`#24 "
 "<https://github.com/pgRouting/vrprouting/issues/24>`_)"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:132
+#: ../../build/doc/release_notes.rst:156
 msgid "Added setup time in jobs and shipments to refine service time modeling."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:133
+#: ../../build/doc/release_notes.rst:157
 msgid "Added support for custom cost matrices, along with the duration matrix."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:135
+#: ../../build/doc/release_notes.rst:159
 msgid "Using start_id, end_id, duration, cost as matrix table columns."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:136
+#: ../../build/doc/release_notes.rst:160
 msgid ""
 "Added timeout and exploration_level parameters to vroom-category "
 "functions."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:137
+#: ../../build/doc/release_notes.rst:161
 msgid "Added max_tasks column in vehicles."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:138
+#: ../../build/doc/release_notes.rst:162
 msgid "Added tests for empty skills arrays."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:139
+#: ../../build/doc/release_notes.rst:163
 msgid "Added custom scaling logic for speed_factor."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:140
+#: ../../build/doc/release_notes.rst:164
 msgid "Modified parameter names to make the naming consistent."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:143
+#: ../../build/doc/release_notes.rst:167
 msgid "Fixes"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:144
+#: ../../build/doc/release_notes.rst:168
 msgid "Honor client cancel requests for vroom-category functions."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:145
+#: ../../build/doc/release_notes.rst:169
 msgid ""
 "Added more information in the inner query and result columns of VROOM "
 "category functions (`#26 "
@@ -316,79 +364,87 @@ msgid ""
 "<https://github.com/pgRouting/vrprouting/issues/27>`_):"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:148
+#: ../../build/doc/release_notes.rst:172
 msgid "Summary row in the output, for each vehicle and for the complete problem."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:149
+#: ../../build/doc/release_notes.rst:173
 msgid "Uassigned rows in the output with vehicle_id = -1."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:150
+#: ../../build/doc/release_notes.rst:174
 msgid ""
 "Modified travel_time result column to return travel time between current "
 "and last step."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:151
+#: ../../build/doc/release_notes.rst:175
 msgid ""
 "Added data jsonb field in jobs, shipments, vehicles, breaks as well as in"
 " the result columns."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:152
+#: ../../build/doc/release_notes.rst:176
 msgid "Added departure field and location_id field in the result columns."
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:155
+#: ../../build/doc/release_notes.rst:179
 msgid "vrpRouting 0.2"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:158
+#: ../../build/doc/release_notes.rst:186
+msgid "vrpRouting 0.2.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:189
 msgid "New experimental functions"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:168
+#: ../../build/doc/release_notes.rst:199
 msgid "VRP"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:170
+#: ../../build/doc/release_notes.rst:201
 msgid "vrp_compatibleVehicles"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:171
+#: ../../build/doc/release_notes.rst:202
 msgid "vrp_optimize"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:172
+#: ../../build/doc/release_notes.rst:203
 msgid "vrp_pickDeliverAdd"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:173
+#: ../../build/doc/release_notes.rst:204
 msgid "vrp_pickDeliver"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:174
+#: ../../build/doc/release_notes.rst:205
 msgid "vrp_simulation"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:175
+#: ../../build/doc/release_notes.rst:206
 msgid "vrp_viewRoute"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:178
+#: ../../build/doc/release_notes.rst:209
 msgid "vrpRouting 0.1"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:181
+#: ../../build/doc/release_notes.rst:216
+msgid "vrpRouting 0.1.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:219
 msgid "Extraction tasks"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:182
+#: ../../build/doc/release_notes.rst:220
 msgid "Porting pgRouting's VRP functionality"
 msgstr ""
 
-#: ../../build/doc/release_notes.rst:185
+#: ../../build/doc/release_notes.rst:223
 msgid "New official functions"
 msgstr ""
 

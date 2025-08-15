@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) vrpRouting Contributors - Version v0.4.2
+# Copyright (C) vrpRouting Contributors - Version 0.5
 # This file is distributed under the same license as the vrpRouting package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: vrpRouting v0.3.0-dev\n"
+"Project-Id-Version: vrpRouting 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 10:43+0000\n"
+"POT-Creation-Date: 2025-08-15 13:42-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,74 +16,233 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../build/doc/index.rst:12
-msgid "Supported Versions `Latest <https://vrp.pgrouting.org/latest/en/index.html>`__ (`v0 <https://vrp.pgrouting.org/v0/en/index.html>`__)"
-msgstr ""
-
-#: ../../build/doc/index.rst:20
+#: ../../build/doc/index.rst:16
 msgid "Table of Contents"
 msgstr ""
 
-#: ../../build/doc/index.rst:22
+#: ../../build/doc/index.rst:18
 msgid "vrpRouting extends the `PostGIS <https://postgis.net>`__/`PostgreSQL <https://www.postgresql.org>`__ geospatial database to provide geospatial routing and other network analysis functionality."
 msgstr ""
 
-#: ../../build/doc/index.rst:25
+#: ../../build/doc/index.rst:21
 msgid "This is the manual for vrpRouting |release|."
 msgstr ""
 
-#: ../../build/doc/index.rst:None
+#: ../../build/doc/index.rst:23
 msgid "Creative Commons Attribution-Share Alike 3.0 License"
 msgstr ""
 
-#: ../../build/doc/index.rst:31
+#: ../../build/doc/index.rst:27
 msgid "The vrpRouting Manual is licensed under a `Creative Commons Attribution-Share Alike 3.0 License <https://creativecommons.org/licenses/by-sa/3.0/>`_. Feel free to use this material any way you like, but we ask that you attribute credit to the vrpRouting Project and wherever possible, a link back to https://pgrouting.org. For other licenses used in vrpRouting see the :ref:`license` page."
 msgstr ""
 
-#: ../../build/doc/index.rst:38
+#: ../../build/doc/index.rst:34
 msgid "General"
 msgstr ""
 
-#: ../../build/doc/index.rst:48
+#: ../../build/doc/index.rst:44
 msgid ":doc:`sampledata` that is used in the examples of this manual."
 msgstr ""
 
-#: ../../build/doc/index.rst:56
-msgid "Pgrouting Concepts"
+#: ../../build/doc/index.rst:52
+msgid ":doc:`functions`"
 msgstr ""
 
-#: ../../build/doc/index.rst:65
-msgid "Reference"
+#: ../../build/doc/functions.rst:4
+msgid "Utilities"
 msgstr ""
 
-#: ../../build/doc/index.rst:66
-msgid ":doc:`vrp_version` - Get vrpRouting's version information."
+#: ../../build/doc/functions.rst:6
+msgid ":doc:`vrp_version`"
 msgstr ""
 
-#: ../../build/doc/index.rst:67
-msgid ":doc:`vrp_full_version` - Get vrpRouting's details of version."
+#: ../../build/doc/functions.rst:7
+msgid ":doc:`vrp_full_version`"
 msgstr ""
 
-#: ../../build/doc/index.rst:77
-msgid "Official functions"
+#: ../../build/doc/functions.rst:10
+msgid "VRP functions"
 msgstr ""
 
-#: ../../build/doc/index.rst:88
-msgid "Available functions but not official vrpRouting functions"
+#: ../../build/doc/functions.rst:12
+msgid "vrp_compatiblevehicles"
 msgstr ""
 
-#: ../../build/doc/index.rst:99
-msgid "Release Notes"
+#: ../../build/doc/functions.rst:13
+msgid "vrp_compatiblevehiclesraw"
 msgstr ""
 
-#: ../../build/doc/index.rst:107
+#: ../../build/doc/functions.rst:14
+msgid ":doc:`vrp_oneDepot`"
+msgstr ""
+
+#: ../../build/doc/functions.rst:15
+#: ../../build/doc/release_notes.rst:29
+msgid "vrp_optimize"
+msgstr ""
+
+#: ../../build/doc/functions.rst:16
+msgid "vrp_optimizeraw"
+msgstr ""
+
+#: ../../build/doc/functions.rst:17
+msgid "vrp_optimizeupdateraw"
+msgstr ""
+
+#: ../../build/doc/functions.rst:18
+msgid ":doc:`vrp_pgr_pickDeliver`"
+msgstr ""
+
+#: ../../build/doc/functions.rst:19
+msgid ":doc:`vrp_pgr_pickDeliverEuclidean`"
+msgstr ""
+
+#: ../../build/doc/functions.rst:20
+msgid "vrp_pickdeliver"
+msgstr ""
+
+#: ../../build/doc/functions.rst:21
+msgid "vrp_pickdeliveradd"
+msgstr ""
+
+#: ../../build/doc/functions.rst:22
+msgid "vrp_pickdeliveraddraw"
+msgstr ""
+
+#: ../../build/doc/functions.rst:23
+msgid "vrp_pickdeliverraw"
+msgstr ""
+
+#: ../../build/doc/functions.rst:24
+#: ../../build/doc/release_notes.rst:32
+msgid "vrp_simulation"
+msgstr ""
+
+#: ../../build/doc/functions.rst:25
+msgid "vrp_viewroute"
+msgstr ""
+
+#: ../../build/doc/functions.rst:26
+msgid "vrp_viewrouteraw"
+msgstr ""
+
+#: ../../build/doc/index.rst:64
+msgid ":doc:`release_notes`"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:1
+msgid "and last step."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:2
+msgid "Added data jsonb field in jobs, shipments, vehicles, breaks as well as in the result columns."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:3
+msgid "Added departure field and location_id field in the result columns."
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:6
+msgid "vrpRouting 0.2"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:10
+#: ../../build/doc/release_notes.rst:40
+msgid "Contents"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:13
+msgid "vrpRouting 0.2.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:16
+msgid "New experimental functions"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:17
+msgid "VROOM"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:19
+msgid "vrp_vroom"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:20
+msgid "vrp_vroomJobs"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:21
+msgid "vrp_vroomShipments"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:22
+msgid "vrp_vroomPlain"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:23
+msgid "vrp_vroomJobsPlain"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:24
+msgid "vrp_vroomShipmentsPlain"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:26
+msgid "VRP"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:28
+msgid "vrp_compatibleVehicles"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:30
+msgid "vrp_pickDeliverAdd"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:31
+msgid "vrp_pickDeliver"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:33
+msgid "vrp_viewRoute"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:36
+msgid "vrpRouting 0.1"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:43
+msgid "vrpRouting 0.1.0 Release Notes"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:46
+msgid "Extraction tasks"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:47
+msgid "Porting pgRouting's VRP functionality"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:50
+msgid "New official functions"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:51
+msgid "vrp_version"
+msgstr ""
+
+#: ../../build/doc/release_notes.rst:52
+msgid "vrp_full_version"
+msgstr ""
+
+#: ../../build/doc/index.rst:75
 msgid "Indices and tables"
 msgstr ""
 
-#: ../../build/doc/index.rst:108
+#: ../../build/doc/index.rst:76
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../build/doc/index.rst:109
+#: ../../build/doc/index.rst:77
 msgid ":ref:`search`"
 msgstr ""
