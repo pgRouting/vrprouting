@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: assert.cpp
+File: assert.cpp
 
 Copyright 2015~  Vicky Vergara <vicky_vergara@hotmail.com>
 Copyright 2014 Stephen Woodbridge <woodbri@imaptools.com>

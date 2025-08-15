@@ -241,7 +241,7 @@ getTimeStamp(const HeapTuple tuple, const TupleDesc &tupdesc, const vrprouting::
 
     switch (info.type) {
         case 1114:
-            value = vrprouting::get_timestamp_without_timezone((TTimestamp) Int64GetDatum(binval));
+            value = vrprouting::get_timestamp_without_timezone(DatumGetInt64(binval));
             break;
         default:
             throw std::string("Unexpected type value in column '") + info.name + "'. Expected 1114";
@@ -752,7 +752,8 @@ get_char(const HeapTuple tuple, const TupleDesc &tupdesc, const Info &info, char
  * @returns "{}" (empty jsonb) when when the column does not exist
  */
 std::string get_jsonb(const HeapTuple tuple, const TupleDesc &tupdesc,  const vrprouting::Info &info) {
-    return column_found(info)? DatumGetCString(SPI_getvalue(tuple, tupdesc, info.colNumber)) : "{}";
+    bool isnull;
+    return column_found(info)? DatumGetCString(SPI_getbinval(tuple, tupdesc, info.colNumber, &isnull)) : "{}";
 }
 
 std::unordered_set<uint32_t>

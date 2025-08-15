@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: pgr_palloc.cpp
+File: alloc.cpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org

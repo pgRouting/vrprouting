@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: simple.hpp
+File: simple.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org

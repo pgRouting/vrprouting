@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: time_multipliers_t.h
+File: time_multipliers_t.hpp
 
 Copyright (c) 2020 Celia Virginia Vergara Castillo
 Mail: vicky_vergara@hotmail.com

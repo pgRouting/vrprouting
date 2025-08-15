@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
  *
-FILE: check_get_data.hpp
+File: check_get_data.hpp
 
 Copyright (c) 2024 pgRouting developers
 Mail: pgrouting-dev@discourse.osgeo.org

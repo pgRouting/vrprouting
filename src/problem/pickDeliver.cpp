@@ -1,6 +1,6 @@
 /*WC-GNU*****************************************************************
 
-FILE: pickDeliver.cpp
+File: pickDeliver.cpp
 
 Copyright (c) 2017 pgRouting developers
 Mail: project@pgrouting.org

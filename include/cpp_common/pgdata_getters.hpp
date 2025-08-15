@@ -49,13 +49,6 @@ extern "C" {
 #include "cpp_common/time_multipliers_t.hpp"
 #include "cpp_common/vehicle_t.hpp"
 
-#include "cpp_common/vroom_break_t.hpp"
-#include "cpp_common/vroom_job_t.hpp"
-#include "cpp_common/vroom_matrix_t.hpp"
-#include "cpp_common/vroom_shipment_t.hpp"
-#include "cpp_common/vroom_time_window_t.hpp"
-#include "cpp_common/vroom_vehicle_t.hpp"
-
 namespace vrprouting {
 namespace pgget {
 namespace pickdeliver {
@@ -74,27 +67,6 @@ std::vector<Time_multipliers_t> get_timeMultipliers(const std::string&, bool);
 
 }  // namespace pickdeliver
 
-namespace vroom {
-
-/** @brief Reads the VROOM matrix */
-std::vector<Vroom_matrix_t> get_matrix(const std::string&, bool);
-
-/** @brief Reads the VROOM breaks */
-std::vector<Vroom_break_t> get_breaks(const std::string&, bool);
-
-/** @brief Reads the VROOM time windows */
-std::map<std::pair<Idx, char>, std::vector<::vroom::TimeWindow>> get_timewindows(const std::string&, bool, bool);
-
-/** @brief Reads the VROOM jobs */
-std::vector<Vroom_job_t> get_jobs(const std::string&, bool);
-
-/** @brief Reads the VROOM shipments */
-std::vector<Vroom_shipment_t> get_shipments(const std::string&, bool);
-
-/** @brief Reads the VROOM vehicles */
-std::vector<Vroom_vehicle_t> get_vehicles(const std::string&, bool);
-
-}  // namespace vroom
 }  // namespace pgget
 }  // namespace vrprouting
 
