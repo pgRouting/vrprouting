@@ -1,35 +1,20 @@
-
-
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
 --              SAMPLE DATA
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
+-- CopyRight(c) pgRouting developers
+-- Creative Commons Attribution-Share Alike 3.0 License : https://creativecommons.org/licenses/by-sa/3.0/
 
-DROP TABLE IF EXISTS public.edge_table;
-DROP TABLE IF EXISTS public.edge_table_vertices_pgr;
+DROP TABLE IF EXISTS public.edges;
+DROP TABLE IF EXISTS public.vertices;
 DROP TABLE IF EXISTS public.vehicles_1;
 DROP TABLE IF EXISTS public.orders_1;
 DROP TABLE IF EXISTS public.edges_matrix;
 
--- activate python
-CREATE OR REPLACE PROCEDURE activate_python_venv(venv text)
-LANGUAGE plpython3u AS
-$BODY$
-    import os
-    import sys
-
-    if sys.platform in ('win32', 'win64', 'cygwin'):
-        activate_this = os.path.join(venv, 'Scripts', 'activate_this.py')
-    else:
-        activate_this = os.path.join(venv, 'bin', 'activate_this.py')
-
-    exec(open(activate_this).read(), dict(__file__=activate_this))
-$BODY$;
-
 --EDGE TABLE CREATE start
-CREATE TABLE public.edge_table (
-    id BIGSERIAL,
+CREATE TABLE public.edges (
+    id BIGSERIAL PRIMARY KEY,
     source BIGINT,
     target BIGINT,
     cost FLOAT,
@@ -42,38 +27,58 @@ CREATE TABLE public.edge_table (
 );
 --EDGE TABLE CREATE end
 --EDGE TABLE ADD DATA start
-INSERT INTO public.edge_table (
-    cost, reverse_cost,
-    x1, y1,
-    x2, y2) VALUES
-( 1,  1,    2,   0,    2,   1),
-(-1,  1,    2,   1,    3,   1),
-(-1,  1,    3,   1,    4,   1),
-( 1,  1,    2,   1,    2,   2),
-( 1, -1,    3,   1,    3,   2),
-( 1,  1,    0,   2,    1,   2),
-( 1,  1,    1,   2,    2,   2),
-( 1,  1,    2,   2,    3,   2),
-( 1,  1,    3,   2,    4,   2),
-( 1,  1,    2,   2,    2,   3),
-( 1, -1,    3,   2,    3,   3),
-( 1, -1,    2,   3,    3,   3),
-( 1, -1,    3,   3,    4,   3),
-( 1,  1,    2,   3,    2,   4),
-( 1,  1,    4,   2,    4,   3),
-( 1,  1,    4,   1,    4,   2),
-( 1,  1,    0.5, 3.5,  1.999999999999, 3.5),
-( 1,  1,    3.5, 2.3,  3.5, 4);
---EDGE TABLE ADD DATA end
-
---EDGE TABLE update geometry start
-
-UPDATE public.edge_table SET geom = st_makeline(st_point(x1,y1),st_point(x2,y2));
-
---EDGE TABLE update geometry end
+INSERT INTO public.edges (cost, reverse_cost, geom) VALUES
+( 1,  1, ST_MakeLine(ST_POINT(2, 0), ST_POINT(2, 1))),
+(-1,  1, ST_MakeLine(ST_POINT(2, 1), ST_POINT(3, 1))),
+(-1,  1, ST_MakeLine(ST_POINT(3, 1), ST_POINT(4, 1))),
+( 1,  1, ST_MakeLine(ST_POINT(2, 1), ST_POINT(2, 2))),
+( 1, -1, ST_MakeLine(ST_POINT(3, 1), ST_POINT(3, 2))),
+( 1,  1, ST_MakeLine(ST_POINT(0, 2), ST_POINT(1, 2))),
+( 1,  1, ST_MakeLine(ST_POINT(1, 2), ST_POINT(2, 2))),
+( 1,  1, ST_MakeLine(ST_POINT(2, 2), ST_POINT(3, 2))),
+( 1,  1, ST_MakeLine(ST_POINT(3, 2), ST_POINT(4, 2))),
+( 1,  1, ST_MakeLine(ST_POINT(2, 2), ST_POINT(2, 3))),
+( 1, -1, ST_MakeLine(ST_POINT(3, 2), ST_POINT(3, 3))),
+( 1, -1, ST_MakeLine(ST_POINT(2, 3), ST_POINT(3, 3))),
+( 1, -1, ST_MakeLine(ST_POINT(3, 3), ST_POINT(4, 3))),
+( 1,  1, ST_MakeLine(ST_POINT(2, 3), ST_POINT(2, 4))),
+( 1,  1, ST_MakeLine(ST_POINT(4, 2), ST_POINT(4, 3))),
+( 1,  1, ST_MakeLine(ST_POINT(4, 1), ST_POINT(4, 2))),
+( 1,  1, ST_MakeLine(ST_POINT(0.5, 3.5), ST_POINT(1.999999999999, 3.5))),
+( 1,  1, ST_MakeLine(ST_POINT(3.5, 2.3), ST_POINT(3.5, 4)));
+/* --EDGE TABLE ADD DATA end */
 
 --EDGE TABLE TOPOLOGY start
-SELECT pgr_createTopology('public.edge_table',0.001, the_geom =>'geom');
+
+/* -- q1 */
+SELECT * INTO public.vertices
+FROM pgr_extractVertices('SELECT id, geom FROM edges ORDER BY id');
+/* -- q1-1 */
+CREATE SEQUENCE vertices_id_seq;
+ALTER TABLE public.vertices ALTER COLUMN id SET DEFAULT nextval('vertices_id_seq');
+ALTER SEQUENCE vertices_id_seq OWNED BY vertices.id;
+SELECT setval('vertices_id_seq', (SELECT coalesce(max(id)) FROM public.vertices));
+/* -- q1-2 */
+\d public.vertices
+/* -- q2 */
+SELECT * FROM public.vertices;
+/* -- q3 */
+/* -- set the source information */
+UPDATE public.edges AS e
+SET source = v.id, x1 = x, y1 = y
+FROM public.vertices AS v
+WHERE ST_StartPoint(e.geom) = v.geom;
+
+/* -- set the target information */
+UPDATE public.edges AS e
+SET target = v.id, x2 = x, y2 = y
+FROM public.vertices AS v
+WHERE ST_EndPoint(e.geom) = v.geom;
+/* -- q4 */
+SELECT id, source, target
+FROM public.edges ORDER BY id;
+/* -- q5 */
+
 --EDGE TABLE TOPOLOGY end
 
 
@@ -124,14 +129,14 @@ INSERT INTO public.orders_1
     p_id,  p_x, p_y,  p_open,  p_close,  p_service,
     d_id,  d_x, d_y,  d_open,  d_close,  d_service) VALUES
 (10,
-      3,    3,   1,      2,         10,          3,
-      8,    1,   2,      6,         15,          3),
+      10,    3,   1,      2,         10,          3,
+      3,    1,   2,      6,         15,          3),
 (20,
-      9,    4,   2,      4,         15,          2,
-      4,    4,   1,      6,         20,          3),
+      16,    4,   2,      4,         15,          2,
+      15,    4,   1,      6,         20,          3),
 (30,
-      5,    2,   2,      2,         10,          3,
-     11,    3,   3,      3,         20,          3);
+      7,    2,   2,      2,         10,          3,
+      6,    3,   3,      3,         20,          3);
 
 
 --ORDERS TABLE end
@@ -139,9 +144,9 @@ INSERT INTO public.orders_1
 SELECT start_vid, end_vid, agg_cost::BIGINT
 INTO edges_matrix
 FROM pgr_dijkstraCostMatrix($$
-  SELECT * FROM edge_table$$,
-  (SELECT array_agg(id) FROM edge_table_vertices_pgr)
-);
+  SELECT * FROM public.edges$$,
+  (SELECT array_agg(id) FROM public.vertices),
+  directed => false);
 
 /*
 Sample data for wc
