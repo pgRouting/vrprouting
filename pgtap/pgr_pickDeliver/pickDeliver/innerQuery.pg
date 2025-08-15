@@ -1,7 +1,7 @@
 BEGIN;
 SET client_min_messages TO NOTICE;
 
-UPDATE edge_table SET cost = sign(cost), reverse_cost = sign(reverse_cost);
+UPDATE edges SET cost = sign(cost), reverse_cost = sign(reverse_cost);
 SELECT plan(80);
 SET client_min_messages TO ERROR;
 
@@ -9,7 +9,7 @@ SET client_min_messages TO ERROR;
 SELECT * INTO pickDeliverResults FROM vrp_pgr_pickdeliver(
     $$SELECT * FROM orders_1$$,
     $$SELECT * FROM vehicles_1$$,
-    $sql1$ SELECT * from pgr_dijkstraCostMatrix($$SELECT * FROM edge_table$$,
+    $sql1$ SELECT * from pgr_dijkstraCostMatrix($$SELECT * FROM edges$$,
         (SELECT array_agg(id) FROM (SELECT p_id AS id FROM orders_1
         UNION
         SELECT d_id FROM orders_1
