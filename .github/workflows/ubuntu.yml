@@ -22,6 +22,21 @@ on:
     branches-ignore:
       - 'gh-pages'
 
+    tags: []
+
+  pull_request:
+    paths:
+      - '.github/workflows/ubuntu.yml'
+      - 'src/**'
+      - 'include/**'
+      - 'sql/**'
+      - 'pgtap/**'
+      - 'tools/testers/**'
+      - 'CMakeLists.txt'
+
+    branches-ignore:
+      - 'gh-pages'
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -31,40 +46,44 @@ permissions:
 
 env:
     postgis: 3
-    vroom: 1.12.0
 
 jobs:
   build:
-    name: G++ compiler
+    name: pgtap
     runs-on: ubuntu-latest
 
     strategy:
         fail-fast: false
         matrix:
           release: [Debug, Release]
-          psql: [12,13,14,15]
-          os: [ubuntu-latest, ubuntu-24.04, ubuntu-22.04]
+          psql: [12,13,14,15,16,17,18]
+          os: [ubuntu-latest, ubuntu-22.04]
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Get postgres version
+      - name: Set postgres version
         run: |
-          sudo service postgresql start
-          pgver=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d+ \()')
-          echo "PGVER=${pgver}" >> $GITHUB_ENV
-          PGP=5433
-          if [ "${{ matrix.psql }}" == "${pgver}" ]; then PGP=5432; fi
-          echo "PGPORT=${PGP}" >> $GITHUB_ENV
+          echo "PGVER=${{ matrix.psql }}" >> $GITHUB_ENV
+          echo "PGPORT=5432" >> $GITHUB_ENV
           echo "PGBIN=/usr/lib/postgresql/${{ matrix.psql }}/bin" >> $GITHUB_ENV
           echo "PGINC=/usr/include/postgresql/${{ matrix.psql }}/server" >> $GITHUB_ENV
 
+      - name: 'Raise Priority for apt.postgresql.org'
+        run: |
+          cat << EOF >> ./pgdg.pref
+          Package: *
+          Pin: release o=apt.postgresql.org
+          Pin-Priority: 600
+          EOF
+          sudo mv ./pgdg.pref /etc/apt/preferences.d/
+          sudo apt update
+
       - name: Add PostgreSQL APT repository
         run: |
-          sudo apt-get install curl ca-certificates gnupg
-          curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-          sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ \
-            $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          sudo apt-get purge postgresql-*
+          sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg-testing main ${{ matrix.psql }}" > /etc/apt/sources.list.d/pgdg.list'
+          curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
 
       - name: Install python
         uses: actions/setup-python@v5
@@ -74,60 +93,22 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          # vrpRouting dependencies
           sudo apt-get install -y \
             libtap-parser-sourcehandler-pgtap-perl \
-            postgresql-${{ matrix.psql }} \
-            postgresql-${{ matrix.psql }}-pgtap \
-            postgresql-${{ matrix.psql }}-postgis-${{ env.postgis }} \
-            postgresql-${{ matrix.psql }}-postgis-${{ env.postgis }}-scripts \
-            postgresql-${{ matrix.psql }}-pgrouting \
-            postgresql-server-dev-${{ matrix.psql }} \
-            postgresql-plpython3-${{ matrix.psql }}
-          # vroom dependencies
-          sudo apt-get install libssl-dev libasio-dev libglpk-dev
+            postgresql-${PGVER} \
+            postgresql-${PGVER}-pgtap \
+            postgresql-server-dev-${PGVER} \
+            postgresql-${PGVER}-postgis-${{ env.postgis }} \
+            postgresql-${PGVER}-postgis-${{ env.postgis }}-scripts \
+            postgresql-${PGVER}-pgrouting
 
-      - name: Install Google OR-Tools dependencies
+      - name: Configure and build
         run: |
-          sudo pip install --root=/  ortools
-
-      - name: Cache VROOM
-        id: cache-vroom
-        uses: actions/cache@v4
-        env:
-          cache-name: vroom
-        with:
-          path: vroom-${{ env.vroom }}
-          key: ${{ matrix.os }}-${{ env.cache-name }}-${{ env.vroom }}
-
-      - name: Checkout VROOM
-        if: steps.cache-vroom.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
-        with:
-          path: vroom-${{ env.vroom }}
-          repository: VROOM-Project/vroom
-          ref: "v${{ env.vroom }}"
-          submodules: true
-
-      - name: Build VROOM
-        if: steps.cache-vroom.outputs.cache-hit != 'true'
-        run: |
-          cd vroom-${{ env.vroom }}/src
-          USE_ROUTING=false make shared
-
-      - name: Configure
-        run: |
-          export PATH=/usr/lib/postgresql/${{ matrix.psql }}/bin:$PATH
-          VROOM=$(pwd)/vroom-${{ env.vroom }}
+          export PATH=/usr/lib/postgresql/${PGVER}/bin:$PATH
           mkdir build
           cd build
           cmake -DCMAKE_BUILD_TYPE=${{ matrix.release }} \
-              -DPostgreSQL_INCLUDE_DIR=${PGINC} -DPOSTGRESQL_BIN=${PGBIN} \
-              -DVROOM_INSTALL_PATH=${VROOM} ..
-
-      - name: Build
-        run: |
-          cd build
+              -DPostgreSQL_INCLUDE_DIR=${PGINC} -DPOSTGRESQL_BIN=${PGBIN} ..
           make -j 4
           sudo make install
 
@@ -151,4 +132,3 @@ jobs:
           sudo service postgresql start
           psql -c "CREATE DATABASE ___vrp___test___;"
           bash ./tools/testers/pg_prove_tests.sh -U ${PG_RUNNER_USER} -p ${PGPORT} -d ___vrp___test___
-

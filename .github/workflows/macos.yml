@@ -5,6 +5,10 @@ on:
   push:
     paths:
       - '.github/workflows/macos.yml'
+      - 'sql/**'
+      - 'pgtap/**'
+      - 'tools/testers/**'
+      - 'CMakeLists.txt'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,127 +19,55 @@ permissions:
 
 env:
     postgis: 3
-    vroom: 1.12.0
 
-# TODO: Fix the macOS build for compiling and building VROOM with vrprouting.
 jobs:
   build:
     name: Build
     runs-on: ${{ matrix.os }}
 
     strategy:
-        fail-fast: false
-        matrix:
-          release: [Debug, Release]
-          os: [macos-latest]
+      fail-fast: false
+      matrix:
+        release: [Debug, Release]
+        os: [macos-latest, macos-14]
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
       - name: Install dependencies
         run: |
-          brew install postgis pgrouting asio glpk rapidjson
-
-      - name: Set environment
-        shell: bash
-        run: |
-          # Building vroom fails with clang
-          echo "CC=gcc-12" >> $GITHUB_ENV;
-          echo "CXX=g++-12" >> $GITHUB_ENV;
-
-
-      - name: Cache VROOM
-        id: cache-vroom
-        uses: actions/cache@v4
-        env:
-          cache-name: vroom
-        with:
-          path: vroom-${{ env.vroom }}
-          key: ${{ matrix.os }}-${{ env.cache-name }}-${{ env.vroom }}
-
-      - name: Checkout VROOM
-        if: steps.cache-vroom.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
-        with:
-          path: vroom-${{ env.vroom }}
-          repository: VROOM-Project/vroom
-          ref: "v${{ env.vroom }}"
-          submodules: true
-
-      - name: Build VROOM
-        if: steps.cache-vroom.outputs.cache-hit != 'true'
-        run: |
-          cd vroom-${{ env.vroom }}/src
-          USE_ROUTING=false make shared
-
-      - name: Cache pgtap
-        id: cache-pgtap
-        uses: actions/cache@v4
-        with:
-          path: ./pgTapExtension/
-          key: ${{ matrix.os }}-pgtap-${{ hashFiles('**/packages*.txt') }}
-
-      - name: Checkout pgtap
-        if: steps.cache-pgtap.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
-        with:
-          repository: theory/pgtap
-          path: ./pgTapExtension/
-
-      - name: Install pgTAP
-        if: steps.cache-pgtap.outputs.cache-hit != 'true'
-        run: |
-          cd ./pgTapExtension/
-          make -j 4
-          sudo make install
-          cpan TAP::Parser::SourceHandler::pgTAP
+          brew install postgresql@14 postgis pgrouting 
 
       - name: Configure
         run: |
-          VROOM=$(pwd)/vroom-${{ env.vroom }}
           mkdir build
           cd build
-          CXX=clang++ CC=clang cmake -DCMAKE_BUILD_TYPE=${{ matrix.release }}  \
-              -DVROOM_INSTALL_PATH=${VROOM} ..
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.release }} ..
 
       - name: Build
         run: |
           cd build
-          make -j 4
-          sudo make
-          sudo make install
+          make -j
+          make install
+
+      - name: Install pgTAP
+        run: |
+          git clone https://github.com/theory/pgtap.git pgTapExtension
+          cd pgTapExtension
+          make -j
+          make install
+          cpan TAP::Parser::SourceHandler::pgTAP
+          ln -s $(find `brew --prefix` -name pg_prove) symlink it into $(brew --prefix)/bin
 
       - name: Unpack data
-        if: false
         run: |
           cd tools/testers
           tar -xf matrix_new_values.tar.gz
 
-      - name: Create superuser
-        if: false
+      - name: Test
         run: |
-          export PATH=/usr/local/Cellar/perl/$(perl -e 'print substr($^V, 1)')/bin:$PATH
-          pg_ctl -D /usr/local/var/postgres start
-          export PG_RUNNER_USER=`whoami`
-          sudo -u postgres psql -p ${PGPORT} -c "DROP DATABASE IF EXISTS \"${PG_RUNNER_USER}\";"
-          sudo -u postgres psql -p ${PGPORT} -c "DROP ROLE IF EXISTS \"${PG_RUNNER_USER}\";"
-          sudo -u postgres psql -p ${PGPORT} -c "CREATE ROLE \"${PG_RUNNER_USER}\" WITH LOGIN SUPERUSER;"
-          sudo -u postgres psql -p ${PGPORT} -c "CREATE DATABASE \"${PG_RUNNER_USER}\";"
-          echo "PG_RUNNER_USER=${PG_RUNNER_USER}" >> $GITHUB_ENV
-
-      - name: Test documentation queries are up to date
-        if: false
-        run: |
-          export PATH=/usr/local/Cellar/perl/$(perl -e 'print substr($^V, 1)')/bin:$PATH
-          pg_ctl -D /usr/local/var/postgres start
+          export PATH=$(brew --prefix)/Cellar/perl/$(perl -e 'print substr($^V, 1)')/bin:$PATH
+          pg_ctl -D $(brew --prefix)/var/postgresql@14 start
           createuser -s postgres
           createdb ___vrp___test___
-          cd tools/testers
-          psql -p 5432 -U postgres -d ___vrp___test___ -X -q -v ON_ERROR_STOP=1 --pset pager=off -f setup_db.sql
-          psql -p 5432 -U postgres -d ___vrp___test___ -c "SELECT * FROM pgr_full_version();"
-          pg_prove --failures --quiet --recurse --ext .sql -p 5432 -d ___vrp___test___ -U postgres ../../pgtap/
+          bash ./tools/testers/pg_prove_tests.sh -U postgres -p 5432

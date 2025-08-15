@@ -8,7 +8,7 @@ name: Build for Ubuntu with clang
 # - On request
 #
 # using
-# - the postgres installed version
+# - postgres installed version on actions
 
 on:
   workflow_dispatch:
@@ -35,7 +35,6 @@ permissions:
 env:
     postgis: 3
     os: ubuntu-latest
-    vroom: 1.12.0
 
 jobs:
   build:
@@ -53,28 +52,33 @@ jobs:
       - name: Get postgres version
         run: |
           sudo service postgresql start
-          pgver=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d+ \()')
-          echo "PGVER=${pgver}" >> $GITHUB_ENV
+          PGVER=$(psql --version | grep -Po '(?<=psql \(PostgreSQL\) )[^;]+(?=\.\d+ \()')
+          echo "PGVER=${PGVER}" >> $GITHUB_ENV
           echo "PGPORT=5432" >> $GITHUB_ENV
-          echo "PGBIN=/usr/lib/postgresql/${pgver}/bin" >> $GITHUB_ENV
-          echo "PGINC=/usr/include/postgresql/${pgver}/server" >> $GITHUB_ENV
+          echo "PGBIN=/usr/lib/postgresql/${PGVER}/bin" >> $GITHUB_ENV
+          echo "PGINC=/usr/include/postgresql/${PGVER}/server" >> $GITHUB_ENV
+
+      - name: 'Raise Priority for apt.postgresql.org'
+        run: |
+          cat << EOF >> ./pgdg.pref
+          Package: *
+          Pin: release o=apt.postgresql.org
+          Pin-Priority: 600
+          EOF
+          sudo mv ./pgdg.pref /etc/apt/preferences.d/
+          sudo apt update
 
       - name: Add PostgreSQL APT repository
         run: |
-          sudo apt-get install curl ca-certificates gnupg
-          curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-          sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ \
-            $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          sudo apt-get purge postgresql-*
+          sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg-testing main ${{ matrix.psql }}" > /etc/apt/sources.list.d/pgdg.list'
+          curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
 
-      - name: Install python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
 
       - name: Install dependencies
         run: |
           sudo apt-get update
-          # vrpRouting dependencies
+
           sudo apt-get install -y \
             clang \
             libtap-parser-sourcehandler-pgtap-perl \
@@ -83,48 +87,15 @@ jobs:
             postgresql-${PGVER}-postgis-${{ env.postgis }} \
             postgresql-${PGVER}-postgis-${{ env.postgis }}-scripts \
             postgresql-${PGVER}-pgrouting \
-            postgresql-server-dev-${PGVER} \
-            postgresql-plpython3-${PGVER}
-          # vroom dependencies
-          sudo apt-get install libssl-dev libasio-dev libglpk-dev
-
-      - name: Install Google OR-Tools dependencies
-        run: |
-          sudo pip install --root=/  ortools
-
-      - name: Cache VROOM
-        id: cache-vroom
-        uses: actions/cache@v4
-        env:
-          cache-name: vroom
-        with:
-          path: vroom-${{ env.vroom }}
-          key: ${{ env.os }}-${{ env.cache-name }}-${{ env.vroom }}
-
-      - name: Checkout VROOM
-        if: steps.cache-vroom.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
-        with:
-          path: vroom-${{ env.vroom }}
-          repository: VROOM-Project/vroom
-          ref: "v${{ env.vroom }}"
-          submodules: true
-
-      - name: Build VROOM
-        if: steps.cache-vroom.outputs.cache-hit != 'true'
-        run: |
-          cd vroom-${{ env.vroom }}/src
-          USE_ROUTING=false make shared
+            postgresql-server-dev-${PGVER}
 
       - name: Configure
         run: |
           export PATH=/usr/lib/postgresql/${PGVER}/bin:$PATH
-          VROOM=$(pwd)/vroom-${{ env.vroom }}
           mkdir build
           cd build
           CXX=clang++ CC=clang cmake -DCMAKE_BUILD_TYPE=${{ matrix.release }}  \
-              -DPostgreSQL_INCLUDE_DIR=${PGINC} -DPOSTGRESQL_BIN=${PGBIN} \
-              -DVROOM_INSTALL_PATH=${VROOM} ..
+              -DPostgreSQL_INCLUDE_DIR=${PGINC} -DPOSTGRESQL_BIN=${PGBIN} ..
 
       - name: Build
         run: |
@@ -152,4 +123,3 @@ jobs:
           sudo service postgresql start
           psql -c "CREATE DATABASE ___vrp___test___;"
           bash ./tools/testers/pg_prove_tests.sh -U ${PG_RUNNER_USER} -p ${PGPORT} -d ___vrp___test___
-
