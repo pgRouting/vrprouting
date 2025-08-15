@@ -7,7 +7,6 @@ env:
     postgis: 3
     release: Release
     os: ubuntu-latest
-    vroom: 1.12.0
 
 permissions:
   contents: write
@@ -58,44 +57,17 @@ jobs:
           sudo apt-get install -y \
             postgresql-${PGVER} \
             postgresql-server-dev-${PGVER}
-          # vroom dependencies
-          sudo apt-get install libssl-dev libasio-dev libglpk-dev
+
           # documentation dependencies
           sudo apt-get install -y graphviz doxygen
           pip install -r requirements.txt
 
-      - name: Cache VROOM
-        id: cache-vroom
-        uses: actions/cache@v4
-        env:
-          cache-name: vroom
-        with:
-          path: vroom-${{ env.vroom }}
-          key: ${{ env.os }}-${{ env.cache-name }}-${{ env.vroom }}
-
-      - name: Checkout VROOM
-        if: steps.cache-vroom.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
-        with:
-          path: vroom-${{ env.vroom }}
-          repository: VROOM-Project/vroom
-          ref: "v${{ env.vroom }}"
-          submodules: true
-
-      - name: Build VROOM
-        if: steps.cache-vroom.outputs.cache-hit != 'true'
-        run: |
-          cd vroom-${{ env.vroom }}/src
-          USE_ROUTING=false make shared
-
       - name: Configure
         run: |
-          VROOM=$(pwd)/vroom-${{ env.vroom }}
           mkdir build
           cd build
           cmake -DCMAKE_BUILD_TYPE=${{ env.release }} \
-              -DWITH_DOC=ON -DDOC_USE_BOOTSTRAP=ON -DBUILD_DOXY=ON \
-              -DVROOM_INSTALL_PATH=${VROOM} ..
+              -DWITH_DOC=ON -DDOC_USE_BOOTSTRAP=ON -DBUILD_DOXY=ON ..
 
       - name: Build
         run: |
