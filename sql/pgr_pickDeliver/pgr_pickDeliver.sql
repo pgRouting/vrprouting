@@ -51,7 +51,7 @@ CREATE FUNCTION vrp_pgr_pickDeliver(
 RETURNS SETOF RECORD AS
 $BODY$
     SELECT *
-    FROM _vrp_pgr_pickDeliver(_pgr_get_statement($1), _pgr_get_statement($2), $3, $4, $5);
+    FROM _vrp_pgr_pickDeliver(_vrp_get_statement($1), _pgr_get_statement($2), $3, $4, $5);
 $BODY$
 LANGUAGE SQL VOLATILE STRICT;
 

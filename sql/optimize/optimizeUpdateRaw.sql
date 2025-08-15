@@ -66,10 +66,10 @@ BEGIN
   SET %11$I = n.stops
   FROM new_stops AS n WHERE v.%12$I = n.vehicle_id
   $$,
-  _pgr_get_statement($1),
-  _pgr_get_statement($2),
-  _pgr_get_statement($3),
-  _pgr_get_statement($4),
+  _vrp_get_statement($1),
+  _vrp_get_statement($2),
+  _vrp_get_statement($3),
+  _vrp_get_statement($4),
   factor, max_cycles, execution_date,
   check_triangle_inequality, subdivision_kind,
   vehicles_tbl, stops_column, id_column);
