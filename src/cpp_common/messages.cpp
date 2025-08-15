@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: pgr_pickDeliver.h
+File: messages.cpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org

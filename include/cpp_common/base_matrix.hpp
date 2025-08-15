@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: base_matrix.hpp
+File: base_matrix.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org

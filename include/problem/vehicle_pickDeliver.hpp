@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: vehicle_pickDeliver.hpp
+File: vehicle_pickDeliver.hpp
 
 Copyright (c) 2016 pgRouting developers
 Mail: project@pgrouting.org

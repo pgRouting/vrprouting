@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: Short_vehicle.hpp
+File: short_vehicle.hpp
 
 Copyright (c) 2015 Celia Virginia Vergara Castillo
 Mail: vicky_vergara@hotmail.com
