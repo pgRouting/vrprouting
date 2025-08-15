@@ -9,11 +9,6 @@
 
 |
 
-* `Documentation <https://vrp.pgrouting.org/>`__ → `vrpRouting v0 <https://vrp.pgrouting.org/v0>`__
-* Supported Versions
-  `Latest <https://vrp.pgrouting.org/latest/en/concepts.html>`__
-  (`v0 <https://vrp.pgrouting.org/v0/en/concepts.html>`__)
-
 Concepts
 ===============================================================================
 
@@ -543,474 +538,6 @@ A ``SELECT`` statement that returns the following columns:
 
 .. pgr_vehicles_e_end
 
-Vroom Inner Queries
-...............................................................................
-
-Vroom, because of the data types used internally, some maximum values apply.
-
-For ``TIMESTAMP``:
-
-.. literalinclude:: concepts.queries
-   :start-after: q1
-   :end-before: q2
-
-For ``INTERVAL``:
-
-.. literalinclude:: concepts.queries
-   :start-after: q2
-   :end-before: q3
-
-
-Jobs SQL
-*******************************************************************************
-
-.. jobs_start
-
-A ``SELECT`` statement that returns the following columns:
-
-| ``id, location_id``
-| ``[setup, service, delivery, pickup, skills, priority, data]``
-
-Maximum values apply from vroom
-
-``setup`` and ``service``
-
-- |intervalmax|
-
-``skills``
-
-- :math:`2147483647`
-
-``priority``
-
-- :math:`100`
-
-.. list-table::
-   :width: 81
-   :widths: auto
-   :header-rows: 1
-
-   - - Column
-     - Type
-     - Default
-     - Description
-   - - ``id``
-     - |ANY-INTEGER|
-     -
-     - Positive unique identifier of the job.
-   - - ``location_id``
-     - |ANY-INTEGER|
-     -
-     - Positive unique identifier of the location of the job.
-   - - ``setup``
-     - |interval|
-     - |interval0|
-     - The Job setup duration.
-
-   - - ``service``
-     - |interval|
-     - |interval0|
-     - The Job service duration. Max value:
-   - - ``pickup``
-     - ``ARRAY[ANY-INTEGER]``
-     - ``[]``
-     - Array of non-negative integers describing multidimensional quantities for
-       pickup such as number of items, weight, volume etc.
-
-       - All jobs must have the same value of :code:`array_length(pickup, 1)`
-   - - ``delivery``
-     - ``ARRAY[ANY-INTEGER]``
-     - ``[]``
-     - Array of non-negative integers describing multidimensional quantities for
-       delivery such as number of items, weight, volume etc.
-
-       - All jobs must have the same value of :code:`array_length(delivery, 1)`
-   - - ``skills``
-     - ``ARRAY[ANY-INTEGER]``
-     - ``[]``
-     - Array of non-negative integers defining mandatory skills.
-   - - ``priority``
-     - ``INTEGER``
-     - :math:`0`
-     - Value range: :math:`[0, 100]`
-   - - ``data``
-     - ``JSONB``
-     - ``'{}'::JSONB``
-     - Any metadata information of the job.
-
-.. jobs_end
-
-Shipments SQL
-*******************************************************************************
-
-.. shipments_start
-
-A ``SELECT`` statement that returns the following columns:
-
-| ``id``
-| ``p_location_id, [p_setup, p_service, p_data]``
-| ``d_location_id, [d_setup, d_service, d_data]``
-| ``[amount, skills, priority]``
-
-Maximum values apply from vroom
-
-``p_setup``, ``p_service``, ``d_setup``, ``d_service``
-
-- |intervalmax|
-
-``skills``
-
-- :math:`2147483647`
-
-``priority``
-
-- :math:`100`
-
-.. list-table::
-   :width: 81
-   :widths: auto
-   :header-rows: 1
-
-   - - Column
-     - Type
-     - Default
-     - Description
-   - - ``id``
-     - |ANY-INTEGER|
-     -
-     - Positive unique identifier of the shipment.
-   - - ``p_location_id``
-     - |ANY-INTEGER|
-     -
-     - Positive unique identifier of the pickup location.
-   - - ``p_setup``
-     - |interval|
-     - |interval0|
-     - The pickup setup duration
-   - - ``p_service``
-     - |interval|
-     - |interval0|
-     - The pickup service duration
-   - - ``p_data``
-     - ``JSONB``
-     - ``'{}'::JSONB``
-     - Any metadata information of the pickup.
-   - - ``d_location_id``
-     - |ANY-INTEGER|
-     -
-     - Positive unique identifier of the pickup location.
-   - - ``d_setup``
-     - |interval|
-     - |interval0|
-     - The pickup setup duration
-   - - ``d_service``
-     - |interval|
-     - |interval0|
-     - The pickup service duration
-   - - ``d_data``
-     - ``JSONB``
-     - ``'{}'::JSONB``
-     - Any metadata information of the delivery.
-   - - ``amount``
-     - ``ARRAY[ANY-INTEGER]``
-     - ``[]``
-     - Array of non-negative integers describing multidimensional quantities
-       such as number of items, weight, volume etc.
-
-       - All shipments must have the same value of :code:`array_length(amount,
-         1)`
-
-   - - ``skills``
-     - ``ARRAY[ANY-INTEGER]``
-     - ``[]``
-     - Array of non-negative integers defining mandatory skills.
-
-       - :math:`values \leq 2147483647`
-   - - ``priority``
-     - ``INTEGER``
-     - :math:`0`
-     - Value range: :math:`[0, 100]`
-
-.. shipments_end
-
-Vehicles SQL
-*******************************************************************************
-
-.. vroom_vehicles_start
-
-A ``SELECT`` statement that returns the following columns:
-
-| ``id, start_id, end_id``
-| ``[capacity, skills, tw_open, tw_close, speed_factor, max_tasks, data]``
-
-Maximum values apply from vroom
-
-``skills``
-
-- :math:`2147483647`
-
-``priority``
-
-- :math:`100`
-
-.. list-table::
-   :width: 81
-   :widths: 14,20,10,37
-   :header-rows: 1
-
-   - - Column
-     - Type
-     - Default
-     - Description
-   - - ``id``
-     - |ANY-INTEGER|
-     -
-     - Positive unique identifier of the vehicle.
-   - - ``start_id``
-     - |ANY-INTEGER|
-     -
-     - Positive unique identifier of the start location.
-   - - ``end_id``
-     - |ANY-INTEGER|
-     -
-     - Positive unique identifier of the end location.
-   - - ``capacity``
-     - ``ARRAY[ANY-INTEGER]``
-     - ``[]``
-     - Array of non-negative integers describing multidimensional quantities
-       such as number of items, weight, volume etc.
-
-       - All vehicles must have the same value of :code:`array_length(capacity,
-         1)`
-   - - ``skills``
-     - ``ARRAY[ANY-INTEGER]``
-     - ``[]``
-     - Array of non-negative integers defining mandatory skills.
-   - - ``tw_open``
-     - |timestamp|
-     - |tw_open_default|
-     - Time window opening time.
-
-       - :code:`tw_open \leq tw_close`
-   - - ``tw_close``
-     - |timestamp|
-     - |tw_close_default|
-     - Time window closing time.
-
-       - :code:`tw_open \leq tw_close`
-   - - ``speed_factor``
-     - |ANY-NUMERICAL|
-     - :math:`1.0`
-     - Vehicle travel time multiplier.
-
-       - Max value of speed factor for a vehicle shall not be greater than 5
-         times the speed factor of any other vehicle.
-   - - ``max_tasks``
-     - ``INTEGER``
-     - :math:`2147483647`
-     - Maximum number of tasks in a route for the vehicle.
-
-       - A job, pickup, or delivery is counted as a single task.
-   - - ``data``
-     - ``JSONB``
-     - ``'{}'::JSONB``
-     - Any metadata information of the vehicle.
-
-**Note**:
-
-- At least one of the ``start_id`` or ``end_id`` shall be present.
-- If ``end_id`` is omitted, the resulting route will stop at the last visited
-  task, whose choice is determined by the optimization process.
-- If ``start_id`` is omitted, the resulting route will start at the first
-  visited task, whose choice is determined by the optimization process.
-- To request a round trip, specify both ``start_id`` and ``end_id`` as the same
-  index.
-- A vehicle is only allowed to serve a set of tasks if the resulting load at
-  each route step is lower than the matching value in capacity for each metric.
-  When using multiple components for amounts, it is recommended to put the most
-  important/limiting metrics first.
-- It is assumed that all delivery-related amounts for jobs are loaded at vehicle
-  start, while all pickup-related amounts for jobs are brought back at vehicle
-  end.
-
-.. vroom_vehicles_end
-
-Vroom Matrix SQL
-*******************************************************************************
-
-.. vroom_matrix_start
-
-A ``SELECT`` statement that returns the following columns:
-
-| ``start_id, end_id, duration``
-| ``[ cost]``
-
-.. list-table::
-   :width: 81
-   :widths: auto
-   :header-rows: 1
-
-   - - Column
-     - Type
-     - Default
-     - Description
-   - - ``start_id``
-     - |ANY-INTEGER|
-     -
-     - Identifier of the start node.
-   - - ``end_id``
-     - |ANY-INTEGER|
-     -
-     - Identifier of the end node.
-   - - ``duration``
-     - |interval|
-     -
-     - Time to travel from ``start_id`` to ``end_id``
-   - - ``cost``
-     - |interval|
-     - ``duration``
-     - Cost of travel from ``start_id`` to ``end_id``
-
-.. vroom_matrix_end
-
-Breaks SQL
-*******************************************************************************
-
-.. breaks_start
-
-A ``SELECT`` statement that returns the following columns:
-
-| ``id, vehicle_id``
-| ``[service, data]``
-
-.. list-table::
-   :width: 81
-   :widths: auto
-   :header-rows: 1
-
-   - - Column
-     - Type
-     - Default
-     - Description
-   - - ``id``
-     - |ANY-INTEGER|
-     -
-     - Positive unique identifier of the break.  Unique for the same vehicle.
-   - - ``vehicle_id``
-     - |ANY-INTEGER|
-     -
-     - Positive unique identifier of the vehicle.
-   - - ``service``
-     - |interval|
-     - |interval0|
-     - The break duration
-   - - ``data``
-     - ``JSONB``
-     - ``'{}'::JSONB``
-     - Any metadata information of the break.
-
-.. breaks_end
-
-
-Time Windows SQL
-*******************************************************************************
-
-.. rubric:: Shipment Time Windows SQL
-
-.. shipments_time_windows_start
-
-A ``SELECT`` statement that returns the following columns:
-
-| ``id, tw_open, tw_close``
-| ``[kind]``
-
-.. list-table::
-   :width: 81
-   :widths: 14 14 44
-   :header-rows: 1
-
-   - - Column
-     - Type
-     - Description
-   - - ``id``
-     - |ANY-INTEGER|
-     - Positive unique identifier of the: job, pickup/delivery shipment, or
-       break.
-   - - ``tw_open``
-     - |timestamp|
-     - Time window opening time.
-   - - ``tw_close``
-     - |timestamp|
-     - Time window closing time.
-   - - ``kind``
-     - ``CHAR``
-     - Value in ['p', 'd'] indicating whether the time window is for:
-
-       - Pickup shipment, or
-       - Delivery shipment.
-
-.. shipments_time_windows_end
-
-.. rubric:: General Time Windows SQL
-
-.. general_time_windows_start
-
-A ``SELECT`` statement that returns the following columns:
-
-``id, tw_open, tw_close``
-
-.. list-table::
-   :width: 81
-   :widths: auto
-   :header-rows: 1
-
-   - - Column
-     - Type
-     - Description
-   - - ``id``
-     - |ANY-INTEGER|
-     - Positive unique identifier of the: job, pickup/delivery shipment, or
-       break.
-   - - ``tw_open``
-     - |timestamp|
-     - Time window opening time.
-   - - ``tw_close``
-     - |timestamp|
-     - Time window closing time.
-
-.. general_time_windows_end
-
-.. time_windows_note_start
-
-**Note**:
-
-- All timings are in **seconds** when represented as an ``INTEGER``.
-- Every row must satisfy the condition: :code:`tw_open ≤ tw_close`.
-- Time windows can be interpreted by the users:
-
-  - **Relative values**, e.g.
-
-    - Let the beginning of the planning horizon :math:`0`.
-    - for a 4 hour time window (:math:`4 * 3600 = 14400` seconds) starting from
-      the planning horizon
-
-      - ``tw_open`` = :math:`0`
-      - ``tw_close`` = :math:`14400`
-
-    - Times reported in output relative to the start of the planning horizon.
-
-  - **Absolute values**,
-
-    - Let the beginning of the planning horizon ``2019-07-30 08:00:00``
-    - for a 4 hour time window starting from the planning horizon
-
-      - ``tw_open`` = ``2019-07-30 08:00:00``
-      - ``tw_close`` = ``2019-07-30 12:00:00``
-
-    -  Times reported in output can be interpreted as ``TIMESTAMP``.
-
-.. time_windows_note_end
-
 
 Return columns & values
 --------------------------------------------------------------------------------
@@ -1157,139 +684,283 @@ Returns set of
 
 .. pde_result_end
 
-VROOM result columns
-...............................................................................
-
-.. vroom_result_start
-
-Returns set of
-
-.. code-block:: none
-
-    (seq, vehicle_seq, vehicle_id, vehicle_data, step_seq, step_type, task_id,
-     task_data, arrival, travel_time, service_time, waiting_time, load)
-
-.. list-table::
-   :width: 81
-   :widths: auto
-   :header-rows: 1
-
-   - - Column
-     - Type
-     - Description
-   - - ``seq``
-     - ``BIGINT``
-     -  Sequential value starting from **1**.
-   - - ``vehicle_seq``
-     - ``BIGINT``
-     - Sequential value starting from **1** for current vehicles.  The
-       :math:`n^{th}` vehicle in the solution.
-   - - ``vehicle_id``
-     - ``BIGINT``
-     - Current vehicle identifier.
-
-       - ``-1``: Vehicle denoting all the unallocated tasks.
-       - ``0``: Summary row for the complete problem
-   - - ``vehicle_data``
-     - ``JSONB``
-     - Metadata information of the vehicle.
-   - - ``step_seq``
-     - ``BIGINT``
-     - Sequential value starting from **1** for the stops made by the current
-       vehicle. The :math:`m^{th}` stop of the current vehicle.
-
-       - ``0``: Summary row
-   - - ``step_type``
-     - ``BIGINT``
-     - Kind of the step location the vehicle is at:
-
-       - ``0``: Summary row
-       - ``1``: Starting location
-       - ``2``: Job location
-       - ``3``: Pickup location
-       - ``4``: Delivery location
-       - ``5``: Break location
-       - ``6``: Ending location
-
-   - - ``task_id``
-     - ``BIGINT``
-     - Identifier of the task performed at this step.
-
-       - ``0``: Summary row
-       - ``-1``: If the step is starting/ending location.
-   - - ``location_id``
-     - ``BIGINT``
-     - Identifier of the task location.
-
-       - ``0``: Summary row
-   - - ``task_data``
-     - ``JSONB``
-     - Metadata information of the task.
-   - - ``arrival``
-     - |timestamp|
-     - Estimated time of arrival at this step.
-   - - ``travel_time``
-     - |interval|
-     - Travel time from previous ``step_seq`` to current ``step_seq``.
-
-       - ``0``: When ``step_type = 1``
-   - - ``setup_time``
-     - |interval|
-     - Setup time at this step.
-   - - ``service_time``
-     - |interval|
-     - Service time at this step.
-   - - ``waiting_time``
-     - |interval|
-     - Waiting time at this step.
-   - - ``departure``
-     - |timestamp|
-     - Estimated time of departure at this step.
-
-       - :math:`arrival + service\_time + waiting\_time`.
-   - - ``load``
-     - ``BIGINT``
-     - Vehicle load after step completion (with capacity constraints)
-
-**Note**:
-
-- Unallocated tasks are mentioned at the end with :code:`vehicle_id = -1`.
-- The last step of every vehicle denotes the summary row, where the columns
-  ``travel_time``, ``service_time`` and ``waiting_time`` denote the total time
-  for the corresponding vehicle,
-- The last row denotes the summary for the complete problem, where the columns
-  ``travel_time``, ``service_time`` and ``waiting_time`` denote the total time
-  for the complete problem,
-
-.. vroom_result_end
-
-
-Performance
--------------------------------------------------------------------------------
-
-TBD
-
-How to contribute
--------------------------------------------------------------------------------
-
-.. rubric:: Wiki
-
-* Edit an existing  `vrpRouting Wiki <https://github.com/pgRouting/vrprouting/wiki>`_ page.
-
-
 .. rubric:: Adding Functionaity to vrpRouting
 
 Consult the `developer's documentation <https://vrp.pgrouting.org/doxy/main/index.html>`_
 
+Parameters
+...............................................................................
+
+
+Pick & deliver
+*******************************************************************************
+
+Both implementations use the following same parameters:
+
+.. pd_parameters_start
+
+================= ================== ========= =================================================
+Column            Type                Default    Description
+================= ================== ========= =================================================
+**orders_sql**    ``TEXT``                     `Pick & Deliver Orders SQL`_ query containing the orders to be processed.
+**vehicles_sql**  ``TEXT``                     `Pick & Deliver Vehicles SQL`_ query containing the vehicles to be used.
+**factor**        ``NUMERIC``          1       (Optional) Travel time multiplier. See :ref:`pd_factor`
+**max_cycles**    ``INTEGER``          10      (Optional) Maximum number of cycles to perform on the optimization.
+**initial_sol**   ``INTEGER``          4       (Optional) Initial solution to be used.
+
+                                               - ``1`` One order per truck
+                                               - ``2`` Push front order.
+                                               - ``3`` Push back order.
+                                               - ``4`` Optimize insert.
+                                               - ``5`` Push back order that allows more orders to be inserted at the back
+                                               - ``6`` Push front order that allows more orders to be inserted at the front
+================= ================== ========= =================================================
+
+.. pd_parameters_end
+
+The non euclidean implementation, additionally has:
+
+================= ================== =================================================
+Column            Type                Description
+================= ================== =================================================
+**matrix_sql**    ``TEXT``             `Pick & Deliver Matrix SQL`_ query containing the distance or travel times.
+================= ================== =================================================
+
+
+Inner Queries 1
+*******************************************************************************
+
+- `Pick & Deliver Orders SQL`_
+- `Pick & Deliver Vehicles SQL`_
+- `Pick & Deliver Matrix SQL`_
+
+
+Pick & Deliver Orders SQL
+*******************************************************************************
+
+In general, the columns for the orders SQL is the same in both implementation of pick and delivery:
+
+.. pd_orders_sql_general_start
+
+================  ===================   =========== ================================================
+Column            Type                  Default     Description
+================  ===================   =========== ================================================
+**id**            |ANY-INTEGER|                     Identifier of the pick-delivery order pair.
+**demand**        |ANY-NUMERICAL|                   Number of units in the order
+**p_open**        |ANY-NUMERICAL|                   The time, relative to 0, when the pickup location opens.
+**p_close**       |ANY-NUMERICAL|                   The time, relative to 0, when the pickup location closes.
+**d_service**     |ANY-NUMERICAL|       0           The duration of the loading at the pickup location.
+**d_open**        |ANY-NUMERICAL|                   The time, relative to 0, when the delivery location opens.
+**d_close**       |ANY-NUMERICAL|                   The time, relative to 0, when the delivery location closes.
+**d_service**     |ANY-NUMERICAL|       0           The duration of the loading at the delivery location.
+================  ===================   =========== ================================================
+
+
+.. pd_orders_sql_general_end
+
+
+.. pd_orders_sql_matrix_start
+
+For the non euclidean implementation, the starting and ending identifiers are needed:
+
+==================  ===================  ================================================
+Column              Type                  Description
+==================  ===================  ================================================
+**p_node_id**       |ANY-INTEGER|          The node identifier of the pickup, must match a node identifier in the matrix table.
+**d_node_id**       |ANY-INTEGER|          The node identifier of the delivery, must match a node identifier in the matrix table.
+==================  ===================  ================================================
+
+.. pd_orders_sql_matrix_end
+
+
+.. pd_orders_euclidean_sql_start
+
+For the euclidean implementation, pick up and delivery  :math:`(x,y)` locations are needed:
+
+================  ===================    ================================================
+Column            Type                       Description
+================  ===================    ================================================
+**p_x**           |ANY-NUMERICAL|         :math:`x` value of the pick up location
+**p_y**           |ANY-NUMERICAL|         :math:`y` value of the pick up location
+**d_x**           |ANY-NUMERICAL|         :math:`x` value of the delivery location
+**d_y**           |ANY-NUMERICAL|         :math:`y` value of the delivery location
+================  ===================    ================================================
+
+
+.. pd_orders_euclidean_sql_end
+
+
+
+
+Pick & Deliver Vehicles SQL
+*******************************************************************************
+
+In general, the columns for the vehicles_sql is the same in both implementation of pick and delivery:
+
+.. pd_vehicle_sql_general_start
+
+==================  =================== ================ ================================================
+Column              Type                  Default           Description
+==================  =================== ================ ================================================
+**id**              |ANY-INTEGER|                         Identifier of the pick-delivery order pair.
+**capacity**        |ANY-NUMERICAL|                       Number of units in the order
+**speed**           |ANY-NUMERICAL|      `1`              Average speed of the vehicle.
+
+**start_open**      |ANY-NUMERICAL|                       The time, relative to 0, when the starting location opens.
+**start_close**     |ANY-NUMERICAL|                       The time, relative to 0, when the starting location closes.
+**start_service**   |ANY-NUMERICAL|      `0`              The duration of the loading at the starting location.
+
+**end_open**        |ANY-NUMERICAL|      `start_open`     The time, relative to 0, when the ending location opens.
+**end_close**       |ANY-NUMERICAL|      `start_close`    The time, relative to 0, when the ending location closes.
+**end_service**     |ANY-NUMERICAL|      `start_service`  The duration of the loading at the ending location.
+==================  =================== ================ ================================================
+
+.. pd_vehicle_sql_general_end
+
+.. pd_vehicle_sql_matrix_start
+
+For the non euclidean implementation, the starting and ending identifiers are needed:
+
+==================  =================== ================ ================================================
+Column              Type                  Default           Description
+==================  =================== ================ ================================================
+**start_node_id**   |ANY-INTEGER|                         The node identifier of the starting location, must match a node identifier in the matrix table.
+**end_node_id**     |ANY-INTEGER|        `start_node_id`  The node identifier of the ending location, must match a node identifier in the matrix table.
+==================  =================== ================ ================================================
+
+.. pd_vehicle_sql_matrix_end
+
+.. pd_vehicle_sql_euclidean_start
+
+For the euclidean implementation, starting and ending :math:`(x,y)` locations are needed:
+
+==================  =================== ================ ================================================
+Column              Type                  Default           Description
+==================  =================== ================ ================================================
+**start_x**         |ANY-NUMERICAL|                         :math:`x` value of the coordinate of the starting location.
+**start_y**         |ANY-NUMERICAL|                         :math:`y` value of the coordinate of the starting location.
+**end_x**           |ANY-NUMERICAL|          `start_x`      :math:`x` value of the coordinate of the ending location.
+**end_y**           |ANY-NUMERICAL|          `start_y`      :math:`y` value of the coordinate of the ending location.
+==================  =================== ================ ================================================
+
+.. pd_vehicle_sql_euclidean_end
+
+
+Pick & Deliver Matrix SQL
+*******************************************************************************
+
+.. TODO
+
+.. warning:: TODO
+
+
+
+
+Results
+*******************************************************************************
+
+..
+    OUT seq INTEGER,
+    OUT vehicle_seq INTEGER,
+    OUT vehicle_id BIGINT,
+    OUT stop_seq INTEGER,
+    OUT order_id BIGINT,
+    OUT stop_type INT,
+    OUT cargo FLOAT,
+    OUT travel_time FLOAT,
+    OUT arrival_time FLOAT,
+    OUT wait_time FLOAT,
+    OUT service_time FLOAT,
+    OUT departure_time FLOAT
+
+.. _return_vrp_matrix_start:
+
+Description of the result (TODO Disussion: Euclidean & Matrix)
+*******************************************************************************
+
+.. todo:: fix when everything below is fixed
+
+
+.. code-block:: none
+
+    RETURNS SET OF
+        (seq, vehicle_seq, vehicle_id, stop_seq, stop_type,
+            travel_time, arrival_time, wait_time, service_time,  departure_time)
+        UNION
+        (summary row)
+
+=================== ============= =================================================
+Column              Type           Description
+=================== ============= =================================================
+**seq**              INTEGER      Sequential value starting from **1**.
+**vehicle_seq**      INTEGER      Sequential value starting from **1** for current vehicles. The :math:`n_{th}` vehicle in the solution.
+**vehicle_id**       BIGINT       Current vehicle identifier.
+**stop_seq**         INTEGER      Sequential value starting from **1** for the stops made by the current vehicle. The :math:`m_{th}` stop of the current vehicle.
+**stop_type**        INTEGER      Kind of stop location the vehicle is at:
+
+                                  - ``1``: Starting location
+                                  - ``2``: Pickup location
+                                  - ``3``: Delivery location
+                                  - ``6``: Ending location
+
+**order_id**         BIGINT       Pickup-Delivery order pair identifier.
+
+                                  - ``-1``: When no order is involved on the current stop location.
+
+**cargo**            FLOAT        Cargo units of the vehicle when leaving the stop.
+
+**travel_time**      FLOAT        Travel time from previous ``stop_seq`` to current ``stop_seq``.
+
+                                  - ``0`` When ``stop_type = 1``
+
+**arrival_time**     FLOAT        Previous ``departure_time`` plus current ``travel_time``.
+**wait_time**        FLOAT        Time spent waiting for current `location` to open.
+**service_time**     FLOAT        Service time at current `location`.
+**departure_time**   FLOAT        :math:`arrival\_time + wait\_time + service\_time`.
+
+                                  - When ``stop_type = 6`` has the `total_time` used for the current vehicle.
+=================== ============= =================================================
+
+.. rubric:: Summary Row
+
+.. warning:: TODO: Review the summary
+
+=================== ============= =================================================
+Column              Type           Description
+=================== ============= =================================================
+**seq**              INTEGER      Continues the Sequential value
+**vehicle_seq**      INTEGER      ``-2`` to indicate is a summary row
+**vehicle_id**       BIGINT       `Total Capacity Violations` in the solution.
+**stop_seq**         INTEGER      `Total Time Window Violations` in the solution.
+**stop_type**        INTEGER      ``-1``
+**order_id**         BIGINT       ``-1``
+**cargo**            FLOAT        ``-1``
+**travel_time**      FLOAT        `total_travel_time` The sum of all the `travel_time`
+**arrival_time**     FLOAT        ``-1``
+**wait_time**        FLOAT        `total_waiting_time` The sum of all the `wait_time`
+**service_time**     FLOAT        `total_service_time` The sum of all the `service_time`
+**departure_time**   FLOAT        `total_solution_time` = :math:`total\_travel\_time + total\_wait\_time + total\_service\_time`.
+=================== ============= =================================================
+
+
+.. return_vrp_matrix_end
+
+
+
+
+
+
+.. rubric:: See Also
+
+* https://en.wikipedia.org/wiki/Vehicle_routing_problem
+* The queries use the :doc:`sampledata` network.
 
 .. rubric:: Indices and tables
 
 * :ref:`genindex`
 * :ref:`search`
 
-.. |interval| replace:: :abbr:`ANY-INTERVAL(INTERVAL, SMALLINT, INTEGER, BIGINT)`
-.. |interval0| replace:: :abbr:`INTERVAL 0('make_interval(secs => 0), 0)`
-.. |intervalmax| replace:: **INTERVAL**: ``make_interval(secs => 4294967295)`` and |br| |ANY-INTEGER|: :math:`4294967295`
-.. |timestamp| replace:: :abbr:`ANY-TIMESTAMP(TIMESTAMP, SMALLINT, INTEGER, BIGINT)`
-.. |tw_open_default| replace:: :abbr:`TW-OPEN-DEFAULT(to_timestamp(0), 0)`
-.. |tw_close_default| replace:: :abbr:`TW-CLOSE-DEFAULT(to_timestamp(4294967295), 4294967295)`
+.. rubric:: Indices and tables
+
+* :ref:`genindex`
+* :ref:`search`
