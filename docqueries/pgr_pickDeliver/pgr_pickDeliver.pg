@@ -22,7 +22,7 @@ SELECT * FROM vrp_pgr_pickDeliver(
     $$ SELECT * FROM orders_1 ORDER BY id $$,
     $$ SELECT * FROM vehicles_1 ORDER BY id$$,
     $$ SELECT start_vid, end_vid, agg_cost::INTEGER  FROM pgr_dijkstraCostMatrix(
-        'SELECT * FROM edge_table ',
+        'SELECT * FROM edges',
         (SELECT array_agg(id) FROM (SELECT p_id AS id FROM orders_1
         UNION
         SELECT d_id FROM orders_1
