@@ -1,9 +1,21 @@
-cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
-  message(FATAL_ERROR "In-source builds not allowed.
-  Please make a new directory (called a build directory) and run CMake from there.
-  You may need to remove CMakeCache.txt." )
+    message(FATAL_ERROR "In-source builds not allowed.
+    Please make a new directory (called a build directory) and run CMake from there.
+    You may need to remove CMakeCache.txt." )
+endif()
+
+if(POLICY CMP0144)
+    cmake_policy(SET CMP0144 OLD)
+endif()
+
+if(POLICY CMP0167)
+    cmake_policy(SET CMP0167 OLD)
+endif()
+
+if(POLICY CMP0148)
+    cmake_policy(SET CMP0148 OLD)
 endif()
 
 #---------------------------------------------
@@ -17,13 +29,14 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 #---------------------------------------------
 #---------------------------------------------
 
-project(VRPROUTING VERSION 0.4.2
+project(VRPROUTING VERSION 0.5.0
   LANGUAGES C CXX )
 set(PROJECT_VERSION_DEV "")
 string(TOLOWER "${PROJECT_NAME}" PROJECT_NAME_LOWER)
 
-set(MINORS 0.4 0.3 0.2 0.1)
+set(MINORS 0.5 0.4 0.3 0.2 0.1)
 set(OLD_SIGNATURES
+    0.4.2
     0.4.1
     0.4.0
     0.3.0
@@ -53,12 +66,10 @@ include(pgr/Configure)
 set(DOXYGEN_MINIMUM_VERSION "1.7")
 set(SPHINX_MINIMUM_VERSION "1.8")
 set(POSTGRESQL_MINIMUM_VERSION "12.0")
-set(VROOM_MINIMUM_VERSION "1.12.0")
 
 message(STATUS "DOXYGEN_MINIMUM_VERSION=${DOXYGEN_MINIMUM_VERSION}")
 message(STATUS "SPHINX_MINIMUM_VERSION=${SPHINX_MINIMUM_VERSION}")
 message(STATUS "POSTGRESQL_MINIMUM_VERSION=${POSTGRESQL_MINIMUM_VERSION}")
-message(STATUS "VROOM_MINIMUM_VERSION=${VROOM_MINIMUM_VERSION}")
 
 # cmake 3.2 adds unwanted flags
 if(WIN32 AND MSVC)
@@ -284,20 +295,6 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     )
 endif()
 
-
-#-------------------
-# Add the VROOM library and dependencies
-#-------------------
-
-if(NOT VROOM_INSTALL_PATH)
-  message(FATAL_ERROR "VROOM installation path not specified. Please specify the vroom root directory in -DVROOM_INSTALL_PATH")
-endif()
-
-message(STATUS "VROOM_INSTALL_PATH ${VROOM_INSTALL_PATH}")
-
-include_directories(SYSTEM ${VROOM_INSTALL_PATH}/src)
-link_libraries(${VROOM_INSTALL_PATH}/lib/libvroom.a)
-link_libraries(glpk)
 
 #-------------------
 # add the subdirectories that have the C/C++ code
