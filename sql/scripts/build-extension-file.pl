@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 =pod
 
-Copyright (c) 2015 pgRouting developers
+Copyright (c) 2025 pgRouting developers
 Mail: project@pgrouting.org
 
 ------
@@ -35,7 +35,6 @@ use strict;
 use Data::Dumper;
 use File::Find();
 
-my $DEBUG="@PROJECT_DEBUG@";
 
 use vars qw/*name *dir *prune/;
 *name   = *File::Find::name;
@@ -45,26 +44,24 @@ use vars qw/*name *dir *prune/;
 
 sub Usage {
     die "Usage:\nFrom the root of the repository:
-    build-extension-file.pl version \n";
+    build-extension-file.pl\n";
 }
 
-
-my $version = "@PROJECT_VERSION@";
-my $working_directory = "@CMAKE_CURRENT_BINARY_DIR@/..";
-my $PROJECT_SQL_FILES =  "@PROJECT_SQL_FILES@";
-my @sql_file = split(/;/, $PROJECT_SQL_FILES);
-my $out_file_name = "$working_directory/@PROJECT_EXTENSION_FILE@";
+my $DEBUG             = "@PROJECT_DEBUG@";
+my $working_directory = "@CMAKE_BINARY_DIR@/sql";
+my @sql_file          = split(/;/, "@PROJECT_SQL_FILES@");
+my $out_file_name     = "$working_directory/@PROJECT_EXTENSION_FILE@";
 
 print "Working directory $working_directory\n"      if $DEBUG;
-print "Output file name $out_file_name\n"      if $DEBUG;
+print "Output file name $out_file_name\n"           if $DEBUG;
 
 open(OUT, ">", "$out_file_name")
     || die "@PROJECT_EXTENSION_FILE@ ERROR: failed to create: '$out_file_name' : $!\n";
 
 foreach my $f (@sql_file) {
-    print "--  $f\n" if $DEBUG;
+    print "--  PROCESSING '$f'\n"                   if $DEBUG;
     my $contents = get_contents($f);
-    $contents = eliminate_license($contents);
+    $contents    = eliminate_license($contents)     if $f !~ /header/;
     print OUT "$contents";
 }
 
@@ -77,8 +74,8 @@ exit 0;
 sub get_contents {
     my ($file) = @_;
     local $/=undef;
-    die "ERROR: Failed to find: $file\n" unless -f $file;
-    open(IN, $file) || die "vrprouting--$version.sql ERROR: Failed to open $file\n";
+    die "ERROR: Failed to find: $file\n"            unless -f $file;
+    open(IN, $file)                                 || die "ERROR: Failed to open $file\n";
     my @contents = <IN>;
     close(IN);
     my $contents = join('', @contents);
@@ -107,8 +104,5 @@ sub eliminate_license {
         \*/
     }[]gsxi;
 
-
-
     return $contents;
 }
-

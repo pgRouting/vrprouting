@@ -8,6 +8,5 @@ ADD_LIBRARY(problem OBJECT
   fleet.cpp
   vehicle_node.cpp
   solution.cpp
-  vroom.cpp
   pickDeliver.cpp
-  )
+)
