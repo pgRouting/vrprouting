@@ -1,6 +1,7 @@
 SET(LOCAL_FILES
   vehiclesAtTime.sql
-  )
+  _get_statement.sql
+)
 
 foreach (f ${LOCAL_FILES})
   configure_file(${f} ${f})
