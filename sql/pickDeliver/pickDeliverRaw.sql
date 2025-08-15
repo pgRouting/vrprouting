@@ -60,10 +60,10 @@ RETURNS SETOF RECORD AS
 $BODY$
 
 SELECT * FROM _vrp_pickDeliverRaw(
-  _pgr_get_statement($1),
-  _pgr_get_statement($2),
-  _pgr_get_statement($3),
-  _pgr_get_statement($4),
+  _vrp_get_statement($1),
+  _vrp_get_statement($2),
+  _vrp_get_statement($3),
+  _vrp_get_statement($4),
   optimize, factor,
   max_cycles, stop_on_all_served, execution_date);
 

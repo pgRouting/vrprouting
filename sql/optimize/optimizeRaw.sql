@@ -1,5 +1,5 @@
 /*PGR-GNU*****************************************************************
-File: optimize.sql
+File: optimizeRaw.sql
 
 Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org
@@ -48,10 +48,10 @@ $BODY$
 
   SELECT *
   FROM _vrp_optimize(
-    _pgr_get_statement($1),
-    _pgr_get_statement($2),
-    _pgr_get_statement($3),
-    _pgr_get_statement($4),
+    _vrp_get_statement($1),
+    _vrp_get_statement($2),
+    _vrp_get_statement($3),
+    _vrp_get_statement($4),
     factor, max_cycles, execution_date,
     check_triangle_inequality, subdivision_kind,
     false);
