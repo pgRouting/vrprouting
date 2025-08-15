@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: identifiers.hpp
+File: identifiers.hpp
 
 Generated with Template by:
 Copyright (c) 2015 pgRouting developers
@@ -56,8 +56,8 @@ class Identifiers {
 
     //! @name constructors
     //@{
-    Identifiers<T>() = default;
-    Identifiers<T>(const std::set<T>& data) {
+    Identifiers() = default;
+    explicit Identifiers(const std::set<T>& data) {
         m_ids = data;
     }
 
@@ -65,7 +65,7 @@ class Identifiers {
      *
      * @params [in] number
      */
-    explicit Identifiers<T>(const size_t number) {
+    explicit Identifiers(const size_t number) {
         size_t i(0);
         std::generate_n(std::inserter(m_ids, m_ids.begin()),
                 number,

@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: identifier.hpp
+File: identifier.hpp
 
 Copyright (c) 2017 Celia Virginia Vergara Castillo
 vicky_vergara@hotmail.com

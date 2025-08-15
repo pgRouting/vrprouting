@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: order.hpp
+File: order.hpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org

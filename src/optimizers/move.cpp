@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: move.cpp
+File: move.cpp
 
 Copyright (c) 2021 pgRouting developers
 Mail: project@pgrouting.org

@@ -1,6 +1,6 @@
 /*PGR-GNU*****************************************************************
 
-FILE: Matrix.cpp
+File: matrix.cpp
 
 Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
