@@ -26,6 +26,36 @@ vrpRouting 0
    :local:
    :depth: 1
 
+vrpRouting 0.5
+-------------------------------------------------------------------------------
+
+.. contents:: Contents
+   :local:
+   :depth: 1
+
+vrpRouting 0.5.0 Release Notes
+...............................................................................
+
+To see all issues & pull requests closed by this release see the
+`Git closed milestone for 0.5.0 <https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&q=milestone%3A%22Release%200.5.0%22>`_
+on Github.
+
+.. rubric:: Removing vroom
+
+- vrp_vroomjobsplain(text,text,text,text,text,text,integer,integer)
+- vrp_vroomjobs(text,text,text,text,text,text,integer,interval)
+- vrp_vroomplain(text,text,text,text,text,text,text,text,integer,integer)
+- vrp_vroomshipmentsplain(text,text,text,text,text,text,integer,integer)
+- vrp_vroomshipments(text,text,text,text,text,text,integer,interval)
+- _vrp_vroom(text,text,text,text,text,text,text,text,integer,integer,smallint,boolean)
+- vrp_vroom(text,text,text,text,text,text,text,text,integer,interval)
+
+.. rubric:: Removing or-tools
+
+- vrp_bin_packing(text,integer,integer)
+- vrp_knapsack(text,integer,integer)
+- vrp_multiple_knapsack(text,integer[],integer)
+
 vrpRouting 0.4
 -------------------------------------------------------------------------------
 
