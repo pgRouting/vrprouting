@@ -6,7 +6,7 @@ SET
 SELECT version, library FROM vrp_full_version();
  version |     library
 ---------+------------------
- 0.4.2   | vrprouting-0.4.2
+ 0.5.0   | vrprouting-0.5.0
 (1 row)
 
 /* -- q2 */
