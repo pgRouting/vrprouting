@@ -88,7 +88,7 @@ jobs:
           git checkout -b gh-pages
           PROJECT_MAJOR="v${PROJECT_VERSION%%.*}"
           rm -rf ${PROJECT_MAJOR}
-          cp -r build/doc/html ${PROJECT_MAJOR}
+          cp -r build/doc/_build/html ${PROJECT_MAJOR}
           git add ${PROJECT_MAJOR}
           git diff-index --quiet HEAD || git commit -m "Update users documentation for ${PROJECT_VERSION} (tag ${TAG_NAME})"
           git fetch origin
@@ -107,7 +107,7 @@ jobs:
         run: |
           cd build/doc
 
-          cp -r html doc-v${PROJECT_VERSION}-en
+          cp -r _build/html doc-v${PROJECT_VERSION}-en
           rm -rf doc-v${PROJECT_VERSION}-en/es
           tar -zcvf doc-v${PROJECT_VERSION}-en.tar.gz doc-v${PROJECT_VERSION}-en
 
