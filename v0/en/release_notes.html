@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 
 <html lang="en" data-content_root="./">
@@ -5,45 +7,49 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Release Notes &#8212; vrpRouting Manual (0.4)</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <title>Release Notes &#8212; vrpRouting Manual (0.5)</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=5a695559" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e38b2961" />
-    <script src="_static/documentation_options.js?v=17c178fb"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=cc98e469"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/page_history.js?v=a397cacf"></script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="vrp_bin_packing - Experimental" href="vrp_bin_packing.html" />
+    <link rel="prev" title="vrp_pgr_pickDeliverEuclidean - Experimental" href="vrp_pgr_pickDeliverEuclidean.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-2.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
-  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
+  <div id="navbar" class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
         <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+        <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">
-          vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.4.2</b></span>
-      </div>
 
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
+        <a class="brand" href="index.html">
+          vrpRouting</a>
+        <span class="navbar-text pull-left"><b>0.5</b></span>
+
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="divider-vertical"></li>
+            
+                <li><a href="https://vrp.pgrouting.org">pgvroom</a></li>
             
             
               <li class="dropdown globaltoc-container">
@@ -55,29 +61,56 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#contributors">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#more-information">More Information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#get-the-vrprouting-sources">Get the vrpRouting sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#short-version">Short Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuring">Configuring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="support.html#reporting-problems">Reporting Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="support.html#mailing-list-and-gis-stackexchange">Mailing List and GIS StackExchange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="support.html#commercial-support">Commercial Support</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="sampledata.html">Sample Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampledata.html">Sample Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sampledata.html#city-network">City Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampledata.html#pgr-pickdeliver-data"><cite>pgr_PickDeliver</cite> data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampledata.html#vrp-onedepot-data"><cite>vrp_oneDepot</cite> data</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#utilities">Utilities</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="vrp_version.html">vrp_version</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vrp_full_version.html">vrp_full_version</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html#vrp-functions">VRP functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vrp_version.html">vrp_version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vrp_full_version.html">vrp_full_version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vrp_oneDepot.html">vrp_oneDepot - Experimental</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vrp_pgr_pickDeliver.html">vrp_pgr_pickDeliver - Experimental</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vrp_pgr_pickDeliverEuclidean.html">vrp_pgr_pickDeliverEuclidean - Experimental</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="official.html">Oficial functions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="proposed.html">Proposed Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experimental.html">Experimental Functions</a></li>
+</li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vrprouting-0">vrpRouting 0</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -93,15 +126,28 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Release Notes</a><ul>
 <li><a class="reference internal" href="#vrprouting-0">vrpRouting 0</a><ul>
+<li><a class="reference internal" href="#vrprouting-0-5">vrpRouting 0.5</a><ul>
+<li><a class="reference internal" href="#vrprouting-0-5-0-release-notes">vrpRouting 0.5.0 Release Notes</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#vrprouting-0-4">vrpRouting 0.4</a><ul>
 <li><a class="reference internal" href="#vrprouting-0-4-2-release-notes">vrpRouting 0.4.2 Release Notes</a></li>
 <li><a class="reference internal" href="#vrprouting-0-4-1-release-notes">vrpRouting 0.4.1 Release Notes</a></li>
 <li><a class="reference internal" href="#vrprouting-0-4-0-release-notes">vrpRouting 0.4.0 Release Notes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#vrprouting-0-3">vrpRouting 0.3</a></li>
-<li><a class="reference internal" href="#vrprouting-0-2">vrpRouting 0.2</a></li>
-<li><a class="reference internal" href="#vrprouting-0-1">vrpRouting 0.1</a></li>
+<li><a class="reference internal" href="#vrprouting-0-3">vrpRouting 0.3</a><ul>
+<li><a class="reference internal" href="#vrprouting-0-3-0-release-notes">vrpRouting 0.3.0 Release Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vrprouting-0-2">vrpRouting 0.2</a><ul>
+<li><a class="reference internal" href="#vrprouting-0-2-0-release-notes">vrpRouting 0.2.0 Release Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vrprouting-0-1">vrpRouting 0.1</a><ul>
+<li><a class="reference internal" href="#vrprouting-0-1-0-release-notes">vrpRouting 0.1.0 Release Notes</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -115,13 +161,15 @@
               
                 
   <li>
-    <a href="vrp_bin_packing.html" title="Previous Chapter: vrp_bin_packing - Experimental"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; vrp_bin_packi...</span>
+    <a href="vrp_pgr_pickDeliverEuclidean.html" title="Previous Chapter: vrp_pgr_pickDeliverEuclidean - Experimental"><span class="icon-chevron-left visible-tablet"></span><span class="hidden-sm hidden-tablet">&laquo; vrp_pgr_pickD...</span>
     </a>
   </li>
               
             
             
             
+            
+              <li></li>
             
           </ul>
 
@@ -136,24 +184,38 @@
 </form>
           
         </div>
+      </div>
     </div>
   </div>
 
 <div class="container">
-  <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+    <div class="row">
+      <div class="span3">
+        <div id="sidebar" class="bs-sidenav well" data-spy="affix"><ul>
 <li><a class="reference internal" href="#">Release Notes</a><ul>
 <li><a class="reference internal" href="#vrprouting-0">vrpRouting 0</a><ul>
+<li><a class="reference internal" href="#vrprouting-0-5">vrpRouting 0.5</a><ul>
+<li><a class="reference internal" href="#vrprouting-0-5-0-release-notes">vrpRouting 0.5.0 Release Notes</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#vrprouting-0-4">vrpRouting 0.4</a><ul>
 <li><a class="reference internal" href="#vrprouting-0-4-2-release-notes">vrpRouting 0.4.2 Release Notes</a></li>
 <li><a class="reference internal" href="#vrprouting-0-4-1-release-notes">vrpRouting 0.4.1 Release Notes</a></li>
 <li><a class="reference internal" href="#vrprouting-0-4-0-release-notes">vrpRouting 0.4.0 Release Notes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#vrprouting-0-3">vrpRouting 0.3</a></li>
-<li><a class="reference internal" href="#vrprouting-0-2">vrpRouting 0.2</a></li>
-<li><a class="reference internal" href="#vrprouting-0-1">vrpRouting 0.1</a></li>
+<li><a class="reference internal" href="#vrprouting-0-3">vrpRouting 0.3</a><ul>
+<li><a class="reference internal" href="#vrprouting-0-3-0-release-notes">vrpRouting 0.3.0 Release Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vrprouting-0-2">vrpRouting 0.2</a><ul>
+<li><a class="reference internal" href="#vrprouting-0-2-0-release-notes">vrpRouting 0.2.0 Release Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vrprouting-0-1">vrpRouting 0.1</a><ul>
+<li><a class="reference internal" href="#vrprouting-0-1-0-release-notes">vrpRouting 0.1.0 Release Notes</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -161,7 +223,7 @@
 </ul>
 
   <li>
-    <a href="vrp_bin_packing.html" title="Previous Chapter: vrp_bin_packing - Experimental"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; vrp_bin_packi...</span>
+    <a href="vrp_pgr_pickDeliverEuclidean.html" title="Previous Chapter: vrp_pgr_pickDeliverEuclidean - Experimental"><span class="icon-chevron-left visible-tablet"></span><span class="hidden-sm hidden-tablet">&laquo; vrp_pgr_pickD...</span>
     </a>
   </li>
 <form action="search.html" method="get">
@@ -173,49 +235,76 @@
 </form>
         </div>
       </div>
-    <div class="body col-md-9 content" role="main">
-      
+        <div class="body span9 content" role="main">
+            <script> document.write(get_history('release_notes','en'));  </script>
+            
   <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<ul class="simple">
-<li><p><a class="reference external" href="https://vrp.pgrouting.org/">Documentation</a> → <a class="reference external" href="https://vrp.pgrouting.org/v0">vrpRouting v0</a></p></li>
-<li><p>Supported Versions
-<a class="reference external" href="https://vrp.pgrouting.org/latest/en/release_notes.html">Latest</a>
-(<a class="reference external" href="https://vrp.pgrouting.org/v0/en/release_notes.html">v0</a>)</p></li>
-</ul>
 <section id="release-notes">
 <h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">¶</a></h1>
 <p>To see the full list of changes check the list of <a class="reference external" href="https://github.com/pgRouting/vrprouting/commits">Git commits</a> on Github.</p>
 <nav class="contents local" id="mayors">
 <p class="topic-title">Mayors</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#vrprouting-0" id="id5">vrpRouting 0</a></p></li>
+<li><p><a class="reference internal" href="#vrprouting-0" id="id9">vrpRouting 0</a></p></li>
 </ul>
 </nav>
 <section id="vrprouting-0">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">vrpRouting 0</a><a class="headerlink" href="#vrprouting-0" title="Link to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">vrpRouting 0</a><a class="headerlink" href="#vrprouting-0" title="Link to this heading">¶</a></h2>
 <nav class="contents local" id="minors-0-x">
 <p class="topic-title">Minors 0.x</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#vrprouting-0-4" id="id6">vrpRouting 0.4</a></p></li>
-<li><p><a class="reference internal" href="#vrprouting-0-3" id="id7">vrpRouting 0.3</a></p></li>
-<li><p><a class="reference internal" href="#vrprouting-0-2" id="id8">vrpRouting 0.2</a></p></li>
-<li><p><a class="reference internal" href="#vrprouting-0-1" id="id9">vrpRouting 0.1</a></p></li>
+<li><p><a class="reference internal" href="#vrprouting-0-5" id="id10">vrpRouting 0.5</a></p></li>
+<li><p><a class="reference internal" href="#vrprouting-0-4" id="id11">vrpRouting 0.4</a></p></li>
+<li><p><a class="reference internal" href="#vrprouting-0-3" id="id12">vrpRouting 0.3</a></p></li>
+<li><p><a class="reference internal" href="#vrprouting-0-2" id="id13">vrpRouting 0.2</a></p></li>
+<li><p><a class="reference internal" href="#vrprouting-0-1" id="id14">vrpRouting 0.1</a></p></li>
 </ul>
 </nav>
-<section id="vrprouting-0-4">
-<h3><a class="toc-backref" href="#id6" role="doc-backlink">vrpRouting 0.4</a><a class="headerlink" href="#vrprouting-0-4" title="Link to this heading">¶</a></h3>
+<section id="vrprouting-0-5">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">vrpRouting 0.5</a><a class="headerlink" href="#vrprouting-0-5" title="Link to this heading">¶</a></h3>
 <nav class="contents local" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#vrprouting-0-4-2-release-notes" id="id10">vrpRouting 0.4.2 Release Notes</a></p></li>
-<li><p><a class="reference internal" href="#vrprouting-0-4-1-release-notes" id="id11">vrpRouting 0.4.1 Release Notes</a></p></li>
-<li><p><a class="reference internal" href="#vrprouting-0-4-0-release-notes" id="id12">vrpRouting 0.4.0 Release Notes</a></p></li>
+<li><p><a class="reference internal" href="#vrprouting-0-5-0-release-notes" id="id15">vrpRouting 0.5.0 Release Notes</a></p></li>
+</ul>
+</nav>
+<section id="vrprouting-0-5-0-release-notes">
+<h4><a class="toc-backref" href="#id15" role="doc-backlink">vrpRouting 0.5.0 Release Notes</a><a class="headerlink" href="#vrprouting-0-5-0-release-notes" title="Link to this heading">¶</a></h4>
+<p>To see all issues &amp; pull requests closed by this release see the
+<a class="reference external" href="https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&amp;q=milestone%3A%22Release%200.5.0%22">Git closed milestone for 0.5.0</a>
+on Github.</p>
+<p class="rubric">Removing vroom</p>
+<ul class="simple">
+<li><p>vrp_vroomjobsplain(text,text,text,text,text,text,integer,integer)</p></li>
+<li><p>vrp_vroomjobs(text,text,text,text,text,text,integer,interval)</p></li>
+<li><p>vrp_vroomplain(text,text,text,text,text,text,text,text,integer,integer)</p></li>
+<li><p>vrp_vroomshipmentsplain(text,text,text,text,text,text,integer,integer)</p></li>
+<li><p>vrp_vroomshipments(text,text,text,text,text,text,integer,interval)</p></li>
+<li><p>_vrp_vroom(text,text,text,text,text,text,text,text,integer,integer,smallint,boolean)</p></li>
+<li><p>vrp_vroom(text,text,text,text,text,text,text,text,integer,interval)</p></li>
+</ul>
+<p class="rubric">Removing or-tools</p>
+<ul class="simple">
+<li><p>vrp_bin_packing(text,integer,integer)</p></li>
+<li><p>vrp_knapsack(text,integer,integer)</p></li>
+<li><p>vrp_multiple_knapsack(text,integer[],integer)</p></li>
+</ul>
+</section>
+</section>
+<section id="vrprouting-0-4">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">vrpRouting 0.4</a><a class="headerlink" href="#vrprouting-0-4" title="Link to this heading">¶</a></h3>
+<nav class="contents local" id="id1">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#vrprouting-0-4-2-release-notes" id="id16">vrpRouting 0.4.2 Release Notes</a></p></li>
+<li><p><a class="reference internal" href="#vrprouting-0-4-1-release-notes" id="id17">vrpRouting 0.4.1 Release Notes</a></p></li>
+<li><p><a class="reference internal" href="#vrprouting-0-4-0-release-notes" id="id18">vrpRouting 0.4.0 Release Notes</a></p></li>
 </ul>
 </nav>
 <section id="vrprouting-0-4-2-release-notes">
-<h4><a class="toc-backref" href="#id10" role="doc-backlink">vrpRouting 0.4.2 Release Notes</a><a class="headerlink" href="#vrprouting-0-4-2-release-notes" title="Link to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id16" role="doc-backlink">vrpRouting 0.4.2 Release Notes</a><a class="headerlink" href="#vrprouting-0-4-2-release-notes" title="Link to this heading">¶</a></h4>
 <p>To see all issues &amp; pull requests closed by this release see the
 <a class="reference external" href="https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&amp;q=milestone%3A%22Release%200.4.2%22">Git closed milestone for 0.4.2</a>
 on Github.</p>
@@ -234,7 +323,7 @@ on Github.</p>
 </ul>
 </section>
 <section id="vrprouting-0-4-1-release-notes">
-<h4><a class="toc-backref" href="#id11" role="doc-backlink">vrpRouting 0.4.1 Release Notes</a><a class="headerlink" href="#vrprouting-0-4-1-release-notes" title="Link to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id17" role="doc-backlink">vrpRouting 0.4.1 Release Notes</a><a class="headerlink" href="#vrprouting-0-4-1-release-notes" title="Link to this heading">¶</a></h4>
 <p>To see all issues &amp; pull requests closed by this release see the
 <a class="reference external" href="https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&amp;q=milestone%3A%22Release%200.4.1%22">Git closed milestone for 0.4.1</a>
 on Github.</p>
@@ -244,19 +333,10 @@ on Github.</p>
 <ul>
 <li><p>vrp_bin_packing</p></li>
 <li><p>vrp_knapsack</p></li>
-<li><p>vrp_multiple_knapsack</p>
-<ul>
-<li><p>Support for or-tools v9.10.4067</p></li>
+<li><p>vrp_multiple_knapsack</p></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>vrp_oneDepot</p>
-<ul>
-<li><p>Code fix</p></li>
-<li><p>Result columns changed</p></li>
-</ul>
-</li>
+<li><p>vrp_oneDepot</p></li>
 </ul>
 <p class="rubric">Removal of Boost on the build</p>
 <ul class="simple">
@@ -269,7 +349,7 @@ on Github.</p>
 </ul>
 </section>
 <section id="vrprouting-0-4-0-release-notes">
-<h4><a class="toc-backref" href="#id12" role="doc-backlink">vrpRouting 0.4.0 Release Notes</a><a class="headerlink" href="#vrprouting-0-4-0-release-notes" title="Link to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id18" role="doc-backlink">vrpRouting 0.4.0 Release Notes</a><a class="headerlink" href="#vrprouting-0-4-0-release-notes" title="Link to this heading">¶</a></h4>
 <p>To see all issues &amp; pull requests closed by this release see the
 <a class="reference external" href="https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&amp;q=milestone%3A%22Release%200.4.0%22">Git closed milestone for 0.4.0</a>
 on Github.</p>
@@ -287,7 +367,15 @@ on Github.</p>
 </section>
 </section>
 <section id="vrprouting-0-3">
-<h3><a class="toc-backref" href="#id7" role="doc-backlink">vrpRouting 0.3</a><a class="headerlink" href="#vrprouting-0-3" title="Link to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">vrpRouting 0.3</a><a class="headerlink" href="#vrprouting-0-3" title="Link to this heading">¶</a></h3>
+<nav class="contents local" id="id3">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#vrprouting-0-3-0-release-notes" id="id19">vrpRouting 0.3.0 Release Notes</a></p></li>
+</ul>
+</nav>
+<section id="vrprouting-0-3-0-release-notes">
+<h4><a class="toc-backref" href="#id19" role="doc-backlink">vrpRouting 0.3.0 Release Notes</a><a class="headerlink" href="#vrprouting-0-3-0-release-notes" title="Link to this heading">¶</a></h4>
 <p>To see all issues &amp; pull requests closed by this release see the
 <a class="reference external" href="https://github.com/pgRouting/vrprouting/issues?utf8=%E2%9C%93&amp;q=milestone%3A%22Release%200.3.0%22">Git closed milestone for 0.3.0</a>
 on Github.</p>
@@ -333,8 +421,17 @@ on Github.</p>
 </li>
 </ul>
 </section>
+</section>
 <section id="vrprouting-0-2">
-<h3><a class="toc-backref" href="#id8" role="doc-backlink">vrpRouting 0.2</a><a class="headerlink" href="#vrprouting-0-2" title="Link to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">vrpRouting 0.2</a><a class="headerlink" href="#vrprouting-0-2" title="Link to this heading">¶</a></h3>
+<nav class="contents local" id="id7">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#vrprouting-0-2-0-release-notes" id="id20">vrpRouting 0.2.0 Release Notes</a></p></li>
+</ul>
+</nav>
+<section id="vrprouting-0-2-0-release-notes">
+<h4><a class="toc-backref" href="#id20" role="doc-backlink">vrpRouting 0.2.0 Release Notes</a><a class="headerlink" href="#vrprouting-0-2-0-release-notes" title="Link to this heading">¶</a></h4>
 <p class="rubric">New experimental functions</p>
 <ul class="simple">
 <li><p>VROOM</p>
@@ -359,8 +456,17 @@ on Github.</p>
 </li>
 </ul>
 </section>
+</section>
 <section id="vrprouting-0-1">
-<h3><a class="toc-backref" href="#id9" role="doc-backlink">vrpRouting 0.1</a><a class="headerlink" href="#vrprouting-0-1" title="Link to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">vrpRouting 0.1</a><a class="headerlink" href="#vrprouting-0-1" title="Link to this heading">¶</a></h3>
+<nav class="contents local" id="id8">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#vrprouting-0-1-0-release-notes" id="id21">vrpRouting 0.1.0 Release Notes</a></p></li>
+</ul>
+</nav>
+<section id="vrprouting-0-1-0-release-notes">
+<h4><a class="toc-backref" href="#id21" role="doc-backlink">vrpRouting 0.1.0 Release Notes</a><a class="headerlink" href="#vrprouting-0-1-0-release-notes" title="Link to this heading">¶</a></h4>
 <p class="rubric">Extraction tasks</p>
 <ul class="simple">
 <li><p>Porting pgRouting’s VRP functionality</p></li>
@@ -373,11 +479,12 @@ on Github.</p>
 </section>
 </section>
 </section>
+</section>
 
 
+        </div>
+          
     </div>
-      
-  </div>
 </div>
 <footer class="footer">
   <div class="container">
@@ -386,9 +493,9 @@ on Github.</p>
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.4.2.<br/>
-      Last updated on Sep 29, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+        &copy; Copyright vrpRouting Contributors - Version 0.5.<br/>
+      Last updated on Oct 15, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
     </p>
   </div>
 </footer>

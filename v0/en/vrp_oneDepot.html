@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 
 <html lang="en" data-content_root="./">
@@ -5,46 +7,50 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>vrp_oneDepot - Experimental &#8212; vrpRouting Manual (0.4)</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <title>vrp_oneDepot - Experimental &#8212; vrpRouting Manual (0.5)</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=5a695559" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e38b2961" />
-    <script src="_static/documentation_options.js?v=17c178fb"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=cc98e469"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/page_history.js?v=a397cacf"></script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="VROOM - Category (Experimental)" href="vroom-category.html" />
-    <link rel="prev" title="vrp_pgr_pickDeliverEuclidean - Experimental" href="vrp_pgr_pickDeliverEuclidean.html" />
+    <link rel="next" title="vrp_pgr_pickDeliver - Experimental" href="vrp_pgr_pickDeliver.html" />
+    <link rel="prev" title="vrp_full_version" href="vrp_full_version.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-2.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
-  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
+  <div id="navbar" class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
         <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+        <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">
-          vrpRouting</a>
-        <span class="navbar-text navbar-version pull-left"><b>v0.4.2</b></span>
-      </div>
 
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
+        <a class="brand" href="index.html">
+          vrpRouting</a>
+        <span class="navbar-text pull-left"><b>0.5</b></span>
+
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="divider-vertical"></li>
+            
+                <li><a href="https://vrp.pgrouting.org">pgvroom</a></li>
             
             
               <li class="dropdown globaltoc-container">
@@ -56,29 +62,56 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#contributors">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#more-information">More Information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#get-the-vrprouting-sources">Get the vrpRouting sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#short-version">Short Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuring">Configuring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="support.html#reporting-problems">Reporting Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="support.html#mailing-list-and-gis-stackexchange">Mailing List and GIS StackExchange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="support.html#commercial-support">Commercial Support</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="sampledata.html">Sample Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampledata.html">Sample Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sampledata.html#city-network">City Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampledata.html#pgr-pickdeliver-data"><cite>pgr_PickDeliver</cite> data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampledata.html#vrp-onedepot-data"><cite>vrp_oneDepot</cite> data</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="vrp_version.html">vrp_version</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vrp_full_version.html">vrp_full_version</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="official.html">Oficial functions</a></li>
+</li>
 </ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="proposed.html">Proposed Functions</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="experimental.html">Experimental Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="functions.html#vrp-functions">VRP functions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="vrp_version.html">vrp_version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vrp_full_version.html">vrp_full_version</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">vrp_oneDepot - Experimental</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vrp_pgr_pickDeliver.html">vrp_pgr_pickDeliver - Experimental</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vrp_pgr_pickDeliverEuclidean.html">vrp_pgr_pickDeliverEuclidean - Experimental</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#vrprouting-0">vrpRouting 0</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -111,17 +144,19 @@
               
                 
   <li>
-    <a href="vrp_pgr_pickDeliverEuclidean.html" title="Previous Chapter: vrp_pgr_pickDeliverEuclidean - Experimental"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; vrp_pgr_pickD...</span>
+    <a href="vrp_full_version.html" title="Previous Chapter: vrp_full_version"><span class="icon-chevron-left visible-tablet"></span><span class="hidden-sm hidden-tablet">&laquo; vrp_full_version</span>
     </a>
   </li>
   <li>
-    <a href="vroom-category.html" title="Next Chapter: VROOM - Category (Experimental)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">VROOM - Categ... &raquo;</span>
+    <a href="vrp_pgr_pickDeliver.html" title="Next Chapter: vrp_pgr_pickDeliver - Experimental"><span class="icon-chevron-right visible-tablet"></span><span class="hidden-sm hidden-tablet">vrp_pgr_pickD... &raquo;</span>
     </a>
   </li>
               
             
             
             
+            
+              <li></li>
             
           </ul>
 
@@ -136,13 +171,14 @@
 </form>
           
         </div>
+      </div>
     </div>
   </div>
 
 <div class="container">
-  <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+    <div class="row">
+      <div class="span3">
+        <div id="sidebar" class="bs-sidenav well" data-spy="affix"><ul>
 <li><a class="reference internal" href="#">vrp_oneDepot - Experimental</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#signatures">Signatures</a></li>
@@ -156,11 +192,11 @@
 </ul>
 
   <li>
-    <a href="vrp_pgr_pickDeliverEuclidean.html" title="Previous Chapter: vrp_pgr_pickDeliverEuclidean - Experimental"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; vrp_pgr_pickD...</span>
+    <a href="vrp_full_version.html" title="Previous Chapter: vrp_full_version"><span class="icon-chevron-left visible-tablet"></span><span class="hidden-sm hidden-tablet">&laquo; vrp_full_version</span>
     </a>
   </li>
   <li>
-    <a href="vroom-category.html" title="Next Chapter: VROOM - Category (Experimental)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">VROOM - Categ... &raquo;</span>
+    <a href="vrp_pgr_pickDeliver.html" title="Next Chapter: vrp_pgr_pickDeliver - Experimental"><span class="icon-chevron-right visible-tablet"></span><span class="hidden-sm hidden-tablet">vrp_pgr_pickD... &raquo;</span>
     </a>
   </li>
 <form action="search.html" method="get">
@@ -172,49 +208,14 @@
 </form>
         </div>
       </div>
-    <div class="body col-md-9 content" role="main">
-      
+        <div class="body span9 content" role="main">
+            <script> document.write(get_history('vrp_oneDepot','en'));  </script>
+            
   <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<ul class="simple">
-<li><p><a class="reference external" href="https://vrp.pgrouting.org/">Documentation</a> → <a class="reference external" href="https://vrp.pgrouting.org/v0">vrpRouting v0</a></p></li>
-<li><p>Supported Versions
-<a class="reference external" href="https://vrp.pgrouting.org/latest/en/vrp_oneDepot.html">Latest</a>
-(<a class="reference external" href="https://vrp.pgrouting.org/v0/en/vrp_oneDepot.html">v0</a>)</p></li>
-</ul>
 <section id="vrp-onedepot-experimental">
-<h1>vrp_oneDepot - Experimental<a class="headerlink" href="#vrp-onedepot-experimental" title="Link to this heading">¶</a></h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Possible server crash</p>
-<ul class="simple">
-<li><p>These functions might create a server crash</p></li>
-</ul>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Experimental functions</p>
-<ul class="simple">
-<li><p>They are not officially of the current release.</p></li>
-<li><p>They likely will not be officially be part of the next release:</p>
-<ul>
-<li><p>The functions might not make use of ANY-INTEGER and ANY-NUMERICAL</p></li>
-<li><p>Name might change.</p></li>
-<li><p>Signature might change.</p></li>
-<li><p>Functionality might change.</p></li>
-<li><p>pgTap tests might be missing.</p></li>
-<li><p>Might need c/c++ coding.</p></li>
-<li><p>May lack documentation.</p></li>
-<li><p>Documentation if any might need to be rewritten.</p></li>
-<li><p>Documentation examples might need to be automatically generated.</p></li>
-<li><p>Might need a lot of feedback from the comunity.</p></li>
-<li><p>Might depend on a proposed function of vrpRouting</p></li>
-<li><p>Might depend on a deprecated function of vrpRouting</p></li>
-</ul>
-</li>
-</ul>
-</div>
+<span id="index-0"></span><h1>vrp_oneDepot - Experimental<a class="headerlink" href="#vrp-onedepot-experimental" title="Link to this heading">¶</a></h1>
 <p class="rubric">Availability</p>
 <p>Version 0.4.1</p>
 <ul class="simple">
@@ -339,7 +340,7 @@
     <span class="n">capacity</span> <span class="n">INTEGER</span>
 <span class="p">);</span>
 
-<span class="n">copy</span> <span class="n">onedepot</span><span class="o">.</span><span class="n">vehicles</span> <span class="p">(</span><span class="n">capacity</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">stdin</span><span class="p">;</span>
+<span class="n">copy</span> <span class="n">onedepot</span><span class="o">.</span><span class="n">vehicles</span> <span class="p">(</span><span class="n">capacity</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">stdin</span><span class="p">;</span>
 <span class="mi">200</span>
 <span class="mi">200</span>
 <span class="mi">200</span>
@@ -370,9 +371,9 @@
 </section>
 
 
+        </div>
+          
     </div>
-      
-  </div>
 </div>
 <footer class="footer">
   <div class="container">
@@ -381,9 +382,9 @@
       
     </p>
     <p>
-        &copy; Copyright vrpRouting Contributors - Version v0.4.2.<br/>
-      Last updated on Sep 29, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+        &copy; Copyright vrpRouting Contributors - Version 0.5.<br/>
+      Last updated on Oct 15, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
     </p>
   </div>
 </footer>
